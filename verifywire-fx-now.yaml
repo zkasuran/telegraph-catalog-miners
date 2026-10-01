@@ -1,0 +1,133 @@
+version: "1"
+kind: miner
+id: 7370
+slug: verifywire-fx-now
+protocol: generic
+name: VerifyWire FX Now
+description: >
+  Live mid-market rate for a named currency pair, with no amount to convert. A fiat pair is
+  the European Central Bank reference fixing read from Frankfurter, a daily mid with no
+  bid-ask spread. A crypto pair against the dollar is the Kraken public order book, so the
+  mid and the bid-ask spread are both live reads. Answers the FX_NOW intent. No API key,
+  nothing cached that can go stale.
+base_url: https://telegraph-verify.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: base and quote are currency codes such as EUR, USD, GBP or a crypto symbol such as BTC or ETH. A pair like EUR/USD or a whole question is accepted too. Defaults to EUR/USD when unfilled.
+    param: pair
+    property: length
+    value_num: 40
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the current
+        EUR/USD mid-market rate and spread?". The miner reads the pair from it, so passing
+        the whole question works as well as the structured fields.
+    base:
+      type: string
+      description: Base currency or crypto symbol, for example EUR or BTC.
+    quote:
+      type: string
+      description: Quote currency, for example USD.
+
+output_schema:
+  type: object
+  properties:
+    pair:
+      type: string
+      description: The pair the answer is for, for example EUR/USD.
+    base:
+      type: string
+      description: Base currency or symbol.
+    quote:
+      type: string
+      description: Quote currency.
+    mid_price:
+      type: number
+      description: Mid-market rate, quote per one unit of base.
+    bid:
+      type: number
+      description: Best bid, for a crypto pair with a live book. Null for a fiat reference rate.
+    ask:
+      type: number
+      description: Best ask, for a crypto pair with a live book. Null for a fiat reference rate.
+    spread:
+      type: number
+      description: Ask minus bid, for a crypto pair. Null for a fiat reference rate.
+    spread_bps:
+      type: number
+      description: Spread in basis points of the mid.
+    confidence:
+      type: number
+      description: 0.97 for a live book, 0.95 for a fiat reference fixing.
+    summary:
+      type: string
+      description: One sentence with the mid rate and, for a crypto pair, the spread.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /fxnow
+    external_path: /fxnow
+    method: GET
+    description: >
+      Mid-market rate for one pair as query parameters (?base=EUR&quote=USD). Also accepts a
+      whole question in ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - FX_NOW
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: base
+        description: Base currency or crypto symbol.
+        source_path: base
+      - index: 1
+        name: quote
+        description: Quote currency.
+        source_path: quote
+      - index: 2
+        name: summary
+        description: One sentence with the mid rate and, for a crypto pair, the spread.
+        source_path: summary
+    integers:
+      - index: 0
+        name: mid_price_x1000000
+        description: Mid-market rate, scaled by one million to keep six decimals as an integer.
+        source_path: mid_price
+        multiplier: 1000000
+      - index: 1
+        name: spread_bps_x1000
+        description: Spread in basis points, scaled by one thousand.
+        source_path: spread_bps
+        multiplier: 1000
+  request:
+    - endpoint: fxnow
+      method: GET
+      query_params:
+        base: { source: strings.0 }
+        quote: { source: strings.1 }

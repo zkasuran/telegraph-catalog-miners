@@ -1,0 +1,129 @@
+version: "1"
+kind: miner
+id: 7372
+slug: verifywire-crypto-yield-rate
+protocol: generic
+name: VerifyWire Crypto Yield Rate
+description: >
+  Supply and variable borrow APY of a DeFi lending pool, read on-chain from the Aave v3 Pool
+  contract over public RPC. getReserveData returns the current liquidity and borrow rates,
+  which compound to the APY figures Aave's own interface shows. Answers the CRYPTO_YIELD_RATE
+  intent for Aave v3 on Ethereum, Base, Arbitrum, Optimism and Polygon. This is the pool rate
+  and excludes reward-token incentives. No API key, nothing cached that can go stale.
+base_url: https://telegraph-verify.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: asset is a token symbol such as USDC, USDT, DAI or WETH (or a token address) that is listed as an Aave v3 reserve. chain is one of ethereum, base, arbitrum, optimism, polygon and defaults to ethereum.
+    param: asset
+    property: length
+    value_num: 80
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the USDC supply
+        APY on Aave v3 on Base?". The miner reads the asset and chain from it, so passing the
+        whole question works as well as the structured fields.
+    asset:
+      type: string
+      description: Token symbol or address of the reserve to read.
+    chain:
+      type: string
+      description: Chain the pool is on, one of ethereum, base, arbitrum, optimism, polygon.
+
+output_schema:
+  type: object
+  properties:
+    chain:
+      type: string
+      description: Chain the answer is for.
+    protocol:
+      type: string
+      description: Lending protocol, Aave v3.
+    asset:
+      type: string
+      description: The reserve asset the answer is for.
+    asset_address:
+      type: string
+      description: Token contract of the reserve.
+    supply_apy_percent:
+      type: number
+      description: Annualized supply APY as a percentage.
+    variable_borrow_apy_percent:
+      type: number
+      description: Annualized variable borrow APY as a percentage.
+    supply_apr_percent:
+      type: number
+      description: Supply APR before compounding, as a percentage.
+    confidence:
+      type: number
+      description: 0.97 for a direct on-chain read.
+    summary:
+      type: string
+      description: One sentence with the supply APY and the variable borrow APY.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /yield
+    external_path: /yield
+    method: GET
+    description: >
+      Lending pool yield for one asset as query parameters (?chain=ethereum&asset=USDC).
+      Also accepts a whole question in ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - CRYPTO_YIELD_RATE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: asset_address
+        description: Token contract of the reserve.
+        source_path: asset_address
+      - index: 1
+        name: asset
+        description: The reserve asset the answer is for.
+        source_path: asset
+      - index: 2
+        name: summary
+        description: One sentence with the supply APY and the variable borrow APY.
+        source_path: summary
+    integers:
+      - index: 0
+        name: supply_apy_percent_x10000
+        description: Supply APY as a percentage, scaled by ten thousand to keep four decimals.
+        source_path: supply_apy_percent
+        multiplier: 10000
+      - index: 1
+        name: variable_borrow_apy_percent_x10000
+        description: Variable borrow APY as a percentage, scaled by ten thousand.
+        source_path: variable_borrow_apy_percent
+        multiplier: 10000
+  request:
+    - endpoint: yield
+      method: GET
+      query_params:
+        asset: { source: strings.0 }

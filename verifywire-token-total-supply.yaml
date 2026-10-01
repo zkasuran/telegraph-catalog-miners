@@ -1,0 +1,132 @@
+version: "1"
+kind: miner
+id: 7371
+slug: verifywire-token-total-supply
+protocol: generic
+name: VerifyWire Token Total Supply
+description: >
+  Total, burnt and circulating supply of an ERC-20 token, every figure read on-chain over
+  public RPC. totalSupply() is the minted total, the balance held at the burn sinks is the
+  burnt amount; circulating is the total less what is burnt. Answers the
+  TOKEN_TOTAL_SUPPLY_VERIFY intent for Ethereum, Base, Arbitrum, Optimism and Polygon. No
+  API key, nothing cached that can go stale.
+base_url: https://telegraph-verify.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: token is a contract address (0x and 40 hex) or a known symbol such as USDC, USDT, DAI or WETH. chain is one of ethereum, base, arbitrum, optimism, polygon and defaults to ethereum.
+    param: token
+    property: length
+    value_num: 80
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the total supply
+        of USDC on Base?". The miner reads the token and chain from it, so passing the whole
+        question works as well as the structured fields.
+    token:
+      type: string
+      description: Contract address or known symbol of the token.
+    chain:
+      type: string
+      description: Chain the token is on, one of ethereum, base, arbitrum, optimism, polygon.
+
+output_schema:
+  type: object
+  properties:
+    chain:
+      type: string
+      description: Chain the answer is for.
+    chain_id:
+      type: integer
+      description: EVM chain id.
+    contract_address:
+      type: string
+      description: Token contract the answer is for.
+    symbol:
+      type: string
+      description: Token symbol.
+    decimals:
+      type: integer
+      description: Token decimals.
+    total_supply:
+      type: string
+      description: Total minted supply in whole tokens, as a decimal string.
+    burnt_supply:
+      type: string
+      description: Tokens held at the burn addresses, in whole tokens.
+    circulating_supply:
+      type: string
+      description: Total supply less burnt, in whole tokens.
+    confidence:
+      type: number
+      description: 0.98 for a direct on-chain read.
+    summary:
+      type: string
+      description: One sentence with the total, burnt and circulating supply.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /supply
+    external_path: /supply
+    method: GET
+    description: >
+      Supply of one token as query parameters (?chain=ethereum&token=USDC). Also accepts a
+      whole question in ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - TOKEN_TOTAL_SUPPLY_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: contract_address
+        description: Token contract the answer is for.
+        source_path: contract_address
+      - index: 1
+        name: symbol
+        description: Token symbol.
+        source_path: symbol
+      - index: 2
+        name: summary
+        description: One sentence with the total, burnt and circulating supply.
+        source_path: summary
+    integers:
+      - index: 0
+        name: chain_id
+        description: EVM chain id.
+        source_path: chain_id
+        multiplier: 1
+      - index: 1
+        name: decimals
+        description: Token decimals.
+        source_path: decimals
+        multiplier: 1
+  request:
+    - endpoint: supply
+      method: GET
+      query_params:
+        token: { source: strings.0 }

@@ -1,0 +1,102 @@
+version: "1"
+kind: miner
+id: 7440
+slug: assistwire-chatbot-conversation
+protocol: generic
+name: AssistWire Chatbot Conversation
+description: >
+  CHATBOT_CONVERSATION answers for conversational queries, produced by a language model at request
+  time. Send the user message or the whole question and the miner returns a direct reply that holds
+  the conversational context, matches the tone and gives a clear useful response to what was
+  actually asked. The answer is produced with MiniMax under a commercial plan held by the operator,
+  so this miner is not keyless. Serves the CHATBOT_CONVERSATION intent.
+base_url: https://telegraph-assist.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-assist.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: message is the user message or the whole question. A single turn, not a batch.
+    param: message
+    property: length
+    value_num: 8000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language message, verbatim, for example 'I just moved to a new city and
+        feel lonely, any advice?'. The miner reads the message from it, so passing the whole
+        question works as well as passing the message on its own.
+    message:
+      type: string
+      description: The user message to reply to, if supplied on its own.
+    prompt:
+      type: string
+      description: The message to reply to, an alternative name for the message.
+
+output_schema:
+  type: object
+  properties:
+    headline:
+      type: string
+      description: The first sentence of the reply, a short label for a reader.
+    summary:
+      type: string
+      description: The conversational reply to the user message.
+    confidence:
+      type: number
+      description: 0.95 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /chat
+    external_path: /chat
+    method: GET
+    description: >
+      Reply to one message, the message as a query parameter (?message=...). Also accepts a whole
+      question in ?question= or ?query= or the message in ?prompt=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - CHATBOT_CONVERSATION
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: headline
+        description: The first sentence of the reply.
+        source_path: headline
+      - index: 1
+        name: summary
+        description: The conversational reply to the user message.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: chat
+      method: GET
+      query_params:
+        message: { source: strings.1 }

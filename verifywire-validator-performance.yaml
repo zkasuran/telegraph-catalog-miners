@@ -1,0 +1,139 @@
+version: "1"
+kind: miner
+id: 7377
+slug: verifywire-validator-performance
+protocol: generic
+name: VerifyWire Validator Performance Verify
+description: >
+  Reads block-production health from a bounded window of recent blocks over public RPC. The
+  execution layer does not expose a beacon validator's attestation record, so the miner reads what
+  a node does expose: block timestamps for liveness, gas used against gas limit for utilization,
+  the base fee, plus the per-block fee recipient as a proxy for who is proposing. It reports the
+  average block interval against the chain's target, the average utilization, the base fee and how
+  many distinct proposers produced the window. It counts a named address's share when one is
+  given. The answer states plainly that the fee recipient is a proposer proxy, not a beacon
+  pubkey. Reads on Ethereum, Base, Arbitrum, Optimism and Polygon. Answers the
+  VALIDATOR_PERFORMANCE_VERIFY intent. No API key, nothing cached that can go stale.
+base_url: https://telegraph-verify.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: chain defaults to ethereum. blocks is the window size and defaults to 16, capped at 32. validator is an optional fee-recipient address whose share of the window is counted.
+    param: validator
+    property: length
+    value_num: 80
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is Ethereum producing blocks on
+        schedule right now?". The miner reads the chain and any address from it, so passing the
+        whole question works as well as the fields.
+    chain:
+      type: string
+      description: Chain to read on, one of ethereum, base, arbitrum, optimism, polygon.
+    blocks:
+      type: string
+      description: Window size in blocks, defaults to 16, capped at 32.
+    validator:
+      type: string
+      description: Optional fee-recipient address whose share of the window to count.
+
+output_schema:
+  type: object
+  properties:
+    chain:
+      type: string
+      description: Chain the answer is for.
+    chain_id:
+      type: integer
+      description: EVM chain id.
+    head_block:
+      type: integer
+      description: The latest block height sampled.
+    avg_block_interval_s:
+      type: number
+      description: The measured average interval between blocks in the window.
+    target_interval_s:
+      type: number
+      description: The chain's published target interval, for comparison only.
+    avg_gas_utilization_percent:
+      type: number
+      description: Average gas used over gas limit across the window.
+    distinct_proposers:
+      type: integer
+      description: How many distinct fee recipients produced the window.
+    on_schedule:
+      type: boolean
+      description: Whether the measured interval is within tolerance of the target.
+    verified:
+      type: boolean
+      description: True when block production is on schedule.
+    confidence:
+      type: number
+      description: 0.95 for a direct block-window read.
+    summary:
+      type: string
+      description: One sentence with the verdict and the measured figures.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /validator
+    external_path: /validator
+    method: GET
+    description: >
+      Read block-production health as query parameters (?chain=ethereum&blocks=16). An optional
+      validator address counts its share of the window. Also accepts a whole question in
+      ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - VALIDATOR_PERFORMANCE_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: chain
+        description: Chain the answer is for.
+        source_path: chain
+      - index: 1
+        name: summary
+        description: One sentence with the verdict and the measured figures.
+        source_path: summary
+    integers:
+      - index: 0
+        name: chain_id
+        description: EVM chain id.
+        source_path: chain_id
+        multiplier: 1
+      - index: 1
+        name: head_block
+        description: The latest block height sampled.
+        source_path: head_block
+        multiplier: 1
+  request:
+    - endpoint: validator
+      method: GET
+      query_params:
+        chain: { source: strings.0 }

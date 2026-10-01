@@ -1,0 +1,122 @@
+version: "1"
+kind: miner
+id: 7441
+slug: visionwire-image-verification
+protocol: generic
+name: VisionWire Image Verification
+description: >
+    Judge whether an attached image has been digitally manipulated, edited or spliced, which is
+    distinct from asking whether it is AI-generated outright. Send the image URL or the whole
+    question. The miner returns a verdict with the concrete editing signs it can see. The answer
+    is produced with MiniMax (MiniMax-M3.1-Flash-Preview), a multimodal model, under a
+    commercial plan held by the operator, so this miner is not keyless. It reads the attached
+    media and returns a genuine analysis with a calibrated confidence and an honest hedge. When
+    the media cannot be read it says so plainly rather than guessing. Serves the
+    IMAGE_VERIFICATION intent.
+base_url: https://telegraph-vision.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-vision.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: image_url is a public URL to the image. A whole question carrying the URL is accepted too.
+    param: image_url
+    property: length
+    value_num: 2000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim. The miner reads the media URL from it, so
+        passing the whole question works as well as the structured field.
+    image_url:
+      type: string
+      description: >
+        A public URL to the image to analyse.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: >
+        A short best-effort verdict label read from the analysis. The graded field is the summary.
+    summary:
+      type: string
+      description: >
+        The model's analysis of the media. This is the graded field.
+    media_url:
+      type: string
+      description: >
+        The media URL that was read.
+    confidence:
+      type: number
+      description: >
+        0.9 for a completed analysis, lower when the media could not be read.
+    model:
+      type: string
+      description: >
+        The multimodal model that produced the reading.
+    as_of:
+      type: string
+      description: >
+        ISO 8601 timestamp the answer was produced.
+
+endpoints:
+  - path: /image-verify
+    external_path: /image-verify
+    method: GET
+    description: >
+        Edit and splice verdict for one image, the image as ?image_url=. Also accepts a whole
+        question carrying the URL in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - IMAGE_VERIFICATION
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: media_url
+        description: >
+            The media URL that was read.
+        source_path: media_url
+      - index: 1
+        name: verdict
+        description: >
+            Short verdict label.
+        source_path: verdict
+      - index: 2
+        name: summary
+        description: >
+            The analysis of the media.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: >
+            Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: image-verify
+      method: GET
+      query_params:
+        image_url: { source: strings.0 }

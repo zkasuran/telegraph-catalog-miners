@@ -1,0 +1,130 @@
+version: "1"
+kind: miner
+id: 7449
+slug: audiowire-text-to-speech
+protocol: generic
+name: AudioWire Text to Speech
+description: >
+    Synthesize natural spoken voice from text. Send the text or the whole question with an
+    optional ?voice=. The miner returns a short summary of what it synthesized plus the audio
+    itself as base64 mp3 and its measured length. The audio is produced with MiniMax
+    speech-02-hd under a commercial plan held by the operator, so this miner is not keyless.
+    Serves the TEXT_TO_SPEECH intent.
+base_url: https://telegraph-audio.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-audio.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: text is the text to speak. voice is an optional MiniMax voice id. A whole question is accepted too.
+    param: text
+    property: length
+    value_num: 5000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim. The miner reads the media URL from it, so
+        passing the whole question works as well as the structured field.
+    text:
+      type: string
+      description: >
+        The text to speak.
+    voice:
+      type: string
+      description: >
+        An optional MiniMax voice id, defaulting to a neutral English voice.
+
+output_schema:
+  type: object
+  properties:
+    summary:
+      type: string
+      description: >
+        One sentence describing the synthesized speech. This is the graded field.
+    input_text:
+      type: string
+      description: >
+        The text that was spoken.
+    audio_base64:
+      type: string
+      description: >
+        The synthesized speech as base64-encoded mp3.
+    duration_ms:
+      type: integer
+      description: >
+        Measured length of the audio in milliseconds.
+    format:
+      type: string
+      description: >
+        Audio container format, mp3.
+    voice:
+      type: string
+      description: >
+        The voice id used.
+    confidence:
+      type: number
+      description: >
+        0.9 for a completed analysis, lower when the media could not be read.
+    model:
+      type: string
+      description: >
+        The multimodal model that produced the reading.
+    as_of:
+      type: string
+      description: >
+        ISO 8601 timestamp the answer was produced.
+
+endpoints:
+  - path: /synthesize
+    external_path: /synthesize
+    method: GET
+    description: >
+        Speech synthesis for one text, the text as ?text= with an optional ?voice=. Also accepts a
+        whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - TEXT_TO_SPEECH
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: input_text
+        description: >
+            The text that was spoken.
+        source_path: input_text
+      - index: 1
+        name: summary
+        description: >
+            A sentence describing the synthesized speech.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: >
+            Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: synthesize
+      method: GET
+      query_params:
+        text: { source: strings.0 }
