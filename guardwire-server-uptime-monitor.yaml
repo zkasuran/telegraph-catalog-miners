@@ -1,0 +1,128 @@
+version: "1"
+kind: miner
+id: 7352
+slug: guardwire-server-uptime-monitor
+protocol: generic
+name: GuardWire Server Uptime Monitor
+description: >
+  Whether a server is up right now, read live at request time. It makes one manual-redirect
+  request to the host the caller names and reports whether it answered, the HTTP status code and
+  the response time in milliseconds. A Cloudflare Worker holds no history, so this is a
+  point-in-time availability check and the answer says so rather than claiming an uptime
+  percentage it cannot measure. Answers the SERVER_UPTIME_MONITOR intent. No API key, the request
+  is our own connection to a public address. No port scanning, no path probing, only the single
+  request to the host named.
+base_url: https://telegraph-guard.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-guard.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: url is an absolute http or https URL such as https://example.com. A bare host such as example.com works too with https assumed. A whole question is accepted, the host is read from it.
+    param: url
+    property: length
+    value_num: 2048
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is example.com up right now?".
+        The miner reads the host from it, so passing the whole question works as well as naming the
+        host.
+    url:
+      type: string
+      description: Absolute URL or bare host of the server to check, for example https://example.com or example.com.
+
+output_schema:
+  type: object
+  properties:
+    url:
+      type: string
+      description: The URL the answer refers to.
+    host:
+      type: string
+      description: The host the answer refers to.
+    up:
+      type: boolean
+      description: Whether the server answered a live request.
+    status_code:
+      type: integer
+      description: HTTP status code of the immediate response.
+    response_time_ms:
+      type: integer
+      description: Time in milliseconds from request to response.
+    https:
+      type: boolean
+      description: Whether the request used https.
+    check_type:
+      type: string
+      description: States that this is a point-in-time availability check, not a historical uptime percentage.
+    confidence:
+      type: number
+      description: 0.96 when the server answered, 0.9 on a TLS failure, 0.85 when down.
+    summary:
+      type: string
+      description: One sentence on whether the server is currently up, its status code and response time.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /uptime
+    external_path: /uptime
+    method: GET
+    description: >
+      Current availability of one server, the URL or host as a query parameter
+      (?url=https://example.com). Also accepts a whole question in ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SERVER_UPTIME_MONITOR
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: url
+        description: The URL the answer refers to.
+        source_path: url
+      - index: 1
+        name: host
+        description: The host the answer refers to.
+        source_path: host
+      - index: 2
+        name: summary
+        description: One sentence on whether the server is currently up, its status code and response time.
+        source_path: summary
+    integers:
+      - index: 0
+        name: status_code
+        description: HTTP status code of the immediate response.
+        source_path: status_code
+        multiplier: 1
+      - index: 1
+        name: response_time_ms
+        description: Time in milliseconds from request to response.
+        source_path: response_time_ms
+        multiplier: 1
+  request:
+    - endpoint: uptime
+      method: GET
+      query_params:
+        url: { source: strings.0 }

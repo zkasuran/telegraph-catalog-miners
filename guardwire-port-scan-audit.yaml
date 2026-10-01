@@ -1,0 +1,122 @@
+version: "1"
+kind: miner
+id: 7356
+slug: guardwire-port-scan-audit
+protocol: generic
+name: GuardWire Port Scan Audit
+description: >
+  Which common service ports accept a TCP connection on the host the caller names, read live at
+  request time. It opens a connection to a fixed short list of common service ports (FTP, SSH, DNS,
+  HTTP, POP3, IMAP, HTTPS, SMB, MySQL, RDP, PostgreSQL, Redis and the HTTP and HTTPS alternates),
+  waits briefly for each to be accepted, then closes it. It is a point-in-time connect audit of
+  common ports, not a full-range scan and not a vulnerability assessment. The answer says so.
+  Answers the PORT_SCAN_AUDIT intent. No API key. The connection is our own, so there is no
+  third-party scan database and no data licence to defend.
+base_url: https://telegraph-guard.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-guard.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: host is a hostname or IP such as example.com. A full URL or a whole question is accepted too, the host is read from it.
+    param: host
+    property: length
+    value_num: 253
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Which ports are open on
+        example.com?". The miner reads the host from it.
+    host:
+      type: string
+      description: The hostname or IP to audit, for example example.com. A full URL works too, the host is read from it.
+
+output_schema:
+  type: object
+  properties:
+    host:
+      type: string
+      description: The host the answer refers to.
+    open_ports:
+      type: array
+      description: The ports that accepted a connection, each with its common service name.
+    open_count:
+      type: integer
+      description: Number of common ports found open. Null when the audit could not run.
+    checked_count:
+      type: integer
+      description: Number of common ports checked.
+    closed_ports:
+      type: array
+      description: The ports that were closed or filtered.
+    ports_checked:
+      type: array
+      description: The full list of ports the audit checks.
+    scope:
+      type: string
+      description: States that this is a point-in-time connect check of common ports, not a full-range or vulnerability scan.
+    confidence:
+      type: number
+      description: 0.9 for a completed audit, 0.4 when it could not run.
+    summary:
+      type: string
+      description: One answer naming how many and which common ports are open, with the scope.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /port-audit
+    external_path: /port-audit
+    method: GET
+    description: >
+      Connect audit for one host, the host as a query parameter (?host=example.com). Also accepts a
+      whole question in ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - PORT_SCAN_AUDIT
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: host
+        description: The host the answer refers to.
+        source_path: host
+      - index: 1
+        name: scope
+        description: States that this is a point-in-time connect check of common ports.
+        source_path: scope
+      - index: 2
+        name: summary
+        description: One answer naming how many and which common ports are open.
+        source_path: summary
+    integers:
+      - index: 0
+        name: open_count
+        description: Number of common ports found open.
+        source_path: open_count
+        multiplier: 1
+  request:
+    - endpoint: port-audit
+      method: GET
+      query_params:
+        host: { source: strings.0 }

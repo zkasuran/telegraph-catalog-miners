@@ -1,0 +1,140 @@
+version: "1"
+kind: miner
+id: 7354
+slug: guardwire-email-security
+protocol: generic
+name: GuardWire Email Security Check
+description: >
+  A domain's email-authentication posture, read live at request time over DNS-over-HTTPS. It reads
+  the domain's own published records (SPF, DMARC with its policy, MX, MTA-STS, TLS-RPT and the DNSSEC
+  authenticated-data flag), probes the common DKIM selectors, then states an overall posture (strong,
+  moderate, weak or none) covering each aspect in one answer. Answers the EMAIL_SECURITY intent. No
+  API key. DNS is a protocol lookup of the name's own published zone, so no third-party dataset
+  licence is involved.
+base_url: https://telegraph-guard.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-guard.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: domain is a domain such as example.com. A full URL or a whole question is accepted too, the domain is read from it.
+    param: domain
+    property: length
+    value_num: 253
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Does github.com have SPF and DMARC
+        set up?". The miner reads the domain from it, so passing the whole question works as well as
+        naming the domain.
+    domain:
+      type: string
+      description: Domain to assess, for example example.com. A full URL works too, the host is read from it.
+
+output_schema:
+  type: object
+  properties:
+    domain:
+      type: string
+      description: The domain the answer refers to.
+    posture:
+      type: string
+      description: Overall email-security posture, one of strong, moderate, weak or none.
+    spf:
+      type: boolean
+      description: Whether the domain publishes an SPF record.
+    spf_record:
+      type: string
+      description: The SPF record text when present.
+    spf_policy:
+      type: string
+      description: The SPF all mechanism, for example hard fail (-all) or soft fail (~all).
+    dmarc:
+      type: boolean
+      description: Whether the domain publishes a DMARC record.
+    dmarc_policy:
+      type: string
+      description: The DMARC policy, one of none, quarantine or reject.
+    mx:
+      type: boolean
+      description: Whether the domain has MX records for mail delivery.
+    mx_count:
+      type: integer
+      description: Number of MX records.
+    mta_sts:
+      type: boolean
+      description: Whether the domain publishes an MTA-STS policy record.
+    tls_rpt:
+      type: boolean
+      description: Whether the domain publishes a TLS-RPT record.
+    dnssec:
+      type: boolean
+      description: Whether the DNS answer was DNSSEC-authenticated.
+    dkim_selectors_found:
+      type: array
+      description: Which common DKIM selectors published a key.
+    confidence:
+      type: number
+      description: 0.95 for a live read, 0.4 when the records could not be read.
+    summary:
+      type: string
+      description: One answer naming the posture and each record the question asks about.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /email-security
+    external_path: /email-security
+    method: GET
+    description: >
+      Email-security posture for one domain, the domain as a query parameter
+      (?domain=example.com). Also accepts a whole question in ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - EMAIL_SECURITY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: domain
+        description: The domain the answer refers to.
+        source_path: domain
+      - index: 1
+        name: posture
+        description: Overall email-security posture, one of strong, moderate, weak or none.
+        source_path: posture
+      - index: 2
+        name: summary
+        description: One answer naming the posture and each record the question asks about.
+        source_path: summary
+    integers:
+      - index: 0
+        name: mx_count
+        description: Number of MX records.
+        source_path: mx_count
+        multiplier: 1
+  request:
+    - endpoint: email-security
+      method: GET
+      query_params:
+        domain: { source: strings.0 }

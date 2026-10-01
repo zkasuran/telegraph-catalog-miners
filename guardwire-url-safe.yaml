@@ -1,0 +1,133 @@
+version: "1"
+kind: miner
+id: 7353
+slug: guardwire-url-safe
+protocol: generic
+name: GuardWire URL Safety Check
+description: >
+  Whether a URL is safe to visit, read live at request time. It makes one manual-redirect GET to
+  the URL the caller names and returns a safety verdict with a 0 to 1 risk score, drawn from the
+  transport checks that can be made keylessly: whether the host answers, whether it is served over
+  valid HTTPS and where it redirects. It is honest about that scope. A malware or phishing verdict
+  would need a blocklist feed and every keyless one is either behind an Auth-Key now (abuse.ch) or
+  non-commercial (OpenPhish, Shodan InternetDB), so this miner does not claim one. Answers the
+  URL_SAFE intent. No API key, the request is our own connection to a public address. No port
+  scanning, no path probing, only the single request to the URL named.
+base_url: https://telegraph-guard.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-guard.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: url is an absolute http or https URL such as https://example.com. A bare host works too and https is assumed. A whole question is accepted, the URL is read from it.
+    param: url
+    property: length
+    value_num: 2048
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is https://example.com safe to
+        visit?". The miner reads the URL from it, so passing the whole question works as well as
+        naming the URL.
+    url:
+      type: string
+      description: Absolute URL to assess, for example https://example.com. A bare host works too.
+
+output_schema:
+  type: object
+  properties:
+    url:
+      type: string
+      description: The URL the answer refers to.
+    safe:
+      type: boolean
+      description: Whether the URL is safe on the transport checks. Null when the host did not answer.
+    risk_score:
+      type: number
+      description: 0 (safe) to 1 (unsafe), from valid HTTPS 0.1, plain HTTP 0.3, failed certificate 0.6.
+    risk:
+      type: string
+      description: Risk band in words, low, moderate or unknown.
+    reachable:
+      type: boolean
+      description: Whether the host answered a live request.
+    https:
+      type: boolean
+      description: Whether the URL uses https.
+    tls_valid:
+      type: boolean
+      description: Whether an https handshake completed against a currently valid chain.
+    status_code:
+      type: integer
+      description: HTTP status code of the immediate response.
+    redirect_location:
+      type: string
+      description: The Location header when the response is a redirect.
+    checks:
+      type: string
+      description: States that the assessment is transport and reachability only, with no malware or phishing feed.
+    confidence:
+      type: number
+      description: 0.9 for valid HTTPS, 0.88 on a TLS failure, 0.85 over plain HTTP, 0.7 when unreachable.
+    summary:
+      type: string
+      description: One sentence with the safety verdict, the risk score and the transport evidence, plus the scope.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /url-safe
+    external_path: /url-safe
+    method: GET
+    description: >
+      Safety check for one URL, the URL as a query parameter (?url=https://example.com). Also
+      accepts a whole question in ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - URL_SAFE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: url
+        description: The URL the answer refers to.
+        source_path: url
+      - index: 1
+        name: risk
+        description: Risk band in words, low, moderate or unknown.
+        source_path: risk
+      - index: 2
+        name: summary
+        description: One sentence with the safety verdict, the risk score and the transport evidence.
+        source_path: summary
+    integers:
+      - index: 0
+        name: status_code
+        description: HTTP status code of the immediate response.
+        source_path: status_code
+        multiplier: 1
+  request:
+    - endpoint: url-safe
+      method: GET
+      query_params:
+        url: { source: strings.0 }
