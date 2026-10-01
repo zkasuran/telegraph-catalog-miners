@@ -1,0 +1,108 @@
+version: "1"
+kind: miner
+id: 7604
+slug: shipwire-shipment-delay-risk
+protocol: generic
+name: ShipWire Shipment Delay Risk
+description: >
+  Delay-risk assessment for a described shipment, answered by a language model at request
+  time. Send the lane, the carrier, the promised window and any conditions such as weather,
+  port congestion or a customs hold and the miner returns a clear verdict (low risk, elevated
+  risk, high risk or insufficient information) with one or two sentences naming the factors
+  that drive it. This is judgement over the facts in the request, not a live carrier feed, so
+  no proprietary tracking or rate API is used. The answer is produced with MiniMax under a
+  commercial plan held by the operator, so this miner is not keyless. Serves the
+  SHIPMENT_DELAY_RISK intent.
+base_url: https://telegraph-ship.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-ship.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: question is the shipment and the conditions to assess. Passing the whole question verbatim works too. A single passage, not a batch.
+    param: question
+    property: length
+    value_num: 8000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full natural-language question, verbatim. The miner reads the subject from it, so passing the whole question works as well as passing the subject on its own.
+    query:
+      type: string
+      description: The subject to assess, if sent on its own rather than inside a question.
+    text:
+      type: string
+      description: The subject text to assess.
+    shipment:
+      type: string
+      description: A described shipment to assess for delay risk.
+    scenario:
+      type: string
+      description: A described logistics scenario to assess for delay risk.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: The verdict, one of low risk, elevated risk, high risk or insufficient information.
+    summary:
+      type: string
+      description: "The answer the node grades: the verdict or figure followed by one or two sentences of reasoning."
+    confidence:
+      type: number
+      description: 0.96 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /shipment-delay-risk
+    external_path: /shipment-delay-risk
+    method: GET
+    description: >
+      Delay risk for one described shipment, the shipment or question as a query parameter
+      (?question=...). Also accepts ?query=, ?text=, ?shipment= or ?scenario=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SHIPMENT_DELAY_RISK
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: summary
+        description: The full graded answer.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: shipment-delay-risk
+      method: GET
+      query_params:
+        question: { source: strings.1 }

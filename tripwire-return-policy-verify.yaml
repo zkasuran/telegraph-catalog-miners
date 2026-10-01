@@ -1,0 +1,107 @@
+version: "1"
+kind: miner
+id: 7608
+slug: tripwire-return-policy-verify
+protocol: generic
+name: TripWire Return Policy Verify
+description: >
+  Return-policy check, answered by a language model at request time. Send the store or product
+  return and refund policy and a scenario and the miner returns a clear verdict (eligible, not
+  eligible, eligible with conditions or insufficient information) naming the clause that
+  decides it such as the return window, the item condition, a restocking fee or a final-sale
+  category. This reads the stated policy, so no retailer order system is used. The answer is
+  produced with MiniMax under a commercial plan held by the operator, so this miner is not
+  keyless. Serves the RETURN_POLICY_VERIFY intent.
+base_url: https://telegraph-trip.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-trip.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: question is the return policy and the scenario. Passing the whole question verbatim works too. A single passage, not a batch.
+    param: question
+    property: length
+    value_num: 8000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full natural-language question, verbatim. The miner reads the subject from it, so passing the whole question works as well as passing the subject on its own.
+    query:
+      type: string
+      description: The subject to assess, if sent on its own rather than inside a question.
+    text:
+      type: string
+      description: The subject text to assess.
+    policy:
+      type: string
+      description: The store or product return and refund policy.
+    scenario:
+      type: string
+      description: The return policy and the scenario to check against it.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: The verdict, one of eligible, not eligible, eligible with conditions or insufficient information.
+    summary:
+      type: string
+      description: "The answer the node grades: the verdict or figure followed by one or two sentences of reasoning."
+    confidence:
+      type: number
+      description: 0.96 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /return-policy-verify
+    external_path: /return-policy-verify
+    method: GET
+    description: >
+      Return-policy check for one scenario, the policy and the scenario as a query parameter
+      (?question=...). Also accepts ?query=, ?text=, ?policy= or ?scenario=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - RETURN_POLICY_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: summary
+        description: The full graded answer.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: return-policy-verify
+      method: GET
+      query_params:
+        question: { source: strings.1 }

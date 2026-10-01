@@ -1,0 +1,107 @@
+version: "1"
+kind: miner
+id: 7602
+slug: travelwire-travel-disruption
+protocol: generic
+name: TravelWire Travel Disruption
+description: >
+  Whether air travel through a United States airport is disrupted right now, read live at
+  request time from the FAA National Airspace System status feed, the same source that drives
+  the public fly.faa.gov board. Name an airport by code or city or ask generally and the miner
+  returns a verdict (disrupted or no disruption reported) with the ground stop, ground delay,
+  arrival or departure delay or closure the FAA publishes, with its reason. Coverage is United
+  States airports. The source is a work of the United States Government, free to use for any
+  purpose, so this miner is keyless. Serves the TRAVEL_DISRUPTION intent.
+base_url: https://telegraph-travel.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-travel.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: airport is an airport code such as ORD or a city such as Chicago. A whole question is accepted too.
+    param: airport
+    property: length
+    value_num: 60
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full question, verbatim, for example 'are there delays at Chicago today'. The miner reads the airport from it.
+    airport:
+      type: string
+      description: An airport code such as ORD or a city name such as Chicago.
+    code:
+      type: string
+      description: An airport code such as LAX.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: Disrupted or No disruption reported.
+    airport:
+      type: string
+      description: The airport the answer refers to, when one was named.
+    summary:
+      type: string
+      description: The verdict followed by the disruptions the FAA reports, with their reasons.
+    confidence:
+      type: number
+      description: 0.9 to 0.95 for a direct live read, lower when degraded.
+    feed_updated:
+      type: string
+      description: The FAA feed's own update time.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /travel-disruption
+    external_path: /travel-disruption
+    method: GET
+    description: >
+      Travel disruption for one airport or the network, the airport as a query parameter
+      (?airport=ORD). Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - TRAVEL_DISRUPTION
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The disruption verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: summary
+        description: The verdict plus the disruptions and reasons.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: travel-disruption
+      method: GET
+      query_params:
+        question: { source: strings.1 }

@@ -1,0 +1,101 @@
+version: "1"
+kind: miner
+id: 7610
+slug: telewire-cloud-resource-usage
+protocol: generic
+name: TeleWire Cloud Resource Usage
+description: >
+  Cloud resource usage figure, computed by a language model at request time over the data in
+  the request. Cloud usage is account-private, so the readings are supplied in the question
+  (utilisation, cost, request counts, instance counts, storage or network) and the miner
+  returns the single figure asked for, stated at full precision and rounded, with one sentence
+  of context against any stated capacity or budget. It computes only from the numbers given
+  and never invents a reading, so there is no account feed to call. The answer is produced
+  with MiniMax under a commercial plan held by the operator, so this miner is not keyless.
+  Serves the CLOUD_RESOURCE_USAGE intent.
+base_url: https://telegraph-tele.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-tele.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: question is the usage data and the figure to report. Passing the whole question verbatim works too. A single passage, not a batch.
+    param: question
+    property: length
+    value_num: 8000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full natural-language question, verbatim. The miner reads the subject from it, so passing the whole question works as well as passing the subject on its own.
+    query:
+      type: string
+      description: The subject to assess, if sent on its own rather than inside a question.
+    text:
+      type: string
+      description: The subject text to assess.
+    data:
+      type: string
+      description: The resource usage or telemetry figures to compute from.
+    metrics:
+      type: string
+      description: The metrics to derive the usage figure from.
+
+output_schema:
+  type: object
+  properties:
+    summary:
+      type: string
+      description: "The answer the node grades: the verdict or figure followed by one or two sentences of reasoning."
+    confidence:
+      type: number
+      description: 0.96 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /cloud-resource-usage
+    external_path: /cloud-resource-usage
+    method: GET
+    description: >
+      Usage figure for one request, the data as a query parameter (?question=...). Also accepts
+      ?query=, ?text=, ?data= or ?metrics=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - CLOUD_RESOURCE_USAGE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: summary
+        description: The full graded answer.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: cloud-resource-usage
+      method: GET
+      query_params:
+        question: { source: strings.0 }

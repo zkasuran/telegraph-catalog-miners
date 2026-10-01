@@ -1,0 +1,135 @@
+version: "1"
+kind: miner
+id: 7603
+slug: vesselwire-vessel-telemetry-verify
+protocol: generic
+name: VesselWire Vessel Telemetry Verify
+description: >
+  Live ship AIS telemetry from Fintraffic's Digitraffic marine service. Give a vessel by MMSI
+  or by name and the miner reads the latest position, speed over ground, course, heading and
+  navigational status and reports them. When the request states a claim about the vessel, a
+  speed, a status such as at anchor or under way or a destination, the miner says whether the
+  live telemetry supports it. Coverage is the Fintraffic AIS network: the Baltic Sea, the Gulf
+  of Finland and Finnish coastal waters. The data is Fintraffic / digitraffic.fi under CC BY
+  4.0, which permits commercial use with attribution, so this miner is keyless. Serves the
+  VESSEL_TELEMETRY_VERIFY intent.
+base_url: https://telegraph-vessel.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-vessel.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: pass a nine-digit MMSI as ?mmsi= or name the vessel in the question. A whole question is accepted too.
+    param: question
+    property: length
+    value_num: 400
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full question, verbatim, for example 'is MMSI 210546000 doing over 10 knots'. The miner reads the vessel and any claim from it.
+    mmsi:
+      type: string
+      description: The vessel's nine-digit MMSI, the reliable key for a lookup.
+    vessel:
+      type: string
+      description: The vessel name, resolved against the service's own vessel list.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: Reported, Confirmed, Contradicted, Not in coverage or Insufficient information.
+    mmsi:
+      type: integer
+      description: The vessel's MMSI.
+    latitude:
+      type: number
+      description: Latitude of the latest AIS position.
+    longitude:
+      type: number
+      description: Longitude of the latest AIS position.
+    speed_over_ground_knots:
+      type: number
+      description: Speed over ground in knots.
+    course_over_ground_deg:
+      type: integer
+      description: Course over ground in degrees.
+    navigational_status:
+      type: string
+      description: The AIS navigational status in words.
+    destination:
+      type: string
+      description: The AIS destination, when the vessel broadcasts one.
+    summary:
+      type: string
+      description: The verdict or report followed by the vessel's live telemetry.
+    confidence:
+      type: number
+      description: 0.95 for a direct live read, lower when degraded or out of coverage.
+    observed_at:
+      type: string
+      description: Timestamp of the AIS message.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /vessel-telemetry-verify
+    external_path: /vessel-telemetry-verify
+    method: GET
+    description: >
+      Vessel telemetry for one ship, the MMSI as a query parameter (?mmsi=210546000). Also accepts
+      a whole question in ?question= with an optional claim to verify.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - VESSEL_TELEMETRY_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The telemetry verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: navigational_status
+        description: The AIS navigational status in words.
+        source_path: navigational_status
+      - index: 2
+        name: summary
+        description: The verdict plus the live telemetry.
+        source_path: summary
+    integers:
+      - index: 0
+        name: mmsi
+        description: The vessel's MMSI.
+        source_path: mmsi
+        multiplier: 1
+      - index: 1
+        name: speed_over_ground_knots_x10
+        description: Speed over ground in knots, scaled by ten to keep one decimal as an integer.
+        source_path: speed_over_ground_knots
+        multiplier: 10
+  request:
+    - endpoint: vessel-telemetry-verify
+      method: GET
+      query_params:
+        mmsi: { source: integers.0 }

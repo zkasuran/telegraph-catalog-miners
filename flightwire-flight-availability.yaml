@@ -1,0 +1,129 @@
+version: "1"
+kind: miner
+id: 7614
+slug: flightwire-flight-availability
+protocol: generic
+name: FlightWire Flight Availability
+description: >
+  Live flight activity, read at request time from adsb.lol ADS-B data. Give a flight by its
+  number or callsign, an aircraft by registration or ICAO hex or an airport and the miner
+  reports what is airborne now: whether the flight is in the air with its position, altitude,
+  speed and heading or how many aircraft are active near the airport. Scope is stated in every
+  answer: this is live flight operations, not airline seat or fare availability, which needs a
+  GDS or reservation system and is not keyless. The data is adsb.lol under ODbL 1.0, which
+  permits commercial use with attribution, so this miner is keyless. Serves the
+  FLIGHT_AVAILABILITY intent.
+base_url: https://telegraph-flight.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-flight.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: name a flight number such as UAL1, a registration or an airport such as JFK. A whole question is accepted too.
+    param: question
+    property: length
+    value_num: 300
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full question, verbatim, for example 'is BA117 flying' or 'how busy is JFK'. The miner reads the flight or airport from it.
+    flight:
+      type: string
+      description: A flight number or callsign such as UAL1 or BA117.
+    callsign:
+      type: string
+      description: An ADS-B callsign.
+    reg:
+      type: string
+      description: An aircraft registration such as N12345 or G-ABCD.
+    hex:
+      type: string
+      description: An aircraft ICAO 24-bit hex code.
+    airport:
+      type: string
+      description: An airport code such as JFK or LAX, for traffic nearby.
+    lat:
+      type: string
+      description: Latitude of a point to read traffic around, paired with lon.
+    lon:
+      type: string
+      description: Longitude of a point to read traffic around, paired with lat.
+
+output_schema:
+  type: object
+  properties:
+    target:
+      type: string
+      description: The flight, registration or aircraft the answer refers to.
+    airport:
+      type: string
+      description: The airport the answer refers to, when one was named.
+    airborne_nearby:
+      type: integer
+      description: Number of aircraft airborne near the airport.
+    altitude_ft:
+      type: integer
+      description: Altitude of the named flight in feet, when airborne.
+    ground_speed_knots:
+      type: integer
+      description: Ground speed of the named flight in knots.
+    summary:
+      type: string
+      description: The live flight-activity finding, with the scope note.
+    confidence:
+      type: number
+      description: 0.9 to 0.95 for a direct live read, lower when degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /flight-availability
+    external_path: /flight-availability
+    method: GET
+    description: >
+      Live flight activity for a flight or an airport, the flight as a query parameter
+      (?flight=UAL1) or the airport (?airport=JFK). Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - FLIGHT_AVAILABILITY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: target
+        description: The flight or aircraft the answer refers to.
+        source_path: target
+      - index: 1
+        name: summary
+        description: The live flight-activity finding.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: flight-availability
+      method: GET
+      query_params:
+        question: { source: strings.1 }

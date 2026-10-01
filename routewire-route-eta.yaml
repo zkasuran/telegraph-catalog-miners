@@ -1,0 +1,133 @@
+version: "1"
+kind: miner
+id: 7600
+slug: routewire-route-eta
+protocol: generic
+name: RouteWire Route ETA
+description: >
+  Driving time and road distance between an origin and a destination, read live at request
+  time from an OSRM routing engine over OpenStreetMap data. Send the two places as names or
+  coordinates or a whole question of the form 'driving time from A to B' and the miner returns
+  the travel time and the distance, each stated at two grains. Place coordinates come from
+  Wikidata (CC0 1.0). The routing data is OpenStreetMap (ODbL 1.0), which permits commercial
+  use with attribution. The default routing host is the public OSRM demo, whose own policy is
+  non-commercial, so a commercial deployment sets OSRM_BASE to a self-hosted OSRM instance or
+  a licensed provider. Serves the ROUTE_ETA intent.
+base_url: https://telegraph-route.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-route.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: origin and destination are place names such as Boston or coordinates. A whole question of the form 'driving time from A to B' is accepted too.
+    param: origin
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full question, verbatim, for example 'driving time from Boston to New York'. The miner reads the origin and destination from it.
+    origin:
+      type: string
+      description: The start place, a name such as Boston or a lat,lon coordinate.
+    destination:
+      type: string
+      description: The end place, a name such as New York or a lat,lon coordinate.
+    from:
+      type: string
+      description: Alias for origin.
+    to:
+      type: string
+      description: Alias for destination.
+
+output_schema:
+  type: object
+  properties:
+    origin:
+      type: string
+      description: Canonical name of the resolved origin.
+    destination:
+      type: string
+      description: Canonical name of the resolved destination.
+    duration_minutes:
+      type: integer
+      description: Driving time in minutes.
+    duration_hours:
+      type: number
+      description: Driving time in hours.
+    distance_km:
+      type: number
+      description: Road distance in kilometres.
+    distance_miles:
+      type: number
+      description: Road distance in miles.
+    summary:
+      type: string
+      description: One sentence giving the travel time and the distance between the two places.
+    confidence:
+      type: number
+      description: 0.95 for a direct live route, lower when degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /route-eta
+    external_path: /route-eta
+    method: GET
+    description: >
+      Driving time and distance between two places, origin and destination as query parameters
+      (?origin=Boston&destination=New York). Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - ROUTE_ETA
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: origin
+        description: Canonical origin name.
+        source_path: origin
+      - index: 1
+        name: destination
+        description: Canonical destination name.
+        source_path: destination
+      - index: 2
+        name: summary
+        description: The travel time and distance sentence.
+        source_path: summary
+    integers:
+      - index: 0
+        name: duration_minutes
+        description: Driving time in minutes.
+        source_path: duration_minutes
+        multiplier: 1
+      - index: 1
+        name: distance_km_x10
+        description: Road distance in kilometres, scaled by ten to keep one decimal as an integer.
+        source_path: distance_km
+        multiplier: 10
+  request:
+    - endpoint: route-eta
+      method: GET
+      query_params:
+        origin: { source: strings.0 }
+        destination: { source: strings.1 }

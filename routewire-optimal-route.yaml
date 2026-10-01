@@ -1,0 +1,118 @@
+version: "1"
+kind: miner
+id: 7601
+slug: routewire-optimal-route
+protocol: generic
+name: RouteWire Optimal Route
+description: >
+  Fastest order to visit a set of stops in one run, computed live at request time by an OSRM
+  trip solver over OpenStreetMap data. Send two or more stops as names or coordinates or a
+  question naming them and the miner returns the stops in the optimal driving order with the
+  total time and distance. Place coordinates come from Wikidata (CC0 1.0). The routing data is
+  OpenStreetMap (ODbL 1.0), which permits commercial use with attribution. The default routing
+  host is the public OSRM demo, whose own policy is non-commercial, so a commercial deployment
+  sets OSRM_BASE to a self-hosted OSRM instance or a licensed provider. Serves the
+  OPTIMAL_EXECUTION_ROUTE intent.
+base_url: https://telegraph-route.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-route.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: stops is a list of two to ten place names or coordinates separated by a pipe, for example Berlin|Hamburg|Munich. A question naming the stops is accepted too.
+    param: stops
+    property: length
+    value_num: 400
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full question, verbatim, for example 'fastest route visiting Berlin, Hamburg and Munich'. The miner reads the stops from it.
+    stops:
+      type: string
+      description: The stops to visit, as names or coordinates separated by a pipe.
+    waypoints:
+      type: string
+      description: Alias for stops.
+
+output_schema:
+  type: object
+  properties:
+    stops:
+      type: integer
+      description: Number of stops in the route.
+    optimal_order:
+      type: array
+      description: The stops in the optimal driving order.
+    total_duration_minutes:
+      type: integer
+      description: Total driving time in minutes.
+    total_duration_hours:
+      type: number
+      description: Total driving time in hours.
+    total_distance_km:
+      type: number
+      description: Total road distance in kilometres.
+    total_distance_miles:
+      type: number
+      description: Total road distance in miles.
+    summary:
+      type: string
+      description: One sentence giving the optimal order with the total time and distance.
+    confidence:
+      type: number
+      description: 0.95 for a direct live route, lower when degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /optimal-route
+    external_path: /optimal-route
+    method: GET
+    description: >
+      Optimal visiting order for a set of stops, the stops as a pipe-separated query parameter
+      (?stops=Berlin|Hamburg|Munich). Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - OPTIMAL_EXECUTION_ROUTE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: summary
+        description: The optimal order with the total time and distance.
+        source_path: summary
+    integers:
+      - index: 0
+        name: total_duration_minutes
+        description: Total driving time in minutes.
+        source_path: total_duration_minutes
+        multiplier: 1
+      - index: 1
+        name: total_distance_km_x10
+        description: Total road distance in kilometres, scaled by ten to keep one decimal as an integer.
+        source_path: total_distance_km
+        multiplier: 10
+  request:
+    - endpoint: optimal-route
+      method: GET
+      query_params:
+        question: { source: strings.0 }

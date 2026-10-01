@@ -1,0 +1,117 @@
+version: "1"
+kind: miner
+id: 7613
+slug: skywire-forecast-verify
+protocol: generic
+name: SkyWire Forecast Verify
+description: >
+  Verifies a weather-forecast claim against the authoritative forecast, read live at request
+  time. Name a place and the window and optionally a claim such as a temperature threshold or
+  whether it will rain and the miner returns a verdict (correct, incorrect or partially
+  correct) with the real figures or states the authoritative forecast when there is no claim
+  to check. Forecast values come from MET Norway locationforecast 2.0 (CC BY 4.0 and NLOD 2.0)
+  and the US National Weather Service, with place coordinates from Wikidata (CC0 1.0).
+  Keyless, no API key ever. Serves the WEATHER_FORECAST_VERIFY intent.
+base_url: https://telegraph-sky.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-sky.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: location is a place name such as London or Paris. A whole question with a claim to check is accepted too.
+    param: location
+    property: length
+    value_num: 80
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The full question, verbatim, for example 'will it rain in London tomorrow'. The miner reads the place, the window and any claim from it.
+    location:
+      type: string
+      description: Place name the forecast is for, for example London or Tokyo.
+    days:
+      type: string
+      description: Number of days to cover, 1 to 7.
+    hours:
+      type: string
+      description: Number of hours to cover, 1 to 72.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: Correct, Incorrect, Partially correct or Reported when there was no claim to check.
+    location:
+      type: string
+      description: Canonical place name the answer refers to.
+    country:
+      type: string
+      description: Country of the resolved place.
+    window:
+      type: string
+      description: The window the forecast covers, for example tomorrow or over the next 3 days.
+    summary:
+      type: string
+      description: The verdict followed by the authoritative forecast for the window.
+    confidence:
+      type: number
+      description: 0.95 for a direct live read, lower when degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /forecast-verify
+    external_path: /forecast-verify
+    method: GET
+    description: >
+      Forecast verification for one place, the place as a query parameter (?location=London). Also
+      accepts a whole question with a claim in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - WEATHER_FORECAST_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The verification verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: location
+        description: Canonical place name.
+        source_path: location
+      - index: 2
+        name: summary
+        description: The verdict plus the authoritative forecast.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: forecast-verify
+      method: GET
+      query_params:
+        location: { source: strings.1 }
