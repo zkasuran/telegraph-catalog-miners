@@ -1,0 +1,126 @@
+version: "1"
+kind: miner
+id: 7452
+slug: tradewire-payment-method-verify
+protocol: generic
+name: TradeWire Payment Method Verify
+description: >
+  Verify a payment card number. The card network is read from the published ISO/IEC 7812 issuer
+  identification ranges, the Luhn checksum is computed and the length is checked against the
+  network's own rules, so the network, validity and length are facts that need no API key. Issuer
+  bank, funding type and country are added from the open BIN List dataset (CC BY 4.0) when it is
+  loaded into the optional KV namespace. Known network test numbers are flagged. A full card number
+  is never logged or echoed. Serves the PAYMENT_METHOD_VERIFY intent.
+base_url: https://telegraph-trade.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: card is a 12 to 19 digit payment card number. A whole question containing the number is accepted too.
+    param: card
+    property: length
+    value_num: 40
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is 4111 1111 1111 1111 a valid
+        card?". The miner reads the card number from it.
+    card:
+      type: string
+      description: The payment card number, 12 to 19 digits, separators ignored.
+    number:
+      type: string
+      description: The payment card number, an alias of card.
+    pan:
+      type: string
+      description: The primary account number, an alias of card.
+    bin:
+      type: string
+      description: The leading digits of a card number to classify by network and issuer range.
+
+output_schema:
+  type: object
+  properties:
+    valid:
+      type: boolean
+      description: Whether the number passes the Luhn checksum and has a valid length for its network.
+    scheme:
+      type: string
+      description: The card network, for example Visa, Mastercard or American Express.
+    luhn_valid:
+      type: boolean
+      description: Whether the Luhn checksum passes.
+    length:
+      type: integer
+      description: The number of digits in the card number.
+    is_test_number:
+      type: boolean
+      description: Whether the number is a published network test number, which passes Luhn but was never issued.
+    issuer:
+      type: string
+      description: The issuing bank, when the BIN List dataset is loaded.
+    country:
+      type: string
+      description: The issuing country, when the BIN List dataset is loaded.
+    confidence:
+      type: number
+      description: 0.95 for the network and checksum, 0.97 when issuer enrichment is loaded.
+    summary:
+      type: string
+      description: One sentence giving the verdict, the network, the Luhn result, the length and the issuer when known.
+    as_of:
+      type: string
+      description: Timestamp of the check.
+
+endpoints:
+  - path: /payment-method
+    external_path: /payment-method
+    method: GET
+    description: >
+      Verify a payment card number, as a query parameter (?card=4111111111111111). Also accepts
+      ?number=, ?pan=, ?bin= or a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - PAYMENT_METHOD_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: scheme
+        description: The card network.
+        source_path: scheme
+      - index: 1
+        name: summary
+        description: The verdict, the network, the Luhn result, the length and the issuer when known.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: payment-method
+      method: GET
+      query_params:
+        card: { source: strings.1 }

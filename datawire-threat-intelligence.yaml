@@ -1,0 +1,117 @@
+version: "1"
+kind: miner
+id: 7394
+slug: datawire-threat-intelligence
+protocol: generic
+name: DataWire Threat Intelligence
+description: >
+  The reputation of an indicator, read live at request time from public threat feeds. A CVE
+  identifier is checked against the CISA Known Exploited Vulnerabilities catalog and enriched with its
+  CVSS base score from the NVD. An IP address is checked against the Spamhaus DROP list first, which
+  Spamhaus publishes free including commercial use with attribution, then the abuse.ch Feodo Tracker
+  botnet command-and-control blocklist and the URLhaus malware-host feed. A domain or URL is checked
+  against URLhaus. Answers THREAT_INTELLIGENCE. No API key. CISA KEV and the NVD are US Government
+  works in the public domain; the Spamhaus credit travels in every IP answer.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: indicator is an IP address, a domain, a URL or a CVE identifier to check. A whole question is accepted too.
+    param: indicator
+    property: length
+    value_num: 200
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is 1.2.3.4 a known malicious IP?".
+        The miner reads the indicator from it.
+    indicator:
+      type: string
+      description: An IP address, domain, URL or CVE identifier to check.
+    ip:
+      type: string
+      description: An IP address to check against the botnet and malware feeds.
+    domain:
+      type: string
+      description: A domain to check against the malware feed.
+    cve:
+      type: string
+      description: A CVE identifier to check against the CISA KEV catalog.
+
+output_schema:
+  type: object
+  properties:
+    indicator:
+      type: string
+      description: The indicator that was checked.
+    indicator_type:
+      type: string
+      description: The kind of indicator, one of cve, ip, domain, url or hash.
+    listed:
+      type: boolean
+      description: Whether the indicator is listed as a threat. Null when a feed was unavailable.
+    threat:
+      type: string
+      description: The threat category, when listed.
+    confidence:
+      type: number
+      description: Up to 0.96 for a confident feed read, 0.4 when a feed was unavailable.
+    summary:
+      type: string
+      description: One sentence giving the reputation verdict and the evidence behind it.
+    as_of:
+      type: string
+      description: Timestamp of the read.
+
+endpoints:
+  - path: /threat
+    external_path: /threat
+    method: GET
+    description: >
+      Check an indicator's reputation, indicator as a query parameter (?indicator=1.2.3.4 or ?cve=CVE-2024-1234).
+      Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - THREAT_INTELLIGENCE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: indicator
+        description: The indicator that was checked.
+        source_path: indicator
+      - index: 1
+        name: threat
+        description: The threat category, when listed.
+        source_path: threat
+      - index: 2
+        name: summary
+        description: One sentence giving the reputation verdict and the evidence behind it.
+        source_path: summary
+    integers: []
+  request:
+    - endpoint: threat
+      method: GET
+      query_params:
+        indicator: { source: strings.0 }

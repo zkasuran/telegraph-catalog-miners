@@ -1,0 +1,124 @@
+version: "1"
+kind: miner
+id: 7396
+slug: datawire-vendor-verify
+protocol: generic
+name: DataWire Vendor Verify
+description: >
+  Verify a vendor is a real, active, non-sanctioned legal entity, read live at request time. A legal
+  name or a Legal Entity Identifier is resolved against the Global LEI Index for its registered
+  identity, entity status and LEI registration status, then the resolved legal name is screened
+  against the US Treasury OFAC Specially Designated Nationals list. The answer leads with a verdict
+  (verified, caution, flagged or not found) and names both the registry status and the sanctions
+  result. Answers VENDOR_VERIFY. No API key. GLEIF LEI data is CC0 and the OFAC SDN list is a US
+  Government work in the public domain. A name match is not legal clearance.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: name is a vendor legal name and lei is a 20 character Legal Entity Identifier. A whole question is accepted too.
+    param: name
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Verify the vendor Siemens AG".
+        The miner reads the vendor name or LEI from it.
+    name:
+      type: string
+      description: The vendor legal name to verify, for example Siemens AG.
+    vendor:
+      type: string
+      description: The vendor legal name, an alias of name.
+    lei:
+      type: string
+      description: A 20 character Legal Entity Identifier to verify directly.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: The verdict, one of Verified, Caution, Flagged or Not found.
+    verified:
+      type: boolean
+      description: True only when the vendor resolves to an active entity with an issued LEI and no OFAC SDN match.
+    legal_name:
+      type: string
+      description: The resolved registered legal name.
+    lei:
+      type: string
+      description: The Legal Entity Identifier, when found.
+    entity_status:
+      type: string
+      description: The entity status, for example ACTIVE.
+    registration_status:
+      type: string
+      description: The LEI registration status, for example ISSUED.
+    sanctions:
+      type: object
+      description: The OFAC SDN screen result, including whether the list was available and the best match score.
+    confidence:
+      type: number
+      description: 0.92 for a direct GLEIF read with the SDN list available, lower on a fuzzy match or an unavailable list.
+    summary:
+      type: string
+      description: The verdict followed by the registry identity, the registration status and the sanctions result.
+    as_of:
+      type: string
+      description: Timestamp of the checks.
+
+endpoints:
+  - path: /vendor-verify
+    external_path: /vendor-verify
+    method: GET
+    description: >
+      Verify a vendor, as query parameters (?name=Siemens AG or ?lei=...). Also accepts a whole
+      question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - VENDOR_VERIFY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The vendor verification verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: summary
+        description: The verdict plus the registry identity, the registration status and the sanctions result.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: vendor-verify
+      method: GET
+      query_params:
+        name: { source: strings.1 }

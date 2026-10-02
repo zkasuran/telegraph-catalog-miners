@@ -1,0 +1,122 @@
+version: "1"
+kind: miner
+id: 7390
+slug: datawire-macro-economic-indicator
+protocol: generic
+name: DataWire Macro Economic Indicator
+description: >
+  A national macroeconomic figure for a named country, read live from World Bank Open Data at
+  request time and returned as one natural sentence: the indicator, its most recent value and the
+  year it is for. Covers GDP, GDP growth, GDP per capita, inflation, unemployment, population,
+  government debt and similar series. Answers MACRO_ECONOMIC_INDICATOR. No API key. World Bank Open
+  Data is CC BY 4.0, which permits commercial use with attribution.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: indicator names a series such as GDP, inflation or unemployment and country names a nation such as the United States, China or Germany. A whole question is accepted too.
+    param: indicator
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the current inflation
+        rate in Germany?". The miner reads the indicator and the country from it, so passing the
+        whole question works as well as naming them.
+    indicator:
+      type: string
+      description: Macroeconomic series to report, for example GDP, GDP growth, inflation, unemployment or population.
+    country:
+      type: string
+      description: Country name or ISO code, for example the United States, China, Germany or USA.
+
+output_schema:
+  type: object
+  properties:
+    indicator:
+      type: string
+      description: The World Bank indicator name the answer reports.
+    indicator_code:
+      type: string
+      description: The World Bank indicator code, for example NY.GDP.MKTP.CD.
+    country:
+      type: string
+      description: The country the figure is for.
+    country_code:
+      type: string
+      description: ISO3 country code.
+    value:
+      type: number
+      description: The most recent observed value of the indicator.
+    year:
+      type: string
+      description: The year the value is for.
+    confidence:
+      type: number
+      description: 0.95 for a direct World Bank read, lower when the series is not reported.
+    summary:
+      type: string
+      description: One sentence giving the indicator, the value and the year for the country.
+    as_of:
+      type: string
+      description: Timestamp of the read.
+
+endpoints:
+  - path: /macro
+    external_path: /macro
+    method: GET
+    description: >
+      One macroeconomic indicator for one country, as query parameters (?indicator=GDP&country=United States).
+      Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - MACRO_ECONOMIC_INDICATOR
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: indicator
+        description: The World Bank indicator name.
+        source_path: indicator
+      - index: 1
+        name: country
+        description: The country the figure is for.
+        source_path: country
+      - index: 2
+        name: summary
+        description: One sentence giving the indicator, the value and the year.
+        source_path: summary
+    integers:
+      - index: 0
+        name: value_x100
+        description: The indicator value scaled by one hundred to keep two decimals as an integer.
+        source_path: value
+        multiplier: 100
+  request:
+    - endpoint: macro
+      method: GET
+      query_params:
+        indicator: { source: strings.0 }
+        country: { source: strings.1 }

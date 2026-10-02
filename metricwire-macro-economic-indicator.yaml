@@ -1,0 +1,121 @@
+version: "1"
+kind: miner
+id: 7442
+slug: metricwire-macro-economic-indicator
+protocol: generic
+name: MetricWire Macro Economic Indicator
+description: >
+  A national macroeconomic figure, read live from World Bank Open Data (CC BY 4.0): inflation, GDP,
+  GDP growth, GDP per capita, unemployment, population, government debt and the current account. The
+  most recent annual observation for a country and an indicator is returned, with the observation
+  year stated because World Bank series lag. Answers the MACRO_ECONOMIC_INDICATOR intent. No API key.
+  Defaults to US consumer-price inflation. The figure is stated at several grains.
+base_url: https://telegraph-metric.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-metric.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: country is a name or ISO code such as US, Germany or JP. The indicator names the figure (inflation, GDP, GDP growth, unemployment, population, debt). A whole question is accepted too. Defaults to US inflation.
+    param: indicator
+    property: length
+    value_num: 64
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the current inflation rate
+        in the United States?". The miner reads the country and indicator from it.
+    country:
+      type: string
+      description: Country name or ISO code, for example US, Germany or JP.
+    indicator:
+      type: string
+      description: The indicator named, for example inflation, GDP, GDP growth or unemployment.
+
+output_schema:
+  type: object
+  properties:
+    country:
+      type: string
+      description: The country the figure is for.
+    country_code:
+      type: string
+      description: ISO code of the country.
+    indicator:
+      type: string
+      description: The World Bank indicator name.
+    indicator_code:
+      type: string
+      description: The World Bank indicator code, for example FP.CPI.TOTL.ZG.
+    value:
+      type: number
+      description: The most recent observed value.
+    year:
+      type: string
+      description: The observation year.
+    confidence:
+      type: number
+      description: 0.95 for a World Bank observation.
+    summary:
+      type: string
+      description: One sentence with the value at several grains, the indicator, the country and the year.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /macro
+    external_path: /macro
+    method: GET
+    description: >
+      A macroeconomic indicator for one country as query parameters (?country=US&indicator=inflation).
+      Also accepts a whole question in ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - MACRO_ECONOMIC_INDICATOR
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: country
+        description: The country the figure is for.
+        source_path: country
+      - index: 1
+        name: indicator
+        description: The World Bank indicator name.
+        source_path: indicator
+      - index: 2
+        name: summary
+        description: One sentence with the value, the indicator, the country and the year.
+        source_path: summary
+    integers:
+      - index: 0
+        name: value_x1000
+        description: The observed value, scaled by one thousand to keep three decimals as an integer.
+        source_path: value
+        multiplier: 1000
+  request:
+    - endpoint: macro
+      method: GET
+      query_params:
+        country: { source: strings.0 }
+        indicator: { source: strings.1 }

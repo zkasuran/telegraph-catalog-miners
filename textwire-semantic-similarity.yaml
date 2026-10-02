@@ -1,0 +1,96 @@
+version: "1"
+kind: miner
+id: 7443
+slug: textwire-semantic-similarity
+protocol: generic
+name: TextWire Semantic Similarity
+description: >
+  Semantic similarity between two sentences. The miner embeds both sentences with the MiniMax
+  embeddings model and reports their cosine similarity on a 0 to 1 scale with a short
+  explanation. When the embeddings endpoint is unavailable it falls back to a model judged
+  similarity score. The answer is produced with MiniMax under a commercial plan held by the
+  operator, so this miner is not keyless. Serves the SEMANTIC_SIMILARITY intent.
+base_url: https://telegraph-text.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-text.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: text1 is capped at 8000 characters. A single passage, not a batch.
+    param: text1
+    property: length
+    value_num: 8000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim. The miner reads the input from it, so
+        passing the whole question works as well as passing the fields on their own.
+    text1:
+      type: string
+      description: The first sentence.
+    text2:
+      type: string
+      description: The second sentence.
+
+output_schema:
+  type: object
+  properties:
+    summary:
+      type: string
+      description: The similarity stated in two sentences with the score.
+    cosine_similarity:
+      type: number
+      description: The measured cosine on a 0 to 1 scale when embeddings are available.
+    similarity:
+      type: number
+      description: The model judged similarity on a 0 to 1 scale when embeddings are not available.
+    measured:
+      type: boolean
+      description: True when the score is a measured cosine, false when it is a model judgment.
+    confidence:
+      type: number
+      description: 0.9 to 0.96 for a direct answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /similarity
+    external_path: /similarity
+    method: GET
+    description: >
+      The similarity of two sentences, passed as ?text1= and ?text2= (or a single ?text= split by a blank line).
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SEMANTIC_SIMILARITY
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: summary
+        description: The similarity explanation with the score.
+        source_path: summary
+  request:
+    - endpoint: similarity
+      method: GET
+      query_params:
+        text1: { source: strings.0 }

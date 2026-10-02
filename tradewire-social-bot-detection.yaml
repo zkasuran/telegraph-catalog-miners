@@ -1,0 +1,113 @@
+version: "1"
+kind: miner
+id: 7457
+slug: tradewire-social-bot-detection
+protocol: generic
+name: TradeWire Social Bot Detection
+description: >
+  Assess whether a social media account is automated, from the account signals in the request. Send
+  the follower and following counts, the account age, the post volume, the username and the profile
+  state. The miner derives the signals it can (the following to follower ratio, posting cadence
+  against account age, a username that is a word plus a long digit run, an empty profile), then
+  returns a clear verdict (likely automated, likely human, suspicious or insufficient information)
+  naming the decisive signal. The verdict is produced with MiniMax under a commercial plan held by
+  the operator and grounded in the derived signals, so this miner is not keyless. Serves the
+  SOCIAL_BOT_DETECTION intent.
+base_url: https://telegraph-trade.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: question is the account and its signals to assess. A single account, not a batch. The miner judges the described signals, it does not fetch a live account.
+    param: question
+    property: length
+    value_num: 8000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The account and its signals, verbatim, for example "account age 5 days, following 5000,
+        followers 10, 3000 posts, username spam_12345678, no bio". The miner reads the signals from it.
+    account:
+      type: string
+      description: The account and its signals to assess.
+    text:
+      type: string
+      description: The account signals text to assess.
+    followers:
+      type: integer
+      description: The follower count, read directly when supplied.
+    following:
+      type: integer
+      description: The following count, read directly when supplied.
+
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      description: The verdict, one of Likely automated, Likely human, Suspicious or Insufficient information.
+    summary:
+      type: string
+      description: The verdict followed by one or two sentences naming the decisive signals.
+    signals:
+      type: array
+      description: The concrete signals derived from the supplied account facts.
+    confidence:
+      type: number
+      description: 0.94 for a grounded model verdict, lower when degraded to the signal heuristics.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /bot-detect
+    external_path: /bot-detect
+    method: GET
+    description: >
+      Assess one account's automation signals, as a query parameter (?question=...). Also accepts
+      ?account=, ?text=, ?followers= or ?following=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SOCIAL_BOT_DETECTION
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: The automation verdict in a short phrase.
+        source_path: verdict
+      - index: 1
+        name: summary
+        description: The verdict plus the decisive signals.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: bot-detect
+      method: GET
+      query_params:
+        question: { source: strings.1 }

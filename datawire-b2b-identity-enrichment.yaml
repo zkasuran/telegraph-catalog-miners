@@ -1,0 +1,136 @@
+version: "1"
+kind: miner
+id: 7395
+slug: datawire-b2b-identity-enrichment
+protocol: generic
+name: DataWire B2B Identity Enrichment
+description: >
+  Enrich a business identity, read live at request time from the Global LEI Index. A legal name or a
+  Legal Entity Identifier returns the registered legal name, the LEI, the jurisdiction, the entity
+  status and category, the legal form, the registered and headquarters addresses, the LEI
+  registration status, the ultimate parent entity when one is reported and linked identifiers such
+  as BIC, OpenCorporates and S&P Global IDs. Answers B2B_IDENTITY_ENRICHMENT. No API key. GLEIF LEI
+  data is published under Creative Commons CC0.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: name is a company legal name and lei is a 20 character Legal Entity Identifier. A whole question is accepted too.
+    param: name
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Enrich the business identity of
+        Google LLC". The miner reads the company name or LEI from it.
+    name:
+      type: string
+      description: The company legal name to enrich, for example Google LLC.
+    lei:
+      type: string
+      description: A 20 character Legal Entity Identifier to enrich directly.
+    ticker:
+      type: string
+      description: A stock ticker to resolve to a company, for example MSFT.
+
+output_schema:
+  type: object
+  properties:
+    legal_name:
+      type: string
+      description: The registered legal name of the entity.
+    lei:
+      type: string
+      description: The Legal Entity Identifier.
+    jurisdiction:
+      type: string
+      description: The legal jurisdiction the entity is registered in.
+    entity_status:
+      type: string
+      description: The entity status, for example ACTIVE.
+    legal_form:
+      type: string
+      description: The entity's legal form code or description.
+    registration_status:
+      type: string
+      description: The LEI registration status, for example ISSUED.
+    headquarters_address:
+      type: string
+      description: The headquarters address of the entity.
+    ultimate_parent:
+      type: object
+      description: The ultimate parent entity's name and LEI, when GLEIF reports one.
+    identifiers:
+      type: object
+      description: Linked identifiers such as BIC, MIC, OpenCorporates and S&P Global IDs.
+    found:
+      type: boolean
+      description: Whether a registry record was found.
+    confidence:
+      type: number
+      description: 0.95 for a direct GLEIF read, 0.85 on a fuzzy name match.
+    summary:
+      type: string
+      description: One or two sentences giving the identity, the registration status, the ultimate parent and the linked identifiers.
+    as_of:
+      type: string
+      description: Timestamp of the read.
+
+endpoints:
+  - path: /enrich
+    external_path: /enrich
+    method: GET
+    description: >
+      Enrich a business identity, as query parameters (?name=Google LLC or ?lei=...). Also accepts a
+      whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - B2B_IDENTITY_ENRICHMENT
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: legal_name
+        description: The registered legal name of the entity.
+        source_path: legal_name
+      - index: 1
+        name: lei
+        description: The Legal Entity Identifier.
+        source_path: lei
+      - index: 2
+        name: summary
+        description: The identity, the registration status, the ultimate parent and the linked identifiers.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: enrich
+      method: GET
+      query_params:
+        name: { source: strings.0 }

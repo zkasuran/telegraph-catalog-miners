@@ -1,0 +1,110 @@
+version: "1"
+kind: miner
+id: 7392
+slug: datawire-sanctions-screening-match
+protocol: generic
+name: DataWire Sanctions Screening Match
+description: >
+  Whether a person, entity or vessel name appears on the US Treasury OFAC Specially Designated
+  Nationals (SDN) list, screened live at request time. The answer names the closest listed match,
+  its type and its sanctions program. It states plainly when the name is not on the list. A name
+  match is not identity confirmation and the answer says so. Answers SANCTIONS_SCREENING_MATCH. No
+  API key. The OFAC SDN list is a US Government work in the public domain.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: name is a person, entity or vessel name to screen against the OFAC SDN list. A whole question is accepted too.
+    param: name
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is Acme Trading Co on the OFAC
+        sanctions list?". The miner reads the name to screen from it.
+    name:
+      type: string
+      description: The person, entity or vessel name to screen against the OFAC SDN list.
+
+output_schema:
+  type: object
+  properties:
+    query:
+      type: string
+      description: The name that was screened.
+    match:
+      type: boolean
+      description: Whether the name matches an SDN entry. Null when the list was unavailable.
+    exact_match:
+      type: boolean
+      description: Whether the closest match is an exact or near-exact name match.
+    match_count:
+      type: integer
+      description: How many SDN entries matched.
+    matches:
+      type: array
+      description: The closest listed matches, each with name, type and program.
+    confidence:
+      type: number
+      description: Up to 0.93 for a confident screen, 0.4 when the list was unavailable.
+    summary:
+      type: string
+      description: One sentence stating whether the name is on the OFAC SDN list and the closest match.
+    as_of:
+      type: string
+      description: Timestamp of the screen.
+
+endpoints:
+  - path: /sanctions
+    external_path: /sanctions
+    method: GET
+    description: >
+      Screen a name against the OFAC SDN list, name as a query parameter (?name=...).
+      Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SANCTIONS_SCREENING_MATCH
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: query
+        description: The name that was screened.
+        source_path: query
+      - index: 1
+        name: summary
+        description: One sentence stating the screening result and the closest match.
+        source_path: summary
+    integers:
+      - index: 0
+        name: match_count
+        description: How many SDN entries matched.
+        source_path: match_count
+        multiplier: 1
+  request:
+    - endpoint: sanctions
+      method: GET
+      query_params:
+        name: { source: strings.0 }

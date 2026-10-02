@@ -1,0 +1,118 @@
+version: "1"
+kind: miner
+id: 7393
+slug: datawire-corporate-registry-lookup
+protocol: generic
+name: DataWire Corporate Registry Lookup
+description: >
+  A company's registered legal identity, read live at request time from the Global LEI Index. A
+  legal name or a Legal Entity Identifier returns the registered legal name, the legal jurisdiction,
+  the entity status, the registration status and the registered address. A US ticker with no LEI
+  match falls back to the SEC EDGAR registrant record. Answers CORPORATE_REGISTRY_LOOKUP. No API
+  key. GLEIF LEI data is published under Creative Commons CC0 and SEC EDGAR is a US Government work.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: name is a company legal name, lei is a 20 character Legal Entity Identifier and ticker is a stock symbol. A whole question is accepted too.
+    param: name
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Where is Apple Inc registered?".
+        The miner reads the company name, ticker or LEI from it.
+    name:
+      type: string
+      description: The company legal name to look up, for example Apple Inc.
+    lei:
+      type: string
+      description: A 20 character Legal Entity Identifier to look up directly.
+    ticker:
+      type: string
+      description: A stock ticker to resolve, for example AAPL.
+
+output_schema:
+  type: object
+  properties:
+    legal_name:
+      type: string
+      description: The registered legal name of the entity.
+    lei:
+      type: string
+      description: The Legal Entity Identifier, when found in GLEIF.
+    jurisdiction:
+      type: string
+      description: The legal jurisdiction the entity is registered in.
+    entity_status:
+      type: string
+      description: The entity status, for example ACTIVE.
+    registered_address:
+      type: string
+      description: The registered address of the entity.
+    found:
+      type: boolean
+      description: Whether a registry record was found.
+    confidence:
+      type: number
+      description: 0.95 for a direct GLEIF or SEC read, lower on a fuzzy or missing match.
+    summary:
+      type: string
+      description: One sentence giving the legal name, identifier, jurisdiction, status and address.
+    as_of:
+      type: string
+      description: Timestamp of the read.
+
+endpoints:
+  - path: /company
+    external_path: /company
+    method: GET
+    description: >
+      Look up a company's registered identity, as query parameters (?name=Apple Inc or ?lei=... or ?ticker=AAPL).
+      Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - CORPORATE_REGISTRY_LOOKUP
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: legal_name
+        description: The registered legal name of the entity.
+        source_path: legal_name
+      - index: 1
+        name: lei
+        description: The Legal Entity Identifier, when found.
+        source_path: lei
+      - index: 2
+        name: summary
+        description: One sentence giving the legal name, identifier, jurisdiction, status and address.
+        source_path: summary
+    integers: []
+  request:
+    - endpoint: company
+      method: GET
+      query_params:
+        name: { source: strings.0 }

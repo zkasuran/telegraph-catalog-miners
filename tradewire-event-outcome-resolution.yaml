@@ -1,0 +1,107 @@
+version: "1"
+kind: miner
+id: 7456
+slug: tradewire-event-outcome-resolution
+protocol: generic
+name: TradeWire Event Outcome Resolution
+description: >
+  Resolve the settled outcome of a named public event, read live at request time from English
+  Wikipedia. Send the event, for example a match, an election or a tournament final. The miner
+  finds the best-matching Wikipedia article, reads its summary and returns the outcome, the winner,
+  the final score or the result, with the source article link. English Wikipedia is CC BY-SA 4.0,
+  which permits commercial use and redistribution with attribution and share-alike, so the credit
+  travels in the answer. No API key. Serves the EVENT_OUTCOME_RESOLUTION intent.
+base_url: https://telegraph-trade.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: event is the public event to resolve, named specifically with the year or the participants. A whole question is accepted too.
+    param: event
+    property: length
+    value_num: 300
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Who won the 2022 FIFA World Cup
+        final?". The miner reads the event from it.
+    event:
+      type: string
+      description: The public event to resolve, for example "2024 UEFA Champions League final".
+    query:
+      type: string
+      description: The event to resolve, an alias of event.
+
+output_schema:
+  type: object
+  properties:
+    resolved:
+      type: boolean
+      description: Whether an outcome was resolved from Wikipedia.
+    article:
+      type: string
+      description: The title of the Wikipedia article the outcome was read from.
+    source_url:
+      type: string
+      description: The link to the Wikipedia article.
+    confidence:
+      type: number
+      description: 0.9 for a model-stated outcome from the article, 0.8 for the article extract itself.
+    summary:
+      type: string
+      description: One or two sentences stating the outcome, the winner, the score or the result.
+    as_of:
+      type: string
+      description: Timestamp of the read.
+
+endpoints:
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    description: >
+      Resolve a public event's outcome, as a query parameter (?event=... or ?question=...).
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - EVENT_OUTCOME_RESOLUTION
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: summary
+        description: The outcome, the winner, the score or the result.
+        source_path: summary
+      - index: 1
+        name: article
+        description: The Wikipedia article the outcome was read from.
+        source_path: article
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: event-outcome
+      method: GET
+      query_params:
+        event: { source: strings.0 }

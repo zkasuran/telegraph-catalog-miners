@@ -1,0 +1,99 @@
+version: "1"
+kind: miner
+id: 7435
+slug: codewire-smart-contract-audit
+protocol: generic
+name: CodeWire Smart Contract Audit
+description: >
+  SMART_CONTRACT_AUDIT answers that audit a smart contract for security vulnerabilities, produced by a language model at request time. Send the contract source as the contract parameter or pass the whole question. The miner gives an overall risk verdict then names each finding by its class (reentrancy, access control, unchecked external call and so on), the function it affects, its severity and the recommended fix.
+
+  The answer is produced with MiniMax under a commercial plan held by the operator, so this miner is not keyless. Serves the SMART_CONTRACT_AUDIT intent.
+base_url: https://telegraph-code.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-code.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: contract is the input to work on. A single request, not a batch.
+    param: contract
+    property: length
+    value_num: 20000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim. The miner reads the input from it, so passing the
+        whole question works as well as passing the input on its own.
+    contract:
+      type: string
+      description: The smart contract source to audit, if supplied on its own.
+    solidity:
+      type: string
+      description: The Solidity source to audit, an alternative name for the contract.
+
+output_schema:
+  type: object
+  properties:
+    headline:
+      type: string
+      description: The first sentence of the answer, a short label for a reader.
+    summary:
+      type: string
+      description: The SMART_CONTRACT_AUDIT answer the node grades.
+    confidence:
+      type: number
+      description: 0.95 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /contract-audit
+    external_path: /contract-audit
+    method: GET
+    description: >
+      Answer one request, the input as a query parameter (?contract=...). Also accepts the whole question in
+      ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SMART_CONTRACT_AUDIT
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: headline
+        description: The first sentence of the answer.
+        source_path: headline
+      - index: 1
+        name: summary
+        description: The SMART_CONTRACT_AUDIT answer.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: contract-audit
+      method: GET
+      query_params:
+        contract: { source: strings.1 }

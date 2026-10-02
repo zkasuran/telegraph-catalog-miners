@@ -1,0 +1,121 @@
+version: "1"
+kind: miner
+id: 7441
+slug: metricwire-grid-power-price
+protocol: generic
+name: MetricWire Grid Power Price
+description: >
+  Day-ahead wholesale electricity price for a European bidding zone, read live from Energy-Charts
+  (Fraunhofer ISE), whose response carries its own CC BY 4.0 licence from Bundesnetzagentur and
+  SMARD.de. The price for the current hour is reported in EUR/MWh with the EUR/kWh and euro-cent
+  equivalents, plus the day's range. Answers the GRID_POWER_PRICE intent. No API key. Defaults to the
+  German-Luxembourg zone when none is named. Every figure is stated at several grains.
+base_url: https://telegraph-metric.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-metric.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: zone is a bidding-zone code such as DE-LU, FR, ES, NL or a country name. A whole question is accepted too. Defaults to DE-LU when unfilled. Coverage is the European day-ahead market.
+    param: zone
+    property: length
+    value_num: 48
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the day-ahead electricity
+        price in France?". The miner reads the zone from it.
+    zone:
+      type: string
+      description: Bidding-zone code such as DE-LU, FR, ES, NL or a country name such as Germany.
+
+output_schema:
+  type: object
+  properties:
+    zone:
+      type: string
+      description: The bidding zone the price is for.
+    price_eur_mwh:
+      type: number
+      description: Day-ahead price for the current hour, EUR per MWh.
+    price_eur_kwh:
+      type: number
+      description: The same price in EUR per kWh.
+    price_ct_kwh:
+      type: number
+      description: The same price in euro cents per kWh.
+    day_min_eur_mwh:
+      type: number
+      description: Minimum day-ahead price across the day, EUR per MWh.
+    day_max_eur_mwh:
+      type: number
+      description: Maximum day-ahead price across the day, EUR per MWh.
+    day_avg_eur_mwh:
+      type: number
+      description: Average day-ahead price across the day, EUR per MWh.
+    confidence:
+      type: number
+      description: 0.95 for a live day-ahead read.
+    summary:
+      type: string
+      description: One sentence with the current-hour price at several grains and the day's range.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /power
+    external_path: /power
+    method: GET
+    description: >
+      Day-ahead electricity price for one bidding zone as a query parameter (?zone=DE-LU). Also
+      accepts a whole question in ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - GRID_POWER_PRICE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: zone
+        description: The bidding zone the price is for.
+        source_path: zone
+      - index: 1
+        name: summary
+        description: One sentence with the current-hour price and the day's range.
+        source_path: summary
+    integers:
+      - index: 0
+        name: price_eur_mwh_x100
+        description: Current-hour price in EUR/MWh, scaled by one hundred to keep two decimals.
+        source_path: price_eur_mwh
+        multiplier: 100
+      - index: 1
+        name: price_ct_kwh_x1000
+        description: Current-hour price in euro cents per kWh, scaled by one thousand.
+        source_path: price_ct_kwh
+        multiplier: 1000
+  request:
+    - endpoint: power
+      method: GET
+      query_params:
+        zone: { source: strings.0 }

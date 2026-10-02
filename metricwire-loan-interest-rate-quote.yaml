@@ -1,0 +1,121 @@
+version: "1"
+kind: miner
+id: 7443
+slug: metricwire-loan-interest-rate-quote
+protocol: generic
+name: MetricWire Loan Interest Rate Quote
+description: >
+  A country's bank lending interest rate, the national benchmark a loan is priced against, read live
+  from World Bank Open Data (CC BY 4.0). The deposit rate, the real interest rate and the
+  lending-deposit spread travel alongside it. The answer states plainly that this is the national
+  rate, not a quote for an individual loan, because no keyless commercial-clean source of a
+  personalised retail quote exists. Answers the LOAN_INTEREST_RATE_QUOTE intent. No API key.
+base_url: https://telegraph-metric.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-metric.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: country is a name or ISO code such as US, India or BR. A whole question is accepted too. Defaults to the United States. The figure is a national benchmark lending rate, not a personalised loan quote.
+    param: country
+    property: length
+    value_num: 48
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the loan interest rate in
+        India?". The miner reads the country from it.
+    country:
+      type: string
+      description: Country name or ISO code, for example US, India or BR.
+
+output_schema:
+  type: object
+  properties:
+    country:
+      type: string
+      description: The country the rate is for.
+    country_code:
+      type: string
+      description: ISO code of the country.
+    lending_rate_percent:
+      type: number
+      description: Bank lending interest rate, annual percent.
+    deposit_rate_percent:
+      type: number
+      description: Deposit interest rate, annual percent, when published.
+    real_interest_rate_percent:
+      type: number
+      description: Real interest rate, annual percent, when published.
+    spread_percent:
+      type: number
+      description: Lending-deposit interest rate spread, when published.
+    year:
+      type: string
+      description: The observation year.
+    confidence:
+      type: number
+      description: 0.9 for a World Bank lending-rate observation.
+    summary:
+      type: string
+      description: One sentence with the lending rate at several grains, the country and the year.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /loan
+    external_path: /loan
+    method: GET
+    description: >
+      The national bank lending interest rate for one country as a query parameter (?country=US).
+      Also accepts a whole question in ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - LOAN_INTEREST_RATE_QUOTE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: country
+        description: The country the rate is for.
+        source_path: country
+      - index: 1
+        name: summary
+        description: One sentence with the lending rate, the country and the year.
+        source_path: summary
+    integers:
+      - index: 0
+        name: lending_rate_x1000
+        description: Lending interest rate percent, scaled by one thousand to keep three decimals.
+        source_path: lending_rate_percent
+        multiplier: 1000
+      - index: 1
+        name: deposit_rate_x1000
+        description: Deposit interest rate percent, scaled by one thousand.
+        source_path: deposit_rate_percent
+        multiplier: 1000
+  request:
+    - endpoint: loan
+      method: GET
+      query_params:
+        country: { source: strings.0 }

@@ -1,0 +1,126 @@
+version: "1"
+kind: miner
+id: 7446
+slug: metricwire-live-shelf-price
+protocol: generic
+name: MetricWire Live Shelf Price
+description: >
+  The most recent recorded in-store shelf price for a product, read live from Open Prices (Open Food
+  Facts), Open Database Licence. A barcode filters prices directly; a product name is resolved to a
+  barcode through the Open Food Facts product search first, then priced. The price, its currency, the
+  store, the place and the date are reported. The answer says plainly when it is serving the
+  latest available match rather than an exact product. Answers the LIVE_SHELF_PRICE intent. No API key.
+base_url: https://telegraph-metric.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-metric.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: code is a product barcode. Pass a product name as the question for a name match. Coverage follows Open Prices, a crowdsourced open dataset, so a well-known product or barcode returns the best match.
+    param: code
+    property: length
+    value_num: 64
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What is the shelf price of
+        Nutella?". The miner reads a barcode or a product name from it.
+    code:
+      type: string
+      description: A product barcode, for example 3017620422003.
+    category:
+      type: string
+      description: An Open Food Facts category tag, for example en:chocolate-spreads.
+
+output_schema:
+  type: object
+  properties:
+    product:
+      type: string
+      description: The product the price is for.
+    product_code:
+      type: string
+      description: The product barcode.
+    price:
+      type: number
+      description: The recorded shelf price.
+    currency:
+      type: string
+      description: The currency of the price, for example EUR or USD.
+    store:
+      type: string
+      description: The store where the price was recorded, when known.
+    city:
+      type: string
+      description: The city of the store, when known.
+    country:
+      type: string
+      description: The country of the store, when known.
+    date:
+      type: string
+      description: The date the price was recorded.
+    confidence:
+      type: number
+      description: 0.9 for a matched product, 0.6 for the latest available match.
+    summary:
+      type: string
+      description: One sentence with the price at several grains, the product, the store and the date.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /shelf
+    external_path: /shelf
+    method: GET
+    description: >
+      The most recent shelf price for a product by barcode (?code=3017620422003) or by name in
+      ?question=. Also accepts a category tag in ?category=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - LIVE_SHELF_PRICE
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: product
+        description: The product the price is for.
+        source_path: product
+      - index: 1
+        name: currency
+        description: The currency of the price.
+        source_path: currency
+      - index: 2
+        name: summary
+        description: One sentence with the price, the product, the store and the date.
+        source_path: summary
+    integers:
+      - index: 0
+        name: price_x100
+        description: The recorded shelf price, scaled by one hundred to keep two decimals.
+        source_path: price
+        multiplier: 100
+  request:
+    - endpoint: shelf
+      method: GET
+      query_params:
+        code: { source: strings.0 }

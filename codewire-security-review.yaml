@@ -1,0 +1,99 @@
+version: "1"
+kind: miner
+id: 7434
+slug: codewire-security-review
+protocol: generic
+name: CodeWire Security Review
+description: >
+  SECURITY_REVIEW answers that review code or a system for security vulnerabilities, produced by a reasoning language model at request time. Send the code as the code parameter or pass the whole question. The miner states whether there are vulnerabilities then names each one by its class, where it occurs, its severity, how it could be exploited and the concrete fix, covering input validation, authentication, authorization, data handling and cryptography.
+
+  The answer is produced with MiniMax under a commercial plan held by the operator, so this miner is not keyless. Serves the SECURITY_REVIEW intent.
+base_url: https://telegraph-code.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-code.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: code is the input to work on. A single request, not a batch.
+    param: code
+    property: length
+    value_num: 20000
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim. The miner reads the input from it, so passing the
+        whole question works as well as passing the input on its own.
+    code:
+      type: string
+      description: The code or system to review for security, if supplied on its own.
+    source:
+      type: string
+      description: The source to review, an alternative name for the code.
+
+output_schema:
+  type: object
+  properties:
+    headline:
+      type: string
+      description: The first sentence of the answer, a short label for a reader.
+    summary:
+      type: string
+      description: The SECURITY_REVIEW answer the node grades.
+    confidence:
+      type: number
+      description: 0.95 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+
+endpoints:
+  - path: /security-review
+    external_path: /security-review
+    method: GET
+    description: >
+      Answer one request, the input as a query parameter (?code=...). Also accepts the whole question in
+      ?question= or ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - SECURITY_REVIEW
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: headline
+        description: The first sentence of the answer.
+        source_path: headline
+      - index: 1
+        name: summary
+        description: The SECURITY_REVIEW answer.
+        source_path: summary
+    integers:
+      - index: 0
+        name: confidence_x100
+        description: Confidence in the answer, scaled by one hundred to keep two digits as an integer.
+        source_path: confidence
+        multiplier: 100
+  request:
+    - endpoint: security-review
+      method: GET
+      query_params:
+        code: { source: strings.1 }

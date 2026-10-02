@@ -1,0 +1,116 @@
+version: "1"
+kind: miner
+id: 7391
+slug: datawire-regulatory-filing-monitor
+protocol: generic
+name: DataWire Regulatory Filing Monitor
+description: >
+  The most recent regulatory filings for a company or a topic, read live at request time. A company
+  or ticker returns that filer's latest SEC EDGAR submission with its form and date. A free-text
+  topic returns the SEC EDGAR full-text search count and the most relevant filing. A regulation or
+  rule topic returns the latest US Federal Register document. Answers REGULATORY_FILING_MONITOR. No
+  API key. SEC EDGAR and the Federal Register are US Government works, free to access and reuse.
+base_url: https://telegraph-data.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: company names a filer such as Apple or a ticker such as AAPL, query names a topic and form names an SEC form such as 10-K. A whole question is accepted too.
+    param: company
+    property: length
+    value_num: 120
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "What was Apple's most recent SEC
+        filing?". The miner reads the company, ticker, form or topic from it.
+    company:
+      type: string
+      description: Company name or ticker to monitor, for example Apple or AAPL.
+    query:
+      type: string
+      description: A topic to search filings for, for example artificial intelligence disclosure.
+    form:
+      type: string
+      description: An SEC form type to filter to, for example 10-K, 8-K or 13F.
+
+output_schema:
+  type: object
+  properties:
+    company:
+      type: string
+      description: The company the answer is about, when a filer was resolved.
+    cik:
+      type: string
+      description: The SEC Central Index Key of the filer, when resolved.
+    ticker:
+      type: string
+      description: The filer's ticker symbols, when resolved.
+    match_count:
+      type: integer
+      description: How many filings matched.
+    latest_filing:
+      type: object
+      description: The most recent matching filing, with its form and date.
+    confidence:
+      type: number
+      description: 0.95 for a resolved filer read, lower when nothing matched.
+    summary:
+      type: string
+      description: One sentence naming the most recent matching filing and how many matched.
+    as_of:
+      type: string
+      description: Timestamp of the read.
+
+endpoints:
+  - path: /filing
+    external_path: /filing
+    method: GET
+    description: >
+      Recent filings for a company or a topic, as query parameters (?company=Apple or ?query=...&form=10-K).
+      Also accepts a whole question in ?question=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - REGULATORY_FILING_MONITOR
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: company
+        description: The company the answer is about, else the topic searched.
+        source_path: company
+      - index: 1
+        name: summary
+        description: One sentence naming the most recent matching filing and the count.
+        source_path: summary
+    integers:
+      - index: 0
+        name: match_count
+        description: How many filings matched.
+        source_path: match_count
+        multiplier: 1
+  request:
+    - endpoint: filing
+      method: GET
+      query_params:
+        company: { source: strings.0 }
