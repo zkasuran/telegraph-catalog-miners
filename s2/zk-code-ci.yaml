@@ -1,0 +1,144 @@
+version: '1'
+kind: miner
+id: 71621
+slug: zk-code-ci
+protocol: generic
+name: Code Evidence CI
+description: Read the reported result of one exact public GitHub Actions run or run
+  attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL, optionally
+  ending /attempts/N. No code is run by this miner. This checks the selected workflow
+  only and does not prove a defect fix or all repository tests.
+base_url: https://telegraph-s2-code-evidence.margyn.workers.dev
+docs:
+  documentation: https://telegraph-s2-code-evidence.margyn.workers.dev/
+limitations:
+- code: MAX_PARAM_SIZE
+  message: Input is limited to 512 UTF-8 bytes.
+  param: patch
+  property: size_bytes
+  value_bytes: 512
+  operator: lte
+- code: PUBLIC_API_QUOTA
+  message: At most 15 calls per hour for this descriptor. Both descriptors share a
+    keyless GitHub API source.
+  property: rate
+  value_num: 15
+  window_seconds: 3600
+rate_limit_per_sec: 0.004
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values:
+  - ok
+input_schema:
+  type: object
+  required:
+  - patch
+  additionalProperties: false
+  properties:
+    patch:
+      type: string
+      maxLength: 512
+      description: Read the reported result of one exact public GitHub Actions run
+        or run attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL,
+        optionally ending /attempts/N. No code is run by this miner. This checks the
+        selected workflow only and does not prove a defect fix or all repository tests.
+output_schema:
+  type: object
+  properties:
+    conclusion:
+      type:
+      - string
+      - 'null'
+      description: Result of the CI run or check for the patch
+      enum:
+      - success
+      - failure
+      - cancelled
+      - skipped
+      - neutral
+      - timed_out
+      - pending
+      - null
+    passed:
+      type:
+      - boolean
+      - 'null'
+      description: Whether the patch's checks / tests passed
+    commit:
+      type:
+      - string
+      - 'null'
+      description: Commit SHA or ref checked
+    pipeline:
+      type:
+      - string
+      - 'null'
+      description: Name or URL of the CI run or pipeline
+    status:
+      type: string
+      enum:
+      - ok
+      - unavailable
+    summary:
+      type: string
+    confidence:
+      type: number
+    source:
+      type:
+      - string
+      - 'null'
+    as_of:
+      type: string
+endpoints:
+- path: /patch
+  external_path: /patch
+  method: GET
+  description: Read the reported result of one exact public GitHub Actions run or
+    run attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL, optionally
+    ending /attempts/N. No code is run by this miner. This checks the selected workflow
+    only and does not prove a defect fix or all repository tests.
+  intents:
+  - CODE_PATCH_VERIFY_GENERAL
+  params:
+    query:
+      required:
+      - name: patch
+        type: string
+        intents:
+        - CODE_PATCH_VERIFY_GENERAL
+        description: Read the reported result of one exact public GitHub Actions run
+          or run attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID
+          URL, optionally ending /attempts/N. No code is run by this miner. This checks
+          the selected workflow only and does not prove a defect fix or all repository
+          tests.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents:
+  - CODE_PATCH_VERIFY_GENERAL
+intent_mapping:
+  CODE_PATCH_VERIFY_GENERAL:
+    endpoint: /patch
+    input:
+      patch:
+        from: patch
+        how: Read the reported result of one exact public GitHub Actions run or run
+          attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL, optionally
+          ending /attempts/N. No code is run by this miner. This checks the selected
+          workflow only and does not prove a defect fix or all repository tests.
+    output:
+      conclusion:
+        path: conclusion
+      passed:
+        path: passed
+      commit:
+        path: commit
+      pipeline:
+        path: pipeline
