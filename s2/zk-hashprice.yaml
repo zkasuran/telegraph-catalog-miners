@@ -1,0 +1,111 @@
+version: "1"
+kind: miner
+id: 71083
+slug: zk-hashprice
+protocol: generic
+name: Bitcoin Block Hashprice
+description: >-
+  Computes Bitcoin gross expected hashprice at an exact block height in sats per PH/s per day.
+  Reads keyless public block facts from mempool.space and verifies the block header, proof-of-work target and difficulty before answering.
+  Shows the reward, subsidy, fees and formula for audit; no historical USD exchange rate is assumed.
+base_url: https://telegraph-s2-hashprice.margyn.workers.dev
+auth:
+  type: none
+docs:
+  website: https://telegraph-s2-hashprice.margyn.workers.dev/health
+  documentation: https://docs.telegraphprotocol.com/miners/yaml-config
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Bitcoin block_height must be an integer from 0 to 100000000; the exact block must exist and its result must fit the intent range.
+    param: block_height
+    property: value
+    value_num: 100000000
+    operator: lte
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+input_schema:
+  type: object
+  properties:
+    block_height:
+      type: integer
+      minimum: 0
+      maximum: 100000000
+      description: Exact Bitcoin mainnet block height; required for a numerical answer.
+output_schema:
+  type: object
+  properties:
+    hashprice_sats_per_ph_day: {type: [number, "null"], description: Gross expected sats per PH/s per day rounded to six decimals.}
+    block_height: {type: [integer, "null"]}
+    hashrate_eh_s: {type: [number, "null"], description: Difficulty-implied network hashrate in EH/s with a 600-second block interval.}
+    hashprice_usd_per_ph_day: {type: [number, "null"], description: Unavailable without an independently fetched historical BTC/USD rate.}
+    status: {type: string, enum: [ok, unavailable]}
+    summary: {type: string}
+    confidence: {type: number}
+    source: {type: [string, "null"]}
+    as_of: {type: [string, "null"]}
+    fetched_at: {type: string}
+    block_hash: {type: string}
+    difficulty: {type: number}
+    difficulty_bits: {type: integer}
+    target_hex: {type: string}
+    block_reward_sats: {type: integer}
+    subsidy_sats: {type: integer}
+    fees_sats: {type: integer}
+    formula: {type: string}
+    hashrate_formula: {type: string}
+    methodology: {type: string}
+    attribution: {type: string}
+    block_time: {type: string}
+    usd_unavailable_reason: {type: string}
+    verification: {type: object}
+    error: {type: object}
+    diagnostic: {type: string}
+endpoints:
+  - path: /hashprice
+    external_path: /hashprice
+    method: GET
+    description: >-
+      Calculate Bitcoin hashprice at exactly block_height using that block's own subsidy plus fees and difficulty.
+      Supply block_height in the query string, never in a path template.
+      Returns hashprice_sats_per_ph_day in sats per PH/s per day, hashrate_eh_s, auditable inputs and source time.
+      Missing, unverified or out-of-range data returns status unavailable with null numerical results.
+    intents: [MINING_HASHPRICE_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: block_height
+            type: integer
+            intents: [MINING_HASHPRICE_VERIFY_GENERAL]
+            description: Exact Bitcoin mainnet height from 0 to 100000000; use plain integer digits, for example 840000.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [MINING_HASHPRICE_VERIFY_GENERAL]
+intent_mapping:
+  MINING_HASHPRICE_VERIFY_GENERAL:
+    endpoint: /hashprice
+    input:
+      block_height:
+        from: block_height
+        how: Preserve the exact requested Bitcoin block height as an integer; never substitute the current height.
+    output:
+      hashprice_sats_per_ph_day:
+        path: hashprice_sats_per_ph_day
+        unit: sats per PH/s per day
+      block_height:
+        path: block_height
+      hashrate_eh_s:
+        path: hashrate_eh_s
+        unit: EH/s
+      hashprice_usd_per_ph_day:
+        path: hashprice_usd_per_ph_day
+        unit: USD per PH/s per day
