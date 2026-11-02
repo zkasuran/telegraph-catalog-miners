@@ -1,0 +1,70 @@
+version: '1'
+kind: miner
+id: 71074
+slug: zk-taskq-fields
+protocol: generic
+name: Task Quality Field Preservation
+description: Assesses a supplied result against its task through the existing MiniMax-backed
+  worker. The separate task and result fields are passed together. This proposal requires
+  the candidate worker and a verified commercial-use licence before registration.
+base_url: https://telegraph-assist.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required:
+  - task
+  - result
+  properties:
+    task:
+      type: string
+      description: The complete task including its rubric or required schema.
+    result:
+      type: string
+      description: The actual result to judge. JSON values must be sent as their JSON
+        text.
+output_schema:
+  type: object
+  properties:
+    summary:
+      type: string
+    headline:
+      type: string
+    confidence:
+      type: number
+    as_of:
+      type: string
+endpoints:
+- path: /task-quality
+  external_path: /task-quality
+  method: GET
+  description: Assess the supplied result against the supplied task. Preserve both
+    query values verbatim, including any schema or rubric inside task.
+  intents:
+  - TASK_EXECUTION_QUALITY_GENERAL
+  params:
+    query:
+      required:
+      - name: task
+        type: string
+        intents:
+        - TASK_EXECUTION_QUALITY_GENERAL
+        description: The task verbatim, with the complete constraints, schema and
+          rubric.
+      - name: result
+        type: string
+        intents:
+        - TASK_EXECUTION_QUALITY_GENERAL
+        description: The execution result verbatim. It is not part of task and must
+          not be dropped.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents:
+  - TASK_EXECUTION_QUALITY_GENERAL
