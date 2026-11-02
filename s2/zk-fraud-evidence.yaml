@@ -1,0 +1,84 @@
+version: '1'
+kind: miner
+id: 742101
+slug: zk-fraud-evidence
+protocol: generic
+name: RiskWire Sourced Fraud Evidence
+base_url: https://telegraph-risk.margyn.workers.dev
+description: Keyless evidence-only assessment of documented historical fraud cases,
+  with attributed source excerpts and explicit abstention outside covered records.
+  A binary historical-case flag is not a calibrated probability. Allegations retain
+  their legal status and have no numeric probability estimate.
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+endpoints:
+- path: /fraud-check
+  external_path: /fraud-check
+  method: GET
+  description: Assess one documented historical fraud case. Provide the canonical
+    subject verbatim. Unknown subjects, unrelated transactions and ambiguous requests
+    return INCONCLUSIVE with null risk_score.
+  intents:
+  - FRAUD_DETECTION_GENERAL
+  params:
+    query:
+      required:
+      - name: subject
+        type: string
+        intents:
+        - '*'
+        description: The entity or historical fraud case to assess, verbatim; maximum
+          8000 characters.
+input_schema:
+  type: object
+  required:
+  - subject
+  properties:
+    subject:
+      type: string
+      maxLength: 8000
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+    risk_score:
+      type:
+      - number
+      - 'null'
+      minimum: 0
+      maximum: 1
+    summary:
+      type: string
+    signals:
+      type: array
+      items:
+        type: string
+intent_mapping:
+  FRAUD_DETECTION_GENERAL:
+    endpoint: /fraud-check
+    input:
+      subject:
+        from: subject
+    output:
+      subject:
+        path: subject
+      verdict:
+        path: verdict
+      risk_score:
+        path: risk_score
+        unit: fraction (0-1)
+      signals:
+        path: signals
+      summary:
+        path: summary
+semantics:
+  supported_intents:
+  - FRAUD_DETECTION_GENERAL
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+docs:
+  documentation: https://telegraph-risk.margyn.workers.dev/
