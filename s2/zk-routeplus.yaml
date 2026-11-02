@@ -1,0 +1,107 @@
+version: "1"
+kind: miner
+id: 78464
+slug: zk-routeplus
+protocol: generic
+name: RoutePlus Block-Pinned Ethereum Routing
+description: >
+  Keyless exact-input quotes for selling exactly 1 ETH into Ethereum USDC.
+  Compares Uniswap V2 and V3 direct and DAI/USDT two-hop routes and quarter-ETH
+  split allocations across independent direct pools in one read-only RPC call.
+  Returns the highest gross USDC output in this bounded search with block,
+  pool addresses, fee tiers, full candidate comparisons and reproducible evidence.
+base_url: https://telegraph-s2-routeplus.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: ACCOUNT_QUOTA
+    message: This miner conservatively caps node traffic at 200 calls per day.
+    property: rate
+    value_num: 200
+    window_seconds: 86400
+  - code: MAX_PARAM_SIZE
+    message: The fixed ETH/USDC enum is at most 32 bytes.
+    param: pair
+    property: size_bytes
+    value_bytes: 32
+    operator: lte
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+endpoints:
+  - path: /route
+    external_path: /route
+    method: GET
+    description: >
+      Sell exactly 1000000000000000000 wei of ETH for Ethereum mainnet USDC;
+      send pair=ETH/USDC. Returns amount_out as integer USDC base units (six
+      token decimals), including pool fees and price impact, excluding network
+      gas. Compare four V3 direct pools, eight V3 two-hop paths through DAI/USDT,
+      three V2 paths and quarter-ETH splits across five independent direct pools.
+      ETH wraps into WETH 1:1. A bare path or literal {pair} probe uses this fixed trade.
+    intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+    params:
+      query:
+        required:
+          - name: pair
+            type: string
+            intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+            description: Fixed canonical ETH/USDC enum; exactly 1 ETH sold on Ethereum.
+            accepted_fields:
+              - value: ETH/USDC
+                intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+                description: Exactly 1 ETH into Ethereum USDC.
+input_schema:
+  type: object
+  additionalProperties: false
+  required: [pair]
+  properties:
+    pair:
+      type: string
+      enum: [ETH/USDC]
+      maxLength: 32
+output_schema:
+  type: object
+  required: [status, summary, source, as_of]
+  properties:
+    amount_out:
+      type: integer
+      minimum: 100000000
+      maximum: 100000000000
+      description: USDC base units; 1000000 base units equal 1 USDC.
+    status: {type: string, enum: [ok, unavailable]}
+    summary: {type: string}
+    source: {type: [string, "null"]}
+    as_of: {type: [string, "null"]}
+    observed_at: {type: string}
+    attribution: {type: string}
+    readings: {type: object}
+    error: {type: object}
+  allOf:
+    - if:
+        properties:
+          status: {const: ok}
+      then:
+        required: [amount_out, readings, observed_at]
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+intent_mapping:
+  OPTIMAL_EXECUTION_ROUTE_GENERAL:
+    endpoint: /route
+    input:
+      pair:
+        from: pair
+        how: Preserve ETH/USDC exactly; size is fixed to 1 ETH and chain is Ethereum.
+    output:
+      amount_out:
+        path: amount_out
+        unit: USDC base units (6 decimals)
