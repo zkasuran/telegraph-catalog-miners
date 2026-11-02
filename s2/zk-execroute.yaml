@@ -1,0 +1,105 @@
+version: "1"
+kind: miner
+id: 70282
+slug: zk-execroute
+protocol: generic
+name: ZK Ethereum Execution Route
+description: >-
+  Keyless Ethereum mainnet quotes for exactly 1 ETH into USDC using MEV Blocker public RPC.
+  Compares eight fixed Uniswap V2/V3 direct and multi-hop routes at one block.
+  Reports the highest output after pool fees and price impact but before gas.
+  Refuses incomplete or stale comparisons; this is a bounded search, not a global optimum.
+base_url: https://telegraph-s2-execroute.margyn.workers.dev
+docs:
+  website: https://telegraph-s2-execroute.margyn.workers.dev/health
+  documentation: https://docs.uniswap.org/contracts/v3/reference/periphery/lens/QuoterV2
+rate_limit_per_sec: 0.5
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Only ETH/USDC with exactly 1 ETH on Ethereum mainnet is supported.
+    param: pair
+  - code: ACCOUNT_QUOTA
+    message: Conservative miner read budget of 150 calls per five minutes.
+    property: rate
+    value_num: 150
+    window_seconds: 300
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+input_schema:
+  type: object
+  properties:
+    pair:
+      type: string
+      enum: [ETH/USDC]
+    question:
+      type: string
+      maxLength: 2048
+output_schema:
+  type: object
+  properties:
+    status: {type: string, enum: [ok, unavailable]}
+    amount_out: {type: integer, minimum: 100000000, maximum: 100000000000}
+    summary: {type: string}
+    confidence: {type: number, minimum: 0, maximum: 1}
+    source: {type: object}
+    as_of: {type: string, format: date-time}
+    fetched_at: {type: string, format: date-time}
+    block_number: {type: integer}
+    chain_id: {type: integer, enum: [1]}
+    amount_in_wei: {type: string}
+    pair: {type: string}
+    route: {type: object}
+    candidates: {type: array}
+    scope: {type: string}
+    error: {type: object}
+endpoints:
+  - path: /route
+    external_path: /route
+    method: GET
+    description: >-
+      Quote exactly 1 ETH into USDC on Ethereum mainnet. Set pair to ETH/USDC.
+      Compares eight fixed Uniswap V2/V3 routes at one block and returns amount_out
+      as an integer in USDC base units, where 1000000 means 1 USDC.
+      Output includes pool fees and price impact; gas and untested routes are excluded.
+      Omit pair only for a literal route health probe, which uses the same fixed trade.
+      An unavailable body contains no scored amount and must not be treated as success.
+    intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+    params:
+      query:
+        required:
+          - name: pair
+            type: string
+            intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+            description: ETH/USDC only; input size is fixed to exactly 1 ETH on Ethereum mainnet.
+            accepted_fields:
+              - value: ETH/USDC
+                intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+                description: Sell exactly 1 ETH for USDC on Ethereum mainnet.
+        optional:
+          - name: question
+            type: string
+            intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+            description: Optional context up to 2048 characters; does not change the fixed pair, size or network.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+intent_mapping:
+  OPTIMAL_EXECUTION_ROUTE_GENERAL:
+    endpoint: /route
+    input:
+      pair:
+        from: pair
+        how: Copy the canonical ETH/USDC enum exactly; never substitute a different pair, network or size.
+    output:
+      amount_out:
+        path: amount_out
+        unit: USDC base units (6 decimals)
