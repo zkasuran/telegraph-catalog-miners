@@ -1,0 +1,101 @@
+version: "1"
+kind: miner
+id: 72183
+slug: zk-france-eta
+protocol: generic
+name: IGN France Driving ETA
+description: >
+  Keyless driving estimates for mainland France and Corsica from the public IGN
+  Geoplateforme road network. Resolves French place names or accepts explicit
+  longitude,latitude points. Returns whole driving seconds with source version
+  and attribution. Does not claim live traffic or worldwide coverage.
+base_url: https://telegraph-s2-france-eta.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/calcul-itineraire/
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: Origin must be at most 256 UTF-8 bytes.
+    param: origin
+    property: size_bytes
+    value_bytes: 256
+    operator: lte
+  - code: MAX_PARAM_SIZE
+    message: Destination must be at most 256 UTF-8 bytes.
+    param: destination
+    property: size_bytes
+    value_bytes: 256
+    operator: lte
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+endpoints:
+  - path: /eta
+    external_path: /eta
+    method: GET
+    description: >
+      Driving time in whole seconds between two points on the IGN road network
+      in mainland France or Corsica. Supply French place names, full French
+      addresses or longitude,latitude decimal-degree strings. Names are resolved
+      by the IGN geocoder. Coordinates use one routing GET. No live traffic.
+      Unsupported or ambiguous requests return status error without a duration.
+    intents: [ROUTE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [ROUTE_ETA_GENERAL]
+            description: Start point in France. French name or address or longitude,latitude. At most 256 UTF-8 bytes.
+          - name: destination
+            type: string
+            intents: [ROUTE_ETA_GENERAL]
+            description: End point in France. French name or address or longitude,latitude. At most 256 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [origin, destination]
+  additionalProperties: false
+  properties:
+    origin: {type: string, minLength: 1, maxLength: 256}
+    destination: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [status, summary, source, as_of]
+  properties:
+    status: {type: string, enum: [ok, error]}
+    duration: {type: integer, minimum: 1, maximum: 1000000}
+    unit: {type: string, enum: [seconds]}
+    summary: {type: string}
+    source: {type: string}
+    as_of: {type: string}
+    data_as_of: {type: string}
+    attribution: {type: string}
+    license: {type: string}
+    confidence: {type: number, minimum: 0, maximum: 1}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [ROUTE_ETA_GENERAL]
+intent_mapping:
+  ROUTE_ETA_GENERAL:
+    endpoint: /eta
+    input:
+      origin:
+        from: origin
+        how: Send the supplied start point verbatim. Do not invent coordinates. The Worker resolves French names itself.
+      destination:
+        from: destination
+        how: Send the supplied end point verbatim. Do not invent coordinates. The Worker resolves French names itself.
+    output:
+      duration:
+        path: duration
+        unit: seconds
