@@ -1,0 +1,72 @@
+# Copyright (c) 2026 zkasuran.
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# New descriptor only. The registered legacy descriptors are archived unchanged.
+# Hold registration: canonical numerical response fields remain unimplemented.
+version: "1"
+kind: miner
+id: 76441
+slug: zk-llm-general
+protocol: generic
+name: AssistWire General LLM Evaluation
+description: >
+  Qualitative evaluation of an actual model output against its supplied task.
+  Uses the existing AssistWire Worker and commercial MiniMax integration.
+  Returns prose observations, not verified ground truth. Canonical rating,
+  score, strengths and errors fields are not yet available.
+base_url: https://telegraph-assist.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-assist.margyn.workers.dev/
+endpoints:
+  - path: /evaluate-output
+    external_path: /evaluate-output
+    method: GET
+    description: >
+      Evaluate output against task. Send both strings unchanged as separate
+      query parameters. The JSON evaluation envelope must fit 64000 UTF-8 bytes.
+      Returns qualitative summary and provider attribution. No numeric quality
+      rating is supplied. Do not treat confidence as a quality score.
+    intents: [LLM_OUTPUT_EVALUATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: task
+            type: string
+            intents: [LLM_OUTPUT_EVALUATION_GENERAL]
+            description: The original task verbatim, as a nonempty string.
+          - name: output
+            type: string
+            intents: [LLM_OUTPUT_EVALUATION_GENERAL]
+            description: The actual model output verbatim, as a nonempty string.
+input_schema:
+  type: object
+  required: [task, output]
+  additionalProperties: false
+  properties:
+    task:
+      type: string
+      minLength: 1
+    output:
+      type: string
+      minLength: 1
+output_schema:
+  type: object
+  required: [summary]
+  properties:
+    headline: {type: string}
+    summary: {type: string}
+    confidence: {type: number}
+    model: {type: string}
+    source: {type: string}
+    attribution: {type: string}
+    as_of: {type: string}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [LLM_OUTPUT_EVALUATION_GENERAL]
