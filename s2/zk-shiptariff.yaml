@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 7310288
+slug: zk-shiptariff
+protocol: generic
+name: ZK La Poste Prepaid Shipping Tariffs
+description: >
+  Source-grounded 2026 La Poste retail prepaid-package price and indicative ETA.
+  Metropolitan France origins to metropolitan France or EU countries, up to 5 kg.
+  Quotes the fully priced Boite M or L package, assuming contents fit; not ordinary
+  weight-based postage, cheapest-carrier comparison, or an account-specific booking quote.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /quote
+    external_path: /quote
+    method: GET
+    description: >
+      Quote a published La Poste prepaid retail package from metropolitan France.
+      Required origin and destination must end in the full English country name,
+      e.g. Paris, France and Berlin, Germany. Only metropolitan France origins and
+      metropolitan France or EU destinations are supported. Requires 0 < weight_kg <= 5,
+      at most three decimal places. Boite M covers up to 3 kg; Boite L up to 5 kg.
+      Caller must be able to fit the goods into the stated prepaid package.
+      ETA is an indicative calculation assuming handover today before collection cutoff;
+      customs, foreign holidays and disruption can add time. Tariff expires December 2026.
+    intents: [SHIP_RATE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Metropolitan France origin, followed by country name, e.g. Paris, France; max 256 characters.
+          - name: destination
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Metropolitan France or EU destination with full English country name, e.g. Lyon, France or Madrid, Spain; max 256 characters.
+          - name: weight_kg
+            type: number
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Parcel mass in kilograms; greater than zero and at most 5; at most three decimal places.
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping:
+    label_field: rate
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve the place and append the full English country name only when stated or unambiguously given in the request; origin must be metropolitan France.
+      destination:
+        from: destination
+        how: Preserve the place followed by a comma and its full English country name; destination must be metropolitan France or an EU country. Do not guess an ambiguous place.
+      weight_kg:
+        from: weight_kg
+        how: Kilograms, positive and no greater than 5, at most three decimal places.
+    output:
+      carrier: {path: carrier}
+      rate: {path: rate, unit: currency units}
+      currency: {path: currency}
+      transit_days: {path: transit_days, unit: days}
+      eta: {path: eta}
