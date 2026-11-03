@@ -1,0 +1,83 @@
+version: "1"
+kind: miner
+id: 731454
+slug: zk-po-public
+protocol: generic
+name: ZK Public Purchase Order Identity
+description: >
+  Verify an exact PO/contract number and full vendor name against the City of Chicago
+  Procurement Services public FMPS registry. A match verifies only the published
+  PO/vendor identity. Nonmatches are scoped vendor discrepancies. Missing, ambiguous,
+  private, unsupported or unavailable records are unknown and omit verified.
+  No generated verification labels or model probabilities. Award amount is returned
+  only for a single original release requisition; lifecycle status is not inferred.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 30
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+  website: https://data.cityofchicago.org/Administration-Finance/Contracts/rsxa-ify5
+endpoints:
+  - path: /po-verify
+    external_path: /po-verify
+    method: GET
+    description: >
+      Check a PO/contract number and exact full vendor name against the Chicago
+      public registry. Returned verified is present only for a source-backed
+      match or vendor mismatch. No record means unknown, not nonexistence.
+    intents: [PURCHASE_ORDER_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: po_number
+            type: string
+            intents: ["*"]
+            description: Exact public PO/contract number, preserving leading zeroes and letter prefixes.
+          - name: vendor
+            type: string
+            intents: ["*"]
+            description: Full vendor name. Only case and whitespace are normalized, without fuzzy matching.
+input_schema:
+  type: object
+  required: [po_number, vendor]
+  properties:
+    po_number:
+      type: string
+      pattern: "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+      maxLength: 128
+    vendor:
+      type: string
+      minLength: 1
+      maxLength: 256
+output_schema:
+  type: object
+  properties:
+    po_number: {type: [string, "null"]}
+    verified: {type: boolean, description: Omitted on unknown or unsupported records.}
+    vendor: {type: [string, "null"]}
+    amount: {type: [number, "null"]}
+    status: {type: string, description: Verification status, not an asserted operational lifecycle status.}
+    summary: {type: string}
+    source_url: {type: string}
+    source_observed_at: {type: string}
+intent_mapping:
+  PURCHASE_ORDER_VERIFY_GENERAL:
+    endpoint: /po-verify
+    input:
+      po_number: {from: po_number}
+      vendor: {from: vendor}
+    output:
+      po_number: {path: po_number}
+      verified: {path: verified}
+      vendor: {path: vendor}
+      amount: {path: amount, unit: currency units}
+      status: {path: status}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [PURCHASE_ORDER_VERIFY_GENERAL]
