@@ -1,0 +1,85 @@
+version: "1"
+kind: miner
+id: 7317614
+slug: zk-sensor-observations
+protocol: generic
+name: ZK Publisher-backed Sensor Observations
+description: >
+  Numeric observations for explicitly identified Sensor.Community sensors, NOAA NDBC
+  buoys, NWS weather stations, or USGS sites. Preserves native units, observation time,
+  publisher provenance and provisional flags. USGS gage height requires a method ID
+  when multiple instruments are published. NOAA METAR fallback is separately attributed
+  and limited to compatible temperature and wind quantities. Missing or stale data
+  has no numeric value. No model-generated observations or calibration claims.
+base_url: https://telegraph-tele.margyn.workers.dev
+auth: {type: none}
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-tele.margyn.workers.dev/
+errors:
+  message_path: summary
+  code_path: error
+  status_path: ok
+  success_values: ["true"]
+input_schema:
+  type: object
+  required: [sensor, metric]
+  properties:
+    sensor:
+      type: string
+      maxLength: 256
+      description: Explicit publisher/device identity, e.g. Sensor.Community sensor 141, NOAA NDBC station 41029, NWS station KJFK, or USGS site 09402500.
+    metric:
+      type: string
+      maxLength: 256
+      description: One supported quantity, with optional temperature or pressure unit; USGS example gage height method 6291. Air/sea temperature and station/sea-level pressure are distinct.
+output_schema:
+  type: object
+  properties:
+    sensor: {type: string}
+    metric: {type: string}
+    value: {type: number}
+    unit: {type: string}
+    observed_at: {type: string, format: date-time}
+    summary: {type: string}
+    ok: {type: boolean}
+endpoints:
+  - path: /sensor-telemetry-verify
+    external_path: /sensor-telemetry-verify
+    method: GET
+    description: Reports one original publisher observation with units/time; unsupported, missing, stale or ambiguous data returns ok=false without value.
+    intents: [SENSOR_TELEMETRY_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: sensor
+            type: string
+            description: Exactly one explicit public publisher and device/site identifier.
+            intents: [SENSOR_TELEMETRY_VERIFY_GENERAL]
+          - name: metric
+            type: string
+            description: Exactly one supported measured quantity; identify USGS method where needed.
+            intents: [SENSOR_TELEMETRY_VERIFY_GENERAL]
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [SENSOR_TELEMETRY_VERIFY_GENERAL]
+intent_mapping:
+  SENSOR_TELEMETRY_VERIFY_GENERAL:
+    endpoint: /sensor-telemetry-verify
+    input:
+      sensor: {from: sensor}
+      metric: {from: metric}
+    output:
+      sensor: {path: sensor}
+      metric: {path: metric}
+      value: {path: value}
+      unit: {path: unit}
+      observed_at: {path: observed_at}
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
