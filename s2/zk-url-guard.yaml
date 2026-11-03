@@ -1,0 +1,67 @@
+version: "1"
+kind: miner
+id: 771353
+slug: zk-url-guard
+protocol: generic
+name: GuardWire Source-Backed URL Safety
+description: >-
+  URL safety findings from the active CERT Polska Warning List and public Cloudflare
+  and Quad9 security DNS compared with their unfiltered resolvers. Counts flagging databases, not
+  transport warnings; distinguishes missing source coverage from zero detections.
+  Checks exact hostnames and listed ancestors under CERT Polska's documented rule.
+  Makes one manual-redirect HTTP request only to an unflagged URL, reporting TLS and
+  encryption observations separately. Checks a different-host redirect against the
+  sources without following it. A zero-detection URL is not declared proven safe.
+base_url: https://telegraph-guard.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /url-safe
+    external_path: /url-safe
+    method: GET
+    intents: [URL_SAFE_GENERAL]
+    description: >-
+      Check the supplied URL. Returns url, canonical verdict, detections, summary,
+      source-level results and source counts. Detections are hostname-level database
+      findings, not an exact-path scan. Source failure returns incomplete coverage;
+      invalid input returns HTTP 400, with no substituted default URL.
+    params:
+      query:
+        required:
+          - name: url
+            type: string
+            intents: ["*"]
+            description: "An absolute HTTP or HTTPS URL without credentials, at most 2048 characters. Bare public hostnames assume HTTPS."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "Original question, used when no URL parameter is supplied."
+intent_mapping:
+  URL_SAFE_GENERAL:
+    endpoint: /url-safe
+    input:
+      url:
+        from: url
+    output:
+      url:
+        path: url
+      verdict:
+        path: verdict
+      detections:
+        path: detections
+        unit: detections
+      summary:
+        path: summary
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [URL_SAFE_GENERAL]
+errors:
+  code_path: error
+  message_path: summary
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
