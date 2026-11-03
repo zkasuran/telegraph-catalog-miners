@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 782436
+slug: zk-cvcanon8
+protocol: generic
+name: ZK Canonical Source Record Verification
+description: >
+  Keyless verification of explicit DOI/PLOS publication metadata and Federal
+  Register document metadata or quotations. Retrieves registry and publisher
+  records, or OFR and GPO records, separately. Unsupported assertions and
+  unavailable corroboration return Inconclusive. Publication metadata is not
+  proof of scientific accuracy, legal compliance or media authenticity.
+base_url: https://telegraph-fact.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One complete source-linked claim, at most 8000 characters.
+    param: content
+    property: length
+    value_num: 8000
+    operator: lte
+endpoints:
+  - path: /verify
+    external_path: /verify
+    method: GET
+    description: >
+      Send canonical content verbatim, without discarding unsupported clauses.
+      Supports a DOI or supported HTTPS source identity; JSON article fields
+      doi, title, publication_date and publication_year; JSON official-document
+      fields document, title, publication_date, publication_year, document_type,
+      action and quote; and complete supported source-linked metadata sentences.
+      Bare source identity and unsupported additional assertions abstain.
+    intents: [CONTENT_VERIFICATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: content
+            type: string
+            intents: [CONTENT_VERIFICATION_GENERAL]
+            description: Complete canonical content input, copied verbatim.
+input_schema:
+  type: object
+  required: [content]
+  properties:
+    content:
+      type: string
+      maxLength: 8000
+output_schema:
+  type: object
+  required: [verdict, answer, evidence]
+  properties:
+    verdict:
+      type: string
+      enum: ["Verified", "Unverified", "Misleading", "False", "Inconclusive"]
+    answer:
+      type: string
+    evidence:
+      type: array
+      items:
+        type: object
+semantics:
+  supported_intents: [CONTENT_VERIFICATION_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: answer
+intent_mapping:
+  CONTENT_VERIFICATION_GENERAL:
+    endpoint: /verify
+    input:
+      content:
+        from: content
+        how: Copy the complete content verbatim; do not infer a new claim or discard clauses.
+    output:
+      verdict:
+        path: verdict
+      answer:
+        path: answer
+      evidence:
+        path: evidence
