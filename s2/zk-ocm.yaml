@@ -1,0 +1,76 @@
+version: "1"
+kind: miner
+id: 73199
+slug: zk-ocm
+protocol: generic
+name: ZK Pinned Ethereum Balance
+description: >
+  Verify an Ethereum mainnet address's native ETH balance at a requested block.
+  Returns exact decimal Gwei, ETH and wei strings, the resolved block hash, and
+  two independent public RPC sources. Both nodes must agree on the block header
+  and balance. Historical requests never fall back to latest.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  code_path: error
+  message_path: summary
+endpoints:
+  - path: /metric
+    external_path: /metric
+    method: GET
+    description: Read the native ETH balance of address at the exact numeric block on Ethereum mainnet.
+    intents: [ONCHAIN_METRIC_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: Complete 0x-prefixed 20-byte Ethereum mainnet address; ENS is not resolved.
+          - name: block
+            type: integer
+            intents: ["*"]
+            description: Exact nonnegative Ethereum block height, at most 1000000000000; no latest substitution.
+input_schema:
+  type: object
+  required: [address, block]
+  properties:
+    address:
+      type: string
+      pattern: "^0x[0-9a-fA-F]{40}$"
+    block:
+      type: integer
+      minimum: 0
+      maximum: 1000000000000
+output_schema:
+  type: object
+  properties:
+    balance_gwei:
+      type: string
+      description: Exact ungrouped decimal Gwei string; intentionally avoids IEEE-754 precision loss.
+    address: {type: string}
+    block: {type: string}
+    chain: {type: string}
+    verified: {type: boolean}
+semantics:
+  supported_intents: [ONCHAIN_METRIC_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+intent_mapping:
+  ONCHAIN_METRIC_VERIFY_GENERAL:
+    endpoint: /metric
+    input:
+      address: {from: address}
+      block: {from: block}
+    output:
+      balance_gwei: {path: balance_gwei, unit: Gwei}
+      address: {path: address}
+      block: {path: block}
+      chain: {path: chain}
