@@ -1,0 +1,95 @@
+version: "1"
+kind: miner
+id: 73107449
+slug: zk-audiotts
+protocol: generic
+name: AudioWire Text to Speech V2
+description: >
+  Synthesize supplied text into MP3 audio with the operator's existing commercial
+  MiniMax service. Returns actual audio bytes as base64, exact spoken input text,
+  provider duration when available, voice, and attribution. Supports
+  TEXT_TO_SPEECH_GENERAL. This service requires the operator's provider account.
+base_url: https://telegraph-audio.margyn.workers.dev
+docs:
+  documentation: https://telegraph-audio.margyn.workers.dev/
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: At most 5000 characters of supplied text per call.
+    param: text
+    property: length
+    value_num: 5000
+    operator: lte
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [text]
+  properties:
+    text:
+      type: string
+      description: Exact supplied text to speak, excluding instructions about speech.
+    voice:
+      type: string
+      description: Optional MiniMax voice id; default English_Trustworth_Man.
+output_schema:
+  type: object
+  properties:
+    summary:
+      type: string
+      description: Synthesis description followed by exact supplied input text.
+    input_text:
+      type: string
+      description: Text submitted to the speech provider.
+    audio_base64:
+      type: [string, "null"]
+      description: Actual provider-generated MP3 audio, base64 encoded; null on failure.
+    duration_ms:
+      type: number
+      description: Positive duration reported by the provider, in milliseconds, when available.
+    voice:
+      type: string
+      description: MiniMax voice id used.
+    format:
+      type: string
+      description: MP3 audio format.
+    source:
+      type: string
+      description: Speech provider attribution.
+    confidence:
+      type: number
+      description: Service completion indicator, not a calibrated speech-quality score.
+    as_of:
+      type: string
+      description: ISO 8601 response timestamp.
+endpoints:
+  - path: /synthesize
+    external_path: /synthesize
+    method: GET
+    description: >
+      Produce MP3 speech for the supplied text. Put only the exact words to speak
+      in text, excluding task instructions and quotation delimiters. Use voice
+      only for an explicitly specified MiniMax voice id; otherwise omit it.
+      The response includes actual audio_base64, input_text, and provider metadata.
+    intents: [TEXT_TO_SPEECH_GENERAL]
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: Verbatim supplied text to speak, 1 to 5000 characters.
+        optional:
+          - name: voice
+            type: string
+            intents: ["*"]
+            description: Explicit MiniMax voice id; default English_Trustworth_Man.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [TEXT_TO_SPEECH_GENERAL]
+errors:
+  message_path: detail
