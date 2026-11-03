@@ -1,0 +1,85 @@
+version: "1"
+kind: miner
+id: 731403
+slug: zk-extract-g4
+protocol: generic
+name: ZK Literal Document Extraction
+description: >
+  Extract literal requested fields from text, HTML, JSON, XML/Atom, CSV/TSV,
+  Markdown or an explicit public HTTP(S) document URL. HTML heading, table and
+  preformatted-code collections preserve source order; code preserves whitespace.
+  JSON dot paths, wildcard paths and RFC6901 pointers are supported. Every value
+  has source evidence. Missing and ambiguous scalar fields remain null. No
+  model-generated facts, semantic entity guessing, OCR or binary PDF parsing.
+base_url: https://telegraph-net.margyn.workers.dev
+auth: {type: none}
+docs:
+  documentation: https://telegraph-net.margyn.workers.dev/
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error
+  code_path: code
+endpoints:
+  - path: /extract
+    external_path: /extract
+    method: POST
+    intents: [CONTENT_EXTRACTION_GENERAL]
+    description: >
+      Send the complete document verbatim in content and requested field names
+      verbatim in fields in a JSON body. content may instead be a public HTTP(S)
+      document URL. fields is comma-separated. Supports literal label names,
+      JSON paths such as author.0.family or [].name, RFC6901 pointers such as
+      /message/DOI, XML paths with @attributes, CSV column names, literal email,
+      URL, date and quantity collections, and HTML h1 through h6, headings,
+      paragraphs, tables, pre and main text. Explicit unique main/role=main
+      regions exclude surrounding navigation from readable text. No generated
+      values. Documents are bounded to 1 MiB; POST avoids GET URI size limits.
+      Complete values exceeding the 80-character brief are in extracted_fields.
+    params:
+      body:
+        required:
+          - name: content
+            type: string
+            intents: ["*"]
+            description: Complete supplied document or explicit public source URL, verbatim.
+          - name: fields
+            type: string
+            intents: ["*"]
+            description: Requested field names and paths, verbatim, comma-separated.
+input_schema:
+  type: object
+  required: [content, fields]
+  properties:
+    content: {type: string, minLength: 1}
+    fields: {type: string, minLength: 1}
+output_schema:
+  type: object
+  required: [title, content, url, entities, brief, extracted_fields, evidence]
+  properties:
+    title: {type: string}
+    content: {type: string}
+    url: {type: string}
+    entities: {type: array}
+    brief: {type: string, maxLength: 80}
+    extracted_fields: {type: object}
+    evidence: {type: array}
+intent_mapping:
+  CONTENT_EXTRACTION_GENERAL:
+    endpoint: /extract
+    input:
+      content: {from: content, how: "Copy the complete document or explicit source URL verbatim."}
+      fields: {from: fields, how: "Copy requested names and paths verbatim."}
+    output:
+      title: {path: title, how: "Copy the source title verbatim, empty when absent."}
+      content: {path: content, how: "Copy the extracted readable text verbatim."}
+      url: {path: url, how: "Copy the final fetched source URL, empty for inline content."}
+      entities: {path: entities, how: "Copy literal name/value records without inferred labels."}
+      brief: {path: brief, how: "Copy verbatim; whole values only, at most 80 characters."}
+semantics:
+  signal_mapping:
+    label_field: brief
+    reason_field: summary
+  supported_intents: [CONTENT_EXTRACTION_GENERAL]
