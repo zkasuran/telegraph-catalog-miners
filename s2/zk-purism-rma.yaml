@@ -1,0 +1,79 @@
+# LOCAL CANDIDATE ONLY. Worker route is not deployed; this is not a live miner.
+# Identity availability observed in candidate_identity.json; recheck before registration.
+version: "1"
+kind: miner
+id: 78031
+slug: zk-purism-rma
+protocol: generic
+name: Purism Primary Return Policy Candidate
+description: >
+  Source-extracted Purism product return and refund policy only. The numeric value
+  is the RMA-request deadline measured from delivery, with shipment deadlines,
+  fees and exclusions preserved. Other retailers are unsupported. No scenario
+  eligibility or independent corroboration is claimed. Policy text is attributed
+  to Purism under CC BY-SA 4.0. This candidate is not deployed or registered.
+base_url: https://telegraph-trip.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  code_path: error
+  message_path: detail
+input_schema:
+  type: object
+  required: [retailer]
+  properties:
+    retailer:
+      type: string
+      enum: [Purism]
+      maxLength: 256
+output_schema:
+  type: object
+  required: [retailer, return_window_days, conditions, verified, sources]
+  properties:
+    retailer: {type: string}
+    return_window_days: {type: integer, minimum: 0, maximum: 3650}
+    conditions: {type: array, items: {type: string}}
+    verified: {type: boolean}
+    sources: {type: array, items: {type: string}}
+endpoints:
+  - path: /retailer-return-policy
+    external_path: /retailer-return-policy
+    method: GET
+    description: >
+      Current primary Purism product Returns and Refunds document only. Supply
+      retailer=Purism. Returns 422 without a days value for unsupported retailers,
+      and 503 without a days value if the primary document cannot be verified.
+    intents: [RETURN_POLICY_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: retailer
+            type: string
+            intents: [RETURN_POLICY_VERIFY_GENERAL]
+            description: Purism only; other retailers are unsupported.
+            accepted_fields:
+              - value: Purism
+                intents: [RETURN_POLICY_VERIFY_GENERAL]
+                description: Purism's primary product return and refund policy.
+semantics:
+  signal_mapping:
+    label_field: return_window_days
+    reason_field: scope
+  supported_intents: [RETURN_POLICY_VERIFY_GENERAL]
+intent_mapping:
+  RETURN_POLICY_VERIFY_GENERAL:
+    endpoint: /retailer-return-policy
+    input:
+      retailer:
+        from: retailer
+        how: Preserve the named retailer. Only Purism is supported; never replace another retailer with Purism.
+    output:
+      retailer: {path: retailer}
+      return_window_days: {path: return_window_days, unit: days}
+      conditions: {path: conditions}
+      verified: {path: verified}
+      sources: {path: sources}
