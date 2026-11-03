@@ -1,0 +1,85 @@
+version: "1"
+kind: miner
+id: 77943
+slug: zk-ticket-curl-g4
+protocol: generic
+name: Licensed curl Ticket Guidance
+description: >
+  Finds published guidance for 24 reviewed curl/libcurl FAQ topics and returns
+  verbatim licensed documentation with source URLs. Accepts an exact FAQ heading,
+  with a curl: product prefix for headings that do not identify curl or libcurl.
+  resolved means documented guidance was found, not verified customer recovery.
+  Unrecognized tickets retain the existing worker's legacy MiniMax assessment
+  fallback, which is model-produced and does not provide these source-backed
+  canonical resolution fields. This descriptor targets the independently checked
+  candidate worker and must be registered only after that candidate is released.
+base_url: https://telegraph-assist.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://curl.se/docs/faq.html
+  website: https://telegraph-assist.margyn.workers.dev/
+endpoints:
+  - path: /ticket-resolution
+    external_path: /ticket-resolution
+    method: GET
+    description: >
+      Find documented guidance for one supported curl/libcurl FAQ heading.
+      Send the customer's problem as the ticket query parameter, verbatim.
+      Generic headings require the curl: prefix. Short option letter case is
+      significant. Other requests receive the legacy model assessment fallback.
+    intents: [CUSTOMER_TICKET_RESOLUTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: ticket
+            type: string
+            intents: [CUSTOMER_TICKET_RESOLUTION_GENERAL]
+            description: The customer's problem, as a supported published FAQ heading.
+input_schema:
+  type: object
+  required: [ticket]
+  properties:
+    ticket:
+      type: string
+      minLength: 1
+output_schema:
+  type: object
+  properties:
+    resolved: {type: boolean}
+    resolution: {type: string}
+    steps:
+      type: array
+      items: {type: string}
+    sources:
+      type: array
+      items: {type: string}
+    brief: {type: string, maxLength: 80}
+    summary: {type: string}
+    customer_recovery_verified: {type: boolean}
+    license_notice: {type: string}
+intent_mapping:
+  CUSTOMER_TICKET_RESOLUTION_GENERAL:
+    endpoint: /ticket-resolution
+    input:
+      ticket:
+        from: ticket
+        how: Copy the customer's problem verbatim; preserve short option letter case.
+    output:
+      resolved: {path: resolved}
+      resolution: {path: resolution}
+      steps: {path: steps}
+      sources: {path: sources}
+      brief: {path: brief}
+semantics:
+  supported_intents: [CUSTOMER_TICKET_RESOLUTION_GENERAL]
+  signal_mapping:
+    label_field: resolution
+    reason_field: resolution
+errors:
+  message_path: detail
+  code_path: error
