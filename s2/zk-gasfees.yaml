@@ -1,0 +1,63 @@
+version: "1"
+kind: miner
+id: 730101
+slug: zk-gasfees
+protocol: generic
+name: ZK GasWire Canonical Fee Snapshot
+description: >
+  Current recommended gas price on a named EVM chain, with exact wei and gwei,
+  current and next-block base fees, and median recent priority-fee percentiles.
+  Values are read from keyless public RPCs. Independent history agreement is
+  disclosed. Native-token transfer estimates describe the execution component;
+  USD quotes and all-in rollup fees are unavailable.
+base_url: https://telegraph-gas.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-gas.margyn.workers.dev/
+endpoints:
+  - path: /gas
+    external_path: /gas
+    method: GET
+    description: >
+      Current recommended gas price for network. Ethereum, Base, Arbitrum,
+      Optimism, Polygon, Base Sepolia, and Sepolia are supported. Use the chain
+      explicitly requested by the caller; do not substitute the legacy default.
+    intents: [GAS_PRICE_GENERAL]
+    params:
+      query:
+        required:
+          - name: network
+            type: string
+            intents: [GAS_PRICE_GENERAL]
+            description: >
+              Requested EVM network: ethereum, base, arbitrum, optimism,
+              polygon, base-sepolia, or sepolia. Aliases eth, arb, op and matic
+              are accepted. Unknown networks fail with HTTP 400.
+intent_mapping:
+  GAS_PRICE_GENERAL:
+    endpoint: /gas
+    input:
+      network:
+        from: chain
+    output:
+      chain:
+        path: chain
+      gas_price_gwei:
+        path: gas_price_gwei
+        unit: gwei
+      transfer_fee_usd:
+        path: transfer_fee_usd
+        unit: USD
+      as_of:
+        path: as_of
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [GAS_PRICE_GENERAL]
