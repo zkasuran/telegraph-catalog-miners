@@ -1,0 +1,65 @@
+version: "1"
+kind: miner
+id: 72803
+slug: zk-caption-epic
+protocol: generic
+name: Verified Published Image Captions
+description: >-
+  Retrieve a published description for an exact public image in Wikimedia Commons,
+  the NASA Image and Video Library, or NASA EPIC natural/enhanced archives.
+  Returns publisher text and provenance; no generated captions or inferred scene
+  details. Unsupported images abstain. EPIC captions are brief camera-origin
+  statements with the source observation time, not detailed alt text.
+base_url: https://telegraph-vision.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  status_path: status
+  success_values: [published_caption]
+  code_path: reason_code
+  message_path: summary
+endpoints:
+  - path: /caption-source
+    external_path: /caption-source
+    method: GET
+    description: >-
+      Supply image_url or a complete question containing one HTTPS image URL.
+      Commons File pages and exact Commons originals/thumbnails, NASA archive
+      assets, and exact EPIC natural/enhanced JPG/PNG/thumbnail URLs are supported.
+      Captions are fetched publisher text; unsupported inputs return status unverified.
+    intents: [IMAGE_CAPTIONING_GENERAL]
+    params:
+      query:
+        optional:
+          - name: image_url
+            type: string
+            intents: [IMAGE_CAPTIONING_GENERAL]
+            description: Exact HTTPS public image URL, at most 4000 characters.
+          - name: question
+            type: string
+            intents: [IMAGE_CAPTIONING_GENERAL]
+            description: Complete question containing the exact image URL.
+input_schema:
+  type: object
+  properties:
+    image_url: {type: string, maxLength: 4000}
+    question: {type: string}
+output_schema:
+  type: object
+  properties:
+    status: {type: string, enum: [published_caption, unverified]}
+    summary: {type: string, description: Published source text or explicit abstention.}
+    caption: {type: [string, "null"]}
+    media_url: {type: [string, "null"]}
+    sources: {type: array, items: {type: object}}
+    observed_at_source: {type: string, description: EPIC observation time exactly as supplied by the publisher.}
+    as_of: {type: string}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [IMAGE_CAPTIONING_GENERAL]
