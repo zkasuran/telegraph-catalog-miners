@@ -1,0 +1,94 @@
+version: "1"
+kind: miner
+id: 770379
+slug: zk-reserve-por
+protocol: generic
+name: VerifyWire Pinned Reserve Attestation
+description: >
+  Reads the Chainlink WBTC Proof of Reserves feed in BTC, or native coin
+  held by a known wrapped-native contract. Answers attested_reserve in
+  micro-units with an explicit pinned block, feed round and source.
+  Cross-checks available independent RPC providers. Unsupported assets
+  fail explicitly; supply, TVL and circulation are never substituted for reserves.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://docs.chain.link/data-feeds/smartdata/addresses
+input_schema:
+  type: object
+  required: [asset]
+  properties:
+    asset:
+      type: string
+      minLength: 1
+      maxLength: 256
+      description: WBTC, Wrapped Bitcoin, WETH or a token contract address. WBTC PoR is Ethereum only.
+    chain:
+      type: string
+      enum: [ethereum, base, arbitrum, optimism, polygon]
+    block:
+      type: string
+      pattern: "^(latest|0x[0-9a-fA-F]+|[0-9]+)$"
+      description: Optional block height; defaults to latest, then pins the read to a concrete height.
+output_schema:
+  type: object
+  properties:
+    attested_reserve:
+      type: integer
+      description: Reserve in micro-units of the underlying asset, truncated toward zero.
+    asset: {type: string}
+    block: {type: string}
+    source: {type: string}
+    summary: {type: string}
+endpoints:
+  - path: /reserve
+    external_path: /reserve
+    method: GET
+    description: >
+      Attest reserves for the named asset. WBTC uses Chainlink BTC custody PoR;
+      wrapped-native tokens use their contract's native balance. Returns the
+      reserve in micro-units, block, source and round. Optional chain defaults to Ethereum.
+    intents: [ASSET_RESERVE_ATTESTATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: asset
+            type: string
+            intents: ["*"]
+            description: The requested token symbol or contract address; never infer a different asset.
+        optional:
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: Ethereum, Base, Arbitrum, Optimism or Polygon; defaults to Ethereum.
+          - name: block
+            type: string
+            intents: ["*"]
+            description: Numeric decimal or hex block height, or latest.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: source
+  supported_intents: [ASSET_RESERVE_ATTESTATION_GENERAL]
+errors:
+  message_path: error
+intent_mapping:
+  ASSET_RESERVE_ATTESTATION_GENERAL:
+    endpoint: /reserve
+    input:
+      asset:
+        from: asset
+        how: Preserve the requested token symbol or contract address. Do not default unknown tokens to WETH.
+    output:
+      attested_reserve:
+        path: attested_reserve
+        unit: micro-units of the underlying asset
+      asset: {path: asset}
+      block: {path: block}
+      source: {path: source}
