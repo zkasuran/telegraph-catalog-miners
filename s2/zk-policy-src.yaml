@@ -1,0 +1,66 @@
+# LOCAL CANDIDATE ONLY: not deployed or registered; coverage limited to Purism and Arduino.
+version: "1"
+kind: miner
+id: 78041
+slug: zk-policy-src
+protocol: generic
+name: Source-verified Purism and Arduino Return Policies
+description: >
+  Current primary-source lookup for Purism and Arduino Store returns only.
+  Extracts the return-request deadline and original conditions from explicitly
+  CC BY-SA 4.0 sources. Unknown retailers and changed/unavailable source documents
+  produce errors without a guessed return window. No model generates policy facts.
+base_url: https://telegraph-trip.margyn.workers.dev
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+endpoints:
+  - path: /retailer-return-policy
+    external_path: /retailer-return-policy
+    method: GET
+    intents: [RETURN_POLICY_VERIFY_GENERAL]
+    description: >
+      Purism and Arduino Store primary return policy only, with source hash,
+      attribution, actual return-request deadline in calendar days, and exclusions.
+      No general retailer coverage. Endpoint not yet deployed.
+    params:
+      query:
+        required:
+          - name: retailer
+            type: string
+            intents: [RETURN_POLICY_VERIFY_GENERAL]
+            description: "Retailer name, Purism or Arduino only; maximum 256 UTF-8 bytes."
+input_schema:
+  type: object
+  required: [retailer]
+  properties:
+    retailer:
+      type: string
+      description: "Purism or Arduino only; unsupported names return HTTP 422."
+output_schema:
+  type: object
+  required: [retailer, return_window_days, conditions, verified, sources]
+  properties:
+    retailer: {type: string}
+    return_window_days: {type: integer, minimum: 0, maximum: 3650}
+    conditions: {type: array, items: {type: string}}
+    verified: {type: boolean}
+    sources: {type: array, items: {type: string}}
+    summary: {type: string}
+semantics:
+  supported_intents: [RETURN_POLICY_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  RETURN_POLICY_VERIFY_GENERAL:
+    endpoint: /retailer-return-policy
+    input:
+      retailer: {from: retailer, how: "Retain the retailer name; only Purism or Arduino is supported."}
+    output:
+      retailer: {path: retailer}
+      return_window_days: {path: return_window_days, unit: days}
+      conditions: {path: conditions}
+      verified: {path: verified}
+      sources: {path: sources}
+errors:
+  code_path: error
