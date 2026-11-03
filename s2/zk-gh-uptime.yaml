@@ -1,0 +1,92 @@
+# UNREGISTERED RESEARCH DRAFT. Source resale permission and worker deployment are blocked.
+version: "1"
+kind: miner
+id: 781306
+slug: zk-gh-uptime
+protocol: generic
+name: GitHub Component Uptime Research Candidate
+description: >-
+  Unregistered research candidate for provider-reported GitHub component availability.
+  Returns the published Statuspage uptime percentage for last 30, 60 or 90 days,
+  with source URL and reported timeline dates. These rounded, component-state-based
+  figures are not customer-specific contractual SLA compliance. A target and
+  compliance decision remain unavailable when no applicable agreement is supplied.
+  Requires source-licence clearance and candidate worker deployment before registration.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://www.githubstatus.com/
+  documentation: https://www.githubstatus.com/api
+errors:
+  code_path: error
+  message_path: summary
+endpoints:
+  - path: /sla-compliance
+    external_path: /sla-compliance
+    method: GET
+    description: >-
+      Published GitHub component availability for one supported historical window.
+      Supported service names are GitHub API Requests, GitHub Git Operations,
+      GitHub Actions, GitHub Packages, GitHub Pages, GitHub Issues,
+      GitHub Pull Requests and GitHub Codespaces. Period must be last 30 days,
+      last 60 days or last 90 days. Unknown subjects/windows fail without an
+      invented uptime or target. Research candidate; not deployed.
+    intents: [SLA_COMPLIANCE_GENERAL]
+    params:
+      query:
+        required:
+          - name: service
+            type: string
+            intents: ["*"]
+            description: Explicit supported GitHub component name, including GitHub prefix.
+          - name: period
+            type: string
+            intents: ["*"]
+            description: Exactly last 30 days, last 60 days or last 90 days.
+input_schema:
+  type: object
+  required: [service, period]
+  properties:
+    service:
+      type: string
+      enum:
+        - GitHub API Requests
+        - GitHub Git Operations
+        - GitHub Actions
+        - GitHub Packages
+        - GitHub Pages
+        - GitHub Issues
+        - GitHub Pull Requests
+        - GitHub Codespaces
+    period:
+      type: string
+      enum: [last 30 days, last 60 days, last 90 days]
+output_schema:
+  type: object
+  required: [service, uptime_pct, period, source]
+  properties:
+    service: {type: string}
+    uptime_pct: {type: number, minimum: 0, maximum: 100}
+    period: {type: string}
+    source: {type: string}
+    summary: {type: string}
+intent_mapping:
+  SLA_COMPLIANCE_GENERAL:
+    endpoint: /sla-compliance
+    input:
+      service: {from: service}
+      period: {from: period}
+    output:
+      service: {path: service}
+      uptime_pct: {path: uptime_pct, unit: percent}
+      period: {path: period}
+semantics:
+  supported_intents: [SLA_COMPLIANCE_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: source
