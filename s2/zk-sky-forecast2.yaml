@@ -1,7 +1,3 @@
-# UNPUBLISHED NEW MINER CANDIDATE; not the fetched skywire-forecast registration.
-# Same candidate/identity as zk-sky-forecast2.yaml; register at most once.
-# Original legacy registration: raw/recheck-our-yaml.body.
-# Provenance and intent mismatch: recheck-our-provenance.json.
 # Unpublished NEW miner candidate for WEATHER_FORECAST_GENERAL.
 # New identity; this does not modify the registered skywire-forecast YAML.
 version: "1"
