@@ -1,0 +1,72 @@
+version: "1"
+kind: miner
+id: 174428
+slug: zk-taskexec3
+protocol: generic
+name: ZK Source Task Executor
+description: >
+  Bounded public-source task execution, without model answers. Fetch or Compare
+  the audited Lodash 4.17.21 repository and npm manifest URLs; then extract a
+  JSON pointer, count, keys, sort strings or SHA-256 the repository response.
+  Unsupported tasks fail explicitly. This candidate is not deployed or registered.
+base_url: https://telegraph-task.margyn.workers.dev
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: One explicit task, at most 256 UTF-8 bytes for bounded on-chain compatibility.
+    param: task
+    property: size_bytes
+    value_bytes: 256
+    operator: lte
+endpoints:
+  - path: /task-execute
+    external_path: /task-execute
+    method: GET
+    description: >
+      Fetch https://raw.githubusercontent.com/lodash/lodash/4.17.21/package.json
+      or https://registry.npmjs.org/lodash/4.17.21; operations follow semicolons.
+      Example: Fetch https://raw.githubusercontent.com/lodash/lodash/4.17.21/package.json; extract /name.
+      Compare URL and URL; extract /version. Registry tasks first extract a publisher field.
+    intents: [TASK_COMPLETION_GENERAL]
+    params:
+      query:
+        required:
+          - name: task
+            type: string
+            intents: [TASK_COMPLETION_GENERAL]
+            description: Copy the complete explicit source task verbatim.
+input_schema:
+  type: object
+  required: [task]
+  properties:
+    task:
+      type: string
+      maxLength: 256
+output_schema:
+  type: object
+  required: [result, status, steps, brief]
+  properties:
+    result: {type: string}
+    status: {type: string, enum: [completed, partially_completed, failed]}
+    steps: {type: array, items: {type: string}}
+    brief: {type: string, maxLength: 80}
+intent_mapping:
+  TASK_COMPLETION_GENERAL:
+    endpoint: /task-execute
+    input:
+      task: {from: task, how: Copy the task verbatim without paraphrasing.}
+    output:
+      result: {path: result}
+      status: {path: status}
+      steps: {path: steps}
+      brief: {path: brief}
+semantics:
+  signal_mapping:
+    label_field: result
+    reason_field: brief
+  supported_intents: [TASK_COMPLETION_GENERAL]
+errors:
+  message_path: error
