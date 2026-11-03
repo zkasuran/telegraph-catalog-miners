@@ -1,0 +1,83 @@
+# Unregistered draft: evidence-only; null wash_volume_pct does not fulfill the
+# current numeric callback. See HANDOFF.md and SKIPPED.md before publication.
+version: "1"
+kind: miner
+id: 73181
+slug: zk-wash-evidence
+protocol: generic
+name: ZK Wash Trading Evidence
+description: >
+  Bounded ERC-20 Transfer-log evidence on public EVM RPCs. Accepts the canonical
+  subject verbatim, discloses actual block range and sampling, and reports
+  reciprocal transfers, self-transfers and sender concentration. Transfer
+  evidence alone cannot establish trades or common beneficial ownership:
+  verdict is inconclusive and wash_volume_pct is null (not measured).
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  code_path: error
+  message_path: summary
+endpoints:
+  - path: /washtrade
+    external_path: /washtrade
+    method: GET
+    description: >
+      Accept the whole canonical subject in subject. Supports an ERC-20 token
+      address or known token symbol on Ethereum, Base, Arbitrum, Optimism or
+      Polygon. Generic addresses are scanned only as potential token contracts;
+      the endpoint does not establish wallet ownership or NFT wash trading.
+      Returns 422 for an unresolved subject and 502 for unavailable RPC evidence.
+    intents: [WASH_TRADING_DETECTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: subject
+            type: string
+            intents: ["*"]
+            description: Full token/chain subject verbatim; include the EVM chain.
+        optional:
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: Optional explicit supported EVM chain name.
+          - name: blocks
+            type: string
+            intents: ["*"]
+            description: Requested scan window, defaults to 120 and bounded to 8–600; actual range disclosed.
+input_schema:
+  type: object
+  required: [subject]
+  properties:
+    subject: {type: string}
+    chain: {type: string, enum: [ethereum, base, arbitrum, optimism, polygon]}
+    blocks: {type: string}
+output_schema:
+  type: object
+  properties:
+    subject: {type: string}
+    verdict: {type: string, enum: [inconclusive]}
+    wash_volume_pct: {type: [number, "null"]}
+    signals: {type: array}
+    summary: {type: string}
+    coverage: {type: object}
+intent_mapping:
+  WASH_TRADING_DETECTION_GENERAL:
+    endpoint: /washtrade
+    input:
+      subject: {from: subject, how: Preserve the complete canonical subject verbatim.}
+    output:
+      subject: {path: subject}
+      verdict: {path: verdict}
+      wash_volume_pct: {path: wash_volume_pct, unit: percent}
+      signals: {path: signals}
+      summary: {path: summary}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [WASH_TRADING_DETECTION_GENERAL]
