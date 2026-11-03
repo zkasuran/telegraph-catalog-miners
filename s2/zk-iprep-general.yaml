@@ -1,0 +1,121 @@
+version: "1"
+kind: miner
+id: 73550
+slug: zk-iprep-general
+protocol: generic
+name: GuardWire IP Reputation General
+description: >
+  Source-backed THREAT_IP_REPUTATION_GENERAL for one IPv4 or IPv6 address.
+  Checks Spamhaus DROPv4, DROPv6 and ASN-DROP, dated Tor exit observations,
+  CINS Army and blocklist.de attack-report exports. Conditional blocklist.de
+  SSH and web-login brute-force exports supply publisher-reported categories.
+  Team Cymru DNS supplies origin-AS, BGP-prefix and registry-country context.
+  Findings include source dates and attribution. Absence from checked feeds
+  does not establish safety; Tor association does not prove maliciousness.
+  No measured abuse score, report count or botnet attribution is inferred.
+base_url: https://telegraph-guard.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-guard.margyn.workers.dev/
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  required: [ip]
+  properties:
+    ip:
+      type: string
+      description: One IPv4 or IPv6 address extracted from the user's question.
+
+output_schema:
+  type: object
+  required: [ip, listed, risk, summary, confidence, as_of]
+  properties:
+    ip:
+      type: string
+      description: The requested address, normalized when valid.
+    listed:
+      type: [boolean, "null"]
+      description: Spamhaus do-not-route membership only; null for missing coverage or special-purpose input.
+    risk:
+      type: string
+      enum: [high, low, none, unknown]
+      description: Source-scoped rule-based assessment, not a probability of maliciousness. None means public reputation is inapplicable.
+    assessment:
+      type: string
+      description: Explanation category for the source-scoped assessment, when applicable.
+    summary:
+      type: string
+      description: Reputation assessment with source findings, network context and coverage limits.
+    confidence:
+      type: number
+      minimum: 0
+      maximum: 1
+      description: Legacy fixed evidence-completeness indicator, not a measured abuse-confidence score or calibrated probability.
+    lists:
+      type: array
+      items: {type: string}
+      description: Matched Spamhaus do-not-route networks or autonomous systems, when checked.
+    tor_exit:
+      type: [boolean, "null"]
+      description: Dated Tor exit association; null when coverage is unavailable or inapplicable. Association alone is not maliciousness.
+    activity_listed:
+      type: [boolean, "null"]
+      description: Exact-IP activity-export membership, not an independently proven attack or botnet claim.
+    reported_attack_categories:
+      type: array
+      items: {type: string}
+      description: Categories from checked blocklist.de service exports. An absent category is not proof of no such activity.
+    source_checks:
+      type: array
+      items: {type: object}
+      description: Publisher URLs, coverage status, dated snapshots and memberships for ordinary public addresses.
+    service_source_checks:
+      type: array
+      items: {type: object}
+      description: Conditional service-export findings, including not_checked and unavailable status.
+    asn:
+      type: [integer, "null"]
+      description: Origin autonomous system number from Team Cymru DNS, when available.
+    bgp_prefix:
+      type: [string, "null"]
+      description: Announced prefix containing the requested address, when available.
+    registry_country:
+      type: [string, "null"]
+      description: Registry country code, not physical geolocation.
+    attribution:
+      type: string
+      description: Source attribution and use context.
+    as_of:
+      type: string
+      format: date-time
+      description: Response observation timestamp; individual source snapshot dates may be earlier.
+
+endpoints:
+  - path: /ip-reputation
+    external_path: /ip-reputation
+    method: GET
+    description: >
+      Assess the public-source reputation of one IP address. Supply the IPv4 or
+      IPv6 address from the question in the ip query parameter. Returns dated,
+      source-specific threat-feed signals and network context with honest
+      coverage limits; does not manufacture abuse scores or botnet membership.
+    intents: [THREAT_IP_REPUTATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: ip
+            type: string
+            intents: [THREAT_IP_REPUTATION_GENERAL]
+            description: One IPv4 or IPv6 address from the question, for example 8.8.8.8 or 2606:4700:4700::1111.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [THREAT_IP_REPUTATION_GENERAL]
