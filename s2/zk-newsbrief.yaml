@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 730281
+slug: zk-newsbrief
+protocol: generic
+name: ZK Licensed News Headlines
+description: >
+  Dated headlines for a topic or region from licensed Global Voices, NASA,
+  European Commission and NIST public feeds. At most three RSS pages each
+  for Global Voices and NASA. Default publication window is the past 14 days;
+  explicit today requests use UTC today. No unrelated fallback or invented news.
+base_url: https://telegraph-news.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Topic or region must be at most 120 characters.
+    param: topic
+    property: length
+    value_num: 120
+    operator: lte
+endpoints:
+  - path: /headlines
+    external_path: /headlines
+    method: GET
+    description: >
+      Supply the topic or region in ?topic=. Returns up to five dated, attributed
+      matching headlines, URLs, publication window and the first title verbatim.
+      Empty lists mean no matching item was found in the checked bounded sources.
+      Complete upstream failure returns HTTP 503.
+    intents: [NEWS_HEADLINES_GENERAL]
+    params:
+      query:
+        required:
+          - name: topic
+            type: string
+            intents: [NEWS_HEADLINES_GENERAL]
+            description: Subject or region, verbatim. Maximum 120 characters.
+input_schema:
+  type: object
+  required: [topic]
+  properties:
+    topic:
+      type: string
+      maxLength: 120
+output_schema:
+  type: object
+  properties:
+    topic: {type: string}
+    top_headline: {type: [string, "null"]}
+    headlines: {type: array, items: {type: string}}
+    urls: {type: array, items: {type: string}}
+    window: {type: string}
+    summary: {type: string}
+    retrieval_status: {type: string}
+intent_mapping:
+  NEWS_HEADLINES_GENERAL:
+    endpoint: /headlines
+    input:
+      topic:
+        from: topic
+        how: Preserve the requested topic or region verbatim.
+    output:
+      topic: {path: topic}
+      top_headline: {path: top_headline, how: Copy the first title verbatim; do not invent a title when absent.}
+      headlines: {path: headlines, how: Preserve the title list and its order verbatim.}
+      urls: {path: urls, how: Preserve the URL list and its order verbatim.}
+      window: {path: window}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [NEWS_HEADLINES_GENERAL]
