@@ -1,0 +1,100 @@
+version: "1"
+kind: miner
+id: 731077
+slug: zk-regr-ci2
+protocol: generic
+name: ZK Public CI Evidence Verifier
+description: >-
+  Verify source-backed GitHub Actions outcomes for a repository, exact commit,
+  pull request, or run. Public run pages are the default keyless source; an
+  explicit comparable baseline establishes workflow-outcome regressions.
+  Every result reports evidence scope, source URLs and observation time.
+base_url: https://telegraph-s2-regr-ci2.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /verify
+    external_path: /verify
+    method: GET
+    description: >-
+      Pass the canonical change string verbatim. Accepts github.com Actions run
+      URLs, commit URLs, pull-request URLs, owner/repo@SHA, or owner/repo and
+      repository URLs. For comparison use baseline_run_URL -> current_run_URL,
+      with same repository/workflow/branch push runs and attempt 1. Public run
+      pages are the default: no magic phrase is needed. A repository-only query
+      resolves its public default-branch HEAD and checks matching exact-SHA push
+      workflows on the first Actions page. Commit/PR queries check the exact
+      resolved SHA; REST quota fallback covers only exact-SHA default-branch push
+      workflows visible on the public first page. Reports workflow outcomes and actual public annotations, not invented
+      assertion names or software causality. An unsupported or incomplete request
+      yields an inconclusive verdict and no scored boolean.
+    intents: [REGRESSION_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: change
+            type: string
+            intents: [REGRESSION_VERIFY_GENERAL]
+            description: >-
+              Complete canonical repository/change string, copied verbatim;
+              public GitHub run/commit/PR URL, owner/repo@SHA, or owner/repo.
+              Optional explicit baseline_URL -> current_URL order. Maximum 16000
+              characters. Private CI and arbitrary snippets are unverifiable.
+input_schema:
+  type: object
+  required: [change]
+  properties:
+    change:
+      type: string
+      minLength: 1
+      maxLength: 16000
+output_schema:
+  type: object
+  required: [verdict, failing_tests, summary, source, as_of]
+  properties:
+    regression_found:
+      type: boolean
+      description: Scoped source-backed result, omitted when inconclusive.
+    verdict:
+      type: string
+      enum: [pass, fail, inconclusive]
+    failing_tests:
+      type: array
+      items:
+        type: object
+    summary:
+      type: string
+    source:
+      type: [string, "null"]
+    as_of:
+      type: [string, "null"]
+intent_mapping:
+  REGRESSION_VERIFY_GENERAL:
+    endpoint: /verify
+    input:
+      change:
+        from: change
+        how: Copy the complete canonical change verbatim; preserve baseline -> current URL order.
+    output:
+      regression_found:
+        path: regression_found
+        how: Copy the boolean verbatim; a missing value is missing, never infer false from inconclusive.
+      verdict:
+        path: verdict
+      failing_tests:
+        path: failing_tests
+        how: Copy workflow-level check records verbatim; do not infer individual assertion names.
+      summary:
+        path: summary
+semantics:
+  supported_intents: [REGRESSION_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+errors:
+  message_path: error
+  code_path: code
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
