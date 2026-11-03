@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 73107448
+slug: zk-audioasr
+protocol: generic
+name: AudioWire Speech to Text V2
+description: >
+  Transcribe a supplied public audio recording with the operator's existing
+  authorized MiniMax ASR asr-1.0 service. Returns the actual uncorrected provider
+  transcript, audio duration in seconds, sentence timestamps and provider speaker
+  metadata when supplied. Accepts an exact audio URL or a question containing it.
+  Supports SPEECH_TO_TEXT_GENERAL. Requires the operator's provider account.
+base_url: https://telegraph-audio.margyn.workers.dev
+docs:
+  documentation: https://telegraph-audio.margyn.workers.dev/
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /transcribe
+    external_path: /transcribe
+    method: GET
+    description: >
+      Transcribe the supplied public http(s) recording. Put the full exact
+      recording URL in audio_url, preserving every signed query parameter.
+      Alternatively pass the complete user's transcription question containing
+      the recording URL in question. At least one is needed. audio_url takes
+      precedence. Fetches up to 25 MiB; returns HTTP 400 for missing audio and
+      non-2xx for fetch or provider failure. A news or documentation page is not
+      audio; do not invent a recording URL for a question without one.
+    intents: [SPEECH_TO_TEXT_GENERAL]
+    params:
+      query:
+        optional:
+          - name: audio_url
+            type: string
+            intents: [SPEECH_TO_TEXT_GENERAL]
+            description: Exact public http(s) recording URL including its full signed query string. Required unless question contains the recording URL.
+          - name: question
+            type: string
+            intents: [SPEECH_TO_TEXT_GENERAL]
+            description: Complete transcription question containing a public recording URL; used when audio_url is absent.
+input_schema:
+  type: object
+  properties:
+    audio_url:
+      type: string
+      minLength: 1
+      description: Exact recording URL, not surrounding transcription instructions.
+    question:
+      type: string
+      minLength: 1
+      description: Full question containing the recording URL.
+  anyOf:
+    - required: [audio_url]
+    - required: [question]
+output_schema:
+  type: object
+  properties:
+    summary: {type: string, description: Actual transcription text on success; diagnostic on failure.}
+    transcript: {type: [string, "null"], description: Uncorrected provider transcript; absent or null on failure.}
+    duration: {type: number, description: Provider audio duration in seconds when supplied.}
+    n_speakers: {type: integer, description: Provider detected speaker count when supplied.}
+    segments: {type: array, description: Provider sentence timestamps in seconds and speaker labels when supplied.}
+    audio_url: {type: [string, "null"], description: Recording URL actually submitted to ASR.}
+    language: {type: string, description: Provider detected language only when supplied.}
+    confidence: {type: number, description: Service completion indicator; not a calibrated transcription-accuracy probability.}
+    model: {type: string}
+    source: {type: string}
+    attribution: {type: string}
+    as_of: {type: string, description: ISO 8601 response creation timestamp.}
+    error: {type: string, description: Present on transcription failure with non-2xx HTTP status.}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [SPEECH_TO_TEXT_GENERAL]
+errors:
+  message_path: detail
+  code_path: error
