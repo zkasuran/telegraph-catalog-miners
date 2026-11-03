@@ -1,0 +1,79 @@
+version: "1"
+kind: miner
+id: 7310289
+slug: zk-shipwide
+protocol: generic
+name: ZK La Poste Expanded Prepaid Tariffs
+description: >
+  Source-backed 2026 La Poste prepaid-package tariffs from metropolitan France to
+  metropolitan France, EU countries, United Kingdom and eight listed OM1 territories.
+  Domestic/EU M or L and UK Monde L support up to 5 kg; OM1 XL supports up to 7 kg.
+  Contents must fit the stated package. Indicative working-day ETA is conditional
+  on handover today and is not a live booking, cheapest-carrier comparison or guarantee.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /quote
+    external_path: /quote
+    method: GET
+    description: >
+      Published retail prepaid-package quote; origin must be metropolitan France.
+      Preserve explicit country or territory, e.g. Paris, France; London, United Kingdom;
+      Saint-Pierre, Saint-Pierre-et-Miquelon, France; Basse-Terre, Guadeloupe, France.
+      Bare Paris and Lyon use a disclosed French-service default; other bare places are
+      unsupported. OM1 destinations: Guadeloupe, Martinique, Guyane/French Guiana,
+      Réunion, Mayotte, Saint-Pierre-et-Miquelon, Saint-Martin, Saint-Barthélemy.
+      Weight is positive, up to 5 kg or up to 7 kg for OM1, at most three decimals.
+      Rate includes the prepaid package, excluding destination duties/taxes and optional
+      services. ETA uses the preserved 2026 calendar; customs and destination holidays
+      can add time. OM1 reports the open dataset's 6–18 working-day window and discloses
+      the April booklet's differing 5–11 days excluding customs. Tariff expires December 2026.
+    intents: [SHIP_RATE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Metropolitan France origin; preserve explicit country. Exact bare Paris/Lyon use disclosed French-service defaults. Max 256 characters.
+          - name: destination
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Metropolitan France, EU, United Kingdom or explicitly listed OM1 destination; preserve supplied country/territory. Max 256 characters.
+          - name: weight_kg
+            type: number
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Positive parcel mass in kilograms, at most three decimals; up to 5 kg or 7 kg for listed OM1 destinations.
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping: {label_field: rate, reason_field: summary}
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve the supplied location verbatim. Do not invent a country. The endpoint discloses exact bare Paris/Lyon French-service defaults and rejects unpriced origins.
+      destination:
+        from: destination
+        how: Preserve the supplied location and explicit country or territory verbatim. Do not remove overseas territory names or guess ambiguous locations.
+      weight_kg:
+        from: weight_kg
+        how: Positive kilograms, at most three decimals; preserve value. Destination-specific limits are enforced by the endpoint.
+    output:
+      carrier: {path: carrier}
+      rate: {path: rate, unit: currency units}
+      currency: {path: currency}
+      transit_days: {path: transit_days, unit: working days}
+      eta: {path: eta}
