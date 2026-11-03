@@ -1,0 +1,126 @@
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 71362,
+  "slug": "zk-dc-archive",
+  "protocol": "generic",
+  "name": "ZK Datacenter Historical Measurement Archive",
+  "base_url": "https://telegraph-tele.margyn.workers.dev",
+  "description": "Source-backed historical measurements: Empa OCP server, Zenodo 11372221 Tables 1 and 5; AAU server-room electrical channels, Zenodo 21262042 idle period 1 (58202 source timestamps, three channels). Requires explicit archive/condition identification. Reports measured power in kW, with CPU temperatures only for Empa. AAU values are channel measurements, not individual-server allocations or whole-facility totals; its timestamp timezone is not established. No live power, PUE or calibration/pass-fail assurance. No model or private API is used by this dedicated endpoint.",
+  "auth": {
+    "type": "none"
+  },
+  "rate_limit_per_sec": 1,
+  "cache_ttl_sec": 0,
+  "errors": {
+    "message_path": "summary",
+    "status_path": "verification_status",
+    "success_values": [
+      "historical_source"
+    ]
+  },
+  "docs": {
+    "documentation": "https://telegraph-tele.margyn.workers.dev/",
+    "website": "https://zenodo.org/records/11372221"
+  },
+  "endpoints": [
+    {
+      "path": "/archive",
+      "external_path": "/datacenter-telemetry-archive",
+      "method": "GET",
+      "intents": [
+        "DATACENTER_TELEMETRY_VERIFY_GENERAL"
+      ],
+      "description": "Read one published measurement. Examples: Empa OCP server; archive Zenodo 11372221; Table 5; FDC 100%. AAU server room; archive Zenodo 21262042; idle period 1; power channel 1; 2024-09-16 17:00:00. DOI/record-URL aliases accepted. Unknown or conflicting selectors abstain. No live facility feed.",
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "facility",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "Explicit Empa archive/table/FDC selector, or AAU server-room archive Zenodo 21262042/idle period 1/power channel 1-3/exact source timestamp selector; at most 256 UTF-8 bytes."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "facility"
+    ],
+    "properties": {
+      "facility": {
+        "type": "string",
+        "maxLength": 256
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "facility": {
+        "type": "string"
+      },
+      "power_kw": {
+        "type": "number"
+      },
+      "temperature_c": {
+        "type": "number"
+      },
+      "summary": {
+        "type": "string"
+      },
+      "verification_status": {
+        "type": "string"
+      }
+    }
+  },
+  "semantics": {
+    "supported_intents": [
+      "DATACENTER_TELEMETRY_VERIFY_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "summary",
+      "reason_field": "summary"
+    }
+  },
+  "intent_mapping": {
+    "DATACENTER_TELEMETRY_VERIFY_GENERAL": {
+      "endpoint": "/archive",
+      "input": {
+        "facility": {
+          "from": "facility",
+          "how": "Preserve the explicit historical archive selector verbatim."
+        }
+      },
+      "output": {
+        "facility": {
+          "path": "facility"
+        },
+        "power_kw": {
+          "path": "power_kw",
+          "unit": "kW"
+        },
+        "temperature_c": {
+          "path": "temperature_c",
+          "unit": "degrees Celsius"
+        }
+      }
+    }
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_VALUE",
+      "message": "Single explicit historical condition, not live facility telemetry.",
+      "param": "facility",
+      "property": "length",
+      "value_num": 256,
+      "operator": "lte"
+    }
+  ]
+}
