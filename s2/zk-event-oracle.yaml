@@ -1,0 +1,89 @@
+version: "1"
+kind: miner
+id: 73056
+slug: zk-event-oracle
+protocol: generic
+name: ZK Event Outcome Oracle
+description: >-
+  Resolve a specific settled public event from source records. Named finals,
+  US presidential elections and Super Bowls are read from live English Wikipedia
+  infoboxes and explicit outcome sentences, with revision attribution. Formula 1
+  2024 winners and dates must agree with a pinned F1DB archive (CC BY 4.0).
+  German league fixtures in 2022-23 through 2025-26 use pinned Openfootball
+  full-time scores (CC0) only when independently checked against OpenLigaDB;
+  the combined alias database is ODbL 1.0. Give both teams and an ISO date for
+  fixtures. Winner questions and explicit Did X win questions are supported.
+  Unsupported, ambiguous, future or conflicting records return unresolved.
+  No generated event facts. Archive checks are timestamped and not live polling.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/event-outcome
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One specific event or winner claim, with its edition or fixture date.
+    param: event
+    property: length
+    value_num: 256
+    operator: lte
+input_schema:
+  type: object
+  required: [event]
+  properties:
+    event:
+      type: string
+      maxLength: 256
+      description: The original event or question, including participants and year or ISO date.
+output_schema:
+  type: object
+  properties:
+    event: {type: string}
+    outcome: {type: string, enum: ['yes', 'no', unresolved]}
+    resolved_yes:
+      type: boolean
+      description: Present only for a sourced settled answer; omitted on abstention.
+    resolved: {type: boolean}
+    winner: {type: [string, 'null']}
+    resolved_at: {type: [string, 'null']}
+    sources: {type: array, items: {type: string}}
+    summary: {type: string}
+endpoints:
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    description: Resolve one public event or explicit contender win claim using source records.
+    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: event
+            type: string
+            intents: ['*']
+            description: Verbatim canonical event string. Preserve participants, date and claim polarity.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+intent_mapping:
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    input:
+      event:
+        from: event
+        how: Copy the complete event string verbatim; do not replace the event with a generic sports query.
+    output:
+      event: {path: event}
+      outcome: {path: outcome}
+      resolved_yes:
+        path: resolved_yes
+        how: Read the exact sourced boolean. If absent because outcome is unresolved, report missing.
+      winner: {path: winner}
+      resolved_at: {path: resolved_at}
+      sources: {path: sources}
