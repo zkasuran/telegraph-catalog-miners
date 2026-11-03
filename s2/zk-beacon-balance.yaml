@@ -1,0 +1,69 @@
+version: "1"
+kind: miner
+id: 793777
+slug: zk-beacon-balance
+protocol: generic
+name: VerifyWire Independently Verified Beacon Balance
+description: >
+  Ethereum mainnet beacon validator effective balance in gwei, read at a pinned
+  finalized state root and cross-checked between PublicNode and ChainSafe Lodestar.
+  Reports the requested index, total balance separately, status, slashed flag,
+  state root, finalized slot and exact source URLs. Does not infer uptime or APR.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /beacon-validator
+    external_path: /beacon-validator
+    method: GET
+    description: >
+      Read the effective balance in gwei of the required Ethereum beacon validator
+      index at a finalized consensus state. Never substitute a fee-recipient address.
+    intents: [VALIDATOR_PERFORMANCE_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: validator_index
+            type: integer
+            intents: [VALIDATOR_PERFORMANCE_VERIFY_GENERAL]
+            description: Ethereum beacon validator index, integer from 0 to 1000000000.
+input_schema:
+  type: object
+  required: [validator_index]
+  properties:
+    validator_index:
+      type: integer
+      minimum: 0
+      maximum: 1000000000
+output_schema:
+  type: object
+  required: [effective_balance, validator_index, unit, state_root, sources]
+  properties:
+    effective_balance:
+      type: number
+      description: Effective balance in gwei, directly read from validator.effective_balance.
+    validator_index: {type: integer}
+    unit: {type: string, enum: [gwei]}
+    state_root: {type: string}
+    sources: {type: array, items: {type: string}}
+    summary: {type: string}
+intent_mapping:
+  VALIDATOR_PERFORMANCE_VERIFY_GENERAL:
+    endpoint: /beacon-validator
+    input:
+      validator_index: {from: validator_index}
+    output:
+      effective_balance:
+        path: effective_balance
+        unit: gwei
+semantics:
+  supported_intents: [VALIDATOR_PERFORMANCE_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: error
