@@ -1,0 +1,77 @@
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 7317327,
+  "slug": "zk-scholarsyn",
+  "protocol": "generic",
+  "name": "ScholarWire Source-Linked Research",
+  "description": "Keyless extractive research overview from Wikipedia background, reusable Europe PMC article abstracts with primary NCBI licence checks, and Crossref bibliographic readings. Quotes source conclusions with named articles, dates and reference URLs. No model-generated scientific claims or fabricated confidence. This is a bounded source-linked overview, not a systematic review; no claim to cover every study or the latest evidence.\n",
+  "base_url": "https://telegraph-scholar.margyn.workers.dev",
+  "auth": {"type": "none"},
+  "rate_limit_per_sec": 1,
+  "cache_ttl_sec": 10,
+  "circuit_threshold": 5,
+  "circuit_cooldown_seconds": 30,
+  "endpoints": [
+    {
+      "path": "/synthesis",
+      "external_path": "/synthesis",
+      "method": "GET",
+      "description": "Pass the full research question verbatim as the required question query parameter. Returns source-attributed excerpts, article findings and bibliographic reading metadata. A request with no usable sources returns HTTP 503 rather than an invented answer.\n",
+      "intents": ["RESEARCH_SYNTHESIS_GENERAL"],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "question",
+              "type": "string",
+              "description": "Full research topic or question, verbatim.",
+              "intents": ["RESEARCH_SYNTHESIS_GENERAL"]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "input_schema": {
+    "type": "object",
+    "required": ["question"],
+    "properties": {
+      "question": {"type": "string", "minLength": 1, "maxLength": 256}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "required": ["answer", "brief", "source_count", "sources"],
+    "properties": {
+      "answer": {"type": "string"},
+      "brief": {"type": "string", "maxLength": 80},
+      "source_count": {"type": "integer", "minimum": 0, "maximum": 1000},
+      "sources": {"type": "array", "items": {"type": "string"}},
+      "summary": {"type": "string"},
+      "citations": {"type": "array"},
+      "findings": {"type": "array"},
+      "works": {"type": "array"},
+      "confidence": {"type": "null", "description": "Unknown; no calibrated statistical confidence is available."},
+      "as_of": {"type": "string"}
+    }
+  },
+  "intent_mapping": {
+    "RESEARCH_SYNTHESIS_GENERAL": {
+      "endpoint": "/synthesis",
+      "input": {
+        "question": {"from": "question", "how": "Copy the full question verbatim."}
+      },
+      "output": {
+        "answer": {"path": "answer"},
+        "source_count": {"path": "source_count"},
+        "sources": {"path": "sources"},
+        "brief": {"path": "brief"}
+      }
+    }
+  },
+  "semantics": {
+    "signal_mapping": {"label_field": "answer", "reason_field": "answer"},
+    "supported_intents": ["RESEARCH_SYNTHESIS_GENERAL"]
+  }
+}
