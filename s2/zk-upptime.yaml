@@ -1,0 +1,83 @@
+version: "1"
+kind: miner
+id: 781307
+slug: zk-upptime
+protocol: generic
+name: Upptime Public HTTP Availability
+description: >-
+  Reports published availability statistics from Upptime's ODbL-licensed public HTTP monitoring
+  history for Google homepage, English Wikipedia homepage, and Hacker News homepage. Scope is
+  the named homepage from one monitor, not every product of a provider or customer-specific
+  contractual SLA telemetry. Supports reported last 24 hours, last 7 days, last month, last year,
+  and fixed last 30/60/90/365-day estimates computed from rounded daily incident minutes.
+  Month/year retain Upptime's published calendar-lookback and fixed-denominator definitions.
+  Fixed-day estimates disclose exact window dates and bounded partial-day allocation.
+  Unsupported scopes or ambiguous estimates fail without an invented percentage.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://demo.upptime.js.org/
+  documentation: https://github.com/upptime/upptime
+errors:
+  code_path: error
+  message_path: summary
+endpoints:
+  - path: /sla-compliance
+    external_path: /sla-compliance
+    method: GET
+    description: >-
+      Get the published Upptime homepage-availability percentage for the explicit canonical
+      service and period. Returns numeric uptime_pct in percent, pinned public source revision,
+      measurement date, precise source field and ODbL attribution. No SLA target is presumed.
+    intents: [SLA_COMPLIANCE_GENERAL]
+    params:
+      query:
+        required:
+          - name: service
+            type: string
+            intents: ["*"]
+            description: Google homepage, English Wikipedia homepage, or Hacker News homepage.
+          - name: period
+            type: string
+            intents: ["*"]
+            description: Last 24 hours, last 7 days, last month, last year, or last 30/60/90/365 days.
+input_schema:
+  type: object
+  required: [service, period]
+  properties:
+    service:
+      type: string
+      enum: [Google homepage, English Wikipedia homepage, Hacker News homepage]
+    period:
+      type: string
+      enum: [last 24 hours, last 7 days, last month, last year, last 30 days, last 60 days, last 90 days, last 365 days]
+output_schema:
+  type: object
+  required: [service, period, uptime_pct, source, as_of, data_license]
+  properties:
+    service: {type: string}
+    period: {type: string}
+    uptime_pct: {type: number, minimum: 0, maximum: 100}
+    source: {type: string}
+    as_of: {type: string}
+    data_license: {type: string}
+intent_mapping:
+  SLA_COMPLIANCE_GENERAL:
+    endpoint: /sla-compliance
+    input:
+      service: {from: service}
+      period: {from: period}
+    output:
+      service: {path: service}
+      uptime_pct: {path: uptime_pct, unit: percent}
+      period: {path: period}
+semantics:
+  supported_intents: [SLA_COMPLIANCE_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: source
