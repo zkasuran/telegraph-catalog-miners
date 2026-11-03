@@ -1,0 +1,76 @@
+version: "1"
+kind: miner
+id: 73109
+slug: zk-newsbudget
+protocol: generic
+name: NewsWire Verified News Search
+description: >
+  Search dated reports from Global Voices, Wikinews, NASA, the European
+  Commission, NIST and GOV.UK. Return fetched publisher quotes, original links,
+  available bylines and source-specific licences. Verify original government
+  publication dates before selecting up to five reports. Recent direct matches
+  precede background mentions and explicitly dated archives. Explicit today and
+  bounded past-day, week or hour requests constrain original publication dates
+  in UTC. Query and answer reuse is at most 60 seconds; catalog and government
+  metadata reuse is at most 300 seconds, preserving original fetch times.
+  Limit optional shared cache work to protect the public-source verification
+  budget. State limited coverage, no matching reports and actual source failures.
+base_url: https://telegraph-news.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Search query is at most 200 Unicode characters.
+    param: query
+    property: length
+    value_num: 200
+    operator: lte
+endpoints:
+  - path: /news
+    external_path: /news
+    method: GET
+    description: >
+      Retrieve up to five dated publisher reports for the canonical topic,
+      entity or event. Copy query verbatim, retaining explicit publication-window
+      constraints. Interpret recognizable news framing conservatively and echo
+      the original query unchanged.
+    intents: [NEWS_SEARCH_GENERAL]
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: [NEWS_SEARCH_GENERAL]
+            description: The canonical query copied verbatim, at most 200 characters.
+input_schema:
+  type: object
+  required: [query]
+  properties:
+    query: {type: string, maxLength: 200}
+output_schema:
+  type: object
+  required: [answer, brief, sources, result_count]
+  properties:
+    answer: {type: string}
+    brief: {type: string, maxLength: 80}
+    sources: {type: array, items: {type: string}}
+    result_count: {type: integer, minimum: 0, maximum: 5}
+semantics:
+  supported_intents: [NEWS_SEARCH_GENERAL]
+  signal_mapping:
+    label_field: answer
+    reason_field: answer
+intent_mapping:
+  NEWS_SEARCH_GENERAL:
+    endpoint: /news
+    input:
+      query: {from: query, how: "Copy the canonical query verbatim, preserving date constraints."}
+    output:
+      answer: {path: answer, how: "Copy the publisher-quoted answer verbatim."}
+      result_count: {path: result_count}
+      sources: {path: sources, how: "Preserve original article URLs and order."}
+      brief: {path: brief, how: "Copy the supplied plain sentence, at most 80 characters."}
