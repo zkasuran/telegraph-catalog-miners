@@ -1,0 +1,90 @@
+version: "1"
+kind: miner
+id: 77834
+slug: zk-supply-guard
+protocol: generic
+name: VerifyWire Pinned Token Supply
+description: >
+  ERC-20 current total supply in exact whole-token units, read from public RPC
+  and independently corroborated. Reports token identity, canonical block hash,
+  observation time and source URLs. Rejects conflicting subjects and blocks.
+  Does not substitute circulating, global cross-chain, lifetime-minted or native
+  ETH supply. A current Blockscout fallback requires exact raw value and decimals
+  equality and explicitly discloses that the indexer has no observation block.
+  BSC USDC means the disclosed Binance-Peg USD Coin contract, not Circle-native
+  USDC. Explicit historical heights may be bounded by safe/finalized head tags.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /supply
+    external_path: /supply
+    method: GET
+    description: >
+      Query one ERC-20 token using its symbol/name or complete contract address
+      and chain in token, for example USDC on Ethereum. Current supply is a numeric
+      JSON field in whole tokens; exact decimal and base-unit strings are separate.
+      Ethereum, BNB Smart Chain, Base, Arbitrum, Optimism, Polygon and supported
+      EVM testnets. BSC USDC is explicitly identified as Binance-Peg USD Coin.
+      Missing independent source agreement returns an explicit HTTP failure.
+    intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: token
+            type: string
+            intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+            description: One token symbol/name or complete 20-byte ERC-20 address and its chain, verbatim.
+        optional:
+          - name: chain
+            type: string
+            intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+            description: Optional explicit chain; must agree with the chain named in token.
+          - name: block
+            type: string
+            intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+            description: latest, safe, finalized or a precise decimal/hex height. With height, safe/finalized is a verified upper boundary.
+          - name: height
+            type: string
+            intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+            description: Exact historical block height; conflicting numeric selectors are refused, never replaced by a current value.
+input_schema:
+  type: object
+  required: [token]
+  properties:
+    token: {type: string, minLength: 1, maxLength: 256}
+    chain: {type: string}
+    block: {type: string}
+    height: {type: string}
+output_schema:
+  type: object
+  required: [total_supply, total_supply_exact, total_supply_raw, decimals, sources]
+  properties:
+    total_supply: {type: number, description: Observed ERC-20 totalSupply divided by ten to the observed decimals.}
+    total_supply_exact: {type: string}
+    total_supply_raw: {type: string}
+    decimals: {type: integer}
+    block_hash: {type: string}
+    verification_mode: {type: string}
+    sources: {type: array, items: {type: object}}
+intent_mapping:
+  TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL:
+    endpoint: /supply
+    input:
+      token: {from: token, how: Preserve the complete requested token and chain; do not choose a substitute.}
+    output:
+      total_supply:
+        path: total_supply
+        unit: whole tokens
+semantics:
+  supported_intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: summary
+  code_path: error
