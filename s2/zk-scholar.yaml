@@ -1,0 +1,69 @@
+version: "1"
+kind: miner
+id: 78251
+slug: zk-scholar
+protocol: generic
+name: ScholarWire Verified Academic Search
+description: >
+  Academic search from live Crossref and DataCite bibliographic metadata, with
+  OpenAlex as an available fallback and independent DOI/title/year index checks.
+  Accepts a subject, full paper-search request, quoted title, or DOI. Preserves
+  requested counts, year windows and ordering. Reports disagreements explicitly;
+  citations and result totals are scoped to their source and retrieved candidates.
+base_url: https://telegraph-scholar.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /papers
+    external_path: /papers
+    method: GET
+    description: >
+      Search scholarly bibliographic records. Send the complete canonical query
+      verbatim in query; the worker parses counts, date constraints and ordering.
+    intents: [ACADEMIC_SEARCH_GENERAL]
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: [ACADEMIC_SEARCH_GENERAL]
+            description: Complete scholarly topic or search request, verbatim.
+input_schema:
+  type: object
+  required: [query]
+  properties:
+    query:
+      type: string
+      minLength: 1
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [answer, paper_titles, dois, total_matches, brief]
+  properties:
+    answer: {type: string}
+    paper_titles: {type: array, items: {type: string}}
+    dois: {type: array, items: {type: [string, "null"]}}
+    total_matches: {type: integer, minimum: 0, maximum: 100000000}
+    brief: {type: string, maxLength: 80}
+semantics:
+  signal_mapping:
+    label_field: answer
+    reason_field: answer
+  supported_intents: [ACADEMIC_SEARCH_GENERAL]
+intent_mapping:
+  ACADEMIC_SEARCH_GENERAL:
+    endpoint: /papers
+    input:
+      query:
+        from: query
+        how: Copy the complete canonical query verbatim, including counts and dates.
+    output:
+      answer: {path: answer}
+      paper_titles: {path: paper_titles}
+      dois: {path: dois}
+      total_matches: {path: total_matches}
+      brief: {path: brief}
