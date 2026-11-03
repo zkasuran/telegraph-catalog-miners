@@ -1,0 +1,77 @@
+version: "1"
+kind: miner
+id: 731437
+slug: zk-contract-spans
+protocol: generic
+name: ZK Contract Literal Evidence Index
+description: >
+  Index supplied contractual text and bounded official FAR links into verbatim
+  clauses, keyword-selected candidate paragraphs and literal grammatical
+  subject, statement and time spans. Returns Unclear because this index does
+  not resolve legal roles, incorporation, applicability or actual performance.
+  Includes exact published source dates, digests and fetch provenance for
+  supported FAR links. No model-generated contract facts or compliance labels.
+base_url: https://telegraph-fact.margyn.workers.dev
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: At most 8000 characters of supplied text or one supported official FAR link.
+    param: contract
+    property: length
+    value_num: 8000
+    operator: lte
+input_schema:
+  type: object
+  required: [contract]
+  properties:
+    contract:
+      type: string
+      maxLength: 8000
+      description: Supplied contract text or an Acquisition.gov FAR / eCFR title-48 section HTTPS link.
+output_schema:
+  type: object
+  required: [verdict, obligations, clauses, summary]
+  properties:
+    verdict:
+      type: string
+      enum: [Compliant, Partially compliant, Non-compliant, Unclear]
+    obligations:
+      type: array
+      items: {type: object}
+    clauses:
+      type: array
+      items: {type: object}
+    summary: {type: string}
+endpoints:
+  - path: /contract-audit
+    external_path: /contract-audit
+    method: GET
+    description: Literal evidence index for contract text or one bounded official FAR link; no legal compliance assessment.
+    intents: [CONTRACT_OBLIGATION_AUDIT_GENERAL]
+    params:
+      query:
+        required:
+          - name: contract
+            type: string
+            intents: [CONTRACT_OBLIGATION_AUDIT_GENERAL]
+            description: The full canonical contract text or supported HTTPS FAR link, verbatim, at most 8000 characters.
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [CONTRACT_OBLIGATION_AUDIT_GENERAL]
+intent_mapping:
+  CONTRACT_OBLIGATION_AUDIT_GENERAL:
+    endpoint: /contract-audit
+    input:
+      contract:
+        from: contract
+        how: Copy the entire text or link verbatim without summarizing or changing dates.
+    output:
+      verdict: {path: verdict}
+      obligations: {path: obligations}
+      clauses: {path: clauses}
+      summary: {path: summary}
