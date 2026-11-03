@@ -1,0 +1,63 @@
+# LOCAL DRAFT ONLY: candidate worker is not deployed and source redistribution
+# permission is unresolved. Do not register until both have been verified.
+version: "1"
+kind: miner
+id: 7710320
+slug: zk-usd-price
+protocol: generic
+name: ZK USD Spot Price
+description: >
+  Returns one exact, source-attributed USD spot price for the requested asset.
+  The candidate reads Kraken's public ticker, with Bitstamp and Gemini fallbacks.
+  A UTC-day change is distinguished from a rolling 24-hour change.
+base_url: https://telegraph-fin.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /price
+    external_path: /price
+    method: GET
+    description: Exact numeric USD spot price of the single requested asset.
+    intents: [CRYPTO_PRICE_USD]
+    params:
+      query:
+        required:
+          - name: symbol
+            type: string
+            intents: [CRYPTO_PRICE_USD]
+            description: Asset ticker, such as BTC, ETH, SOL, BNB or XRP.
+input_schema:
+  type: object
+  required: [symbol]
+  properties:
+    symbol:
+      type: string
+      minLength: 1
+      maxLength: 60
+output_schema:
+  type: object
+  properties:
+    price_usd:
+      type: number
+      description: Exact positive USD price returned by the attributed public ticker.
+semantics:
+  supported_intents: [CRYPTO_PRICE_USD]
+  signal_mapping:
+    label_field: price_usd
+    confidence_field: confidence
+    reason_field: summary
+intent_mapping:
+  CRYPTO_PRICE_USD:
+    endpoint: /price
+    input:
+      symbol:
+        from: symbol
+        how: Asset ticker in upper case; preserve which asset was requested.
+    output:
+      price_usd:
+        path: price_usd
+        unit: US dollars
