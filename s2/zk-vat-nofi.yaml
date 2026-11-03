@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 73110605
+slug: zk-vat-nofi
+protocol: generic
+name: DataWire Norway and Finland Domestic VAT Registry
+description: >
+  Source-backed domestic VAT registration checks for Norwegian NO organization
+  numbers and Finnish FI VAT numbers, using official BRREG and PRH/YTJ records.
+  Returns the registry's VAT validity, legal name, address and source timestamp.
+  The Finnish check is domestic VAT-liability registration, not VIES cross-border
+  validity. Unknown jurisdictions, missing PRH scope, ambiguous records and
+  notification-only or group-only VAT entries return an explicit error without
+  a validity boolean. Vendor identity and sanctions clearance are separate.
+base_url: https://telegraph-data.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /vendor-verify
+    external_path: /vendor-verify
+    method: GET
+    description: >
+      Check domestic VAT registration by supplied vendor and vat_number. Norway:
+      NO plus 9-digit organization number, optional MVA. Finland: FI plus 8-digit
+      Business ID without dash. Preserves source observations and distinguishes
+      exact vendor-name matching from VAT validity. Not a VIES or sanctions check.
+    intents: [VENDOR_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: vendor
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: Vendor name to compare with the registry's primary legal name.
+          - name: vat_number
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: Norwegian NO organization number or Finnish FI VAT number.
+input_schema:
+  type: object
+  required: [vendor, vat_number]
+  properties:
+    vendor:
+      type: string
+      minLength: 1
+      maxLength: 256
+    vat_number:
+      type: string
+      minLength: 1
+      maxLength: 256
+      pattern: '^(NO[0-9]{9}(MVA)?|FI[0-9]{8})$'
+intent_mapping:
+  VENDOR_VERIFY_GENERAL:
+    endpoint: /vendor-verify
+    input:
+      vendor:
+        from: vendor
+      vat_number:
+        from: vat_number
+        how: Uppercase; remove spaces and the Finnish Business ID dash. Preserve all leading zeroes.
+    output:
+      vendor: {path: vendor}
+      vat_number: {path: vat_number}
+      valid: {path: valid}
+      registered_name: {path: registered_name}
+      registered_address: {path: registered_address}
+semantics:
+  supported_intents: [VENDOR_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: error
+  code_path: code
