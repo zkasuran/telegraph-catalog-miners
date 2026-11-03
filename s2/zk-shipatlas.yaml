@@ -1,0 +1,90 @@
+version: "1"
+kind: miner
+id: 7310388
+slug: zk-shipatlas
+protocol: generic
+name: ZK Source-Verified Prepaid Shipping Atlas
+description: >
+  Published 2026 La Poste and Chronopost prepaid-package tariffs from metropolitan
+  France. Domestic Colissimo up to 5 kg and Chrono 13 up to 12 kg; EU up to 5 kg;
+  United Kingdom, Canada, Japan, Australia, Switzerland, Norway, Singapore, China,
+  Brazil and eight listed OM1 territories up to 7 kg. Contents must fit the chosen
+  prepaid package. Conditional indicative ETA; tariff is not a booking confirmation,
+  serviceability guarantee or cheapest-carrier comparison. United States not supported.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /quote
+    external_path: /quote
+    method: GET
+    description: >
+      Quote a fully priced retail prepaid package from metropolitan France.
+      Preserve explicit supplied country/territory and postcode. Exact bare Paris/Lyon
+      use disclosed French-service defaults. Domestic up to 5 kg uses Colissimo M/L;
+      above 5 through 6 kg uses Chrono 13 6-kg box; above 6 through 12 kg its 12-kg box.
+      EU destinations up to 5 kg use UE M/L. UK, Canada, Japan, Australia, Switzerland,
+      Norway, Singapore, China and Brazil use Monde L up to 5 kg, XL above 5 through 7 kg.
+      OM1 up to 7 kg: Guadeloupe, Martinique, Guyane/French Guiana, Réunion, Mayotte,
+      Saint-Pierre-et-Miquelon, Saint-Martin and Saint-Barthélemy. Exact verified Réunion
+      commune/postcode tuples accepted, including Saint-Denis 97400, France.
+      Weight is kilograms with at most three decimal places. Supplied country conflicts,
+       unknown lanes and overweight requests return HTTP 200, status unquoted,
+       quote_available false with an actionable error code/message and no quote fields.
+       Only status quoted is a quote; never interpret unquoted HTTP 200 as a numeric rate.
+       Malformed parameters remain HTTP 400; expired tariff/calendar remain HTTP 503.
+       US requires absent customs/
+      serviceability inputs and is unsupported. Rate excludes destination duties/taxes
+      and optional services. Goods must fit the prepaid package; check actual destination
+      service availability before purchase. ETA assumes handover today before cutoff,
+      with conservative working-day calendars; customs, disruption and foreign holidays
+      may add time. Tariffs/calendar expire December 2026. Return calendar_transit_days
+      for canonical transit_days; API transit_days separately represents working days.
+    intents: [SHIP_RATE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Preserve supplied metropolitan France origin verbatim; exact bare Paris/Lyon use disclosed defaults. Max 256 characters; overseas origins unsupported.
+          - name: destination
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Preserve supplied country, territory and postcode verbatim; EU, listed international countries or OM1 destinations only. Do not infer missing geography. Max 256 characters.
+          - name: weight_kg
+            type: number
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Positive kilograms, at most three decimals; domestic at most 12, EU at most 5, listed international/OM1 at most 7. Endpoint enforces destination limits.
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping: {label_field: rate, reason_field: summary}
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve supplied place, explicit country/territory and postcode verbatim. Do not invent geography. Metropolitan France only.
+      destination:
+        from: destination
+        how: Preserve supplied location, explicit country/territory and postcode verbatim. Do not remove overseas labels or infer an ambiguous country.
+      weight_kg:
+        from: weight_kg
+        how: Preserve the positive mass in kilograms, at most three decimals. Destination-specific limits are enforced by the endpoint.
+    output:
+      carrier: {path: carrier}
+      rate: {path: rate, unit: currency units}
+      currency: {path: currency}
+      transit_days: {path: calendar_transit_days, unit: days}
+      eta: {path: eta}
