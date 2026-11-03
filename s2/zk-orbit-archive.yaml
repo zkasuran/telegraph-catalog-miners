@@ -1,0 +1,71 @@
+version: "1"
+kind: miner
+id: 70089
+slug: zk-orbit-archive
+protocol: generic
+name: VisionWire Archival Imagery Evidence
+description: >
+  Retrieve published descriptions of historical orbital imagery for a named place.
+  Returns exact public-source excerpts, image links, source credit, and explicitly
+  documented acquisition dates. This is archival evidence retrieval, not new pixel
+  analysis. Requests for current conditions, unsupported measurements, or changes
+  not established by the selected source are reported as unverified.
+base_url: https://telegraph-vision.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /satellite
+    external_path: /satellite
+    method: GET
+    description: >
+      Historical satellite or orbital image evidence for location. Send both
+      location and question. Returns source excerpts rather than inferred facts.
+    intents: [SATELLITE_IMAGERY_ANALYSIS_GENERAL]
+    params:
+      query:
+        required:
+          - name: location
+            type: string
+            intents: [SATELLITE_IMAGERY_ANALYSIS_GENERAL]
+            description: Named geographic area, at most 256 characters.
+          - name: question
+            type: string
+            intents: [SATELLITE_IMAGERY_ANALYSIS_GENERAL]
+            description: What documented imagery finding to retrieve, at most 16000 characters.
+input_schema:
+  type: object
+  required: [location, question]
+  properties:
+    location: {type: string, maxLength: 256}
+    question: {type: string, maxLength: 16000}
+output_schema:
+  type: object
+  properties:
+    location: {type: string}
+    findings: {type: array, items: {type: string}}
+    capture_date: {type: [string, "null"]}
+    summary: {type: string}
+    brief: {type: string, maxLength: 80}
+    status: {type: string}
+    sources: {type: array}
+intent_mapping:
+  SATELLITE_IMAGERY_ANALYSIS_GENERAL:
+    endpoint: /satellite
+    input:
+      location: {from: location}
+      question: {from: question}
+    output:
+      location: {path: location}
+      findings: {path: findings}
+      capture_date: {path: capture_date}
+      summary: {path: summary}
+      brief: {path: brief}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [SATELLITE_IMAGERY_ANALYSIS_GENERAL]
