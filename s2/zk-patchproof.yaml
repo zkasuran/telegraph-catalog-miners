@@ -1,0 +1,84 @@
+version: '1'
+kind: miner
+id: 7312047
+slug: zk-patchproof
+protocol: generic
+name: PatchProof — Exact-Commit Public CI Verification
+description: >-
+  Verifies the observed CI result of the requested public patch, with exact commit
+  SHA, CI URL, source timestamps and evidence digests. Supports GitHub commit and
+  pull request checks, GitHub Actions runs, CircleCI builds and GitLab pipelines.
+  GitHub requests are best-effort under its keyless shared-IP hourly quota.
+base_url: https://telegraph-s2-patchproof.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 30
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /verify
+    external_path: /verify
+    method: GET
+    description: >-
+      Verify the patch specified by a public CI URL, GitHub commit/PR URL or
+      owner/repo@ref. A CI URL reports that exact run; a commit or PR aggregates
+      all observed check runs and legacy status contexts for its exact head SHA.
+      Only all-success evidence returns passed=true. No evidence is an error.
+      GitHub may return an explicit quota error; CircleCI and GitLab CI URLs are
+      the independently checked keyless acceptance paths.
+    intents: [CODE_PATCH_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: patch
+            type: string
+            intents: [CODE_PATCH_VERIFY_GENERAL]
+            description: >-
+              Canonical patch input, verbatim. Public https://github.com/OWNER/REPO/commit/SHA,
+              https://github.com/OWNER/REPO/pull/NUMBER, OWNER/REPO@REF,
+              https://github.com/OWNER/REPO/actions/runs/ID (optionally /attempts/N),
+              https://circleci.com/gh/OWNER/REPO/BUILD_NUMBER, or
+              https://gitlab.com/GROUP/PROJECT/-/pipelines/ID. Maximum 2048 characters.
+input_schema:
+  type: object
+  required: [patch]
+  properties:
+    patch:
+      type: string
+      minLength: 1
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [conclusion, passed, commit, pipeline, summary, source, as_of]
+  properties:
+    conclusion:
+      type: string
+      enum: [success, failure, cancelled, skipped, neutral, timed_out, pending]
+    passed: {type: boolean}
+    commit: {type: string, pattern: '^[0-9a-f]{40}$'}
+    pipeline: {type: string}
+    summary: {type: string}
+    source: {type: string}
+    as_of: {type: string, format: date-time}
+    evidence: {type: object}
+semantics:
+  supported_intents: [CODE_PATCH_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: conclusion
+    reason_field: summary
+intent_mapping:
+  CODE_PATCH_VERIFY_GENERAL:
+    endpoint: /verify
+    input:
+      patch:
+        from: patch
+        how: Copy the canonical patch string verbatim; do not substitute a demo repository or latest unrelated run.
+    output:
+      conclusion: {path: conclusion}
+      passed: {path: passed}
+      commit: {path: commit}
+      pipeline: {path: pipeline}
+errors:
+  message_path: error
+  code_path: code
