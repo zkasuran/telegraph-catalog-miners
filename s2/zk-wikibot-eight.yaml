@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 731060
+slug: zk-wikibot-eight
+protocol: generic
+name: ZK Wiki Registered Automation — Eight Projects
+description: >
+  Check one Wikimedia account's public project-local bot-group membership.
+  Supports English, German, French, Spanish, Italian, Portuguese and Dutch
+  Wikipedia and Wikimedia Commons. A bot verdict means declared registered
+  automation, not maliciousness, activity or behavioural bot probability.
+  Missing flags, unsupported accounts and unavailable sources are inconclusive.
+  No model-generated labels or probabilities. Existing English/German/French/
+  Commons mobile aliases supported; use desktop hosts for the four new projects.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [account]
+  properties:
+    account:
+      type: string
+      description: One complete supported Wikimedia User-namespace URL.
+output_schema:
+  type: object
+  properties:
+    account: {type: string}
+    verdict:
+      type: string
+      enum: [bot, likely_bot, inconclusive, likely_human, human]
+    bot_score:
+      type: [number, "null"]
+      description: Null because no calibrated probability is available.
+    signals: {type: array, items: {type: string}}
+    summary: {type: string}
+endpoints:
+  - path: /bot-detect
+    external_path: /bot-detect
+    method: GET
+    description: >
+      Fetch exact local bot-group membership for one supported Wikimedia
+      account URL. Accepts localized User namespaces and index.php title URLs.
+      Returns canonical account, verdict and signals with source URLs and
+      observation time. No evidence means inconclusive, never a human guess.
+    intents: [SOCIAL_BOT_DETECTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: account
+            type: string
+            intents: ["*"]
+            description: >
+              One HTTPS User URL on en/de/fr/es/it/pt/nl.wikipedia.org or
+              commons.wikimedia.org. Canonical names include User, Benutzer,
+              Utilisateur, Usuario, Utente, Usuário(a), Gebruiker. English,
+              German, French and Commons mobile host aliases also work.
+intent_mapping:
+  SOCIAL_BOT_DETECTION_GENERAL:
+    endpoint: /bot-detect
+    input:
+      account:
+        from: account
+        how: Preserve the single complete supported account URL verbatim.
+    output:
+      account: {path: account}
+      verdict: {path: verdict}
+      bot_score: {path: bot_score, unit: fraction}
+      signals: {path: signals}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [SOCIAL_BOT_DETECTION_GENERAL]
