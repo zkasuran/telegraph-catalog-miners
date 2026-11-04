@@ -1,0 +1,73 @@
+version: "1"
+kind: miner
+id: 73081
+slug: zk-gameproof
+protocol: generic
+name: SportWire Verified Historical Game Result
+description: >
+  Structured historical game results from licensed public records. Supports individual
+  NBA Finals games by year and game number or exact date, and exact dated fixtures
+  in OpenLigaDB's Bundesliga, DFB-Pokal, Premier League and LaLiga records. Both full
+  football team names are required. Returns recorded home and away final scores,
+  winner and date, with attribution. Rejects unsupported or inconsistent requests;
+  never substitutes a current game. Candidate requires worker deployment first.
+base_url: https://telegraph-sport.margyn.workers.dev
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /verified-game
+    external_path: /verified-game
+    method: GET
+    intents: [GAME_RESULT_GENERAL]
+    description: >
+      Exact licensed historical final. Pass the entire game description unchanged
+      in game: NBA Finals year and game/date, or supported football league, both
+      full team names and exact date. Preserves designated home/away orientation
+      and rejects inconsistent dates, opponents and unverified final results.
+    params:
+      query:
+        required:
+          - name: game
+            type: string
+            intents: [GAME_RESULT_GENERAL]
+            description: Entire canonical game description, verbatim.
+input_schema:
+  type: object
+  required: [game]
+  properties:
+    game: {type: string}
+output_schema:
+  type: object
+  properties:
+    winner: {type: [string, "null"]}
+    home_team: {type: string}
+    away_team: {type: string}
+    home_score: {type: integer}
+    away_score: {type: integer}
+    date: {type: string}
+    final: {type: boolean}
+    summary: {type: string}
+    confidence: {type: number}
+intent_mapping:
+  GAME_RESULT_GENERAL:
+    endpoint: /verified-game
+    input:
+      game: {from: game, how: "Copy the full game description verbatim; preserve teams, date and game number."}
+    output:
+      winner: {path: winner}
+      home_team: {path: home_team}
+      away_team: {path: away_team}
+      home_score: {path: home_score, unit: points}
+      away_score: {path: away_score, unit: points}
+      date: {path: date}
+semantics:
+  supported_intents: [GAME_RESULT_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+errors:
+  message_path: summary
+  code_path: error
