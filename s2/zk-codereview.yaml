@@ -1,0 +1,82 @@
+# Contract-remediation draft, not registered. See FIXES.md and SKIPPED.md before use.
+version: '1'
+kind: miner
+id: 7310045
+slug: zk-codereview
+protocol: generic
+name: CodeWire Code Review Request Contract
+description: CodeWire's existing MiniMax-powered review service with an explicit GET
+  request contract. Supply inline source code in the code query parameter. This service
+  returns review prose in summary; it does not emit canonical verdict or findings
+  fields, does not fetch links, and has no independently validated general-review
+  truth source. The model is accessed using the operator's commercial plan.
+base_url: https://telegraph-code.margyn.workers.dev
+docs:
+  documentation: https://telegraph-code.margyn.workers.dev/
+limitations:
+- code: MAX_PARAM_VALUE
+  message: code is the input to work on. A single request, not a batch.
+  param: code
+  property: length
+  value_num: 20000
+  operator: lte
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required:
+  - code
+  properties:
+    code:
+      type: string
+      minLength: 1
+      maxLength: 20000
+      description: The exact inline source excerpt to review.
+output_schema:
+  type: object
+  properties:
+    headline:
+      type: string
+      description: The first sentence of the answer, a short label for a reader.
+    summary:
+      type: string
+      description: The CODE_REVIEW answer the node grades.
+    confidence:
+      type: number
+      description: 0.95 for a direct model answer, lower when the answer is degraded.
+    as_of:
+      type: string
+      description: Timestamp the answer was produced.
+endpoints:
+- path: /code-review
+  external_path: /code-review
+  method: GET
+  description: Review one supplied inline source excerpt. Use GET /code-review?code=<UTF-8
+    source>, URL-encoding the source; aliases question/query are supported by the
+    existing worker. The response has full review prose in summary and its first sentence
+    in headline. Links are passed as text, not fetched; canonical verdict and findings
+    are not emitted. Upstream review failures return HTTP 502; missing input returns
+    HTTP 400.
+  intents:
+  - CODE_REVIEW_GENERAL
+  params:
+    query:
+      required:
+      - name: code
+        type: string
+        intents:
+        - CODE_REVIEW_GENERAL
+        description: Inline source code, verbatim. One non-empty source excerpt, at
+          most 20,000 characters. URL-encode in the GET query. Links are not fetched.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+  - CODE_REVIEW_GENERAL
+errors:
+  message_path: detail
+  code_path: error
