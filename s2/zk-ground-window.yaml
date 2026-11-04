@@ -1,0 +1,89 @@
+version: "1"
+kind: miner
+id: 70851
+slug: zk-ground-window
+protocol: generic
+name: Source-Verified FedEx Ground Window
+description: >
+  Returns the published FedEx Ground service-level business-day range, with
+  Wikipedia CC BY-SA attribution and a carrier-documentation cross-check.
+  Covers contiguous-US routes and routes to or from Alaska and Hawaii.
+  Explicit US state or verified city/state routes are supported. These are
+  general service estimates, not shipment tracking, ZIP-pair quotes or
+  verification of a promised arrival date. Unsupported scopes fail without
+  an invented window. Uses keyless public sources and no language model.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://en.wikipedia.org/wiki/FedEx_Ground
+  documentation: https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html
+endpoints:
+  - path: /delivery-window-verify
+    external_path: /delivery-window-verify
+    method: GET
+    description: >
+      Published service-level window only. Carrier must be FedEx Ground or
+      FEDEX_GROUND. Route must name both endpoints separated by ' to '. Each
+      endpoint is contiguous United States, Alaska, Hawaii, or an explicit
+      US state/city-state-country such as 'New York City, NY, US'. City names
+      must occur in GeoNames cities15000 in the stated state. A claim,
+      guaranteed delivery date, other service or unknown place is rejected.
+    intents: [DELIVERY_WINDOW_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: ["*"]
+            description: Exact FedEx Ground service; do not substitute Home Delivery or Ground Economy.
+          - name: route
+            type: string
+            intents: ["*"]
+            description: Explicit origin to destination, max 256 characters. City/state routes require US country markers at both ends.
+input_schema:
+  type: object
+  required: [carrier, route]
+  properties:
+    carrier:
+      type: string
+      enum: [FedEx Ground, FEDEX_GROUND]
+    route:
+      type: string
+output_schema:
+  type: object
+  required: [carrier, route, transit_days_max, transit_days_min, is_estimate, as_of, source]
+  properties:
+    carrier: {type: string}
+    route: {type: string}
+    transit_days_max: {type: number}
+    transit_days_min: {type: number}
+    is_estimate: {type: boolean}
+    as_of: {type: string}
+    source: {type: string}
+    summary: {type: string}
+    data_license: {type: string}
+intent_mapping:
+  DELIVERY_WINDOW_VERIFY_GENERAL:
+    endpoint: /delivery-window-verify
+    input:
+      carrier: {from: carrier}
+      route: {from: route}
+    output:
+      carrier: {path: carrier}
+      route: {path: route}
+      transit_days_max: {path: transit_days_max, unit: days}
+      transit_days_min: {path: transit_days_min, unit: days}
+      is_estimate: {path: is_estimate}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: source
+  supported_intents: [DELIVERY_WINDOW_VERIFY_GENERAL]
+errors:
+  message_path: summary
+  code_path: error
