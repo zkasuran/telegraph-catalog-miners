@@ -1,0 +1,92 @@
+version: "1"
+kind: miner
+id: 70068
+slug: zk-vessel-v2
+protocol: generic
+name: VesselWire Source-Reported AIS v2
+description: >
+  Source-reported ship AIS from Fintraffic Digitraffic. Reads one MMSI or a
+  uniquely resolved vessel name, normalizes AIS unavailable values, reports
+  timestamps and source URLs, and checks explicit speed or status predicates
+  against the report. Single-source AIS is not independent vessel verification.
+  Coverage is Fintraffic AIS reception, not worldwide. CC BY 4.0 with attribution.
+base_url: https://telegraph-vessel.margyn.workers.dev
+docs:
+  documentation: https://telegraph-vessel.margyn.workers.dev/
+  website: https://www.digitraffic.fi/en/marine-traffic/
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One vessel per request; question maximum 400 characters.
+    param: question
+    property: length
+    value_num: 400
+    operator: lte
+errors:
+  message_path: summary
+  code_path: error
+input_schema:
+  type: object
+  properties:
+    mmsi:
+      type: string
+      pattern: '^[0-9]{9}$'
+      description: Exact nine-digit vessel MMSI, preferred identifier.
+    vessel:
+      type: string
+      description: Name resolved only when unique in provider metadata.
+    question:
+      type: string
+      maxLength: 400
+      description: Verbatim question including MMSI/name and any explicit claim. Unsupported predicates are not inferred.
+output_schema:
+  type: object
+  properties:
+    intent: {type: string}
+    mmsi: {type: integer}
+    verdict: {type: string}
+    summary: {type: string}
+    speed_knots: {type: [number, 'null']}
+    latitude: {type: [number, 'null']}
+    longitude: {type: [number, 'null']}
+    observed_at: {type: [string, 'null']}
+    freshness: {type: string}
+    independently_verified: {type: boolean}
+    source_url: {type: string}
+endpoints:
+  - path: /vessel-telemetry-verify
+    external_path: /vessel-telemetry-verify
+    method: GET
+    description: >
+      Send one nine-digit MMSI, or a unique vessel name, or the complete question
+      verbatim. For claims include the complete question so units and negation
+      are preserved. Returns source-reported AIS only; absent/unknown/stale data
+      does not support a current verification. Speed units: knots, km/h, m/s.
+    intents: [VESSEL_TELEMETRY_VERIFY_GENERAL]
+    params:
+      query:
+        optional:
+          - name: mmsi
+            type: string
+            intents: ['*']
+            description: Exact nine-digit MMSI; supply this or vessel or question.
+          - name: vessel
+            type: string
+            intents: ['*']
+            description: Unique provider vessel name; supply this or MMSI or question.
+          - name: question
+            type: string
+            intents: ['*']
+            description: Complete question verbatim, up to 400 characters, including vessel identifier and claim.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - VESSEL_TELEMETRY_VERIFY_GENERAL
