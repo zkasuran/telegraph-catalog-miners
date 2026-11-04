@@ -87,7 +87,7 @@ semantics:
     label_field: summary
     reason_field: summary
   supported_intents:
-  - MEDIA_FORENSIC_VERIFY
+  - MEDIA_FORENSIC_VERIFY_GENERAL
 on_chain:
   transform: direct
   min_price_usdc: 0.01
