@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 73931
+slug: zk-cadref
+protocol: generic
+name: VerifyWire ECB CAD Reference
+description: >-
+  Latest published ECB USD/CAD daily reference fixing, computed from official
+  CAD/EUR and USD/EUR observations. Same-methodology Frankfurter fallback is used
+  if direct ECB retrieval fails. Independently compared with Bank of Canada
+  daily-average FXUSDCAD; disagreement is disclosed and never averaged away.
+  This is not an intraday executable quote. ECB and BoC data are available free
+  of charge at https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml and
+  https://www.bankofcanada.ca/valet/observations/FXUSDCAD/json?recent=5.
+  Any service fee is for retrieval, verification and formatting, not access to
+  the central banks' free data. Transformations and attribution are disclosed
+  per answer; neither central bank endorses this service.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/fx-ecb?currency=CAD
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  code_path: error
+  message_path: summary
+input_schema:
+  type: object
+  required: [currency]
+  properties:
+    currency: {type: string, enum: [CAD]}
+output_schema:
+  type: object
+  required: [rate, rate_unit, fixing_date, source, source_url, data_notice]
+  properties:
+    rate: {type: number}
+    rate_unit: {type: string}
+    fixing_date: {type: string}
+    source: {type: string}
+    source_url: {type: string}
+    data_notice: {type: string}
+    cross_check: {type: object}
+endpoints:
+  - path: /fx-ecb
+    external_path: /fx-ecb
+    method: GET
+    description: >-
+      Send exactly currency=CAD. Return numeric rate in CAD per USD, a dated ECB
+      reference, free-source notice and a separate independent BoC comparison.
+      Direct source and fallback use the same ECB methodology, with bounded
+      caching. No rate is asserted if the ECB reference cannot be retrieved.
+    intents: [FX_NOW_CAD]
+    params:
+      query:
+        required:
+          - name: currency
+            type: string
+            intents: [FX_NOW_CAD]
+            description: CAD, the canonical quote currency priced per one USD.
+intent_mapping:
+  FX_NOW_CAD:
+    endpoint: /fx-ecb
+    input:
+      currency:
+        from: currency
+        how: Preserve the canonical ISO currency code; this miner serves CAD only.
+    output:
+      rate:
+        path: rate
+        unit: "{key} per USD"
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [FX_NOW_CAD]
