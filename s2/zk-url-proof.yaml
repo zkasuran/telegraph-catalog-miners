@@ -1,0 +1,76 @@
+version: '1'
+kind: miner
+id: 731440
+slug: zk-url-proof
+protocol: generic
+name: ZK Source-Grounded URL Verdict
+description: >-
+  Keyless read-only URL assessment from the CERT Polska Warning List,
+  Cloudflare malware/phishing DNS, independent Google DNS, live HTTPS and
+  bounded literal response content. Follows HTTP and HTML meta-refresh
+  redirects, checks up to two external form/frame hosts, and recognizes the
+  exact published EICAR antivirus test-file bytes without calling the inert
+  test real malware. No model-generated facts, test-signature URL allowlists,
+  script execution or form submission. Inconclusive evidence yields safe: null.
+base_url: https://telegraph-net.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-net.margyn.workers.dev/url-scan?url=https%3A%2F%2Fexample.com%2F
+input_schema:
+  type: object
+  required: [url]
+  properties:
+    url:
+      type: string
+      maxLength: 2048
+      description: Absolute public HTTP(S) URL, including the exact case-sensitive path and query.
+output_schema:
+  type: object
+  properties:
+    safe:
+      type: [boolean, 'null']
+      description: Limited scan decision. True for completed HTTPS checks with no known warning; false for a source-backed warning or untrusted TLS; null when inconclusive.
+    verdict:
+      type: string
+      enum: [safe, unsafe, suspicious, unknown]
+    summary: {type: string}
+    checks: {type: array}
+    content_checks: {type: array}
+    as_of: {type: string}
+endpoints:
+  - path: /url-scan
+    external_path: /url-scan
+    method: GET
+    intents: [URL_SCAN_VERDICT]
+    description: >-
+      Assess the exact URL given as ?url=. Reports safe as a literal boolean
+      or null, plus observed source outcomes, transport status, redirects,
+      bounded content facts and timestamps. Null is unknown, never false or true.
+    params:
+      query:
+        required:
+          - name: url
+            type: string
+            intents: ['*']
+            description: Exact absolute public HTTP(S) URL; maximum 2048 characters. Credentials and non-default ports are rejected.
+semantics:
+  supported_intents: [URL_SCAN_VERDICT]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+intent_mapping:
+  URL_SCAN_VERDICT:
+    endpoint: /url-scan
+    input:
+      url:
+        from: url
+        how: Preserve the URL path and query exactly; never substitute a default host.
+    output:
+      safe:
+        path: safe
+        how: Copy a literal true or false only. A null value means missing/unknown, never infer a boolean from source coverage or reachability.
