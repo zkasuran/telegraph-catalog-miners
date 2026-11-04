@@ -1,0 +1,112 @@
+version: '1'
+kind: miner
+id: 73158
+slug: zk-event-macro
+protocol: generic
+name: ZK Source-Checked Event and Fed Outcomes
+description: Resolve dated public event outcomes from source records. Adds 52 archived
+  2020–2026 FOMC target-rate decisions read from official Federal Reserve statements
+   and checked against Wikipedia. Dated cut/raise/hold, single-meeting and passive
+   wording, and exact/at-least/at-most basis-point predicates preserve negation;
+   unknown dates, unsupported compound conditions and future decisions abstain.
+  This is an observed event outcome, not a prediction-market platform settlement.
+  F1 and football sources/limits are preserved from the existing worker. No generated
+  facts.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/event-outcome/fomc
+input_schema:
+  type: object
+  required:
+  - event
+  properties:
+    event:
+      type: string
+      maxLength: 256
+      description: Copy the complete canonical event string verbatim, preserving the
+        date, participants and proposition polarity.
+output_schema:
+  type: object
+  properties:
+    event:
+      type: string
+    summary:
+      type: string
+    outcome:
+      type: string
+      enum:
+      - 'yes'
+      - 'no'
+      - unresolved
+    resolved_yes:
+      type: boolean
+      description: Present only for an independently sourced settled proposition;
+        absent on unresolved answers.
+    resolved:
+      type: boolean
+    winner:
+      type:
+      - string
+      - 'null'
+    resolved_at:
+      type:
+      - string
+      - 'null'
+    sources:
+      type: array
+      items:
+        type: string
+endpoints:
+- path: /event-outcome
+  external_path: /event-outcome
+  method: GET
+  description: Resolve one exact settled event or supported source-checkable proposition.
+    Copy the user's full question into event without paraphrasing or dropping the
+    condition.
+  intents:
+  - EVENT_OUTCOME_RESOLUTION_GENERAL
+  params:
+    query:
+      required:
+      - name: event
+        type: string
+        intents:
+        - '*'
+        description: Verbatim complete canonical event question; retain year, fixture
+          date, names, condition and negation.
+semantics:
+  signal_mapping:
+    label_field: resolved_yes
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents:
+  - EVENT_OUTCOME_RESOLUTION_GENERAL
+intent_mapping:
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    input:
+      event:
+        from: event
+        how: Copy the complete canonical event question verbatim. Never reduce it
+          to a generic winner query or remove a conditional proposition.
+    output:
+      event:
+        path: event
+      outcome:
+        path: outcome
+      resolved_yes:
+        path: resolved_yes
+        how: Read the exact boolean; if absent on unresolved, report missing rather
+          than false.
+      winner:
+        path: winner
+      resolved_at:
+        path: resolved_at
+      sources:
+        path: sources
