@@ -1,0 +1,88 @@
+version: '1'
+kind: miner
+id: 7310264
+slug: zk-fxconvert
+protocol: generic
+name: ZK ECB Currency Convert
+description: >-
+  Source-backed conversions for 30 ECB-covered currencies, using the latest
+  published daily reference rates and decimal-rational arithmetic. Rates are
+  reference observations, not live trading quotes. ECB source data is available
+  free of charge at https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml;
+  this service performs derived conversion calculations.
+base_url: https://telegraph-s2-fxconvert.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /convert
+    external_path: /convert
+    method: GET
+    description: >-
+      Convert a stated amount from from_currency into to_currency using the latest
+      ECB daily reference table. Send canonical currency codes and amount directly;
+      no natural-language query is required. Returns converted_amount in the
+      requested target currency, the reference date and an attributed source.
+      Supports EUR USD JPY CZK DKK GBP HUF PLN RON SEK CHF ISK NOK TRY AUD BRL
+      CAD CNY HKD IDR ILS INR KRW MXN MYR NZD PHP SGD THB ZAR. Unsupported
+      currencies return 422; unavailable fresh sources return 503.
+    intents: [CURRENCY_EXCHANGE_CONVERT]
+    params:
+      query:
+        required:
+          - name: from_currency
+            type: string
+            intents: [CURRENCY_EXCHANGE_CONVERT]
+            description: Source currency as an uppercase supported ISO 4217 code, e.g. USD.
+          - name: to_currency
+            type: string
+            intents: [CURRENCY_EXCHANGE_CONVERT]
+            description: Target currency as an uppercase supported ISO 4217 code, e.g. EUR.
+          - name: amount
+            type: number
+            intents: [CURRENCY_EXCHANGE_CONVERT]
+            description: Amount in source currency; finite, nonnegative, at most 1000000000000000.
+input_schema:
+  type: object
+  required: [from_currency, to_currency, amount]
+  properties:
+    from_currency:
+      type: string
+      enum: [EUR, USD, JPY, CZK, DKK, GBP, HUF, PLN, RON, SEK, CHF, ISK, NOK, TRY, AUD, BRL, CAD, CNY, HKD, IDR, ILS, INR, KRW, MXN, MYR, NZD, PHP, SGD, THB, ZAR]
+    to_currency:
+      type: string
+      enum: [EUR, USD, JPY, CZK, DKK, GBP, HUF, PLN, RON, SEK, CHF, ISK, NOK, TRY, AUD, BRL, CAD, CNY, HKD, IDR, ILS, INR, KRW, MXN, MYR, NZD, PHP, SGD, THB, ZAR]
+    amount:
+      type: number
+      minimum: 0
+      maximum: 1000000000000000
+output_schema:
+  type: object
+  required: [converted_amount, summary, source, as_of]
+  properties:
+    converted_amount: {type: number, minimum: 0}
+    summary: {type: string}
+    source: {type: string}
+    as_of: {type: string, format: date}
+intent_mapping:
+  CURRENCY_EXCHANGE_CONVERT:
+    endpoint: /convert
+    input:
+      from_currency: {from: from_currency, how: 'Source currency, uppercase ISO code.'}
+      to_currency: {from: to_currency, how: 'Target currency, uppercase ISO code.'}
+      amount: {from: amount, how: 'The stated amount in the source currency; preserve decimals.'}
+    output:
+      converted_amount:
+        path: converted_amount
+        unit: '{key}'
+semantics:
+  supported_intents: [CURRENCY_EXCHANGE_CONVERT]
+  signal_mapping:
+    label_field: converted_amount
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
+cache_ttl_sec: 0
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
