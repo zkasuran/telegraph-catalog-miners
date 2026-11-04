@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 74011
+slug: zk-cvsource11
+protocol: generic
+name: TrustWire Public Source Verification
+description: >-
+  Model-free verification of explicit Crossref/PLOS publication metadata,
+  OFR/GPO Federal Register metadata or transcription, and supported planetary
+  order and size assertions corroborated with NASA Science and Wikipedia.
+  Every settled field is parsed from retrieved public sources. Other claims
+  receive Inconclusive with attributed context where available; this is not
+  general scientific or legal truth verification. No numerical confidence is
+  invented. Evidence includes source URLs, retrieval times, hashes, licences
+  and attribution. Wikipedia excerpts retain CC BY-SA 4.0.
+base_url: https://telegraph-trust.margyn.workers.dev
+docs:
+  documentation: https://telegraph-trust.margyn.workers.dev/
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One content claim, at most 8000 characters. Unsupported assertions are Inconclusive.
+    param: content
+    property: length
+    value_num: 8000
+    operator: lte
+input_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: The complete content, source link or explicit metadata claim to verify, verbatim.
+  required: [content]
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      enum: ["Verified", "False", "Inconclusive"]
+    answer:
+      type: string
+      description: Verdict, compared facts, scope and attributed source links.
+    summary:
+      type: string
+      description: Legacy alias identical to answer.
+    evidence:
+      type: array
+      items: {type: object}
+    as_of:
+      type: string
+      description: Response-production time, not a claim's observation time.
+  required: [verdict, answer, summary, evidence, as_of]
+endpoints:
+  - path: /verify
+    external_path: /verify
+    method: GET
+    description: Source-backed verification of one complete content claim; source failures and unsupported scope abstain.
+    intents: [CONTENT_VERIFICATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: content
+            type: string
+            intents: [CONTENT_VERIFICATION_GENERAL]
+            description: The complete claim, source link or explicit metadata assertion, verbatim.
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: answer
+  supported_intents: [CONTENT_VERIFICATION_GENERAL]
+intent_mapping:
+  CONTENT_VERIFICATION_GENERAL:
+    endpoint: /verify
+    input:
+      content:
+        from: content
+        how: Preserve the entire supplied content verbatim; do not paraphrase or infer a claim.
+    output:
+      verdict: {path: verdict}
+      answer: {path: answer}
+      evidence: {path: evidence}
