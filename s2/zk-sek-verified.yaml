@@ -1,0 +1,70 @@
+version: '1'
+kind: miner
+id: 794005
+slug: zk-sek-verified
+protocol: generic
+name: VerifyWire Verified SEK Reference
+description: >
+  Latest published USD/SEK ECB daily reference fixing via Frankfurter, with
+  equivalent direct ECB XML fallback and an independent Bank of Canada
+  daily-average comparison. The benchmarks are never averaged. Daily fixing,
+  not a live executable quote. ECB information is freely available at
+  https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml and BoC data at
+  https://www.bankofcanada.ca/valet/observations/FXUSDCAD,FXSEKCAD/json?recent=3 .
+  Any fee pays for retrieval, verification and formatting; neither bank endorses
+  this service. Source terms and calculations are disclosed in each answer.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth: {type: none}
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: summary
+  code_path: error
+input_schema:
+  type: object
+  required: [currency]
+  properties:
+    currency: {type: string, enum: [SEK]}
+output_schema:
+  type: object
+  required: [rate, rate_unit, fixing_date, base, quote, source_url]
+  properties:
+    rate: {type: number, minimum: 0.0001, maximum: 100000}
+    rate_unit: {type: string, enum: ['SEK per USD']}
+    fixing_date: {type: string, pattern: '^\d{4}-\d{2}-\d{2}$'}
+    base: {type: string, enum: [USD]}
+    quote: {type: string, enum: [SEK]}
+    source_url: {type: string}
+endpoints:
+  - path: /fxnow
+    external_path: /fxnow
+    method: GET
+    description: >
+      Request currency=SEK. rate is Swedish kronor per one USD from the stated
+      latest ECB fixing; fixing_date is observation date and as_of is fetch time.
+      Rejects stale or future observations. Independent cross_check is analytical
+      BoC daily-average data, never the scored rate. Fiat bid/ask/spread are null.
+    intents: [FX_NOW_SEK]
+    params:
+      query:
+        required:
+          - name: currency
+            type: string
+            intents: [FX_NOW_SEK]
+            description: Uppercase SEK; only USD/SEK is served by this declaration.
+semantics:
+  supported_intents: [FX_NOW_SEK]
+  signal_mapping:
+    label_field: summary
+    reason_field: data_notice
+intent_mapping:
+  FX_NOW_SEK:
+    endpoint: /fxnow
+    input:
+      currency:
+        from: currency
+        how: Preserve the requested ISO code, upper case; this miner serves SEK only.
+    output:
+      rate: {path: rate, unit: '{key} per USD'}
