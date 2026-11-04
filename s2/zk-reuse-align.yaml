@@ -1,0 +1,102 @@
+version: '1'
+kind: miner
+id: 780139
+slug: zk-reuse-align
+protocol: generic
+name: ZK Source-Grounded Text Reuse Alignment
+description: >-
+  Deterministic comparison of supplied source and suspect passages with exact
+  equality, verbatim containment, normalized lexical containment, longest
+  contiguous normalized matching spans, trigram Jaccard and directional coverage.
+  Original offsets and quoted evidence are retained. Measurements establish text
+  reuse, not plagiarism, permission, attribution or chronology. No external corpus
+  or model is used; a lone passage without a source yields inconclusive.
+base_url: https://telegraph-text.margyn.workers.dev
+auth: {type: none}
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /plagiarism
+    external_path: /plagiarism
+    method: GET
+    description: >-
+      Send source and suspect to compare two literal passages, each at most 8000
+      UTF-16 code units. Send a single text for an inconclusive no-reference
+      response. Alternatively send question with separate Source: and Suspect:
+      line headers. Explicit passage parameters take precedence. Repeated params,
+      empty passages and incomplete pairs return 400; oversized inputs return 413
+      without truncation. Evidence offsets index the original supplied or parsed
+      passages in UTF-16 code units. Normalization is NFC and lowercase lexical
+      units, ignoring punctuation and whitespace; verbatim fields use raw text.
+    intents: [PLAGIARISM_DETECTION_GENERAL]
+    params:
+      query:
+        optional:
+          - name: source
+            type: string
+            intents: ['*']
+            description: Source passage; required with suspect for direct comparison.
+          - name: suspect
+            type: string
+            intents: ['*']
+            description: Suspect passage; required with source for direct comparison.
+          - name: text
+            type: string
+            intents: ['*']
+            description: Lone literal passage, or suspect when source is supplied.
+          - name: question
+            type: string
+            intents: ['*']
+            description: Full request with Source and Suspect on separate labeled lines, or a lone passage.
+input_schema:
+  type: object
+  properties:
+    source: {type: string, maxLength: 8000}
+    suspect: {type: string, maxLength: 8000}
+    text: {type: string, maxLength: 8000}
+    question: {type: string}
+output_schema:
+  type: object
+  required: [summary, verdict, confidence, external_corpus_searched]
+  properties:
+    summary: {type: string}
+    verdict: {type: string}
+    confidence: {type: 'null'}
+    semantic_cosine: {type: 'null'}
+    exact_match: {type: boolean}
+    suspect_is_verbatim_excerpt: {type: boolean}
+    normalized_lexical_exact_match: {type: boolean}
+    suspect_is_normalized_lexical_excerpt: {type: boolean}
+    longest_normalized_match_lexical_units: {type: integer}
+    longest_normalized_match: {type: [object, 'null']}
+    overlap_trigram_jaccard: {type: [number, 'null']}
+    suspect_trigram_containment: {type: [number, 'null']}
+    suspect_token_coverage_from_matching_trigrams: {type: [number, 'null']}
+    evidence: {type: array}
+    evidence_truncated: {type: boolean}
+    external_corpus_searched: {type: boolean}
+    offset_unit: {type: string}
+    as_of: {type: string}
+semantics:
+  supported_intents: [PLAGIARISM_DETECTION_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  code_path: error
+  message_path: summary
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Source is limited to 8000 UTF-16 code units; never truncated.
+    param: source
+    property: length
+    value_num: 8000
+    operator: lte
+  - code: MAX_PARAM_VALUE
+    message: Suspect is limited to 8000 UTF-16 code units; never truncated.
+    param: suspect
+    property: length
+    value_num: 8000
+    operator: lte
