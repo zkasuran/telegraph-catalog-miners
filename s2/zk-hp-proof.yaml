@@ -1,0 +1,99 @@
+version: '1'
+kind: miner
+id: 74183
+slug: zk-hp-proof
+protocol: generic
+name: Bitcoin Coinbase-Proven Hashprice
+description: >-
+  Bitcoin single-block gross expected hashprice at an exact mainnet block height,
+  in sats per PH/s per day. Computes from the block reward and compact target.
+  Checks header SHA256d and proof of work, an independent canonical height,
+  serialized coinbase txid and coinbase Merkle inclusion. No exchange rate,
+  daily average or pool payout is assumed. Unverified data is unavailable.
+base_url: https://telegraph-metric.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://mempool.space/docs/api/rest
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: ['ok']
+endpoints:
+  - path: /hashprice
+    external_path: /hashprice
+    method: GET
+    description: >-
+      Calculate hashprice at exactly block_height in sats per PH/s per day.
+      Pass the block height as a query parameter, not an unfilled path template.
+      Unverified block data returns unavailable and null values.
+    intents: [MINING_HASHPRICE_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: block_height
+            type: integer
+            intents: ['*']
+            description: Exact Bitcoin mainnet block height, integer from 0 to 100000000.
+input_schema:
+  type: object
+  required: [block_height]
+  properties:
+    block_height:
+      type: integer
+      minimum: 0
+      maximum: 100000000
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+      enum: [ok, unavailable]
+    block_height:
+      type: [integer, 'null']
+    hashprice_sats_per_ph_day:
+      type: [number, 'null']
+    hashrate_eh_s:
+      type: [number, 'null']
+    hashprice_usd_per_ph_day:
+      type: [number, 'null']
+    summary:
+      type: string
+    confidence:
+      type: number
+    verification:
+      type: object
+    source:
+      type: string
+    as_of:
+      type: [string, 'null']
+intent_mapping:
+  MINING_HASHPRICE_VERIFY_GENERAL:
+    endpoint: /hashprice
+    input:
+      block_height:
+        from: block_height
+        how: Exact Bitcoin mainnet block height, unchanged integer.
+    output:
+      hashprice_sats_per_ph_day:
+        path: hashprice_sats_per_ph_day
+        unit: sats per PH/s per day
+      block_height:
+        path: block_height
+      hashrate_eh_s:
+        path: hashrate_eh_s
+        unit: EH/s
+      hashprice_usd_per_ph_day:
+        path: hashprice_usd_per_ph_day
+        unit: USD per PH/s per day
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [MINING_HASHPRICE_VERIFY_GENERAL]
