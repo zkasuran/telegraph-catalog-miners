@@ -4,11 +4,9 @@ id: 71622
 slug: zk-code-deps
 protocol: generic
 name: Code Evidence Dependency Review
-description: Review one exact dependency as npm:name@version or pip:name@version.
-  Validate the published registry version then count complete non-withdrawn GitHub-reviewed
-  advisories. Supports scoped npm names. Excludes malware, unreviewed reports and
-  transitive dependencies. Zero records does not certify security. No source code,
-  contracts or arbitrary sites are reviewed.
+description: Review one exact dependency as npm:name@version or pip:name@version. Validate the published registry version
+  then count complete non-withdrawn GitHub-reviewed advisories. Supports scoped npm names. Excludes malware, unreviewed reports
+  and transitive dependencies. Zero records does not certify security. No source code, contracts or arbitrary sites are reviewed.
 base_url: https://telegraph-s2-code-evidence.margyn.workers.dev
 docs:
   documentation: https://telegraph-s2-code-evidence.margyn.workers.dev/
@@ -20,12 +18,11 @@ limitations:
   value_bytes: 512
   operator: lte
 - code: PUBLIC_API_QUOTA
-  message: At most 15 calls per hour for this descriptor. Both descriptors share a
-    keyless GitHub API source.
+  message: At most 15 calls per hour for this descriptor. Both descriptors share a keyless GitHub API source.
   property: rate
   value_num: 15
   window_seconds: 3600
-rate_limit_per_sec: 0.004
+rate_limit_per_sec: 1
 cache_ttl_sec: 10
 circuit_threshold: 5
 circuit_cooldown_seconds: 30
@@ -44,11 +41,10 @@ input_schema:
     target:
       type: string
       maxLength: 512
-      description: Review one exact dependency as npm:name@version or pip:name@version.
-        Validate the published registry version then count complete non-withdrawn
-        GitHub-reviewed advisories. Supports scoped npm names. Excludes malware, unreviewed
-        reports and transitive dependencies. Zero records does not certify security.
-        No source code, contracts or arbitrary sites are reviewed.
+      description: Review one exact dependency as npm:name@version or pip:name@version. Validate the published registry version
+        then count complete non-withdrawn GitHub-reviewed advisories. Supports scoped npm names. Excludes malware, unreviewed
+        reports and transitive dependencies. Zero records does not certify security. No source code, contracts or arbitrary
+        sites are reviewed.
 output_schema:
   type: object
   properties:
@@ -71,8 +67,7 @@ output_schema:
       type:
       - array
       - 'null'
-      description: Vulnerability ids or weakness categories (CVE, GHSA, CWE, OWASP),
-        most serious first
+      description: Vulnerability ids or weakness categories (CVE, GHSA, CWE, OWASP), most serious first
     summary:
       type: string
     status:
@@ -92,11 +87,10 @@ endpoints:
 - path: /security
   external_path: /security
   method: GET
-  description: Review one exact dependency as npm:name@version or pip:name@version.
-    Validate the published registry version then count complete non-withdrawn GitHub-reviewed
-    advisories. Supports scoped npm names. Excludes malware, unreviewed reports and
-    transitive dependencies. Zero records does not certify security. No source code,
-    contracts or arbitrary sites are reviewed.
+  description: Review one exact dependency as npm:name@version or pip:name@version. Validate the published registry version
+    then count complete non-withdrawn GitHub-reviewed advisories. Supports scoped npm names. Excludes malware, unreviewed
+    reports and transitive dependencies. Zero records does not certify security. No source code, contracts or arbitrary sites
+    are reviewed.
   intents:
   - SECURITY_REVIEW_GENERAL
   params:
@@ -106,11 +100,10 @@ endpoints:
         type: string
         intents:
         - SECURITY_REVIEW_GENERAL
-        description: Review one exact dependency as npm:name@version or pip:name@version.
-          Validate the published registry version then count complete non-withdrawn
-          GitHub-reviewed advisories. Supports scoped npm names. Excludes malware,
-          unreviewed reports and transitive dependencies. Zero records does not certify
-          security. No source code, contracts or arbitrary sites are reviewed.
+        description: Review one exact dependency as npm:name@version or pip:name@version. Validate the published registry
+          version then count complete non-withdrawn GitHub-reviewed advisories. Supports scoped npm names. Excludes malware,
+          unreviewed reports and transitive dependencies. Zero records does not certify security. No source code, contracts
+          or arbitrary sites are reviewed.
 semantics:
   signal_mapping:
     label_field: summary
@@ -124,11 +117,10 @@ intent_mapping:
     input:
       target:
         from: target
-        how: Review one exact dependency as npm:name@version or pip:name@version.
-          Validate the published registry version then count complete non-withdrawn
-          GitHub-reviewed advisories. Supports scoped npm names. Excludes malware,
-          unreviewed reports and transitive dependencies. Zero records does not certify
-          security. No source code, contracts or arbitrary sites are reviewed.
+        how: Review one exact dependency as npm:name@version or pip:name@version. Validate the published registry version
+          then count complete non-withdrawn GitHub-reviewed advisories. Supports scoped npm names. Excludes malware, unreviewed
+          reports and transitive dependencies. Zero records does not certify security. No source code, contracts or arbitrary
+          sites are reviewed.
     output:
       verdict:
         path: verdict
