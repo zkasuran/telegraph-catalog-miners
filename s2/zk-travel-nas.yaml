@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 710639
+slug: zk-travel-nas
+protocol: generic
+name: FAA Travel Status with Typed Mapping
+description: >
+  Current US/NAS airport-level disruption status from the FAA, with explicit
+  source timestamp and digest. Supports airport codes, ICAO aliases, city names
+  and US airport routes. Returns active ground stops, ground delays, arrival or
+  departure delays and time/scope-qualified closure NOTAMs. Airport-level status
+  does not establish the status of an individual flight. Unsupported coverage
+  and source failures are explicit HTTP errors.
+base_url: https://telegraph-travel.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-travel.margyn.workers.dev/health
+endpoints:
+  - path: /travel-disruption
+    external_path: /travel-disruption
+    method: GET
+    description: >
+      Current FAA status for a US airport or airport route. Pass the canonical
+      route_or_flight value verbatim in airport; city names and full questions
+      are accepted. Unsupported airports or individual flights without a named
+      airport return 422. An unavailable or stale FAA source returns 503.
+    intents: [TRAVEL_DISRUPTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: airport
+            type: string
+            intents: [TRAVEL_DISRUPTION_GENERAL]
+            description: US/NAS airport code, ICAO alias, city or route/question, at most 256 characters.
+input_schema:
+  type: object
+  required: [airport]
+  properties:
+    airport:
+      type: string
+      minLength: 1
+      maxLength: 256
+output_schema:
+  type: object
+  properties:
+    route_or_flight: {type: string}
+    disrupted: {type: boolean}
+    status: {type: string}
+    delay_minutes: {type: [number, "null"]}
+    reason: {type: string}
+    summary: {type: string}
+    source_url: {type: string}
+    feed_updated: {type: string}
+    checked_at: {type: string}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: reason
+  supported_intents: [TRAVEL_DISRUPTION_GENERAL]
+intent_mapping:
+  TRAVEL_DISRUPTION_GENERAL:
+    endpoint: /travel-disruption
+    input:
+      airport:
+        from: route_or_flight
+        how: Copy the complete canonical airport, route or question verbatim.
+    output:
+      route_or_flight: {path: route_or_flight}
+      disrupted: {path: disrupted}
+      status: {path: status}
+      delay_minutes: {path: delay_minutes, unit: minutes}
+      reason: {path: reason}
