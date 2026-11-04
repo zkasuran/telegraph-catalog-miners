@@ -1,0 +1,70 @@
+version: '1'
+kind: miner
+id: 720041
+slug: zk-loan-published
+protocol: generic
+name: ZK Published Loan Reference Rates
+description: >-
+  Published US bank prime, effective federal funds and primary-credit rates from
+  Federal Reserve H.15; Freddie Mac 30-year PMMS from its permitted official RSS;
+  SOFR from the New York Fed; annual bank lending indicators from World Bank.
+  Preserves the requested series, observation period and published percentage.
+  Returns unavailable for unsupported series and historical or personalized quotes.
+base_url: https://telegraph-metric.margyn.workers.dev
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [rate]
+  properties:
+    rate:
+      type: string
+      maxLength: 256
+      description: Which published rate; retain the full series, country and mortgage term.
+output_schema:
+  type: object
+  properties:
+    rate_pct:
+      type: [number, 'null']
+      description: Published annual percent; null when unavailable.
+    observation_date: {type: string}
+    rate_name: {type: string}
+    summary: {type: string}
+    source: {type: string}
+    status: {type: string}
+endpoints:
+  - path: /loan
+    external_path: /loan
+    method: GET
+    intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+    description: Read the named published rate in percent with source and observation date.
+    params:
+      query:
+        required:
+          - name: rate
+            type: string
+            intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+            description: Full requested rate name; US prime or Freddie Mac 30-year PMMS, for example.
+intent_mapping:
+  LOAN_INTEREST_RATE_QUOTE_GENERAL:
+    endpoint: /loan
+    input:
+      rate:
+        from: rate
+        how: Keep the requested published-rate name, country and term verbatim.
+    output:
+      rate_pct:
+        path: rate_pct
+        unit: percent
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: source
+  supported_intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+errors:
+  status_path: status
+  success_values: [ok]
+  message_path: reason
