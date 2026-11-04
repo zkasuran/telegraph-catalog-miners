@@ -1,17 +1,16 @@
-version: "1"
+version: '1'
 kind: miner
 id: 78471
 slug: zk-routecheck
 protocol: generic
 name: RouteCheck Independently Confirmed Ethereum Routing
-description: >
-  Real block-pinned quotes for exactly 1 ETH into Ethereum USDC, comparing
-  Uniswap V2/V3/V4, Pancake V3 and Sushi V2 routes and disjoint splits.
-  Requires two distinct public RPC operators to agree on all 416 contract
-  results and economic block identity before publishing amount_out.
-  Gives selected pool/token flows, simpler alternatives, fee-adjusted
-  price impact, conditional gas budgets and content-addressed source proof.
-  Highest gross output in a finite search; actual gas and proceeds unmeasured.
+description: 'Real block-pinned quotes for exactly 1 ETH into Ethereum USDC, comparing Uniswap V2/V3/V4, Pancake V3 and Sushi
+  V2 routes and disjoint splits. Requires two distinct public RPC operators to agree on all 416 contract results and economic
+  block identity before publishing amount_out. Gives selected pool/token flows, simpler alternatives, fee-adjusted price impact,
+  conditional gas budgets and content-addressed source proof. Highest gross output in a finite search; actual gas and proceeds
+  unmeasured.
+
+  '
 base_url: https://telegraph-s2-routecheck.margyn.workers.dev
 auth:
   type: none
@@ -20,122 +19,198 @@ cache_ttl_sec: 0
 circuit_threshold: 5
 circuit_cooldown_seconds: 30
 limitations:
-  - code: ACCOUNT_QUOTA
-    message: Conservative miner operating cap of 200 node calls per day.
-    property: rate
-    value_num: 200
-    window_seconds: 86400
-  - code: MAX_PARAM_SIZE
-    message: Fixed ETH/USDC enum only, at most 32 bytes.
-    param: pair
-    property: size_bytes
-    value_bytes: 32
-    operator: lte
+- code: ACCOUNT_QUOTA
+  message: Conservative miner operating cap of 200 node calls per day.
+  property: rate
+  value_num: 200
+  window_seconds: 86400
+- code: MAX_PARAM_SIZE
+  message: Fixed ETH/USDC enum only, at most 32 bytes.
+  param: pair
+  property: size_bytes
+  value_bytes: 32
+  operator: lte
 errors:
   message_path: error.message
   code_path: error.code
   status_path: status
-  success_values: [ok]
+  success_values:
+  - ok
 endpoints:
-  - path: /route
-    external_path: /route
-    method: GET
-    description: >
-      Sell exactly 1000000000000000000 wei ETH on Ethereum mainnet for USDC;
-      send pair=ETH/USDC. amount_out is integer USDC base units, 1000000 per
-      USDC, including pool fees and market impact and excluding network gas.
-      The finite search retains fifteen direct pools, DAI/USDT paths and
-      sparse 0.05-ETH disjoint splits, including native ETH V4 USDT paths.
-      Shared pools are never counted twice; WETH input shares wrap ETH 1:1.
-      First RPC gets two bounded simulations and a block header in one batch;
-      a distinct RPC reproduces the entire packet at that exact block height.
-      Return a scored amount only after all 416 contract results and block
-      number/hash/parent/time/base fee agree. Transport failures may use a
-      distinct approved provider; disagreements never fall back.
-      Includes per-hop price impact, a pool-count output frontier, conditional
-      incremental-gas ceilings and a SHA-256-addressed public raw proof.
-      Success memo lasts at most 30 seconds and source age at most 60 seconds.
-      Bare /route and literal {pair} probes use the fixed canonical trade.
-      Neither global/net optimality nor realized execution is asserted.
-    intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
-    params:
-      query:
-        required:
-          - name: pair
-            type: string
-            intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
-            description: Fixed ETH/USDC enum; sell exactly 1 ETH on Ethereum mainnet.
-            accepted_fields:
-              - value: ETH/USDC
-                intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
-                description: Exactly 1 ETH into Ethereum mainnet USDC.
+- path: /route
+  external_path: /route
+  method: GET
+  description: 'Sell exactly 1000000000000000000 wei ETH on Ethereum mainnet for USDC; send pair=ETH/USDC. amount_out is integer
+    USDC base units, 1000000 per USDC, including pool fees and market impact and excluding network gas. The finite search
+    retains fifteen direct pools, DAI/USDT paths and sparse 0.05-ETH disjoint splits, including native ETH V4 USDT paths.
+    Shared pools are never counted twice; WETH input shares wrap ETH 1:1. First RPC gets two bounded simulations and a block
+    header in one batch; a distinct RPC reproduces the entire packet at that exact block height. Return a scored amount only
+    after all 416 contract results and block number/hash/parent/time/base fee agree. Transport failures may use a distinct
+    approved provider; disagreements never fall back. Includes per-hop price impact, a pool-count output frontier, conditional
+    incremental-gas ceilings and a SHA-256-addressed public raw proof. Success memo lasts at most 30 seconds and source age
+    at most 60 seconds. Bare /route and literal {pair} probes use the fixed canonical trade. Neither global/net optimality
+    nor realized execution is asserted.
+
+    '
+  intents:
+  - OPTIMAL_EXECUTION_ROUTE_GENERAL
+  params:
+    query:
+      required:
+      - name: pair
+        type: string
+        intents:
+        - OPTIMAL_EXECUTION_ROUTE_GENERAL
+        description: 'Fixed ETH/USDC enum; sell exactly 1 ETH on Ethereum mainnet. Accepted values: ETH/USDC.'
 input_schema:
   type: object
   additionalProperties: false
-  required: [pair]
+  required:
+  - pair
   properties:
-    pair: {type: string, enum: [ETH/USDC], maxLength: 32}
+    pair:
+      type: string
+      enum:
+      - ETH/USDC
+      maxLength: 32
 output_schema:
   type: object
-  required: [status, summary, source, as_of]
+  required:
+  - status
+  - summary
+  - source
+  - as_of
   properties:
-    amount_out: {type: integer, minimum: 100000000, maximum: 100000000000}
-    status: {type: string, enum: [ok, unavailable]}
-    summary: {type: string}
-    source: {type: [string, "null"]}
-    as_of: {type: [string, "null"]}
-    observed_at: {type: string}
-    evidence_path: {type: string}
+    amount_out:
+      type: integer
+      minimum: 100000000
+      maximum: 100000000000
+    status:
+      type: string
+      enum:
+      - ok
+      - unavailable
+    summary:
+      type: string
+    source:
+      type:
+      - string
+      - 'null'
+    as_of:
+      type:
+      - string
+      - 'null'
+    observed_at:
+      type: string
+    evidence_path:
+      type: string
     verification:
       type: object
-      required: [status, sources, block_hash, contract_results_compared, evidence_sha256, verified_at]
+      required:
+      - status
+      - sources
+      - block_hash
+      - contract_results_compared
+      - evidence_sha256
+      - verified_at
       properties:
-        status: {const: matched}
+        status:
+          const: matched
         sources:
           type: array
           minItems: 2
           maxItems: 2
           uniqueItems: true
           items:
-            enum: [https://rpc.mevblocker.io, https://eth.drpc.org, https://ethereum-rpc.publicnode.com]
-        block_hash: {type: string, pattern: "^0x[0-9a-fA-F]{64}$"}
-        contract_results_compared: {const: 416}
-        evidence_sha256: {type: string, pattern: "^[0-9a-f]{64}$"}
-        verified_at: {type: string}
+            enum:
+            - https://rpc.mevblocker.io
+            - https://eth.drpc.org
+            - https://ethereum-rpc.publicnode.com
+        block_hash:
+          type: string
+          pattern: ^0x[0-9a-fA-F]{64}$
+        contract_results_compared:
+          const: 416
+        evidence_sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        verified_at:
+          type: string
     readings:
       type: object
-      required: [pair, chain_id, amount_in_wei, block_number, selected_route, execution_frontier, selected_leg_economics, network_cost]
+      required:
+      - pair
+      - chain_id
+      - amount_in_wei
+      - block_number
+      - selected_route
+      - execution_frontier
+      - selected_leg_economics
+      - network_cost
       properties:
-        pair: {const: ETH/USDC}
-        chain_id: {const: 1}
-        amount_in_wei: {const: "1000000000000000000"}
-        block_number: {type: integer, minimum: 1}
+        pair:
+          const: ETH/USDC
+        chain_id:
+          const: 1
+        amount_in_wei:
+          const: '1000000000000000000'
+        block_number:
+          type: integer
+          minimum: 1
         selected_route:
           type: object
-          required: [route_id, amount_out, legs]
+          required:
+          - route_id
+          - amount_out
+          - legs
           properties:
-            route_id: {type: string}
-            amount_out: {type: integer}
-            legs: {type: array, minItems: 1, items: {type: object}}
-        execution_frontier: {type: array, minItems: 1, items: {type: object}}
-        selected_leg_economics: {type: array, minItems: 1, items: {type: object}}
-        network_cost: {type: object}
-    error: {type: object}
-    source_failures: {type: array}
+            route_id:
+              type: string
+            amount_out:
+              type: integer
+            legs:
+              type: array
+              minItems: 1
+              items:
+                type: object
+        execution_frontier:
+          type: array
+          minItems: 1
+          items:
+            type: object
+        selected_leg_economics:
+          type: array
+          minItems: 1
+          items:
+            type: object
+        network_cost:
+          type: object
+    error:
+      type: object
+    source_failures:
+      type: array
   allOf:
-    - if:
-        properties:
-          status: {const: ok}
-      then:
-        required: [amount_out, readings, observed_at, evidence_path, verification]
-      else:
-        not:
-          required: [amount_out]
+  - if:
+      properties:
+        status:
+          const: ok
+    then:
+      required:
+      - amount_out
+      - readings
+      - observed_at
+      - evidence_path
+      - verification
+    else:
+      not:
+        required:
+        - amount_out
 semantics:
   signal_mapping:
     label_field: summary
     reason_field: summary
-  supported_intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+  supported_intents:
+  - OPTIMAL_EXECUTION_ROUTE_GENERAL
 intent_mapping:
   OPTIMAL_EXECUTION_ROUTE_GENERAL:
     endpoint: /route
