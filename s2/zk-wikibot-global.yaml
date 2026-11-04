@@ -1,0 +1,79 @@
+version: "1"
+kind: miner
+id: 731068
+slug: zk-wikibot-global
+protocol: generic
+name: ZK Wiki Local and Linked Global Bot Declarations
+description: >
+  Fetch one Wikimedia account's explicit local bot registration, or its global-bot
+  registration after verifying the local account is attached to the identical
+  CentralAuth ID. A bot verdict means registered automation only. Global
+  registration does not establish local editing permissions, current activity,
+  maliciousness or a calibrated probability. Missing evidence, unsupported
+  inputs and unavailable sources remain inconclusive; bot_score is null.
+  A single combined public API query supplies both registry views.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [account]
+  properties:
+    account:
+      type: string
+      description: One HTTPS User-namespace URL on a supported Wikimedia project.
+output_schema:
+  type: object
+  properties:
+    account: {type: string}
+    verdict:
+      type: string
+      enum: [bot, likely_bot, inconclusive, likely_human, human]
+    bot_score:
+      type: [number, "null"]
+      description: Null; public registry flags are not calibrated probabilities.
+    signals: {type: array, items: {type: string}}
+    summary: {type: string}
+endpoints:
+  - path: /bot-detect
+    external_path: /bot-detect
+    method: GET
+    description: >
+      Check one exact local account and, when necessary, its attached global
+      registration. Local/global account IDs, registry URLs and observation
+      times appear in canonical signals. Never infer a label from a name,
+      posting count or verified badge. No bot declaration means inconclusive.
+    intents: [SOCIAL_BOT_DETECTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: account
+            type: string
+            intents: ["*"]
+            description: >
+              One complete HTTPS User URL on en/de/fr/es/it/pt/nl/ru/ja/pl/zh/sv.wikipedia.org,
+              commons/meta/species.wikimedia.org or www.wikidata.org. Localized
+              User namespaces and index.php title URLs are accepted. Only
+              en/de/fr.m.wikipedia.org and commons.m.wikimedia.org mobile aliases
+              are supported. Preserve the exact account URL.
+intent_mapping:
+  SOCIAL_BOT_DETECTION_GENERAL:
+    endpoint: /bot-detect
+    input:
+      account:
+        from: account
+        how: Preserve the single complete supported account URL verbatim.
+    output:
+      account: {path: account}
+      verdict: {path: verdict}
+      bot_score: {path: bot_score, unit: fraction}
+      signals: {path: signals}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [SOCIAL_BOT_DETECTION_GENERAL]
