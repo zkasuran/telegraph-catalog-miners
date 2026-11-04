@@ -1,0 +1,78 @@
+version: "1"
+kind: miner
+id: 740070
+slug: zk-cloud-k8s
+protocol: generic
+name: ZK Cloud Usage and Kubernetes Quantities
+description: >
+  Deterministic, source-attributed cloud resource figures from supplied readings,
+  explicit Kubernetes Metrics API snapshots, public GitHub outbound-origin quota,
+  or explicitly requested publisher service health. CPU quantities normalize to
+  cores; memory to bytes. Native snapshots retain original quantities, identity,
+  observation time, CPU averaging window and memory working-set semantics.
+  Historical examples are not current account telemetry. No model-generated values.
+base_url: https://telegraph-tele.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-tele.margyn.workers.dev/
+endpoints:
+  - path: /cloud-resource-usage
+    external_path: /cloud-resource-usage
+    method: GET
+    intents: [CLOUD_RESOURCE_USAGE_GENERAL]
+    description: >
+      Send the complete question verbatim in question. Optional metrics is a JSON
+      string containing one scalar reading with explicit units, a named resource
+      collection, a supplied Google historical normalized task_usage row, or
+      {snapshot: original NodeMetrics/PodMetrics JSON, resource: cpu or memory,
+      container: optional explicit container name, unit: optional output unit}.
+      For native snapshots ask report CPU used in cores or report memory used in B;
+      CPU is a window average and memory is working set. Multiple containers need
+      explicit selection. Utilization requires an explicit positive denominator;
+      a native usage snapshot alone does not provide one. Accepts query/text aliases
+      and JSON envelopes in metrics/data. No private cloud credentials or live
+      utilization are inferred. Public GitHub quota requests must explicitly name
+      public/unauthenticated scope and one quota resource.
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: [CLOUD_RESOURCE_USAGE_GENERAL]
+            description: Full question, verbatim, requesting one figure; at most 8000 characters.
+        optional:
+          - name: metrics
+            type: string
+            intents: [CLOUD_RESOURCE_USAGE_GENERAL]
+            description: JSON measurement or native snapshot envelope; at most 8000 characters. Preserve all observation metadata and original quantity strings.
+input_schema:
+  type: object
+  properties:
+    question: {type: string}
+    metrics: {type: string}
+output_schema:
+  type: object
+  properties:
+    ok: {type: boolean}
+    value: {type: number}
+    unit: {type: string}
+    summary: {type: string}
+    observed_at: {type: string}
+    window: {type: string}
+    verification: {type: string}
+    error: {type: string}
+errors:
+  message_path: summary
+  code_path: error
+  status_path: ok
+  success_values: ["true"]
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [CLOUD_RESOURCE_USAGE_GENERAL]
