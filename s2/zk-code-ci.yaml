@@ -4,9 +4,8 @@ id: 71621
 slug: zk-code-ci
 protocol: generic
 name: Code Evidence CI
-description: Read the reported result of one exact public GitHub Actions run or run
-  attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL, optionally
-  ending /attempts/N. No code is run by this miner. This checks the selected workflow
+description: Read the reported result of one exact public GitHub Actions run or run attempt. Pass a plain HTTPS github.com
+  OWNER/REPO/actions/runs/ID URL, optionally ending /attempts/N. No code is run by this miner. This checks the selected workflow
   only and does not prove a defect fix or all repository tests.
 base_url: https://telegraph-s2-code-evidence.margyn.workers.dev
 docs:
@@ -19,12 +18,11 @@ limitations:
   value_bytes: 512
   operator: lte
 - code: PUBLIC_API_QUOTA
-  message: At most 15 calls per hour for this descriptor. Both descriptors share a
-    keyless GitHub API source.
+  message: At most 15 calls per hour for this descriptor. Both descriptors share a keyless GitHub API source.
   property: rate
   value_num: 15
   window_seconds: 3600
-rate_limit_per_sec: 0.004
+rate_limit_per_sec: 1
 cache_ttl_sec: 10
 circuit_threshold: 5
 circuit_cooldown_seconds: 30
@@ -43,10 +41,9 @@ input_schema:
     patch:
       type: string
       maxLength: 512
-      description: Read the reported result of one exact public GitHub Actions run
-        or run attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL,
-        optionally ending /attempts/N. No code is run by this miner. This checks the
-        selected workflow only and does not prove a defect fix or all repository tests.
+      description: Read the reported result of one exact public GitHub Actions run or run attempt. Pass a plain HTTPS github.com
+        OWNER/REPO/actions/runs/ID URL, optionally ending /attempts/N. No code is run by this miner. This checks the selected
+        workflow only and does not prove a defect fix or all repository tests.
 output_schema:
   type: object
   properties:
@@ -98,10 +95,9 @@ endpoints:
 - path: /patch
   external_path: /patch
   method: GET
-  description: Read the reported result of one exact public GitHub Actions run or
-    run attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL, optionally
-    ending /attempts/N. No code is run by this miner. This checks the selected workflow
-    only and does not prove a defect fix or all repository tests.
+  description: Read the reported result of one exact public GitHub Actions run or run attempt. Pass a plain HTTPS github.com
+    OWNER/REPO/actions/runs/ID URL, optionally ending /attempts/N. No code is run by this miner. This checks the selected
+    workflow only and does not prove a defect fix or all repository tests.
   intents:
   - CODE_PATCH_VERIFY_GENERAL
   params:
@@ -111,11 +107,9 @@ endpoints:
         type: string
         intents:
         - CODE_PATCH_VERIFY_GENERAL
-        description: Read the reported result of one exact public GitHub Actions run
-          or run attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID
-          URL, optionally ending /attempts/N. No code is run by this miner. This checks
-          the selected workflow only and does not prove a defect fix or all repository
-          tests.
+        description: Read the reported result of one exact public GitHub Actions run or run attempt. Pass a plain HTTPS github.com
+          OWNER/REPO/actions/runs/ID URL, optionally ending /attempts/N. No code is run by this miner. This checks the selected
+          workflow only and does not prove a defect fix or all repository tests.
 semantics:
   signal_mapping:
     label_field: summary
@@ -129,9 +123,8 @@ intent_mapping:
     input:
       patch:
         from: patch
-        how: Read the reported result of one exact public GitHub Actions run or run
-          attempt. Pass a plain HTTPS github.com OWNER/REPO/actions/runs/ID URL, optionally
-          ending /attempts/N. No code is run by this miner. This checks the selected
+        how: Read the reported result of one exact public GitHub Actions run or run attempt. Pass a plain HTTPS github.com
+          OWNER/REPO/actions/runs/ID URL, optionally ending /attempts/N. No code is run by this miner. This checks the selected
           workflow only and does not prove a defect fix or all repository tests.
     output:
       conclusion:
