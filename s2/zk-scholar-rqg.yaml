@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 783267
+slug: zk-scholar-rqg
+protocol: generic
+name: ScholarWire Canonical Research Query
+description: >
+  Source-grounded research answers and bibliographic metadata from live public
+  sources. Exact DOI and title identity checks, explicit source disagreement,
+  and licensed intact article excerpts. Ambiguous titles are reported rather
+  than guessed. Coverage and bounded brief limitations are exposed in answers.
+base_url: https://telegraph-scholar.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: detail
+  code_path: error
+endpoints:
+  - path: /research
+    external_path: /research
+    method: GET
+    description: >
+      Send the complete canonical research question verbatim in question.
+      Returns source-attributed research text or exact bibliographic values.
+      Identity conflicts and unavailable sources return HTTP 503, not guesses.
+    intents: [RESEARCH_QUERY_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            description: >
+              The full research question, copied verbatim; nonempty and at
+              most 2048 UTF-8 bytes. Do not substitute a topic or summary.
+            intents: [RESEARCH_QUERY_GENERAL]
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      minLength: 1
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [answer, brief, source_count, sources]
+  properties:
+    answer:
+      type: string
+      description: One-paragraph source-grounded answer, including uncertainty.
+    brief:
+      type: string
+      maxLength: 80
+      description: >
+        Bounded factual summary. If the requested values do not fit, the
+        answer exposes brief_limitation; this is not a complete short answer.
+    source_count:
+      type: integer
+      minimum: 0
+      maximum: 1000
+    sources:
+      type: array
+      items: {type: string}
+intent_mapping:
+  RESEARCH_QUERY_GENERAL:
+    endpoint: /research
+    input:
+      question:
+        from: question
+        how: Copy the complete canonical question verbatim without summarizing it.
+    output:
+      answer: {path: answer}
+      brief: {path: brief}
+      source_count: {path: source_count}
+      sources: {path: sources}
+semantics:
+  signal_mapping:
+    label_field: answer
+    reason_field: answer
+  supported_intents: [RESEARCH_QUERY_GENERAL]
