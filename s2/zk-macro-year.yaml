@@ -1,13 +1,11 @@
-version: "1"
+version: '1'
 kind: miner
 id: 77391
 slug: zk-macro-year
 protocol: generic
 name: ZK Macro Year — World Bank unemployment
-description: >-
-  Historical World Bank unemployment, total (% of total labor force), modeled
-  ILO estimate SL.UEM.TOTL.ZS for a named country and year. Preserves observation
-  precision, reports annual period and source URL, and declines unavailable
+description: Historical World Bank unemployment, total (% of total labor force), modeled ILO estimate SL.UEM.TOTL.ZS for a
+  named country and year. Preserves observation precision, reports annual period and source URL, and declines unavailable
   observations. World Bank WDI data under CC BY 4.0 with provider attribution.
 base_url: https://telegraph-data.margyn.workers.dev
 auth:
@@ -15,35 +13,34 @@ auth:
 rate_limit_per_sec: 2
 cache_ttl_sec: 10
 endpoints:
-  - path: /macro
-    external_path: /macro
-    method: GET
-    description: >-
-      Read World Bank SL.UEM.TOTL.ZS for country and exactly the requested year.
-      Return rate_pct in percent and year; null and an explicit availability
-      verdict when no observation can be read. Do not substitute a recent year.
-    intents: [MACRO_ECONOMIC_INDICATOR_GENERAL]
-    params:
-      query:
-        required:
-          - name: indicator
-            type: string
-            intents: ["*"]
-            description: "unemployment rate"
-            accepted_fields:
-              - value: unemployment rate
-                intents: ["*"]
-                description: World Bank modeled ILO unemployment, SL.UEM.TOTL.ZS.
-          - name: country
-            type: string
-            intents: ["*"]
-            description: Country name or World Bank ISO2/ISO3 code.
-          - name: year
-            type: integer
-            intents: ["*"]
-            description: Observation year, 1960 through 2100. No forecasts.
+- path: /macro
+  external_path: /macro
+  method: GET
+  description: Read World Bank SL.UEM.TOTL.ZS for country and exactly the requested year. Return rate_pct in percent and year;
+    null and an explicit availability verdict when no observation can be read. Do not substitute a recent year.
+  intents:
+  - MACRO_ECONOMIC_INDICATOR_GENERAL
+  params:
+    query:
+      required:
+      - name: indicator
+        type: string
+        intents:
+        - '*'
+        description: 'unemployment rate. Accepted values: unemployment rate.'
+      - name: country
+        type: string
+        intents:
+        - '*'
+        description: Country name or World Bank ISO2/ISO3 code.
+      - name: year
+        type: integer
+        intents:
+        - '*'
+        description: Observation year, 1960 through 2100. No forecasts.
 semantics:
-  supported_intents: [MACRO_ECONOMIC_INDICATOR_GENERAL]
+  supported_intents:
+  - MACRO_ECONOMIC_INDICATOR_GENERAL
   signal_mapping:
     label_field: summary
     reason_field: summary
@@ -52,8 +49,13 @@ intent_mapping:
   MACRO_ECONOMIC_INDICATOR_GENERAL:
     endpoint: /macro
     input:
-      indicator: {from: indicator}
-      country: {from: country}
-      year: {from: year}
+      indicator:
+        from: indicator
+      country:
+        from: country
+      year:
+        from: year
     output:
-      rate_pct: {path: rate_pct, unit: percent}
+      rate_pct:
+        path: rate_pct
+        unit: percent
