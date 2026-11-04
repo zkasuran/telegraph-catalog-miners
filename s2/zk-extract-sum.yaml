@@ -1,0 +1,74 @@
+version: '1'
+kind: miner
+id: 710921
+slug: zk-extract-sum
+protocol: generic
+name: Source-Extractive Summarization
+description: >
+  Deterministic extractive summary of supplied source prose. Selects whole sentences
+  verbatim with source offsets, preserving numbers, names and wording. No model
+  generation or external lookup. Default is up to four sentences within 160 words;
+  sentence counts, bullet points and word limits in question are supported when
+  whole source sentences can satisfy them. constraints_met reports unmet requests.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /summarize
+    external_path: /summarize
+    method: GET
+    description: >
+      Supply source prose as text. Optionally put formatting instructions in
+      question. If text is omitted, question must contain the passage after a
+      clearly delimited summary-task header. This endpoint does not fetch URLs.
+    intents: [TEXT_SUMMARIZATION_GENERAL]
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ['*']
+            description: Source passage, up to 8000 JavaScript UTF-16 code units.
+          - name: question
+            type: string
+            intents: ['*']
+            description: >
+              Formatting instructions; with no text parameter, the full question
+              with source passage after a colon or blank line. At least one source
+              passage is required. No answers or externally retrieved facts supplied.
+input_schema:
+  type: object
+  properties:
+    text: {type: string}
+    question: {type: string}
+output_schema:
+  type: object
+  properties:
+    summary: {type: string}
+    input_chars: {type: integer}
+    method: {type: string}
+    source_fidelity: {type: number}
+    source_fidelity_scope: {type: string}
+    selected_sentences: {type: array}
+    sentence_count: {type: integer}
+    word_count: {type: integer}
+    constraints_met: {type: boolean}
+    as_of: {type: string}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [TEXT_SUMMARIZATION_GENERAL]
+errors:
+  code_path: error
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Supplied text must be no longer than 8000 JavaScript UTF-16 code units.
+    param: text
+    property: length
+    value_num: 8000
+    operator: lte
