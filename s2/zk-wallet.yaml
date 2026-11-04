@@ -1,0 +1,109 @@
+version: "1"
+kind: miner
+id: 7107303
+slug: zk-wallet
+protocol: generic
+name: ChainWire Verified Wallet Balance
+description: >
+  Current native-coin or ERC-20 balance of one address or ENS name on Ethereum,
+  Base, Arbitrum, Optimism, Polygon, Sepolia or Base Sepolia. Reads a pinned
+  block and independently checks the balance and metadata against a second
+  public RPC operator. Reports whole token units, exact base units, block hash,
+  real account nonce/code classification and observation time. Source conflicts
+  are errors; missing secondary confirmation is explicitly labelled.
+base_url: https://telegraph-chain.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-chain.margyn.workers.dev/
+errors:
+  message_path: summary
+  code_path: error
+input_schema:
+  type: object
+  properties:
+    address:
+      type: string
+      description: Complete EVM address or ENS name, not a transaction hash or placeholder.
+    chain:
+      type: string
+      description: ethereum, base, arbitrum, optimism, polygon, sepolia or base-sepolia.
+    token:
+      type: string
+      description: Empty or native coin symbol for native balance; ERC-20 contract address or a supported symbol alias otherwise.
+    query:
+      type: string
+      description: Complete question, accepted as a fallback when address and chain are omitted.
+output_schema:
+  type: object
+  properties:
+    address: {type: [string, "null"]}
+    chain: {type: [string, "null"]}
+    balance: {type: [number, "null"], description: Whole token units, rounded to six decimals.}
+    token_symbol: {type: [string, "null"]}
+    as_of: {type: string}
+    balance_exact: {type: string, description: Exact whole-token decimal string.}
+    balance_raw: {type: string, description: Exact integer base-unit balance.}
+    decimals: {type: integer}
+    block: {type: integer}
+    block_hash: {type: string}
+    verification: {type: string}
+    source: {type: array, items: {type: string}}
+    confidence: {type: number}
+    summary: {type: string}
+endpoints:
+  - path: /balance
+    external_path: /balance
+    method: GET
+    description: >
+      Query one wallet's native or ERC-20 balance using address, chain and optional
+      token. Always preserve the requested token; empty token means native.
+      No address is inferred from an absent or template parameter. Returns
+      balance in whole token units, not wei. ERC-20 metadata is read on chain.
+    intents: [WALLET_BALANCE_CHECK_GENERAL]
+    params:
+      query:
+        required:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: Complete 0x-prefixed 40-hex EVM address or ENS name.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: ethereum, base, arbitrum, optimism, polygon, sepolia or base-sepolia; preserve testnet identity.
+        optional:
+          - name: token
+            type: string
+            intents: ["*"]
+            description: Requested ERC-20 contract or symbol; empty or native symbol means native coin. Never replace an unknown token with native coin.
+          - name: query
+            type: string
+            intents: ["*"]
+            description: Complete original question, preserving explicit block numbers and testnet names. Historical timestamps require a block number and are not guessed.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [WALLET_BALANCE_CHECK_GENERAL]
+intent_mapping:
+  WALLET_BALANCE_CHECK_GENERAL:
+    endpoint: /balance
+    vars:
+      question: The complete original user question, verbatim, including any explicit block number.
+    input:
+      address: {from: address, how: Preserve the complete address or ENS name.}
+      chain: {from: chain, how: Use the named chain; Base Sepolia is base-sepolia and Ethereum Sepolia is sepolia.}
+      token: {from: token, how: Preserve the requested token symbol or contract address; omit for native coin.}
+      query: {from: question, how: Preserve the full question verbatim so explicit block numbers are retained.}
+    output:
+      address: {path: address}
+      chain: {path: chain}
+      balance: {path: balance, unit: whole token units}
+      token_symbol: {path: token_symbol}
+      as_of: {path: as_of}
