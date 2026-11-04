@@ -1,0 +1,101 @@
+version: '1'
+kind: miner
+id: 78081
+slug: zk-policy-plus
+protocol: generic
+name: Source-verified Purism, Arduino, OLIMEX and Framework Return Policies
+description: Current source-checked return-request windows for Purism and Arduino,
+  the published OLIMEX unaffected-board/tool return window, and factual fields from
+  Framework's current Help Center. Explicitly limited to these four retailers.
+  Preserves conditions, source hashes and applicable licences. No generated
+  policy facts or numeric fallback.
+base_url: https://telegraph-trip.margyn.workers.dev
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+endpoints:
+- path: /retailer-return-policy-v2
+  external_path: /retailer-return-policy-v2
+  method: GET
+  intents:
+  - RETURN_POLICY_VERIFY_GENERAL
+  description: Source-checked Purism, Arduino, OLIMEX and Framework policy lookup. Integer days
+    from receipt/delivery with conditions and source evidence. OLIMEX applies only
+    to unaffected boards/programmers/tools/cables. Includes full GFDL licence and
+    original document for OLIMEX. Framework returns parsed factual fields only, with
+    product-listing exceptions and current memory/storage return requirements. No
+    open-content licence is asserted for Framework prose. Other retailers return HTTP 422.
+  params:
+    query:
+      required:
+      - name: retailer
+        type: string
+        intents:
+        - RETURN_POLICY_VERIFY_GENERAL
+        description: 'Retailer name or exact official domain: Purism (including Purism
+          SPC), Arduino (including Arduino Store), OLIMEX, or Framework (including
+          Framework Computer). Maximum 256 UTF-8 bytes.'
+input_schema:
+  type: object
+  required:
+  - retailer
+  properties:
+    retailer:
+      type: string
+      description: 'Retailer name or exact official domain: Purism (including Purism
+        SPC), Arduino (including Arduino Store), OLIMEX, or Framework (including
+        Framework Computer). Maximum 256 UTF-8 bytes.'
+output_schema:
+  type: object
+  required:
+  - retailer
+  - return_window_days
+  - conditions
+  - verified
+  - sources
+  properties:
+    retailer:
+      type: string
+    return_window_days:
+      type: integer
+      minimum: 0
+      maximum: 3650
+    conditions:
+      type: array
+      items:
+        type: string
+    verified:
+      type: boolean
+    sources:
+      type: array
+      items:
+        type: string
+    summary:
+      type: string
+semantics:
+  supported_intents:
+  - RETURN_POLICY_VERIFY_GENERAL
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  RETURN_POLICY_VERIFY_GENERAL:
+    endpoint: /retailer-return-policy-v2
+    input:
+      retailer:
+        from: retailer
+        how: Retain the named retailer or its exact official domain. Only Purism,
+          Arduino, OLIMEX and Framework supported; do not substitute another retailer.
+    output:
+      retailer:
+        path: retailer
+      return_window_days:
+        path: return_window_days
+        unit: days
+      conditions:
+        path: conditions
+      verified:
+        path: verified
+      sources:
+        path: sources
+errors:
+  code_path: error
