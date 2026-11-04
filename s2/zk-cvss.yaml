@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 79437336
+slug: zk-cvss
+protocol: generic
+name: SecWire Source-Verified CVSS v3
+description: >
+  Look up one CVE and return its NVD-published CVSS v3 base score, severity,
+  original vulnerability description, publication date and references.
+  Prefer v3.1 to v3.0 and the NVD primary assessment within that version.
+  Independently fetch the CVE Program record via CIRCL and disclose differing
+  assessments. Source failures, rejected identifiers and missing v3 scores
+  are explicit HTTP errors. No default CVE, invented scores or language-model
+  generated vulnerability facts. Source data is cached for at most five minutes.
+base_url: https://telegraph-sec.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 300
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-sec.margyn.workers.dev/
+  website: https://nvd.nist.gov/
+endpoints:
+  - path: /cve
+    external_path: /cve
+    method: GET
+    description: >
+      Supply exactly one CVE identifier as cve_id. Returns cvss_score in
+      CVSS points (0-10), cvss_version, severity and source provenance.
+      A v2-only or v4-only record is not a CVSS v3 answer.
+    intents: [CVE_LOOKUP_CVSS]
+    params:
+      query:
+        required:
+          - name: cve_id
+            type: string
+            intents: ["*"]
+            description: "CVE identifier, such as CVE-2014-0160. No default identifier."
+input_schema:
+  type: object
+  required: [cve_id]
+  properties:
+    cve_id:
+      type: string
+      pattern: "^CVE-[0-9]{4}-[0-9]{4,19}$"
+      maxLength: 28
+output_schema:
+  type: object
+  required: [cve_id, cvss_score, cvss_version, severity]
+  properties:
+    cve_id: {type: string}
+    cvss_score: {type: number, minimum: 0, maximum: 10}
+    cvss_version: {type: string, enum: ["3.1", "3.0"]}
+    severity: {type: string, enum: [NONE, LOW, MEDIUM, HIGH, CRITICAL]}
+    description: {type: string}
+    published: {type: string}
+    references: {type: array, items: {type: string}}
+    summary: {type: string}
+    as_of: {type: string}
+intent_mapping:
+  CVE_LOOKUP_CVSS:
+    endpoint: /cve
+    input:
+      cve_id:
+        from: cve_id
+        how: "Copy the single CVE identifier in uppercase."
+    output:
+      cve_id: {path: cve_id}
+      cvss_score: {path: cvss_score, unit: "CVSS score (0-10)"}
+      severity: {path: severity, how: "Copy this exact allowed severity label."}
+      description: {path: description}
+      published: {path: published, how: "Read the source publication date."}
+      references: {path: references}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: description
+  supported_intents: [CVE_LOOKUP_CVSS]
+errors:
+  message_path: error
+  code_path: code
