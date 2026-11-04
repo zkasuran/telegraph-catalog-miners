@@ -70,7 +70,7 @@ semantics:
     label_field: summary
     reason_field: summary
   supported_intents:
-  - CODE_GENERATION
+  - CODE_GENERATION_GENERAL
 on_chain:
   transform: direct
   min_price_usdc: 0.01
