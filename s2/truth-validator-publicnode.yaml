@@ -1,0 +1,41 @@
+version: '1'
+kind: miner
+id: 1900999023
+slug: truth-validator-publicnode
+protocol: generic
+name: PublicNode Ethereum finalized validator effective balance
+description: Public Ethereum consensus ledger facts from the keyless PublicNode Beacon REST API.
+base_url: https://ethereum-beacon-api.publicnode.com
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+endpoints:
+- path: /eth/v1/beacon/states/finalized/validators/{validator_index}
+  external_path: /eth/v1/beacon/states/finalized/validators/{validator_index}
+  method: GET
+  description: Read validator.effective_balance in gwei for the requested Ethereum beacon validator index from finalized consensus
+    state.
+  intents:
+  - VALIDATOR_PERFORMANCE_VERIFY_GENERAL
+  params:
+    path:
+      required:
+      - name: validator_index
+        type: integer
+        intents:
+        - VALIDATOR_PERFORMANCE_VERIFY_GENERAL
+        description: Ethereum beacon validator index, integer from 0 to 1000000000.
+intent_mapping:
+  VALIDATOR_PERFORMANCE_VERIFY_GENERAL:
+    endpoint: /eth/v1/beacon/states/finalized/validators/{validator_index}
+    input:
+      validator_index:
+        from: validator_index
+    output:
+      effective_balance:
+        path: data.validator.effective_balance
+        unit: gwei
+semantics:
+  supported_intents:
+  - VALIDATOR_PERFORMANCE_VERIFY_GENERAL
