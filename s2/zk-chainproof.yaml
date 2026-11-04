@@ -1,0 +1,69 @@
+version: "1"
+kind: miner
+id: 1707307
+slug: zk-chainproof
+protocol: generic
+name: ChainWire Cross-Checked Transaction Lookup
+description: >
+  Public EVM transaction lookup with exact inclusion height cross-checked between
+  independent RPC providers where available. Returns canonical status and native-value fields,
+  raw Transfer events, source coverage and exact integer values. Missing or pruned
+  receipts do not become pending or fabricated success. A single-source positive
+  result is explicitly disclosed when an independent cross-check is unavailable;
+  absence requires two providers. Supports Ethereum, Base,
+  Arbitrum, Optimism, Polygon, Sepolia and Base Sepolia.
+  Only finalized positive transaction facts are memoized in memory and, when
+  available, persistent KV for up to seven days;
+  cache hits keep original source timestamps and omit current confirmations.
+base_url: https://telegraph-chain.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: ACCOUNT_QUOTA
+    message: Conservative 30 lookups/day ceiling; a cold lookup can use up to six 1RPC method calls against its advertised 200-request daily public allowance.
+    property: rate
+    value_num: 30
+    window_seconds: 86400
+endpoints:
+  - path: /tx
+    external_path: /tx
+    method: GET
+    description: Lookup a real transaction hash on the specified EVM chain using public RPC.
+    intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: Complete 0x-prefixed 32-byte transaction hash.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: EVM chain name or EIP-155 chain ID; explicit unsupported chains are rejected.
+semantics:
+  supported_intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  ONCHAIN_TX_LOOKUP_GENERAL:
+    endpoint: /tx
+    input:
+      tx_hash: {from: tx_hash, how: "Preserve the complete 0x-prefixed transaction hash."}
+      chain: {from: chain, how: "Preserve the explicitly supplied chain name or EIP-155 chain ID."}
+    output:
+      tx_hash: {path: tx_hash}
+      status: {path: status}
+      from: {path: from}
+      to: {path: to}
+      block_number: {path: block_number, unit: "block height"}
+      value_eth: {path: value_eth, unit: "whole native units"}
+errors:
+  message_path: error.message
+  code_path: error.code
