@@ -1,15 +1,15 @@
-version: "1"
+version: '1'
 kind: miner
 id: 78465
 slug: zk-routegrid
 protocol: generic
 name: RouteGrid Verified Ethereum Routing
-description: >
-  Keyless block-pinned quotes for exactly 1 ETH into Ethereum USDC. Compares
-  Uniswap V2/V3, Pancake V3 and Sushi V2 direct routes, DAI/USDT hub paths and
-  tenth-ETH split allocations. Combines shared hub proceeds before their final
-  swap to avoid double counting. Returns the highest gross output in its bounded
-  search, integer USDC base units, explicit scope and reproducible pool evidence.
+description: 'Keyless block-pinned quotes for exactly 1 ETH into Ethereum USDC. Compares Uniswap V2/V3, Pancake V3 and Sushi
+  V2 direct routes, DAI/USDT hub paths and tenth-ETH split allocations. Combines shared hub proceeds before their final swap
+  to avoid double counting. Returns the highest gross output in its bounded search, integer USDC base units, explicit scope
+  and reproducible pool evidence.
+
+  '
 base_url: https://telegraph-s2-routegrid.margyn.workers.dev
 auth:
   type: none
@@ -18,81 +18,104 @@ cache_ttl_sec: 0
 circuit_threshold: 5
 circuit_cooldown_seconds: 30
 limitations:
-  - code: ACCOUNT_QUOTA
-    message: This miner conservatively caps node traffic at 200 calls per day.
-    property: rate
-    value_num: 200
-    window_seconds: 86400
-  - code: MAX_PARAM_SIZE
-    message: Only the fixed ETH/USDC enum, at most 32 bytes, is accepted.
-    param: pair
-    property: size_bytes
-    value_bytes: 32
-    operator: lte
+- code: ACCOUNT_QUOTA
+  message: This miner conservatively caps node traffic at 200 calls per day.
+  property: rate
+  value_num: 200
+  window_seconds: 86400
+- code: MAX_PARAM_SIZE
+  message: Only the fixed ETH/USDC enum, at most 32 bytes, is accepted.
+  param: pair
+  property: size_bytes
+  value_bytes: 32
+  operator: lte
 errors:
   message_path: error.message
   code_path: error.code
   status_path: status
-  success_values: [ok]
+  success_values:
+  - ok
 endpoints:
-  - path: /route
-    external_path: /route
-    method: GET
-    description: >
-      Sell exactly 1000000000000000000 wei of ETH for Ethereum mainnet USDC;
-      send pair=ETH/USDC. Returns amount_out as integer USDC base units, with
-      1000000 base units per USDC. Includes pool fees and market impact, excludes
-      network gas. Compares ten direct pools (Uniswap V2/V3, Pancake V3 and Sushi
-      V2), Uniswap DAI/USDT hub routes, mixed V3/V2 paths and tenth-ETH splits.
-      ETH wraps to WETH 1:1. Bare path and literal {pair} use this fixed trade.
-    intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
-    params:
-      query:
-        required:
-          - name: pair
-            type: string
-            intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
-            description: Fixed canonical ETH/USDC enum; exactly 1 ETH on Ethereum.
-            accepted_fields:
-              - value: ETH/USDC
-                intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
-                description: Exactly 1 ETH into Ethereum USDC.
+- path: /route
+  external_path: /route
+  method: GET
+  description: 'Sell exactly 1000000000000000000 wei of ETH for Ethereum mainnet USDC; send pair=ETH/USDC. Returns amount_out
+    as integer USDC base units, with 1000000 base units per USDC. Includes pool fees and market impact, excludes network gas.
+    Compares ten direct pools (Uniswap V2/V3, Pancake V3 and Sushi V2), Uniswap DAI/USDT hub routes, mixed V3/V2 paths and
+    tenth-ETH splits. ETH wraps to WETH 1:1. Bare path and literal {pair} use this fixed trade.
+
+    '
+  intents:
+  - OPTIMAL_EXECUTION_ROUTE_GENERAL
+  params:
+    query:
+      required:
+      - name: pair
+        type: string
+        intents:
+        - OPTIMAL_EXECUTION_ROUTE_GENERAL
+        description: 'Fixed canonical ETH/USDC enum; exactly 1 ETH on Ethereum. Accepted values: ETH/USDC.'
 input_schema:
   type: object
   additionalProperties: false
-  required: [pair]
+  required:
+  - pair
   properties:
     pair:
       type: string
-      enum: [ETH/USDC]
+      enum:
+      - ETH/USDC
       maxLength: 32
 output_schema:
   type: object
-  required: [status, summary, source, as_of]
+  required:
+  - status
+  - summary
+  - source
+  - as_of
   properties:
     amount_out:
       type: integer
       minimum: 100000000
       maximum: 100000000000
       description: USDC base units; 1000000 base units equal 1 USDC.
-    status: {type: string, enum: [ok, unavailable]}
-    summary: {type: string}
-    source: {type: [string, "null"]}
-    as_of: {type: [string, "null"]}
-    observed_at: {type: string}
-    readings: {type: object}
-    error: {type: object}
+    status:
+      type: string
+      enum:
+      - ok
+      - unavailable
+    summary:
+      type: string
+    source:
+      type:
+      - string
+      - 'null'
+    as_of:
+      type:
+      - string
+      - 'null'
+    observed_at:
+      type: string
+    readings:
+      type: object
+    error:
+      type: object
   allOf:
-    - if:
-        properties:
-          status: {const: ok}
-      then:
-        required: [amount_out, readings, observed_at]
+  - if:
+      properties:
+        status:
+          const: ok
+    then:
+      required:
+      - amount_out
+      - readings
+      - observed_at
 semantics:
   signal_mapping:
     label_field: summary
     reason_field: summary
-  supported_intents: [OPTIMAL_EXECUTION_ROUTE_GENERAL]
+  supported_intents:
+  - OPTIMAL_EXECUTION_ROUTE_GENERAL
 intent_mapping:
   OPTIMAL_EXECUTION_ROUTE_GENERAL:
     endpoint: /route
