@@ -1,0 +1,91 @@
+version: "1"
+kind: miner
+id: 702862
+slug: zk-bge-live
+protocol: generic
+name: ZK BGE Live Short-Passage Embeddings
+description: >-
+  Generates real 768-dimensional vectors using BAAI bge-base-en-v1.5 on Cloudflare
+  Workers AI with explicit CLS pooling. Returns the complete unchanged provider
+  vector, measured L2 norm, exact input and model provenance. Single passages up
+  to 500 UTF-8 bytes only; no truncation or calibrated-confidence claim. Requires
+  no caller API key. This is the accurate contract for the repaired /embed route;
+  its BGE vectors differ from MiniMax embo-01 and mean-pooled BGE and must not be
+  mixed with those vector spaces.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://developers.cloudflare.com/workers-ai/models/bge-base-en-v1.5/
+  website: https://huggingface.co/BAAI/bge-base-en-v1.5
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: Extracted source passage must be at most 500 UTF-8 bytes. Longer inputs fail without truncation.
+    param: text
+    property: size_bytes
+    value_bytes: 500
+    operator: lte
+errors:
+  code_path: error
+  message_path: summary
+input_schema:
+  type: object
+  properties:
+    text:
+      type: string
+      description: Exact literal source passage; whitespace and punctuation preserved.
+    question:
+      type: string
+      description: Original embedding request with the source after a clearly delimited embedding instruction header, or a literal short passage.
+  anyOf:
+    - required: [text]
+    - required: [question]
+output_schema:
+  type: object
+  required: [embedding, dimensions, l2_norm, embedding_model, pooling, input_text, truncated, summary]
+  properties:
+    embedding:
+      type: array
+      minItems: 768
+      maxItems: 768
+      items: {type: number}
+    dimensions: {type: integer, const: 768}
+    l2_norm: {type: number}
+    embedding_model: {type: string, const: "@cf/baai/bge-base-en-v1.5"}
+    pooling: {type: string, const: cls}
+    input_text: {type: string}
+    truncated: {type: boolean, const: false}
+    summary: {type: string}
+    as_of: {type: string}
+endpoints:
+  - path: /embed
+    external_path: /embed
+    method: GET
+    description: >-
+      Generate a 768-dimensional CLS-pooled BGE embedding for exactly one passage
+      of at most 500 UTF-8 bytes. Pass literal text as text, or the original task
+      as question with source after an unambiguous delimited embedding header.
+      Explicit text takes precedence. One of text or question is required.
+      Oversized passages return HTTP 413 without truncation; provider failures
+      use actual HTTP error statuses and never produce substitute vectors.
+    intents: [EMBEDDING_GENERATION_GENERAL]
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: Exact source passage, at most 500 UTF-8 bytes; required unless question provides the source.
+          - name: question
+            type: string
+            intents: ["*"]
+            description: Full original request; source after an unambiguous embedding instruction and colon. Used when text is absent.
+semantics:
+  supported_intents: [EMBEDDING_GENERATION_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
