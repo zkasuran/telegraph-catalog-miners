@@ -1,0 +1,76 @@
+version: "1"
+kind: miner
+id: 73150773
+slug: zk-sts-cal
+protocol: generic
+name: ZK Short-Sentence STS Calibration
+description: >
+  Measures BGE-base-en-v1.5 CLS embedding cosine for two English short sentences
+  and separately reports a monotone human-STS-calibrated estimate. Calibration
+  is fitted to 100 public SNLI-derived STS Benchmark dev annotations, never
+  benchmark-answer lookup or generated labels. Domain: English short sentences,
+  at most 500 UTF-8 bytes each. Errors return no substitute score.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: Each sentence is limited to 500 UTF-8 bytes; no truncation.
+    param: text1
+    property: size_bytes
+    value_bytes: 500
+    operator: lte
+  - code: MAX_PARAM_SIZE
+    message: Each sentence is limited to 500 UTF-8 bytes; no truncation.
+    param: text2
+    property: size_bytes
+    value_bytes: 500
+    operator: lte
+endpoints:
+  - path: /similarity-calibrated
+    external_path: /similarity-calibrated
+    method: GET
+    description: >
+      Compare exactly two non-empty English sentences. The cosine_similarity is
+      a measured -1 to 1 embedding cosine; similarity is a separate 0 to 1
+      calibrated estimate, not a human label or confidence probability.
+    intents: [SEMANTIC_SIMILARITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: text1
+            type: string
+            intents: ["*"]
+            description: First English sentence, non-empty, at most 500 UTF-8 bytes.
+          - name: text2
+            type: string
+            intents: ["*"]
+            description: Second English sentence, non-empty, at most 500 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [text1, text2]
+  properties:
+    text1: {type: string, minLength: 1}
+    text2: {type: string, minLength: 1}
+output_schema:
+  type: object
+  properties:
+    summary: {type: string}
+    cosine_similarity: {type: number, minimum: -1, maximum: 1}
+    similarity: {type: number, minimum: 0, maximum: 1}
+    measured: {type: boolean}
+    score_kind: {type: string}
+    calibration_sha256: {type: string}
+    as_of: {type: string}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [SEMANTIC_SIMILARITY_GENERAL]
+errors:
+  message_path: summary
+  code_path: error
