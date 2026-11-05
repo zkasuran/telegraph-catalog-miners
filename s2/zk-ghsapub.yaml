@@ -1,0 +1,94 @@
+# DRAFT: implementation is deployed and live-tested; this successor descriptor
+# is unregistered. Only the coordinator may publish/register it after review.
+version: '1'
+kind: miner
+id: 731970
+slug: zk-ghsapub
+protocol: generic
+name: CodeWire Reviewed Advisory Publication Lookup
+description: >-
+  Source-backed review of one standalone published CVE or reviewed GHSA ID.
+  The CVE-associated path verifies a unique reciprocal alias and a published
+  CVE Program record. The no-CVE GHSA path corroborates source descriptions,
+  title, CWE, severity and aliases through OSV and GitHub's public advisory
+  repository, explicitly
+  reporting absent structured CVE aliases without inferring an alias from prose.
+  Those two distributions share the same advisory database and do not establish
+  independent authorship. Count means one retrieved advisory identity, never
+  confirmed vulnerabilities in an installed system. No code scan, applicability
+  analysis, harmonized patch recommendation or model-generated advisory facts.
+base_url: https://telegraph-code.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  code_path: error
+  message_path: summary
+endpoints:
+  - path: /security-review
+    external_path: /security-review
+    method: GET
+    description: >-
+      Review exactly one standalone CVE or GHSA publication ID in target.
+      Errors are HTTP 502 and are not vulnerability totals. For no-CVE GHSAs,
+      cross_check explicitly reports no CVE publication was checked.
+      Do not supply arbitrary code, prose, package pins or an installed asset.
+    intents: [SECURITY_REVIEW_GENERAL]
+    params:
+      query:
+        required:
+          - name: target
+            type: string
+            intents: ['*']
+            description: One standalone published CVE or GHSA identifier.
+input_schema:
+  type: object
+  required: [target]
+  properties:
+    target:
+      type: string
+      maxLength: 64
+      pattern: '^(?:CVE-\d{4}-\d{4,19}|GHSA-[23456789cfghjmpqrvwx]{4}-[23456789cfghjmpqrvwx]{4}-[23456789cfghjmpqrvwx]{4})$'
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      enum: [Needs changes]
+      description: Applicability and exposure verification remain necessary.
+    vulnerability_count:
+      type: integer
+      description: One retrieved advisory identity; aliases count once, not an asset total.
+    issues:
+      type: array
+    summary:
+      type: string
+    cross_check:
+      type: object
+      description: CVE publication evidence or explicitly scoped no-CVE distribution corroboration.
+semantics:
+  supported_intents: [SECURITY_REVIEW_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+    confidence_field: confidence
+intent_mapping:
+  SECURITY_REVIEW_GENERAL:
+    endpoint: /security-review
+    input:
+      target:
+        from: target
+        how: Preserve the exact standalone identifier. Do not infer one from prose or code.
+    output:
+      verdict:
+        path: verdict
+      vulnerability_count:
+        path: vulnerability_count
+        unit: vulnerabilities
+      issues:
+        path: issues
+      summary:
+        path: summary
