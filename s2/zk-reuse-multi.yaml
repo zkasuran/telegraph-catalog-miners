@@ -1,0 +1,96 @@
+version: '1'
+kind: miner
+id: 780141
+slug: zk-reuse-multi
+protocol: generic
+name: ZK Multi-Source Text Reuse
+description: >-
+  Compare supplied suspect text with up to five literal reference documents using
+  deterministic Unicode lexical alignment and supporting spans. Per-document
+  exact and normalized containment, longest matches, trigram containment and
+  union coverage retain original offsets. Duplicate references never inflate
+  union coverage, and reference boundaries never create matching trigrams.
+  Quotation and citation syntax are observable context, not verified attribution.
+  Text reuse is measured; plagiarism probability and originality are undetermined.
+base_url: https://telegraph-text.margyn.workers.dev
+auth: {type: none}
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /plagiarism
+    external_path: /plagiarism
+    method: GET
+    description: >-
+      Supply text and comparison_documents for a literal corpus comparison.
+      comparison_documents is a JSON-encoded array of one to five nonempty strings
+      or objects with a text string; URLs are not fetched and metadata is not
+      treated as evidence. Alternatively send question containing a JSON object
+      with text and comparison_documents. Existing source/suspect pairs and
+      labeled Source:/Suspect: question inputs remain supported. Each passage is
+      at most 8000 UTF-16 code units, corpus plus suspect at most 32000; actual
+      GET URL transport limits may be smaller. No truncation is performed.
+      Repeated parameters, missing/empty reference texts, over five documents,
+      and mixed pair/corpus modes return 400; excessive text returns 413.
+      A lone passage without references is inconclusive. No external corpus or
+      semantic paraphrase model is used. Offsets index the original literal text;
+      document_index is zero-based. Confidence remains null.
+    intents: [PLAGIARISM_DETECTION_GENERAL]
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ['*']
+            description: Suspect passage in corpus mode, or lone literal text without references.
+          - name: comparison_documents
+            type: string
+            intents: ['*']
+            description: JSON-encoded array of one to five literal strings or objects with text; required with text in corpus mode.
+          - name: source
+            type: string
+            intents: ['*']
+            description: Source passage for the existing pair mode; do not mix with comparison_documents.
+          - name: suspect
+            type: string
+            intents: ['*']
+            description: Suspect passage for the existing pair mode.
+          - name: question
+            type: string
+            intents: ['*']
+            description: 'Structured JSON with text/comparison_documents, or separate Source:/Suspect: headers, or lone passage.'
+input_schema:
+  type: object
+  properties:
+    text: {type: string, maxLength: 8000}
+    source: {type: string, maxLength: 8000}
+    suspect: {type: string, maxLength: 8000}
+    comparison_documents: {type: string}
+    question: {type: string}
+output_schema:
+  type: object
+  required: [summary, verdict, confidence, external_corpus_searched]
+  properties:
+    summary: {type: string}
+    verdict: {type: string}
+    confidence: {type: 'null'}
+    plagiarism_status: {type: string}
+    documents_checked: {type: integer}
+    distinct_literal_documents: {type: integer}
+    documents: {type: array}
+    evidence: {type: array}
+    evidence_truncated: {type: boolean}
+    suspect_trigram_containment: {type: [number, 'null']}
+    suspect_token_coverage_from_matching_trigrams: {type: [number, 'null']}
+    external_corpus_searched: {type: boolean}
+    offset_unit: {type: string}
+    document_index_base: {type: integer}
+semantics:
+  supported_intents: [PLAGIARISM_DETECTION_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  code_path: error
+  message_path: summary
