@@ -1,0 +1,51 @@
+version: "1"
+kind: miner
+id: 774231
+slug: zk-eqref
+protocol: generic
+name: ZK Equity Oracle Reference
+description: >-
+  Latest configured Chainlink equity oracle observation in US dollars per share,
+  with the feed's observation timestamp and raw round evidence. This is an oracle
+  reference, not an exchange last-trade quote. Deploy and register only after the
+  equity-data redistribution licence is independently verified.
+base_url: https://telegraph-fin.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 10
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /stock
+    external_path: /stock
+    method: GET
+    description: >-
+      Returns one configured equity oracle reference observation for the exact
+      ticker requested, its US dollar value and feed timestamp. An unsupported
+      ticker returns an error; no other ticker's price is substituted.
+    intents: [STOCK_PRICE_US_EQUITY]
+    params:
+      query:
+        required:
+          - name: symbol
+            type: string
+            intents: ["*"]
+            description: Exact ticker to read, such as AAPL, MSFT or GOOGL.
+intent_mapping:
+  STOCK_PRICE_US_EQUITY:
+    endpoint: /stock
+    input:
+      symbol:
+        from: ticker
+        how: Preserve the exact ticker in upper case.
+    output:
+      price_usd:
+        path: price_usd
+        unit: US dollars
+semantics:
+  supported_intents: [STOCK_PRICE_US_EQUITY]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
