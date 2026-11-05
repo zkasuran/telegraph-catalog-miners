@@ -1,0 +1,65 @@
+version: "1"
+kind: miner
+id: 77393
+slug: zk-corp-reg
+protocol: generic
+name: ZK Corporate Registry — Exact Identity and Status
+description: >
+  Live legal identity from GLEIF, with exact legal-name/identifier and jurisdiction
+  checks. Keeps entity status separate from LEI renewal status. Cross-checks supported
+  national profiles at Companies House, Norway's Enhetsregisteret and France's
+  Annuaire des Entreprises by registration identifier. Returns an undetermined verdict
+  for ambiguity, mismatched jurisdictions, conflicting sources or unavailable data.
+base_url: https://telegraph-data.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /company
+    external_path: /company
+    method: GET
+    description: >
+      Look up one legal company identity by exact registered name, LEI or registry
+      number and jurisdiction. company is the canonical input. jurisdiction accepts
+      ISO country/subdivision codes and common country/state names. A country request
+      includes its subdivisions. Never treats a fuzzy candidate as the queried entity.
+    intents: [CORPORATE_REGISTRY_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: company
+            type: string
+            intents: ["*"]
+            description: Full legal name, 20-character LEI, national registry number or US ticker.
+          - name: jurisdiction
+            type: string
+            intents: ["*"]
+            description: Jurisdiction of formation, preferably ISO country/subdivision code such as GB or US-CA.
+input_schema:
+  type: object
+  required: [company, jurisdiction]
+  properties:
+    company: {type: string, maxLength: 256}
+    jurisdiction: {type: string, maxLength: 256}
+intent_mapping:
+  CORPORATE_REGISTRY_LOOKUP_GENERAL:
+    endpoint: /company
+    input:
+      company: {from: company}
+      jurisdiction: {from: jurisdiction}
+    output:
+      legal_name: {path: legal_name}
+      registration_id: {path: registration_id}
+      active: {path: active}
+      jurisdiction: {path: jurisdiction}
+      registered_address: {path: registered_address}
+      incorporated: {path: incorporated}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [CORPORATE_REGISTRY_LOOKUP_GENERAL]
