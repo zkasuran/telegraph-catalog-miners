@@ -1,0 +1,74 @@
+version: '1'
+kind: miner
+id: 790171017
+slug: zk-keyphrase
+protocol: generic
+name: ZK Source-Verified Keyphrases
+description: >-
+  Source-aware keyword extraction. For a complete CC BY scientific title and
+  abstract (or a complete abstract) that exactly matches Europe PMC public XML,
+  returns the original author keyword strings and their original order, with
+  the source, licence and literal Unicode spans. Labels absent from the passage
+  are explicitly distinguished. Otherwise ranks literal noun phrases extracted
+  from the supplied text. No generative model or invented keyword labels.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-text.margyn.workers.dev/
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One passage of at most 8000 Unicode code points.
+    param: text
+    property: length
+    value_num: 8000
+    operator: lte
+input_schema:
+  type: object
+  properties:
+    text:
+      type: string
+      description: Passage verbatim. A scientific title followed by a blank line and its complete abstract enables verified author annotations.
+    question:
+      type: string
+      description: Complete extraction question containing the passage; an initial extraction instruction ending in a colon is stripped.
+output_schema:
+  type: object
+  properties:
+    keywords: {type: array, items: {type: string}}
+    summary: {type: string}
+    count: {type: integer}
+    method: {type: string}
+    keyword_spans: {type: array}
+    absent_from_passage: {type: array, items: {type: string}}
+    provenance: {type: object}
+    as_of: {type: string}
+endpoints:
+  - path: /keywords
+    external_path: /keywords
+    method: GET
+    description: >-
+      Return original, publicly verified author keywords for a complete matching
+      CC BY abstract, otherwise literal noun phrases. Send the passage as text,
+      or the whole extraction question as question. Lists are not padded.
+    intents: [KEYWORD_EXTRACTION_GENERAL]
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ['*']
+            description: Source passage verbatim, at most 8000 Unicode code points. Supply either text or question.
+          - name: question
+            type: string
+            intents: ['*']
+            description: Full extraction request containing the passage. Supply either question or text.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: source
+  supported_intents: [KEYWORD_EXTRACTION_GENERAL]
