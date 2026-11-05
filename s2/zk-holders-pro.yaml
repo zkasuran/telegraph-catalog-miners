@@ -1,0 +1,60 @@
+# DRAFT: do not register until the supported source key and live migration pass checks.
+version: "1"
+kind: miner
+id: 73102
+slug: zk-holders-pro
+protocol: generic
+name: ChainWire Sourced Token Holders
+description: >
+  Distinct token holder addresses from the token's named chain through the supported
+  Blockscout Universal API. Canonical numeric count, token identity, source URL and
+  observation timestamp. Two-minute reuse and at most fifteen-minute explicitly
+  stale fallback; unavailable sources are never converted to zero. Requires an
+  operator-installed Blockscout developer key inside the worker.
+base_url: https://telegraph-chain.margyn.workers.dev
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+endpoints:
+  - path: /holders
+    external_path: /holders
+    method: GET
+    description: >
+      Distinct addresses holding one ERC-20 token on the requested EVM chain.
+      Supply token and chain. Ethereum, Base, Arbitrum, Polygon and Optimism;
+      unknown symbols or ambiguous identifiers require a contract address.
+      Responses include holders_count in addresses and retain the provider
+      observation's time rather than claiming cached data was just read live.
+    intents: [TOKEN_HOLDER_COUNT_GENERAL]
+    params:
+      query:
+        required:
+          - name: token
+            type: string
+            intents: ["*"]
+            description: Complete 0x-prefixed ERC-20 contract address or supported token symbol/name.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: ethereum, base, arbitrum, polygon, optimism or their EIP-155 chain ID.
+semantics:
+  supported_intents: [TOKEN_HOLDER_COUNT_GENERAL]
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: detail
+  code_path: error
+intent_mapping:
+  TOKEN_HOLDER_COUNT_GENERAL:
+    endpoint: /holders
+    input:
+      token: {from: token}
+      chain: {from: chain}
+    output:
+      token: {path: token}
+      chain: {path: chain}
+      holders_count: {path: holders_count, unit: addresses}
+      token_symbol: {path: token_symbol}
