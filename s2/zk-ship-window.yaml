@@ -1,0 +1,103 @@
+version: "1"
+kind: miner
+id: 70852
+slug: zk-ship-window
+protocol: generic
+name: Source-Verified US Delivery Windows
+description: >-
+  Reports published FedEx Ground ranges and UPS Ground, 3 Day Select, 2nd Day
+  Air, Next Day Air, Next Day Air Saver and Next Day Air Early upper bounds.
+  Numeric business-day estimates come from licensed public sources, cross-checked
+  with an independent publisher. These are standard service-level windows;
+  lane-specific availability, pickup cutoffs and promised parcel dates are not
+  verified. Exact city/state pairs, source-checked aliases with state, known
+  five-digit US ZIP regions and explicit US regions are supported. No language
+  model generates the facts. Unknown carriers/services/routes or extra shipment
+  claims receive an explicit unverified answer without inventing a number.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html
+  website: https://en.wikipedia.org/wiki/United_Parcel_Service
+endpoints:
+  - path: /delivery-window-verify
+    external_path: /delivery-window-verify
+    method: GET
+    description: >-
+      Copy the carrier/service and complete origin-to-destination route exactly.
+      Carrier accepts FedEx Ground or FEDEX_GROUND, UPS Ground, UPS 3 Day Select,
+      UPS 2nd Day Air, UPS Next Day Air, UPS Next Day Air Saver and UPS Next Day Air
+      Early. Each route endpoint must be a known city/state (with optional US
+      marker), an explicit US state/region, or a known five-digit US ZIP region.
+      City/state commas are optional. New York or NYC with NY and LA with CA are
+      corroborated aliases. UPS scopes are contiguous US only; FedEx Ground also
+      supports Alaska/Hawaii. The response is a published service-level estimate,
+      never a ZIP-pair quote or a guaranteed arrival date. Unsupported requests
+      receive HTTP 200 with an Insufficient information verdict and no numeric
+      window. Malformed/duplicate/additional parameters return HTTP 422;
+      expired unverifiable sources return 503.
+    intents: [DELIVERY_WINDOW_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: ["*"]
+            description: Exact named carrier/service; copy without substituting another service.
+          - name: route
+            type: string
+            intents: ["*"]
+            description: Complete origin to destination; max 256 UTF-8 bytes. Preserve any supplied facts.
+input_schema:
+  type: object
+  required: [carrier, route]
+  additionalProperties: false
+  properties:
+    carrier:
+      type: string
+      description: Exact carrier and service level from the canonical input; unsupported services receive an unverified answer.
+    route:
+      type: string
+      description: Full unmodified route, including any qualification; unsupported scopes receive an unverified answer.
+output_schema:
+  type: object
+  required: [carrier, route, is_estimate, summary, answer]
+  properties:
+    carrier: {type: string}
+    route: {type: string}
+    transit_days_max: {type: number, minimum: 0, maximum: 365}
+    transit_days_min: {type: number, minimum: 0, maximum: 365}
+    is_estimate: {type: boolean}
+    as_of: {type: string}
+    source: {type: string}
+    summary: {type: string}
+    answer: {type: string}
+    verdict: {type: string}
+    verification_status: {type: string}
+    reason_code: {type: string}
+    data_license: {type: string}
+intent_mapping:
+  DELIVERY_WINDOW_VERIFY_GENERAL:
+    endpoint: /delivery-window-verify
+    input:
+      carrier: {from: carrier, how: "Copy the carrier and service exactly; do not replace UPS with FedEx Ground."}
+      route: {from: route, how: "Copy the complete origin-to-destination route without dropping any qualifications."}
+    output:
+      carrier: {path: carrier}
+      route: {path: route}
+      transit_days_max: {path: transit_days_max, unit: days}
+      transit_days_min: {path: transit_days_min, unit: days}
+      is_estimate: {path: is_estimate}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [DELIVERY_WINDOW_VERIFY_GENERAL]
+errors:
+  message_path: summary
+  code_path: error
