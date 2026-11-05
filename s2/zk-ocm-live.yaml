@@ -1,0 +1,96 @@
+version: "1"
+kind: miner
+id: 73206
+slug: zk-ocm-live
+protocol: generic
+name: ZK Live Pinned Ethereum Balance
+description: >-
+  Read an Ethereum mainnet address's native ETH balance at the requested integer
+  block. Every successful answer requires exact agreement from two independent
+  public RPC services at the same canonical block hash. Returns numeric Gwei and
+  lossless wei, Gwei and ETH companion strings with source timestamps. Never
+  substitutes latest for historical state. Only previously agreed header fields
+  may be reused for up to 60 seconds; balances are fetched on every request.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+input_schema:
+  type: object
+  required: [address, block]
+  properties:
+    address:
+      type: string
+      pattern: "^0x[0-9a-fA-F]{40}$"
+      description: Ethereum mainnet wallet or contract address, exactly as requested.
+    block:
+      type: integer
+      minimum: 0
+      maximum: 1000000000000
+      description: Exact Ethereum block height; 0 is a valid genesis request.
+output_schema:
+  type: object
+  required: [balance_gwei, address, block, chain, balance_wei, block_hash, sources]
+  properties:
+    balance_gwei: {type: number, description: "Native ETH balance in Gwei; 1 ETH = 1000000000 Gwei."}
+    balance_gwei_exact: {type: string, description: Lossless decimal Gwei.}
+    balance_wei: {type: string, description: Lossless integer wei.}
+    balance_eth: {type: string, description: Lossless decimal ETH.}
+    address: {type: string}
+    block: {type: string}
+    chain: {type: string, enum: [ethereum]}
+    block_hash: {type: string}
+    state_root: {type: string}
+    anchor_reused: {type: boolean}
+    anchor_observed_at: {type: string}
+    sources: {type: array, description: Two fresh canonical-hash balance readings.}
+    summary: {type: string}
+    as_of: {type: string}
+endpoints:
+  - path: /metric
+    external_path: /metric
+    method: GET
+    description: >-
+      Native ETH balance at one exact Ethereum mainnet height. Send address and
+      integer block as query parameters. No token, slot, calldata or transaction
+      hash is needed. Rejects contradictory selectors and returns HTTP 502 if two
+      independent canonical-hash readings cannot agree; never guesses a value.
+    intents: [ONCHAIN_METRIC_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: Exact 0x-prefixed 40-hex Ethereum address from the request.
+          - name: block
+            type: integer
+            intents: ["*"]
+            description: Exact requested block height, between 0 and 1000000000000 inclusive.
+semantics:
+  supported_intents: [ONCHAIN_METRIC_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  ONCHAIN_METRIC_VERIFY_GENERAL:
+    endpoint: /metric
+    input:
+      address:
+        from: address
+        how: Copy the exact Ethereum address supplied by the caller; never invent an address or resolve a symbolic wallet label.
+      block:
+        from: block
+        how: Copy the exact nonnegative integer block supplied by the caller; do not replace it with latest or a different height.
+    output:
+      balance_gwei: {path: balance_gwei, unit: Gwei}
+      address: {path: address}
+      block: {path: block}
+      chain: {path: chain}
