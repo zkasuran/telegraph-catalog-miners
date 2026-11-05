@@ -1,0 +1,89 @@
+version: '1'
+kind: miner
+id: 731969
+slug: zk-secpub
+protocol: generic
+name: CodeWire Published Advisory Review
+description: >-
+  Source-backed review of one standalone CVE or GHSA publication identifier.
+  Retrieves the requested reviewed GitHub advisory through OSV and corroborates
+  its reciprocal CVE alias with the CVE Program's official public repository.
+  Reports the retrieved advisory-identity count, source descriptions, severity,
+  CWE, affected rules and references. This is not a codebase scan or a count of
+  vulnerabilities confirmed in an installed system. Source-specific version
+  rules are not harmonized into a patch recommendation. No model generates this
+  route's descriptions or advisory facts.
+base_url: https://telegraph-code.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  code_path: error
+  message_path: summary
+endpoints:
+  - path: /security-review
+    external_path: /security-review
+    method: GET
+    description: >-
+      Review one published advisory by its exact standalone CVE or GHSA ID.
+      Send target verbatim. Source failure is HTTP 502, never a manufactured
+      answer or model fallback. Do not send arbitrary code, prose or package pins
+      to this specialized miner.
+    intents: [SECURITY_REVIEW_GENERAL]
+    params:
+      query:
+        required:
+          - name: target
+            type: string
+            intents: ['*']
+            description: One standalone published CVE-YYYY-NNNN or GHSA identifier.
+input_schema:
+  type: object
+  required: [target]
+  properties:
+    target:
+      type: string
+      maxLength: 64
+      pattern: '^(?:CVE-\d{4}-\d{4,19}|GHSA-[23456789cfghjmpqrvwx]{4}-[23456789cfghjmpqrvwx]{4}-[23456789cfghjmpqrvwx]{4})$'
+output_schema:
+  type: object
+  properties:
+    verdict:
+      type: string
+      enum: [Needs changes]
+      description: Applicability still requires installed-version and exposure verification.
+    vulnerability_count:
+      type: integer
+      description: Retrieved advisory-identity count; aliases count once, not an asset total.
+    issues:
+      type: array
+      description: Requested published advisory, with verbatim source fields.
+    summary:
+      type: string
+      description: Two-sentence advisory summary with explicit scope and count basis.
+semantics:
+  supported_intents: [SECURITY_REVIEW_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+    confidence_field: confidence
+intent_mapping:
+  SECURITY_REVIEW_GENERAL:
+    endpoint: /security-review
+    input:
+      target:
+        from: target
+        how: Preserve the exact standalone CVE or GHSA identifier; do not invent an identifier or installed version.
+    output:
+      verdict:
+        path: verdict
+      vulnerability_count:
+        path: vulnerability_count
+        unit: vulnerabilities
+      issues:
+        path: issues
+      summary:
+        path: summary
