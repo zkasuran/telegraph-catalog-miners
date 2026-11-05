@@ -1,0 +1,90 @@
+version: "1"
+kind: miner
+id: 740051
+slug: zk-bge-tokens
+protocol: generic
+name: ZK Token-Bounded BGE Embeddings
+description: >-
+  Generate a real 768-dimensional BAAI bge-base-en-v1.5 embedding with CLS
+  pooling on Cloudflare Workers AI. ASCII passages are accepted when an
+  upstream-vocabulary WordPiece upper bound is at most 512 tokens including
+  CLS and SEP, subject to an 8000-character cap. Other text retains a
+  conservative 500 UTF-8 byte cap. Returns the complete unchanged provider
+  vector, exact input, measured norm and token-bound provenance. Inputs that
+  exceed the limit fail without truncation. No caller key is required.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://developers.cloudflare.com/workers-ai/models/bge-base-en-v1.5/
+  website: https://huggingface.co/BAAI/bge-base-en-v1.5
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: At most 8000 source characters; the worker also enforces its 512-token ASCII / 500-byte non-ASCII policy.
+    param: text
+    property: length
+    value_num: 8000
+    operator: lte
+errors:
+  code_path: error
+  message_path: summary
+input_schema:
+  type: object
+  required: [text]
+  properties:
+    text:
+      type: string
+      minLength: 1
+      maxLength: 8000
+      description: Exact literal passage. Printable ASCII plus TAB/CR/LF must fit the 512-token WordPiece upper bound; all other text is limited to 500 UTF-8 bytes.
+output_schema:
+  type: object
+  required: [embedding, dimensions, l2_norm, embedding_model, pooling, input_text, truncated, summary, input_token_upper_bound, token_limit_method, tokenizer_sha256]
+  properties:
+    embedding:
+      type: array
+      minItems: 768
+      maxItems: 768
+      items: {type: number}
+    dimensions: {type: integer, const: 768}
+    l2_norm: {type: number}
+    embedding_model: {type: string, const: "@cf/baai/bge-base-en-v1.5"}
+    pooling: {type: string, const: cls}
+    input_text: {type: string}
+    input_chars: {type: integer}
+    input_bytes: {type: integer}
+    input_token_upper_bound: {type: integer, maximum: 512}
+    token_limit_method: {type: string, enum: [ascii_wordpiece_upper_bound, conservative_utf8_bytes]}
+    tokenizer_sha256: {type: string}
+    truncated: {type: boolean, const: false}
+    summary: {type: string}
+    as_of: {type: string}
+endpoints:
+  - path: /embed
+    external_path: /embed
+    method: GET
+    description: >-
+      Generate one full BGE-base CLS embedding for exact literal text. Printable
+      ASCII plus TAB/CR/LF may use up to 512 BERT tokens including CLS and SEP,
+      measured conservatively using the upstream vocabulary, and up to 8000
+      characters. Other text may use at most 500 UTF-8 bytes. Never silently
+      truncates or returns a substitute vector. Oversized input returns HTTP 413;
+      failures use actual HTTP error statuses. Returns provenance and the token
+      upper bound. Keep vectors in the same BGE-base/CLS index.
+    intents: [EMBEDDING_GENERATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: Exact passage, subject to the token/byte policy above. Preserve source punctuation and whitespace.
+semantics:
+  supported_intents: [EMBEDDING_GENERATION_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
