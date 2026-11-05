@@ -1,0 +1,85 @@
+version: "1"
+kind: miner
+id: 795372
+slug: zk-yield-core
+protocol: generic
+name: VerifyWire Verified Lending Yield
+description: >
+  Supply APY in basis points from Aave V3 and Compound V3 public contract view calls.
+  Two independent RPC providers must agree on the raw rates at one pinned current block.
+  Annualized constant-rate pool interest excludes reward-token incentives. Aave serves
+  Ethereum, Base, Arbitrum, Optimism and Polygon. Compound serves the USDC base market
+  on Ethereum, Base, Arbitrum and Optimism, and the explicitly named USDCe base market
+  on Polygon. Native USDC is never substituted with bridged USDCe.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://docs.compound.finance/interest-rates/
+  website: https://aave.com/docs
+errors:
+  message_path: summary
+  code_path: error
+input_schema:
+  type: object
+  required: [project, symbol, chain]
+  properties:
+    project: {type: string, enum: [aave-v3, compound-v3]}
+    symbol: {type: string, description: "Requested reserve symbol or complete contract address; no unknown-symbol fallback."}
+    chain: {type: string, enum: [Ethereum, Base, Arbitrum, Optimism, Polygon]}
+output_schema:
+  type: object
+  required: [supply_apy, unit, project, chain, symbol, block_number, block_hash, sources, verified]
+  properties:
+    supply_apy: {type: number, minimum: 0, maximum: 100000, description: "Constant-rate supply APY, basis points; 1 percent equals 100 basis points."}
+    unit: {type: string, enum: [basis points]}
+    project: {type: string}
+    chain: {type: string}
+    symbol: {type: string}
+    block_number: {type: integer}
+    block_hash: {type: string}
+    sources: {type: array, items: {type: string}}
+    verified: {type: boolean}
+    summary: {type: string}
+endpoints:
+  - path: /yield
+    external_path: /yield
+    method: GET
+    description: >
+      Send canonical project, symbol and chain as query parameters. Returns supply_apy
+      in basis points, exact raw contract rates, block and independent source observations.
+      Conflicting inputs, unknown tokens and unsupported markets fail explicitly.
+    intents: [CRYPTO_YIELD_RATE_GENERAL]
+    params:
+      query:
+        required:
+          - name: project
+            type: string
+            intents: [CRYPTO_YIELD_RATE_GENERAL]
+            description: "Exactly aave-v3 or compound-v3; do not substitute another lending protocol."
+          - name: symbol
+            type: string
+            intents: [CRYPTO_YIELD_RATE_GENERAL]
+            description: "Requested asset symbol or complete contract address, preserved verbatim. Compound base market is USDC, or USDCe on Polygon."
+          - name: chain
+            type: string
+            intents: [CRYPTO_YIELD_RATE_GENERAL]
+            description: "Exactly Ethereum, Base, Arbitrum, Optimism or Polygon."
+semantics:
+  supported_intents: [CRYPTO_YIELD_RATE_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  CRYPTO_YIELD_RATE_GENERAL:
+    endpoint: /yield
+    input:
+      project: {from: project, how: "Aave V3 -> aave-v3; Compound V3/Compound III -> compound-v3; preserve the requested protocol."}
+      symbol: {from: symbol, how: "Preserve the requested reserve. Uppercase symbols, preserve complete addresses; never infer USDC for an unknown symbol."}
+      chain: {from: chain, how: "Use the canonical network name; never change networks."}
+    output:
+      supply_apy: {path: supply_apy, unit: basis points}
