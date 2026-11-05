@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 78214
+slug: zk-airtemp
+protocol: generic
+name: SkyWire Observed Air Temperature
+description: >
+  Current observed air temperature from the nearest fresh NOAA METAR station
+  within 30 km, with actual observation time, station identity, distance,
+  requested and measurement coordinates and raw report disclosed. Explicit
+  ICAO station requests query only that station and abstain if unavailable.
+  City or coordinate requests fall back to a labeled MET Norway point-model
+  estimate when no eligible observation is available. No interpolation or
+  mixing of station and model temperatures.
+base_url: https://telegraph-sky.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error
+endpoints:
+  - path: /weather-observed
+    external_path: /weather-observed
+    method: GET
+    description: >
+      Current air temperature in Celsius for a city/place, signed latitude,longitude
+      or ICAO station code. A fresh nearest station observation is preferred, with
+      its actual site and time disclosed. Missing city observations use a clearly
+      labeled point-model fallback. Explicit ICAO/METAR station requests never
+      substitute another station or a forecast for an unavailable observation.
+    intents: [WEATHER_CHECK_TEMPERATURE]
+    params:
+      query:
+        required:
+          - name: location
+            type: string
+            intents: ["*"]
+            description: >
+              Preserve caller's city/place, signed latitude,longitude or ICAO
+              station exactly. Station examples: EGLC, ICAO:EGLC, METAR EGLC.
+              Latitude -90..90; longitude -180..180. No default city substitution.
+input_schema:
+  type: object
+  required: [location]
+  properties:
+    location:
+      type: string
+output_schema:
+  type: object
+  required: [temperature_c, measurement_kind, valid_at, source_url]
+  properties:
+    temperature_c:
+      type: number
+      description: Single primary air temperature in degrees Celsius.
+    measurement_kind:
+      type: string
+      description: requested_station_observation, nearby_station_observation or labeled point_model_estimate fallback.
+    valid_at:
+      type: string
+      description: Actual UTC observation time or model validity time; never receipt time.
+    source_url:
+      type: string
+    station:
+      type: object
+      description: Measured station identity, site coordinates, distance, timestamp and raw METAR.
+intent_mapping:
+  WEATHER_CHECK_TEMPERATURE:
+    endpoint: /weather-observed
+    input:
+      location:
+        from: location
+        how: Preserve the requested city/place, coordinates or ICAO station exactly.
+    output:
+      temperature_c:
+        path: temperature_c
+        unit: degrees Celsius
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [WEATHER_CHECK_TEMPERATURE]
