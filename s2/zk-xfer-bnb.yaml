@@ -1,0 +1,82 @@
+version: "1"
+kind: miner
+id: 70264
+slug: zk-xfer-bnb
+protocol: generic
+name: VerifyWire Named BNB Smart Chain Transfer Verification
+description: >
+  Verify one transaction on named BNB Smart Chain mainnet (BSC, chain ID 56),
+  Ethereum, Base, Arbitrum, Optimism, Polygon, Sepolia, Base Sepolia or Bitcoin.
+  Reads two independent public providers and reconciles transaction contents,
+  receipt inclusion and canonical block hashes. Reports exact native and emitted
+  token amounts, receipt status, parties, block and inclusive confirmations.
+  BSC burn is unknown when not independently derived; the gas charge is never
+  called the burn. Missing facts stay unknown. No language model supplies facts.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /transfer
+    external_path: /transfer
+    method: GET
+    description: >
+      Pass the complete user question verbatim in question, including exactly one
+      transaction hash and at most one network. BSC must be explicitly named as
+      BSC, BNB Smart Chain or chain=56; BSC is not part of the hash-only search.
+      EVM hashes require a 0x prefix. Bitcoin txids have 64 hexadecimal characters.
+      Optional hash and chain must agree with the question. Never substitute a
+      network or transaction. Errors are HTTP failures, not fabricated answers.
+    intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
+            description: Full user question verbatim with the transaction hash and requested network.
+        optional:
+          - name: hash
+            type: string
+            intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
+            description: Exact transaction hash, consistent with the question.
+          - name: chain
+            type: string
+            intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
+            description: Supported chain name or EVM chain ID; BSC accepts bsc, bnb, BNB Smart Chain, 56 or 0x38. No testnet substitution.
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question: {type: string}
+    hash: {type: string, pattern: "^(0x)?[0-9a-fA-F]{64}$"}
+    chain: {type: string}
+output_schema:
+  type: object
+  properties:
+    summary: {type: string}
+    hash: {type: string}
+    chain: {type: string}
+    chain_id: {type: [integer, "null"]}
+    status: {type: string}
+    value_wei: {type: string}
+    value_native: {type: string}
+    symbol: {type: string}
+    confirmations: {type: integer}
+    gas_burned_wei: {type: [string, "null"]}
+    gas_burn_semantics: {type: string}
+    fee_wei: {type: [string, "null"]}
+    transfer_events: {type: array}
+    nft_transfer_events: {type: array}
+    multi_token_transfer_events: {type: array}
+    independently_verified: {type: boolean}
+    sources: {type: array}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
