@@ -1,0 +1,154 @@
+version: '1'
+kind: miner
+id: 730403
+slug: zk-pay-boundary
+protocol: generic
+name: ZK Payment Method Boundaries
+description: 'Source-backed six-digit BIN metadata and provider-specific payment-method country/currency documentation checks.
+  Canonical requests use the intent''s BIN-only input. Native named-method requests accept explicit Stripe or Adyen context.
+  A BIN cannot establish the full-number checksum described by the intent, so valid remains null. Documentation support never
+  establishes merchant activation, an active account, funds or authorization.
+
+  '
+base_url: https://telegraph-trade.margyn.workers.dev
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/payment-method
+input_schema:
+  type: object
+  properties:
+    bin:
+      type: integer
+      minimum: 100000
+      maximum: 99999999
+      description: Canonical BIN input. Eight-digit requests use a disclosed six-digit parent snapshot.
+    payment_method:
+      type: string
+      description: Native exact method name or provider code, mutually exclusive with bin.
+    provider:
+      type: string
+      enum:
+      - stripe
+      - adyen
+    currency:
+      type: string
+      pattern: ^[A-Z]{3}$
+    customer_country:
+      type: string
+      pattern: ^[A-Z]{2}$
+    merchant_country:
+      type: string
+      pattern: ^[A-Z]{2}$
+output_schema:
+  type: object
+  properties:
+    network:
+      type:
+      - string
+      - 'null'
+    issuing_bank:
+      type:
+      - string
+      - 'null'
+    issuing_country:
+      type:
+      - string
+      - 'null'
+    card_type:
+      type:
+      - string
+      - 'null'
+    valid:
+      type:
+      - boolean
+      - 'null'
+      description: Full-number structural checksum only; null for BIN-only or named-method input.
+    summary:
+      type: string
+    currency_supported:
+      type:
+      - boolean
+      - 'null'
+    customer_country_supported:
+      type:
+      - boolean
+      - 'null'
+    merchant_country_supported:
+      type:
+      - boolean
+      - 'null'
+    eligible:
+      type: 'null'
+      description: Actual merchant or account eligibility is never asserted.
+endpoints:
+- path: /payment-method
+  external_path: /payment-method
+  method: GET
+  intents:
+  - PAYMENT_METHOD_VERIFY_GENERAL
+  description: 'Send bin for canonical BIN metadata, or payment_method for a native exact method name/code. Do not send both.
+    For native eligibility checks, provide provider, currency, customer_country and merchant_country explicitly. country alone
+    is ambiguous and rejected. These native fields do not expand the current intent''s canonical BIN-only request schema.
+
+    '
+  params:
+    query:
+      optional:
+      - name: bin
+        type: integer
+        intents:
+        - '*'
+        description: Canonical BIN, 100000 to 99999999. Never a full card number.
+      - name: payment_method
+        type: string
+        intents:
+        - '*'
+        description: Exact native method name/code; mutually exclusive with bin.
+      - name: provider
+        type: string
+        intents:
+        - '*'
+        description: 'Accepted values: stripe, adyen.'
+      - name: currency
+        type: string
+        intents:
+        - '*'
+        description: Presentment currency, uppercase three-letter code.
+      - name: customer_country
+        type: string
+        intents:
+        - '*'
+        description: Customer location, uppercase two-letter country code. Not nationality or BIN issuing country.
+      - name: merchant_country
+        type: string
+        intents:
+        - '*'
+        description: Merchant business location, uppercase two-letter country code.
+semantics:
+  supported_intents:
+  - PAYMENT_METHOD_VERIFY_GENERAL
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  PAYMENT_METHOD_VERIFY_GENERAL:
+    endpoint: /payment-method
+    input:
+      bin:
+        from: bin
+        how: Canonical integer BIN; preserve all supplied digits.
+    output:
+      network:
+        path: network
+      issuing_bank:
+        path: issuing_bank
+      issuing_country:
+        path: issuing_country
+      card_type:
+        path: card_type
+      valid:
+        path: valid
+        how: Null means unavailable. Never convert null, BIN recognition or documentation support to a checksum Boolean.
