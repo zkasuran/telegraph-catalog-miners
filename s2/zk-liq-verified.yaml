@@ -1,0 +1,88 @@
+version: "1"
+kind: miner
+id: 77081
+slug: zk-liq-verified
+protocol: generic
+name: VerifyWire Exact Pool Liquidity
+description: >
+  Total USD reserve value of the exact requested DEX pool and chain, read from
+  GeckoTerminal and independently compared with DEX Screener. Checks pool and
+  token identities, reports observation times and source differences, and refuses
+  conflicting inputs. Total reserves are distinct from executable trade depth.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+limitations:
+  - code: PUBLIC_SOURCE_RATE
+    message: Budget at most 20 verification calls per minute; upstream cooldowns are honored.
+    property: rate
+    value_num: 20
+    window_seconds: 60
+endpoints:
+  - path: /depth
+    external_path: /depth
+    method: GET
+    description: >
+      Send pool and chain. Pool is a full pool address/identifier or a specific
+      name; names must resolve uniquely except the published canonical Ethereum
+      USDC / WETH 0.05% pool. Returns numeric liquidity_usd in USD, source
+      observations and an independent comparison. Never substitutes a token's
+      aggregate liquidity or a centralized order book for the requested pool.
+    intents: [LIQUIDITY_DEPTH_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: pool
+            type: string
+            intents: ["*"]
+            description: Exact DEX pool address or sufficiently specific pool name.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: >
+              ethereum, base, arbitrum, optimism, polygon, bsc, avalanche or
+              solana; full network aliases are accepted. Required, no default.
+intent_mapping:
+  LIQUIDITY_DEPTH_VERIFY_GENERAL:
+    endpoint: /depth
+    input:
+      pool:
+        from: pool
+        how: Preserve the complete pool address or specific name verbatim.
+      chain:
+        from: chain
+        how: Preserve the requested blockchain; never substitute a network.
+    output:
+      liquidity_usd:
+        path: liquidity_usd
+        unit: USD
+semantics:
+  supported_intents: [LIQUIDITY_DEPTH_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+errors:
+  message_path: summary
+  code_path: error
+input_schema:
+  type: object
+  required: [pool, chain]
+  properties:
+    pool: {type: string, maxLength: 4096}
+    chain: {type: string}
+output_schema:
+  type: object
+  properties:
+    liquidity_usd: {type: [number, "null"]}
+    summary: {type: string}
+    pool_address: {type: string}
+    chain: {type: string}
+    verified: {type: boolean}
+    observations: {type: array}
+    as_of: {type: string}
+    source_data_as_of: {type: [string, "null"]}
