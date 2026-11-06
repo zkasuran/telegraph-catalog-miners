@@ -1,0 +1,87 @@
+version: "1"
+kind: miner
+id: 70854
+slug: zk-window-saver
+protocol: generic
+name: ZK Source-Checked Delivery Service Windows
+description: >-
+  Source-checked published service estimates with explicit limits, not parcel
+  promises. Carrier/service and the entire route are copied without substitution.
+  FedEx Ground, six domestic UPS services, UPS Worldwide Expedited and conditional
+  UPS Worldwide Saver export targets are supported within audited scopes.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+endpoints:
+  - path: /delivery-window-verify
+    external_path: /delivery-window-verify
+    method: GET
+    description: >-
+      Copy exact carrier/service and the full origin-to-destination route,
+      including any qualifications. FedEx Ground/FEDEX_GROUND supports known US
+      city/state, complete city/state/ZIP, five-digit ZIP and explicit US region
+      scopes, including Alaska/Hawaii. UPS Ground, 3 Day Select, 2nd Day Air,
+      Next Day Air, Next Day Air Saver and Next Day Air Early support contiguous
+      US scopes. UPS Worldwide Expedited supports conditional international
+      estimates between different countries among US, Canada, United Kingdom
+      and France. UPS Worldwide Saver/UPS_WORLDWIDE_SAVER supports conditional
+      published export targets only from contiguous-US origins to Canada,
+      United Kingdom or France; unknown minimum, eligibility and customs not
+      verified. London GB/United Kingdom, Paris FR/France and Toronto CA/Canada
+      with optional ON are validated foreign city forms. Entire routes must be
+      retained; never discard deadlines or substitute a service or location.
+      Unsupported or qualified inquiries return HTTP 200, Insufficient information
+      and no numeric bounds. Malformed/duplicate/extra inputs return 422;
+      unverifiable expired source snapshots return 503. All numeric answers are
+      published service estimates, never a lane quote or guaranteed arrival.
+    intents: [DELIVERY_WINDOW_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: ["*"]
+            description: Exact supplied carrier and service; max 256 UTF-8 bytes.
+          - name: route
+            type: string
+            intents: ["*"]
+            description: Complete origin to destination, including qualifications; max 256 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [carrier, route]
+  additionalProperties: false
+  properties:
+    carrier: {type: string}
+    route: {type: string}
+output_schema:
+  type: object
+  required: [carrier, route, answer, summary, is_estimate]
+  properties:
+    carrier: {type: string}
+    route: {type: string}
+    answer: {type: string}
+    summary: {type: string}
+    is_estimate: {type: boolean}
+    transit_days_max: {type: number}
+    transit_days_min: {type: number}
+    source: {type: string}
+    sources: {type: array}
+    window_basis: {type: string}
+intent_mapping:
+  DELIVERY_WINDOW_VERIFY_GENERAL:
+    endpoint: /delivery-window-verify
+    input:
+      carrier: {from: carrier, how: "Copy the exact service, never substitute."}
+      route: {from: route, how: "Copy the complete route including every qualification."}
+    output:
+      carrier: {path: carrier}
+      route: {path: route}
+      transit_days_max: {path: transit_days_max, unit: days}
+      transit_days_min: {path: transit_days_min, unit: days}
+      is_estimate: {path: is_estimate}
+semantics:
+  signal_mapping:
+    reason_field: summary
+  supported_intents: [DELIVERY_WINDOW_VERIFY_GENERAL]
