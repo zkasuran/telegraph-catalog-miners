@@ -1,0 +1,76 @@
+version: "1"
+kind: miner
+id: 174531
+slug: zk-purchase-paid
+protocol: generic
+name: TradeWire Public Invoice Purchase Verification
+description: >
+  Checks exact published invoice and vendor identities against City of Chicago
+  Vendor Payments - New Arrivals expenditure records. Confirms only a unique
+  positive expenditure with consistent invoice, goods-received and check dates.
+  Missing, unsupported or ambiguous records remain unknown. This service does
+  not access private retail orders or independently authenticate receipts.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /purchase-verify
+    external_path: /purchase-verify
+    method: GET
+    description: >
+      Verify one public Chicago New Arrivals invoice against the published
+      expenditure record. order_id is the exact invoice_code, not a payment
+      voucher, contract number or a private order number. merchant is the full
+      vendor_description. Missing evidence leaves verified absent, never false.
+    intents: [COMMERCE_PURCHASE_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: order_id
+            type: string
+            intents: ["*"]
+            description: Exact public invoice_code, preserve case, punctuation and leading zeroes; maximum 256 characters.
+          - name: merchant
+            type: string
+            intents: ["*"]
+            description: Full vendor_description, only letter case and whitespace normalized; maximum 256 characters.
+input_schema:
+  type: object
+  required: [order_id, merchant]
+  properties:
+    order_id: {type: string, maxLength: 256}
+    merchant: {type: string, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    order_id: {type: string}
+    verified:
+      type: boolean
+      description: Present only for a unique source-backed confirmation or exact merchant mismatch. Absent means unknown.
+    status: {type: string}
+    summary: {type: string}
+    recorded_expenditure: {type: number}
+    expenditure_currency: {type: string}
+intent_mapping:
+  COMMERCE_PURCHASE_VERIFY_GENERAL:
+    endpoint: /purchase-verify
+    input:
+      order_id: {from: order_id, how: Preserve the exact invoice code verbatim.}
+      merchant: {from: merchant, how: Preserve the full vendor name verbatim.}
+    output:
+      order_id: {path: order_id}
+      verified: {path: verified, how: Read the exact Boolean. An absent field means missing evidence and must never be coerced to false.}
+      status: {path: status}
+      amount: {path: amount, unit: currency units}
+      currency: {path: currency}
+semantics:
+  supported_intents: [COMMERCE_PURCHASE_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: status
+    reason_field: summary
