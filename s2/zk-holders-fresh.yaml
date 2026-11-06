@@ -1,0 +1,77 @@
+version: '1'
+kind: miner
+id: 73606
+slug: zk-holders-fresh
+protocol: generic
+name: ChainWire Dated Holder Observations
+description: 'Source-attributed distinct token-holder addresses from GeckoTerminal''s public beta token-info index. Counts
+  retain the provider update timestamp; two-minute reuse and at most fifteen-minute explicitly stale fallback. Ethereum, Base,
+  Arbitrum, Polygon and Optimism. Missing counts are failures, never zero. Indexes can disagree; the observation is not independently
+  verified.
+
+  '
+base_url: https://telegraph-chain.margyn.workers.dev
+docs:
+  documentation: https://telegraph-chain.margyn.workers.dev/holders-terms
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 120
+limitations:
+- code: SOURCE_QUOTA
+  message: Public source allows approximately 10 calls/minute; use no more than 6 requests/minute on this miner.
+  property: rate
+  value_num: 6
+  window_seconds: 60
+endpoints:
+- path: /holders
+  external_path: /holders
+  method: GET
+  description: 'Report distinct holder addresses for one chain and token. Provide a complete EVM contract address or USDC,
+    USDT/Tether, DAI, WETH, UNI/Uniswap, WBTC/Wrapped Bitcoin where supported. Counts are dated source observations and beta
+    indexes may disagree. Source outage or unsupported/missing data is an error.
+
+    '
+  intents:
+  - TOKEN_HOLDER_COUNT_GENERAL
+  params:
+    query:
+      required:
+      - name: token
+        type: string
+        intents:
+        - '*'
+        description: Complete 0x-prefixed contract address or supported symbol/name.
+      - name: chain
+        type: string
+        intents:
+        - '*'
+        description: ethereum, base, arbitrum, polygon, optimism or the EIP-155 chain ID.
+semantics:
+  supported_intents:
+  - TOKEN_HOLDER_COUNT_GENERAL
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: detail
+  code_path: error
+intent_mapping:
+  TOKEN_HOLDER_COUNT_GENERAL:
+    endpoint: /holders
+    input:
+      token:
+        from: token
+      chain:
+        from: chain
+    output:
+      token:
+        path: token
+      chain:
+        path: chain
+      holders_count:
+        path: holders_count
+        unit: addresses
+      token_symbol:
+        path: token_symbol
