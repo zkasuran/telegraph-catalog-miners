@@ -1,0 +1,64 @@
+version: "1"
+kind: miner
+id: 70147
+slug: zk-apihealth
+protocol: generic
+name: GuardWire Public API Health
+description: >-
+  Check exactly one caller-supplied public HTTP(S) API endpoint with a live
+  manual-redirect GET. Reports immediate HTTP status and time to headers in
+  milliseconds, plus explicitly attributed official provider API component
+  status where supported. Returned endpoint diagnostics are separate facts.
+base_url: https://telegraph-guard.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /api-health
+    external_path: /api-health
+    method: GET
+    description: >-
+      Pass the exact caller-named URL, hostname, or question in the url query
+      parameter, preserving path and query case. Supported service names are
+      GitHub, Cloudflare, Discord, DigitalOcean, Vercel and Coinbase. A 4xx is
+      reachable, not HTTP-healthy; a 3xx reports only the immediate redirect.
+    intents: [API_HEALTH_CHECK_GENERAL]
+    params:
+      query:
+        required:
+          - name: url
+            type: string
+            intents: ["*"]
+            description: >-
+              Exact public HTTP(S) endpoint or hostname from the request;
+              alternatively the whole question containing exactly one target
+              or supported provider name. At most 2048 characters.
+input_schema:
+  type: object
+  required: [url]
+  properties:
+    url: {type: string, maxLength: 2048}
+output_schema:
+  type: object
+  properties:
+    summary: {type: string}
+    url: {type: string}
+    healthy: {type: [boolean, "null"]}
+    up: {type: boolean}
+    status_code: {type: [integer, "null"]}
+    response_time_ms: {type: [integer, "null"]}
+    as_of: {type: string}
+    source: {type: string}
+    requested_components_healthy: {type: [boolean, "null"]}
+    publisher_api: {type: object}
+    response_headers: {type: object}
+    endpoint_diagnostics: {type: object}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [API_HEALTH_CHECK_GENERAL]
