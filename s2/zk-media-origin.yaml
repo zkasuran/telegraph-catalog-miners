@@ -1,0 +1,99 @@
+version: '1'
+kind: miner
+id: 7312705
+slug: zk-media-origin
+protocol: generic
+name: Media Origin and Signed Integrity
+description: >-
+  Fetches supplied media bytes, validates embedded C2PA provenance, and independently
+  checks Commons catalog digests or NASA catalog URLs. Separates byte manipulation,
+  signer declarations, signer trust and scene authenticity; unknown provenance is inconclusive.
+base_url: https://telegraph-s2-media-origin.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-s2-media-origin.margyn.workers.dev/health
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: media_url is at most 2048 characters; media downloads are bounded to 8 MiB.
+    param: media_url
+    property: length
+    value_num: 2048
+    operator: lte
+input_schema:
+  type: object
+  required: [media_url]
+  properties:
+    media_url:
+      type: string
+      format: uri
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [verdict, confidence, evidence, summary, source, as_of]
+  properties:
+    verdict:
+      type: string
+      enum: [Authentic, Likely authentic, Manipulated, Likely manipulated, Synthetic, Inconclusive]
+    confidence:
+      type: number
+      minimum: 0
+      maximum: 1
+    evidence:
+      type: array
+    summary:
+      type: string
+    source:
+      type: string
+    as_of:
+      type: string
+endpoints:
+  - path: /authenticity
+    external_path: /authenticity
+    method: GET
+    description: >-
+      Check the direct HTTPS media_url (JPEG, PNG, WebP, GIF or MP4, up to 8 MiB)
+      on upload.wikimedia.org, images-assets.nasa.gov, spec.c2pa.org, or
+      raw.githubusercontent.com under c2pa-org/public-testfiles or contentauth/c2pa-rs.
+      No redirects. Returns canonical verdict, confidence fraction, evidence list and summary.
+      Manipulated is emitted only for an active signed-asset hash mismatch with a validated
+      claim signature and signed binding assertion hash; other findings
+      are Inconclusive about real-world authenticity. Confidence zero indicates no calibrated
+      scene-authenticity probability. Missing media_url is a readiness probe, not an answer.
+    intents: [MEDIA_AUTHENTICITY_CHECK_GENERAL]
+    params:
+      query:
+        required:
+          - name: media_url
+            type: string
+            intents: [MEDIA_AUTHENTICITY_CHECK_GENERAL]
+            description: >-
+              Direct HTTPS JPEG, PNG, WebP, GIF or MP4 URL on a supported host, at most 2048
+              characters; media at most 8 MiB; no credentials, nonstandard ports or redirects.
+semantics:
+  supported_intents: [MEDIA_AUTHENTICITY_CHECK_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    confidence_field: confidence
+    reason_field: summary
+intent_mapping:
+  MEDIA_AUTHENTICITY_CHECK_GENERAL:
+    endpoint: /authenticity
+    input:
+      media_url:
+        from: media_url
+        how: Preserve the supplied direct HTTPS media URL exactly.
+    output:
+      verdict:
+        path: verdict
+      confidence:
+        path: confidence
+        unit: fraction (0-1)
+      evidence:
+        path: evidence
+      summary:
+        path: summary
