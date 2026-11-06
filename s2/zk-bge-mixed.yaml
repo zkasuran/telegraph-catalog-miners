@@ -1,0 +1,98 @@
+version: "1"
+kind: miner
+id: 740061
+slug: zk-bge-mixed
+protocol: generic
+name: ZK Mixed-Prose BGE Embeddings
+description: >-
+  Generate a real 768-dimensional BAAI bge-base-en-v1.5 CLS embedding for an
+  exact source passage using Cloudflare Workers AI. Supports English prose
+  containing typographic punctuation through a conservative mixed
+  ASCII-WordPiece/UTF-8-byte token bound. At most 512 bounded tokens including
+  CLS/SEP and 8000 UTF-16 code units; a short passage of up to 500 UTF-8 bytes
+  retains the established byte-bound policy. Returns the complete unchanged
+  provider vector, exact input, measured norm and provenance. Inputs exceeding
+  the conservative limit fail without truncation or substitute vectors.
+  No caller API key is required; the operator supplies Workers AI inference.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://developers.cloudflare.com/workers-ai/models/bge-base-en-v1.5/
+  website: https://huggingface.co/BAAI/bge-base-en-v1.5
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: The worker enforces an 8000 UTF-16-code-unit cap and a conservative 512-token bound; the bound can reject text that would fit the tokenizer.
+    param: text
+    property: length
+    value_num: 8000
+    operator: lte
+errors:
+  code_path: error
+  message_path: summary
+input_schema:
+  type: object
+  required: [text]
+  properties:
+    text:
+      type: string
+      minLength: 1
+      maxLength: 8000
+      description: >-
+        Exact literal single passage. Printable ASCII words use the upstream
+        BERT WordPiece bound. For longer non-ASCII input, chunks separated by
+        ASCII SPACE/TAB/CR/LF use the conservative UTF-8-byte bound when a chunk
+        contains non-ASCII or non-printable characters. The aggregate plus
+        CLS/SEP must not exceed 512. Text is passed to the model unchanged.
+output_schema:
+  type: object
+  required: [embedding, dimensions, l2_norm, embedding_model, pooling, input_text, truncated, summary, input_token_upper_bound, token_limit_method, tokenizer_sha256]
+  properties:
+    embedding:
+      type: array
+      minItems: 768
+      maxItems: 768
+      items: {type: number}
+    dimensions: {type: integer, const: 768}
+    l2_norm: {type: number}
+    embedding_model: {type: string, const: "@cf/baai/bge-base-en-v1.5"}
+    pooling: {type: string, const: cls}
+    input_text: {type: string}
+    input_chars: {type: integer}
+    input_bytes: {type: integer}
+    input_token_upper_bound: {type: integer, maximum: 512}
+    token_limit_method:
+      type: string
+      enum: [ascii_wordpiece_upper_bound, conservative_utf8_bytes, mixed_ascii_wordpiece_utf8_upper_bound]
+    tokenizer_sha256: {type: string}
+    truncated: {type: boolean, const: false}
+    summary: {type: string}
+    as_of: {type: string}
+endpoints:
+  - path: /embed
+    external_path: /embed
+    method: GET
+    description: >-
+      Generate one full BGE-base CLS embedding for literal text. Uses a
+      conservative 512-token input bound and 8000 UTF-16 code units. English
+      prose may contain Unicode punctuation. Non-ASCII chunks are bounded by
+      UTF-8 bytes, not claimed to be counted exactly. Oversized inputs return
+      HTTP 413 without inference/truncation; failures have real HTTP error
+      statuses. Keep returned vectors in the same BGE-base/CLS index.
+    intents: [EMBEDDING_GENERATION_GENERAL]
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: Exact passage, preserving source punctuation and whitespace; subject to the conservative token and code-unit bounds.
+semantics:
+  supported_intents: [EMBEDDING_GENERATION_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
