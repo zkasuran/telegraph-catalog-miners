@@ -1,0 +1,129 @@
+version: '1'
+kind: miner
+id: 79946
+slug: zk-reg-window
+protocol: generic
+name: Regulatory Publication Window
+description: >-
+  Period-filtered public SEC filing metadata for exact issuers and Federal
+  Register publication searches for products or concerns. Each count identifies
+  its source and date basis. SEC form and CIK constraints are never converted to
+  a different source. Federal Register results link the official GPO PDFs.
+base_url: https://telegraph-s2-filing.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://telegraph-s2-filing.margyn.workers.dev/health
+  documentation: https://www.federalregister.gov/developers/documentation/api/v1
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: Entity is limited to 256 UTF-8 bytes.
+    param: entity
+    property: size_bytes
+    value_bytes: 256
+    operator: lte
+  - code: MAX_PARAM_SIZE
+    message: Period is limited to 256 UTF-8 bytes.
+    param: period
+    property: size_bytes
+    value_bytes: 256
+    operator: lte
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+endpoints:
+  - path: /monitor
+    external_path: /monitor
+    method: GET
+    description: >-
+      Count period-filtered SEC filings for a verified exact issuer name, ticker
+      or CIK. An exact SEC form suffix is supported. For an ordinary term not
+      resolving to an SEC issuer, search Federal Register published documents;
+      an explicit 'Federal Register: TERM' selects that source even for an issuer.
+      SEC-specific requests never fall back to Federal Register. Apply period to
+      SEC filingDate or Federal Register publication_date, inclusive. Supported
+      periods: last N days/weeks/months/years, YYYY, calendar YYYY, calendar year
+      YYYY, YYYY-Qn, Qn YYYY, since YYYY-MM-DD, YYYY-MM-DD, or
+      YYYY-MM-DD..YYYY-MM-DD. Rolling boundaries use UTC calendar dates. Wholly
+      future periods are refused; current periods return a count to date.
+      SEC searches require no more than three history files and 500 matching
+      accessions. Federal Register count is the API's term-match total; at most
+      100 newest titles and official GPO PDF links are returned, with
+      returned_count and list_truncated identifying partial lists. Totals at the
+      10,000 search ceiling are refused. A term match is not an enforcement
+      finding or proof of document contents. The two sources are never merged.
+    intents: [REGULATORY_FILING_MONITOR_GENERAL]
+    params:
+      query:
+        required:
+          - name: entity
+            type: string
+            intents: ['*']
+            description: >-
+              Exact SEC issuer name, ticker or CIK with optional exact form
+              suffix, ordinary product/concern term, or 'Federal Register: TERM'.
+              Preserve any explicit source, CIK, form and embedded period.
+              Maximum 256 UTF-8 bytes.
+          - name: period
+            type: string
+            intents: ['*']
+            description: >-
+              Explicit inclusive filing/publication-date window, e.g. 2025,
+              2023-Q4 or last 12 months. Never replace a supplied historical
+              period with a current one. Maximum 256 UTF-8 bytes.
+        optional:
+          - name: form
+            type: string
+            intents: ['*']
+            description: Exact SEC form only; incompatible with explicit Federal Register source.
+input_schema:
+  type: object
+  required: [entity, period]
+  properties:
+    entity: {type: string, maxLength: 256}
+    period: {type: string, maxLength: 256}
+    form: {type: string, maxLength: 28}
+output_schema:
+  type: object
+  properties:
+    entity: {type: string}
+    filing_count: {type: integer, minimum: 0, maximum: 9999}
+    filings: {type: array, items: {type: string}}
+    urls: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: string}
+    as_of: {type: string}
+    status: {type: string}
+    returned_count: {type: integer}
+    list_truncated: {type: boolean}
+    coverage_complete: {type: boolean}
+semantics:
+  supported_intents: [REGULATORY_FILING_MONITOR_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  REGULATORY_FILING_MONITOR_GENERAL:
+    endpoint: /monitor
+    input:
+      entity:
+        from: entity
+        how: Keep exact issuer/product/concern text and any explicit Federal Register prefix, SEC form, CIK and date qualifier.
+      period:
+        from: period
+        how: Preserve the requested period using a supported explicit calendar or rolling window.
+    output:
+      entity: {path: entity}
+      filing_count: {path: filing_count, unit: filings}
+      filings:
+        path: filings
+        how: Copy the returned title list verbatim in its newest-first order; Federal Register lists are bounded to 100.
+      urls:
+        path: urls
+        how: Copy the URL list verbatim, aligned with filings; Federal Register URLs are official GPO PDFs.
