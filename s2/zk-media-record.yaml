@@ -1,0 +1,111 @@
+version: '1'
+kind: miner
+id: 7312706
+slug: zk-media-record
+protocol: generic
+name: Media Record and Signed Integrity
+description: >-
+  Checks supplied media bytes with the C2PA Rust WASM SDK, cross-checks original
+  Wikimedia Commons digests, and reports NASA production disclosures only when
+  the exact catalogue URL and matching Photojournal caption agree. Artist concepts
+  are Synthetic within an illustration scope; disclosed composites are Manipulated
+  within a production scope, without implying deception. Unknown scene authenticity
+  remains Inconclusive. No visual model or invented probability is used.
+base_url: https://telegraph-s2-media-record.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-s2-media-record.margyn.workers.dev/health
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: >-
+      Direct HTTPS JPEG, PNG, WebP, GIF or supported MP4, up to 8 MiB. Supported
+      hosts are upload.wikimedia.org, images-assets.nasa.gov, spec.c2pa.org and
+      raw.githubusercontent.com under c2pa-org/public-testfiles or contentauth/c2pa-rs.
+      No media redirects. This is provenance and disclosure analysis, not a universal
+      face-swap, AI-image or scene-truth detector.
+    param: media_url
+    property: length
+    value_num: 2048
+    operator: lte
+errors:
+  message_path: error
+  code_path: code
+input_schema:
+  type: object
+  required: [media_url]
+  properties:
+    media_url:
+      type: string
+      format: uri
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [verdict, confidence, evidence, summary, source, as_of]
+  properties:
+    verdict:
+      type: string
+      enum: [Authentic, Likely authentic, Manipulated, Likely manipulated, Synthetic, Inconclusive]
+    confidence:
+      type: number
+      minimum: 0
+      maximum: 1
+      description: Zero indicates no calibrated authenticity probability is supplied.
+    evidence:
+      type: array
+    summary:
+      type: string
+    source:
+      type: string
+    as_of:
+      type: string
+    verdict_scope:
+      type: string
+endpoints:
+  - path: /authenticity
+    external_path: /authenticity
+    method: GET
+    description: >-
+      Analyze the actual direct HTTPS media_url, at most 8 MiB, from the supported
+      NASA, Commons and official C2PA hosts. Return signed-byte integrity,
+      publisher-disclosed illustration/composite production and evidence. A missing
+      or untrusted manifest, catalogue URL alone, or ingredient error never proves
+      the scene fake or authentic. The response explicitly states the verdict scope.
+    intents: [MEDIA_AUTHENTICITY_CHECK_GENERAL]
+    params:
+      query:
+        required:
+          - name: media_url
+            type: string
+            intents: [MEDIA_AUTHENTICITY_CHECK_GENERAL]
+            description: >-
+              The caller's supplied direct HTTPS media URL, unchanged; do not substitute
+              a research search query. Supported hosts and formats are declared in
+              limitations. No credentials, nonstandard ports or media redirects.
+semantics:
+  supported_intents: [MEDIA_AUTHENTICITY_CHECK_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+    confidence_field: confidence
+intent_mapping:
+  MEDIA_AUTHENTICITY_CHECK_GENERAL:
+    endpoint: /authenticity
+    input:
+      media_url:
+        from: media_url
+        how: Preserve the supplied URL exactly.
+    output:
+      verdict:
+        path: verdict
+      confidence:
+        path: confidence
+        unit: fraction (0-1)
+      evidence:
+        path: evidence
+      summary:
+        path: summary
