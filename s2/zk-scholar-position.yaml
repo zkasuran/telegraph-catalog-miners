@@ -1,0 +1,86 @@
+version: "1"
+kind: miner
+id: 78326816
+slug: zk-scholar-position
+protocol: generic
+name: ScholarWire Source-Grounded Research
+description: >
+  RESEARCH_QUERY_GENERAL answers from fetched public records and licensed
+  excerpts. Exact DOI/title checks, listed-author positions and counts,
+  separately scoped Crossref/OpenAlex citations, Crossref references and
+  publisher/type metadata. Ambiguity and unavailable evidence are explicit.
+  Searches are bounded and briefs may omit detail.
+base_url: https://telegraph-scholar.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: detail
+  code_path: error
+endpoints:
+  - path: /research
+    external_path: /research
+    method: GET
+    description: >
+      Copy the complete canonical question verbatim into question. Returns
+      source-attributed text or bibliographic values. First/last author refers
+      only to source list position. Corresponding/senior status, full reference
+      lists, historical citation windows, global totals and broad synthesis are
+      unsupported. Invalid requests return HTTP400; source failures may return
+      HTTP503. Inspect status, uncertainty and brief_limitation for partial answers.
+    intents: [RESEARCH_QUERY_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            description: >
+              Actual complete research question, verbatim, nonempty and at most
+              2048 UTF-8 bytes. Preserve DOI, title, position and index qualifiers.
+            intents: [RESEARCH_QUERY_GENERAL]
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      minLength: 1
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [answer, brief, source_count, sources]
+  properties:
+    answer:
+      type: string
+      description: One-paragraph source-attributed answer.
+    brief:
+      type: string
+      maxLength: 80
+      description: Bounded plain-sentence summary; inspect brief_limitation for omissions.
+    source_count:
+      type: integer
+      minimum: 0
+      maximum: 1000
+    sources:
+      type: array
+      items: {type: string}
+intent_mapping:
+  RESEARCH_QUERY_GENERAL:
+    endpoint: /research
+    input:
+      question:
+        from: question
+        how: Copy the complete canonical question verbatim without summarizing it.
+    output:
+      answer: {path: answer}
+      brief: {path: brief}
+      source_count: {path: source_count}
+      sources: {path: sources}
+semantics:
+  signal_mapping:
+    label_field: answer
+    reason_field: answer
+  supported_intents: [RESEARCH_QUERY_GENERAL]
