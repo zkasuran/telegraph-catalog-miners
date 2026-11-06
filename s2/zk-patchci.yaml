@@ -1,0 +1,96 @@
+version: '1'
+kind: miner
+id: 74008117
+slug: zk-patchci
+protocol: generic
+name: Requested Public CI Evidence
+description: Read the exact requested public GitHub Actions run and its attempt-pinned
+  jobs. Return the recorded CI conclusion, a native passed boolean, commit SHA and
+  pipeline URL. CI execution evidence is not semantic proof of a patch fix. Source
+  failures are HTTP errors, never a guessed verdict. Workflow-run URL coverage is
+  end-to-end tested; no generated answers.
+base_url: https://telegraph-code.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+docs:
+  documentation: https://docs.github.com/en/rest/actions/workflow-runs
+endpoints:
+- path: /patch-verify
+  external_path: /patch-verify
+  method: GET
+  description: 'Pass the canonical patch value verbatim. Tested forms: https://github.com/OWNER/REPO/actions/runs/RUN_ID
+    and https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID. One requested
+    public run per call. Inline diffs have no CI execution evidence and return HTTP
+    422.'
+  intents:
+  - CODE_PATCH_VERIFY_GENERAL
+  params:
+    query:
+      required:
+      - name: patch
+        type: string
+        intents:
+        - '*'
+        description: One requested public GitHub Actions workflow-run URL, at most
+          20000 characters. No unrelated latest-project fallback.
+input_schema:
+  type: object
+  required:
+  - patch
+  properties:
+    patch:
+      type: string
+output_schema:
+  type: object
+  required:
+  - conclusion
+  - passed
+  - commit
+  - pipeline
+  properties:
+    conclusion:
+      type: string
+      enum:
+      - success
+      - failure
+      - cancelled
+      - skipped
+      - neutral
+      - timed_out
+      - pending
+    passed:
+      type: boolean
+    commit:
+      type: string
+    pipeline:
+      type: string
+    summary:
+      type: string
+errors:
+  message_path: detail
+  code_path: error
+semantics:
+  supported_intents:
+  - CODE_PATCH_VERIFY_GENERAL
+  signal_mapping:
+    label_field: conclusion
+    reason_field: summary
+intent_mapping:
+  CODE_PATCH_VERIFY_GENERAL:
+    endpoint: /patch-verify
+    input:
+      patch:
+        from: patch
+    output:
+      conclusion:
+        path: conclusion
+      passed:
+        path: passed
+      commit:
+        path: commit
+      pipeline:
+        path: pipeline
