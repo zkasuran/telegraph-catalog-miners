@@ -1,0 +1,85 @@
+version: "1"
+kind: miner
+id: 74351
+slug: zk-docproof
+protocol: generic
+name: FactWire Public Document Provenance
+description: >
+  Source-backed public document checks without generated facts or labels. For an
+  official RFC plain-text URL, fetches RFC Editor bytes and compares header
+  identity and title to IETF Datatracker metadata; Likely authentic describes only
+  that referenced public version. DOI, PLOS, and Federal Register references
+  produce corroborated metadata context, not an invented file-authenticity claim.
+  Private documents, unsupported links, source failures, and reference hash
+  mismatches remain Inconclusive. An unknown authentic boolean is omitted.
+base_url: https://telegraph-fact.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-fact.margyn.workers.dev/
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One public document reference or supported metadata claim, at most 8000 characters.
+    param: document
+    property: length
+    value_num: 8000
+    operator: lte
+endpoints:
+  - path: /document-authenticity
+    external_path: /document-authenticity
+    method: GET
+    description: >
+      Send canonical document verbatim. Accepts official HTTPS RFC txt links,
+      DOI or PLOS links, supported Federal Register references, source-linked
+      metadata sentences, JSON metadata claims, or RFC JSON {url, sha256}.
+      Fetches public sources only. Inconclusive is not false; authentic is absent
+      when document-byte authenticity has not been established. No uploaded
+      private file, physical seal, signature or authorship assessment.
+    intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: document
+            type: string
+            intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+            description: The canonical document string, verbatim; maximum 8000 characters.
+input_schema:
+  type: object
+  required: [document]
+  properties:
+    document:
+      type: string
+      maxLength: 8000
+output_schema:
+  type: object
+  required: [document, verdict, summary, evidence]
+  properties:
+    document: {type: string}
+    authentic:
+      type: boolean
+      description: Present only for a source-supported referenced public version. Missing means unknown, not false.
+    verdict:
+      type: string
+      enum: [Authentic, Likely authentic, Likely forged, Forged, Inconclusive]
+    summary: {type: string}
+    evidence: {type: array, items: {type: object}}
+    as_of: {type: string}
+intent_mapping:
+  DOCUMENT_AUTHENTICITY_GENERAL:
+    endpoint: /document-authenticity
+    input:
+      document: {from: document, how: Copy the complete input verbatim.}
+    output:
+      document: {path: document}
+      authentic: {path: authentic}
+      verdict: {path: verdict}
+      evidence: {path: evidence}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [DOCUMENT_AUTHENTICITY_GENERAL]
