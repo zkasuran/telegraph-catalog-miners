@@ -1,0 +1,47 @@
+# EXPERIMENTAL DRAFT: not registered; requires the withheld source_qa worker patch.
+version: "1"
+kind: miner
+id: 7310082
+slug: zk-qa-claims
+protocol: generic
+name: ZK Structured Source QA
+description: >
+  Bounded source-only lookup of capitals, authors, atomic numbers and birth dates
+  or places through canonical encyclopedia entities and Wikidata statements.
+  Unsupported, context-dependent, ambiguous and unavailable requests abstain.
+base_url: https://telegraph-text.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 3
+circuit_cooldown_seconds: 60
+endpoints:
+  - path: /answer
+    external_path: /answer
+    method: GET
+    description: >
+      Source-only single factual question. Supported forms ask what is the capital
+      or atomic number of an entity, who wrote a work, or when/where a person was
+      born. Does not generate answers or read caller context. Source failures use
+      HTTP 503; unsupported questions use HTTP 422.
+    intents: [QUESTION_ANSWERING_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: A single supported factual question, at most 2000 characters.
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question: {type: string, maxLength: 2000}
+semantics:
+  signal_mapping:
+    label_field: answer
+    reason_field: summary
+  supported_intents: [QUESTION_ANSWERING_GENERAL]
+errors:
+  code_path: reason
