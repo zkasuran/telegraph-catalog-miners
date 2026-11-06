@@ -1,0 +1,74 @@
+version: "1"
+kind: miner
+id: 78361
+slug: zk-provenance-media
+protocol: generic
+name: Verified Media Container and Embedded Provenance
+description: >-
+  Inspect fetched public JPEG, PNG, WebP and AVIF bytes with bounded container
+  readers and the official C2PA Rust WebAssembly SDK. Report SHA-256, stored
+  dimensions, untrusted metadata, exact NASA publisher excerpts when available,
+  and embedded-manifest validation codes. C2PA validation uses pinned official
+  signer/TSA trust lists with secondary SDK network access disabled. These checks
+  do not authenticate the physical scene or provide a calibrated manipulation
+  probability; the verdict remains Inconclusive and confidence is zero.
+base_url: https://telegraph-vision.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  status_path: status
+  success_values: [byte_inspection_completed]
+  message_path: summary
+  code_path: reason_code
+endpoints:
+  - path: /media-forensic-source
+    external_path: /media-forensic-source
+    method: GET
+    description: >-
+      Inspect one public HTTPS media_url, at most 8 MiB. JPEG, PNG, WebP and AVIF
+      receive container observations and official embedded C2PA SDK checks.
+      External manifests and live OCSP are not fetched; visual splicing, AI-image
+      classification, video/audio decoding and scene truth are not evaluated.
+    intents: [MEDIA_FORENSIC_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: media_url
+            type: string
+            intents: [MEDIA_FORENSIC_VERIFY_GENERAL]
+            description: Direct public HTTPS media URL, at most 4000 characters; no credentials, explicit ports or IP literals.
+input_schema:
+  type: object
+  required: [media_url]
+  properties:
+    media_url: {type: string, maxLength: 4000}
+output_schema:
+  type: object
+  properties:
+    verdict: {type: string, enum: [Inconclusive]}
+    findings: {type: array, items: {type: string}}
+    confidence: {type: number, minimum: 0, maximum: 1}
+    summary: {type: string}
+    status: {type: string}
+    file: {type: object}
+    sources: {type: array}
+intent_mapping:
+  MEDIA_FORENSIC_VERIFY_GENERAL:
+    endpoint: /media-forensic-source
+    input:
+      media_url: {from: media_url}
+    output:
+      verdict: {path: verdict}
+      findings: {path: findings}
+      confidence: {path: confidence, unit: "fraction (0-1)"}
+      summary: {path: summary}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [MEDIA_FORENSIC_VERIFY_GENERAL]
