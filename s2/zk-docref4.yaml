@@ -1,0 +1,88 @@
+version: "1"
+kind: miner
+id: 74353
+slug: zk-docref4
+protocol: generic
+name: ZK Public Document Provenance V4
+description: >-
+  Model-free provenance checks for official RFC text, PLOS article pages and
+  GPO Federal Register HTML publications, with separately retrieved identity
+  records. Explicit quoted article-title references receive bounded Crossref
+  discovery evidence; ambiguous candidates and title-only references remain
+  Inconclusive about document-copy authenticity. Verdicts concern the fetched
+  public version only, not signatures, authorship, private copies, scientific
+  accuracy or legal effect. Unsupported input and digest mismatches abstain.
+base_url: https://telegraph-fact.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One complete document reference or document, up to 8000 characters.
+    param: document
+    property: length
+    value_num: 8000
+    operator: lte
+input_schema:
+  type: object
+  required: [document]
+  properties:
+    document:
+      type: string
+      description: >-
+        Copy canonical document verbatim. Supported inputs include RFC N,
+        an exact official HTTPS RFC text, PLOS page or GPO Federal Register
+        HTML URL, a complete authenticity question about that URL, a JSON
+        string containing only url and optional 64-hex sha256, or an explicit
+        Article titled "quoted title" reference. Extra claims are retained.
+output_schema:
+  type: object
+  required: [document, verdict, summary, evidence]
+  properties:
+    document: {type: string}
+    verdict:
+      type: string
+      enum: [Likely authentic, Inconclusive]
+    authentic:
+      type: boolean
+      description: Present as true only for agreeing fetched official public versions; absent when unknown.
+    summary: {type: string}
+    evidence: {type: array, items: {type: object}}
+endpoints:
+  - path: /document-authenticity
+    external_path: /document-authenticity
+    method: GET
+    description: >-
+      Retrieve and compare real public-source document provenance. Send the
+      entire canonical document string as document without inferred titles,
+      omitted clauses or altered references. Inconclusive preserves unknowns.
+    intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: document
+            type: string
+            intents: ["*"]
+            description: Complete canonical document string, copied verbatim.
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+intent_mapping:
+  DOCUMENT_AUTHENTICITY_GENERAL:
+    endpoint: /document-authenticity
+    input:
+      document:
+        from: document
+        how: Copy the entire canonical document verbatim; preserve all clauses.
+    output:
+      document: {path: document}
+      authentic:
+        path: authentic
+        how: Read the explicit boolean only; missing means unknown and must remain missing.
+      verdict: {path: verdict}
+      evidence: {path: evidence}
