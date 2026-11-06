@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 7317307
+slug: zk-chainview
+protocol: generic
+name: ChainWire Canonical Transaction Lookup
+description: >
+  Source-attributed EVM transaction lookup with exact inclusion height, canonical
+  status, sender, recipient and exact native value. Uses independent public RPC
+  agreement where available and discloses single-source observations. Receipt
+  execution, canonical membership and finality are separate facts. Pre-Byzantium
+  execution outcomes are unknown, reverted requested values are not transfers,
+  and not-found answers require two independent chain-scoped null observations.
+  Finalized cached facts retain original observation times; current confirmations
+  are not invented. Supports Ethereum, Base, Arbitrum One, Optimism, Polygon,
+  Ethereum Sepolia and Base Sepolia.
+base_url: https://telegraph-chain.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /tx
+    external_path: /tx
+    method: GET
+    description: >
+      Read one transaction on its specified EVM chain. Send canonical tx_hash and
+      chain query parameters. Missing RPC capacity returns an explicit HTTP error;
+      it is never interpreted as not found.
+    intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: Exactly one 0x-prefixed 32-byte transaction hash.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: EVM chain name or decimal EIP-155 chain ID; preserve the explicitly requested network.
+input_schema:
+  type: object
+  required: [tx_hash, chain]
+  properties:
+    tx_hash:
+      type: string
+      pattern: "^0x[0-9a-fA-F]{64}$"
+    chain:
+      type: string
+output_schema:
+  type: object
+  properties:
+    tx_hash: {type: string}
+    status: {type: string, enum: [confirmed, reverted, pending, not_found]}
+    from: {type: [string, "null"]}
+    to: {type: [string, "null"]}
+    block_number: {type: [integer, "null"]}
+    value_eth: {type: [number, "null"]}
+    summary: {type: string}
+semantics:
+  supported_intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+intent_mapping:
+  ONCHAIN_TX_LOOKUP_GENERAL:
+    endpoint: /tx
+    input:
+      tx_hash: {from: tx_hash, how: "Preserve the complete transaction hash."}
+      chain: {from: chain, how: "Preserve the requested EVM chain name or EIP-155 chain ID."}
+    output:
+      tx_hash: {path: tx_hash}
+      status: {path: status}
+      from: {path: from}
+      to: {path: to}
+      block_number: {path: block_number, unit: "block height"}
+      value_eth: {path: value_eth, unit: "whole native units"}
+errors:
+  message_path: error.message
+  code_path: error.code
