@@ -1,0 +1,88 @@
+version: "1"
+kind: miner
+id: 74352
+slug: zk-docref3
+protocol: generic
+name: ZK Public Document Provenance
+description: >-
+  Model-free provenance checks for official public RFC text and PLOS article
+  pages, corroborated against IETF Datatracker or Crossref identity and title
+  records. Checks the referenced public version only. DOI-only requests return
+  metadata evidence with Inconclusive file authenticity. Unsupported documents,
+  failed corroboration and digest mismatches remain Inconclusive; this does not
+  certify signatures, authorship, unseen copies or scientific accuracy.
+base_url: https://telegraph-fact.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One document reference or document, up to 8000 characters.
+    param: document
+    property: length
+    value_num: 8000
+    operator: lte
+input_schema:
+  type: object
+  required: [document]
+  properties:
+    document:
+      type: string
+      description: >-
+        Canonical document input copied verbatim. Supported: RFC N, exact
+        official HTTPS RFC text or PLOS article page URL, a complete question
+        asking whether that reference is authentic/genuine, or a JSON string
+        containing only an official url and optional 64-hex sha256. Extra
+        claims are retained and not certified. Other inputs may receive
+        bibliographic evidence while authenticity remains unknown.
+output_schema:
+  type: object
+  required: [document, verdict, summary, evidence]
+  properties:
+    document: {type: string}
+    verdict:
+      type: string
+      enum: [Likely authentic, Inconclusive]
+    authentic:
+      type: boolean
+      description: Present as true only for corroborated referenced official public versions; omitted when unknown.
+    summary: {type: string}
+    evidence: {type: array, items: {type: object}}
+endpoints:
+  - path: /document-authenticity
+    external_path: /document-authenticity
+    method: GET
+    description: >-
+      Check one public document reference with real source evidence. Pass the
+      canonical document verbatim as document; do not replace it with a guessed
+      title or inferred description. Inconclusive preserves unknown authenticity.
+    intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: document
+            type: string
+            intents: ["*"]
+            description: The complete canonical document string, up to 8000 characters.
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+intent_mapping:
+  DOCUMENT_AUTHENTICITY_GENERAL:
+    endpoint: /document-authenticity
+    input:
+      document:
+        from: document
+        how: Copy the complete canonical document string verbatim without removing any clauses.
+    output:
+      document: {path: document}
+      authentic:
+        path: authentic
+        how: Read only the explicit bool; an absent value means unknown and must remain missing.
+      verdict: {path: verdict}
+      evidence: {path: evidence}
