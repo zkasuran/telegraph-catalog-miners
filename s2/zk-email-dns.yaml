@@ -1,0 +1,83 @@
+version: "1"
+kind: miner
+id: 772354
+slug: zk-email-dns
+protocol: generic
+name: GuardWire Canonical Email DNS
+description: >
+  Looks up the exact DNS name and record type requested for EMAIL_SECURITY_GENERAL.
+  Reports lookup_ok directly from observed DNS status, including NOERROR with no
+  answers and NXDOMAIN. Preserves underscore service labels, uses two public DNS
+  resolvers, and includes timestamped source responses. Published DNS configuration
+  is not a verification of an individual email or an absence-of-threat verdict.
+base_url: https://telegraph-guard.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /email-security
+    external_path: /email-security
+    method: GET
+    intents: [EMAIL_SECURITY_GENERAL]
+    description: >
+      Query the exact domain and record_type requested. The domain may be a DNS
+      service name such as _dmarc.gmail.com or _spf.google.com, and underscores
+      must be preserved. record_type is MX, TXT, A, AAAA, or another DNS RR type.
+      The answer's lookup_ok is true for DNS Status 0, false for nonzero DNS status,
+      and unavailable (HTTP 503) when resolver results cannot establish a status.
+    params:
+      query:
+        required:
+          - name: domain
+            type: string
+            intents: [EMAIL_SECURITY_GENERAL]
+            description: Exact DNS name to query, preserving underscore-prefixed labels.
+          - name: record_type
+            type: string
+            intents: [EMAIL_SECURITY_GENERAL]
+            description: Exact DNS RR type, for example MX or TXT; do not substitute a default.
+input_schema:
+  type: object
+  required: [domain, record_type]
+  properties:
+    domain:
+      type: string
+      minLength: 1
+      maxLength: 253
+    record_type:
+      type: string
+      minLength: 1
+output_schema:
+  type: object
+  properties:
+    lookup_ok:
+      type: [boolean, "null"]
+    Status:
+      type: [integer, "null"]
+    summary:
+      type: string
+intent_mapping:
+  EMAIL_SECURITY_GENERAL:
+    endpoint: /email-security
+    input:
+      domain:
+        from: domain
+        how: Copy the DNS name exactly; preserve underscore-prefixed service labels.
+      record_type:
+        from: record_type
+        how: Copy the requested DNS RR type, upper case.
+    output:
+      lookup_ok:
+        path: lookup_ok
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [EMAIL_SECURITY_GENERAL]
+errors:
+  message_path: summary
+  code_path: error
