@@ -1,0 +1,66 @@
+version: "1"
+kind: miner
+id: 78326818
+slug: zk-scholar-counts
+protocol: generic
+name: ZK Scholar Source-Scoped Research
+description: >-
+  Source-linked research with exact DOI metadata, separate Crossref and OpenAlex
+  citation/reference counts, bounded reference identifiers, bibliographic discovery,
+  and intact licensed excerpts. Current index counts are not global totals or
+  historical measurements. Missing or conflicting evidence is disclosed.
+base_url: https://telegraph-scholar.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /research
+    external_path: /research
+    method: GET
+    description: Send the complete canonical question verbatim; return source-backed research.
+    intents: [RESEARCH_QUERY_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            description: Complete canonical research question, including identifiers and requested fields.
+            intents: [RESEARCH_QUERY_GENERAL]
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      minLength: 1
+      maxLength: 2048
+output_schema:
+  type: object
+  required: [answer, brief, source_count, sources]
+  properties:
+    answer: {type: string}
+    brief: {type: string, maxLength: 80}
+    source_count: {type: integer, minimum: 0}
+    sources:
+      type: array
+      items: {type: string}
+semantics:
+  supported_intents: [RESEARCH_QUERY_GENERAL]
+  signal_mapping:
+    label_field: answer
+    reason_field: answer
+intent_mapping:
+  RESEARCH_QUERY_GENERAL:
+    endpoint: /research
+    input:
+      question:
+        from: question
+        how: Copy the complete canonical question verbatim without summarizing or removing fields.
+    output:
+      answer: {path: answer}
+      brief: {path: brief}
+      source_count: {path: source_count}
+      sources: {path: sources}
