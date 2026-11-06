@@ -1,0 +1,95 @@
+version: '1'
+kind: miner
+id: 78222
+slug: zk-eur-canonical
+protocol: generic
+name: VerifyWire EUR Canonical ECB Reference
+description: 'Latest published European Central Bank daily EUR/USD reference fixing, delivered as EUR per one US dollar by
+  computing the reciprocal of the published USD-per-EUR denominator without intermediate decimal rounding. Retrieved via Frankfurter
+  with direct ECB XML and SDMX recovery. This is an attributed daily reference, not an intraday executable market quote. Fixing
+  date, source, calculation and free-source notice accompany the rate.
+
+  '
+base_url: https://telegraph-verify.margyn.workers.dev
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required:
+  - currency
+  additionalProperties: false
+  properties:
+    currency:
+      type: string
+      enum:
+      - EUR
+      description: EUR priced against one USD; this miner serves FX_NOW_EUR only.
+output_schema:
+  type: object
+  required:
+  - rate
+  - rate_unit
+  - fixing_date
+  - summary
+  - data_notice
+  properties:
+    rate:
+      type: number
+      minimum: 0.0001
+      maximum: 100000
+      description: EUR per one USD, reciprocal of the published ECB USD-per-EUR fixing.
+    rate_unit:
+      type: string
+      enum:
+      - EUR per USD
+    fixing_date:
+      type: string
+      pattern: ^\d{4}-\d{2}-\d{2}$
+      description: Date of the ECB observation, distinct from retrieval time.
+    summary:
+      type: string
+    data_notice:
+      type: string
+endpoints:
+- path: /fxnow
+  external_path: /fxnow
+  method: GET
+  description: 'Fetch the latest published ECB daily reference fixing for USD/EUR. Required currency=EUR selects EUR per one
+    USD; no pair-direction guessing. Read the numeric rate field, with fixing_date and data_notice preserved.
+
+    '
+  intents:
+  - FX_NOW_EUR
+  params:
+    query:
+      required:
+      - name: currency
+        type: string
+        intents:
+        - FX_NOW_EUR
+        description: 'EUR, upper case. Quote currency priced against one USD. Accepted values: EUR.'
+intent_mapping:
+  FX_NOW_EUR:
+    endpoint: /fxnow
+    input:
+      currency:
+        from: currency
+        how: ISO 4217 upper-case code EUR, the quote currency against one USD.
+    output:
+      rate:
+        path: rate
+        unit: EUR per USD
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+  - FX_NOW_EUR
+errors:
+  message_path: summary
+  code_path: error
