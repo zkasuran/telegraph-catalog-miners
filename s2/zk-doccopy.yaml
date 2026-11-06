@@ -1,0 +1,98 @@
+version: "1"
+kind: miner
+id: 74354
+slug: zk-doccopy
+protocol: generic
+name: ZK Exact Public Document Copy Verification
+description: >-
+  Model-free document provenance with an exact-copy RFC text check. A JSON
+  document string containing an official RFC text url and complete text is
+  compared byte-for-byte as UTF-8 against fetched RFC Editor bytes and checked
+  against separately fetched IETF Datatracker identity/title. Supports official
+  RFC identifiers/URLs, PLOS article pages, GPO Federal Register HTML and
+  bounded quoted-title discovery. Only matching, corroborated public references
+  or supplied RFC copies receive Likely authentic. Source disagreement,
+  unknown copies and digest/text mismatches remain Inconclusive. Does not
+  certify signatures, authorship, scientific accuracy or legal effect.
+base_url: https://telegraph-fact.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Entire document string including any JSON envelope, at most 8000 characters.
+    param: document
+    property: length
+    value_num: 8000
+    operator: lte
+input_schema:
+  type: object
+  required: [document]
+  properties:
+    document:
+      type: string
+      description: >-
+        Preserve the canonical document verbatim. Supported JSON is a string
+        with only url, optional 64-hex sha256, and optional complete text.
+        The text field is only supported for exact official RFC plain-text
+        HTTPS URLs. Whitespace, line endings and Unicode are not normalized.
+        Other supported inputs include RFC N, official RFC/PLOS/GPO URLs,
+        complete questions about those references, and Article titled
+        "quoted title". Additional claims are never silently discarded.
+output_schema:
+  type: object
+  required: [document, verdict, summary, evidence]
+  properties:
+    document: {type: string}
+    verdict:
+      type: string
+      enum: [Likely authentic, Inconclusive]
+    authentic:
+      type: boolean
+      description: Present as true only for agreeing verified references or exact supplied copies; absent when unknown.
+    summary: {type: string}
+    evidence: {type: array, items: {type: object}}
+    supplied_text_sha256: {type: string}
+    supplied_text_bytes: {type: integer}
+    supplied_text_matches:
+      type: [boolean, "null"]
+      description: Complete supplied UTF-8 byte match; null if source bytes were unavailable.
+endpoints:
+  - path: /document-authenticity
+    external_path: /document-authenticity
+    method: GET
+    description: >-
+      Send the complete canonical document string as document without inferred
+      references, omitted clauses or altered text. Entire supplied RFC copies
+      may be paired with their official text URL in the JSON string. An
+      Inconclusive verdict preserves unknown authenticity without false labels.
+    intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: document
+            type: string
+            intents: ["*"]
+            description: Copy the complete canonical document string verbatim.
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [DOCUMENT_AUTHENTICITY_GENERAL]
+intent_mapping:
+  DOCUMENT_AUTHENTICITY_GENERAL:
+    endpoint: /document-authenticity
+    input:
+      document:
+        from: document
+        how: Copy the entire canonical document string verbatim, including all clauses and JSON text.
+    output:
+      document: {path: document}
+      authentic:
+        path: authentic
+        how: Read the explicit boolean only; missing means unknown and must remain missing.
+      verdict: {path: verdict}
+      evidence: {path: evidence}
