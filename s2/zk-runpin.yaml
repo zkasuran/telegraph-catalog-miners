@@ -1,0 +1,88 @@
+version: '1'
+kind: miner
+id: 74008118
+slug: zk-runpin
+protocol: generic
+name: Requested Attempt-Pinned CI Evidence
+description: >-
+  Read the exact requested public GitHub workflow run and attempt. Return its
+  recorded conclusion, native passed boolean, full commit SHA and pipeline URL.
+  Public CI execution records do not prove semantic patch correctness. Supports
+  GitHub run URLs, including ?attempt=N and /attempts/N; missing evidence is an
+  HTTP error. This is a request-contract draft for the existing CodeWire worker,
+  not an independently operated service or an established ranking improvement.
+base_url: https://telegraph-code.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+docs:
+  documentation: https://docs.github.com/en/rest/actions/workflow-runs
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One complete public CI target per request, at most 20000 characters.
+    param: patch
+    property: length
+    value_num: 20000
+    operator: lte
+endpoints:
+  - path: /patch-verify
+    external_path: /patch-verify
+    method: GET
+    description: >-
+      Pass the canonical patch input verbatim as the patch query parameter.
+      End-to-end source-tested forms are https://github.com/OWNER/REPO/actions/runs/RUN_ID,
+      that URL with ?attempt=N, and the corresponding api.github.com run URL.
+      Conflicting nonempty aliases are rejected. No unrelated latest-project
+      fallback. Inline diffs lack public CI execution evidence and return HTTP 422.
+    intents: [CODE_PATCH_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: patch
+            type: string
+            intents: ['*']
+            description: One requested public workflow-run URL; preserve any explicit attempt.
+input_schema:
+  type: object
+  required: [patch]
+  properties:
+    patch:
+      type: string
+      minLength: 1
+      maxLength: 20000
+output_schema:
+  type: object
+  required: [conclusion, passed, commit, pipeline]
+  properties:
+    conclusion:
+      type: string
+      enum: [success, failure, cancelled, skipped, neutral, timed_out, pending]
+    passed:
+      type: boolean
+    commit:
+      type: string
+    pipeline:
+      type: string
+    summary:
+      type: string
+errors:
+  code_path: error
+  message_path: detail
+semantics:
+  supported_intents: [CODE_PATCH_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: conclusion
+    reason_field: summary
+intent_mapping:
+  CODE_PATCH_VERIFY_GENERAL:
+    endpoint: /patch-verify
+    input:
+      patch: {from: patch}
+    output:
+      conclusion: {path: conclusion}
+      passed: {path: passed}
+      commit: {path: commit}
+      pipeline: {path: pipeline}
