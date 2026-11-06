@@ -1,0 +1,86 @@
+version: "1"
+kind: miner
+id: 7377307
+slug: zk-txcontext
+protocol: generic
+name: ChainWire Context-Preserving Transaction Lookup
+description: >-
+  Source-attributed transaction inclusion, execution status and exact requested
+  and executed native value on Ethereum, Base, Arbitrum One, Optimism, Polygon,
+  Ethereum Sepolia and Base Sepolia. Original questions are preserved alongside
+  canonical parameters. Currency denominations and fee terms do not override
+  explicit networks; contradictory network selectors fail. Independent RPC
+  agreement is reported where available, and absence requires two sources.
+  Historical cached observations retain their original times and explicitly
+  disclose when current canonical membership cannot be revalidated.
+base_url: https://telegraph-chain.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: ACCOUNT_QUOTA
+    message: Operator-selected ceiling of 30 routed lookups per day; shared public-provider limits may reject requests sooner.
+    property: rate
+    value_num: 30
+    window_seconds: 86400
+endpoints:
+  - path: /tx
+    external_path: /tx
+    method: GET
+    description: >-
+      Read one transaction on its specified EVM chain. Send tx_hash and chain,
+      and preserve the original question in query. ETH denotes a native unit
+      unless explicitly used as a network selector. Base fee and L1 fee are
+      fee terms, not requests to change networks. Receipt fields and exact
+      integer amounts remain in the response; missing sources are HTTP errors.
+    intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: Exactly one complete 0x-prefixed 32-byte transaction hash.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: Supported EVM network name or EIP-155 chain ID; preserve testnet identity.
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: Complete original question, verbatim, alongside canonical parameters.
+semantics:
+  supported_intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+errors:
+  message_path: error.message
+  code_path: error.code
+intent_mapping:
+  ONCHAIN_TX_LOOKUP_GENERAL:
+    endpoint: /tx
+    vars:
+      question: Complete original user question, verbatim, including fee terms and native units.
+    input:
+      tx_hash:
+        from: tx_hash
+        how: Preserve the full transaction hash.
+      chain:
+        from: chain
+        how: Preserve the explicitly requested network, including its testnet identity.
+      query:
+        from: question
+        how: Preserve the original question verbatim.
+    output:
+      tx_hash: {path: tx_hash}
+      status: {path: status}
+      from: {path: from}
+      to: {path: to}
+      block_number: {path: block_number, unit: block height}
+      value_eth: {path: value_eth, unit: whole native units}
