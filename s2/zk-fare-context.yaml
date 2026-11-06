@@ -1,0 +1,66 @@
+version: "1"
+kind: miner
+id: 78072
+slug: zk-fare-context
+protocol: generic
+name: ZK Scoped Fare Verification
+description: >
+  Extracts unambiguous supplied ticket-refund rules and verifies GSA City Pair
+  categories against a live public government table. Accepts exact codes or
+  explicit GSA category identifiers such as GSA City Pair Program YCA. Returns
+  no refund boolean for unknown fares, conflicting rules or failed sources.
+  Does not claim inventory or infer carrier-specific rules. The published _CN
+  category has no FY2027 awards.
+base_url: https://telegraph-trip.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+input_schema:
+  type: object
+  required: [fare]
+  properties:
+    fare: {type: string, description: Full fare identifier or supplied explicit ticket-refund rule text.}
+output_schema:
+  type: object
+  properties:
+    fare: {type: string}
+    refundable: {type: boolean}
+    change_fee: {type: number}
+    rules: {type: array, items: {type: string}}
+    summary: {type: string}
+    status: {type: string}
+errors:
+  status_path: status
+  success_values: [ok]
+  message_path: summary
+endpoints:
+  - path: /fare-rule-verify
+    external_path: /fare-rule-verify
+    method: GET
+    intents: [FARE_RULE_VERIFY_GENERAL]
+    description: >
+      Send the full canonical fare verbatim. Source-backed GSA categories and
+      explicit unconditional supplied ticket-refund rules return refundable.
+      Ambiguous inputs abstain with status insufficient_information.
+    params:
+      query:
+        required:
+          - name: fare
+            type: string
+            intents: [FARE_RULE_VERIFY_GENERAL]
+            description: Full canonical fare value, verbatim.
+intent_mapping:
+  FARE_RULE_VERIFY_GENERAL:
+    endpoint: /fare-rule-verify
+    input:
+      fare: {from: fare}
+    output:
+      fare: {path: fare}
+      refundable: {path: refundable}
+      change_fee: {path: change_fee}
+      rules: {path: rules}
+semantics:
+  supported_intents: [FARE_RULE_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
