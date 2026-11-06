@@ -1,0 +1,72 @@
+version: '1'
+kind: miner
+id: 77426
+slug: zk-macro-wdi-v2
+protocol: generic
+name: ZK Macro WDI Observations
+description: Historical World Bank WDI modeled-ILO unemployment for one country and year, with exact source values, explicit annual period, provider attribution, and unavailable-observation refusals.
+base_url: https://telegraph-metric.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [indicator, country, year]
+  properties:
+    indicator: {type: string, enum: ['unemployment rate']}
+    country: {type: string, maxLength: 256}
+    year: {type: integer, minimum: 1960, maximum: 2100}
+output_schema:
+  type: object
+  properties:
+    rate_pct: {type: [number, 'null']}
+    value: {type: [number, 'null']}
+    year: {type: [string, 'null']}
+    country_code: {type: string}
+    unit: {type: string}
+    source_url: {type: string}
+    summary: {type: string}
+    status: {type: string}
+endpoints:
+  - path: /macro
+    external_path: /macro
+    method: GET
+    intents: [MACRO_ECONOMIC_INDICATOR_GENERAL]
+    description: Read SL.UEM.TOTL.ZS for exactly one country and observation year. All three canonical inputs are query parameters. No current or different-year observation replaces an unavailable requested year.
+    params:
+      query:
+        required:
+          - name: indicator
+            type: string
+            intents: ['*']
+            description: Canonical unemployment rate, World Bank modeled ILO estimate SL.UEM.TOTL.ZS.
+          - name: country
+            type: string
+            intents: ['*']
+            description: A World Bank country name or ISO alpha-2 or alpha-3 code.
+          - name: year
+            type: integer
+            intents: ['*']
+            description: Exact annual observation year, integer from 1960 through 2100.
+intent_mapping:
+  MACRO_ECONOMIC_INDICATOR_GENERAL:
+    endpoint: /macro
+    input:
+      indicator: {from: indicator}
+      country: {from: country}
+      year: {from: year}
+    output:
+      rate_pct: {path: rate_pct, unit: percent}
+semantics:
+  supported_intents: [MACRO_ECONOMIC_INDICATOR_GENERAL]
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: summary
+  status_path: status
+  success_values: [ok]
