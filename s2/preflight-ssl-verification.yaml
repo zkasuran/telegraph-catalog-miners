@@ -1,0 +1,45 @@
+version: '1'
+kind: miner
+id: 1900999043
+slug: preflight-ssl-verification
+protocol: generic
+name: PREFLIGHT Infrastructure Signals
+base_url: https://preflight-ssl-verification.vercel.app
+description: Intent-scoped evidence excerpt from the fetched leader registration; not a new miner configuration.
+endpoints:
+- path: /weather
+  external_path: /weather
+  method: GET
+  description: 'Current air temperature for a named place, plus the forecast high, low, rain chance, gusts, precipitation
+    and a graded storm risk over the asked window. The temperature is the median of Open-Meteo, MET Norway and the nearest
+    fresh NOAA METAR; the forecast is Open-Meteo.
+
+    '
+  intents:
+  - WEATHER_FORECAST_GENERAL
+  params:
+    query:
+      required:
+      - name: query
+        type: string
+        intents:
+        - '*'
+        description: 'The full question in plain language, kept verbatim, for example "What is the current air temperature
+          in Karachi, in degrees Celsius?".
+
+          '
+      optional:
+      - name: location
+        type: string
+        intents:
+        - '*'
+        description: City or place name, optionally with its country or US state, or latitude,longitude.
+      - name: window_hours
+        type: integer
+        intents:
+        - WEATHER_FORECAST_GENERAL
+        - STORM_ALERT_GENERAL
+        description: Forecast window in hours, 1 to 240. Defaults to 24.
+semantics:
+  supported_intents:
+  - WEATHER_FORECAST_GENERAL
