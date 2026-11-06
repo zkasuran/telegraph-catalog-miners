@@ -1,0 +1,68 @@
+version: "1"
+kind: miner
+id: 78071
+slug: zk-fare-rules
+protocol: generic
+name: ZK Source-backed Fare Rules
+description: >
+  Extracts explicit unconditional refund rules from supplied fare text without a
+  generative model. Resolves the exact GSA City Pair categories YCA, _CA, _CN, _CP,
+  and _CB using a freshly verified public government table. The _CN category has
+  no FY2027 awards. Does not establish carrier policies from arbitrary fare names,
+  seat availability, or refund eligibility under unstated conditional exceptions.
+base_url: https://telegraph-trip.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+input_schema:
+  type: object
+  required: [fare]
+  properties:
+    fare:
+      type: string
+      description: Exact GSA fare category or actual explicit ticket/fare rule text.
+output_schema:
+  type: object
+  properties:
+    fare: {type: string}
+    refundable: {type: boolean}
+    change_fee: {type: number}
+    rules: {type: array, items: {type: string}}
+    summary: {type: string}
+    status: {type: string}
+errors:
+  status_path: status
+  success_values: [ok]
+  message_path: summary
+endpoints:
+  - path: /fare-rule-verify
+    external_path: /fare-rule-verify
+    method: GET
+    intents: [FARE_RULE_VERIFY_GENERAL]
+    description: >
+      Check the refundable characteristic of the fare. Send the full canonical
+      fare value verbatim. Unknown names and ambiguous refund conditions return
+      insufficient_information with no refundable value, never a default false.
+    params:
+      query:
+        required:
+          - name: fare
+            type: string
+            intents: [FARE_RULE_VERIFY_GENERAL]
+            description: Fare category or supplied fare rule text, verbatim.
+intent_mapping:
+  FARE_RULE_VERIFY_GENERAL:
+    endpoint: /fare-rule-verify
+    input:
+      fare: {from: fare}
+    output:
+      fare: {path: fare}
+      refundable: {path: refundable}
+      change_fee: {path: change_fee}
+      rules: {path: rules}
+semantics:
+  supported_intents: [FARE_RULE_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
