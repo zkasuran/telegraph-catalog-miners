@@ -1,0 +1,72 @@
+version: "1"
+kind: miner
+id: 73110718
+slug: zk-vat-pl
+protocol: generic
+name: DataWire Polish Domestic VAT Register
+description: >
+  Checks Polish corporate domestic VAT registration by PL-prefixed NIP using
+  the official MF/KAS VAT taxpayer register. Returns the source name, address,
+  status, query date and receipt. Czynny is active registration; Niezarejestrowany
+  is not registered. Exempt, absent and unsupported records return an explicit
+  inconclusive response without a validity boolean. Corporate records must carry
+  a KRS identifier. This is not VIES cross-border validation or sanctions clearance.
+base_url: https://telegraph-data.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+limitations:
+  - code: ACCOUNT_QUOTA
+    message: Official MF search API permits 100 requests per day; shared upstream usage also counts.
+    property: rate
+    value_num: 100
+    window_seconds: 86400
+endpoints:
+  - path: /vendor-verify
+    external_path: /vendor-verify
+    method: GET
+    intents: [VENDOR_VERIFY_GENERAL]
+    description: >
+      Verify domestic active VAT registration for a PL-prefixed ten-digit NIP.
+      The vendor name is compared literally after NFC, case and whitespace
+      normalization; mismatch does not change the independently reported VAT status.
+    params:
+      query:
+        required:
+          - name: vendor
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: Vendor name to compare with the tax-register name.
+          - name: vat_number
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: PL followed by the ten-digit Polish NIP.
+input_schema:
+  type: object
+  required: [vendor, vat_number]
+  properties:
+    vendor: {type: string, minLength: 1, maxLength: 256}
+    vat_number: {type: string, pattern: '^PL[0-9]{10}$', maxLength: 256}
+intent_mapping:
+  VENDOR_VERIFY_GENERAL:
+    endpoint: /vendor-verify
+    input:
+      vendor: {from: vendor}
+      vat_number: {from: vat_number}
+    output:
+      vendor: {path: vendor}
+      vat_number: {path: vat_number}
+      valid: {path: valid}
+      registered_name: {path: registered_name}
+      registered_address: {path: registered_address}
+semantics:
+  supported_intents: [VENDOR_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: error
+  code_path: code
