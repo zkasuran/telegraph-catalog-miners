@@ -1,0 +1,59 @@
+version: "1"
+kind: miner
+id: 79343
+slug: zk-finseries
+protocol: generic
+name: FinWire Official Financial Series
+description: >-
+  Official BLS monthly CPI and unemployment, New York Fed overnight reference
+  rates, World Bank annual indicators and SEC accounting. Figures identify
+  units, observation periods and sources. Unsupported figures stay unavailable.
+  Crypto market capitalization is currently unavailable.
+base_url: https://telegraph-fin.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+endpoints:
+  - path: /financial
+    external_path: /financial
+    method: GET
+    description: >-
+      Supply the full financial question as asset. Include the country, metric,
+      observation period and adjustment when relevant, such as US CPI index
+      September 2025 not seasonally adjusted, US GDP 2024, or Apple FY2025 revenue.
+      The source and observation date are explicit. No forecasts or historical
+      release vintages are fabricated.
+    intents: [FINANCIAL_DATA_GENERAL]
+    params:
+      query:
+        required:
+          - name: asset
+            type: string
+            intents: [FINANCIAL_DATA_GENERAL]
+            description: Full question or subject, preserving country, metric and period.
+input_schema:
+  type: object
+  required: [asset]
+  properties:
+    asset:
+      type: string
+      maxLength: 256
+intent_mapping:
+  FINANCIAL_DATA_GENERAL:
+    endpoint: /financial
+    input:
+      asset:
+        from: asset
+        how: Preserve the entire question, including dates, metric and country.
+    output:
+      asset: {path: asset}
+      market_cap_usd: {path: market_cap_usd, unit: USD}
+      volume_24h_usd: {path: volume_24h_usd, unit: USD}
+      metrics: {path: metrics}
+      as_of: {path: as_of}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [FINANCIAL_DATA_GENERAL]
