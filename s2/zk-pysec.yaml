@@ -1,0 +1,82 @@
+version: "1"
+kind: miner
+id: 719190
+slug: zk-pysec
+protocol: generic
+name: CodeWire Published Python API Warnings
+description: >
+  Source-backed partial observations of module-level Python API call syntax,
+  using eleven attributed Bandit 1.8.6 warning rules. Supports imported weak
+  hash/cipher APIs, ECB mode and non-cryptographic random generators alongside
+  existing deserialization, shell, eval/exec, tempfile and TLS warnings. Count
+  means potential observed call-site weaknesses, never verified exploitable
+  vulnerabilities. No installed-version, runtime-validity, nested-scope or
+  taint analysis. Unsupported inputs retain the worker's explicitly unverified
+  legacy runtime review; standalone CVE/GHSA identifiers use publication lookup.
+base_url: https://telegraph-code.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: Complete target text; one review input, at most 20000 Unicode characters.
+    param: target
+    property: length
+    value_num: 20000
+    operator: lte
+endpoints:
+  - path: /security-review
+    external_path: /security-review
+    method: GET
+    description: >
+      Review complete target text verbatim. For source-backed observations send
+      Python source or one explicitly tagged Python fence. A partial result
+      exposes exact source spans and published warning scope. No issues found
+      by the bounded scanner is not a safety verdict; legacy fallback remains
+      unverified. Standalone CVE/GHSA IDs retrieve attributed publications.
+    intents: [SECURITY_REVIEW_GENERAL]
+    params:
+      query:
+        required:
+          - name: target
+            type: string
+            intents: [SECURITY_REVIEW_GENERAL]
+            description: Complete caller-supplied code/system text, unchanged; max 20000 Unicode characters.
+input_schema:
+  type: object
+  required: [target]
+  properties:
+    target:
+      type: string
+      description: Complete target input verbatim; do not summarize or alter code.
+output_schema:
+  type: object
+  properties:
+    verdict: {type: string}
+    vulnerability_count: {type: number, description: Observed potential call-site weaknesses or one retrieved advisory identity; not proven exploitability.}
+    issues: {type: array}
+    summary: {type: string}
+    finding_validation: {type: string}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [SECURITY_REVIEW_GENERAL]
+intent_mapping:
+  SECURITY_REVIEW_GENERAL:
+    endpoint: /security-review
+    input:
+      target:
+        from: target
+        how: Preserve complete target text verbatim, including whitespace, comments and code fences.
+    output:
+      verdict: {path: verdict}
+      vulnerability_count: {path: vulnerability_count, unit: vulnerabilities}
+      issues: {path: issues}
+      summary: {path: summary}
+errors:
+  message_path: summary
+  code_path: error
