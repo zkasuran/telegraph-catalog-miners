@@ -1,0 +1,75 @@
+# New unregistered candidate; registration and publication belong to the coordinator.
+version: "1"
+kind: miner
+id: 743221
+slug: zk-fxexact
+protocol: generic
+name: ZK Exact ECB Currency Conversion
+description: >
+  Currency conversions derived from original-decimal ECB daily reference tables.
+  Discloses publication date and source. Reference conversions exclude provider
+  spreads and fees and are not executable trading quotes. Supports currencies
+  in the current ECB table, with explicit unsupported-currency errors.
+base_url: https://telegraph-fin.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: summary
+  code_path: error
+docs:
+  documentation: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+endpoints:
+  - path: /fx
+    external_path: /fx
+    method: GET
+    description: Convert a supplied non-negative source amount using dated ECB reference rates.
+    intents: [CURRENCY_EXCHANGE_CONVERT]
+    params:
+      query:
+        required:
+          - name: from_currency
+            type: string
+            intents: [CURRENCY_EXCHANGE_CONVERT]
+            description: Three-letter source currency code, upper case, from the current ECB table.
+          - name: to_currency
+            type: string
+            intents: [CURRENCY_EXCHANGE_CONVERT]
+            description: Three-letter target currency code, upper case, from the current ECB table.
+          - name: amount
+            type: number
+            intents: [CURRENCY_EXCHANGE_CONVERT]
+            description: Amount in source currency, zero through 1000000000000000, copied without rounding.
+input_schema:
+  type: object
+  required: [from_currency, to_currency, amount]
+  properties:
+    from_currency: {type: string, pattern: '^[A-Z]{3}$'}
+    to_currency: {type: string, pattern: '^[A-Z]{3}$'}
+    amount: {type: number, minimum: 0, maximum: 1000000000000000}
+output_schema:
+  type: object
+  properties:
+    converted_amount: {type: number, description: Derived amount in target currency.}
+    source_time: {type: string, description: ECB publication date as YYYY-MM-DD.}
+    source_url: {type: string}
+    summary: {type: string}
+semantics:
+  supported_intents: [CURRENCY_EXCHANGE_CONVERT]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  CURRENCY_EXCHANGE_CONVERT:
+    endpoint: /fx
+    input:
+      from_currency: {from: from_currency, how: 'Use the source currency code, upper case.'}
+      to_currency: {from: to_currency, how: 'Use the target currency code, upper case.'}
+      amount: {from: amount, how: 'Copy the amount to convert without rounding.'}
+    output:
+      converted_amount:
+        path: converted_amount
+        unit: "{key}"
