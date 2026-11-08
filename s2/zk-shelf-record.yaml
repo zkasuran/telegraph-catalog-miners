@@ -1,0 +1,88 @@
+version: '1'
+kind: miner
+id: 7310991
+slug: zk-shelf-record
+protocol: generic
+name: MetricWire Source-Linked Shelf Observations
+description: >-
+  Dated Open Prices shelf observations with exact product and retailer constraints.
+  Retrieves arbitrary price records on demand or the latest matching barcode
+  observation. Returns source-linked major-currency prices; historical records
+  are not represented as guaranteed current in-store quotes. Open Prices and
+  Open Food Facts contributors, Open Database Licence 1.0.
+base_url: https://telegraph-metric.margyn.workers.dev
+docs:
+  documentation: https://prices.openfoodfacts.org/api/docs
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /shelf
+    external_path: /shelf
+    method: GET
+    description: >-
+      Exact dated shelf observation for product and retailer. product accepts a
+      barcode, a specific product name, or the literal form price record N for
+      any positive Open Prices record ID. store is the requested retailer name;
+      never substitute a different retailer. A missing match is unavailable.
+    intents: [LIVE_SHELF_PRICE_GENERAL]
+    params:
+      query:
+        required:
+          - name: product
+            type: string
+            intents: ['*']
+            description: >-
+              Preserve the requested barcode or specific product name. For an
+              Open Prices record question, use price record followed by its
+              numeric ID, preserving the ID exactly.
+          - name: store
+            type: string
+            intents: ['*']
+            description: Exact requested store or retailer; preserve its name.
+input_schema:
+  type: object
+  required: [product, store]
+  properties:
+    product: {type: string, minLength: 1, maxLength: 256}
+    store: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    price: {type: number, description: Exact observed price in major currency units.}
+    currency: {type: string}
+    product: {type: string}
+    store: {type: string}
+    date: {type: string}
+    record_id: {type: integer}
+    source_url: {type: string}
+    summary: {type: string}
+    status: {type: string}
+errors:
+  message_path: summary
+  code_path: reason
+  status_path: status
+  success_values: [ok]
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [LIVE_SHELF_PRICE_GENERAL]
+intent_mapping:
+  LIVE_SHELF_PRICE_GENERAL:
+    endpoint: /shelf
+    input:
+      product:
+        from: product
+        how: Preserve barcode, exact product name, or literal price record N with its ID.
+      store:
+        from: store
+        how: Preserve the exact requested retailer name.
+    output:
+      price: {path: price, unit: major currency units}
+      currency: {path: currency}
+      product: {path: product}
+      store: {path: store}
+      date: {path: date}
