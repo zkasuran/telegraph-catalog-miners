@@ -1,0 +1,102 @@
+version: "1"
+kind: miner
+id: 88715
+slug: zk-uk-filings
+protocol: generic
+name: UK-enabled Regulatory Filing Window
+description: >-
+  Verified Companies House document filings for UK-style legal names,
+  period-filtered SEC filings for SEC names/tickers/CIKs or exact forms,
+  and Federal Register searches for ordinary concerns.
+  Each answer identifies one source and date basis. Source failures and explicit
+  SEC constraints never change source. UK counts exclude registrar annotations.
+base_url: https://telegraph-s2-filing.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://telegraph-s2-filing.margyn.workers.dev/health
+  documentation: https://www.gov.uk/guidance/search-the-companies-house-register
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+endpoints:
+  - path: /uk-filings
+    external_path: /uk-filings
+    method: GET
+    description: >-
+      Count dated publications from one explicitly identified source. UK-style
+      legal names ending PLC, Limited or Ltd use Companies House unless an SEC
+      form or CIK constraint is explicit. Other exact SEC issuers, tickers and CIKs
+      use SEC EDGAR, with optional exact SEC form suffixes.
+      SEC source failures and explicit SEC form/CIK constraints never fall back.
+      Companies House requires an exact current or former legal company name;
+      failure never falls back to a text-search count. Companies House: NUMBER
+      explicitly selects its eight-character UK number. Names are verified against a live
+      profile; ambiguous or unresolved names are refused. Counts follow the same
+      company number across name changes. Period selects inclusive filing dates,
+      not accounting periods: last N days/weeks/months/years, YYYY, calendar YYYY,
+      YYYY-Qn, Qn YYYY, since YYYY-MM-DD, YYYY-MM-DD or YYYY-MM-DD..YYYY-MM-DD.
+      UTC calendar boundaries define rolling windows. Current windows give counts
+      to date; wholly future windows are refused. Up to ten pages/250 entries;
+      no partial UK counts. ANNOTATION entries and attached annotations are excluded.
+      Titles contain official filing type, filing date and document identifier;
+      URLs point to official filing PDFs for UK results. SEC searches support at
+      most three history files and 500 accessions. Ordinary unresolved concerns,
+      or Federal Register: TERM, use dated Federal Register term matches with at
+      most 100 newest titles/official GPO links and explicit truncation. Totals at
+      its 10000 ceiling are refused. The sources are never merged into a worldwide
+      total; Companies House counts are not FCA or SEC counts. Source-specific
+      metadata, summary and count_basis describe exactly what was counted.
+    intents: [REGULATORY_FILING_MONITOR_GENERAL]
+    params:
+      query:
+        required:
+          - name: entity
+            type: string
+            intents: ["*"]
+            description: Exact SEC issuer/ticker/CIK with optional form suffix, exact UK legal company name, Companies House colon company number, concern term, or Federal Register colon term; maximum 256 UTF-8 bytes. Preserve explicit source and form constraints.
+          - name: period
+            type: string
+            intents: ["*"]
+            description: Preserve the requested inclusive filing-date period; maximum 256 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [entity, period]
+  properties:
+    entity: {type: string, maxLength: 256}
+    period: {type: string, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    entity: {type: string}
+    filing_count: {type: integer, minimum: 0, maximum: 9999}
+    filings: {type: array, items: {type: string}}
+    urls: {type: array, items: {type: string}}
+    status: {type: string}
+    summary: {type: string}
+semantics:
+  supported_intents: [REGULATORY_FILING_MONITOR_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  REGULATORY_FILING_MONITOR_GENERAL:
+    endpoint: /uk-filings
+    input:
+      entity:
+        from: entity
+        how: Preserve exact entity, source prefix, CIK and SEC form constraints. Never substitute a similarly named company.
+      period:
+        from: period
+        how: Preserve the requested historical or rolling period using a supported date expression.
+    output:
+      entity: {path: entity}
+      filing_count: {path: filing_count, unit: filings}
+      filings: {path: filings, how: Copy returned titles in their existing newest-first order; Federal Register lists are bounded to 100.}
+      urls: {path: urls, how: Copy returned URLs in order aligned with filings.}
