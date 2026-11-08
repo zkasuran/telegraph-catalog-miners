@@ -1,0 +1,74 @@
+version: '1'
+kind: miner
+id: 720055
+slug: zk-loan-official-v5
+protocol: generic
+name: ZK Official Published Loan Benchmarks
+description: >-
+  Reads the named published rate in annual percent with its source and actual
+  observation date. Supports US prime, effective federal funds, primary credit,
+  Fed target upper/lower bounds and administered IORB/repo rates; overnight SOFR
+  and OBFR via Treasury OFR's licensed NY Fed republication; NY Fed compounded
+  SOFR averages when its source is available; Freddie Mac 30-year PMMS through
+  its permitted RSS; Federal Reserve G.19 specified consumer survey terms;
+  Canadian prime/policy/Bank/deposit rates; ECB and Bank of England policy
+  references; and explicitly labelled World Bank annual lending indicators.
+  Unsupported products, nominal/APR conversions and individual offers are not
+  substituted with different rates. Source data is available without charge at
+  the cited official publishers; no affiliation or endorsement is implied.
+base_url: https://telegraph-metric.margyn.workers.dev
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [rate]
+  properties:
+    rate:
+      type: string
+      maxLength: 256
+      description: Full published-rate name, country, tenor and account population verbatim.
+output_schema:
+  type: object
+  properties:
+    rate_pct: {type: [number, 'null']}
+    status: {type: string}
+    observation_date: {type: string}
+    publication_date: {type: [string, 'null']}
+    effective_date: {type: [string, 'null']}
+    rate_name: {type: string}
+    summary: {type: string}
+    source: {type: string}
+endpoints:
+  - path: /loan
+    external_path: /loan
+    method: GET
+    intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+    description: >-
+      Supply the full canonical rate selector verbatim. Returns the exact named
+      published percentage or explicit unavailability, never another instrument.
+    params:
+      query:
+        required:
+          - name: rate
+            type: string
+            intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+            description: Which published rate; retain country, tenor and any requested convention.
+intent_mapping:
+  LOAN_INTEREST_RATE_QUOTE_GENERAL:
+    endpoint: /loan
+    input:
+      rate: {from: rate, how: Keep the full canonical selector verbatim without dropping its instrument or convention.}
+    output:
+      rate_pct: {path: rate_pct, unit: percent}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: source
+  supported_intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+errors:
+  status_path: status
+  success_values: [ok]
+  message_path: reason
