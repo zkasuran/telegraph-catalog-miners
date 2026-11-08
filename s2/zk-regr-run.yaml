@@ -1,0 +1,92 @@
+version: "1"
+kind: miner
+id: 731090
+slug: zk-regr-run
+protocol: generic
+name: CodeWire Source-Bound CI Regression Evidence
+description: >-
+  Reports actual public GitHub Actions run, job or Actions-backed check outcomes.
+  A pass means only that the requested complete CI scope reports successful checks
+  without failures. It does not establish semantic correctness or the absence of
+  all regressions. Failures without a comparable baseline remain inconclusive.
+  Inline diffs, PR references and commit-only references are unsupported by this route.
+base_url: https://telegraph-code.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One complete change reference, at most 20000 Unicode characters.
+    param: change
+    property: length
+    value_num: 20000
+    operator: lte
+endpoints:
+  - path: /regression-verify
+    external_path: /regression-verify
+    method: GET
+    description: >-
+      Supply one public GitHub Actions run, job or Actions-backed check URL as change.
+      Preserve an explicit attempt. Evidence binds the run, attempt, commit and job
+      identities; skipped or neutral checks are not counted as successful checks.
+      Scoped passes expose regression_found=false. Other outcomes omit that boolean
+      and return verdict=inconclusive; upstream/coverage errors use non-200 status.
+    intents: [REGRESSION_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: change
+            type: string
+            intents: [REGRESSION_VERIFY_GENERAL]
+            description: Exact public GitHub Actions run, job or Actions-backed check URL; one target.
+input_schema:
+  type: object
+  required: [change]
+  properties:
+    change:
+      type: string
+      minLength: 1
+      maxLength: 20000
+output_schema:
+  type: object
+  required: [verdict, summary]
+  properties:
+    regression_found:
+      type: boolean
+      description: False only for a complete scoped CI pass; omitted when regression status is inconclusive.
+    verdict:
+      type: string
+      enum: [pass, inconclusive]
+    failing_tests:
+      type: array
+      description: No test is labelled newly regressed without comparable before/after evidence.
+    summary:
+      type: string
+    checks:
+      type: array
+    evidence:
+      type: array
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [REGRESSION_VERIFY_GENERAL]
+intent_mapping:
+  REGRESSION_VERIFY_GENERAL:
+    endpoint: /regression-verify
+    input:
+      change:
+        from: change
+        how: Preserve the complete reference and explicit attempt; never invent or substitute a target.
+    output:
+      regression_found:
+        path: regression_found
+      verdict:
+        path: verdict
+      failing_tests:
+        path: failing_tests
+      summary:
+        path: summary
