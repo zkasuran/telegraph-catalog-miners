@@ -1,0 +1,97 @@
+version: "1"
+kind: miner
+id: 731294
+slug: zk-rfcproof
+protocol: generic
+name: RFCProof Text Provenance
+description: >-
+  Independently sourced RFC Editor quotation verification. Matches the whole supplied
+  passage against unmodified published IETF RFC text and an independently fetched
+  byte-identical HJP mirror. Reports evidence-scoped wording authenticity and abstains
+  from unsupported authorship, originality, AI detection and attribution judgments.
+base_url: https://telegraph-s2-rfcproof.margyn.workers.dev
+docs:
+  documentation: https://telegraph-s2-rfcproof.margyn.workers.dev/
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One text passage or complete quotation question; maximum 8000 characters.
+    param: text
+    property: length
+    value_num: 8000
+    operator: lte
+endpoints:
+  - path: /authenticity
+    external_path: /authenticity
+    method: GET
+    description: >-
+      Verify the entire supplied passage against published RFC Editor protocol text.
+      Send canonical text verbatim as text. Technical quotations matching the complete
+      normalized wording return Likely authentic as a traceable quotation only;
+      requested authorship, AI detection, originality or unresolved attribution remain
+      Unverifiable with verified overlap reported separately. Eight RFCs are bundled;
+      one explicitly named additional RFC can be fetched within a bounded deadline if
+      its licence is supported and an independent mirror agrees. Non-matches never
+      imply fabrication. Confidence 1 describes a verified wording match, not authorship;
+      Unverifiable answers have confidence 0.
+    intents: [TEXT_AUTHENTICITY_CHECK_GENERAL]
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: [TEXT_AUTHENTICITY_CHECK_GENERAL]
+            description: >-
+              The complete canonical text, including any question or source attribution,
+              verbatim; one passage of at most 8000 characters. A match requires at least
+              80 normalized characters and 12 words. Include an RFC number if known.
+input_schema:
+  type: object
+  required: [text]
+  properties:
+    text:
+      type: string
+      maxLength: 8000
+output_schema:
+  type: object
+  required: [verdict, reasons, confidence, summary, source, as_of]
+  properties:
+    verdict:
+      type: string
+      enum: [Authentic, Likely authentic, Likely fabricated, Fabricated, Unverifiable]
+    reasons:
+      type: array
+      items: {type: string}
+    confidence:
+      type: number
+      minimum: 0
+      maximum: 1
+    summary: {type: string}
+    source: {type: array}
+    as_of: {type: [string, "null"]}
+semantics:
+  supported_intents: [TEXT_AUTHENTICITY_CHECK_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    confidence_field: confidence
+    reason_field: summary
+intent_mapping:
+  TEXT_AUTHENTICITY_CHECK_GENERAL:
+    endpoint: /authenticity
+    input:
+      text:
+        from: text
+        how: Preserve the complete canonical text verbatim, including surrounding questions and attribution.
+    output:
+      verdict:
+        path: verdict
+        how: Copy the exact allowed enum verbatim; do not broaden the wording-only scope.
+      reasons:
+        path: reasons
+        how: Copy all reasons, including the precise evidence and unresolved scope.
+      confidence:
+        path: confidence
+        unit: fraction (0-1)
