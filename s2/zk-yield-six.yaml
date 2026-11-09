@@ -1,0 +1,90 @@
+version: "1"
+kind: miner
+id: 795529
+slug: zk-yield-six
+protocol: generic
+name: VerifyWire Six-Network Contract Yield
+description: >
+  Current constant-rate lending supply APY in basis points, independently computed
+  from Aave V3 and Compound V3 contract rates. Two named public RPC services must
+  agree on chain ID, block hash, timestamp and exact raw rates. Aave serves the
+  existing five networks and eight independently corroborated Avalanche reserves:
+  USDC, USDt, DAI.e, WETH.e, WBTC.e, WAVAX, sAVAX and BTC.b. Native and bridged
+  assets are distinct. Frozen reserve restrictions are disclosed. Pool interest
+  excludes reward incentives, staking-token appreciation and historical means.
+  Compound/Avalanche is unsupported and rejected. No invented or stale fallback.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://aave.com/docs
+  documentation: https://docs.compound.finance/interest-rates/
+errors:
+  message_path: summary
+  code_path: error
+input_schema:
+  type: object
+  required: [project, symbol, chain]
+  properties:
+    project: {type: string, enum: [aave-v3, compound-v3]}
+    symbol:
+      type: string
+      description: Requested reserve symbol or full address; preserve dots and bridge suffixes.
+    chain: {type: string, enum: [Ethereum, Base, Arbitrum, Optimism, Polygon, Avalanche]}
+output_schema:
+  type: object
+  required: [supply_apy, unit, project, chain, symbol, block_number, block_hash, sources, verified]
+  properties:
+    supply_apy: {type: number, minimum: 0, maximum: 100000}
+    unit: {type: string, enum: [basis points]}
+    project: {type: string}
+    chain: {type: string}
+    symbol: {type: string}
+    block_number: {type: integer}
+    block_hash: {type: string}
+    sources: {type: array, items: {type: string}}
+    verified: {type: boolean}
+    summary: {type: string}
+endpoints:
+  - path: /yield
+    external_path: /yield
+    method: GET
+    description: >
+      Send project, symbol and chain unchanged. Returns basis-point supply_apy,
+      exact raw rates, pinned-block evidence, corroboration and reserve flags.
+      Aave/Avalanche supports USDC, USDt, DAI.e, WETH.e, WBTC.e, WAVAX, sAVAX and
+      BTC.b. Compound/Avalanche and unsupported base markets fail explicitly.
+    intents: [CRYPTO_YIELD_RATE_GENERAL]
+    params:
+      query:
+        required:
+          - name: project
+            type: string
+            intents: [CRYPTO_YIELD_RATE_GENERAL]
+            description: Exactly aave-v3 or compound-v3; no protocol substitution.
+          - name: symbol
+            type: string
+            intents: [CRYPTO_YIELD_RATE_GENERAL]
+            description: Requested reserve symbol or complete address; preserve bridge suffixes. No asset substitution.
+          - name: chain
+            type: string
+            intents: [CRYPTO_YIELD_RATE_GENERAL]
+            description: Ethereum, Base, Arbitrum, Optimism, Polygon or Avalanche. Avalanche supports Aave V3 only.
+semantics:
+  supported_intents: [CRYPTO_YIELD_RATE_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  CRYPTO_YIELD_RATE_GENERAL:
+    endpoint: /yield
+    input:
+      project: {from: project, how: "Aave V3 -> aave-v3; Compound V3 or III -> compound-v3. Preserve protocol and version."}
+      symbol: {from: symbol, how: "Preserve full requested reserve symbol and bridge suffixes such as DAI.e and BTC.b, or complete contract address."}
+      chain: {from: chain, how: "Use the canonical network name, including Avalanche for Avalanche C-Chain. Never change networks."}
+    output:
+      supply_apy: {path: supply_apy, unit: basis points}
