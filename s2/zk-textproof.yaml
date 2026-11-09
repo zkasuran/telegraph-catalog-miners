@@ -1,0 +1,122 @@
+version: '1'
+kind: miner
+id: 731285
+slug: zk-textproof
+protocol: generic
+name: TextProof Published-Text Provenance
+description: 'Keyless Wikisource quotation verification with independently checked Standard Ebooks document snapshots. Checks
+  the entire normalized passage against document paragraphs, identifies the source revision, and preserves uncertainty about
+  the submitted copy''s authorship, AI use, originality, factual truth and surrounding attribution.
+
+  '
+base_url: https://telegraph-s2-textproof.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 60
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+docs:
+  website: https://en.wikisource.org
+  documentation: https://telegraph-s2-textproof.margyn.workers.dev/
+limitations:
+- code: MAX_PARAM_SIZE
+  message: One passage or authenticity question per call, at most 8000 Unicode characters.
+  param: text
+  property: length
+  value_num: 8000
+  operator: lte
+errors:
+  message_path: error
+endpoints:
+- path: /authenticity
+  external_path: /authenticity
+  method: GET
+  description: 'Verify a supplied text passage or quoted authenticity question using published Wikisource document text. Send
+    the canonical text verbatim as the text query parameter. A full normalized source match yields Likely authentic as a traceable
+    quotation only; unresolved authorship or surrounding attribution is not inferred. Short passages, non-matches, unresolved
+    full-request assertions and upstream failures yield Unverifiable with the reason. Never interprets a non-match as fabricated.
+    The confidence number is explicitly scoped to source-match evidence availability, not a calibrated authorship or AI probability.
+
+    '
+  intents:
+  - TEXT_AUTHENTICITY_CHECK_GENERAL
+  params:
+    query:
+      required:
+      - name: text
+        type: string
+        intents:
+        - TEXT_AUTHENTICITY_CHECK_GENERAL
+        description: 'The full text to check, verbatim; one passage, maximum 8000 characters. Pass the whole question if it
+          includes attribution or other assertions. Under 80 normalized characters or 12 words remains Unverifiable.
+
+          '
+input_schema:
+  type: object
+  required:
+  - text
+  additionalProperties: false
+  properties:
+    text:
+      type: string
+      minLength: 1
+      maxLength: 8000
+output_schema:
+  type: object
+  required:
+  - verdict
+  - reasons
+  - confidence
+  - summary
+  - source
+  - as_of
+  properties:
+    verdict:
+      type: string
+      enum:
+      - Authentic
+      - Likely authentic
+      - Likely fabricated
+      - Fabricated
+      - Unverifiable
+    reasons:
+      type: array
+      items:
+        type: string
+    confidence:
+      type: number
+      minimum: 0
+      maximum: 1
+    summary:
+      type: string
+    source:
+      type: string
+    as_of:
+      type:
+      - string
+      - 'null'
+intent_mapping:
+  TEXT_AUTHENTICITY_CHECK_GENERAL:
+    endpoint: /authenticity
+    input:
+      text:
+        from: text
+        how: Preserve the complete canonical text verbatim, including any surrounding attribution.
+    output:
+      verdict:
+        path: verdict
+        how: Copy the exact allowed enum verbatim.
+      reasons:
+        path: reasons
+        how: Copy all reasons including the uncertainty and source-match scope.
+      confidence:
+        path: confidence
+        unit: fraction (0-1)
+semantics:
+  supported_intents:
+  - TEXT_AUTHENTICITY_CHECK_GENERAL
+  signal_mapping:
+    label_field: verdict
+    confidence_field: confidence
+    reason_field: summary
