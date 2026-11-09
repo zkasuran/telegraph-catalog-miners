@@ -1,0 +1,81 @@
+version: "1"
+kind: miner
+id: 73110747
+slug: zk-vendor-reg-47
+protocol: generic
+name: ZK Public Vendor Registration
+description: >
+  Source-backed domestic registration checks for caller-supplied Norwegian,
+  Finnish or Polish tax identifiers. Reads national register evidence and
+  reports the actual registration Boolean with registered name and address.
+  A false VAT registration result stays false. Unsupported identifiers and
+  source outages produce no invented validity. VAT registration is not a
+  sanctions, ownership or legal-clearance determination.
+base_url: https://telegraph-data.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-data.margyn.workers.dev/
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error
+  code_path: code
+endpoints:
+  - path: /vendor-verify
+    external_path: /vendor-verify
+    method: GET
+    description: >
+      Check the vendor name and exact caller-supplied tax identifier against
+      the relevant public national register. Pass canonical vendor and
+      vat_number verbatim; do not infer a tax identifier from sanctions.
+    intents: [VENDOR_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: vendor
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: The vendor or company named by the caller, verbatim.
+          - name: vat_number
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: >
+              Exact tax identifier supplied by the caller, including its NO,
+              FI or PL country prefix. No guessed, translated or substituted ID.
+input_schema:
+  type: object
+  required: [vendor, vat_number]
+  properties:
+    vendor: {type: string, maxLength: 256}
+    vat_number: {type: string, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    vendor: {type: string}
+    vat_number: {type: string}
+    valid: {type: boolean}
+    registered_name: {type: string}
+    registered_address: {type: string}
+    source: {type: string}
+    summary: {type: string}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [VENDOR_VERIFY_GENERAL]
+intent_mapping:
+  VENDOR_VERIFY_GENERAL:
+    endpoint: /vendor-verify
+    input:
+      vendor: {from: vendor, how: "Copy the caller's vendor name verbatim."}
+      vat_number: {from: vat_number, how: "Copy the caller's supplied tax identifier verbatim; never infer one."}
+    output:
+      vendor: {path: vendor}
+      vat_number: {path: vat_number}
+      valid: {path: valid, how: "Read the actual national registration Boolean; false stays false, and absent is missing."}
+      registered_name: {path: registered_name}
+      registered_address: {path: registered_address}
