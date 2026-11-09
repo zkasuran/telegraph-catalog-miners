@@ -1,0 +1,99 @@
+version: "1"
+kind: miner
+id: 719217
+slug: zk-astsec
+protocol: generic
+name: ASTSec Published JavaScript Security Rules
+description: >
+  Independent JavaScript/JSX security-hotspot review using the unchanged
+  eslint-plugin-security and Mozilla no-unsanitized rules in ESLint, with AST,
+  lexical scope, static expressions and source locations. Counts rule diagnostics,
+  not confirmed exploits. Each issue cites immutable upstream documentation.
+  Security severity remains Unrated. Needs changes means manual context review
+  is required even when bounded rules report zero. No dependency advisory lookup.
+base_url: https://telegraph-s2-astsec.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error
+  code_path: code
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: target must be at most 32768 UTF-8 bytes of JavaScript source.
+    param: target
+    property: size_bytes
+    value_bytes: 32768
+    operator: lte
+endpoints:
+  - path: /review
+    external_path: /review
+    method: GET
+    description: >
+      Send canonical target verbatim: a complete JavaScript/JSX program, or prose
+      containing 1-8 complete fences explicitly tagged js, javascript, jsx, mjs
+      or cjs. Entire blocks are parsed with module syntax and Node ambient
+      bindings. Includes import/require aliases and lexical scope. Counts each
+      published rule diagnostic once; no CVSS, runtime exploit or safety claim.
+      Unknown syntax, TypeScript, other languages, sites, dependency versions,
+      manifests, empty files and bare names return an error without a count.
+      Do not convert packages or prose into invented code. Literal /review
+      probes expose unscored capabilities and return HTTP 200 quickly.
+    intents: [SECURITY_REVIEW_GENERAL]
+    params:
+      query:
+        required:
+          - name: target
+            type: string
+            intents: [SECURITY_REVIEW_GENERAL]
+            description: >
+              Canonical target unchanged, including code-fence tags, complete
+              program source and line breaks. JavaScript/JSX only; at most
+              32768 UTF-8 bytes. Unsupported input is explicitly refused.
+input_schema:
+  type: object
+  required: [target]
+  properties:
+    target:
+      type: string
+      minLength: 1
+      maxLength: 32768
+output_schema:
+  type: object
+  required: [verdict, vulnerability_count, issues, summary, source, as_of]
+  properties:
+    verdict:
+      type: string
+      enum: [Secure, Needs changes, Insecure]
+    vulnerability_count:
+      type: integer
+      minimum: 0
+      maximum: 100000
+    issues:
+      type: array
+      items: {type: object}
+    summary: {type: string}
+    source: {type: array}
+    as_of: {type: string, format: date-time}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [SECURITY_REVIEW_GENERAL]
+intent_mapping:
+  SECURITY_REVIEW_GENERAL:
+    endpoint: /review
+    input:
+      target:
+        from: target
+        how: >
+          Copy canonical target verbatim; preserve source, fenced language tags,
+          comments, punctuation and line breaks. Do not paraphrase or create code.
+    output:
+      verdict: {path: verdict}
+      vulnerability_count: {path: vulnerability_count, unit: vulnerabilities}
+      issues: {path: issues}
+      summary: {path: summary}
