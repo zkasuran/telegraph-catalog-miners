@@ -1,0 +1,148 @@
+version: '1'
+kind: miner
+id: 7311551
+slug: zk-hotel-long
+protocol: generic
+name: ZK Hotel Full-Stay Quotes
+description: Source-backed hotel offers for exact catalog properties and dates, one
+  room for two adults and no children in THB. Xotelo stays are shorter than one calendar
+  month (maximum 30 nights). Kampaeng Ngam Hotel also supports 31–365-night stays
+  through its existing mapped direct room, only when its booking engine returns a
+  completed offer covering every requested night. Partial catalog, scoped quotes,
+  no reservation guarantee; missing or inadequate evidence is an error, never sold
+  out.
+base_url: https://telegraph-s2-hotel-live.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+limitations:
+- code: SOURCE_QUOTA
+  message: Sparse source use; at most one new node request every ten seconds.
+  property: rate
+  value_num: 1
+  window_seconds: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+- path: /availability
+  external_path: /availability
+  method: GET
+  description: Get current scoped room offers for an exact catalog property. Supply
+    hotel, check_in (YYYY-MM-DD) and nights (1–365). Ordinary Xotelo stays must be
+    shorter than one calendar month and at most 30 nights; longer stays work only
+    for Kampaeng Ngam Hotel, through a completed direct room offer for the entire
+    stay. Hotel may be exact catalog name/name plus city, known key or known Tripadvisor
+    URL. One room, two adults, no children. Currency THB. Xotelo prices are minimum
+    returned channel quotes; direct full-stay prices are the quoted nightly average
+    of one mapped room, not a global minimum. Unknown properties, ambiguity, unavailable
+    mapped-room offers and unsupported stays return errors, never invented availability.
+  intents:
+  - HOTEL_AVAILABILITY_GENERAL
+  params:
+    query:
+      required:
+      - name: hotel
+        type: string
+        intents:
+        - HOTEL_AVAILABILITY_GENERAL
+        description: Exact catalog property name, known key or Tripadvisor URL; at
+          most 256 UTF-8 bytes.
+      - name: check_in
+        type: string
+        intents:
+        - HOTEL_AVAILABILITY_GENERAL
+        description: Check-in date in YYYY-MM-DD; historical stays are unsupported.
+      - name: nights
+        type: integer
+        intents:
+        - HOTEL_AVAILABILITY_GENERAL
+        description: Integer nights from 1 to 365; no splitting or truncation. Beyond
+          Xotelo’s shorter-than-calendar-month limit, only the mapped Kampaeng Ngam
+          direct source can confirm a completed full-stay offer.
+input_schema:
+  type: object
+  required:
+  - hotel
+  - check_in
+  - nights
+  properties:
+    hotel:
+      type: string
+      minLength: 1
+      maxLength: 256
+    check_in:
+      type: string
+      pattern: ^\d{4}-\d{2}-\d{2}$
+    nights:
+      type: integer
+      minimum: 1
+      maximum: 365
+output_schema:
+  type: object
+  required:
+  - hotel
+  - check_in
+  - available
+  - price_per_night
+  - currency
+  - source
+  - as_of
+  - summary
+  properties:
+    hotel:
+      type: string
+    check_in:
+      type: string
+    available:
+      type: boolean
+    price_per_night:
+      type: number
+      minimum: 0
+      maximum: 1000000
+    currency:
+      type: string
+    source:
+      type: string
+    as_of:
+      type: string
+    summary:
+      type: string
+errors:
+  code_path: error.code
+  message_path: error.message
+  status_path: status
+  success_values:
+  - ok
+semantics:
+  supported_intents:
+  - HOTEL_AVAILABILITY_GENERAL
+  signal_mapping:
+    label_field: available
+    reason_field: summary
+intent_mapping:
+  HOTEL_AVAILABILITY_GENERAL:
+    endpoint: /availability
+    input:
+      hotel:
+        from: hotel
+        how: Preserve the exact property name and location; do not substitute a different
+          hotel.
+      check_in:
+        from: check_in
+        how: Check-in date, YYYY-MM-DD.
+      nights:
+        from: nights
+        how: Number of nights as an integer; do not truncate or split the stay.
+    output:
+      hotel:
+        path: hotel
+      check_in:
+        path: check_in
+      available:
+        path: available
+      price_per_night:
+        path: price_per_night
+        unit: currency units
+      currency:
+        path: currency
