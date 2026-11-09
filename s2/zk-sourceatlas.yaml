@@ -1,0 +1,69 @@
+version: "1"
+kind: miner
+id: 78432
+slug: zk-sourceatlas
+protocol: generic
+name: Wikipedia and NASA Public Source Discovery
+description: >-
+  Keyless public-source discovery. Ordinary topics and explicit Wikipedia resources
+  use live English Wikipedia extracts and revision metadata. Explicit site:nasa.gov
+  keyword searches use NASA's www.nasa.gov post/page index and exact publisher record
+  links, publication/edit fields and historical excerpt quotations. Three results,
+  original publisher order, no whole-web or latest-event verification claim.
+base_url: https://telegraph-s2-websources.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://developer.wordpress.org/rest-api/reference/search-results/
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: query must be non-empty, without control characters, within 256 UTF-8 bytes.
+    param: query
+    property: size_bytes
+    value_bytes: 256
+    operator: lte
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: summary
+  code_path: code
+  status_path: status
+  success_values: [ok, no_results]
+endpoints:
+  - path: /web-search
+    external_path: /web-search
+    method: GET
+    description: >-
+      Pass the canonical query verbatim. English Wikipedia topic/exact-page/revision
+      discovery by default; one explicit site:nasa.gov or site:www.nasa.gov keyword
+      constraint selects NASA's post/page source index. Quoted/exclusion/filter NASA
+      syntax, multiple site constraints and other publishers are unsupported. Returns
+      answer, sources and a complete brief of at most 80 characters. NASA results are
+      historical keyword source discoveries, not verified latest news.
+    intents: [WEB_SEARCH_GENERAL]
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: [WEB_SEARCH_GENERAL]
+            description: Copy the canonical query verbatim; preserve names and qualifiers.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [WEB_SEARCH_GENERAL]
+intent_mapping:
+  WEB_SEARCH_GENERAL:
+    endpoint: /web-search
+    input:
+      query:
+        from: query
+        how: Copy the canonical query verbatim, preserving names and qualifiers.
+    output:
+      answer: {path: answer}
+      sources: {path: sources}
+      brief: {path: brief}
