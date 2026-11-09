@@ -1,0 +1,255 @@
+version: '1'
+kind: miner
+id: 974912
+slug: zk-xstate-ledger
+protocol: generic
+name: VerifyWire Cross-Chain Ledger Verification
+description: 'Cross-chain public EVM ledger observations: ERC-20 totalSupply, explicit
+  read-only contract calls, canonical execution-header state roots, and Merkle-Patricia
+  account inclusion/exclusion proofs. Also verifies an explicitly supplied LayerZero
+  V2 source/destination transaction pair on Ethereum, Base, Arbitrum or Optimism by
+  comparing PacketSent/PacketDelivered pathway and nonce and recomputing the GUID.
+  Two named public RPC services must corroborate each chain. PacketDelivered can also
+  be emitted by clear(); application execution is claimed only for a matching successful
+  direct EndpointV2.lzReceive call. Receipt observations are not receipt-trie, consensus,
+  finality, rollup-settlement or token-credit proofs. No indexer or model supplies
+  facts. A single transaction hash or GUID without the second transaction is not sufficient.
+  State history is preserved or reported unavailable, never replaced by latest.'
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-verify.margyn.workers.dev/
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+- path: /crosschain
+  external_path: /crosschain
+  method: GET
+  intents:
+  - CROSS_CHAIN_STATE_VERIFY_GENERAL
+  description: 'Pass the entire question verbatim in question or query. For a LayerZero
+    V2 receipt pair, include "Verify LayerZero V2 message delivery from Ethereum to
+    Base: source transaction 0x<64 hex>; destination transaction 0x<64 hex>" or supply
+    source_tx, destination_tx, source_chain and destination_chain together with LayerZero
+    wording. Optional guid and nonce constrain the match. LayerZero receipt mode does
+    not accept a supplied block selector, state root or finality claim. For other
+    state modes retain the original chains, contract, method and block constraints;
+    token/chains reads totalSupply, to/data/chains reads a view call, and block is
+    latest, safe, finalized or an explicit nonnegative height. Account inclusion/exclusion
+    proof questions must name one 20-byte EVM address and the chains. Execution-header
+    roots are observations; equality across separate chains is not expected.'
+  params:
+    query:
+      optional:
+      - name: question
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Complete original question verbatim, up to 8192 characters; retain
+          chains, method, contract and historical/finality constraints.
+      - name: query
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Alias for question; pass the complete original text, not a shortened
+          token symbol.
+      - name: token
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Exactly one supported ERC-20 symbol or complete 0x-prefixed 20-byte
+          contract address; totalSupply only, not circulating or global supply.
+      - name: chains
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Comma-separated chain names or chain IDs, at most seven; every
+          requested chain is retained or the request is rejected.
+      - name: to
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: One 0x-prefixed 20-byte contract address for a raw view-call
+          comparison; data must also be supplied, and this contract must exist on
+          the requested chains.
+      - name: data
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Even-length 0x-prefixed eth_call calldata, at most 8194 characters;
+          to must also be supplied.
+      - name: block
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: latest, safe, finalized or a nonnegative decimal/hex block height;
+          defaults to latest only if the question supplies no history or finality
+          constraint.
+      - name: source_tx
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Complete 32-byte source transaction hash; the destination hash
+          and both chains are also required in LayerZero receipt mode.
+      - name: destination_tx
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Complete 32-byte destination transaction hash, distinct from
+          source_tx.
+      - name: source_chain
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: 'LayerZero receipt source chain: ethereum, base, arbitrum or
+          optimism; distinct from destination_chain.'
+      - name: destination_chain
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: 'LayerZero receipt destination chain: ethereum, base, arbitrum
+          or optimism.'
+      - name: guid
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Optional complete 32-byte LayerZero GUID; it must match the recomputed
+          packet GUID.
+      - name: nonce
+        type: string
+        intents:
+        - CROSS_CHAIN_STATE_VERIFY_GENERAL
+        description: Optional unsigned uint64 nonce as an exact decimal string; no
+          rounding or negative values.
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      maxLength: 8192
+    query:
+      type: string
+      maxLength: 8192
+    token:
+      type: string
+    chains:
+      type: string
+    to:
+      type: string
+      pattern: ^0x[0-9a-fA-F]{40}$
+    data:
+      type: string
+      pattern: ^0x([0-9a-fA-F]{2})*$
+      maxLength: 8194
+    block:
+      type: string
+      pattern: ^(latest|safe|finalized|[0-9]+|0x[0-9a-fA-F]+)$
+    source_tx:
+      type: string
+      description: Complete 32-byte source transaction hash; the destination hash
+        and both chains are also required in LayerZero receipt mode.
+    destination_tx:
+      type: string
+      description: Complete 32-byte destination transaction hash, distinct from source_tx.
+    source_chain:
+      type: string
+      description: 'LayerZero receipt source chain: ethereum, base, arbitrum or optimism;
+        distinct from destination_chain.'
+    destination_chain:
+      type: string
+      description: 'LayerZero receipt destination chain: ethereum, base, arbitrum
+        or optimism.'
+    guid:
+      type: string
+      description: Optional complete 32-byte LayerZero GUID; it must match the recomputed
+        packet GUID.
+    nonce:
+      type: string
+      description: Optional unsigned uint64 nonce as an exact decimal string; no rounding
+        or negative values.
+output_schema:
+  type: object
+  properties:
+    intent:
+      type: string
+      enum:
+      - CROSS_CHAIN_STATE_VERIFY_GENERAL
+    mode:
+      type: string
+      enum:
+      - token_supply
+      - view_call
+      - state_roots
+      - account_proof
+      - layerzero_receipts
+    chains:
+      type: array
+      items:
+        type: string
+    chains_verified:
+      type: integer
+      description: Number of requested chains with an observed state, not the number
+        independently corroborated.
+    complete:
+      type: boolean
+      description: Whether every requested chain returned its requested state.
+    verified:
+      type: boolean
+      description: Every requested observation corroborated; account mode additionally
+        validates the MPT account path; receipt mode verifies only matching packet/delivery
+        events, not necessarily application execution.
+    independently_verified:
+      type: boolean
+    reads:
+      type: array
+      items:
+        type: object
+      description: Per-chain state or failure, including sources, errors and canonical
+        block metadata where available.
+    unreachable:
+      type: array
+      items:
+        type: string
+    identical:
+      type: boolean
+      description: In view_call mode only, complete coverage of at least two chains
+        with equal return bytes.
+    aggregate_supply_exact:
+      type:
+      - string
+      - 'null'
+      description: In token_supply mode only, exact decimal sum of observed listed
+        contracts; partial when complete is false, not global or circulating supply.
+    confidence:
+      type: number
+    summary:
+      type: string
+    as_of:
+      type: string
+    application_execution_verified:
+      type: boolean
+      description: 'LayerZero receipt mode only: both-chain corroboration plus a successful
+        direct EndpointV2.lzReceive transaction with matching origin, receiver, GUID
+        and message.'
+    packet:
+      type:
+      - object
+      - 'null'
+      description: Unique matched LayerZero packet; null for mismatch, ambiguity or
+        unavailable observations.
+    verification_scope:
+      type: string
+      description: Mode-specific boundaries of the verification; receipt/event consistency
+        does not prove finality or token arrival.
+    source:
+      type: string
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+  - CROSS_CHAIN_STATE_VERIFY_GENERAL
