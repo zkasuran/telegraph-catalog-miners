@@ -1,0 +1,68 @@
+version: "1"
+kind: miner
+id: 73941
+slug: zk-threat-reports
+protocol: generic
+name: DataWire Cited Threat Indicators
+description: >
+  Assess whether an exact IP, domain, URL, file hash, CVE or actor is reported
+  as a threat by permitted public sources. Current IP/domain feeds, CISA KEV,
+  MITRE ATT&CK groups and selected dated Microsoft MSTIC malware reports.
+  Report-backed answers cite the exact source record and date. Historical
+  infrastructure alerts and their expiration do not establish current activity.
+  Unknown indicators or unavailable coverage return null, never invented safety.
+base_url: https://telegraph-data.margyn.workers.dev
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  properties:
+    indicator:
+      type: string
+      description: Exact IP address, domain, URL, file hash, CVE identifier or actor.
+  required: [indicator]
+output_schema:
+  type: object
+  properties:
+    malicious:
+      type: [boolean, "null"]
+      description: Source-reported threat verdict; null means unknown, not benign.
+    indicator:
+      type: string
+    summary:
+      type: string
+endpoints:
+  - path: /threat
+    external_path: /threat
+    method: GET
+    description: >
+      Check the supplied indicator verbatim against public sources. Preserve exact
+      URL scheme, path and query. Read malicious for the source-reported verdict;
+      summary and historical_reports explain scope, dates, expiration and citations.
+    intents: [THREAT_INTELLIGENCE_INDICATOR]
+    params:
+      query:
+        required:
+          - name: indicator
+            type: string
+            intents: [THREAT_INTELLIGENCE_INDICATOR]
+            description: Exact indicator from the canonical indicator parameter.
+intent_mapping:
+  THREAT_INTELLIGENCE_INDICATOR:
+    endpoint: /threat
+    input:
+      indicator:
+        from: indicator
+        how: Preserve the supplied indicator verbatim, including URL path and query.
+    output:
+      malicious:
+        path: malicious
+        how: Read the exact boolean. Null is unknown and must not become false or true.
+semantics:
+  supported_intents: [THREAT_INTELLIGENCE_INDICATOR]
+  signal_mapping:
+    confidence_field: confidence
+    label_field: malicious
+    reason_field: summary
