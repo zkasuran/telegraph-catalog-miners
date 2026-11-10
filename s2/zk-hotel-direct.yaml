@@ -1,0 +1,97 @@
+version: "1"
+kind: miner
+id: 7311552
+slug: zk-hotel-direct
+protocol: generic
+name: ZK Hotel Scoped Full-Stay Offers
+description: >-
+  Source-backed dated room offers for exact catalog properties, one room for two
+  adults and no children. Ordinary Xotelo stays must be shorter than one calendar
+  month. Beyond that limit, completed full-stay offers are supported conditionally
+  by the mapped Kampaeng Ngam Superior room in THB and Off Beat Guesthouse twin
+  room with shared bathroom in EUR. Every requested night must be covered by the
+  same completed direct room offer. Unknown or insufficient inventory is an error,
+  never invented available or hotel-wide sold-out status.
+base_url: https://telegraph-s2-hotel-live.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+limitations:
+  - code: SOURCE_QUOTA
+    message: Sparse source use; at most one new node request every ten seconds.
+    property: rate
+    value_num: 1
+    window_seconds: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /availability
+    external_path: /availability
+    method: GET
+    description: >-
+      Supply hotel, check_in (YYYY-MM-DD), and nights (1–365). Ordinary Xotelo
+      quotes support only stays shorter than one calendar month and at most 30
+      nights. Longer stays are conditional on a completed direct full-stay quote
+      for the mapped Kampaeng Ngam Superior room or Off Beat Guesthouse twin room
+      with shared bathroom. Hotels may be exact catalog names, known keys or
+      Tripadvisor URLs. Occupancy is one room, two adults, no children. Xotelo
+      returns THB minimum channel quotes; direct full-stay prices are nightly
+      averages for one mapped room in the actual source currency (THB or EUR),
+      not global minima. Room/rate equivalence, tax inclusion and cancellation
+      terms are unverified; availability is not a reservation guarantee.
+    intents: [HOTEL_AVAILABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: hotel
+            type: string
+            intents: [HOTEL_AVAILABILITY_GENERAL]
+            description: Exact catalog property name, known key or Tripadvisor URL; at most 256 UTF-8 bytes.
+          - name: check_in
+            type: string
+            intents: [HOTEL_AVAILABILITY_GENERAL]
+            description: Check-in date in YYYY-MM-DD; historical stays unsupported.
+          - name: nights
+            type: integer
+            intents: [HOTEL_AVAILABILITY_GENERAL]
+            description: Integer 1–365; longer-than-calendar-month stays need a mapped completed direct room offer.
+input_schema:
+  type: object
+  required: [hotel, check_in, nights]
+  properties:
+    hotel: {type: string, minLength: 1, maxLength: 256}
+    check_in: {type: string, pattern: '^\d{4}-\d{2}-\d{2}$'}
+    nights: {type: integer, minimum: 1, maximum: 365}
+output_schema:
+  type: object
+  required: [hotel, check_in, available, price_per_night, currency, source, as_of, summary]
+  properties:
+    hotel: {type: string}
+    check_in: {type: string}
+    available: {type: boolean}
+    price_per_night: {type: number, minimum: 0, maximum: 1000000}
+    currency: {type: string}
+    source: {type: string}
+    as_of: {type: string}
+    summary: {type: string}
+errors:
+  code_path: error.code
+  message_path: error.message
+  status_path: status
+  success_values: [ok]
+semantics:
+  supported_intents: [HOTEL_AVAILABILITY_GENERAL]
+  signal_mapping: {label_field: available, reason_field: summary}
+intent_mapping:
+  HOTEL_AVAILABILITY_GENERAL:
+    endpoint: /availability
+    input:
+      hotel: {from: hotel, how: "Preserve exact property identity and location; do not substitute another hotel."}
+      check_in: {from: check_in, how: "Check-in date, YYYY-MM-DD."}
+      nights: {from: nights, how: "Integer nights; do not truncate or split the stay."}
+    output:
+      hotel: {path: hotel}
+      check_in: {path: check_in}
+      available: {path: available}
+      price_per_night: {path: price_per_night, unit: currency units}
+      currency: {path: currency}
