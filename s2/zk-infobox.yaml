@@ -1,0 +1,80 @@
+version: "1"
+kind: miner
+id: 7310271
+slug: zk-infobox
+protocol: generic
+name: Wikipedia Infobox Business Identity
+description: >
+  Independent, deterministic business profile extraction from rendered English
+  Wikipedia company infoboxes, with revision links, CC BY-SA attribution and
+  source reporting periods. No model-generated firmographics or headcount estimates.
+base_url: https://telegraph-s2-infobox.margyn.workers.dev
+auth:
+  type: none
+docs:
+  website: https://telegraph-s2-infobox.margyn.workers.dev/
+cache_ttl_sec: 60
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 60
+errors:
+  message_path: error
+  code_path: code
+endpoints:
+  - path: /enrich
+    external_path: /enrich
+    method: GET
+    description: >
+      Enrich one company name or web domain with company, official domain,
+      employee_count in employees, industry and headquarters. Send the company
+      identifier only, for example Microsoft or nvidia.com, in company; not a
+      whole question. Uses exact Wikipedia page/redirect names or an exact
+      infobox website match. Reporting dates are returned unchanged; the
+      infobox may lag newer issuer disclosures. Missing or ambiguous profiles
+      return an HTTP error, never a guessed number.
+    intents: [B2B_IDENTITY_ENRICHMENT_GENERAL]
+    params:
+      query:
+        required:
+          - name: company
+            type: string
+            intents: ["*"]
+            description: Company name or official web domain, 1–256 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [company]
+  properties:
+    company:
+      type: string
+      minLength: 1
+      maxLength: 256
+output_schema:
+  type: object
+  required: [company, domain, employee_count, industry, headquarters, source, as_of, summary]
+  properties:
+    company: {type: string}
+    domain: {type: string}
+    employee_count: {type: number, minimum: 0, maximum: 100000000}
+    industry: {type: string}
+    headquarters: {type: string}
+    source: {type: string}
+    as_of: {type: string}
+    summary: {type: string}
+intent_mapping:
+  B2B_IDENTITY_ENRICHMENT_GENERAL:
+    endpoint: /enrich
+    input:
+      company:
+        from: company
+        how: Extract only the company name or web domain, preserving the legal suffix.
+    output:
+      company: {path: company}
+      domain: {path: domain}
+      employee_count: {path: employee_count, unit: employees}
+      industry: {path: industry}
+      headquarters: {path: headquarters}
+semantics:
+  signal_mapping:
+    label_field: company
+    reason_field: summary
+  supported_intents: [B2B_IDENTITY_ENRICHMENT_GENERAL]
