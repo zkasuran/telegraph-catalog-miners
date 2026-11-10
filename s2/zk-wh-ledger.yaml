@@ -1,0 +1,74 @@
+version: "1"
+kind: miner
+id: 731094
+slug: zk-wh-ledger
+protocol: generic
+name: ZK Municipal Warehouse Ledger
+description: >-
+  Source-backed municipal warehouse on-hand counts: Mesa CENTRAL and EAST
+  monthly inventory, plus Austin TPW Arterial Management daily publication.
+  Actual stock identifiers or exact unambiguous descriptions only; no private
+  inventory, guessed allocations, or retailer availability. Austin counts must
+  be ACTIVE each-measured items. Physical reading time is not published.
+base_url: https://telegraph-s2-wh-stock.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /inventory
+    external_path: /inventory
+    method: GET
+    description: >-
+      Retrieve published on-hand units using sku and warehouse. sku is a real
+      City stock ID, preserving leading zeros, or an exact unambiguous source
+      item description. warehouse is Mesa:CENTRAL, Mesa:EAST, or Austin:TPW-ARTERIAL.
+      Preserve the requested location; unsupported warehouses fail explicitly.
+      Austin example: stock 20621750007, Austin:TPW-ARTERIAL. Mesa example:
+      00514-380, Mesa:CENTRAL. as_of is a reporting-month label for Mesa and null
+      for Austin, whose physical reading time is unknown; publication label and
+      fetch time are separate fields. Missing, conflicting and stale data fail.
+    intents: [WAREHOUSE_INVENTORY_GENERAL]
+    params:
+      query:
+        required:
+          - name: sku
+            type: string
+            intents: [WAREHOUSE_INVENTORY_GENERAL]
+            description: Real City stock ID or exact unambiguous description; preserve leading zeros.
+          - name: warehouse
+            type: string
+            intents: [WAREHOUSE_INVENTORY_GENERAL]
+            description: "Mesa:CENTRAL, Mesa:EAST, or Austin:TPW-ARTERIAL; never substitute another location."
+intent_mapping:
+  WAREHOUSE_INVENTORY_GENERAL:
+    endpoint: /inventory
+    input:
+      sku:
+        from: sku
+        how: Preserve the actual stock ID including leading zeros; exact source descriptions also work.
+      warehouse:
+        from: warehouse
+        how: Preserve the requested location; never invent a substitute warehouse to fit coverage.
+    output:
+      sku: {path: sku}
+      warehouse: {path: warehouse}
+      quantity: {path: quantity, unit: units}
+      as_of:
+        path: as_of
+        how: Mesa reporting-month label only; Austin null means physical reading time unavailable. Do not infer it from publication or fetch time.
+semantics:
+  signal_mapping:
+    label_field: quantity
+    reason_field: summary
+  supported_intents: [WAREHOUSE_INVENTORY_GENERAL]
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+cache_ttl_sec: 60
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://datahub.austintexas.gov/d/etm9-t3cx
+  documentation: https://data.austintexas.gov/stories/s/ranj-cccq
