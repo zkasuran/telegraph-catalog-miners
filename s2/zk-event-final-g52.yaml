@@ -1,0 +1,110 @@
+version: "1"
+kind: miner
+id: 752052
+slug: zk-event-final-g52
+protocol: generic
+name: ZK Source-Verified Event Outcome
+description: >
+  Resolve supported public event propositions from fetched, attributed public
+  records. The deployed TradeWire worker includes eight cross-checked 2024/2025
+  Wimbledon and French Open singles finals and its earlier verified archives.
+  Preserve the complete question, edition, participants and conditions. Unknown
+  events or unsupported conditions return unresolved, never a fabricated NO.
+  Serves EVENT_OUTCOME_RESOLUTION_GENERAL. No API key required.
+base_url: https://telegraph-trade.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+endpoints:
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    description: >
+      Resolve the entire event proposition supplied in the event query parameter.
+      Copy it verbatim, including negation, year, participants and all conditions;
+      do not replace it with a topic or a shortened search query. The answer
+      exposes outcome yes/no/unresolved and omits resolved_yes when unresolved.
+    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: event
+            type: string
+            intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+            description: The complete original event or question, verbatim.
+
+input_schema:
+  type: object
+  required: [event]
+  properties:
+    event:
+      type: string
+      description: The complete event or question to resolve, without paraphrasing.
+
+output_schema:
+  type: object
+  required: [event, outcome, resolved, sources]
+  properties:
+    event:
+      type: string
+    outcome:
+      type: string
+      enum: ["yes", "no", "unresolved"]
+    resolved:
+      type: boolean
+      description: Whether the supplied proposition has a supported resolution.
+    resolved_yes:
+      type: boolean
+      description: True for YES, false for NO; omitted for unresolved propositions.
+    winner:
+      type: [string, "null"]
+      description: The supported winner, or null when not established/applicable.
+    resolved_at:
+      type: [string, "null"]
+      description: Supported settlement time only; an event date is not substituted.
+    sources:
+      type: array
+      items:
+        type: string
+    summary:
+      type: string
+    confidence:
+      type: number
+    as_of:
+      type: string
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: outcome
+    reason_field: summary
+  supported_intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+
+intent_mapping:
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    input:
+      event:
+        from: event
+        how: Copy the complete input event verbatim; preserve every condition and negation.
+    output:
+      event:
+        path: event
+      outcome:
+        path: outcome
+      resolved_yes:
+        path: resolved_yes
+        how: Read the explicit Boolean only. A missing value is unresolved, never false.
+      winner:
+        path: winner
+      resolved_at:
+        path: resolved_at
+        how: Preserve null or missing settlement time; never substitute event_date or as_of.
+      sources:
+        path: sources
