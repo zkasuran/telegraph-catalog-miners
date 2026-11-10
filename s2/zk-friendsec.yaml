@@ -1,0 +1,91 @@
+version: "1"
+kind: miner
+id: 731976
+slug: zk-friendsec
+protocol: generic
+name: FriendSec Independent Composer Advisory Review
+description: >
+  Reviews one exact published stable Composer dependency against the independently
+  maintained FriendsOfPHP advisory database via Packagist's anonymous API.
+  GitHub-only records are excluded. Unknown inventories and unsupported version
+  constraints fail without a vulnerability count. Zero is not a security guarantee.
+base_url: https://telegraph-s2-friendsec.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: One exact stable Composer dependency pin, at most 512 UTF-8 bytes.
+    param: target
+    property: size_bytes
+    value_bytes: 512
+    operator: lte
+docs:
+  documentation: https://packagist.org/apidoc
+  repository: https://github.com/FriendsOfPHP/security-advisories
+endpoints:
+  - path: /review
+    external_path: /review
+    method: GET
+    description: >
+      Copy canonical target verbatim. Accept one exact dependency as
+      composer:vendor/package@1.2.3, packagist:vendor/package@1.2.3,
+      vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3.
+      Supports three/four-component numeric stable release pins, optional v prefix.
+      Do not infer or invent a version or extract a pin from arbitrary prose.
+      Reviews only FriendsOfPHP-origin advisory identities, grouped by CVE when
+      supplied and otherwise by PKSA; source-supplied severity is ordered first.
+      Unknown packages/releases, absent FriendsOfPHP coverage, prereleases, ranges,
+      source code, sites and incomplete sources return an error with no count.
+      Probe templates return an explicitly unscored HTTP 200 quickly.
+    intents: [SECURITY_REVIEW_GENERAL]
+    params:
+      query:
+        required:
+          - name: target
+            type: string
+            intents: [SECURITY_REVIEW_GENERAL]
+            description: The canonical target verbatim; one explicit exact stable Composer dependency pin.
+input_schema:
+  type: object
+  required: [target]
+  properties:
+    target:
+      type: string
+      maxLength: 512
+output_schema:
+  type: object
+  required: [status, verdict, vulnerability_count, issues, summary, source, as_of]
+  properties:
+    status: {type: string, enum: [ok]}
+    verdict: {type: string, enum: [Needs changes]}
+    vulnerability_count: {type: integer, minimum: 0, maximum: 100000}
+    issues: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: array, items: {type: string}}
+    as_of: {type: string}
+intent_mapping:
+  SECURITY_REVIEW_GENERAL:
+    endpoint: /review
+    input:
+      target:
+        from: target
+        how: Copy the entire canonical target verbatim; do not manufacture or infer dependency pins from other target types.
+    output:
+      verdict: {path: verdict}
+      vulnerability_count: {path: vulnerability_count, unit: vulnerabilities}
+      issues: {path: issues}
+      summary: {path: summary}
+semantics:
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+  supported_intents: [SECURITY_REVIEW_GENERAL]
