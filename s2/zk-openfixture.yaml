@@ -1,0 +1,90 @@
+version: "1"
+kind: miner
+id: 73186
+slug: zk-openfixture
+protocol: generic
+name: OpenFixture Historical Football Results
+description: >
+  Exact dated completed men's football league games from CC0 OpenFootball
+  records, independently maintained from ESPN, TheSportsDB and OpenLigaDB.
+  Covers the English Premier League, Bundesliga, LaLiga, Serie A and Ligue 1
+  where a final is recorded. Returns source home/away orientation, integer
+  final scores, winner or draw, date, source URL and honest dataset fetch time.
+  Historical coverage varies by league and season; no live or latest-game
+  substitution. Name both teams and an exact date.
+base_url: https://telegraph-s2-openfixture.margyn.workers.dev
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /result
+    external_path: /result
+    method: GET
+    description: >
+      Read the completed game identified by game, copied verbatim: both teams,
+      exact YYYY-MM-DD or English month date, and one of Premier League,
+      Bundesliga, LaLiga, Serie A or Ligue 1. League can be inferred for known
+      unambiguous teams. Full team names work; common verified aliases such as
+      Bayern Munich and Internazionale are supported. Team order in the question
+      does not override the source's home/away designations. Only recorded
+      historical finals are returned. Input clarification uses HTTP 200 with
+      status needs_input, found false and null result fields; no date is guessed.
+      Missing records and source failures return HTTP 404 or 503.
+    intents: [GAME_RESULT_GENERAL]
+    params:
+      query:
+        required:
+          - name: game
+            type: string
+            intents: [GAME_RESULT_GENERAL]
+            description: >
+              The entire finished-game description verbatim, at most 256 UTF-8
+              bytes, including both teams and exact date. Include league when
+              possible. Example: Arsenal vs Manchester United, Premier League,
+              2023-09-03. Do not reduce to one team or change the date.
+input_schema:
+  type: object
+  required: [game]
+  properties:
+    game: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    status: {type: string, enum: [ok, needs_input, unavailable]}
+    found: {type: boolean}
+    winner: {type: [string, "null"]}
+    home_team: {type: [string, "null"]}
+    away_team: {type: [string, "null"]}
+    home_score: {type: [integer, "null"], minimum: 0, maximum: 1000}
+    away_score: {type: [integer, "null"], minimum: 0, maximum: 1000}
+    date: {type: [string, "null"]}
+    final: {type: boolean}
+    summary: {type: string}
+    source: {type: string}
+    as_of: {type: [string, "null"]}
+intent_mapping:
+  GAME_RESULT_GENERAL:
+    endpoint: /result
+    input:
+      game: {from: game, how: "Copy the complete game description verbatim, preserving all teams and the exact date."}
+    output:
+      winner: {path: winner}
+      home_team: {path: home_team}
+      away_team: {path: away_team}
+      home_score: {path: home_score, unit: points}
+      away_score: {path: away_score, unit: points}
+      date: {path: date}
+semantics:
+  supported_intents: [GAME_RESULT_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: summary
+  code_path: error
+  status_path: status
+  success_values: [ok]
+docs:
+  website: https://github.com/openfootball/football.json
+  documentation: https://github.com/openfootball/football.json/blob/master/README.md
