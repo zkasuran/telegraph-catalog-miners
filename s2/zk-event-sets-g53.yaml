@@ -1,0 +1,76 @@
+version: "1"
+kind: miner
+id: 752053
+slug: zk-event-sets-g53
+protocol: generic
+name: ZK Source-Verified Event and Set Outcomes
+description: >
+  Resolve supported complete public event propositions from fetched and attributed
+  source records. Covers existing verified event archives and eight 2024/2025
+  Wimbledon/French Open singles finals with full-final set counts, straight sets
+  and individual set winners. Preserve edition, division, finalists, negation and
+  all conditions. Unsupported events or conditions return unresolved.
+base_url: https://telegraph-trade.margyn.workers.dev
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    description: >
+      Copy the entire original event proposition verbatim into the event query
+      parameter; preserve negation, participants, edition and every condition.
+      Never reduce it to a topic or search query. Outcome is yes/no/unresolved;
+      resolved_yes is absent for unsupported resolutions.
+    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: event
+            type: string
+            intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+            description: The complete original event question, verbatim.
+input_schema:
+  type: object
+  required: [event]
+  properties:
+    event:
+      type: string
+output_schema:
+  type: object
+  required: [event, outcome, resolved, sources]
+  properties:
+    event: {type: string}
+    outcome: {type: string, enum: ["yes", "no", "unresolved"]}
+    resolved: {type: boolean}
+    resolved_yes: {type: boolean, description: Omitted when unresolved; never default to false.}
+    winner: {type: [string, "null"]}
+    resolved_at: {type: [string, "null"]}
+    sources: {type: array, items: {type: string}}
+    summary: {type: string}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: outcome
+    reason_field: summary
+  supported_intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+intent_mapping:
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    input:
+      event:
+        from: event
+        how: Copy the entire event verbatim, retaining every condition and negation.
+    output:
+      event: {path: event}
+      outcome: {path: outcome}
+      resolved_yes:
+        path: resolved_yes
+        how: Read the explicit Boolean only; missing is unresolved, never false.
+      winner: {path: winner}
+      resolved_at:
+        path: resolved_at
+        how: Preserve null; never substitute event_date or as_of for settlement time.
+      sources: {path: sources}
