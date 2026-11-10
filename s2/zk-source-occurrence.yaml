@@ -1,0 +1,78 @@
+version: '1'
+kind: miner
+id: 780151
+slug: zk-source-occurrence
+protocol: generic
+name: ZK Published Source Occurrence
+description: >-
+  Deterministic passage comparison and bounded source discovery. A lone literal
+  passage is searched against eight frozen public-domain book bodies with
+  case-sensitive whitespace-normalized character matching. Returned source
+  occurrences have published-original links, original UTF-16 offsets, fetched
+  source SHA-256 hashes and rights metadata. Full-passage matching requires at
+  least 40 characters and 8 lexical units. No match is inconclusive, not proof
+  of originality. Quotation context, literal multi-reference comparison and exact
+  ordered-token alignment remain available. No plagiarism label, semantic
+  paraphrase judgment or calibrated probability is asserted.
+base_url: https://telegraph-text.margyn.workers.dev
+auth: {type: none}
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /plagiarism
+    external_path: /plagiarism
+    method: GET
+    description: >-
+      Supply a literal passage in text to look for its full wording in a frozen
+      corpus of Pride and Prejudice, Frankenstein, The Adventures of Sherlock
+      Holmes, Alice's Adventures in Wonderland, Moby Dick, A Tale of Two Cities,
+      Die Verwandlung and Seitsemän veljestä. Corpus search ignores whitespace
+      runs only and preserves punctuation, spelling and case. Supply source and
+      suspect for lexical pair comparison, or text and comparison_documents
+      (JSON array of literal texts or objects with text) for supplied-corpus
+      comparison. The question parameter also accepts an explicit structured
+      comparison object or Source/Suspect line headers. Each passage is limited
+      to 8000 UTF-16 units; at most five supplied references and 32000 total
+      UTF-16 units. No web-wide source search, runtime URL fetch or plagiarism
+      probability. Plagiarism status remains undetermined in every mode.
+    intents: [PLAGIARISM_DETECTION_GENERAL]
+    params:
+      query:
+        optional:
+          - {name: text, type: string, intents: ['*'], description: Literal submitted passage; include its actual punctuation and quotation marks.}
+          - {name: source, type: string, intents: ['*'], description: Literal reference passage for supplied-pair comparison.}
+          - {name: suspect, type: string, intents: ['*'], description: Literal suspect passage for supplied-pair comparison.}
+          - {name: comparison_documents, type: string, intents: ['*'], description: JSON array of one to five literal reference texts or objects with text and optional title/url/source_id.}
+          - {name: question, type: string, intents: ['*'], description: One literal passage or explicit structured/labeled comparison.}
+input_schema:
+  type: object
+  properties:
+    text: {type: string, maxLength: 8000}
+    source: {type: string, maxLength: 8000}
+    suspect: {type: string, maxLength: 8000}
+    question: {type: string}
+    comparison_documents: {type: string}
+output_schema:
+  type: object
+  required: [summary, verdict, confidence, external_corpus_searched]
+  properties:
+    summary: {type: string}
+    verdict: {type: string}
+    confidence: {type: 'null'}
+    plagiarism_status: {type: string, enum: [undetermined]}
+    evidence: {type: array}
+    external_corpus_searched: {type: boolean}
+    public_source_search: {type: object}
+    source_match_found: {type: [boolean, 'null']}
+    offset_unit: {type: string}
+    as_of: {type: string}
+semantics:
+  supported_intents: [PLAGIARISM_DETECTION_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  code_path: error
+  message_path: summary
