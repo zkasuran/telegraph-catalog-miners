@@ -1,0 +1,72 @@
+version: "1"
+kind: miner
+id: 731095
+slug: zk-wh-proof
+protocol: generic
+name: ZK Source-Verified Warehouse Inventory
+description: >-
+  Public municipal on-hand stock counts for Mesa CENTRAL and EAST warehouses
+  and Austin TPW Arterial Management materials warehouse. Actual stock numbers,
+  exact unambiguous descriptions, or Austin source record IDs. Includes Austin
+  published reorder thresholds and raw source-response SHA-256. Physical reading
+  timestamps are unavailable; reporting and publication labels remain separate.
+base_url: https://telegraph-s2-wh-stock.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /inventory
+    external_path: /inventory
+    method: GET
+    description: >-
+      Retrieve actual published on-hand units for sku and warehouse. Supported
+      locations: Mesa:CENTRAL, Mesa:EAST, Austin:TPW-ARTERIAL. Preserve actual stock
+      numbers including leading zeros; exact unambiguous publisher descriptions
+      also work. Austin supports exact source Record ID values. Example Mesa
+      stock 00514-380, warehouse Mesa:CENTRAL; Austin stock 20621750007, warehouse
+      Austin:TPW-ARTERIAL. Never substitute another location. Returns quantity
+      first, with a sourced summary, source-response SHA-256 and independent-check
+      URL. as_of is null because physical reading times are not published; period
+      and publication labels are separate. Missing and conflicting counts fail.
+    intents: [WAREHOUSE_INVENTORY_GENERAL]
+    params:
+      query:
+        required:
+          - name: sku
+            type: string
+            intents: [WAREHOUSE_INVENTORY_GENERAL]
+            description: Actual City stock number, exact unambiguous item description, or Austin source Record ID; preserve leading zeros.
+          - name: warehouse
+            type: string
+            intents: [WAREHOUSE_INVENTORY_GENERAL]
+            description: "Mesa:CENTRAL, Mesa:EAST, or Austin:TPW-ARTERIAL; preserve requested location."
+intent_mapping:
+  WAREHOUSE_INVENTORY_GENERAL:
+    endpoint: /inventory
+    input:
+      sku:
+        from: sku
+        how: Preserve the actual identifier including leading zeros; exact descriptions and Austin source Record IDs work.
+      warehouse:
+        from: warehouse
+        how: Preserve requested warehouse; never replace a private facility with a supported City location.
+    output:
+      sku: {path: sku}
+      warehouse: {path: warehouse}
+      quantity: {path: quantity, unit: units}
+      as_of:
+        path: as_of
+        how: Null means physical reading time unavailable. Never derive it from reporting, publication, modification, or fetch time.
+semantics:
+  signal_mapping:
+    label_field: quantity
+    reason_field: summary
+  supported_intents: [WAREHOUSE_INVENTORY_GENERAL]
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [ok]
+cache_ttl_sec: 60
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
