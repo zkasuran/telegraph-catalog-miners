@@ -1,0 +1,80 @@
+version: "1"
+kind: miner
+id: 7310731
+slug: zk-txread
+protocol: generic
+name: ChainWire Verified Transaction Read
+description: >
+  Read a transaction on its explicitly requested EVM network. Transaction and
+  inclusion facts are checked against available independent public RPC operators;
+  source coverage and missing receipt fields are disclosed. Absence requires
+  corroboration and is scoped to the requested network. Native transfer value
+  excludes fees and internal transfers and is unknown without verified execution.
+base_url: https://telegraph-chain.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /tx
+    external_path: /tx
+    method: GET
+    description: >
+      Read the complete transaction hash on the specified network. Ethereum,
+      Base, Arbitrum, Optimism, Polygon, Ethereum Sepolia and Base Sepolia are
+      supported. Explicit unsupported networks are rejected, never substituted.
+    intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: Full 0x-prefixed 32-byte transaction hash.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: Preserve the explicitly requested network name or EIP-155 chain ID, including testnet identity.
+input_schema:
+  type: object
+  required: [tx_hash, chain]
+  properties:
+    tx_hash:
+      type: string
+      pattern: "^0x[0-9a-fA-F]{64}$"
+    chain:
+      type: string
+output_schema:
+  type: object
+  properties:
+    tx_hash: {type: string}
+    status: {type: string, enum: [confirmed, reverted, pending, not_found]}
+    block_number: {type: [number, "null"]}
+    from: {type: [string, "null"]}
+    to: {type: [string, "null"]}
+    value_eth: {type: [number, "null"]}
+    summary: {type: string}
+semantics:
+  supported_intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  ONCHAIN_TX_LOOKUP_GENERAL:
+    endpoint: /tx
+    input:
+      tx_hash: {from: tx_hash, how: "Preserve the complete transaction hash verbatim."}
+      chain: {from: chain, how: "Preserve the explicitly requested network and its testnet identity."}
+    output:
+      tx_hash: {path: tx_hash}
+      status: {path: status}
+      from: {path: from}
+      to: {path: to}
+      block_number: {path: block_number, unit: "block height"}
+      value_eth: {path: value_eth, unit: "whole native units"}
+errors:
+  message_path: error.message
+  code_path: error.code
