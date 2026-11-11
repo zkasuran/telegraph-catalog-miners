@@ -1,0 +1,86 @@
+version: "1"
+kind: miner
+id: 77419
+slug: zk-corp-atlas
+protocol: generic
+name: "ZK Corporate Atlas — Live Registry Identity and Status"
+description: >-
+  Exact company-identity and status lookup from Companies House (UK),
+  Bronnoysund (Norway), INSEE Sirene via Annuaire des Entreprises (France),
+  and the global GLEIF LEI index. National identifiers take one upstream
+  request; explicit LEIs in GB, NO and FR are cross-checked against the
+  national record. Missing and ambiguous entities never become false verdicts.
+base_url: https://telegraph-s2-corp-atlas.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /company
+    external_path: /company
+    method: GET
+    description: >-
+      Look up the exact registered legal name or registry identifier for one
+      company in the requested jurisdiction. Supply company and jurisdiction
+      separately. Supports a 20-character LEI including a name with '(LEI ...)';
+      UK company numbers, Norwegian organization numbers, French SIREN/SIRET,
+      and full legal names. Do not abbreviate or substitute corporate suffixes.
+      The response active is an actual Boolean from the source's entity status,
+      not LEI renewal status. Errors contain no guessed inactive verdict.
+    intents: [CORPORATE_REGISTRY_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: company
+            type: string
+            intents: ["*"]
+            description: "Exact company legal name or registry identifier, at most 256 UTF-8 bytes. Preserve legal suffixes and LEI identifiers."
+          - name: jurisdiction
+            type: string
+            intents: ["*"]
+            description: "Country or jurisdiction of registration, ISO country/subdivision code or country/state name, e.g. GB, Norway, France, US-CA, California."
+semantics:
+  supported_intents: [CORPORATE_REGISTRY_LOOKUP_GENERAL]
+  signal_mapping:
+    label_field: active
+    reason_field: summary
+intent_mapping:
+  CORPORATE_REGISTRY_LOOKUP_GENERAL:
+    endpoint: /company
+    input:
+      company:
+        from: company
+        how: "Preserve the exact legal name or explicit registry identifier. Keep any LEI; never replace with a brand or different company."
+      jurisdiction:
+        from: jurisdiction
+        how: "Jurisdiction of registration, preferably its ISO country/subdivision code."
+    output:
+      legal_name: {path: legal_name}
+      registration_id: {path: registration_id}
+      active: {path: active}
+      jurisdiction: {path: jurisdiction}
+      registered_address: {path: registered_address}
+      incorporated: {path: incorporated}
+errors:
+  message_path: error.message
+  code_path: error.code
+input_schema:
+  type: object
+  required: [company, jurisdiction]
+  properties:
+    company: {type: string, minLength: 1, maxLength: 256}
+    jurisdiction: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    legal_name: {type: [string, "null"]}
+    registration_id: {type: [string, "null"]}
+    active: {type: [boolean, "null"]}
+    jurisdiction: {type: [string, "null"]}
+    registered_address: {type: [string, "null"]}
+    incorporated: {type: [string, "null"], format: date}
+    summary: {type: string}
+    source: {type: [string, "null"]}
+    as_of: {type: [string, "null"]}
