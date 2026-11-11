@@ -1,0 +1,79 @@
+version: "1"
+kind: miner
+id: 7310620
+slug: zk-shipclock
+protocol: generic
+name: ZK Calendar-Day Prepaid Shipping Quotes
+description: >
+  Source-backed 2026 La Poste and Chronopost prepaid-package tariffs from
+  metropolitan France. Returns a calendar-day ETA interval through explicit
+  output mapping, while retaining the source working-day transit window.
+  Conditional published retail price, not a live booking, serviceability
+  guarantee or cheapest-carrier comparison. Contents must fit the package.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /quote
+    external_path: /quote
+    method: GET
+    description: >
+      Quote a published prepaid package from metropolitan France. Domestic
+      Colissimo up to 5 kg, Chrono 13 up to 12 kg; EU up to 5 kg; United Kingdom,
+      Canada, Japan, Australia, Switzerland, Norway, Singapore, China, Brazil
+      and supported OM1 territories up to 7 kg. Preserve supplied country,
+      territory and postcode; unsupported/conflicting locations are unquoted.
+      United States origins and destinations are unsupported. ETA assumes
+      handover on the first day in the disclosed conservative calendar, before
+      collection cutoff; no shipment date is supplied by the canonical request.
+      Map calendar_transit_days to canonical transit_days. Native transit_days
+      is separately the source working-day window. Prices and calendar expire
+      December 2026. HTTP 200 status unquoted is not a fulfilled shipping quote.
+    intents: [SHIP_RATE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Preserve the supplied metropolitan France origin and explicit country/postcode verbatim; maximum 256 characters.
+          - name: destination
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Preserve the supplied destination and explicit country/territory/postcode verbatim; maximum 256 characters. Do not invent missing geography.
+          - name: weight_kg
+            type: number
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Positive kilograms with at most three decimal places. Domestic maximum 12; EU maximum 5; supported international and OM1 maximum 7.
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping: {label_field: rate, reason_field: summary}
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve the supplied place, explicit country and postcode verbatim. Metropolitan France only; do not guess geography.
+      destination:
+        from: destination
+        how: Preserve the supplied place, country/territory and postcode verbatim. Never discard a conflicting identity.
+      weight_kg:
+        from: weight_kg
+        how: Preserve positive kilograms with at most three decimals; endpoint enforces destination-specific capacities.
+    output:
+      carrier: {path: carrier}
+      rate: {path: rate, unit: currency units}
+      currency: {path: currency}
+      transit_days: {path: calendar_transit_days, unit: days}
+      eta: {path: eta}
