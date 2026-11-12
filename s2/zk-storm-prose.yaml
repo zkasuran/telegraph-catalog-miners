@@ -1,0 +1,141 @@
+version: '1'
+kind: miner
+id: 79335
+slug: zk-storm-prose
+protocol: generic
+name: SkyWire Sourced Storm Evidence
+description: "Location-specific weather-disruption screening from MET Norway forecasts\
+  \ and, within US coverage, independent NWS gridpoint forecasts and active warnings.\
+  \ Returns the exact requested 1–240 hour window, canonical risk fields, source timestamps,\
+  \ per-variable coverage and source differences. Risk is an explicitly disclosed\
+  \ heuristic severity index, not a calibrated storm probability or an official warning.\
+  \ Missing gusts and forecast periods are never replaced by zero.\n The signal label\
+  \ retains the source-backed summary, with the canonical risk fields separately mapped."
+base_url: https://telegraph-sky.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-sky.margyn.workers.dev/
+endpoints:
+- path: /storm
+  external_path: /storm
+  method: GET
+  description: 'Assess a named place or decimal latitude,longitude coordinate pair
+    during the next window_hours (1–240 hours). A forecast can end before the requested
+    window; in that case per-variable coverage and limitations say so, full-window
+    unavailable values are null, and risk is a known-evidence lower bound.
+
+    '
+  intents:
+  - STORM_ALERT_GENERAL
+  params:
+    query:
+      required:
+      - name: location
+        type: string
+        intents:
+        - STORM_ALERT_GENERAL
+        description: Place name or decimal latitude,longitude pair.
+      - name: window_hours
+        type: integer
+        intents:
+        - STORM_ALERT_GENERAL
+        description: Requested look-ahead window, integer from 1 to 240 hours.
+      optional:
+      - name: question
+        type: string
+        intents:
+        - STORM_ALERT_GENERAL
+        description: Original wording for a specifically requested wind or gust threshold.
+input_schema:
+  type: object
+  required:
+  - location
+  - window_hours
+  properties:
+    location:
+      type: string
+      minLength: 1
+      maxLength: 256
+    window_hours:
+      type: integer
+      minimum: 1
+      maximum: 240
+    question:
+      type: string
+output_schema:
+  type: object
+  required:
+  - location
+  - risk_score
+  - risk_level
+  - window
+  - summary
+  - sources
+  - coverage
+  properties:
+    location:
+      type: string
+    risk_score:
+      type: number
+      minimum: 0
+      maximum: 1
+    risk_level:
+      type: string
+      enum:
+      - LOW
+      - MODERATE
+      - HIGH
+      - SEVERE
+    peak_gust_kmh:
+      type:
+      - number
+      - 'null'
+    precipitation_mm:
+      type:
+      - number
+      - 'null'
+    window:
+      type: string
+    summary:
+      type: string
+    sources:
+      type: array
+    coverage:
+      type: object
+    limitations:
+      type: array
+intent_mapping:
+  STORM_ALERT_GENERAL:
+    endpoint: /storm
+    input:
+      location:
+        from: location
+      window_hours:
+        from: window_hours
+    output:
+      location:
+        path: location
+      risk_score:
+        path: risk_score
+        unit: fraction (0-1)
+      risk_level:
+        path: risk_level
+      peak_gust_kmh:
+        path: peak_gust_kmh
+        unit: km/h
+      precipitation_mm:
+        path: precipitation_mm
+        unit: mm
+      window:
+        path: window
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+  - STORM_ALERT_GENERAL
