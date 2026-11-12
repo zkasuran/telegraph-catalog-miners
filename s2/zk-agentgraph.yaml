@@ -1,0 +1,95 @@
+version: "1"
+kind: miner
+id: 7312097
+slug: zk-agentgraph
+protocol: generic
+name: AgentGraph Source-Backed Agent Behavior
+description: >-
+  Answers English informational questions about agent tool choice, autonomous
+  workflows, schemas, planning, delegation, memory, approval, replay, retries,
+  call limits, context compression and MCP primitives. Extracts licensed,
+  commit-pinned LangChain/LangGraph documentation and MCP specification prose
+  using section-aware retrieval and adjacent-source context.
+base_url: https://telegraph-s2-agentgraph.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /agent-task
+    external_path: /agent-task
+    method: GET
+    description: >-
+      Retrieve cited documentation answering an agent-behavior question.
+      Send the full canonical task verbatim, including framework and every
+      requested topic. Results preserve source-specific scope. Status records
+      retrieval coverage of recognized topics. Supports LangChain, LangGraph,
+      Deep Agents and MCP; external action execution is unsupported.
+    intents: [AGENT_TASK_GENERAL]
+    params:
+      query:
+        required:
+          - name: task
+            type: string
+            intents: [AGENT_TASK_GENERAL]
+            description: >-
+              Full English agent-behavior question, up to 8000 UTF-8 bytes.
+              For example, How does an AI agent decide when to call a tool?
+semantics:
+  supported_intents: [AGENT_TASK_GENERAL]
+  signal_mapping:
+    label_field: status
+    reason_field: result
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [completed, partially_completed]
+intent_mapping:
+  AGENT_TASK_GENERAL:
+    endpoint: /agent-task
+    input:
+      task:
+        from: task
+        how: Copy the entire task verbatim, preserving all requested topics.
+    output:
+      result:
+        path: result
+        how: Copy the attributed extracted source text verbatim.
+      status:
+        path: status
+        how: Copy this completion enum exactly.
+      steps:
+        path: steps
+      sources:
+        path: sources
+      brief:
+        path: brief
+input_schema:
+  type: object
+  required: [task]
+  properties:
+    task: {type: string, minLength: 1}
+output_schema:
+  type: object
+  required: [result, status, steps, sources, brief, summary, source, as_of]
+  properties:
+    result: {type: string}
+    status: {type: string, enum: [completed, partially_completed, failed]}
+    steps: {type: array}
+    sources: {type: array, items: {type: string}}
+    brief: {type: string, maxLength: 80}
+    summary: {type: string, maxLength: 80}
+    source: {type: array, items: {type: string}}
+    as_of: {type: [string, "null"]}
+docs:
+  website: https://telegraph-s2-agentgraph.margyn.workers.dev/health
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: The task must be at most 8000 UTF-8 bytes.
+    param: task
+    property: size_bytes
+    value_bytes: 8000
+    operator: lte
