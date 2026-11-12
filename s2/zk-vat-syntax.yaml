@@ -1,0 +1,80 @@
+version: "1"
+kind: miner
+id: 73110660
+slug: zk-vat-syntax
+protocol: generic
+name: DataWire Domestic VAT Registries and German Syntax Rejection
+description: >
+  Check Norwegian, Finnish and Polish domestic VAT registration using the
+  official BRREG, PRH/YTJ and MF/KAS sources. Structurally invalid German DE
+  identifiers receive valid=false from the published ISO 7064 MOD 11,10 rule.
+  A passing German checksum is not registration evidence and returns HTTP422
+  without a validity Boolean. Registry names and addresses are returned only
+  when actually supplied by the applicable register. German syntax rejection
+  does not infer a registered entity, allocation, current VAT registration or
+  sanctions clearance. Source scope and provenance accompany answers.
+base_url: https://telegraph-data.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /vendor-verify
+    external_path: /vendor-verify
+    method: GET
+    description: >
+      Supply vendor and vat_number. NO, FI and PL use the existing domestic
+      registries. DE is negative-only structural validation: invalid format
+      or checksum gives valid=false; passing checksum returns HTTP422 because
+      no generally reusable German registration source is configured.
+    intents: [VENDOR_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: vendor
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: Literal vendor name. The name alone does not establish identity.
+          - name: vat_number
+            type: string
+            intents: [VENDOR_VERIFY_GENERAL]
+            description: Country-prefixed NO, FI, PL or DE identifier, preserving leading zeroes.
+input_schema:
+  type: object
+  required: [vendor, vat_number]
+  properties:
+    vendor: {type: string, minLength: 1, maxLength: 256}
+    vat_number: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    vendor: {type: string}
+    vat_number: {type: string}
+    valid: {type: boolean}
+    registered_name: {type: [string, "null"]}
+    registered_address: {type: [string, "null"]}
+    validation_scope: {type: string}
+intent_mapping:
+  VENDOR_VERIFY_GENERAL:
+    endpoint: /vendor-verify
+    input:
+      vendor: {from: vendor}
+      vat_number:
+        from: vat_number
+        how: Uppercase country prefix and remove digit separators. Preserve every digit and leading zero.
+    output:
+      vendor: {path: vendor}
+      vat_number: {path: vat_number}
+      valid: {path: valid}
+      registered_name: {path: registered_name}
+      registered_address: {path: registered_address}
+semantics:
+  supported_intents: [VENDOR_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: error
+  code_path: code
