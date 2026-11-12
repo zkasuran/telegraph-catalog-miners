@@ -1,0 +1,89 @@
+version: '1'
+kind: miner
+id: 731314
+slug: zk-trustrev
+protocol: generic
+name: TrustWire Documented Text Evidence
+description: >-
+  Keyless, bounded text provenance evidence from published statutory passages,
+  documented RFC original/corrected excerpts, and OpenPGP clear-signed messages.
+  Returns the canonical Unverifiable verdict for general authenticity with
+  explicit observed evidence and limits. Does not infer human/AI composition,
+  factual truth, originality, signer identity or the submitted copy's edit history.
+base_url: https://telegraph-trust.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-trust.margyn.workers.dev/
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: One complete text, at most 8000 characters; preserve surrounding assertions.
+    param: text
+    property: length
+    value_num: 8000
+    operator: lte
+endpoints:
+  - path: /authenticity
+    external_path: /authenticity
+    method: GET
+    description: >-
+      Assess the complete canonical text verbatim. Reports full-passage matches
+      to fetched statutory snapshots or 27 verified RFC original/correction
+      records. Supports bounded public-key verification of complete OpenPGP
+      clear-signed messages. Non-matches and unsupported requests remain
+      Unverifiable. No numeric confidence is supplied without calibration.
+    intents: [TEXT_AUTHENTICITY_CHECK_GENERAL]
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: [TEXT_AUTHENTICITY_CHECK_GENERAL]
+            description: The complete text including surrounding assertions, verbatim.
+input_schema:
+  type: object
+  required: [text]
+  properties:
+    text:
+      type: string
+      maxLength: 8000
+output_schema:
+  type: object
+  required: [verdict, reasons, summary, evidence, resolved_input_sha256, input_bytes]
+  properties:
+    verdict:
+      type: string
+      enum: [Unverifiable]
+    reasons:
+      type: array
+      items: {type: string}
+    summary: {type: string}
+    evidence:
+      type: array
+      items: {type: object}
+    resolved_input_sha256: {type: string}
+    input_bytes: {type: integer}
+    as_of: {type: string}
+intent_mapping:
+  TEXT_AUTHENTICITY_CHECK_GENERAL:
+    endpoint: /authenticity
+    input:
+      text:
+        from: text
+        how: Preserve the complete canonical text exactly; do not remove attributions or add question framing.
+    output:
+      verdict:
+        path: verdict
+        how: Copy the exact allowed verdict. Source correspondence is not an authorship verdict.
+      reasons:
+        path: reasons
+        how: Retain all reasons, source scope and uncertainty; do not infer a confidence value.
+semantics:
+  supported_intents: [TEXT_AUTHENTICITY_CHECK_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
