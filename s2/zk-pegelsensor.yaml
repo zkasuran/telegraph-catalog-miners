@@ -1,0 +1,96 @@
+version: "1"
+kind: miner
+id: 7317639
+slug: zk-pegelsensor
+protocol: generic
+name: ZK PEGELONLINE Sensor Observations
+description: >-
+  Live numeric WSV PEGELONLINE gauge observations from Germany, using station UUIDs
+  and exact publisher series. Water level, discharge, water and air temperature,
+  wind, conductivity, pH, dissolved oxygen and other available instrument readings.
+  Preserves native units, vertical datum, original observation time and raw-data
+  status. Explicit caller units are converted only when compatible; NHN elevation
+  requires the publisher's valid gaugeZero. Freshness is a verdict, never a made-up
+  new timestamp. Unknown calibration and payload signatures remain unverified.
+base_url: https://telegraph-s2-pegelsensor.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /sensor-telemetry-verify
+    external_path: /sensor-telemetry-verify
+    method: GET
+    description: >-
+      Read one explicitly identified PEGELONLINE station and quantity. Use UUID,
+      official station JSON URL, exact station number or unambiguous name such as
+      PEGELONLINE BONN, KÖLN, KAUB or PASSAU DONAU. Generic unidentified devices,
+      other publishers, missing quantities and ambiguous identities are refused.
+      Water level defaults to the published unit and datum; water level m converts
+      gauge-relative cm to m; water level m+NHN requires sourced gaugeZero.
+      Specify water temperature or air temperature, not ambiguous temperature.
+      No real reading is supplied in a metadata-only path probe.
+    intents: [SENSOR_TELEMETRY_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: sensor
+            type: string
+            intents: ["*"]
+            description: >-
+              PEGELONLINE station UUID (preferred), official REST station URL,
+              exact number or exact name, optionally prefixed PEGELONLINE or WSV.
+              Maximum 256 characters. Names and numbers resolve through the sourced
+              directory and are checked against live UUID metadata.
+          - name: metric
+            type: string
+            intents: ["*"]
+            description: >-
+              Published series code W, Q, WT, LT, WG, WR, LF, O2, PH, GRU, TR, VA,
+              DFH, V, HL, SW, MAXH, SIGH or TP; or water level, discharge, water
+              temperature, air temperature, wind speed, wind direction, conductivity,
+              dissolved oxygen, pH, groundwater level or turbidity. Optional unit
+              suffix such as water level m, stage m+NHN, water temperature fahrenheit,
+              wind speed km/h. Missing series cannot be substituted. Maximum 128 chars.
+        optional:
+          - name: max_age_seconds
+            type: number
+            intents: ["*"]
+            description: >-
+              Freshness verdict threshold from 0 to 604800 seconds; default 3600.
+              A real stale observation still has its original value and timestamp,
+              with heartbeat_fresh false. This does not prove current device health.
+          - name: min
+            type: number
+            intents: ["*"]
+            description: Optional caller-supplied lower inclusive bound in the returned unit.
+          - name: max
+            type: number
+            intents: ["*"]
+            description: Optional caller-supplied upper inclusive bound in the returned unit; min must not exceed max.
+semantics:
+  supported_intents: [SENSOR_TELEMETRY_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: metric
+    reason_field: summary
+intent_mapping:
+  SENSOR_TELEMETRY_VERIFY_GENERAL:
+    endpoint: /sensor-telemetry-verify
+    input:
+      sensor:
+        from: sensor
+        how: Preserve the supplied PEGELONLINE identity. Do not replace another publisher or an unknown device with a German gauge.
+      metric:
+        from: metric
+        how: Preserve the requested quantity and any explicit unit or vertical datum. Do not invent an unavailable reading.
+    output:
+      sensor: {path: sensor}
+      metric: {path: metric}
+      value: {path: value, unit: "the sensor's unit"}
+      unit: {path: unit}
+      observed_at: {path: observed_at}
+errors:
+  message_path: error.message
+  code_path: error.code
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
