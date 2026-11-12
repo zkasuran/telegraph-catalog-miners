@@ -1,0 +1,55 @@
+version: "1"
+kind: miner
+id: 751084
+slug: zk-vessel-verbatim
+protocol: generic
+name: VesselWire Verbatim AIS Reports
+description: >-
+  Source-reported AIS telemetry and bounded reported-field comparisons from
+  Fintraffic Digitraffic marine reception. Every request retains the complete
+  question, including time, units, negation and other conditions. Latest records
+  are not substituted for historical snapshots or future measured telemetry.
+base_url: https://telegraph-vessel.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /vessel-telemetry-verify
+    external_path: /vessel-telemetry-verify
+    method: GET
+    description: >-
+      Send the entire question verbatim. It must identify one vessel by an exact
+      nine-digit MMSI, explicit checksum-valid IMO, unique provider vessel name
+      or unique provider call sign. Do not reduce a question to its identifier:
+      the worker needs all requested fields, time conditions, units and negation.
+      It returns sourced latest AIS only; unsupported temporal scope and claims
+      are explicitly unverified. Fintraffic reception is regional, not global.
+    intents: [VESSEL_TELEMETRY_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: >-
+              Complete original question, unchanged, at most 400 characters.
+              Preserve identity, every requested field and all qualifiers.
+              Example: What is the current speed of vessel MMSI 230629000?
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      minLength: 1
+      maxLength: 400
+      description: Complete request verbatim; never extract only the vessel identifier.
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
+  supported_intents: [VESSEL_TELEMETRY_VERIFY_GENERAL]
