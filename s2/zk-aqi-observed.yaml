@@ -1,0 +1,82 @@
+version: "1"
+kind: miner
+id: 730005
+slug: zk-aqi-observed
+protocol: generic
+name: MetricWire Observed Particulate AQI
+description: >-
+  Source-backed US particulate AQI estimates from published rolling 24-hour
+  Sensor.Community mass concentrations, and NEA's observed 24-hour Singapore
+  regional concentrations. Singapore point queries identify the nearest regional
+  report, not a point measurement. The city query reports the five-region median.
+  This is not an official regulatory AQI or EPA NowCast; gases are excluded.
+  Source, units, timestamps, spatial scope and attribution accompany the result.
+base_url: https://telegraph-metric.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-metric.margyn.workers.dev/
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      description: >-
+        The full original air-quality question verbatim, retaining its place,
+        coordinates, date and requested index scale. Historical, forecast,
+        official regulatory, other national-scale and NowCast requests are
+        refused, rather than replaced with a current particulate estimate.
+    city:
+      type: string
+      description: Exact place name, optionally with a country qualifier.
+    lat:
+      type: number
+      minimum: -90
+      maximum: 90
+      description: Latitude in decimal degrees; supply with lon.
+    lon:
+      type: number
+      minimum: -180
+      maximum: 180
+      description: Longitude in decimal degrees; supply with lat.
+endpoints:
+  - path: /aqi
+    external_path: /aqi
+    method: GET
+    description: >-
+      Latest US particulate AQI estimate for the place or coordinates in the full
+      question. Send the original question verbatim in question. Optional city,
+      lat and lon specify its place explicitly. Coverage is limited to fresh
+      source-backed observations. No substitute city is used for missing coverage.
+    intents: [AIR_QUALITY_INDEX_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: Full original question verbatim, with coordinates and all temporal or scale qualifiers retained.
+        optional:
+          - name: city
+            type: string
+            intents: ["*"]
+            description: Exact city name, optionally followed by its country; maximum 160 characters.
+          - name: lat
+            type: number
+            intents: ["*"]
+            description: Latitude in decimal degrees, -90 to 90; supply only with lon.
+          - name: lon
+            type: number
+            intents: ["*"]
+            description: Longitude in decimal degrees, -180 to 180; supply only with lat.
+semantics:
+  supported_intents: [AIR_QUALITY_INDEX_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
