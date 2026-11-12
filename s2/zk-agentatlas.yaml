@@ -1,0 +1,99 @@
+version: "1"
+kind: miner
+id: 7312091
+slug: zk-agentatlas
+protocol: generic
+name: AgentAtlas First-Party Agent Documentation
+description: >-
+  Source-backed answers to informational questions about AI agent behavior,
+  tool selection, validation, loop limits, memory, orchestration, handoffs,
+  human approval, guardrails, concurrent tools, tracing, compaction and MCP.
+  Retrieves commit-pinned MIT documentation from Pydantic AI and OpenAI Agents
+  SDK using BM25 and explicit query-facet coverage. No generative inference.
+base_url: https://telegraph-s2-agentatlas.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /agent-task
+    external_path: /agent-task
+    method: GET
+    description: >-
+      Answer an informational agent-behavior question using cited first-party
+      documentation excerpts. Send the full canonical task unchanged, including
+      framework names and every requested aspect. Result retains the publisher's
+      framework scope. Status records documentation retrieval completion.
+      External action execution is unsupported.
+    intents: [AGENT_TASK_GENERAL]
+    params:
+      query:
+        required:
+          - name: task
+            type: string
+            intents: [AGENT_TASK_GENERAL]
+            description: >-
+              Complete English informational question about AI agent behavior,
+              verbatim, up to 8000 UTF-8 bytes; for example, How do agent handoffs
+              differ from using specialist agents as tools?
+semantics:
+  supported_intents: [AGENT_TASK_GENERAL]
+  signal_mapping:
+    label_field: status
+    reason_field: result
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [completed, partially_completed]
+intent_mapping:
+  AGENT_TASK_GENERAL:
+    endpoint: /agent-task
+    input:
+      task:
+        from: task
+        how: Keep the complete task or question verbatim, without summarizing.
+    output:
+      result:
+        path: result
+        how: Copy the retrieved attributed source prose verbatim.
+      status:
+        path: status
+        how: Copy this literal completion enum.
+      steps:
+        path: steps
+      sources:
+        path: sources
+      brief:
+        path: brief
+        how: Copy this one-sentence retrieval outcome verbatim.
+input_schema:
+  type: object
+  required: [task]
+  properties:
+    task:
+      type: string
+      minLength: 1
+output_schema:
+  type: object
+  required: [result, status, steps, sources, brief, summary, source, as_of]
+  properties:
+    result: {type: string}
+    status: {type: string, enum: [completed, partially_completed, failed]}
+    steps: {type: array}
+    sources: {type: array, items: {type: string}}
+    brief: {type: string, maxLength: 80}
+    summary: {type: string, maxLength: 80}
+    source: {type: array, items: {type: string}}
+    as_of: {type: [string, "null"]}
+docs:
+  website: https://telegraph-s2-agentatlas.margyn.workers.dev/health
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: The task must be at most 8000 UTF-8 bytes.
+    param: task
+    property: size_bytes
+    value_bytes: 8000
+    operator: lte
