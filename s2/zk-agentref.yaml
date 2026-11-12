@@ -1,0 +1,88 @@
+version: "1"
+kind: miner
+id: 7312087
+slug: zk-agentref
+protocol: generic
+name: AgentRef Sourced Agent Behavior
+description: >
+  Keyless, deterministic documentation retrieval for autonomous AI agent behavior,
+  tool selection, ReAct loops, planning, memory, failure handling, termination and
+  multi-agent collaboration. Answers use excerpts from commit-pinned Hugging Face
+  smolagents and Microsoft AutoGen documentation, with attribution and capture time.
+base_url: https://telegraph-s2-agentref.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /agent-task
+    external_path: /agent-task
+    method: GET
+    description: >
+      Answer an informational question about autonomous agent behavior by retrieving
+      cited documentation excerpts. Send the complete canonical task string unchanged.
+      Status reports documentation lookup completion; external actions are unsupported.
+    intents: [AGENT_TASK_GENERAL]
+    params:
+      query:
+        required:
+          - name: task
+            type: string
+            intents: [AGENT_TASK_GENERAL]
+            description: >
+              Full informational question about agent behavior, verbatim, up to 8000 UTF-8
+              bytes. For example, How does a ReAct agent use tool observations?
+input_schema:
+  type: object
+  required: [task]
+  additionalProperties: false
+  properties:
+    task:
+      type: string
+      minLength: 1
+      maxLength: 8000
+output_schema:
+  type: object
+  required: [result, status, steps, sources, brief, source, as_of]
+  properties:
+    result: {type: string}
+    status: {type: string, enum: [completed, partially_completed, failed]}
+    steps: {type: array}
+    sources: {type: array, items: {type: string}}
+    brief: {type: string, maxLength: 80}
+    source: {type: array, items: {type: string}}
+    as_of: {type: [string, "null"]}
+semantics:
+  signal_mapping:
+    label_field: result
+    reason_field: brief
+  supported_intents: [AGENT_TASK_GENERAL]
+intent_mapping:
+  AGENT_TASK_GENERAL:
+    endpoint: /agent-task
+    input:
+      task:
+        from: task
+        how: Keep the full task or question verbatim; do not rewrite it.
+    output:
+      result: {path: result, how: Copy the retrieved source text verbatim.}
+      status: {path: status, how: Copy the literal completion enum.}
+      steps: {path: steps}
+      sources: {path: sources}
+      brief: {path: brief, how: Copy this one-sentence lookup outcome verbatim.}
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [completed, partially_completed]
+docs:
+  documentation: https://telegraph-s2-agentref.margyn.workers.dev/
+limitations:
+  - code: MAX_PARAM_SIZE
+    message: The task parameter must contain at most 8000 UTF-8 bytes.
+    param: task
+    property: size_bytes
+    value_bytes: 8000
+    operator: lte
