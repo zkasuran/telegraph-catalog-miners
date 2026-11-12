@@ -1,0 +1,83 @@
+version: "1"
+kind: miner
+id: 7310720
+slug: zk-shipmass
+protocol: generic
+name: ZK Precision-Preserving Prepaid Shipping Quotes
+description: >
+  Published 2026 La Poste and Chronopost prepaid-package prices from metropolitan
+  France, with exact finite numeric kilogram handling. Domestic Colissimo to 5 kg,
+  Chrono 13 to 12 kg; EU to 5 kg; listed international and OM1 destinations to 7 kg.
+  Conditional calendar-day delivery estimate, not a booking or cheapest-carrier
+  comparison. Contents must fit the named package. Published tariffs expire in 2026.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /quote
+    external_path: /quote
+    method: GET
+    description: >
+      Quote a published prepaid package from metropolitan France. Preserve finite
+      positive numeric kilograms exactly, including decimal and scientific notation;
+      do not round a weight across a package capacity. Domestic Colissimo M/L to 5 kg,
+      Chrono 13 6/12 kg boxes above 5 through 12 kg. EU M/L to 5 kg. United Kingdom,
+      Canada, Japan, Australia, Switzerland, Norway, Singapore, China and Brazil:
+      Monde L to 5 kg, XL above 5 through 7 kg. Guadeloupe, Martinique, Guyane/French
+      Guiana, Réunion, Mayotte, Saint-Pierre-et-Miquelon, Saint-Martin and
+      Saint-Barthélemy: OM1 package to 7 kg. Preserve supplied country, territory and
+      postcode. Unsupported/conflicting locations and overweight requests are
+      unquoted with no numeric rate. United States is unsupported. Contents must fit
+      the prepaid package; destination duties/taxes and optional services excluded.
+      ETA assumes handover on the first day in the disclosed conservative calendar,
+      before collection cutoff; customs, disruption and destination holidays may add
+      time. No shipment date is supplied. Map calendar_transit_days to canonical
+      transit_days. Prices/calendar expire December 2026. Only status quoted is success.
+    intents: [SHIP_RATE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Preserve supplied metropolitan France origin, country and postcode verbatim; maximum 256 characters.
+          - name: destination
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Preserve supplied destination, country/territory and postcode verbatim; maximum 256 characters. Do not invent geography.
+          - name: weight_kg
+            type: number
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Finite positive kilograms, preserved exactly without rounding. Decimal/scientific notation accepted. Domestic maximum 12; EU 5; supported international/OM1 7.
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping: {label_field: rate, reason_field: summary}
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve supplied place, explicit country and postcode verbatim. Metropolitan France only; do not guess geography.
+      destination:
+        from: destination
+        how: Preserve supplied place, country/territory and postcode verbatim. Never discard a conflicting identity.
+      weight_kg:
+        from: weight_kg
+        how: Preserve the finite positive numeric kilograms exactly; do not round or truncate. Decimal and scientific notation accepted. Endpoint checks exact package capacities.
+    output:
+      carrier: {path: carrier}
+      rate: {path: rate, unit: currency units}
+      currency: {path: currency}
+      transit_days: {path: calendar_transit_days, unit: days}
+      eta: {path: eta}
