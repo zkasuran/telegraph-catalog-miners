@@ -1,0 +1,80 @@
+version: "1"
+kind: miner
+id: 740112
+slug: zk-aqi-psi
+protocol: generic
+name: MetricWire Observed Particulate AQI and Singapore PSI
+description: >-
+  Current source-backed US particulate AQI estimates and explicit requests for
+  NEA's official native Singapore Pollutant Standards Index (PSI). Native PSI
+  answers contain source-reported regional PSI and pollutant subindices. City
+  requests report all five regions, never an invented official citywide scalar.
+  Point requests identify the nearest regional label, not a point measurement.
+  The aqi field is separately labeled as the existing derived US particulate
+  estimate, never relabeled as PSI. Other national scales, historical/forecast
+  dates, official US AQI and EPA NowCast remain unsupported. Sparse observed
+  coverage returns null AQI with separately labeled published NASA model context.
+base_url: https://telegraph-metric.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      description: Full original question verbatim, retaining all scale, place and temporal qualifiers.
+    city:
+      type: string
+      description: Exact city name, optionally with country qualifier.
+    lat:
+      type: number
+      minimum: -90
+      maximum: 90
+      description: Latitude in decimal degrees, supply with lon.
+    lon:
+      type: number
+      minimum: -180
+      maximum: 180
+      description: Longitude in decimal degrees, supply with lat.
+endpoints:
+  - path: /aqi
+    external_path: /aqi
+    method: GET
+    description: >-
+      Send the full question verbatim. Ordinary AQI queries return current
+      source-backed rolling 24-hour US particulate estimates. Explicit current
+      Singapore PSI queries return NEA's official native regional PSI/subindices
+      separately from the derived US particulate estimate. Optional city or lat
+      and lon provide the exact location. No substitute city is used.
+    intents: [AIR_QUALITY_INDEX_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: Full original question verbatim, with all qualifiers.
+        optional:
+          - name: city
+            type: string
+            intents: ["*"]
+            description: Exact city, optional country qualifier.
+          - name: lat
+            type: number
+            intents: ["*"]
+            description: Latitude in decimal degrees, -90 to 90, supply with lon.
+          - name: lon
+            type: number
+            intents: ["*"]
+            description: Longitude in decimal degrees, -180 to 180, supply with lat.
+semantics:
+  supported_intents: [AIR_QUALITY_INDEX_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+    confidence_field: confidence
