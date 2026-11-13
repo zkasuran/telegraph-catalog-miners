@@ -1,0 +1,81 @@
+version: "1"
+kind: miner
+id: 7377343
+slug: zk-txbrief
+protocol: generic
+name: ChainWire Canonical Transaction Lookup
+description: >
+  Source-attributed EVM transaction inclusion and execution, sender, recipient,
+  exact native value, gas and receipt-accounted fees. Explicit canonical chain
+  and transaction parameters preserve network identity. Missing sources and
+  unknown execution are disclosed. Summary contains observed lookup facts;
+  receipt logs and source-verification details remain in structured fields.
+base_url: https://telegraph-chain.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [tx_hash, chain]
+  properties:
+    tx_hash:
+      type: string
+      pattern: "^0x[0-9a-fA-F]{64}$"
+    chain:
+      type: string
+output_schema:
+  type: object
+  properties:
+    summary: {type: string}
+    tx_hash: {type: string}
+    status: {type: string}
+    from: {type: string}
+    to: {type: [string, "null"]}
+    block_number: {type: [integer, "null"]}
+    value_eth: {type: [number, "null"]}
+endpoints:
+  - path: /tx
+    external_path: /tx
+    method: GET
+    description: >
+      Look up one transaction using canonical tx_hash and chain. Preserve the
+      explicit EVM network name or EIP-155 ID. Unsupported networks are refused;
+      RPC failures are never treated as absence. A parameter-only lookup returns
+      a general source-derived summary, including inclusion and execution.
+    intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: Complete 0x-prefixed 32-byte transaction hash.
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: Explicit EVM network name or EIP-155 chain ID.
+intent_mapping:
+  ONCHAIN_TX_LOOKUP_GENERAL:
+    endpoint: /tx
+    input:
+      tx_hash: {from: tx_hash, how: Preserve the complete transaction hash.}
+      chain: {from: chain, how: Preserve the explicitly requested network and testnet identity.}
+    output:
+      tx_hash: {path: tx_hash}
+      status: {path: status}
+      from: {path: from}
+      to: {path: to}
+      block_number: {path: block_number, unit: block height}
+      value_eth: {path: value_eth, unit: whole native units}
+semantics:
+  supported_intents: [ONCHAIN_TX_LOOKUP_GENERAL]
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
