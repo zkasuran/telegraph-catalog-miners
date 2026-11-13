@@ -1,0 +1,67 @@
+version: "1"
+kind: miner
+id: 374612
+slug: zk-invoice-exact
+protocol: generic
+name: ZK Exact Invoice Reconciliation
+description: >-
+  Compare supplied invoice and ledger amounts using exact base-10 arithmetic,
+  available identifiers and explicit structured line/tax equations. Accepts
+  labelled amounts, accounting exports and bounded UBL monetary components.
+  Private references alone and unsupported or incomplete financial detail return
+  insufficient information. Does not authenticate original invoices or payments.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /invoice-reconcile
+    external_path: /invoice-reconcile
+    method: GET
+    intents: [INVOICE_LEDGER_RECONCILE_GENERAL]
+    description: >-
+      Compare one supplied invoice payload and one ledger payload. Preserve the
+      original amounts, signs, units, identifiers and financial detail verbatim.
+      An identifier alone is insufficient; do not manufacture records or figures.
+    params:
+      query:
+        required:
+          - name: invoice
+            type: string
+            intents: [INVOICE_LEDGER_RECONCILE_GENERAL]
+            description: Original supplied invoice payload, including amount and currency.
+          - name: ledger
+            type: string
+            intents: [INVOICE_LEDGER_RECONCILE_GENERAL]
+            description: Original supplied ledger payload, including amount and currency.
+semantics:
+  signal_mapping:
+    label_field: reconciled
+    reason_field: explanation
+  supported_intents: [INVOICE_LEDGER_RECONCILE_GENERAL]
+intent_mapping:
+  INVOICE_LEDGER_RECONCILE_GENERAL:
+    endpoint: /invoice-reconcile
+    input:
+      invoice:
+        from: invoice
+        how: Copy the complete supplied invoice input verbatim; do not infer missing facts.
+      ledger:
+        from: ledger
+        how: Copy the complete supplied ledger input verbatim; do not infer missing facts.
+    output:
+      reconciled:
+        path: reconciled
+        how: Preserve true or false exactly; null means insufficient information, never false.
+      discrepancy:
+        path: discrepancy
+        unit: currency units
+        how: Signed ledger amount minus invoice amount; null if no common currency comparison exists.
+      explanation:
+        path: explanation
+        how: Copy the explanation verbatim, retaining its stated verification scope.
