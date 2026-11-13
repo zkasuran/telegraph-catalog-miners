@@ -1,0 +1,132 @@
+version: '1'
+kind: miner
+id: 732271
+slug: zk-ocma
+protocol: generic
+name: ZK Pinned Ethereum and Arbitrum Account Metrics
+description: Native ETH balance in exact numeric Gwei and account nonce (tx_count)
+  at the exact requested integer block on Ethereum mainnet or Arbitrum One. Ethereum
+  uses the existing authenticated account proof at a two-service witnessed state root,
+  with disclosed finalized historical reuse. Arbitrum freshly checks two named public
+  RPC services for chain ID, header hash/state root/timestamp, and exact hash-pinned
+  balance and nonce. No Arbitrum account/consensus/rollup proof is claimed. Nonce
+  is not a count of transfers or received transactions. Polygon and unavailable or
+  contradictory evidence are refused.
+base_url: https://telegraph-verify.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: error
+input_schema:
+  type: object
+  required:
+  - address
+  - block
+  properties:
+    address:
+      type: string
+      pattern: ^0x[0-9a-fA-F]{40}$
+    block:
+      type: integer
+      minimum: 0
+      maximum: 1000000000000
+    chain:
+      type: string
+      enum:
+      - ethereum
+      - arbitrum
+    metric:
+      type: string
+      enum:
+      - balance
+      - tx_count
+output_schema:
+  type: object
+  required:
+  - balance_gwei
+  - tx_count
+  - address
+  - block
+  - chain
+  properties:
+    balance_gwei:
+      type: number
+    tx_count:
+      type: integer
+    address:
+      type: string
+    block:
+      type: string
+    chain:
+      type: string
+endpoints:
+- path: /metric
+  external_path: /metric
+  method: GET
+  description: Exact native ETH balance and account nonce on Ethereum mainnet or Arbitrum
+    One. Both fields are returned; metric chooses which leads the summary. Explicit
+    source failure is HTTP502; unsupported or contradictory inputs HTTP400.
+  intents:
+  - ONCHAIN_METRIC_VERIFY_GENERAL
+  params:
+    query:
+      required:
+      - name: address
+        type: string
+        intents:
+        - '*'
+        description: Exact 20-byte hexadecimal Ethereum/Arbitrum address.
+      - name: block
+        type: integer
+        intents:
+        - '*'
+        description: Exact nonnegative block number, at most 1000000000000.
+      optional:
+      - name: chain
+        type: string
+        intents:
+        - '*'
+        description: ethereum or arbitrum; default ethereum. Polygon is not supported.
+      - name: metric
+        type: string
+        intents:
+        - '*'
+        description: balance or tx_count (account nonce); default balance.
+semantics:
+  supported_intents:
+  - ONCHAIN_METRIC_VERIFY_GENERAL
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  ONCHAIN_METRIC_VERIFY_GENERAL:
+    endpoint: /metric
+    input:
+      address:
+        from: address
+        how: Copy the exact address; do not resolve a name.
+      block:
+        from: block
+        how: Copy the exact nonnegative integer block.
+      chain:
+        from: chain
+        how: Copy ethereum or arbitrum verbatim; never substitute a chain.
+      metric:
+        from: metric
+        how: balance or tx_count from the canonical input.
+    output:
+      balance_gwei:
+        path: balance_gwei
+        unit: Gwei
+      tx_count:
+        path: tx_count
+      address:
+        path: address
+      block:
+        path: block
+      chain:
+        path: chain
