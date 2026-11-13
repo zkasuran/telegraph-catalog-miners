@@ -1,0 +1,83 @@
+version: '1'
+kind: miner
+id: 7311201
+slug: zk-loan-rates-v12
+protocol: generic
+name: MetricWire Published Rate Instruments
+description: >-
+  Source-linked published interest rates in percent, with explicit instrument,
+  term, account population, observation period and publication provenance.
+  Supports US prime and effective fed funds, permitted 30-year PMMS RSS,
+  G.19 24-month personal and 60/72-month new-car APRs and both credit-card
+  account populations, SOFR and its published compounded averages, Canadian
+  and ECB rates, Bank of England Bank Rate and SONIA, four Riksbank administered
+  rates, the Brazilian Selic target, and exact annual WDI interest indicators.
+  Unsupported personalized offers and accrual conversions are unavailable.
+base_url: https://telegraph-metric.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [rate]
+  properties:
+    rate:
+      type: string
+      minLength: 1
+      maxLength: 1024
+      description: Full published-rate selector including country, instrument, term and convention.
+output_schema:
+  type: object
+  properties:
+    rate_pct: {type: [number, 'null']}
+    unit: {type: string}
+    rate_name: {type: string}
+    observation_date: {type: string}
+    publication_date: {type: [string, 'null']}
+    source: {type: string}
+    attribution: {type: string}
+    summary: {type: string}
+    status: {type: string}
+endpoints:
+  - path: /loan
+    external_path: /loan
+    method: GET
+    intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+    description: >-
+      Preserve the full published-rate selector in rate. Never reduce a request
+      to country alone: instrument, exact loan term and account population matter.
+      Percent remains the canonical unit even if basis-point display is requested.
+    params:
+      query:
+        required:
+          - name: rate
+            type: string
+            intents: ['*']
+            description: >-
+              Exact published-rate selector from the canonical rate input; retain
+              country, publisher, loan term, account population, annual year and
+              any explicit convention. Do not replace a named instrument with a
+              national lending rate. Maximum 1024 characters.
+errors:
+  message_path: summary
+  code_path: reason
+  status_path: status
+  success_values: [ok]
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [LOAN_INTEREST_RATE_QUOTE_GENERAL]
+intent_mapping:
+  LOAN_INTEREST_RATE_QUOTE_GENERAL:
+    endpoint: /loan
+    input:
+      rate:
+        from: rate
+        how: Preserve the exact selector and all product, term, country, year and convention qualifiers.
+    output:
+      rate_pct: {path: rate_pct, unit: percent}
