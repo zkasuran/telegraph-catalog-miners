@@ -1,0 +1,85 @@
+version: "1"
+kind: miner
+id: 7310790
+slug: zk-shipreturn
+protocol: generic
+name: ZK Guadeloupe and Martinique Prepaid Return Shipping
+description: >-
+  Published 2026 La Poste Colissimo Prêt à envoyer OM prepaid-package tariff from
+  Guadeloupe or Martinique to metropolitan France only, up to 7 kg. EUR 40.99;
+  source indicative window 11–18 days (J), conservatively applied as working days
+  for the conditional ETA because the row does not specify its day convention.
+  Conditional calendar-day ETA uses
+  the origin-local date and published origin/metropolitan holidays. Contents must
+  fit the prepaid package; not a booking, guarantee or cheapest-carrier comparison.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /quote
+    external_path: /quote
+    method: GET
+    description: >-
+      Quote the exact published prepaid return package from Guadeloupe or
+      Martinique to metropolitan France, 0 < weight_kg <= 7. Preserve supplied
+      locations verbatim, including explicit territory/country and exact ISO
+      labels GP/GLP and MQ/MTQ. No other overseas origin or destination is priced
+      by this integration. Conflicting geography, unsupported lanes and excess
+      weight are unquoted without numeric quote fields. Only status quoted is
+      success. Malformed inputs are HTTP 400 and expired calendars HTTP 503.
+      Contents must fit the prepaid package. Price excludes destination customs
+      duties/taxes and optional services. ETA assumes handover before collection
+      cutoff on the first day of the disclosed conservative calendar. The native
+      transit_days field is working days; map calendar_transit_days to canonical
+      transit_days. No shipment date or booking is provided. Valid during 2026.
+    intents: [SHIP_RATE_ETA_GENERAL]
+    params:
+      query:
+        required:
+          - name: origin
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Explicit Guadeloupe or Martinique origin; preserve exact supplied geography, up to 256 characters.
+          - name: destination
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Metropolitan France destination; preserve exact supplied country, commune and postcode, up to 256 characters.
+          - name: weight_kg
+            type: number
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: Finite positive kilograms, preserved without rounding; at most 7 kg. Decimal and scientific notation supported.
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping:
+    label_field: rate
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve supplied location and explicit territory/country verbatim. Guadeloupe or Martinique only; never invent or discard geography.
+      destination:
+        from: destination
+        how: Preserve supplied location, country and postcode verbatim. Metropolitan France only; never infer an ambiguous place.
+      weight_kg:
+        from: weight_kg
+        how: Preserve finite positive kilograms exactly, without rounding or truncation. Endpoint enforces 7 kg capacity.
+    output:
+      carrier: {path: carrier}
+      rate: {path: rate, unit: currency units}
+      currency: {path: currency}
+      transit_days: {path: calendar_transit_days, unit: days}
+      eta: {path: eta}
