@@ -1,0 +1,73 @@
+version: "1"
+kind: miner
+id: 79448
+slug: zk-wxrecord
+protocol: generic
+name: SkyWire Original Recorded Weather
+description: >-
+  Recorded station weather for an exact past date. Original NOAA daily observations
+  and licensed national daily sources, including SILO Australian station data only
+  where per-value source code is zero. Interpolation and missing observations are
+  withheld. A source-labelled station observing date is not guaranteed to use local
+  midnight boundaries. No current forecast substitutes for a historical observation.
+base_url: https://telegraph-sky.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+  - path: /forecast-verify
+    external_path: /forecast-verify
+    method: GET
+    description: >-
+      Copy the canonical location and exact past date into these query parameters.
+      Return the named station's source-backed daily high and low in Celsius and
+      rainfall in millimetres. Unavailable or conflicting observations stay null.
+    intents: [WEATHER_FORECAST_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: location
+            type: string
+            intents: ["*"]
+            description: City/place with country or signed latitude,longitude.
+          - name: date
+            type: string
+            intents: ["*"]
+            description: Exact past calendar date, YYYY-MM-DD; copy without changing it.
+input_schema:
+  type: object
+  required: [location, date]
+  properties:
+    location: {type: string, minLength: 1, maxLength: 256}
+    date: {type: string, format: date, pattern: '^\d{4}-\d{2}-\d{2}$'}
+output_schema:
+  type: object
+  properties:
+    location: {type: string}
+    date: {type: string, format: date}
+    temp_max_c: {type: [number, "null"]}
+    temp_min_c: {type: [number, "null"]}
+    precipitation_mm: {type: [number, "null"]}
+    condition: {type: [string, "null"]}
+    summary: {type: string}
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [WEATHER_FORECAST_VERIFY_GENERAL]
+intent_mapping:
+  WEATHER_FORECAST_VERIFY_GENERAL:
+    endpoint: /forecast-verify
+    input:
+      location: {from: location, how: Copy the place or coordinates verbatim.}
+      date: {from: date, how: Copy the exact past YYYY-MM-DD date without shifting it.}
+    output:
+      location: {path: location}
+      date: {path: date}
+      temp_max_c: {path: temp_max_c, unit: degrees Celsius}
+      temp_min_c: {path: temp_min_c, unit: degrees Celsius}
+      precipitation_mm: {path: precipitation_mm, unit: mm}
+      condition: {path: condition, how: Retain only the supplied recorded condition; null is unavailable.}
+errors:
+  message_path: detail
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
