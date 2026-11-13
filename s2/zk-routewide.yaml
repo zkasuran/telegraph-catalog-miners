@@ -1,0 +1,141 @@
+version: '1'
+kind: miner
+id: 78477
+slug: zk-routewide
+protocol: generic
+name: RouteWide Confirmed Ethereum Execution Plans
+description: Exactly 1 ETH to Ethereum mainnet USDC. Hash-pinned bounded Uniswap V2/V3/V4, Pancake V3 and Sushi V2/V3 route
+  and split search. Two public RPC operators reproduce 484 contract results. Returns integer USDC base units and a deterministic
+  execution plan with source, block and optional inline proof. Quotes include pool fees and price impact, before gas.
+base_url: https://telegraph-s2-routewide.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+limitations:
+- code: ACCOUNT_QUOTA
+  message: Conservative operating cap of 200 node calls per day; public RPC capacity is best-effort.
+  property: rate
+  value_num: 200
+  window_seconds: 86400
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values:
+  - ok
+endpoints:
+- path: /route
+  external_path: /route
+  method: GET
+  description: 'Sell exactly 1000000000000000000 wei ETH on Ethereum into USDC; send pair=ETH/USDC. amount_out is integer
+    USDC base units, 1000000 per USDC. Includes pool fees and finite-size impact; gas is excluded. The plan reports actual
+    input allocations and token paths. Highest gross output in the documented finite search. Bare /route and literal {pair}
+    quote the same fixed trade. X-Telegraph-Evidence: inline is an optional audit header; normal calls return compact JSON.'
+  intents:
+  - OPTIMAL_EXECUTION_ROUTE_GENERAL
+  params:
+    query:
+      required:
+      - name: pair
+        type: string
+        intents:
+        - OPTIMAL_EXECUTION_ROUTE_GENERAL
+        description: 'Canonical ETH/USDC only; amount is fixed at exactly one ETH on Ethereum mainnet. Accepted values: ETH/USDC.'
+input_schema:
+  type: object
+  additionalProperties: false
+  required:
+  - pair
+  properties:
+    pair:
+      type: string
+      enum:
+      - ETH/USDC
+      maxLength: 8
+output_schema:
+  type: object
+  required:
+  - status
+  - summary
+  - source
+  - as_of
+  properties:
+    status:
+      type: string
+      enum:
+      - ok
+      - unavailable
+    amount_out:
+      type: integer
+      minimum: 100000000
+      maximum: 100000000000
+    answer:
+      type: string
+    summary:
+      type: string
+    source:
+      type:
+      - string
+      - 'null'
+    as_of:
+      type:
+      - string
+      - 'null'
+    block_number:
+      type: integer
+    block_hash:
+      type: string
+      pattern: ^0x[0-9a-fA-F]{64}$
+    confirmed_sources:
+      type: array
+      items:
+        type: string
+      minItems: 2
+      maxItems: 2
+      uniqueItems: true
+    evidence_path:
+      type: string
+    coverage:
+      type: object
+    source_evidence:
+      type: object
+    error:
+      type: object
+  allOf:
+  - if:
+      properties:
+        status:
+          const: ok
+    then:
+      required:
+      - amount_out
+      - answer
+      - block_number
+      - block_hash
+      - confirmed_sources
+      - evidence_path
+      - coverage
+    else:
+      not:
+        required:
+        - amount_out
+semantics:
+  signal_mapping:
+    label_field: answer
+    reason_field: summary
+  supported_intents:
+  - OPTIMAL_EXECUTION_ROUTE_GENERAL
+intent_mapping:
+  OPTIMAL_EXECUTION_ROUTE_GENERAL:
+    endpoint: /route
+    input:
+      pair:
+        from: pair
+        how: Preserve canonical ETH/USDC exactly; input amount and chain are fixed.
+    output:
+      amount_out:
+        path: amount_out
+        unit: USDC base units (6 decimals)
