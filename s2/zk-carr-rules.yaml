@@ -1,0 +1,112 @@
+version: "1"
+kind: miner
+id: 732069
+slug: zk-carr-rules
+protocol: generic
+name: ZK Chunghwa Post Domestic and International Coverage
+description: >-
+  Licensed domestic-express coverage from the actual carrier, with precise Boolean
+  extraction, full districts/localities, literal road/number rules, punctuation-safe
+  enumeration, and compressed or named road sections. Explicitly licensed
+  international EMS destination networks and weight/size limits, cross-checked
+  against the live carrier publication.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Check Taiwan domestic-express published area coverage for Chunghwa Post
+      (中華郵政). carrier must name this carrier; domestic express (國內快捷) must
+      be explicit for an exclusion. area is a three-digit district code, an
+      unambiguous Chinese city/county and district, a supported street/address,
+      or an exact named locality. Full districts include village, rural, lane,
+      and subnumber addresses. Literal street and number rules preserve parity,
+      range bounds, comma-separated antecedents and section names. Compressed
+      numeric section lists use only explicitly enumerated values. Named sections
+      are literal, such as 桃園市龍潭區中豐路高平段. Examples: 新北市林口區寶林路50號,
+      新北市汐止區汐平路1段94號, 彰化縣社頭鄉山腳路4段, 澎湖縣馬公市虎井里.
+      Partial numeric/multi-alias localities, exception clauses, ambiguous coverage,
+      date/holiday or shipment constraints return 422 without a Boolean. Return
+      serviceable Boolean, services, one-sentence summary, original carrier evidence
+      and retrieval time. Published product-specific coverage does not establish
+      address existence, a shipping lane, weight/dimensions or dangerous-goods
+      acceptance. Also checks international EMS destination-country networks:
+      carrier must be Chunghwa Post international EMS, Chunghwa Post EMS or
+      中華郵政國際快捷; area must be an exact Chinese/English destination-country
+      name from the carrier dataset, e.g. Japan, 日本, Australia, France or Guatemala.
+      Returns the published country-network verdict with weight limit in kg,
+      size-rule text and original PDF evidence; reconciles the live carrier table
+      on each cache refresh. This is country-network availability, not coverage
+      of every destination address or parcel acceptance. Unknown countries,
+      postal codes, source disagreements and extra shipment/date context abstain.
+      Preserve all user context and route only the supported product.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: ["*"]
+            description: >-
+              Chunghwa Post or 中華郵政. For exclusions use Chunghwa Post domestic
+              express or 中華郵政國內快捷. For international country networks use
+              Chunghwa Post international EMS, Chunghwa Post EMS, or 中華郵政國際快捷.
+              Preserve full product/context. Maximum
+              256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: ["*"]
+            description: >-
+              Three-digit Taiwan district code, unique Chinese city/county and
+              district, supported complete street/address or exact named locality.
+              For international EMS use an exact destination-country name in
+              Chinese or English, not a postcode or shipment request.
+              Preserve full address and any date/shipment constraints. Maximum
+              256 UTF-8 bytes.
+semantics:
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve carrier and any explicit product or shipment constraints verbatim.
+      area:
+        from: area
+        how: Preserve the full Chinese address, locality or postal code and all context.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
+input_schema:
+  type: object
+  required: [carrier, area]
+  properties:
+    carrier: {type: string, minLength: 1, maxLength: 256}
+    area: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [carrier, area, serviceable, services, summary, source, as_of]
+  properties:
+    carrier: {type: string}
+    area: {type: string}
+    serviceable: {type: boolean}
+    services: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: object}
+    as_of: {type: string}
+errors:
+  code_path: error
+  message_path: message
