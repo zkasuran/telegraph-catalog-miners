@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 914733
+slug: zk-cincypay
+protocol: generic
+name: CincyPay Public Purchase Payment Verification
+description: >
+  Verifies a published City of Cincinnati purchase PAYMENT REFERENCE against the
+  official public-domain Cincinnati Financial System vendor-payment ledger.
+  Requires exact TRANS_ID and complete VENDOR_NAME; aggregates every positive
+  payment line and confirms only consistent identities and documented purchase
+  categories. Reports recorded payment evidence, not bank clearance, card
+  authorization or private merchant order authentication. Uses no model or key.
+base_url: https://telegraph-s2-cincypay.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /verify
+    external_path: /verify
+    method: GET
+    description: >
+      Check a public Cincinnati payment transaction reference and payee. order_id
+      is the exact published TRANS_ID, not an invoice ID, check number or private
+      retail order; merchant is the complete published VENDOR_NAME. Return
+      verified=true only for an exact, fully read, positive goods/services
+      payment; verified=false only for an exact reference with a different payee.
+      Unknown evidence leaves verified absent. amount is the recorded reference's
+      payment-line total in USD, not the underlying invoice total. Payment dates,
+      raw allocation lines and source-observation as_of are returned separately.
+    intents: [COMMERCE_PURCHASE_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: order_id
+            type: string
+            intents: ["*"]
+            description: Exact public Cincinnati TRANS_ID, preserve case and every character; at most 256 UTF-8 bytes.
+          - name: merchant
+            type: string
+            intents: ["*"]
+            description: Complete published VENDOR_NAME; case and whitespace normalized only, no fuzzy matching; at most 256 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [order_id, merchant]
+  properties:
+    order_id: {type: string, minLength: 1, maxLength: 256}
+    merchant: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    order_id: {type: string}
+    verified: {type: boolean, description: Absent when the public evidence cannot establish a verdict.}
+    status: {type: string}
+    amount: {type: number, description: Sum of all payment allocation lines for this payment reference in USD.}
+    currency: {type: string}
+    source: {type: string}
+    as_of: {type: [string, "null"], description: Time the upstream response was observed; retained unchanged on cache hits.}
+    summary: {type: string}
+semantics:
+  supported_intents: [COMMERCE_PURCHASE_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: verified
+    reason_field: summary
+intent_mapping:
+  COMMERCE_PURCHASE_VERIFY_GENERAL:
+    endpoint: /verify
+    input:
+      order_id: {from: order_id, how: Copy the exact public Cincinnati payment TRANS_ID verbatim; do not substitute an example or convert a private order ID.}
+      merchant: {from: merchant, how: Copy the full stated vendor name verbatim; do not invent an alias.}
+    output:
+      order_id: {path: order_id}
+      verified:
+        path: verified
+        how: Copy the exact boolean only; an absent value means unknown, never false.
+      status: {path: status}
+      amount: {path: amount, unit: currency units}
+      currency: {path: currency}
+errors:
+  message_path: summary
+  code_path: code
