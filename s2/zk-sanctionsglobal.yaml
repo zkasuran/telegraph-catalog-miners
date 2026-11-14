@@ -1,0 +1,79 @@
+version: "1"
+kind: miner
+id: 731150
+slug: zk-sanctionsglobal
+protocol: generic
+name: ZK Official Sanctions Name Match
+description: >-
+  Source-backed screening of complete published names, aliases, wallets and IMO identifiers
+  against official US OFAC SDN and Non-SDN, UK FCDO, EU and Canadian autonomous lists.
+  Order-independent bounded typo review, native canonical fields and explicit source freshness.
+base_url: https://telegraph-s2-sanctionsplus.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 5
+errors:
+  code_path: error.code
+  message_path: error.message
+endpoints:
+  - path: /screen
+    external_path: /screen
+    method: GET
+    description: >-
+      Screen the full person/company name, published alias, wallet address or IMO number.
+      Preserve original script and all name components; use name for the subject only.
+      Explicit trailing DOB/country/address labels are recognized but not verified and
+      such name hits require review. Optional lists scopes the checked jurisdictions.
+      matched means a list-entry candidate, not confirmed identity; match_score is
+      0-to-1 string similarity. No ownership inference or universal clearance.
+    intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+    params:
+      query:
+        required:
+          - name: name
+            type: string
+            intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+            description: Full subject name or exact published wallet/IMO; at most 256 UTF-8 bytes.
+        optional:
+          - name: lists
+            type: string
+            intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+            description: Comma-separated ofac,sdn,nonsdn,uk,eu,ca or all; default all. UN-only is unsupported.
+semantics:
+  signal_mapping:
+    label_field: matched
+    confidence_field: match_score
+    reason_field: summary
+  supported_intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+intent_mapping:
+  SANCTIONS_SCREENING_MATCH_GENERAL:
+    endpoint: /screen
+    input:
+      name:
+        from: name
+        how: Preserve the complete subject name, original script, or wallet/IMO identifier; omit unrelated question prose.
+    output:
+      name: {path: name}
+      matched: {path: matched}
+      matches: {path: matches}
+      lists: {path: lists}
+      match_score: {path: match_score, unit: "fraction (0-1)"}
+input_schema:
+  type: object
+  required: [name]
+  properties:
+    name: {type: string, minLength: 1, maxLength: 256}
+    lists: {type: string}
+output_schema:
+  type: object
+  required: [name, matched, matches, lists, match_score, summary, source, as_of]
+  properties:
+    name: {type: string}
+    matched: {type: boolean}
+    matches: {type: array}
+    lists: {type: array}
+    match_score: {type: number, minimum: 0, maximum: 1}
+    summary: {type: string}
+    source: {type: array}
+    as_of: {type: string}
