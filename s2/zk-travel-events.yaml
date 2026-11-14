@@ -1,0 +1,63 @@
+version: "1"
+kind: miner
+id: 7141437
+slug: zk-travel-events
+protocol: generic
+name: FAA Operational Airport Events
+description: >-
+  Current US airport-level disruption from the FAA dashboard's separate airport-event
+  JSON product, with event validity, publisher-reported average delays, source digest
+  and actual observation time. Different event-based method from legacy airport-status
+  XML miners, sharing the FAA publisher. Airport codes, ICAO aliases, named airports,
+  cities and mixed routes are recognized. Foreign or unresolved endpoints remain
+  explicitly unknown; airport reports never establish an individual flight's status.
+base_url: https://telegraph-s2-travel-events.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 15
+endpoints:
+  - path: /travel-disruption
+    external_path: /travel-disruption
+    method: GET
+    description: >-
+      Current US airport-level FAA operational events. Copy route_or_flight verbatim,
+      up to 256 UTF-8 bytes: airport code, ICAO alias, airport name, city, airport route
+      or complete current airport-status question. Specific ground stop, ground delay
+      program or departure delay questions check those categories only. City matches
+      list all scheduled airports in the source municipality, including ambiguity.
+      Non-US and unresolved endpoints return HTTP 200 unknown/null, never false; mixed
+      routes return true on a real covered event, otherwise unknown. Individual flight
+      requests and non-current/malformed inputs return 422; upstream failure returns
+      503. Missing or literal-template parameters return a service descriptor.
+    intents: [TRAVEL_DISRUPTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: route_or_flight
+            type: string
+            intents: [TRAVEL_DISRUPTION_GENERAL]
+            description: Copy the complete canonical airport, route or current status question verbatim; maximum 256 UTF-8 bytes. Foreign or unknown endpoints have no verified operational verdict.
+semantics:
+  supported_intents: [TRAVEL_DISRUPTION_GENERAL]
+  signal_mapping:
+    label_field: disrupted
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
+intent_mapping:
+  TRAVEL_DISRUPTION_GENERAL:
+    endpoint: /travel-disruption
+    input:
+      route_or_flight:
+        from: route_or_flight
+        how: Copy the full canonical value/question verbatim, preserving the location and requested event categories.
+    output:
+      route_or_flight: {path: route_or_flight}
+      disrupted: {path: disrupted}
+      status: {path: status}
+      delay_minutes: {path: delay_minutes, unit: minutes}
+      reason: {path: reason}
