@@ -1,0 +1,110 @@
+version: '1'
+kind: miner
+id: 7310800
+slug: zk-shipglobe
+protocol: generic
+name: ZK Source-Verified Expanded Prepaid Shipping Atlas
+description: Published licensed 2026 La Poste/Chronopost prepaid tariffs from metropolitan
+  France to domestic/EU, UK, Canada, Japan, Australia, Switzerland, Norway, Singapore,
+  China, Brazil, South Korea, Iceland, Hong Kong, Thailand, Vietnam and eight OM1
+  territories. Also the Guadeloupe/Martinique to metropolitan France 7-kg return package.
+  Conditional source-window ETA; contents must fit; no live booking or serviceability
+  guarantee. United States and other origins are not priced.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+- path: /quote
+  external_path: /quote
+  method: GET
+  description: 'Preserve origin, destination and numeric weight_kg verbatim. Metropolitan
+    France departures: Colissimo M/L up to 5 kg domestic, Chrono 13 boxes above 5
+    through 12 kg; UE M/L up to 5 kg; Monde L/XL up to 5/7 kg for UK, Canada, Japan,
+    Australia, Switzerland, Norway, Singapore, China, Brazil, South Korea, Iceland,
+    Hong Kong, Thailand and Vietnam; OM1 up to 7 kg for Guadeloupe, Martinique, Guyane/French
+    Guiana, Réunion, Mayotte, Saint-Pierre-et-Miquelon, Saint-Martin and Saint-Barthélemy.
+    Guadeloupe/Martinique departures only to metropolitan France, up to 7 kg. Positive
+    finite numeric kilograms; do not round across package capacities. Exact bare Paris/Lyon
+    use disclosed French-service defaults; preserve supplied countries and postcodes.
+    Only status quoted is a quote. Unsupported/conflicting lanes or weights return
+    HTTP 200 status unquoted with actionable errors and no rate. Malformed inputs
+    HTTP 400; expired tariff/calendar HTTP 503. Rates exclude destination duties/taxes
+    and optional services; goods must fit; destination availability/customs must be
+    checked before purchase. Generic 3–8-day Monde window is not a destination-specific
+    promise. Conditional ETA assumes handover on the disclosed next dispatch date
+    before cutoff; source calendars end in 2026. Map calendar_transit_days to canonical
+    transit_days.'
+  intents:
+  - SHIP_RATE_ETA_GENERAL
+  params:
+    query:
+      required:
+      - name: origin
+        type: string
+        intents:
+        - SHIP_RATE_ETA_GENERAL
+        description: 'Preserve supplied origin verbatim (max 256 characters): metropolitan
+          France; Guadeloupe/Martinique only to metropolitan France; exact bare Paris/Lyon
+          use disclosed defaults.'
+      - name: destination
+        type: string
+        intents:
+        - SHIP_RATE_ETA_GENERAL
+        description: Preserve supplied destination, country/territory and postcode
+          verbatim (max 256 characters). Only the listed priced destinations; no missing
+          geography or street serviceability inferred.
+      - name: weight_kg
+        type: number
+        intents:
+        - SHIP_RATE_ETA_GENERAL
+        description: Positive finite numeric kilogram value, decimal or scientific
+          notation. Do not round. Domestic up to 12 kg, EU 5 kg, listed international/OM1
+          7 kg; endpoint enforces exact capacities.
+semantics:
+  supported_intents:
+  - SHIP_RATE_ETA_GENERAL
+  signal_mapping:
+    label_field: rate
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values:
+  - quoted
+intent_mapping:
+  SHIP_RATE_ETA_GENERAL:
+    endpoint: /quote
+    input:
+      origin:
+        from: origin
+        how: Preserve supplied origin country/territory and postcode verbatim. Metropolitan
+          France; Guadeloupe/Martinique only to metropolitan France. Do not invent
+          geography.
+      destination:
+        from: destination
+        how: Preserve supplied location, explicit country/territory and postcode verbatim.
+          Do not remove overseas labels or infer an ambiguous country.
+      weight_kg:
+        from: weight_kg
+        how: Preserve the positive finite numeric kilogram value without rounding
+          across package limits.
+    output:
+      carrier:
+        path: carrier
+      rate:
+        path: rate
+        unit: currency units
+      currency:
+        path: currency
+      transit_days:
+        path: calendar_transit_days
+        unit: days
+      eta:
+        path: eta
