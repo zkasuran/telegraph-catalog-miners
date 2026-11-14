@@ -1,0 +1,97 @@
+version: "1"
+kind: miner
+id: 731419
+slug: zk-docgraph
+protocol: generic
+name: ZK DocGraph PDF and Structured Document Extraction
+description: >
+  Extract requested source values using Mozilla PDF.js text-layer decoding,
+  a parsed HTML DOM and CSS selectors, and source-authored JSON-LD graphs
+  with local @id reference traversal. Accepts public document URLs and inline
+  HTML, JSON, JSON-LD or labelled text. No generative model or paid reader.
+  Values include source locations and an honest retrieval timestamp.
+base_url: https://telegraph-s2-docgraph.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: message
+  code_path: error
+endpoints:
+  - path: /extract
+    external_path: /extract
+    method: POST
+    content_type: application/json
+    description: >
+      Supply content and fields in a JSON body. content is the complete original
+      document or its public HTTP(S) URL. fields names the requested properties,
+      separated by commas. Text uses literal labels; JSON accepts property paths
+      and JSON pointers. HTML supports source metadata and css:selector@attribute.
+      JSON-LD supports ld:property or ld:node-id|property.path, following local
+      @id references. Text-layer PDFs support pdf.Title, pdf.Subject, pages,
+      page.1 and literal fields in decoded text. No OCR of scanned images.
+      Documents are limited to 2 MiB and PDFs to 24 pages. All complete values
+      appear in extracted_fields; brief includes only complete pairs fitting
+      the canonical 80-character limit, with omissions listed explicitly.
+    intents: [CONTENT_EXTRACTION_GENERAL]
+    params:
+      body:
+        required:
+          - name: content
+            type: string
+            intents: ["*"]
+            description: Original supplied content copied exactly, or its public HTTP(S) source URL.
+          - name: fields
+            type: string
+            intents: ["*"]
+            description: Requested source field names or explicit paths, copied exactly; at most 32 fields.
+input_schema:
+  type: object
+  required: [content, fields]
+  properties:
+    content: {type: string, minLength: 1}
+    fields: {type: string, minLength: 1}
+output_schema:
+  type: object
+  required: [title, content, url, entities, brief, extracted_fields, evidence, source, as_of, summary]
+  properties:
+    title: {type: string}
+    content: {type: string}
+    url: {type: string}
+    entities: {type: array}
+    brief: {type: string, maxLength: 80}
+    extracted_fields: {type: object}
+    evidence: {type: array}
+    source: {type: string}
+    as_of: {type: string, format: date-time}
+    summary: {type: string}
+    method: {type: string}
+    missing_fields: {type: array}
+    multi_value_fields: {type: array}
+    brief_omitted_fields: {type: array}
+intent_mapping:
+  CONTENT_EXTRACTION_GENERAL:
+    endpoint: /extract
+    input:
+      content:
+        from: content
+        how: Preserve the supplied document bytes as text or its explicit URL; do not paraphrase.
+      fields:
+        from: fields
+        how: Preserve the requested field names and explicit selectors or paths.
+    output:
+      title: {path: title}
+      content: {path: content}
+      url: {path: url}
+      entities: {path: entities}
+      brief:
+        path: brief
+        how: Return this string exactly; it already contains source values within the 80-character limit.
+semantics:
+  supported_intents: [CONTENT_EXTRACTION_GENERAL]
+  signal_mapping:
+    label_field: brief
+    reason_field: summary
