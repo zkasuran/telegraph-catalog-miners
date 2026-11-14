@@ -1,0 +1,101 @@
+version: "1"
+kind: miner
+id: 781346
+slug: zk-sla-elapsed
+protocol: generic
+name: Source-Verified Whole-Day Availability Durations
+description: >-
+  Keyless public monitoring availability for Google homepage, English Wikipedia
+  homepage, Hacker News homepage and the GitHub API root. Explicit elapsed
+  durations in whole days, hours, minutes or seconds are normalized to supported
+  day periods. Results are published statistics or estimates from source-rounded
+  daily incident minutes, with dates, source revisions, precision and ODbL
+  attribution. Ambiguous first-day allocations return bounds and null uptime,
+  never a guessed point. These single-monitor observations are not provider-wide
+  availability or customer-contract SLA compliance.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  website: https://demo.upptime.js.org/
+  documentation: https://github.com/upptime/upptime
+endpoints:
+  - path: /sla-compliance
+    external_path: /sla-compliance
+    method: GET
+    description: >-
+      Availability of an explicitly named monitored endpoint. Period is last N
+      days (1 to 365), an equivalent last/past integer hours/minutes/seconds
+      divisible into whole days, or a single-unit ISO duration PnD/PnW/PTnH/PTnM/
+      PTnS with the same bound. No partial, fractional or mixed duration is
+      supported. Existing last 24 hours and last 7 days source-reported homepage
+      statistics are preserved. GitHub API root uses daily incident records and
+      cannot measure dates before its monitoring start. Ambiguous precision
+      returns numeric bounds with uptime_pct null. No contractual target is
+      inferred. Exact source and window dates accompany each measurement.
+    intents: [SLA_COMPLIANCE_GENERAL]
+    params:
+      query:
+        required:
+          - name: service
+            type: string
+            intents: ["*"]
+            description: >-
+              Google homepage, English Wikipedia homepage, Hacker News homepage,
+              or GitHub API root. These are exact endpoint scopes, not all
+              products or customer operations of a provider.
+          - name: period
+            type: string
+            intents: ["*"]
+            description: >-
+              Explicit whole-day lookback, e.g. last 30 days, last 720 hours,
+              past 43200 minutes, PT720H, PT43200M, or PT2592000S. Unsupported
+              monitoring coverage fails rather than generating a measurement.
+input_schema:
+  type: object
+  required: [service, period]
+  properties:
+    service:
+      type: string
+      enum: [Google homepage, English Wikipedia homepage, Hacker News homepage, GitHub API root]
+    period:
+      type: string
+output_schema:
+  type: object
+  required: [service, period, uptime_pct, source, source_as_of, data_license, summary]
+  properties:
+    service: {type: string}
+    period: {type: string}
+    uptime_pct:
+      type: [number, "null"]
+      minimum: 0
+      maximum: 100
+    uptime_pct_bounds:
+      type: array
+      items: {type: number}
+    source: {type: string}
+    source_as_of: {type: string}
+    data_license: {type: string}
+    summary: {type: string}
+intent_mapping:
+  SLA_COMPLIANCE_GENERAL:
+    endpoint: /sla-compliance
+    input:
+      service: {from: service}
+      period: {from: period}
+    output:
+      service: {path: service}
+      period: {path: period}
+      uptime_pct: {path: uptime_pct, unit: percent}
+semantics:
+  supported_intents: [SLA_COMPLIANCE_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: source
+errors:
+  code_path: error
+  message_path: summary
