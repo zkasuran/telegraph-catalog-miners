@@ -1,0 +1,96 @@
+version: "1"
+kind: miner
+id: 732066
+slug: zk-carr-scope
+protocol: generic
+name: ZK Chunghwa Post Published Coverage
+description: >-
+  Licensed Taiwan domestic-express area coverage. Resolves explicit full districts
+  including rural and subnumber addresses, literal streets and number rules,
+  and contiguous named-street or section enumerations with source context.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 60
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: message
+  code_path: error
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Check published Taiwan domestic-express coverage for Chunghwa Post (中華郵政).
+      carrier must identify this carrier; explicit domestic express is required
+      for exclusions. area is a three-digit district code, unique Chinese city or
+      county and district, a source-enumerated whole street, or an address within
+      supported scope. Unrestricted full districts include rural, lane, subnumber
+      and floor addresses. Whole-street and number rules require a complete street
+      or simple house-number address. Contiguous street and section enumerations
+      retain their source antecedent. Examples: 澎湖縣西嶼鄉池東村5鄰小池角212之1號,
+      臺北市大安區新生北路一段7之2號, 新北市林口區工三路,
+      臺北市士林區中庸二路. Returns source-backed Boolean and services, summary,
+      original rule context and retrieval time. Unsupported carriers, ambiguous
+      coverage, holiday/date/shipment restrictions or unknown rules return 422
+      without a Boolean. Product-specific area coverage does not establish address
+      existence, shipment weight/dimension or dangerous-goods acceptance, or a lane.
+      Preserve the user's context and route only supported carrier/product requests.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: >-
+              Chunghwa Post, 中華郵政 or 中華郵政股份有限公司. For product exclusions
+              explicitly use Chunghwa Post domestic express or 中華郵政國內快捷
+              (also 國內快捷郵件 and 國內快捷投遞). Maximum 256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: >-
+              Three-digit Taiwan district code or unique Chinese city/county and
+              district, optionally with a complete street or bounded address.
+              Preserve section, lane, house number, subnumber, date and shipment
+              context; do not remove restrictions. Maximum 256 UTF-8 bytes.
+semantics:
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+input_schema:
+  type: object
+  required: [carrier, area]
+  properties:
+    carrier: {type: string, minLength: 1, maxLength: 256}
+    area: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [carrier, area, serviceable, services, summary, source, as_of]
+  properties:
+    carrier: {type: string}
+    area: {type: string}
+    serviceable: {type: boolean}
+    services: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: object}
+    as_of: {type: string}
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve the carrier and explicit domestic-express product; do not silently discard a requested service or shipment restriction.
+      area:
+        from: area
+        how: Preserve district, street, section, house number, subnumber and all context. Do not shorten a restricted shipment request into an area-only check.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
