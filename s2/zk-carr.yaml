@@ -1,0 +1,95 @@
+version: "1"
+kind: miner
+id: 732063
+slug: zk-carr
+protocol: generic
+name: ZK Chunghwa Post Domestic Express Coverage
+description: >-
+  Source-backed Taiwan domestic-express coverage from Chunghwa Post open dataset
+  20017. Answers literal full-area coverage and complete whole-street inclusions
+  or exclusions. Product-scoped; other carriers, partial postcodes, holiday rules,
+  house-number restrictions and shipment acceptance need separate evidence.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 60
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: message
+  code_path: error
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Check Chunghwa Post domestic-express delivery coverage in Taiwan. carrier
+      must name Chunghwa Post (中華郵政), optionally specifying domestic express
+      (國內快捷). Positive coverage establishes this known service only. A negative
+      exclusion requires the product explicitly: Chunghwa Post domestic express
+      or 中華郵政國內快捷; an express exclusion never means all postal services are absent.
+      area must be a three-digit Taiwan district code, a unique Chinese county/city
+      and district, or that county/district followed by a complete street name
+      explicitly listed in the coverage feed. Examples: 100, 新北市板橋區,
+      臺北市士林區大亨路. Returns serviceable Boolean, available domestic-express
+      service, literal source evidence, attribution and retrieval time. Unresolved
+      restrictions or unsupported carriers return HTTP 422 without a Boolean.
+      This is published area coverage, not weight, hazardous-goods, lane or
+      date-specific shipment acceptance. Do not route unrelated carrier questions here.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: >-
+              Chunghwa Post, 中華郵政, 中華郵政股份有限公司, Chunghwa Post domestic
+              express, 中華郵政國內快捷, 中華郵政國內快捷郵件 or 中華郵政國內快捷投遞.
+              Express exclusions need the product explicitly. Maximum 256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: >-
+              Three-digit Taiwan district code or unambiguous Chinese county/city
+              and district, optionally followed by a complete source-listed street.
+              Maximum 256 UTF-8 bytes. Other postal-code formats and unresolved
+              house-number/date restrictions are not supported.
+semantics:
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+input_schema:
+  type: object
+  required: [carrier, area]
+  properties:
+    carrier: {type: string, minLength: 1, maxLength: 256}
+    area: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [carrier, area, serviceable, services, summary, source, as_of]
+  properties:
+    carrier: {type: string}
+    area: {type: string}
+    serviceable: {type: boolean}
+    services: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: object}
+    as_of: {type: string}
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve the carrier and any explicit product; only Chunghwa Post coverage grounded in domestic express is supported. Negative exclusions require that product explicitly.
+      area:
+        from: area
+        how: Preserve the three-digit Taiwan district code or Chinese county/city, district and source-listed street.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
