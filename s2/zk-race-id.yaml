@@ -1,0 +1,89 @@
+version: "1"
+kind: miner
+id: 752076
+slug: zk-race-id
+protocol: generic
+name: ZK Source-Checked Race and Fixture Identity
+description: >-
+  Resolve complete supported public event propositions from independently
+  corroborated records. Preserve participants, edition, date, negation and every
+  condition. Explicit f1db:<year>:<round>:race IDs identify archived finished
+  Formula One races; openligadb:<matchID> IDs identify corroborated Bundesliga
+  fixtures. Unknown, unsupported and conflicting identities return HTTP 404
+  and unresolved, never a guessed NO. Dates are local event days, not market
+  settlement timestamps. No API key and no model-generated factual answers.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth: {type: none}
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/event-outcome
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    description: >-
+      Copy the entire original event or question into event verbatim. Accepted
+      inputs include a complete textual proposition, f1db:<year>:<round>:race,
+      openligadb:<matchID>, or JSON with string-valued event/event_name,
+      date/event_date and event_id/match_id, optionally under params. Textual
+      aliases question/query/q are accepted. Preserve every selector; unknown
+      members, duplicate JSON keys and conflicting identities abstain. F1 IDs
+      denote race sessions only; qualifying, sprint and market IDs are distinct.
+    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: event
+            type: string
+            intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+            description: >-
+              The complete original input verbatim. Text at most 300 characters;
+              JSON at most 2000 characters and each complete name/question at
+              most 300. Never shorten participants, dates or predicates.
+input_schema:
+  type: object
+  required: [event]
+  properties:
+    event: {type: string, description: Complete original event input with every criterion.}
+output_schema:
+  type: object
+  required: [event, resolved, outcome, sources]
+  properties:
+    event: {type: string}
+    resolved: {type: boolean}
+    outcome: {type: string, enum: ["yes", "no", unresolved]}
+    resolved_yes:
+      type: boolean
+      description: Explicit Boolean only for a source-resolved proposition; absent on not-found.
+    winner: {type: [string, "null"]}
+    resolved_at: {type: [string, "null"]}
+    sources: {type: array, items: {type: string}}
+semantics:
+  signal_mapping:
+    label_field: outcome
+    reason_field: summary
+  supported_intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+errors:
+  message_path: error.message
+  code_path: error.code
+intent_mapping:
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    input:
+      event:
+        from: event
+        how: Preserve the entire original input verbatim, including all selectors and negation.
+    output:
+      event: {path: event}
+      outcome: {path: outcome}
+      resolved_yes:
+        path: resolved_yes
+        how: Read only the explicit Boolean; a missing Boolean is unresolved, never false.
+      winner: {path: winner}
+      resolved_at:
+        path: resolved_at
+        how: Preserve null or absent settlement time; never replace it with event_date or as_of.
+      sources: {path: sources}
