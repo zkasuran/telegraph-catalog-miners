@@ -1,0 +1,87 @@
+version: "1"
+kind: miner
+id: 781347
+slug: zk-sla-http
+protocol: generic
+name: Exact Public HTTP Monitoring Availability
+description: >-
+  Source-verified availability estimates for eight explicitly named HTTP monitor
+  scopes: GitHub, Instagram, TikTok, YouTube, Telegram and AWS homepages, Google's
+  DNS levonk.com A-query URL, and Discord's unauthenticated gateway endpoint.
+  Uses levonk/status ODbL-licensed source-rounded daily incident minutes, with
+  revision, source time, window, accepted HTTP statuses, uncertainty bounds and
+  attribution. A homepage accepting redirects is not proof of all product
+  operations. No customer SLA target or contractual compliance is inferred.
+base_url: https://telegraph-ship.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+semantics:
+  supported_intents: [SLA_COMPLIANCE_GENERAL]
+  signal_mapping:
+    label_field: verdict
+    reason_field: summary
+endpoints:
+  - path: /sla-compliance
+    external_path: /sla-compliance
+    method: GET
+    intents: [SLA_COMPLIANCE_GENERAL]
+    description: >-
+      Copy service and period exactly. The eight named scopes are individual
+      public HTTP monitors, not entire providers. Supports last N days (1-365),
+      whole-day elapsed-duration equivalents normalized by the worker, completed
+      YYYY-MM source-calendar months and YYYY-MM-DD/YYYY-MM-DD date intervals
+      with an exclusive end date. Dates must fit the monitor's verified history
+      and retained daily database. Ambiguous allocation returns a range and null
+      uptime_pct; unsupported scopes or dates fail without an invented value.
+    params:
+      query:
+        required:
+          - name: service
+            type: string
+            intents: ["*"]
+            description: Exact named monitored endpoint from input_schema.
+          - name: period
+            type: string
+            intents: ["*"]
+            description: Explicit requested window; do not substitute another period.
+input_schema:
+  type: object
+  required: [service, period]
+  properties:
+    service:
+      type: string
+      enum:
+        - GitHub homepage
+        - Instagram homepage
+        - TikTok homepage
+        - YouTube homepage
+        - Telegram homepage
+        - AWS homepage
+        - Google DNS levonk.com A query
+        - Discord gateway endpoint
+    period:
+      type: string
+output_schema:
+  type: object
+  required: [service, period, summary]
+  properties:
+    service: {type: string}
+    period: {type: string}
+    uptime_pct: {type: [number, "null"], minimum: 0, maximum: 100}
+    summary: {type: string}
+    source: {type: string}
+    source_revision: {type: string}
+    source_as_of: {type: string}
+    data_license: {type: string}
+intent_mapping:
+  SLA_COMPLIANCE_GENERAL:
+    endpoint: /sla-compliance
+    input:
+      service: {from: service, how: Copy the exact monitored endpoint without widening its scope.}
+      period: {from: period, how: Copy the full requested period without replacing its dates.}
+    output:
+      service: {path: service}
+      period: {path: period}
+      uptime_pct: {path: uptime_pct, unit: percent}
