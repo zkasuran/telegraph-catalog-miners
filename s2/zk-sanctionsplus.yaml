@@ -1,0 +1,80 @@
+version: "1"
+kind: miner
+id: 731148
+slug: zk-sanctionsplus
+protocol: generic
+name: ZK Official Sanctions Match
+description: >-
+  Deterministic screening against complete official OFAC SDN, OFAC Non-SDN,
+  UK FCDO and EU financial-sanctions names and aliases, with exact published
+  wallet and IMO lookup, bounded typo review and autonomous list refresh.
+base_url: https://telegraph-s2-sanctionsplus.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /screen
+    external_path: /screen
+    method: GET
+    description: >-
+      Screen a complete person/company name, published alias, wallet address
+      or IMO number against official sanctions lists. Supply the name only,
+      preserving non-Latin script; separate optional list scope as lists.
+      Returns matched boolean, matching official entries and 0-to-1 similarity;
+      a candidate name match is not a confirmed identity or universal clearance.
+    intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+    params:
+      query:
+        required:
+          - name: name
+            type: string
+            intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+            description: Complete name or exact published wallet/IMO identifier, 1 to 256 UTF-8 bytes.
+        optional:
+          - name: lists
+            type: string
+            intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+            description: Comma-separated ofac,sdn,nonsdn,uk,eu; default all four lists. UN-only scope is unsupported.
+semantics:
+  supported_intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+  signal_mapping:
+    label_field: matched
+    confidence_field: match_score
+    reason_field: summary
+intent_mapping:
+  SANCTIONS_SCREENING_MATCH_GENERAL:
+    endpoint: /screen
+    input:
+      name:
+        from: name
+        how: Copy the complete person/company name or wallet/IMO identifier verbatim, without screening instructions, birth dates or country notes.
+    output:
+      name: {path: name}
+      matched: {path: matched}
+      matches: {path: matches}
+      lists: {path: lists}
+      match_score: {path: match_score, unit: "fraction (0-1)"}
+input_schema:
+  type: object
+  required: [name]
+  properties:
+    name: {type: string, minLength: 1, maxLength: 256}
+    lists: {type: string}
+output_schema:
+  type: object
+  required: [name, matched, matches, lists, match_score, summary, source, as_of]
+  properties:
+    name: {type: string}
+    matched: {type: boolean}
+    matches: {type: array}
+    lists: {type: array}
+    match_score: {type: number, minimum: 0, maximum: 1}
+    summary: {type: string}
+    source: {type: array}
+    as_of: {type: string}
+errors:
+  message_path: error.message
+  code_path: error.code
