@@ -1,0 +1,80 @@
+version: "1"
+kind: miner
+id: 914731
+slug: zk-fultonpay
+protocol: generic
+name: FultonPay Public Invoice Verification
+description: >
+  Checks a real public Fulton County vendor invoice against the county's official
+  CC BY 4.0 payment ledger. Confirms an exact invoice/vendor match only with one
+  positive payment record marked Paid and consistent invoice, disbursement and
+  clearance dates. Unsupported private orders, pending or cancelled payments and
+  ambiguous invoice IDs remain unknown. Uses no language model or API key.
+base_url: https://telegraph-s2-fultonpay.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /verify
+    external_path: /verify
+    method: GET
+    description: >
+      Check a PUBLIC FULTON COUNTY vendor invoice and cleared-payment record.
+      order_id is the exact vendor_invoice_no, preserving punctuation and leading
+      zeroes; merchant is the complete vendor_legal_name, with case and whitespace
+      normalized only. No access to Amazon, Shopify or other private orders.
+      Missing evidence means verified is absent, never false or a fabricated true.
+    intents: [COMMERCE_PURCHASE_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: order_id
+            type: string
+            intents: ["*"]
+            description: Exact public vendor_invoice_no, at most 256 characters, preserving case and leading zeroes.
+          - name: merchant
+            type: string
+            intents: ["*"]
+            description: Complete public vendor_legal_name, at most 256 characters; no fuzzy or substring matching.
+input_schema:
+  type: object
+  required: [order_id, merchant]
+  properties:
+    order_id: {type: string, minLength: 1, maxLength: 256}
+    merchant: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  properties:
+    order_id: {type: string}
+    verified: {type: boolean}
+    status: {type: string}
+    amount: {type: number}
+    currency: {type: string}
+    source: {type: string}
+    as_of: {type: string}
+    summary: {type: string}
+semantics:
+  supported_intents: [COMMERCE_PURCHASE_VERIFY_GENERAL]
+  signal_mapping:
+    label_field: verified
+    reason_field: summary
+intent_mapping:
+  COMMERCE_PURCHASE_VERIFY_GENERAL:
+    endpoint: /verify
+    input:
+      order_id: {from: order_id, how: Preserve the exact public invoice ID verbatim including punctuation and leading zeroes.}
+      merchant: {from: merchant, how: Preserve the complete public vendor name verbatim.}
+    output:
+      order_id: {path: order_id}
+      verified:
+        path: verified
+        how: Read the exact boolean; an absent value is missing evidence and must not be coerced to false.
+      status: {path: status}
+      amount: {path: amount, unit: currency units}
+      currency: {path: currency}
+errors:
+  message_path: summary
+  code_path: code
