@@ -1,0 +1,89 @@
+version: "1"
+kind: miner
+id: 752075
+slug: zk-event-id-g75
+protocol: generic
+name: ZK Source-Checked Event Identity
+description: >-
+  Resolve supported complete public event propositions with source evidence.
+  Preserve every participant, edition, date, negation and condition. Namespaced
+  openligadb:<matchID> identifiers resolve only independently corroborated
+  archived finished Bundesliga fixtures. Unknown or conflicting identities
+  return HTTP 404 and unresolved, never an invented NO.
+base_url: https://telegraph-trade.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-trade.margyn.workers.dev/
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    description: >-
+      Copy the entire original event or question into event verbatim. This can
+      be a complete textual proposition, a namespaced openligadb:<matchID>, or
+      a JSON string containing string-valued event/event_name, date/event_date,
+      and event_id/match_id, optionally in params. Every selector must agree.
+      Structured objects must contain only these selectors or textual aliases
+      question/query/q. Duplicate members and unsupported criteria abstain.
+    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+    params:
+      query:
+        required:
+          - name: event
+            type: string
+            intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+            description: >-
+              The complete original event input verbatim. Text at most 300
+              characters; structured JSON at most 2000 characters, with each
+              complete name/question at most 300. Preserve all criteria.
+input_schema:
+  type: object
+  required: [event]
+  properties:
+    event:
+      type: string
+      description: Complete original event input, including every criterion and negation.
+output_schema:
+  type: object
+  required: [event, resolved, outcome, sources]
+  properties:
+    event: {type: string}
+    resolved: {type: boolean}
+    outcome: {type: string, enum: [yes, no, unresolved]}
+    resolved_yes:
+      type: boolean
+      description: Explicit Boolean for a resolved proposition; absent on not-found.
+    winner: {type: [string, "null"]}
+    resolved_at: {type: [string, "null"]}
+    sources: {type: array, items: {type: string}}
+semantics:
+  signal_mapping:
+    label_field: outcome
+    reason_field: summary
+  supported_intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
+errors:
+  message_path: error.message
+  code_path: error.code
+intent_mapping:
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    input:
+      event:
+        from: event
+        how: Copy the entire input verbatim; never shorten a proposition or drop an identity selector.
+    output:
+      event: {path: event}
+      outcome: {path: outcome}
+      resolved_yes:
+        path: resolved_yes
+        how: Read only the explicit Boolean. A missing Boolean is unresolved, never false.
+      winner: {path: winner}
+      resolved_at:
+        path: resolved_at
+        how: Preserve null or missing settlement time; never replace it with event_date or as_of.
+      sources: {path: sources}
