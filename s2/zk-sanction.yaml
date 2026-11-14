@@ -1,0 +1,81 @@
+version: "1"
+kind: miner
+id: 731146
+slug: zk-sanction
+protocol: generic
+name: ZK Official Sanctions Match
+description: >-
+  Screens names, aliases, wallet addresses and IMO numbers against complete official
+  US OFAC SDN and UK FCDO lists, including UK-implemented UN designations. Returns
+  explicit list-entry evidence and exact canonical fields. Version ETags are checked
+  every 15 minutes; changed lists produce an error until the source index is rebuilt.
+base_url: https://telegraph-s2-sanction.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 60
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /screen
+    external_path: /screen
+    method: GET
+    description: >-
+      Screen one person or entity's complete name, a published crypto wallet address,
+      or IMO number against US OFAC SDN and UK FCDO sanctions list entries. Copy the
+      actual name only, not the whole question. Case, punctuation, accents and name
+      token order are normalized; full-name typo matches at score >= 0.9 and weak
+      aliases are labelled REVIEW. matched denotes a list-entry candidate, not proof
+      that a person is the listed individual. Does not infer beneficial ownership.
+    intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+    params:
+      query:
+        required:
+          - name: name
+            type: string
+            intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+            description: >-
+              Complete person or entity name verbatim, any script supported by the
+              published aliases; alternatively a published wallet address or 7-digit
+              IMO number. Nonempty and at most 256 UTF-8 bytes.
+input_schema:
+  type: object
+  required: [name]
+  properties:
+    name:
+      type: string
+      minLength: 1
+      maxLength: 256
+output_schema:
+  type: object
+  required: [summary, name, matched, matches, lists, match_score, source, as_of]
+  properties:
+    summary: {type: string}
+    name: {type: string}
+    matched: {type: boolean}
+    matches: {type: array, items: {type: object}}
+    lists: {type: array, items: {type: string}}
+    match_score: {type: number, minimum: 0, maximum: 1}
+    source: {type: array, items: {type: string}}
+    as_of: {type: string}
+intent_mapping:
+  SANCTIONS_SCREENING_MATCH_GENERAL:
+    endpoint: /screen
+    input:
+      name:
+        from: name
+        how: Copy the actual complete person or entity name, wallet address or IMO number verbatim; omit the surrounding question.
+    output:
+      name: {path: name}
+      matched: {path: matched}
+      matches: {path: matches}
+      lists: {path: lists}
+      match_score: {path: match_score, unit: "fraction (0-1)"}
+semantics:
+  supported_intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
+  signal_mapping:
+    label_field: matched
+    reason_field: summary
+errors:
+  code_path: error.code
+  message_path: error.message
