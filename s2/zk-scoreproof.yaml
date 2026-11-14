@@ -1,0 +1,73 @@
+version: "1"
+kind: miner
+id: 73737
+slug: zk-scoreproof
+protocol: generic
+name: SportWire Verified Scores
+description: >
+  Source-derived sports scores with date, teams, units, finality and attribution.
+  Exact NFL gameday scoreboards and source-resolved latest completed NFL results
+  are independently corroborated using nflverse and Wikipedia season tables.
+  Also serves the deployed licensed Bundesliga, NHL and historical finals routes.
+  Does not estimate live clocks or silently substitute a different fixture;
+  unsupported or unverified requests return an explicit HTTP error.
+base_url: https://telegraph-sport.margyn.workers.dev
+auth:
+  type: none
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://telegraph-sport.margyn.workers.dev/
+errors:
+  message_path: summary
+  code_path: error
+endpoints:
+  - path: /score
+    external_path: /score
+    method: GET
+    description: >
+      SPORTS_SCORE_GENERAL. Pass the caller's full original question verbatim in
+      question, including every team, league, date and time qualifier. Do not
+      replace it with keywords or strip live/current constraints. Answers exact
+      source-published completed scores; exact dated league requests may return
+      multiple games with coverage_complete and unverified_games. Unverified
+      live scores are refused rather than replaced by completed historical games.
+    intents: [SPORTS_SCORE_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: The entire original sports-score question, copied verbatim.
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      minLength: 1
+output_schema:
+  type: object
+  properties:
+    summary: {type: string}
+    league: {type: string}
+    home_team: {type: string}
+    away_team: {type: string}
+    home_score: {type: integer}
+    away_score: {type: integer}
+    score_unit: {type: string}
+    date: {type: string}
+    final: {type: boolean}
+    as_of: {type: string}
+    games: {type: array}
+    coverage_complete: {type: boolean}
+    unverified_games: {type: array}
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents: [SPORTS_SCORE_GENERAL]
