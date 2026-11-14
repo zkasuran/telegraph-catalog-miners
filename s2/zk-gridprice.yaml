@@ -1,0 +1,95 @@
+version: "1"
+kind: miner
+id: 714108
+slug: zk-gridprice
+protocol: generic
+name: ZK CAISO Exact Grid Prices
+description: >-
+  Published CAISO day-ahead USD/MWh prices, with exact hourly UTC selection.
+  Recent NP15/SP15/ZP26 hubs use Kardashev Labs; archive and other exact
+  operator node IDs use Dryos. Missing observations return an error.
+base_url: https://telegraph-s2-caisodam.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /price
+    external_path: /price
+    method: GET
+    description: >-
+      Return the exact CAISO DAM locational marginal price in USD per MWh for
+      node_or_zone and the hourly interval_start. Supports NP15/SP15/ZP26 hub
+      aliases and exact CAISO pricing node identifiers from the Dryos catalogue.
+      Preserve the requested date, node and UTC/Pacific offset. interval_start
+      is the beginning of the hour. Availability depends on the publishers:
+      Dryos archive begins 2026-09-14 and may have gaps; the hub feed is newer.
+      No real-time prices, estimates, averages or substitution to another grid.
+    intents: [GRID_POWER_PRICE_GENERAL]
+    params:
+      query:
+        required:
+          - name: node_or_zone
+            type: string
+            intents: [GRID_POWER_PRICE_GENERAL]
+            description: >-
+              NP15, SP15, ZP26, their exact TH_*_GEN-APND hub identifiers,
+              or another exact CAISO pricing-node ID. CAISO prefix and hub
+              suffix aliases accepted. Do not guess a different node.
+          - name: interval_start
+            type: string
+            intents: [GRID_POWER_PRICE_GENERAL]
+            description: >-
+              Hourly RFC3339 settlement start with Z or the actual Pacific
+              -07:00/-08:00 offset. Example 2026-11-12T08:00:00Z. Preserve
+              seconds/minutes 00 and the requested date. No offset-free dates.
+input_schema:
+  type: object
+  additionalProperties: false
+  required: [node_or_zone, interval_start]
+  properties:
+    node_or_zone: {type: string, maxLength: 100}
+    interval_start:
+      type: string
+      pattern: '^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):00:00(?:\.000)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$'
+output_schema:
+  type: object
+  required: [lmp_usd_per_mwh, node_or_zone, market, interval_start, currency, summary, source, as_of]
+  properties:
+    lmp_usd_per_mwh: {type: number, minimum: -2000, maximum: 20000}
+    node_or_zone: {type: string}
+    market: {type: string, enum: [DAM]}
+    interval_start: {type: string, format: date-time}
+    currency: {type: string, enum: [USD]}
+    summary: {type: string}
+    source: {type: string, format: uri}
+    as_of: {type: string, format: date-time}
+semantics:
+  supported_intents: [GRID_POWER_PRICE_GENERAL]
+  signal_mapping:
+    label_field: lmp_usd_per_mwh
+    reason_field: summary
+intent_mapping:
+  GRID_POWER_PRICE_GENERAL:
+    endpoint: /price
+    input:
+      node_or_zone:
+        from: node_or_zone
+        how: Preserve the requested CAISO pricing-node ID or trading-hub alias.
+      interval_start:
+        from: interval_start
+        how: >-
+          Preserve the exact requested settlement hour and explicit UTC offset.
+          A known Pacific date/hour uses its actual -07:00/-08:00 offset or Z.
+          Never replace a historical time with the current hour.
+    output:
+      lmp_usd_per_mwh: {path: lmp_usd_per_mwh, unit: USD per MWh}
+      node_or_zone: {path: node_or_zone}
+      market: {path: market}
+      interval_start: {path: interval_start}
+      currency: {path: currency}
+errors:
+  code_path: error.code
+  message_path: error.message
