@@ -1,0 +1,95 @@
+version: "1"
+kind: miner
+id: 7031509
+slug: zk-transit-evidence
+protocol: generic
+name: ZK Transit Evidence
+description: >
+  Source-backed airport context for a route or booking reference. Reservation state
+  is explicitly unverified: locked, price, currency and expires_at are null because
+  this service has no authenticated airline or agency reservation record. Resolves
+  unambiguous global IATA/ICAO codes and exact airport names from the public-domain
+  OurAirports reference, then reads official NOAA/NWS Aviation Weather Center METAR
+  observations with their timestamps. Weather never implies a booking confirmation,
+  seat availability or a protected connection. No language model is used.
+base_url: https://telegraph-trip.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://aviationweather.gov/data/api/
+input_schema:
+  type: object
+  properties:
+    booking:
+      type: string
+      description: Route, airport or booking reference; preserve the reference verbatim.
+  required: [booking]
+output_schema:
+  type: object
+  properties:
+    route:
+      type: [string, "null"]
+    locked:
+      type: [boolean, "null"]
+      description: Null means unverified, never false or released.
+    price:
+      type: [number, "null"]
+    currency:
+      type: [string, "null"]
+    expires_at:
+      type: [string, "null"]
+    summary:
+      type: string
+    confidence:
+      type: number
+      description: Zero confidence in unverified reservation state, independent of sourced weather.
+    as_of:
+      type: string
+    airport_conditions:
+      type: array
+endpoints:
+  - path: /transit-lock
+    external_path: /transit-lock
+    method: GET
+    intents: [TRAVEL_TRANSIT_LOCK_GENERAL]
+    description: >
+      Preserve the full route or booking reference as booking. Returns explicit
+      unknown reservation status and independently sourced global airport METAR
+      context. Does not access a reservation system or infer a lock from weather.
+    params:
+      query:
+        required:
+          - name: booking
+            type: string
+            intents: ["*"]
+            description: Full route, airport or booking reference, verbatim.
+semantics:
+  supported_intents: [TRAVEL_TRANSIT_LOCK_GENERAL]
+  signal_mapping:
+    label_field: summary
+    reason_field: reason
+    confidence_field: confidence
+intent_mapping:
+  TRAVEL_TRANSIT_LOCK_GENERAL:
+    endpoint: /transit-lock
+    input:
+      booking:
+        from: booking
+        how: Preserve the reference verbatim; never invent a booking identifier or status.
+    output:
+      route:
+        path: route
+      locked:
+        path: locked
+        how: Null is unknown and must remain missing; never coerce null to false.
+      price:
+        path: price
+        unit: currency units
+      currency:
+        path: currency
+      expires_at:
+        path: expires_at
