@@ -1,0 +1,84 @@
+version: "1"
+kind: miner
+id: 732080
+slug: zk-carr-network
+protocol: generic
+name: ZK Source-Verified Postal Networks
+description: >-
+  USPS United States and Royal Mail Great Britain published postal networks,
+  supported by public policy and separately validated postcodes. Licensed Chunghwa
+  Post Taiwan domestic-express coverage and international EMS network/limit checks.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Published postal-network coverage. USPS: area must be exactly a five-digit
+      US ZIP in one of the 50 states or DC; network policy comes from 39 USC 101(a)
+      and 403(b)(1), separately from the GeoNames/Zippopotam postcode record.
+      Royal Mail: area must be a complete Great Britain postcode, e.g. SW1A 1AA,
+      EC1A 1BB, EH1 1YZ or CF10 1EP; public universal-service policy comes from
+      HMRC and Ofcom, separately from Postcodes.io. These return country-network
+      coverage, not delivery to an individual address, a current disruption check,
+      parcel product, weight/dimensions, dangerous goods, origin lane, customs
+      or shipment acceptance. Northern Ireland BT postcodes need a commercial
+      licence and are unsupported; military and Crown-dependency postcodes are
+      also unsupported. Missing postcode records abstain, never imply false.
+      Taiwan: carrier Chunghwa Post or 中華郵政, with domestic express explicitly
+      specified for negative exclusions. area is a three-digit district code,
+      unique Chinese county/city and district, source-listed street/address or
+      exact settlement. Finite numeric/parity and subnumber rules retain their
+      original meaning. International: carrier must explicitly name Chunghwa
+      Post international EMS, Chunghwa Post EMS or 中華郵政國際快捷; area is a
+      source-listed Chinese/English country, optionally followed by supplied
+      ;weight_kg=N and/or ;box_cm=LxWxH. EMS table is freshly reconciled; hard-limit
+      violations prove exclusion, but satisfying measurements alone abstains.
+      Preserve all carrier/product, address, date and shipment context. Do not
+      substitute a supported carrier or drop restrictions to get a verdict.
+      Returns carrier, area, serviceable Boolean, services and exact public evidence.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: ["*"]
+            description: >-
+              Actual requested carrier, preserved verbatim: USPS, United States
+              Postal Service, Royal Mail, Chunghwa Post, or an explicit Chunghwa
+              domestic-express/EMS product. Preserve other product/context rather
+              than silently converting it. Maximum 256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: ["*"]
+            description: >-
+              Complete requested area and context. USPS: only a five-digit US ZIP;
+              Royal Mail: complete Great Britain postcode; Chunghwa: supported
+              Taiwan district/address/settlement or exact EMS destination-country
+              name, preserving explicitly supplied measurements. Do not strip
+              address/date/shipment constraints. Maximum 256 UTF-8 bytes.
+semantics:
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve the actual carrier, requested product and context verbatim.
+      area:
+        from: area
+        how: Preserve the complete area/address/postcode and all shipment/date context; never discard restrictions.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
