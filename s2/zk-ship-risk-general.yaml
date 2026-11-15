@@ -1,0 +1,111 @@
+version: "1"
+kind: miner
+id: 76552
+slug: zk-ship-risk-general
+protocol: generic
+name: ShipWire General Shipment Delay Evidence
+description: >
+  SHIPMENT_DELAY_RISK_GENERAL routing configuration for the existing ShipWire
+  worker. Verified public port calls and supported carrier advisories return
+  source evidence and its limits. Vessel arrival times do not establish a
+  shipment delivery commitment, a calibrated delay probability or a risk grade.
+  Unsupported requests retain the existing worker's MiniMax model fallback;
+  this configuration does not certify those generated assessments as source
+  truth. The response's legacy intent tag is SHIPMENT_DELAY_RISK, the family
+  serving the canonical SHIPMENT_DELAY_RISK_GENERAL intent. This is a new
+  identity and does not replace or modify the registered ShipWire YAML.
+base_url: https://telegraph-ship.margyn.workers.dev
+
+auth:
+  type: none
+
+docs:
+  documentation: https://telegraph-ship.margyn.workers.dev/
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  required: [shipment]
+  properties:
+    shipment:
+      type: string
+      minLength: 1
+      maxLength: 8000
+      description: >
+        The entire shipment, route or tracking description, verbatim. Include
+        actual source references when available. An arbitrary tracking number
+        alone is not access to a proprietary carrier tracking feed.
+
+output_schema:
+  type: object
+  required: [intent, verdict, summary]
+  properties:
+    intent:
+      type: string
+      enum: [SHIPMENT_DELAY_RISK]
+      description: Legacy family tag; routing is SHIPMENT_DELAY_RISK_GENERAL.
+    verdict:
+      type: string
+      description: >
+        Existing worker verdict. Insufficient Information is not one of the
+        canonical low/moderate/high/severe grades and is not mapped to one.
+    summary:
+      type: string
+      description: Existing assessment or verified source evidence and its limits.
+    factors:
+      type: array
+      items:
+        type: object
+      description: Source evidence objects when the source handler supplies them.
+    source:
+      type: string
+    source_lookup:
+      type: string
+    as_of:
+      type: string
+    model:
+      type: string
+      description: none for source-only replies; otherwise the existing provider model.
+
+endpoints:
+  - path: /shipment-delay-risk
+    external_path: /shipment-delay-risk
+    method: GET
+    description: >
+      Assess SHIPMENT_DELAY_RISK_GENERAL using the full shipment description as
+      ?shipment=, copied verbatim. Verified public evidence states its source
+      and limits; do not infer a parcel-delivery outcome from a vessel arrival.
+    intents: [SHIPMENT_DELAY_RISK_GENERAL]
+    params:
+      query:
+        required:
+          - name: shipment
+            type: string
+            intents: [SHIPMENT_DELAY_RISK_GENERAL]
+            description: The full shipment input verbatim, not an invented or shortened scenario.
+
+semantics:
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+  supported_intents: [SHIPMENT_DELAY_RISK_GENERAL]
+
+intent_mapping:
+  SHIPMENT_DELAY_RISK_GENERAL:
+    endpoint: /shipment-delay-risk
+    input:
+      shipment:
+        from: shipment
+        how: Copy the entire shipment input verbatim; do not summarize or invent tracking information.
+    output:
+      summary:
+        path: summary
+      factors:
+        path: factors
+# risk_level and delay_probability are deliberately unmapped: the verified
+# source-only replies do not supply either field. Missing evidence must remain
+# missing rather than turning "Insufficient Information" into a false grade.
