@@ -1,0 +1,83 @@
+version: "1"
+kind: miner
+id: 791352
+slug: zk-uptime-evidence
+protocol: generic
+name: GuardWire Uptime Evidence
+description: >-
+  One public HTTP(S) endpoint observation plus attributable official provider
+  status and incident evidence when supported. Accepts the caller's full question
+  and optional explicit URL; never substitutes an unrelated provider for a target.
+  Reports immediate HTTP status, time to response headers, redirect scope and
+  worker vantage. Historical incident-response records and publisher calendars
+  are distinguished from independently measured uptime and contractual SLA.
+base_url: https://telegraph-guard.margyn.workers.dev
+auth:
+  type: none
+docs:
+  documentation: https://telegraph-guard.margyn.workers.dev/
+rate_limit_per_sec: 2
+cache_ttl_sec: 0
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+input_schema:
+  type: object
+  required: [question]
+  properties:
+    question:
+      type: string
+      minLength: 1
+      maxLength: 2048
+      description: Full caller question, verbatim, naming one public endpoint or supported provider.
+    url:
+      type: string
+      maxLength: 2048
+      description: Optional exact HTTP(S) URL, public hostname or supported service name. An explicit URL overrides target inference from the question.
+output_schema:
+  type: object
+  required: [answer, summary, url, host, up, reachable, available, healthy, as_of]
+  properties:
+    answer: {type: string, description: Source-backed answer with explicit observation and publisher scope.}
+    summary: {type: string, description: Same source-backed text as answer.}
+    url: {type: string, description: Exact observed URL after native normalization.}
+    host: {type: string}
+    up: {type: boolean, description: Legacy boolean meaning the endpoint answered.}
+    reachable: {type: boolean}
+    available: {type: boolean, description: An immediate HTTP response below 500.}
+    healthy: {type: boolean, description: Immediate HTTP 200-399; not proof of downstream application health.}
+    status_code: {type: [integer, "null"]}
+    response_time_ms: {type: [integer, "null"], description: Time to HTTP response headers in milliseconds.}
+    as_of: {type: string}
+    source: {type: string}
+    service: {type: [object, "null"], description: Attributed official provider status when available.}
+    uptime_percentage: {type: "null", description: Independent historical measurement is unavailable.}
+endpoints:
+  - path: /uptime
+    external_path: /uptime
+    method: GET
+    description: >-
+      Pass the complete caller question verbatim in question. Optionally pass its
+      exact target in url. Supports one public HTTP(S) target or one named
+      provider, including GitHub, Cloudflare, Discord, DigitalOcean, Vercel, npm,
+      Claude, Coinbase, Render, Netlify, Twilio, Bitbucket, Jira, Dropbox, Zoom,
+      Sentry, CircleCI, Asana, Trello and Slack. Date/window wording requests
+      source-backed incident history; unknown uptime percentages remain null.
+    intents: [SERVER_UPTIME_MONITOR_GENERAL]
+    params:
+      query:
+        required:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: The caller's complete question, verbatim; it must name the target if url is omitted.
+        optional:
+          - name: url
+            type: string
+            intents: ["*"]
+            description: Exact HTTP(S) URL, public hostname or named service to observe.
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: answer
+    reason_field: answer
+  supported_intents: [SERVER_UPTIME_MONITOR_GENERAL]
