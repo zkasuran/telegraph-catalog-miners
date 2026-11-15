@@ -1,0 +1,89 @@
+version: "1"
+kind: miner
+id: 714115
+slug: zk-gridresilient
+protocol: generic
+name: ZK Resilient CAISO Day-Ahead Prices
+description: Exact published CAISO DAM USD/MWh observations with independent collector checks, caller-safe bounded single-flight, short publisher outage backoff and explicit gap/conflict reporting.
+base_url: https://telegraph-s2-caisodam.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+endpoints:
+  - path: /price
+    external_path: /price
+    method: GET
+    description: Return the exact CAISO day-ahead LMP in USD per MWh at the requested operator node and hourly settlement instant. NP15, SP15, ZP26, DLAP_PGAE, DLAP_SCE, DLAP_SDGE, TH_PACE_GEN and exact operator IDs are supported where observations exist. Compare supported hubs across two public collectors within a four-second caller-local source-check budget. A later caller may retry an inherited shortened deadline once using a shared sequential fetch. Transport failures and 5xx responses pause new requests to that collector for five seconds across the isolate and, best effort, the data center; cached observations remain available. Disclose a missing or timed-out second collector as single_source; conflicts return 502/null and missing observations 404/null. Never infer a missing node or substitute a different market, region or date.
+    intents: [GRID_POWER_PRICE_GENERAL]
+    params:
+      query:
+        required:
+          - name: node_or_zone
+            type: string
+            intents: [GRID_POWER_PRICE_GENERAL]
+            description: Exact CAISO operator ID or listed unambiguous alias. NP15, SP15, ZP26, TH_NP15_GEN, TH_SP15_GEN, TH_ZP26_GEN, DLAP_PGAE, DLAP_SCE, DLAP_SDGE and TH_PACE_GEN map to explicitly listed operator IDs. Never choose a node for an incomplete question.
+          - name: interval_start
+            type: string
+            intents: [GRID_POWER_PRICE_GENERAL]
+            description: Offset-aware RFC3339 timestamp resolving to an exact UTC settlement hour. Accept Z/z, T/t, known offsets and one through nine zero fractional digits. Half/quarter-hour local representations must resolve to a UTC hour. Preserve historical instants and distinguish repeated daylight-saving hours by their offset.
+input_schema:
+  type: object
+  required: [node_or_zone, interval_start]
+  additionalProperties: false
+  properties:
+    node_or_zone: {type: string, minLength: 2, maxLength: 100}
+    interval_start:
+      type: string
+      maxLength: 64
+      pattern: '^\d{4}-\d{2}-\d{2}[Tt](?:[01]\d|2[0-3]):[0-5]\d:00(?:\.0{1,9})?(?:[Zz]|[+-](?:[01]\d|2[0-3]):[0-5]\d)$'
+output_schema:
+  type: object
+  required: [lmp_usd_per_mwh, node_or_zone, market, interval_start, currency, summary, source, as_of, verification]
+  properties:
+    lmp_usd_per_mwh: {type: number, minimum: -2000, maximum: 20000}
+    node_or_zone: {type: string}
+    market: {type: string, enum: [DAM]}
+    interval_start: {type: string, format: date-time}
+    currency: {type: string, enum: [USD]}
+    summary: {type: string}
+    source: {type: string, format: uri}
+    as_of: {type: string, format: date-time}
+    verification:
+      type: object
+      required: [status, observations, attempts, precision_decimals, checked_at]
+      properties:
+        status: {type: string, enum: [corroborated, single_source]}
+        observations: {type: array, minItems: 1, maxItems: 2, items: {type: object}}
+        attempts: {type: array, minItems: 1, maxItems: 2, items: {type: object}}
+        precision_decimals: {type: integer, const: 6}
+        checked_at: {type: string, format: date-time}
+intent_mapping:
+  GRID_POWER_PRICE_GENERAL:
+    endpoint: /price
+    input:
+      node_or_zone:
+        from: node_or_zone
+        how: Preserve the requested exact CAISO node or a listed unambiguous alias. Never choose a node for an incomplete question.
+      interval_start:
+        from: interval_start
+        how: Preserve the requested offset-aware settlement instant resolving to a UTC hour, including zero fractions and historical time; never replace it with now.
+    output:
+      lmp_usd_per_mwh: {path: lmp_usd_per_mwh, unit: USD per MWh}
+      node_or_zone: {path: node_or_zone}
+      market: {path: market}
+      interval_start: {path: interval_start}
+      currency: {path: currency}
+semantics:
+  supported_intents: [GRID_POWER_PRICE_GENERAL]
+  signal_mapping:
+    label_field: lmp_usd_per_mwh
+    reason_field: summary
+errors:
+  message_path: error.message
+  code_path: error.code
+docs:
+  website: https://kardashevlabs.org/
+  documentation: https://www.dryos.ai/data/caiso/dam-lmp
