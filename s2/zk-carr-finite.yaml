@@ -1,0 +1,104 @@
+version: "1"
+kind: miner
+id: 732079
+slug: zk-carr-finite
+protocol: generic
+name: ZK Chunghwa Post Literal Coverage
+description: >-
+  Licensed Chunghwa Post domestic-express area coverage: full districts, explicit
+  street and number rules, finite address lists including literal subnumbers,
+  and exactly named settlement exclusions. International EMS networks and
+  published weight/rectangular-box exclusions are cross-checked with the carrier.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: message
+  code_path: error
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Check published carrier coverage for Chunghwa Post only. For Taiwan,
+      carrier is Chunghwa Post or 中華郵政; negative exclusions require the
+      explicit product Chunghwa Post domestic express or 中華郵政國內快捷.
+      area is a three-digit Taiwan district code, a unique Chinese county/city
+      and district, a source-listed street/address, or an exact source-named
+      settlement. Finite house-number lists enumerate only the listed values,
+      including explicit subnumbers. Number ranges preserve parity and bounds;
+      exact parity-qualified numbers are not ranges. Parenthesized settlement
+      aliases support only exact listed places, not an entire qualified village.
+      Examples: 新竹縣竹東鎮生產街18號, 苗栗縣苑裡鎮介壽路51之50號,
+      苗栗縣通宵鎮竹林路226號, 新竹縣竹東鎮荳子埔,
+      澎湖縣白沙鄉鳥嶼漁港新村. These are published domestic-express exclusions,
+      never claims about all postal services or address existence.
+      International carrier is Chunghwa Post international EMS, Chunghwa Post
+      EMS or 中華郵政國際快捷. area is an exact source-listed Chinese/English
+      country, optionally followed by ;weight_kg=N and/or ;box_cm=LxWxH for a
+      rectangular box. Returns a country-network verdict or a proven published
+      hard-limit exclusion; satisfying measurements alone is not shipment
+      acceptance. Examples: Japan, Guatemala. No supported Boolean is returned
+      for unmatched carriers, unknown areas, unresolved rules, source
+      disagreements, extra date/holiday/commodity context, or unproven shipment
+      acceptance. Preserve all context. Returns carrier, area, serviceable
+      Boolean, services, original carrier evidence, attribution and retrieval time.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: ["*"]
+            description: >-
+              Preserve the full Chunghwa Post carrier/product verbatim. Domestic
+              express must be explicit for domestic exclusions; international
+              requests require EMS explicitly. Maximum 256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: ["*"]
+            description: >-
+              Preserve the complete Taiwan district, source-listed street/address
+              or exact settlement, or the exact EMS destination country. Preserve
+              subnumbers and all shipment/date context. Maximum 256 UTF-8 bytes.
+semantics:
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve the actual carrier and explicit product and context; never substitute Chunghwa Post for another carrier.
+      area:
+        from: area
+        how: Preserve the complete area, address, section, number, subnumber, settlement and any context verbatim.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
+input_schema:
+  type: object
+  required: [carrier, area]
+  properties:
+    carrier: {type: string, minLength: 1, maxLength: 256}
+    area: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [carrier, area, serviceable, services, summary, source, as_of]
+  properties:
+    carrier: {type: string}
+    area: {type: string}
+    serviceable: {type: boolean}
+    services: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: object}
+    as_of: {type: string}
