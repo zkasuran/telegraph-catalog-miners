@@ -1,0 +1,84 @@
+version: '1'
+kind: miner
+id: 732081
+slug: zk-carr-postal
+protocol: generic
+name: ZK Sourced Postal Networks
+description: Source-backed country-level postal networks for Japan Post, Canada Post,
+  USPS, Royal Mail and Chunghwa Post; exact postcode membership and product-scoped
+  Taiwan rules. Published coverage, not address or shipment acceptance.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+endpoints:
+- path: /serviceability
+  external_path: /serviceability
+  method: GET
+  description: 'Japan Post: complete seven-digit Japanese postcode, with optional
+    hyphen or postal marker; Japan Postal Act articles 1/2 and Japan Post Act article
+    5 establish the carrier network. Exact match against all 120,721 ordinary-address
+    postcodes in the dated 2026-10-30 Japan Post publication; absent or expired snapshot
+    entries use the current ordinary-address API. Business-specific missing records
+    abstain, never imply false. Canada Post: complete six-character Canadian postcode;
+    exact membership of all 899,779 unique codes in the dated licensed GeoNames CA_full
+    snapshot, never just a three-character FSA approximation. Source retrieval date
+    and hash are exposed; expired Canadian snapshots abstain. These establish country-level
+    postal networks only, not delivery to a particular address, current disruptions,
+    EMS or parcel-product availability, dangerous-goods acceptance, shipment measurements,
+    customs or origin lanes. USPS and Royal Mail keep their published country-network
+    and validated-postcode scope (US 50 states/DC and Great Britain only); BT, military
+    and Crown-dependency cases abstain. Chunghwa Post preserves supported Taiwan district/address/settlement
+    domestic-express rules and explicit international EMS country networks and hard-limit
+    exclusions; passing shipment measurements alone abstains. Preserve the actual
+    carrier/product, complete area and all shipment/date context; never substitute
+    a supported carrier or drop restrictions to obtain a Boolean.'
+  intents:
+  - CARRIER_SERVICEABILITY_GENERAL
+  params:
+    query:
+      required:
+      - name: carrier
+        type: string
+        intents:
+        - '*'
+        description: 'Actual carrier preserved verbatim: Japan Post, 日本郵便, Canada
+          Post, Canada Post Corporation, Postes Canada, USPS, Royal Mail, Chunghwa
+          Post or its supported explicit product. Never drop another requested product/context.
+          Maximum 256 UTF-8 bytes.'
+      - name: area
+        type: string
+        intents:
+        - '*'
+        description: 'Complete area and context, preserved verbatim. Japan Post: seven
+          digits, optionally hyphenated or prefixed by 〒. Canada Post: complete A1A
+          1A1 postcode. Other carriers retain their documented registered source scope.
+          No partial-code approximation or dropping address/date/shipment context.
+          Maximum 256 UTF-8 bytes.'
+semantics:
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+  supported_intents:
+  - CARRIER_SERVICEABILITY_GENERAL
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve the actual carrier, requested product and context verbatim.
+      area:
+        from: area
+        how: Preserve the complete area/address/postcode and all shipment/date context;
+          never discard restrictions.
+    output:
+      carrier:
+        path: carrier
+      area:
+        path: area
+      serviceable:
+        path: serviceable
+      services:
+        path: services
