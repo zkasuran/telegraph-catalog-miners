@@ -1,0 +1,88 @@
+version: "1"
+kind: miner
+id: 732084
+slug: zk-carr-au
+protocol: generic
+name: ZK Australia Post Corroborated Letter Network
+description: >-
+  Source-backed Australia Post national letter-network coverage using the July
+  2026 ACCC report and exact GeoNames postcodes corroborated by ABS ASGS2021
+  postal areas. Dated geography, literal source records, attribution and policy
+  quotation are supplied. This is country-level letters coverage, not individual
+  address delivery, disruptions, express or parcel-product acceptance.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth:
+  type: none
+cache_ttl_sec: 60
+rate_limit_per_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: message
+  code_path: error
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Check published Australia Post national letter-network coverage. Supply the
+      actual carrier and an exact four-digit Australian postcode. Australia Post,
+      AusPost and Australian Postal Corporation are accepted; explicit express,
+      parcel, origin, date and shipment context need separate evidence. Codes must
+      be listed in GeoNames and independently present in ABS ASGS2021 geographic
+      postal areas. Returns carrier, area, serviceable Boolean and ordinary-letter
+      service with literal geographic records and licensed policy evidence.
+      Missing, uncorroborated, external-territory and expired snapshot entries
+      abstain with HTTP422 and no Boolean. Never truncate an address, remove a
+      shipment constraint or substitute this carrier for another.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: Preserve the complete actual carrier; Australia Post, AusPost or Australian Postal Corporation only. Maximum 256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: Complete four-digit Australian postcode only, preserving leading zeroes. No addresses, products, dates or shipment context. Maximum 256 UTF-8 bytes.
+semantics:
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+  signal_mapping:
+    label_field: serviceable
+    reason_field: summary
+input_schema:
+  type: object
+  required: [carrier, area]
+  properties:
+    carrier: {type: string, minLength: 1, maxLength: 256}
+    area: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [carrier, area, serviceable, services, summary, source, postcode_source, postcode_crosscheck, as_of]
+  properties:
+    carrier: {type: string}
+    area: {type: string}
+    serviceable: {type: boolean}
+    services: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: object}
+    postcode_source: {type: object}
+    postcode_crosscheck: {type: object}
+    as_of: {type: string}
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve the actual carrier and any product context verbatim. Only the stated Australia Post national letter-network scope is supported.
+      area:
+        from: area
+        how: Preserve the exact four-digit postcode including leading zeroes; never remove address, product, date or shipment context to force a match.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
