@@ -1,0 +1,105 @@
+version: '1'
+kind: miner
+id: 78138
+slug: zk-policy-seven
+protocol: generic
+name: Seven source-verified retailer return policies
+description: Current source-checked policy facts for Purism, Arduino, OLIMEX, Framework,
+  Adafruit, SparkFun and System76 only. Preserves date bases, product/category exceptions,
+  conflicting source statements and attribution. System76 is published United States
+  scope with a primary-only numeric window; no purchase eligibility or international
+  applicability is inferred.
+base_url: https://telegraph-trip.margyn.workers.dev
+rate_limit_per_sec: 1
+cache_ttl_sec: 60
+endpoints:
+- path: /retailer-return-policy-v2
+  external_path: /retailer-return-policy-v2
+  method: GET
+  intents:
+  - RETURN_POLICY_VERIFY_GENERAL
+  description: Current source-checked policy facts for Purism, Arduino, OLIMEX, Framework,
+    Adafruit, SparkFun and System76 only. Preserves date bases, product/category exceptions,
+    conflicting source statements and attribution. System76 is published United States
+    scope with a primary-only numeric window; no purchase eligibility or international
+    applicability is inferred. Canonical retailer-only GET; unreviewed retailers or
+    contextual purchases fail without guessed days.
+  params:
+    query:
+      required:
+      - name: retailer
+        type: string
+        intents:
+        - RETURN_POLICY_VERIFY_GENERAL
+        description: 'Exact retailer name, official domain or reviewed document URL:
+          Purism, Arduino, OLIMEX, Framework, Adafruit, SparkFun or System76. Maximum
+          256 UTF-8 bytes.'
+input_schema:
+  type: object
+  required:
+  - retailer
+  properties:
+    retailer:
+      type: string
+      description: 'Exact retailer name, official domain or reviewed document URL:
+        Purism, Arduino, OLIMEX, Framework, Adafruit, SparkFun or System76. Maximum
+        256 UTF-8 bytes.'
+output_schema:
+  type: object
+  required:
+  - retailer
+  - return_window_days
+  - conditions
+  - verified
+  - sources
+  properties:
+    retailer:
+      type: string
+    return_window_days:
+      type: integer
+      minimum: 0
+      maximum: 3650
+    conditions:
+      type: array
+      items:
+        type: string
+    verified:
+      type: boolean
+    sources:
+      type: array
+      items:
+        type: string
+    summary:
+      type: string
+semantics:
+  supported_intents:
+  - RETURN_POLICY_VERIFY_GENERAL
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  RETURN_POLICY_VERIFY_GENERAL:
+    endpoint: /retailer-return-policy-v2
+    input:
+      retailer:
+        from: retailer
+        how: Retain the named retailer or its exact official domain/document. Only
+          Purism, Arduino, OLIMEX, Framework, Adafruit, SparkFun and System76 are
+          supported. Do not substitute another retailer or infer a purchase-specific
+          window.
+    output:
+      retailer:
+        path: retailer
+      return_window_days:
+        path: return_window_days
+        unit: days
+      conditions:
+        path: conditions
+      verified:
+        path: verified
+      sources:
+        path: sources
+errors:
+  code_path: error
+auth:
+  type: none
