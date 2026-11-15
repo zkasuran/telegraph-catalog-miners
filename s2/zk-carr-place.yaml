@@ -1,0 +1,92 @@
+version: "1"
+kind: miner
+id: 732085
+slug: zk-carr-place
+protocol: generic
+name: ZK Australia Post Exact Locality Letter Network
+description: >-
+  Source-backed Australia Post national letter-network coverage with exact
+  locality, state and postcode matching. The full source label must agree with
+  the dated GeoNames records and its code with ABS ASGS2021 postal areas.
+  Reports ordinary-letter network only, with ACCC July2026 policy evidence.
+  Does not establish individual-address delivery or shipment acceptance.
+base_url: https://telegraph-s2-carr.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 60
+rate_limit_per_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+errors:
+  message_path: message
+  code_path: error
+endpoints:
+  - path: /serviceability
+    external_path: /serviceability
+    method: GET
+    description: >-
+      Check published Australia Post national ordinary-letter network coverage.
+      Preserve the actual carrier: Australia Post, AusPost or Australian Postal
+      Corporation. area may be an exact four-digit Australian postcode, a complete
+      source-listed locality/state/postcode label, a postcode followed by its
+      exact locality/state, or a unique exact locality optionally with state.
+      Examples: Sydney NSW 2000, Melbourne VIC 3000, Darwin NT 0800,
+      2000 Sydney NSW, Darwin City NT. State full names or abbreviations are
+      checked against the source. Localities occurring at multiple postcodes
+      abstain rather than guess. Codes must be in both GeoNames and ABS ASGS2021;
+      missing, uncorroborated, external-territory or expired source records abstain.
+      Input leading zeroes and full-width forms are preserved. No fuzzy matching,
+      address stripping, carrier substitution or dropping date/product/shipment
+      constraints. Return carrier, area, serviceable and ordinary-letter services
+      with literal source records, policy, attribution and dated provenance.
+      Country-level letter network only, not address existence, express/parcel
+      products, current disruptions, origin lanes or shipment acceptance.
+    intents: [CARRIER_SERVICEABILITY_GENERAL]
+    params:
+      query:
+        required:
+          - name: carrier
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: Preserve complete actual carrier and product/context. Only Australia Post, AusPost or Australian Postal Corporation is supported here. Maximum 256 UTF-8 bytes.
+          - name: area
+            type: string
+            intents: [CARRIER_SERVICEABILITY_GENERAL]
+            description: Preserve complete postcode or exact source locality/state/postcode label, including leading zeroes. A locality without a postcode must resolve uniquely. Preserve all address/date/product/shipment context; unsupported context abstains. Maximum 256 UTF-8 bytes.
+semantics:
+  supported_intents: [CARRIER_SERVICEABILITY_GENERAL]
+  signal_mapping: {label_field: serviceable, reason_field: summary}
+input_schema:
+  type: object
+  required: [carrier, area]
+  properties:
+    carrier: {type: string, minLength: 1, maxLength: 256}
+    area: {type: string, minLength: 1, maxLength: 256}
+output_schema:
+  type: object
+  required: [carrier, area, serviceable, services, summary, source, postcode_source, postcode_crosscheck, as_of]
+  properties:
+    carrier: {type: string}
+    area: {type: string}
+    serviceable: {type: boolean}
+    services: {type: array, items: {type: string}}
+    summary: {type: string}
+    source: {type: object}
+    postcode_source: {type: object}
+    postcode_crosscheck: {type: object}
+    area_resolution: {type: object}
+    as_of: {type: string}
+intent_mapping:
+  CARRIER_SERVICEABILITY_GENERAL:
+    endpoint: /serviceability
+    input:
+      carrier:
+        from: carrier
+        how: Preserve actual complete carrier and any product or shipment context verbatim. Never replace a different carrier with Australia Post.
+      area:
+        from: area
+        how: Preserve complete area, locality, state and postcode including leading zeroes, plus all address/date/product/shipment constraints. Never truncate an address or remove context to obtain a supported match.
+    output:
+      carrier: {path: carrier}
+      area: {path: area}
+      serviceable: {path: serviceable}
+      services: {path: services}
