@@ -1,0 +1,68 @@
+version: "1"
+kind: miner
+id: 7310830
+slug: zk-shipask
+protocol: generic
+name: ZK Source-Verified Shipping Questions
+description: >
+  Deterministic shipping-question parsing backed by published 2026 La Poste and
+  Chronopost tariffs. Numeric prices and conditional delivery dates come from
+  retained licensed rows and government calendars, never a language model.
+  Limited prepaid-package lanes and capacities; contents must fit. Unsupported
+  or conflicting countries receive no numeric quote. Not a booking or a
+  cheapest-carrier comparison.
+base_url: https://telegraph-s2-shiptariff.margyn.workers.dev
+auth: {type: none}
+cache_ttl_sec: 0
+rate_limit_per_sec: 2
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+docs:
+  documentation: https://data.laposte.fr/datasets/tarifs-postaux-particuliers-2026
+endpoints:
+  - path: /shipping
+    external_path: /shipping
+    method: GET
+    intents: [SHIP_RATE_ETA_GENERAL]
+    description: >
+      Supply one query containing the original shipping route and mass. Supported
+      English syntax: "Quote a shipping rate and estimated delivery date from
+      Paris, France to Berlin, Germany for a parcel weighing 2 kg" or "Ship a
+      2000 g parcel from Paris, France to Berlin, Germany". Preserve every stated
+      country and postcode; never invent one. Alternatively query is a JSON object
+      with exactly origin, destination and numeric weight_kg. Explicit French/English
+      country names and ISO codes are resolved by the underlying checked lookup.
+      Metropolitan France origins: domestic Colissimo up to 5 kg, Chrono 13 up to
+      12 kg; EU up to 5 kg; UK, Canada, Japan, Australia, Switzerland, Norway,
+      Singapore, China, Brazil, South Korea, Iceland, Hong Kong, Thailand and Vietnam
+      up to 7 kg. Eight priced OM1 territories up to 7 kg. Guadeloupe/Martinique
+      return to metropolitan France up to 7 kg. Goods must fit the prepaid package.
+      The answer field contains the named product, exact source price, conditional
+      ETA, limitations and source URL. A generic source window is not a country-
+      specific delivery promise. Unknown lanes/conflicting locations return status
+      unquoted with no rate. Query parse failures return HTTP 400. Tariffs/calendars
+      end in 2026. Requested dispatch dates or other carriers are not substituted.
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: [SHIP_RATE_ETA_GENERAL]
+            description: >
+              Original shipping question preserving route/country/postcode and
+              one mass in kg, g or lb (max 2048 characters). Use the documented
+              from ORIGIN to DESTINATION syntax, or canonical origin/destination/
+              weight_kg JSON. No facts or geography may be added to the question.
+input_schema:
+  type: object
+  required: [query]
+  properties:
+    query: {type: string, minLength: 1, maxLength: 2048}
+semantics:
+  supported_intents: [SHIP_RATE_ETA_GENERAL]
+  signal_mapping: {label_field: answer, reason_field: summary}
+errors:
+  message_path: error.message
+  code_path: error.code
+  status_path: status
+  success_values: [quoted]
