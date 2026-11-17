@@ -1,0 +1,95 @@
+{
+  "canonical_intent": "SATELLITE_IMAGERY_ANALYSIS_GENERAL",
+  "contributor": "0xDB6c6340342e71A63cD11Ebac2185204b7777777",
+  "created_at": "2026-11-17T05:15:49.758032Z",
+  "fresh_node_observation": {
+    "activation_epoch": 2070,
+    "contributors_required_for_question_use": 5,
+    "corpus_version": "05b637487aac315fe9f61929fa6468652cae763baf1bc74be04f3edea2e975b0",
+    "current_epoch": 2111,
+    "eligible_contributors": 2,
+    "eligible_own_rows": 197,
+    "identity_check": "Keccak-256 of compact UTF-8 JSON containing prompt, chosen and rejected in that order; all hashes exactly match node metadata.",
+    "identity_set_sha256": "b83cbc00fbc2814b749647c8aac31a7594283be465e195c1a36e03fb4aca066f",
+    "matched_row_identities": 197,
+    "metadata_complete": true,
+    "own_metadata_sha256": "b3fe21cbe257d72b9bf06bd3b129c95405e97dea56a07bbdabb5a54ceaedfd80",
+    "own_metadata_url": "https://devnode.telegraphprotocol.com/api/evalpool/submissions/mine?intent_id=SATELLITE_IMAGERY_ANALYSIS_GENERAL&submitter=0xDB6c6340342e71A63cD11Ebac2185204b7777777&limit=5000&offset=0",
+    "pool_rows": 230,
+    "pool_sha256": "e99fd193c3ebd30f4253b716e216996834389845a3e6b146d3b962c47049c965",
+    "pool_url": "https://devnode.telegraphprotocol.com/api/evalpool/status?intent_id=SATELLITE_IMAGERY_ANALYSIS_GENERAL",
+    "schema_sha256": "9e157432fa3c9ddc7bfcb1c6094878f216a8d496d1dc9e55ba80cbdb8d9c66e6",
+    "schema_url": "https://devnode.telegraphprotocol.com/engine/v1/intents/SATELLITE_IMAGERY_ANALYSIS_GENERAL"
+  },
+  "material": {
+    "bytes": 150494,
+    "distribution": "Protected evaluation samples remain private.",
+    "kind": "preference_pair",
+    "provenance_class": "attested",
+    "rows": 197,
+    "sha256": "95b0392a002ac1153cc80584c2af998d3ad5d915c70af71721b844e3c25bd649",
+    "source_kind": "dataset"
+  },
+  "mission": {
+    "issue": 194,
+    "name": "Resources & Agriculture",
+    "url": "https://github.com/telegraphprotocol/bounties/issues/194"
+  },
+  "observed_at": "2026-11-17T05:15:48.493972Z",
+  "operator_groups": 1,
+  "pending": [
+    "Coordinator publishes only this public-safe receipt and its fact summary, never the pair file or raw review samples.",
+    "Coordinator coordinates the individual material entry in mission 194 and completes the official H2 entry separately.",
+    "Question use still requires independent contributor coverage: the pool has two, not five. This does not block reporting eligible material."
+  ],
+  "readiness": "READY_FOR_MISSION_MATERIAL_SUBMISSION_ONLY",
+  "receipt_type": "unsigned_observation_manifest",
+  "related_miner_operator": "0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287",
+  "review": {
+    "human_review_claimed": false,
+    "new_raster_review_in_this_run": false,
+    "record_sha256": "f1c2219a01b6f26c8a249cc872c059cd78a503b430fda2180fb57aff47fd7c2e",
+    "recorded_at": "2026-11-11T09:34:13Z",
+    "reviewed_material_sha256": "95b0392a002ac1153cc80584c2af998d3ad5d915c70af71721b844e3c25bd649",
+    "sampled": 30,
+    "verdict": "PASS"
+  },
+  "rights": {
+    "attribution": "Contains modified Copernicus Sentinel data 2021.",
+    "legal_notice_sha256": "fa2955ff48a1d82e77fc7296d63681670ecdb9d2811a0505ae60d0683b62fa64",
+    "legal_notice_url": "https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice",
+    "permission_quote": "(a) reproduction; (b) distribution; (c) communication to the public; (d) adaptation, modification and combination with other data and information; (e) any combination of points (a) to (d).",
+    "source": "ESA/Copernicus Sentinel; COG delivery Element 84"
+  },
+  "scope": {
+    "answer_field": "brief",
+    "capture_dates": [
+      "2021-06-06",
+      "2021-06-08"
+    ],
+    "constructed_negatives": "Disclosed other-date, neighbouring-window and band-order substitutions.",
+    "does_not_claim": [
+      "current crop health",
+      "yield or carrying-capacity prediction",
+      "cloud-free imagery",
+      "completed app or paid mission workflow",
+      "active use by rankings",
+      "new adapter or champion"
+    ],
+    "maximum_answer_characters": 64,
+    "measurement": "NDVI of mean red and near-infrared reflectances over 1 km Sentinel-2 windows",
+    "tile": "MGRS 10SEH"
+  },
+  "signature": null,
+  "source_urls": [
+    "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_10SEH_20210606_0_L2A",
+    "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2A_10SEH_20210608_0_L2A",
+    "https://science.nasa.gov/earth/earth-observatory/measuring-vegetation-ndvi-evi/"
+  ],
+  "upload_receipt": {
+    "body_sha256": "95b0392a002ac1153cc80584c2af998d3ad5d915c70af71721b844e3c25bd649",
+    "http": 200,
+    "new_upload_in_this_run": false,
+    "recorded_at": "2026-11-11T09:45:12.144181+00:00"
+  }
+}
