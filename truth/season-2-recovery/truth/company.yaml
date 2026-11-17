@@ -1,0 +1,97 @@
+# GLEIF LEI data: CC0-1.0. Terms II.3 https://www.gleif.org/en/meta/lei-data-terms-of-use
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Copyright 2026 zkasuran. Telegraph may copy, store and use this unmodified descriptor and enclosing JSONL row as evaluation material.
+# DEPLOYMENT CANDIDATE. The URL is reserved in this packet, not verified deployed. Do not upload yet.
+# Shared deployment candidate. New truth routes are not yet deployed or admitted.
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Copyright (c) 2026 zkasuran
+# 
+# Supplemental shared-deployment evaluation permission, 2026-11-17
+# 
+# The licensor permits Telegraph Protocol, its node operators, validators and
+# reviewers to store, reproduce, pin, share and execute this exact source package
+# and its three unsigned truth-source YAML and JSONL descriptors for evaluation,
+# ranking, audit and reproduction. Configuration and descriptor routing changes
+# necessary for protocol transport and an existing free account are permitted.
+# The licensor's coordinator may publish this exact licensor-authored package and
+# deploy the dispatcher on the licensor's existing telegraph-s2-hashprice Worker.
+# 
+# This permission covers the dispatcher and the unmodified licensor-authored
+# original, corporate, onchain and hashprice modules. Their existing LICENSE,
+# NOTICE and evaluation permission texts remain in force. This supplemental grant
+# does not withdraw any prior grant. It does not permit a competing miner, sale of
+# upstream RPC access or changes to the source modules.
+# 
+# Public facts are not claimed as exclusive software property. Upstream service
+# terms remain applicable. No license to upstream software, website content or
+# protected evaluation material is granted. This permission is unsigned prepared
+# material. It is not a signature, upload receipt, admission or human review.
+version: '1'
+kind: miner
+id: 0
+slug: truth-corporate-exact-gleif
+protocol: generic
+name: Exact corporate entity status from the Global LEI Index
+description: Keyless normalization of GLEIF entity status for one exact company and
+  registration jurisdiction. Missing, ambiguous, stale and failed queries return non-success
+  HTTP status with no active field. No national good-standing or incorporation-date
+  claim.
+base_url: https://telegraph-s2-hashprice.margyn.workers.dev/truth/v1
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+endpoints:
+- path: /company
+  external_path: /company
+  method: GET
+  description: Read the exact legal name, bare LEI or registry identifier in the requested
+    jurisdiction. Preserve company verbatim including punctuation. Registry IDs may
+    be numeric or explicitly RA000000:identifier. Supply jurisdiction as ISO country/subdivision
+    code or a supported country alias. No brand or fuzzy lookup.
+  intents:
+  - CORPORATE_REGISTRY_LOOKUP_GENERAL
+  params:
+    query:
+      required:
+      - name: company
+        type: string
+        intents:
+        - '*'
+        description: Exact legal name, LEI or registry identifier, at most 256 UTF-8
+          bytes.
+      - name: jurisdiction
+        type: string
+        intents:
+        - '*'
+        description: Country or subdivision of registration, at most 256 UTF-8 bytes.
+semantics:
+  supported_intents:
+  - CORPORATE_REGISTRY_LOOKUP_GENERAL
+  signal_mapping:
+    label_field: active
+intent_mapping:
+  CORPORATE_REGISTRY_LOOKUP_GENERAL:
+    endpoint: /company
+    input:
+      company:
+        from: company
+        how: Preserve the exact company name or identifier verbatim.
+      jurisdiction:
+        from: jurisdiction
+        how: Preserve the registration jurisdiction.
+    output:
+      active:
+        path: active
+        how: Copy the Boolean verbatim.
+      legal_name:
+        path: legal_name
+      registration_id:
+        path: registration_id
+      jurisdiction:
+        path: jurisdiction
+      registered_address:
+        path: registered_address
+errors:
+  message_path: error.message
+  code_path: error.code

@@ -1,0 +1,1508 @@
+{
+  "request": {
+    "id": "ambiguous",
+    "company": "VALE S.R.L.",
+    "jurisdiction": "IT",
+    "http": 409
+  },
+  "url": "https://api.gleif.org/api/v1/lei-records?filter%5Bentity.legalName%5D=VALE+S.R.L.&page%5Bsize%5D=100",
+  "status": 200,
+  "fetched_at": "2026-11-17T00:34:40.461Z",
+  "elapsed_ms": 444,
+  "content_type": "application/vnd.api+json",
+  "sha256": "46832cd1ba932c518f0a5965d34e4069f68412eabe52f4c61552c121bd6223d6",
+  "bytes": 28080,
+  "body_representation": "Unmodified public HTTP body",
+  "raw_file": "ambiguous.raw.json",
+  "data_license": "CC0-1.0",
+  "source_attribution": "GLEIF Global LEI Index",
+  "document": {
+    "meta": {
+      "goldenCopy": {
+        "publishDate": "2026-11-16T16:00:00Z"
+      },
+      "pagination": {
+        "currentPage": 1,
+        "perPage": 100,
+        "from": 1,
+        "to": 11,
+        "total": 11,
+        "lastPage": 1
+      }
+    },
+    "links": {
+      "first": "https://api.gleif.org/api/v1/lei-records?filter%5Bentity.legalName%5D=VALE+S.R.L.&page%5Bnumber%5D=1&page%5Bsize%5D=100",
+      "last": "https://api.gleif.org/api/v1/lei-records?filter%5Bentity.legalName%5D=VALE+S.R.L.&page%5Bnumber%5D=1&page%5Bsize%5D=100"
+    },
+    "data": [
+      {
+        "type": "lei-records",
+        "id": "81560032C5882F5ED505",
+        "attributes": {
+          "lei": "81560032C5882F5ED505",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA DI CASTELSECCO, 15"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "AREZZO",
+              "region": "IT-AR",
+              "country": "IT",
+              "postalCode": "52100"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA DI CASTELSECCO, 15"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "AREZZO",
+              "region": "IT-AR",
+              "country": "IT",
+              "postalCode": "52100"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "02528100510",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2026-02-23T23:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2026-03-26T16:51:28Z",
+            "lastUpdateDate": "2026-03-26T16:51:28Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-03-26T16:51:28Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "02528100510",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "1992333159"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560032C5882F5ED505/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560032C5882F5ED505/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560032C5882F5ED505/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560032C5882F5ED505/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560032C5882F5ED505/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/81560032C5882F5ED505"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "894500OK9IUB7DLU9J06",
+        "attributes": {
+          "lei": "894500OK9IUB7DLU9J06",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it",
+              "addressLines": [
+                "VIA PORLEZZA, 8"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "MILANO (MI)",
+              "region": null,
+              "country": "IT",
+              "postalCode": "20123"
+            },
+            "headquartersAddress": {
+              "language": "it",
+              "addressLines": [
+                "VIA PORLEZZA, 8"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "MILANO (MI)",
+              "region": null,
+              "country": "IT",
+              "postalCode": "20123"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "13277350966",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2023-12-12T22:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2025-12-04T10:58:10Z",
+            "lastUpdateDate": "2026-10-07T06:13:07Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-12-04T10:58:06Z",
+            "managingLou": "529900F6BNUR3RJ2WH29",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "13277350966",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "1973114006"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/894500OK9IUB7DLU9J06/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/894500OK9IUB7DLU9J06/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/894500OK9IUB7DLU9J06/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/894500OK9IUB7DLU9J06/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/894500OK9IUB7DLU9J06/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/894500OK9IUB7DLU9J06"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "8156008ABB1B5A1B9105",
+        "attributes": {
+          "lei": "8156008ABB1B5A1B9105",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA AGOSTINO BERTANI, 6"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "MILANO",
+              "region": "IT-MI",
+              "country": "IT",
+              "postalCode": "20154"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA AGOSTINO BERTANI, 6"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "MILANO",
+              "region": "IT-MI",
+              "country": "IT",
+              "postalCode": "20154"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "13773670966",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2024-10-01T22:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2024-10-23T10:26:01Z",
+            "lastUpdateDate": "2026-11-05T15:32:06Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-11-06T12:14:06Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "13773670966",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "1901820848"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/8156008ABB1B5A1B9105/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/8156008ABB1B5A1B9105/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/8156008ABB1B5A1B9105/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/8156008ABB1B5A1B9105/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/8156008ABB1B5A1B9105/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/8156008ABB1B5A1B9105"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "815600505BFA2A089073",
+        "attributes": {
+          "lei": "815600505BFA2A089073",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA NORFALINI, 1"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "MONTEBELLO DELLA BATTAGLIA",
+              "region": "IT-PV",
+              "country": "IT",
+              "postalCode": "27054"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA NORFALINI, 1"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "MONTEBELLO DELLA BATTAGLIA",
+              "region": "IT-PV",
+              "country": "IT",
+              "postalCode": "27054"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "01307820181",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "1988-04-07T22:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2024-08-05T11:50:27Z",
+            "lastUpdateDate": "2026-08-03T13:51:09Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-08-05T11:50:27Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "01307820181",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "687839777"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600505BFA2A089073/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600505BFA2A089073/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600505BFA2A089073/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600505BFA2A089073/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600505BFA2A089073/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/815600505BFA2A089073"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "81560055EC635A706380",
+        "attributes": {
+          "lei": "81560055EC635A706380",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA TIBERINA KM 19,300, SNC"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "FIANO ROMANO",
+              "region": "IT-RM",
+              "country": "IT",
+              "postalCode": "00065"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA TIBERINA KM 19,300, SNC"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "FIANO ROMANO",
+              "region": "IT-RM",
+              "country": "IT",
+              "postalCode": "00065"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "15396931006",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2019-08-27T22:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2023-11-29T13:45:16Z",
+            "lastUpdateDate": "2026-10-01T07:10:20Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-11-29T13:45:16Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "15396931006",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "707225942"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560055EC635A706380/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560055EC635A706380/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560055EC635A706380/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560055EC635A706380/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560055EC635A706380/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/81560055EC635A706380"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "9845007F49V42F1Z9604",
+        "attributes": {
+          "lei": "9845007F49V42F1Z9604",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it",
+              "addressLines": [
+                "VIA CADUTI DI NASSIRIYA 5"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "CAMPEGINE",
+              "region": "IT-RE",
+              "country": "IT",
+              "postalCode": "42040"
+            },
+            "headquartersAddress": {
+              "language": "it",
+              "addressLines": [
+                "VIA CADUTI DI NASSIRIYA 5"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "CAMPEGINE",
+              "region": "IT-RE",
+              "country": "IT",
+              "postalCode": "42040"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "00960850352",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "1981-05-10T00:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2023-10-02T14:29:07Z",
+            "lastUpdateDate": "2026-08-08T07:33:41Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-10-02T14:29:13Z",
+            "managingLou": "529900T8BM49AURSDO55",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "00960850352",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "688049469"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/9845007F49V42F1Z9604/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/9845007F49V42F1Z9604/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/9845007F49V42F1Z9604/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/9845007F49V42F1Z9604/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/9845007F49V42F1Z9604/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/9845007F49V42F1Z9604"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "815600236138B24D0717",
+        "attributes": {
+          "lei": "815600236138B24D0717",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA UMBERTO GIORDANO, 3/B"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "SENIGALLIA",
+              "region": "IT-AN",
+              "country": "IT",
+              "postalCode": "60019"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA UMBERTO GIORDANO, 3/B"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "SENIGALLIA",
+              "region": "IT-AN",
+              "country": "IT",
+              "postalCode": "60019"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "01557650429",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "1999-01-24T23:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": [
+              {
+                "groupType": "STANDALONE",
+                "events": [
+                  {
+                    "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                    "effectiveDate": "2024-02-27T23:00:00Z",
+                    "recordedDate": "2024-02-29T01:53:02Z",
+                    "type": "CHANGE_LEGAL_FORM",
+                    "status": "COMPLETED"
+                  }
+                ]
+              }
+            ]
+          },
+          "registration": {
+            "initialRegistrationDate": "2023-02-02T09:12:22Z",
+            "lastUpdateDate": "2025-12-05T08:02:12Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-02-02T09:12:22Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "01557650429",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "182427874"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600236138B24D0717/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600236138B24D0717/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600236138B24D0717/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600236138B24D0717/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600236138B24D0717/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/815600236138B24D0717"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "81560047AA15B2CB4C61",
+        "attributes": {
+          "lei": "81560047AA15B2CB4C61",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA CHIAPPITTO, 19"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "ALATRI",
+              "region": "IT-FR",
+              "country": "IT",
+              "postalCode": "03011"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA CHIAPPITTO, 19"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "ALATRI",
+              "region": "IT-FR",
+              "country": "IT",
+              "postalCode": "03011"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "03154120608",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "BL52",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2021-05-12T22:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2022-04-21T08:47:57Z",
+            "lastUpdateDate": "2023-04-21T08:47:57Z",
+            "status": "LAPSED",
+            "nextRenewalDate": "2023-04-21T08:47:57Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "03154120608",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "1783648858"
+          ],
+          "conformityFlag": "NON_CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "815600AE2D204A011F75",
+        "attributes": {
+          "lei": "815600AE2D204A011F75",
+          "entity": {
+            "legalName": {
+              "name": "VALE S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA DANIELE PICCININI, 2"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "BERGAMO",
+              "region": "IT-BG",
+              "country": "IT",
+              "postalCode": "24122"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "VIA DANIELE PICCININI, 2"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "BERGAMO",
+              "region": "IT-BG",
+              "country": "IT",
+              "postalCode": "24122"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "04421130164",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "INACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": "815600B491ADCA737C06",
+              "name": null
+            },
+            "successorEntities": [
+              {
+                "lei": "815600B491ADCA737C06"
+              }
+            ],
+            "creationDate": null,
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": [
+              {
+                "groupType": "STANDALONE",
+                "events": [
+                  {
+                    "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                    "effectiveDate": "2020-12-27T23:00:00Z",
+                    "recordedDate": "2020-12-29T01:19:17Z",
+                    "type": "MERGERS_AND_ACQUISITIONS",
+                    "status": "COMPLETED",
+                    "affectedFields": [
+                      {
+                        "value": "815600B491ADCA737C06",
+                        "xpath": "/lei:LEIData/lei:LEIRecords/lei:LEIRecord/lei:Entity/lei:SuccessorEntity/lei:SuccessorLEI"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "registration": {
+            "initialRegistrationDate": "2020-01-22T09:04:14Z",
+            "lastUpdateDate": "2020-12-29T01:19:17Z",
+            "status": "RETIRED",
+            "nextRenewalDate": "2021-01-22T09:04:14Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "04421130164",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "653149694"
+          ],
+          "conformityFlag": "NOT_APPLICABLE"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/ultimate-parent-reporting-exception"
+            }
+          },
+          "successor-entity": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/successor-entity"
+            }
+          },
+          "successor-entities": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/successor-entities"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "8156006CC33367149156",
+        "attributes": {
+          "lei": "8156006CC33367149156",
+          "entity": {
+            "legalName": {
+              "name": "VALE GROUP S.R.L.",
+              "language": "it-IT"
+            },
+            "otherNames": [
+              {
+                "name": "VALE GROUP S.R.L.S.",
+                "language": "it-IT",
+                "type": "PREVIOUS_LEGAL_NAME"
+              }
+            ],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "ZONA INDUSTRIALE PREDDA NIEDDA STR. 18, 11"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "SASSARI",
+              "region": "IT-SS",
+              "country": "IT",
+              "postalCode": "07100"
+            },
+            "headquartersAddress": {
+              "language": "it-IT",
+              "addressLines": [
+                "ZONA INDUSTRIALE PREDDA NIEDDA STR. 18, 11"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "SASSARI",
+              "region": "IT-SS",
+              "country": "IT",
+              "postalCode": "07100"
+            },
+            "registeredAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "registeredAs": "02896660905",
+            "jurisdiction": "IT",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "OV32",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2022-01-26T23:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": [
+              {
+                "groupType": "STANDALONE",
+                "events": [
+                  {
+                    "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                    "effectiveDate": "2026-09-09T22:00:00Z",
+                    "recordedDate": "2026-09-11T01:51:47Z",
+                    "type": "CHANGE_LEGAL_ADDRESS",
+                    "status": "COMPLETED"
+                  }
+                ]
+              },
+              {
+                "groupType": "STANDALONE",
+                "events": [
+                  {
+                    "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                    "effectiveDate": "2026-09-09T22:00:00Z",
+                    "recordedDate": "2026-09-11T01:51:47Z",
+                    "type": "CHANGE_HQ_ADDRESS",
+                    "status": "COMPLETED"
+                  }
+                ]
+              },
+              {
+                "groupType": "STANDALONE",
+                "events": [
+                  {
+                    "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                    "effectiveDate": "2024-09-09T22:00:00Z",
+                    "recordedDate": "2024-09-11T00:55:01Z",
+                    "type": "CHANGE_LEGAL_NAME",
+                    "status": "COMPLETED"
+                  }
+                ]
+              },
+              {
+                "groupType": "STANDALONE",
+                "events": [
+                  {
+                    "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                    "effectiveDate": "2024-09-09T22:00:00Z",
+                    "recordedDate": "2024-09-11T00:55:01Z",
+                    "type": "CHANGE_LEGAL_FORM",
+                    "status": "COMPLETED"
+                  }
+                ]
+              }
+            ]
+          },
+          "registration": {
+            "initialRegistrationDate": "2023-06-13T11:05:32Z",
+            "lastUpdateDate": "2026-09-11T01:51:47Z",
+            "status": "ISSUED",
+            "nextRenewalDate": "2027-06-13T11:05:32Z",
+            "managingLou": "815600EAD78C57FCE690",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000407",
+              "other": null
+            },
+            "validatedAs": "02896660905",
+            "otherValidationAuthorities": []
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": null,
+          "gem": null,
+          "spglobal": [
+            "1843352792"
+          ],
+          "conformityFlag": "CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/8156006CC33367149156/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/8156006CC33367149156/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/8156006CC33367149156/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/8156006CC33367149156/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/8156006CC33367149156/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/8156006CC33367149156"
+        }
+      },
+      {
+        "type": "lei-records",
+        "id": "984500D67FD396006853",
+        "attributes": {
+          "lei": "984500D67FD396006853",
+          "entity": {
+            "legalName": {
+              "name": "VALE TECHNIK S.R.L.",
+              "language": "ro"
+            },
+            "otherNames": [],
+            "transliteratedOtherNames": [],
+            "legalAddress": {
+              "language": "ro",
+              "addressLines": [
+                "Strada CETĂŢII, Nr. 19"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "Cisnădie",
+              "region": "RO-SB",
+              "country": "RO",
+              "postalCode": "555300"
+            },
+            "headquartersAddress": {
+              "language": "ro",
+              "addressLines": [
+                "Strada CETĂŢII, Nr. 19"
+              ],
+              "addressNumber": null,
+              "addressNumberWithinBuilding": null,
+              "mailRouting": null,
+              "city": "Cisnădie",
+              "region": "RO-SB",
+              "country": "RO",
+              "postalCode": "555300"
+            },
+            "registeredAt": {
+              "id": "RA000497",
+              "other": null
+            },
+            "registeredAs": "J32/2415/2022",
+            "jurisdiction": "RO",
+            "category": "GENERAL",
+            "legalForm": {
+              "id": "XHN1",
+              "other": null
+            },
+            "associatedEntity": {
+              "lei": null,
+              "name": null
+            },
+            "status": "ACTIVE",
+            "expiration": {
+              "date": null,
+              "reason": null
+            },
+            "successorEntity": {
+              "lei": null,
+              "name": null
+            },
+            "successorEntities": [],
+            "creationDate": "2022-11-08T00:00:00Z",
+            "subCategory": null,
+            "otherAddresses": [],
+            "eventGroups": []
+          },
+          "registration": {
+            "initialRegistrationDate": "2023-05-02T08:05:25Z",
+            "lastUpdateDate": "2026-05-02T08:19:59Z",
+            "status": "LAPSED",
+            "nextRenewalDate": "2026-05-02T08:09:33Z",
+            "managingLou": "529900T8BM49AURSDO55",
+            "corroborationLevel": "FULLY_CORROBORATED",
+            "validatedAt": {
+              "id": "RA000497",
+              "other": null
+            },
+            "validatedAs": "J32/2415/2022",
+            "otherValidationAuthorities": [
+              {
+                "validatedAt": {
+                  "id": "RA000719"
+                },
+                "validatedAs": "47142001"
+              }
+            ]
+          },
+          "bic": null,
+          "mic": null,
+          "ocid": null,
+          "qcc": "QRO3BE7TKM",
+          "gem": null,
+          "spglobal": [
+            "1836897126"
+          ],
+          "conformityFlag": "NON_CONFORMING"
+        },
+        "relationships": {
+          "managing-lou": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/984500D67FD396006853/managing-lou"
+            }
+          },
+          "lei-issuer": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/984500D67FD396006853/lei-issuer"
+            }
+          },
+          "field-modifications": {
+            "links": {
+              "related": "https://api.gleif.org/api/v1/lei-records/984500D67FD396006853/field-modifications"
+            }
+          },
+          "direct-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/984500D67FD396006853/direct-parent-reporting-exception"
+            }
+          },
+          "ultimate-parent": {
+            "links": {
+              "reporting-exception": "https://api.gleif.org/api/v1/lei-records/984500D67FD396006853/ultimate-parent-reporting-exception"
+            }
+          }
+        },
+        "links": {
+          "self": "https://api.gleif.org/api/v1/lei-records/984500D67FD396006853"
+        }
+      }
+    ]
+  },
+  "normalized_http": 409,
+  "normalized": {
+    "error": {
+      "code": "ambiguous_identity",
+      "message": "No usable reference. No Boolean answer is supplied."
+    }
+  }
+}

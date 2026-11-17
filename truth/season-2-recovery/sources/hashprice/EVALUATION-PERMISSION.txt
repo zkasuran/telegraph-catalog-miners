@@ -1,0 +1,28 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+Additional Telegraph evaluation permission, version 1, 2026-11-17.
+
+Notwithstanding the no-redistribution and no-modification terms in LICENSE,
+zkasuran grants Telegraph Protocol, its node operators, validators and reviewers
+a perpetual, worldwide, non-exclusive, royalty-free right to store, reproduce,
+pin, distribute and execute the exact truth-source YAML and JSONL submitted from
+this bundle as Telegraph evaluation material. They may transform the descriptor
+only as needed for parsing, transport, storage and protocol compatibility.
+They may call the free reference endpoint and store, reproduce, distribute and
+use its numerical results for testing, ranking, verification and audit.
+
+Reviewers may keep and share the exact source bundle for audit and reproduction.
+Node operators may deploy the exact worker for non-competing Telegraph evaluation
+use, retaining LICENSE, NOTICE, DATA-SOURCES.md and this permission. Necessary
+operational configuration changes to an existing free account are permitted.
+No rights to compete as a miner or to resell upstream endpoint access are granted.
+The reference endpoint is free evaluation infrastructure, not a paid data product.
+
+Public Bitcoin facts are not claimed as our exclusive property. Third-party
+service terms remain applicable. This permission covers only our own rights.
+It does not confer a license to upstream software, website content or datasets.
+Earlier copies under different grants retain their original terms.
+
+The unsigned file is prepared material. This permission is not an upload,
+signature, node-admission receipt or claim of human review.

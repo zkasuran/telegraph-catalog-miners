@@ -1,0 +1,65 @@
+{
+  "status": "envelope_patch_verified_locally_deployed_cause_unproven",
+  "upload_ready": false,
+  "reported_failing_method": "getblockhash",
+  "reported_subrequests": 1,
+  "reported_failure_is_local_envelope_guard": true,
+  "actual_deployed_envelope_observed": false,
+  "legacy_response_observed_in_canaries": false,
+  "canary_requests": 6,
+  "canary_standard_2_0_replies": 6,
+  "causes_fixed": [
+    "Local envelope-check failures previously dropped the observed HTTP status",
+    "Documented markerless correlated legacy replies were rejected by a 2.0-only check"
+  ],
+  "causes_unknown": [
+    "Which envelope field failed on the deployed PublicNode response",
+    "Whether the deployed edge encountered a legacy response or a proxy-altered envelope"
+  ],
+  "accepted_shapes": [
+    "JSON-RPC 2.0 with exact numeric id 1 and exclusive result/error",
+    "Markerless legacy with exact numeric id 1 and both result/error, the unused member null"
+  ],
+  "metadata": [
+    "envelope_jsonrpc",
+    "envelope_id",
+    "envelope_id_type",
+    "envelope_id_matches",
+    "result_present",
+    "error_present",
+    "top_level_type",
+    "http_status"
+  ],
+  "foreign_ids_and_remote_messages_echoed": false,
+  "retry_policy_changed": false,
+  "proof_checks_changed": false,
+  "tests": {
+    "tests": 175,
+    "failed": 0,
+    "skipped": 0,
+    "npm_audit_findings": 0,
+    "live_rerun": true,
+    "all_passed": true
+  },
+  "mutation_controls_caught": 3,
+  "incremental_patch": {
+    "file": "HASHPRICE-ENVELOPE.patch",
+    "bytes": 7274,
+    "sha256": "d7f9d2acfe9db7557c67037d436b73af19c5783b60bdf593f38ced8532399536"
+  },
+  "module": {
+    "file": "worker.mjs",
+    "before": {
+      "bytes": 12249,
+      "sha256": "656a8a8ead5f14d7dd696a9e53ebbc832d8c17033e57e147ffa51b7415b036ab"
+    },
+    "after": {
+      "bytes": 16158,
+      "sha256": "1efa601379c8c121ac80c924b1a49dc27480c3e914cec73589604e000505fb10"
+    }
+  },
+  "deployed_this_turn": false,
+  "credentials_accessed": false,
+  "signed": false,
+  "uploaded": false
+}

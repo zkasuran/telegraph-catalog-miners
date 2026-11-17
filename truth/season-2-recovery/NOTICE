@@ -1,0 +1,31 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+All included runtime source is the licensor's own source. Eight copied modules
+retain their exact hashes. Each component's original notices and licence text
+are retained in its sources directory. There is no compiled binary wrap.
+
+GLEIF reference data is CC0-1.0, under LEI Data Terms II.3. No endorsement.
+Onchain services are Nodies, dRPC and Allnodes PublicNode. Hashprice truth uses
+Allnodes PublicNode. Their quoted access clauses and limits are recorded in the
+component DATA-SOURCES.md files. No upstream service software is copied.
+
+Bitcoin Wiki contributors, Difficulty, CC BY 3.0, revision 70582. Bitcoin Core
+developers, v29.0, MIT research source. Gavin Andresen, BIP 34. These are
+protocol references, not embedded upstream implementations.
+
+Wrangler 4.163.0 (MIT OR Apache-2.0), workerd (Apache-2.0) and ESLint 10.15.0
+(MIT) are verification tools. Their installations and notices remain outside
+this source package. No dependency installation or paid tier is required.
+
+Original service behavior retains its existing upstreams. Data-republication
+clearance for those services remains unsettled. No original response archive
+is included. The supplemental evaluation grant covers only the licensor's rights.
+
+AI assistance: OpenCode, agentrouter/gpt-6.1-sol. No human review is claimed.
+
+[CF-REQUEST] Cloudflare, Request runtime reference:
+https://developers.cloudflare.com/workers/runtime-apis/request/
+Read 2026-11-17. Workers rejects redirect:error. workers-fetch.mjs maps it to
+manual and rejects HTTP redirects for corporate and onchain injection hooks.
+No runtime documentation text or Cloudflare implementation is embedded.

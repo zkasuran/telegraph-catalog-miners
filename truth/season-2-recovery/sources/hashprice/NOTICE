@@ -1,0 +1,26 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+Our hashprice arithmetic functions reuse our own zk-hashprice source at the
+backup commit pinned in REUSE.json. No third-party compiled artifact is wrapped.
+
+Bitcoin mainnet facts are transported by Allnodes PublicNode under its terms.
+The endpoint is a free evaluation reference and must not be sold as a data API.
+Internal corroboration used BlockCypher. Its response bodies are not published.
+
+Protocol references: Bitcoin Core developers, version v29.0, under MIT for the
+research source. Bitcoin Wiki contributors, Difficulty, CC BY 3.0, revision 70582.
+Gavin Andresen, BIP 34, Block v2, Height in Coinbase. No copied protocol code is
+embedded in the runtime. References are keyed in bibliography.json.
+
+Verification tools retain their own notices: Cloudflare Wrangler, MIT OR
+Apache-2.0; Cloudflare workerd, Apache-2.0; OpenJS Foundation ESLint, MIT.
+Tool packages are not included as worker source or vendored runtime code.
+
+Additional Telegraph evaluation permission is in EVALUATION-PERMISSION.txt.
+Response-envelope rules: Bitcoin Core developers, JSON-RPC Interface v29.0;
+JSON-RPC.ORG, JSON-RPC 1.0 Specification (2005); JSON-RPC Working Group,
+JSON-RPC 2.0 Specification (2007-2010). These documents explicitly permit use to
+implement JSON-RPC. No specification body or third-party parser code is embedded.
+No license change withdraws rights already granted on older artifacts.
+AI assistance: OpenCode, agentrouter/gpt-6.1-sol. No human review is claimed.

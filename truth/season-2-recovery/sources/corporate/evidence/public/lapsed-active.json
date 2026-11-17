@@ -1,0 +1,172 @@
+{
+  "request": {
+    "id": "lapsed-active",
+    "company": "81560047AA15B2CB4C61",
+    "jurisdiction": "IT",
+    "http": 200,
+    "active": true
+  },
+  "url": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61",
+  "status": 200,
+  "fetched_at": "2026-11-17T00:34:38.915Z",
+  "elapsed_ms": 247,
+  "content_type": "application/vnd.api+json",
+  "sha256": "1ed7b598a67a414be60870560fe3dba4592a8e6777d9daa35e8451ea64348f4b",
+  "bytes": 2393,
+  "body_representation": "Unmodified public HTTP body",
+  "raw_file": "lapsed-active.raw.json",
+  "data_license": "CC0-1.0",
+  "source_attribution": "GLEIF Global LEI Index",
+  "document": {
+    "meta": {
+      "goldenCopy": {
+        "publishDate": "2026-11-16T16:00:00Z"
+      }
+    },
+    "data": {
+      "type": "lei-records",
+      "id": "81560047AA15B2CB4C61",
+      "attributes": {
+        "lei": "81560047AA15B2CB4C61",
+        "entity": {
+          "legalName": {
+            "name": "VALE S.R.L.",
+            "language": "it-IT"
+          },
+          "otherNames": [],
+          "transliteratedOtherNames": [],
+          "legalAddress": {
+            "language": "it-IT",
+            "addressLines": [
+              "VIA CHIAPPITTO, 19"
+            ],
+            "addressNumber": null,
+            "addressNumberWithinBuilding": null,
+            "mailRouting": null,
+            "city": "ALATRI",
+            "region": "IT-FR",
+            "country": "IT",
+            "postalCode": "03011"
+          },
+          "headquartersAddress": {
+            "language": "it-IT",
+            "addressLines": [
+              "VIA CHIAPPITTO, 19"
+            ],
+            "addressNumber": null,
+            "addressNumberWithinBuilding": null,
+            "mailRouting": null,
+            "city": "ALATRI",
+            "region": "IT-FR",
+            "country": "IT",
+            "postalCode": "03011"
+          },
+          "registeredAt": {
+            "id": "RA000407",
+            "other": null
+          },
+          "registeredAs": "03154120608",
+          "jurisdiction": "IT",
+          "category": "GENERAL",
+          "legalForm": {
+            "id": "BL52",
+            "other": null
+          },
+          "associatedEntity": {
+            "lei": null,
+            "name": null
+          },
+          "status": "ACTIVE",
+          "expiration": {
+            "date": null,
+            "reason": null
+          },
+          "successorEntity": {
+            "lei": null,
+            "name": null
+          },
+          "successorEntities": [],
+          "creationDate": "2021-05-12T22:00:00Z",
+          "subCategory": null,
+          "otherAddresses": [],
+          "eventGroups": []
+        },
+        "registration": {
+          "initialRegistrationDate": "2022-04-21T08:47:57Z",
+          "lastUpdateDate": "2023-04-21T08:47:57Z",
+          "status": "LAPSED",
+          "nextRenewalDate": "2023-04-21T08:47:57Z",
+          "managingLou": "815600EAD78C57FCE690",
+          "corroborationLevel": "FULLY_CORROBORATED",
+          "validatedAt": {
+            "id": "RA000407",
+            "other": null
+          },
+          "validatedAs": "03154120608",
+          "otherValidationAuthorities": []
+        },
+        "bic": null,
+        "mic": null,
+        "ocid": null,
+        "qcc": null,
+        "gem": null,
+        "spglobal": [
+          "1783648858"
+        ],
+        "conformityFlag": "NON_CONFORMING"
+      },
+      "relationships": {
+        "managing-lou": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/managing-lou"
+          }
+        },
+        "lei-issuer": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/lei-issuer"
+          }
+        },
+        "field-modifications": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/field-modifications"
+          }
+        },
+        "direct-parent": {
+          "links": {
+            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/direct-parent-reporting-exception"
+          }
+        },
+        "ultimate-parent": {
+          "links": {
+            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61/ultimate-parent-reporting-exception"
+          }
+        }
+      },
+      "links": {
+        "self": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61"
+      }
+    }
+  },
+  "normalized_http": 200,
+  "normalized": {
+    "active": true,
+    "legal_name": "VALE S.R.L.",
+    "registration_id": "81560047AA15B2CB4C61",
+    "jurisdiction": "IT",
+    "registered_address": "VIA CHIAPPITTO, 19, ALATRI, IT-FR, IT, 03011",
+    "evidence": {
+      "lei": "81560047AA15B2CB4C61",
+      "authority": "RA000407",
+      "registered_as": "03154120608",
+      "entity_status": "ACTIVE",
+      "lei_registration_status": "LAPSED",
+      "last_update": "2023-04-21T08:47:57Z",
+      "publication": "2026-11-16T16:00:00Z",
+      "fetched_at": "2026-11-17T00:34:38.668Z",
+      "source_url": "https://api.gleif.org/api/v1/lei-records/81560047AA15B2CB4C61",
+      "terms": "GLEIF LEI reference data CC0-1.0; original normalization LicenseRef-zkasuran-SAND-1.0",
+      "scope": "Entity status as reported in the Global LEI Index. No certification of national good standing or incorporation date.",
+      "attribution": "Global Legal Entity Identifier Foundation (GLEIF). No endorsement."
+    }
+  }
+}

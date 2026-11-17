@@ -1,0 +1,186 @@
+{
+  "lineage": "own",
+  "binary_wrap": 0,
+  "license": "LicenseRef-zkasuran-SAND-1.0",
+  "runtime_modules": [
+    {
+      "component": "original",
+      "file": "sources/original/worker.mjs",
+      "sha256": "5b5c66a585ef260179292bdb1ca06b74953cd50fc0f8afdeefcd16dca7faa32b",
+      "bytes": 18040
+    },
+    {
+      "component": "original",
+      "file": "sources/original/coinbase.mjs",
+      "sha256": "c4773fe8011b94ad2df6c0f37af4a1b66c90c87a4179068101abd4683ac677a3",
+      "bytes": 5975
+    },
+    {
+      "component": "corporate",
+      "file": "sources/corporate/worker.mjs",
+      "sha256": "20a9f48f236210623b6ce5041d639a5fbf3e83b62e7380966b836fedbca98b0b",
+      "bytes": 11571
+    },
+    {
+      "component": "onchain",
+      "file": "sources/onchain/worker.mjs",
+      "sha256": "8d853d319dc6dd6d6940c33ab5702f20477d846df0c07fe94ab0cfe1026def6e",
+      "bytes": 12231
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/entry.mjs",
+      "sha256": "20a83b5adaaa26bf124c2d2a0d6cb8a82827c4c8c4988220b13416c4081889ac",
+      "bytes": 390
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/worker.mjs",
+      "sha256": "1efa601379c8c121ac80c924b1a49dc27480c3e914cec73589604e000505fb10",
+      "bytes": 16158
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/core.mjs",
+      "sha256": "cb1ff4d0d8e3a3ac3015b9396c1a6cb340015bed9511d6c37723d71ed0ca127f",
+      "bytes": 5429
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/proof.mjs",
+      "sha256": "3e06b8fe77c2e9f0c6ba0ae503f2fa0325995ad510a6b284bba446cd2a6be11a",
+      "bytes": 5882
+    }
+  ],
+  "current_hashprice_references": [
+    {
+      "file": "sources/hashprice/test-retry.mjs",
+      "sha256": "cf6cb317c4dd5d71873e09bd003b6159ddf6a258b567a6711b8ade5c10431b9c",
+      "bytes": 7372,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/test-worker.mjs",
+      "sha256": "f08c5300a610fdfde08a4ee649bba5da94efaed83a185f04d295d645f2b4a767",
+      "bytes": 12952,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/bibliography.json",
+      "sha256": "755880c4dddbe8025c02c8152f133f189c23177649685a3772d2a6273fdabbb0",
+      "bytes": 10607,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/RELIABILITY.md",
+      "sha256": "e687e848a2eb4aa59eec1f7b684e0bc344068ee2c52a692bd4e9faa8b400633d",
+      "bytes": 3217,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/RELIABILITY-RESULT.json",
+      "sha256": "c1e130ce259e18e07daa476c1e8a52dc1d92e94a41e35ce2f65efe6cc4db76fa",
+      "bytes": 1821,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/HASHPRICE-RELIABILITY.patch",
+      "sha256": "0a93a3aff1499cbf1dacf1fe8edea65a1d4fde1fb1eeba1bbe8c75b8a8f199f0",
+      "bytes": 10646,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/test-envelope.mjs",
+      "sha256": "d44299021f4a9724912eecc2e706ee9d190845fdbb40f4e2df43b2de8e5b8fe6",
+      "bytes": 6896,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/ENVELOPES.md",
+      "sha256": "ea8d98b31d70cf16b8e17b4b54856e6fdcaa229e01fe621d38743d57f1f951ca",
+      "bytes": 3443,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/ENVELOPE-RESULT.json",
+      "sha256": "6af44c640dbe40fb5d183ec0be6267472e46023b138443b267b8cc79c2395bdc",
+      "bytes": 2023,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/HASHPRICE-ENVELOPE.patch",
+      "sha256": "d7f9d2acfe9db7557c67037d436b73af19c5783b60bdf593f38ced8532399536",
+      "bytes": 7274,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/envelope-mutations.py",
+      "sha256": "ef1f0f314ca7d5908f1ee06b37073e52972bebbab7abfee59414a4ddd6f583ab",
+      "bytes": 1979,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/NOTICE",
+      "sha256": "c7b93ef9e4de55d349a6c40cbfbb791a7f5301fc8d08c36780553fb7fb19928a",
+      "bytes": 1552,
+      "current_owner_bytes_match": true
+    },
+    {
+      "file": "sources/hashprice/DATA-SOURCES.md",
+      "sha256": "4e2d016d8b570838be31fd5f097f756c37a652d59ceb6538288ce36b5ac163aa",
+      "bytes": 6244,
+      "current_owner_bytes_match": true
+    }
+  ],
+  "authorized_runtime_change": {
+    "file": "sources/hashprice/worker.mjs",
+    "previous_sha256": "656a8a8ead5f14d7dd696a9e53ebbc832d8c17033e57e147ffa51b7415b036ab",
+    "current_sha256": "1efa601379c8c121ac80c924b1a49dc27480c3e914cec73589604e000505fb10",
+    "owner_result": "sources/hashprice/ENVELOPE-RESULT.json"
+  },
+  "descriptors_unchanged": [
+    {
+      "file": "truth/balance.jsonl",
+      "bytes": 5770,
+      "sha256": "e341640788f31f9fed57e659fb331d5fb5004908582b33ed26757819b159089d"
+    },
+    {
+      "file": "truth/balance.yaml",
+      "bytes": 5396,
+      "sha256": "3a25181882f202a004f66259a2223847704fd8901a010d1f10a8fee206d502ec"
+    },
+    {
+      "file": "truth/company.jsonl",
+      "bytes": 4308,
+      "sha256": "34702602994306b37b3355a8ea3f5562f395b30400444102e15c6d7120b5da34"
+    },
+    {
+      "file": "truth/company.yaml",
+      "bytes": 4019,
+      "sha256": "2b7435f0e25034cf786947e1e0debc685b3eaaafeaf41fa71e1f19fad5800ad4"
+    },
+    {
+      "file": "truth/hashprice.jsonl",
+      "bytes": 6033,
+      "sha256": "eae3bf29d96e6fc09927287ced4bb1d072ec19e8f27c795eb2b504ec331edc9d"
+    },
+    {
+      "file": "truth/hashprice.yaml",
+      "bytes": 5675,
+      "sha256": "ad2ed4a395a16d8797956a465915032169263f59773b4bddb0f50f37216aeed5"
+    }
+  ],
+  "diagnostic_patch_deployed": false,
+  "reliability_fix_empirically_verified": false,
+  "new_deployed_gate_required": true,
+  "retryable_numeric_rpc_codes": [
+    -28
+  ],
+  "delivery": "envelope",
+  "owner_current_test_count": 175,
+  "ai_assistance": {
+    "harness": "OpenCode",
+    "model": "agentrouter/gpt-6.1-sol",
+    "human_review_claimed": false
+  }
+}

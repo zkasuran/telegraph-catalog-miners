@@ -1,0 +1,24 @@
+{
+  "_license": "LicenseRef-zkasuran-SAND-1.0",
+  "files": {
+    "LICENSE": {
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447"
+    },
+    "NOTICE.md": {
+      "bytes": 1292,
+      "sha256": "e746b4f51e9fcc3dc482ee60bc81b44142587e802f5ffdeb5d9ce727ad8a6d05"
+    },
+    "REVIEWER.md": {
+      "bytes": 44666,
+      "sha256": "1d9eb974ca47e53cd495f8eb95613f8e5d7dd12bcbf3098ffc180153356645d5"
+    },
+    "portfolio.json": {
+      "bytes": 987802,
+      "sha256": "4862380bad9d610f310f64726dd13fc12e0ceff7700d9057a57054b445327157"
+    }
+  },
+  "proposed_path": "evidence/season-2-portfolio/",
+  "proposed_repository": "https://github.com/zkasuran/telegraph-catalog-miners",
+  "publication_status": "local only"
+}

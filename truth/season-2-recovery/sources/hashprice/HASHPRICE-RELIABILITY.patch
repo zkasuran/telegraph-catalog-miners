@@ -1,0 +1,190 @@
+--- a/worker.mjs
++++ b/worker.mjs
+@@ -6,6 +6,88 @@
+ export const RPC = 'https://bitcoin-rpc.publicnode.com';
+ export const GENESIS = '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';
+ export const BOUNDS = Object.freeze({ response: 1048576, deadlineMs: 15000, url: 512, txCount: 30000 });
++export const RETRY = Object.freeze({ attemptsPerMethod: 3, extraCallsPerRequest: 4, delaysMs: Object.freeze([200, 400]) });
++const RPC_METHODS = ['getblockhash', 'getblock', 'getblockheader', 'getblockstats', 'getrawtransaction', 'gettxoutproof'];
++
++class RpcFailure extends Error {
++  constructor(reason, method, rpcCode = null, codeType = 'absent', httpStatus = null, envelope = {}) {
++    super(reason);
++    this.name = 'RpcFailure';
++    this.method = RPC_METHODS.includes(method) ? method : null;
++    this.rpc_error_code = Number.isSafeInteger(rpcCode) ? rpcCode : null;
++    this.rpc_error_code_type = codeType;
++    this.http_status = httpStatus;
++    this.attempts = 1;
++    this.retry_exhausted = false;
++    this.envelope = envelope;
++  }
++}
++
++const valueType = value => value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
++const plainObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
++
++export function envelopeMetadata(data) {
++  const own = key => plainObject(data) && Object.hasOwn(data, key);
++  return {
++    envelope_jsonrpc: own('jsonrpc') ? data.jsonrpc === null ? null
++      : ['2.0', '1.0', '1.1'].includes(data.jsonrpc) ? data.jsonrpc : 'other' : 'absent',
++    // Never echo a foreign ID. Only our public numeric ID or its string lookalike.
++    envelope_id: own('id') && (data.id === 1 || data.id === '1') ? data.id : null,
++    envelope_id_type: own('id') ? valueType(data.id) : 'absent',
++    envelope_id_matches: own('id') && data.id === 1,
++    result_present: own('result'), error_present: own('error'), top_level_type: valueType(data),
++  };
++}
++
++function validMethodResult(method, value) {
++  if (method === 'getblockhash') return typeof value === 'string' && /^[0-9a-f]{64}$/.test(value);
++  if (method === 'getblockheader') return typeof value === 'string' && /^[0-9a-f]{160}$/.test(value);
++  if (method === 'getrawtransaction' || method === 'gettxoutproof') {
++    return typeof value === 'string' && value.length > 0 && value.length % 2 === 0
++      && value.length <= (method === 'getrawtransaction' ? 200000 : 8192) && /^[0-9a-f]+$/.test(value);
++  }
++  if (method === 'getblock') return plainObject(value) && typeof value.hash === 'string'
++    && /^[0-9a-f]{64}$/.test(value.hash) && Number.isSafeInteger(value.height)
++    && Array.isArray(value.tx) && value.tx.length > 0;
++  if (method === 'getblockstats') return plainObject(value) && typeof value.blockhash === 'string'
++    && /^[0-9a-f]{64}$/.test(value.blockhash) && Number.isSafeInteger(value.height)
++    && Number.isSafeInteger(value.subsidy) && Number.isSafeInteger(value.totalfee);
++  return false;
++}
++
++export function parseRpcEnvelope(data, method, httpStatus = 200) {
++  const metadata = envelopeMetadata(data);
++  const reject = () => { throw new RpcFailure('upstream_rpc_error', method, null,
++    plainObject(data?.error) && Object.hasOwn(data.error, 'code') ? valueType(data.error.code) : 'absent', httpStatus, metadata); };
++  if (!plainObject(data) || !Object.hasOwn(data, 'id') || data.id !== 1) reject();
++  const modern = data.jsonrpc === '2.0';
++  const legacy = !Object.hasOwn(data, 'jsonrpc');
++  const resultPresent = Object.hasOwn(data, 'result');
++  const errorPresent = Object.hasOwn(data, 'error');
++  // [CORE-RPC-INTERFACE]: legacy has no marker and both result/error members.
++  // Modern replies have exactly one of result/error. Never coerce the ID type.
++  if ((!modern && !legacy) || Object.keys(data).some(key => !['jsonrpc', 'id', 'result', 'error'].includes(key))) reject();
++  if (modern ? resultPresent === errorPresent : !resultPresent || !errorPresent) reject();
++  const failed = errorPresent && data.error !== null;
++  if (failed) {
++    if (!plainObject(data.error) || !Number.isSafeInteger(data.error.code) || typeof data.error.message !== 'string'
++      || Object.keys(data.error).some(key => !['code', 'message', 'data'].includes(key))
++      || (legacy && data.result !== null)) reject();
++    throw new RpcFailure('upstream_rpc_error', method, data.error.code, 'number', httpStatus, metadata);
++  }
++  if (!resultPresent || (legacy && data.error !== null) || !validMethodResult(method, data.result)) reject();
++  return data.result;
++}
++
++function retryPause(ms, signal) {
++  return new Promise((resolve, reject) => {
++    if (signal.aborted) { reject(new DOMException('aborted', 'AbortError')); return; }
++    const finish = () => { signal.removeEventListener('abort', abort); resolve(); };
++    const timer = setTimeout(finish, ms);
++    const abort = () => { clearTimeout(timer); signal.removeEventListener('abort', abort); reject(new DOMException('aborted', 'AbortError')); };
++    signal.addEventListener('abort', abort, { once: true });
++  });
++}
+ 
+ function response(value, status = 200) {
+   let body = JSON.stringify(value);
+@@ -33,11 +115,16 @@
+   return Number(text);
+ }
+ 
+-async function rpc(method, params, signal, transport = fetch) {
++async function rpcOnce(method, params, signal, transport = fetch) {
++  let httpStatus = null;
++  let metadata = { envelope_jsonrpc: 'unparsed', envelope_id: null, envelope_id_type: 'unparsed',
++    envelope_id_matches: false, result_present: false, error_present: false, top_level_type: 'unparsed' };
++  try {
+   const res = await transport(RPC, { method: 'POST', redirect: 'manual', signal,
+     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'zkasuran-hashprice-truth/1.0' },
+     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }) });
+-  requireValue(res.status === 200, 'upstream_http_error');
++  httpStatus = res.status;
++  if (res.status !== 200) throw new RpcFailure('upstream_http_error', method, null, 'absent', res.status);
+   requireValue((res.headers.get('content-type') || '').includes('application/json'), 'upstream_content_type');
+   requireValue(Number(res.headers.get('content-length') || 0) <= BOUNDS.response && res.body, 'upstream_too_large');
+   const reader = res.body.getReader();
+@@ -56,8 +143,48 @@
+   let pos = 0;
+   for (const piece of pieces) { bytes.set(piece, pos); pos += piece.length; }
+   const result = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+-  requireValue(result.jsonrpc === '2.0' && result.id === 1 && !result.error && Object.hasOwn(result, 'result'), 'upstream_rpc_error');
+-  return result.result;
++  metadata = envelopeMetadata(result);
++  return parseRpcEnvelope(result, method, res.status);
++  } catch (cause) {
++    if (cause instanceof RpcFailure) {
++      if (cause.http_status === null) cause.http_status = httpStatus;
++      if (Object.keys(cause.envelope).length === 0) cause.envelope = metadata;
++      throw cause;
++    }
++    const reason = signal.aborted && cause.name === 'AbortError' ? 'upstream_timeout'
++      : /^[a-z_]{1,64}$/.test(cause.message) ? cause.message : 'upstream_failure';
++    throw new RpcFailure(reason, method, null, 'absent', httpStatus, metadata);
++  }
++}
++
++async function rpc(method, params, signal, transport, state) {
++  for (let attempt = 1; ; attempt++) {
++    try {
++      if (signal.aborted) throw new DOMException('aborted', 'AbortError');
++      if (attempt > 1) state.retries++;
++      state.subrequests++;
++      return await rpcOnce(method, params, signal, transport);
++    } catch (cause) {
++      const reason = signal.aborted && cause.name === 'AbortError' ? 'upstream_timeout'
++        : /^[a-z_]{1,64}$/.test(cause.message) ? cause.message : 'upstream_failure';
++      const error = cause instanceof RpcFailure ? cause : new RpcFailure(reason, method);
++      error.attempts = attempt;
++      // [CORE-RPC-ERRORS]: -28 means still warming up. Internal, missing-data,
++      // unknown gateway, HTTP and transport errors are not reclassified as transient.
++      if (error.rpc_error_code !== -28 || error.rpc_error_code_type !== 'number' || signal.aborted) throw error;
++      if (attempt >= RETRY.attemptsPerMethod || state.retry_slots_used >= RETRY.extraCallsPerRequest) {
++        error.retry_exhausted = true;
++        throw error;
++      }
++      state.retry_slots_used++;
++      try { await retryPause(RETRY.delaysMs[attempt - 1], signal); }
++      catch {
++        const timeoutError = new RpcFailure('upstream_timeout', method);
++        timeoutError.attempts = attempt;
++        throw timeoutError;
++      }
++    }
++  }
+ }
+ 
+ export async function verifyBundle(bundle) {
+@@ -111,8 +238,9 @@
+     busy = true;
+     const controller = new AbortController();
+     const timeout = setTimeout(() => controller.abort(), BOUNDS.deadlineMs);
++    const state = { subrequests: 0, retries: 0, retry_slots_used: 0 };
+     try {
+-      const call = (method, params) => rpc(method, params, controller.signal, transport);
++      const call = (method, params) => rpc(method, params, controller.signal, transport, state);
+       const genesis = await call('getblockhash', [0]);
+       requireValue(genesis === GENESIS, 'wrong_network');
+       const hash = await call('getblockhash', [height]);
+@@ -129,12 +257,15 @@
+         coinbase_hex: coinbase, proof_hex: proof, canonical_after: hash });
+       const after = await call('getblockhash', [height]);
+       requireValue(after === hash, 'canonical_hash_changed');
+-      return response(value);
++      return response({ ...value, upstream: state });
+     } catch (error) {
+       controller.abort();
+       const code = controller.signal.aborted && error.name === 'AbortError' ? 'upstream_timeout'
+         : /^[a-z_]{1,64}$/.test(error.message) ? error.message : 'upstream_failure';
+-      return response({ status: 'unavailable', block_height: height, error: { code, message: 'The requested block could not be verified. No reference value is returned.' } }, 503);
++      const metadata = error instanceof RpcFailure ? { method: error.method, rpc_error_code: error.rpc_error_code,
++        rpc_error_code_type: error.rpc_error_code_type, http_status: error.http_status,
++        attempts: error.attempts, retry_exhausted: error.retry_exhausted, ...error.envelope } : {};
++      return response({ status: 'unavailable', block_height: height, error: { code, message: 'The requested block could not be verified. No reference value is returned.', ...metadata }, upstream: state }, 503);
+     } finally { clearTimeout(timeout); busy = false; }
+   } };
+ }

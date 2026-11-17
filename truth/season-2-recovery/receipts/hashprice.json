@@ -1,0 +1,13 @@
+{
+  "bundle": "hashprice",
+  "intent": "MINING_HASHPRICE_VERIFY_GENERAL",
+  "body_sha256": "eae3bf29d96e6fc09927287ced4bb1d072ec19e8f27c795eb2b504ec331edc9d",
+  "source_sha256": "ad2ed4a395a16d8797956a465915032169263f59773b4bddb0f50f37216aeed5",
+  "nonce": "c376b48ee3b1eedf2954a41fa0563589",
+  "row_hash": "85174120e577a848d2fa2a19c45b7f634574bb48c9fccd492da7649ff219ea00",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "http": 200,
+  "signed": true,
+  "binding_verified": true,
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-recovery/receipts/hashprice.json"
+}

@@ -1,0 +1,134 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Additional Telegraph evaluation grant: EVALUATION-PERMISSION.txt
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Copyright (c) 2026 zkasuran
+# 
+# Additional Telegraph evaluation permission, version 1, 2026-11-17.
+# 
+# Notwithstanding the no-redistribution and no-modification terms in LICENSE,
+# zkasuran grants Telegraph Protocol, its node operators, validators and reviewers
+# a perpetual, worldwide, non-exclusive, royalty-free right to store, reproduce,
+# pin, distribute and execute the exact truth-source YAML and JSONL submitted from
+# this bundle as Telegraph evaluation material. They may transform the descriptor
+# only as needed for parsing, transport, storage and protocol compatibility.
+# They may call the free reference endpoint and store, reproduce, distribute and
+# use its numerical results for testing, ranking, verification and audit.
+# 
+# Reviewers may keep and share the exact source bundle for audit and reproduction.
+# Node operators may deploy the exact worker for non-competing Telegraph evaluation
+# use, retaining LICENSE, NOTICE, DATA-SOURCES.md and this permission. Necessary
+# operational configuration changes to an existing free account are permitted.
+# No rights to compete as a miner or to resell upstream endpoint access are granted.
+# The reference endpoint is free evaluation infrastructure, not a paid data product.
+# 
+# Public Bitcoin facts are not claimed as our exclusive property. Third-party
+# service terms remain applicable. This permission covers only our own rights.
+# It does not confer a license to upstream software, website content or datasets.
+# Earlier copies under different grants retain their original terms.
+# 
+# The unsigned file is prepared material. This permission is not an upload,
+# signature, node-admission receipt or claim of human review.
+# Shared deployment candidate. New truth routes are not yet deployed or admitted.
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Copyright (c) 2026 zkasuran
+# 
+# Supplemental shared-deployment evaluation permission, 2026-11-17
+# 
+# The licensor permits Telegraph Protocol, its node operators, validators and
+# reviewers to store, reproduce, pin, share and execute this exact source package
+# and its three unsigned truth-source YAML and JSONL descriptors for evaluation,
+# ranking, audit and reproduction. Configuration and descriptor routing changes
+# necessary for protocol transport and an existing free account are permitted.
+# The licensor's coordinator may publish this exact licensor-authored package and
+# deploy the dispatcher on the licensor's existing telegraph-s2-hashprice Worker.
+# 
+# This permission covers the dispatcher and the unmodified licensor-authored
+# original, corporate, onchain and hashprice modules. Their existing LICENSE,
+# NOTICE and evaluation permission texts remain in force. This supplemental grant
+# does not withdraw any prior grant. It does not permit a competing miner, sale of
+# upstream RPC access or changes to the source modules.
+# 
+# Public facts are not claimed as exclusive software property. Upstream service
+# terms remain applicable. No license to upstream software, website content or
+# protected evaluation material is granted. This permission is unsigned prepared
+# material. It is not a signature, upload receipt, admission or human review.
+version: '1'
+kind: miner
+id: 0
+slug: zk-truth-hashprice-canonical
+protocol: generic
+name: Bitcoin canonical gross block hashprice
+description: Free evaluation reference for exact Bitcoin mainnet block_height. Returns
+  gross expected sats per PH/s per day with six-decimal rounding, canonical block
+  identity and coinbase inclusion proof. Uses public consensus facts through Allnodes
+  PublicNode. No USD or daily mean.
+base_url: https://telegraph-s2-hashprice.margyn.workers.dev/truth/v1
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+errors:
+  message_path: error.message
+  code_path: error.code
+endpoints:
+- path: /hashprice
+  external_path: /hashprice
+  method: GET
+  description: Supply exact block_height as one integer query parameter. The response
+    directly contains hashprice_sats_per_ph_day in sats per PH/s per day. Verification
+    failure returns non-200 with no scored value.
+  intents:
+  - MINING_HASHPRICE_VERIFY_GENERAL
+  params:
+    query:
+      required:
+      - name: block_height
+        type: integer
+        intents:
+        - MINING_HASHPRICE_VERIFY_GENERAL
+        description: Exact Bitcoin mainnet height from 0 to 100000000. Plain decimal
+          digits. Never replace with a block hash, latest height or timestamp.
+input_schema:
+  type: object
+  required:
+  - block_height
+  additionalProperties: false
+  properties:
+    block_height:
+      type: integer
+      minimum: 0
+      maximum: 100000000
+output_schema:
+  type: object
+  required:
+  - hashprice_sats_per_ph_day
+  - block_height
+  properties:
+    hashprice_sats_per_ph_day:
+      type: number
+      minimum: 1
+      maximum: 1000000000
+    block_height:
+      type: integer
+intent_mapping:
+  MINING_HASHPRICE_VERIFY_GENERAL:
+    endpoint: /hashprice
+    input:
+      block_height:
+        from: block_height
+        how: Preserve the exact requested integer Bitcoin mainnet height.
+    output:
+      hashprice_sats_per_ph_day:
+        path: hashprice_sats_per_ph_day
+        unit: sats per PH/s per day
+      block_height:
+        path: block_height
+      hashrate_eh_s:
+        path: hashrate_eh_s
+        unit: EH/s
+      hashprice_usd_per_ph_day:
+        path: hashprice_usd_per_ph_day
+        unit: USD per PH/s per day
+semantics:
+  supported_intents:
+  - MINING_HASHPRICE_VERIFY_GENERAL

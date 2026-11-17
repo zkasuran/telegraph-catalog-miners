@@ -1,0 +1,13 @@
+{
+  "bundle": "balance",
+  "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+  "body_sha256": "e341640788f31f9fed57e659fb331d5fb5004908582b33ed26757819b159089d",
+  "source_sha256": "3a25181882f202a004f66259a2223847704fd8901a010d1f10a8fee206d502ec",
+  "nonce": "326df1f02ad7c73b23a4027e8e600070",
+  "row_hash": "5fdb92f73ab3158a1f25f188937b17a11a5fe1594f601883414632ac1f45e24a",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "http": 200,
+  "signed": true,
+  "binding_verified": true,
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-recovery/receipts/balance.json"
+}

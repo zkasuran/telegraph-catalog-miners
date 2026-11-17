@@ -1,0 +1,19 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+Own source and deterministic computation, no third-party implementation copied.
+PublicNode (Allnodes), dRPC and Nodies supply public execution-chain facts under
+the service-use clauses quoted in DATA-SOURCES.md. There is no provider software
+licence or website-content redistribution grant asserted for these facts.
+
+Ethereum JSON-RPC and Charles Cooper's EIP-1898 define request semantics.
+Telegraph Protocol defines the Intent and YAML contract. They do not endorse this
+bundle. Private research snapshots are not included in the public-file list.
+
+AI assistance: OpenCode with agentrouter/gpt-6.1-sol authored the implementation
+and documentation and ran the recorded checks. No human review is claimed.
+
+Existing miners on this Intent are operated by the same group under
+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287. This truth source is evaluation
+material, not an independent miner or independent contributor. The old g32
+question-origin failure and six historical revocations remain unresolved.

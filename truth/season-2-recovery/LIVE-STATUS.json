@@ -1,0 +1,63 @@
+{
+  "observed_at": "2026-11-17T10:38:46.766114+00:00",
+  "worker_version": "5737956c-6f83-44e8-bb5b-a91da3860fc0",
+  "live_base_url": "https://telegraph-s2-hashprice.margyn.workers.dev",
+  "focused_live_gate": {
+    "passed": 6,
+    "cases": 6,
+    "outer_retries": 0
+  },
+  "sources": [
+    {
+      "bundle": "company",
+      "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+      "body_sha256": "34702602994306b37b3355a8ea3f5562f395b30400444102e15c6d7120b5da34",
+      "source_sha256": "2b7435f0e25034cf786947e1e0debc685b3eaaafeaf41fa71e1f19fad5800ad4",
+      "nonce": "020898bafecb17e757b0a375b5f7635f",
+      "row_hash": "c2e911b8a77f418d4edfe4d8579a63b4581a8988c766b788073ed20137fd0fb9",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "http": 200,
+      "signed": true,
+      "binding_verified": true,
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-recovery/receipts/company.json",
+      "node_status": "quarantine",
+      "reason_code": "rate_limited",
+      "snapshot_use_verified": false
+    },
+    {
+      "bundle": "balance",
+      "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+      "body_sha256": "e341640788f31f9fed57e659fb331d5fb5004908582b33ed26757819b159089d",
+      "source_sha256": "3a25181882f202a004f66259a2223847704fd8901a010d1f10a8fee206d502ec",
+      "nonce": "326df1f02ad7c73b23a4027e8e600070",
+      "row_hash": "5fdb92f73ab3158a1f25f188937b17a11a5fe1594f601883414632ac1f45e24a",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "http": 200,
+      "signed": true,
+      "binding_verified": true,
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-recovery/receipts/balance.json",
+      "node_status": "quarantine",
+      "reason_code": "rate_limited",
+      "snapshot_use_verified": false
+    },
+    {
+      "bundle": "hashprice",
+      "intent": "MINING_HASHPRICE_VERIFY_GENERAL",
+      "body_sha256": "eae3bf29d96e6fc09927287ced4bb1d072ec19e8f27c795eb2b504ec331edc9d",
+      "source_sha256": "ad2ed4a395a16d8797956a465915032169263f59773b4bddb0f50f37216aeed5",
+      "nonce": "c376b48ee3b1eedf2954a41fa0563589",
+      "row_hash": "85174120e577a848d2fa2a19c45b7f634574bb48c9fccd492da7649ff219ea00",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "http": 200,
+      "signed": true,
+      "binding_verified": true,
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-recovery/receipts/hashprice.json",
+      "node_status": "quarantine",
+      "reason_code": "rate_limited",
+      "snapshot_use_verified": false
+    }
+  ],
+  "historical_revocations_verified": false,
+  "final_h2_submission": "Final form availability remains to be verified",
+  "license": "LicenseRef-zkasuran-SAND-1.0"
+}

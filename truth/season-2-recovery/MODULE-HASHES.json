@@ -1,0 +1,53 @@
+{
+  "algorithm": "sha256",
+  "modules": [
+    {
+      "component": "original",
+      "file": "sources/original/worker.mjs",
+      "sha256": "5b5c66a585ef260179292bdb1ca06b74953cd50fc0f8afdeefcd16dca7faa32b",
+      "bytes": 18040
+    },
+    {
+      "component": "original",
+      "file": "sources/original/coinbase.mjs",
+      "sha256": "c4773fe8011b94ad2df6c0f37af4a1b66c90c87a4179068101abd4683ac677a3",
+      "bytes": 5975
+    },
+    {
+      "component": "corporate",
+      "file": "sources/corporate/worker.mjs",
+      "sha256": "20a9f48f236210623b6ce5041d639a5fbf3e83b62e7380966b836fedbca98b0b",
+      "bytes": 11571
+    },
+    {
+      "component": "onchain",
+      "file": "sources/onchain/worker.mjs",
+      "sha256": "8d853d319dc6dd6d6940c33ab5702f20477d846df0c07fe94ab0cfe1026def6e",
+      "bytes": 12231
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/entry.mjs",
+      "sha256": "20a83b5adaaa26bf124c2d2a0d6cb8a82827c4c8c4988220b13416c4081889ac",
+      "bytes": 390
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/worker.mjs",
+      "sha256": "1efa601379c8c121ac80c924b1a49dc27480c3e914cec73589604e000505fb10",
+      "bytes": 16158
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/core.mjs",
+      "sha256": "cb1ff4d0d8e3a3ac3015b9396c1a6cb340015bed9511d6c37723d71ed0ca127f",
+      "bytes": 5429
+    },
+    {
+      "component": "hashprice",
+      "file": "sources/hashprice/proof.mjs",
+      "sha256": "3e06b8fe77c2e9f0c6ba0ae503f2fa0325995ad510a6b284bba446cd2a6be11a",
+      "bytes": 5882
+    }
+  ]
+}

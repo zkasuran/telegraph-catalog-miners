@@ -1,0 +1,18 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+Supplemental permission for Telegraph evaluation
+
+zkasuran permits Telegraph validators and protocol operators to copy, store,
+freeze, audit and execute this bundle's exact truth-source descriptor and the
+embedded descriptor text in truth-source.jsonl for ONCHAIN_METRIC_VERIFY_GENERAL.
+They may retain it in evaluation snapshots and call the licensor's free deployed
+endpoint for evaluation and ranking. They may quote measurements and source
+identities in evaluation receipts.
+
+The coordinator acting for zkasuran may publish the exact licensor-authored bundle
+and deploy the normalization worker on zkasuran's existing Cloudflare account.
+
+This grant does not permit a third party to alter the implementation, register it
+as a competing miner or entry, resell RPC access or redistribute upstream service
+content. Upstream terms still apply. The full software licence remains LICENSE.

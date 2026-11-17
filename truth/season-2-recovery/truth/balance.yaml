@@ -1,0 +1,174 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Copyright (c) 2026 zkasuran
+# Shared deployment candidate. New truth routes are not yet deployed or admitted.
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Copyright (c) 2026 zkasuran
+# 
+# Supplemental shared-deployment evaluation permission, 2026-11-17
+# 
+# The licensor permits Telegraph Protocol, its node operators, validators and
+# reviewers to store, reproduce, pin, share and execute this exact source package
+# and its three unsigned truth-source YAML and JSONL descriptors for evaluation,
+# ranking, audit and reproduction. Configuration and descriptor routing changes
+# necessary for protocol transport and an existing free account are permitted.
+# The licensor's coordinator may publish this exact licensor-authored package and
+# deploy the dispatcher on the licensor's existing telegraph-s2-hashprice Worker.
+# 
+# This permission covers the dispatcher and the unmodified licensor-authored
+# original, corporate, onchain and hashprice modules. Their existing LICENSE,
+# NOTICE and evaluation permission texts remain in force. This supplemental grant
+# does not withdraw any prior grant. It does not permit a competing miner, sale of
+# upstream RPC access or changes to the source modules.
+# 
+# Public facts are not claimed as exclusive software property. Upstream service
+# terms remain applicable. No license to upstream software, website content or
+# protected evaluation material is granted. This permission is unsigned prepared
+# material. It is not a signature, upload receipt, admission or human review.
+version: '1'
+kind: miner
+id: 0
+slug: truth-onchain-pinned-account
+protocol: generic
+name: Pinned native account truth
+description: Free evaluation-only native balance and nonce source on ethereum, polygon
+  and arbitrum. Every success requires fresh exact canonical-hash state agreement
+  at Nodies+dRPC (Ethereum), PublicNode+dRPC (Polygon) or PublicNode+Nodies (Arbitrum).
+  No cached data, latest substitution or cryptographic proof. Public archive availability
+  is limited; unavailable blocks fail closed.
+base_url: https://telegraph-s2-hashprice.margyn.workers.dev/truth/v1
+auth:
+  type: none
+cache_ttl_sec: 0
+rate_limit_per_sec: 1
+circuit_threshold: 3
+circuit_cooldown_seconds: 60
+input_schema:
+  type: object
+  required:
+  - address
+  - block
+  additionalProperties: false
+  properties:
+    address:
+      type: string
+      pattern: ^0x[0-9a-fA-F]{40}$
+    block:
+      type: integer
+      minimum: 0
+      maximum: 1000000000000
+    chain:
+      type: string
+      enum:
+      - ethereum
+      - polygon
+      - arbitrum
+      default: ethereum
+    metric:
+      type: string
+      enum:
+      - balance
+      - tx_count
+      default: balance
+output_schema:
+  type: object
+  required:
+  - balance_gwei
+  - address
+  - block
+  - chain
+  - tx_count
+  properties:
+    balance_gwei:
+      type: number
+      minimum: 0
+      maximum: 100000000000000000000
+    address:
+      type: string
+    block:
+      type: string
+    chain:
+      type: string
+      enum:
+      - ethereum
+      - polygon
+      - arbitrum
+      default: ethereum
+    tx_count:
+      type: integer
+      minimum: 0
+      maximum: 1000000000000
+errors:
+  message_path: error
+  code_path: code
+endpoints:
+- path: /balance
+  external_path: /balance
+  method: GET
+  description: Read native balance and account nonce at the exact requested block.
+    Both values are always returned, including when metric is tx_count. HTTP 400 rejects
+    malformed selectors. HTTP 502 refuses unavailable, inconsistent or timed-out RPC
+    evidence. This is a free evaluator source, not a paid data resale service.
+  intents:
+  - ONCHAIN_METRIC_VERIFY_GENERAL
+  params:
+    query:
+      required:
+      - name: address
+        type: string
+        intents:
+        - '*'
+        description: Exact 20-byte 0x hexadecimal address. Never resolve a label.
+      - name: block
+        type: integer
+        intents:
+        - '*'
+        description: Exact requested integer height 0 through 1000000000000. Never
+          latest or another block.
+      optional:
+      - name: chain
+        type: string
+        intents:
+        - '*'
+        description: ethereum, polygon or arbitrum. Default ethereum only when omitted.
+      - name: metric
+        type: string
+        intents:
+        - '*'
+        description: balance or tx_count. Default balance. tx_count is account nonce,
+          not transfers.
+semantics:
+  supported_intents:
+  - ONCHAIN_METRIC_VERIFY_GENERAL
+  signal_mapping:
+    label_field: summary
+    reason_field: summary
+intent_mapping:
+  ONCHAIN_METRIC_VERIFY_GENERAL:
+    endpoint: /balance
+    input:
+      address:
+        from: address
+        how: Exact 20-byte 0x hexadecimal address. Never resolve a label.
+      block:
+        from: block
+        how: Exact requested integer height 0 through 1000000000000. Never latest
+          or another block.
+      chain:
+        from: chain
+        how: ethereum, polygon or arbitrum. Default ethereum only when omitted.
+      metric:
+        from: metric
+        how: balance or tx_count. Default balance. tx_count is account nonce, not
+          transfers.
+    output:
+      balance_gwei:
+        path: balance_gwei
+        unit: Gwei
+      address:
+        path: address
+      block:
+        path: block
+      chain:
+        path: chain
+      tx_count:
+        path: tx_count

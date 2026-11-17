@@ -1,0 +1,13 @@
+{
+  "bundle": "company",
+  "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+  "body_sha256": "34702602994306b37b3355a8ea3f5562f395b30400444102e15c6d7120b5da34",
+  "source_sha256": "2b7435f0e25034cf786947e1e0debc685b3eaaafeaf41fa71e1f19fad5800ad4",
+  "nonce": "020898bafecb17e757b0a375b5f7635f",
+  "row_hash": "c2e911b8a77f418d4edfe4d8579a63b4581a8988c766b788073ed20137fd0fb9",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "http": 200,
+  "signed": true,
+  "binding_verified": true,
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-recovery/receipts/company.json"
+}
