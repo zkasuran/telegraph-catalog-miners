@@ -1,0 +1,94 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Evaluator registration integration test
+run-name: Verify evaluator registration ${{ inputs.batch }}
+on:
+  workflow_dispatch:
+    inputs:
+      family:
+        description: Exact champion family or all
+        type: choice
+        default: all
+        options:
+          - all
+          - CODE_REVIEW
+          - CONTRACT_OBLIGATION_AUDIT
+          - CUSTOMER_TICKET_RESOLUTION
+          - EMAIL_SECURITY
+          - OPTIMAL_EXECUTION_ROUTE
+          - QUESTION_ANSWERING
+          - SANCTIONS_SCREENING_MATCH
+          - SECURITY_REVIEW
+          - TASK_EXECUTION_QUALITY
+          - THREAT_INTELLIGENCE
+          - URL_SCAN
+          - VULNERABILITY_TRIAGE
+          - WASH_TRADING_DETECTION
+      batch:
+        description: Coordinator verification batch identifier
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: verification
+      - name: Verification harness checks
+        run: bash verification/verify.sh
+      - id: matrix
+        env:
+          REQUESTED_FAMILY: ${{ inputs.family }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          rows = json.load(open('verification/champions.json'))['rows']
+          requested = os.environ['REQUESTED_FAMILY']
+          selected = rows if requested == 'all' else [r for r in rows if r['family'] == requested]
+          if not selected:
+              raise SystemExit('Unknown champion family')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('matrix=' + json.dumps({'include': [{'family': r['family']} for r in selected]}) + '\n')
+          PY
+  verify:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 13
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    env:
+      VERIFY_BATCH: ${{ inputs.batch }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: verification
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Prepare exact package and reference runtime
+        env:
+          FAMILY: ${{ matrix.family }}
+        run: python3 verification/prepare.py --family "$FAMILY"
+      - name: Publish restricted-forward request
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lease-${{ matrix.family }}
+          path: ${{ runner.temp }}/telegraph-evaluator/lease.json
+          retention-days: 1
+      - name: Run bounded registration integration test
+        run: python3 verification/serve.py
+      - name: Save final decision
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verdict-${{ matrix.family }}
+          path: ${{ runner.temp }}/telegraph-evaluator/verdict.json
+          retention-days: 1

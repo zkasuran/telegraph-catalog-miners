@@ -1,0 +1,122 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "rows": [
+    {
+      "family": "CODE_REVIEW",
+      "slot": 1,
+      "file": "CODE_REVIEW-684ab951.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/d9a68c603fd977844b6d81607d132e3a736e108e/adapters/CODE_REVIEW-684ab951.safetensors",
+      "keccak": "684ab95124f745a1c88c3848afd6a1d08b2eb8acfa4d8f9211ce655562ee4e75",
+      "sha256": "7bc614b4473f2ad946eec1434cc54d77f436ab07c5ba54197699013c31bba154",
+      "class": "judgment"
+    },
+    {
+      "family": "CONTRACT_OBLIGATION_AUDIT",
+      "slot": 2,
+      "file": "CONTRACT_OBLIGATION_AUDIT-8239e5a5.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/04363bf9227a0e44c914cbf518d36bb1658db441/adapters/CONTRACT_OBLIGATION_AUDIT-8239e5a5.safetensors",
+      "keccak": "8239e5a5435dfdd9ae369644adbb5fd1c6c648044d40b5359e08054bddd76196",
+      "sha256": "b1b2702a5615ead7fe9483d267c8fd41f7971d74b93f8b5a8f9d0e90b4bdf5d4",
+      "class": "judgment"
+    },
+    {
+      "family": "CUSTOMER_TICKET_RESOLUTION",
+      "slot": 3,
+      "file": "CUSTOMER_TICKET_RESOLUTION-af11f568.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/ad8aae0e4807a91d60d64d2406fe0a301e67aa2e/adapters/CUSTOMER_TICKET_RESOLUTION-af11f568.safetensors",
+      "keccak": "af11f568280c66f0bfe69fe816b62bde949f53ec99fc46470b0fb1c973d5baa0",
+      "sha256": "4e1f1deb3079718004c5360bfb2084172a262211f1db0040b0c2fee95f3f0777",
+      "class": "judgment"
+    },
+    {
+      "family": "EMAIL_SECURITY",
+      "slot": 4,
+      "file": "EMAIL_SECURITY-3aaa612c.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/fe5fa3890f2ff518e6a1d3cd5fc391b630aa9e29/adapters/EMAIL_SECURITY-3aaa612c.safetensors",
+      "keccak": "3aaa612cc33f1106029f46249f1d8bac1a899e9bcade4664d418f98a004a6496",
+      "sha256": "b4b3584928b881ee4d534ada88002066ab36bac64998a11674d70d90cd9f2aca",
+      "class": "judgment"
+    },
+    {
+      "family": "OPTIMAL_EXECUTION_ROUTE",
+      "slot": 5,
+      "file": "OPTIMAL_EXECUTION_ROUTE-3b4f59a2.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/e11fad1b09692dc6eb1bdab35b8cf24313ab612e/adapters/OPTIMAL_EXECUTION_ROUTE-3b4f59a2.safetensors",
+      "keccak": "3b4f59a2d86371b8d2d7e6fed743a41b042c9a893e17b051d4d65da7ed6c202e",
+      "sha256": "93bbd3bed06bdfb9801500d9c35dae18b156973b314ccfb475d30add866d3746",
+      "class": "judgment"
+    },
+    {
+      "family": "QUESTION_ANSWERING",
+      "slot": 6,
+      "file": "QUESTION_ANSWERING-707dc6d4.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/c8338c17c2d92848cf03154401e9e6d343ee88c3/adapters/QUESTION_ANSWERING-707dc6d4.safetensors",
+      "keccak": "707dc6d46f1bb2d05e74c1d7126440e78f43f3a1c183109fc160a26589601e25",
+      "sha256": "7a7984276b7ad02776a3491d451965192be32bbdda3f23344ad279f729d2bf57",
+      "class": "judgment"
+    },
+    {
+      "family": "SANCTIONS_SCREENING_MATCH",
+      "slot": 7,
+      "file": "SANCTIONS_SCREENING_MATCH-40d4eb13.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/3c0fb7da74a2b5187fb354b1bf451dc6ade31fda/adapters/SANCTIONS_SCREENING_MATCH-40d4eb13.safetensors",
+      "keccak": "40d4eb134b705ceec23390d84091b646fc43abfa079398acb03f113826b294ee",
+      "sha256": "c5f926d18a51ee65f1fdfd667a2284eca6f6d98de0ff727a1c62224cfa9978dc",
+      "class": "judgment"
+    },
+    {
+      "family": "SECURITY_REVIEW",
+      "slot": 8,
+      "file": "SECURITY_REVIEW-c4fc4d76.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/ced94be34d3ddce3916ed86ef15cac01b42a9b54/adapters/SECURITY_REVIEW-c4fc4d76.safetensors",
+      "keccak": "c4fc4d76c5c944991f5f5f8f34040b1c1414af76e35633af8c7cff74bc02f47b",
+      "sha256": "3e7e1f6ab8a143190f3c8d519e9b4aa5b1a13c611a901b6d99704e99eb2e833d",
+      "class": "judgment"
+    },
+    {
+      "family": "TASK_EXECUTION_QUALITY",
+      "slot": 9,
+      "file": "TASK_EXECUTION_QUALITY-e2476dde.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/5f62b304730b7601c2087dc6cd87bb116966672c/adapters/TASK_EXECUTION_QUALITY-e2476dde.safetensors",
+      "keccak": "e2476dde160fc0c3b5e91940bbfdd403d11258f31a4d86771e3daac6f8c27411",
+      "sha256": "afa954764f8ba30ca79a59baeb75fac8710ae01f84c523d826657d100235546a",
+      "class": "judgment"
+    },
+    {
+      "family": "THREAT_INTELLIGENCE",
+      "slot": 10,
+      "file": "THREAT_INTELLIGENCE-3a662bcd.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/8d04c2c9d7569679a485b4b2103e83833000bd53/adapters/THREAT_INTELLIGENCE-3a662bcd.safetensors",
+      "keccak": "3a662bcd3fa170aaec1cb52ea0717596f23c9a5c3d6e1fb770800f59c9a3ed44",
+      "sha256": "42647c5f782079e7561555299964447f8ff31f86819917780d7d97ba47782241",
+      "class": "hybrid"
+    },
+    {
+      "family": "URL_SCAN",
+      "slot": 11,
+      "file": "URL_SCAN-32bbab70.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/e463eec3c476e8077542f14a1738c659b00a9606/adapters/URL_SCAN-32bbab70.safetensors",
+      "keccak": "32bbab709322610806d85b31dcd417fde0f7edeb2c5bf55d885086065041fbb5",
+      "sha256": "415b738416f815f63b660cee4c5d78744d80861ebafe7debbd297f3984ab5f20",
+      "class": "hybrid"
+    },
+    {
+      "family": "VULNERABILITY_TRIAGE",
+      "slot": 12,
+      "file": "VULNERABILITY_TRIAGE-a7462d03.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/7026e03b3c15cd6c249858e284e72d0b902f7ed8/adapters/VULNERABILITY_TRIAGE-a7462d03.safetensors",
+      "keccak": "a7462d03ee89b5f77bc1bc6925846b03d9f55cf23c46e9e5d25466450de89294",
+      "sha256": "0c706e8aef558aa228ee5b1191316cb6dda4ab4a1569398a6103ea273a198ee0",
+      "class": "judgment"
+    },
+    {
+      "family": "WASH_TRADING_DETECTION",
+      "slot": 13,
+      "file": "WASH_TRADING_DETECTION-3063f848.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/b495f0e3963f68196609057c8e5dbf7b84de1a23/adapters/WASH_TRADING_DETECTION-3063f848.safetensors",
+      "keccak": "3063f8488f688804cea93b09c2a8faa0118f3b209918b7bd381a6f951fe490d9",
+      "sha256": "07e6dab6a1928cb41d6b312dda2f7bfbc1a1f05f97cff6c0ef16313276ae015f",
+      "class": "judgment"
+    }
+  ]
+}
