@@ -44,11 +44,13 @@ def main():
     start = dt.datetime.now(dt.timezone.utc)
     deadline = time.monotonic() + 5 * 3600
     executor = None
+    original_executor = None
     forward = None
     verdict = {"family": row["family"], "status": "not_started"}
     with (root / "executor.log").open("w") as executor_log, (root / "forward.log").open("w") as forward_log:
         try:
             executor = subprocess.Popen([state["executable"], "--package", state["package"], "--listen", "127.0.0.1:8800"], env=environment, stdout=executor_log, stderr=executor_log)
+            original_executor = subprocess.Popen([state["executable"], "--package", state["original_package"], "--listen", "127.0.0.1:8810"], env=environment, stdout=executor_log, stderr=executor_log)
             probe = {"batch": [], "foundation_hash": environment["FOUNDATION_MODEL_HASH"], "adapter_hash": row["keccak"], "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"}
             for _ in range(90):
                 if executor.poll() is not None:
@@ -62,10 +64,31 @@ def main():
                     time.sleep(2)
             else:
                 raise RuntimeError("reference executor did not become ready")
+            original_probe={**probe,"adapter_hash":row["origin_keccak"]}
+            for _ in range(90):
+                if original_executor.poll() is not None:
+                    raise RuntimeError("original reference executor exited")
+                try:
+                    read("http://127.0.0.1:8810/runnable",original_probe)
+                    break
+                except (OSError,ValueError):
+                    time.sleep(2)
+            else:
+                raise RuntimeError("original reference executor did not become ready")
+            vectors=[{"tokens":[50281]+[22+(i%100) for i in range(n-2)]+[50282]} for n in (4,16,64,128)]
+            old_scores=read("http://127.0.0.1:8810/runnable",{**original_probe,"batch":vectors},timeout=1200)
+            new_scores=read("http://127.0.0.1:8800/runnable",{**probe,"batch":vectors},timeout=1200)
+            result_list=new_scores.get("results",[])
+            if len(result_list)!=4 or old_scores.get("results")!=result_list or any(type(r.get("score")) is not int or not 0<=r["score"]<(1<<32) or r["score"]&0x7f800000==0x7f800000 for r in result_list):
+                raise RuntimeError("metadata recovery did not reproduce original score bits")
+            (root/"reproduction.json").write_text(json.dumps({"family":row["family"],"vectors":4,"score_bits_identical":True,"tensor_payload_sha256":row["tensor_payload_sha256"]}))
+            original_executor.terminate()
+            original_executor.wait(timeout=15)
+            print("Original score bits reproduced on four fixed vectors",flush=True)
             lease_deadline = time.monotonic() + 600
             command = ["ssh", "-N", "-i", state["private_key"], "-o", "BatchMode=yes", "-o", "ConnectTimeout=15", "-o", "StrictHostKeyChecking=yes",
                        "-o", "UserKnownHostsFile=" + state["known_hosts"], "-o", "ExitOnForwardFailure=yes", "-o", "ServerAliveInterval=20", "-o", "ServerAliveCountMax=3",
-                       "-R", f"127.0.0.1:{18600 + row['slot']}:127.0.0.1:8800", "ubuntu@98.95.110.88"]
+                       "-R", f"127.0.0.1:{row['forward_port']}:127.0.0.1:8800", "ubuntu@98.95.110.88"]
             while time.monotonic() < lease_deadline:
                 forward = subprocess.Popen(command, stdout=forward_log, stderr=forward_log)
                 time.sleep(5)
@@ -105,7 +128,7 @@ def main():
             raise RuntimeError("five-hour registration test window ended")
         finally:
             (root / "verdict.json").write_text(json.dumps(verdict, indent=2))
-            for process in (forward, executor):
+            for process in (forward, executor, original_executor):
                 if process and process.poll() is None:
                     process.terminate()
                     try:

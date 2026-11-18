@@ -4,6 +4,7 @@ import hashlib
 import io
 import json
 import tempfile
+import struct
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -46,10 +47,26 @@ class Decisions(unittest.TestCase):
         self.assertEqual(len(rows), 13)
         self.assertEqual(len({r["family"] for r in rows}), 13)
         for row in rows:
-            self.assertEqual(set(row), {"family", "slot", "file", "url", "keccak", "sha256", "class"})
+            self.assertEqual(set(row), {"family", "slot", "file", "url", "keccak", "sha256", "class","origin_url","origin_keccak","origin_sha256","tensor_payload_sha256","forward_port","runnable_url"})
             self.assertEqual(len(row["keccak"]), 64)
             self.assertEqual(len(row["sha256"]), 64)
             self.assertNotIn("/home/", row["url"])
+
+class TensorCopy(unittest.TestCase):
+    def test_metadata_extensions_preserve_payload_and_model_fields(self):
+        header={"__metadata__":{"abi":"lora-v1","rank":"8"},"tensor":{"dtype":"F32","shape":[1],"data_offsets":[0,4]}}
+        def package(h,payload):
+            text=json.dumps(h).encode()
+            return struct.pack("<Q",len(text))+text+payload
+        payload=struct.pack("<f",1.25)
+        old=package(header,payload)
+        new=json.loads(json.dumps(header));new["__metadata__"]["x-recovery"]="test"
+        self.assertEqual(prepare.verify_tensor_copy(old,package(new,payload)),hashlib.sha256(payload).hexdigest())
+        with self.assertRaises(RuntimeError):
+            prepare.verify_tensor_copy(old,package(new,struct.pack("<f",1.5)))
+        new["__metadata__"]["rank"]="16"
+        with self.assertRaises(RuntimeError):
+            prepare.verify_tensor_copy(old,package(new,payload))
 
 if __name__ == "__main__":
     unittest.main()

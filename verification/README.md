@@ -2,8 +2,8 @@
 
 This bounded workflow checks the exact evaluator packages in this repository
 against Telegraph's live registration protocol. Each standard public GitHub
-runner builds the pinned reference executor and loads one unchanged package on
-the pinned foundation. A restricted SSH forward exposes it through an existing
+runner builds the pinned reference executor and checks a tensor-identical recovery
+package on the pinned foundation. A restricted SSH forward exposes it through an existing
 TLS proxy for the node's registration checks.
 
 The runner ends when the new registration receives a final decision or after
@@ -15,6 +15,12 @@ wallet and provider credentials remain with the operator.
 The matrix is manually dispatched and limited to the 13 recorded champion files.
 The coordinator verifies each public endpoint before signing a registration.
 The test does not guarantee a win on a new evaluation round.
+
+The new Diamond continues to reserve a retired package's hash after deregistration.
+Recovery files therefore add ignored `x-*` metadata to obtain a fresh registration
+hash. Every tensor byte, descriptor and original model metadata field is checked
+against the prior winner. Two real reference executors also compare the original
+and recovered score bits on four fixed vectors before exposing the endpoint.
 
 ## References and terms
 
@@ -28,4 +34,5 @@ The test does not guarantee a win on a new evaluation round.
   https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features
 
 The repository's Source-Available No-Derivatives terms cover this verification
-code. Package terms and bytes remain those of their original published copies.
+code. Original published packages retain their original terms and bytes. Recovery
+packages carry the same tensor payload with a new registration metadata envelope.

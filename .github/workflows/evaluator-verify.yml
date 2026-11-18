@@ -39,6 +39,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           sparse-checkout: verification
+          sparse-checkout-cone-mode: false
       - name: Verification harness checks
         run: bash verification/verify.sh
       - id: matrix
@@ -68,7 +69,10 @@ jobs:
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
-          sparse-checkout: verification
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.25.7'
@@ -91,4 +95,11 @@ jobs:
         with:
           name: verdict-${{ matrix.family }}
           path: ${{ runner.temp }}/telegraph-evaluator/verdict.json
+          retention-days: 1
+      - name: Save score reproduction proof
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: reproduction-${{ matrix.family }}
+          path: ${{ runner.temp }}/telegraph-evaluator/reproduction.json
           retention-days: 1
