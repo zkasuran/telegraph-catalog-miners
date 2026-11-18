@@ -27,6 +27,10 @@ on:
         description: Coordinator verification batch identifier
         type: string
         required: true
+      continuation:
+        description: Continue tests for already registered pending candidates
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -35,6 +39,7 @@ jobs:
     timeout-minutes: 5
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
+      has_candidates: ${{ steps.matrix.outputs.has_candidates }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -45,19 +50,34 @@ jobs:
       - id: matrix
         env:
           REQUESTED_FAMILY: ${{ inputs.family }}
+          CONTINUE_PENDING: ${{ inputs.continuation }}
         run: |
           python3 - <<'PY'
-          import json, os
+          import json, os, urllib.request
           rows = json.load(open('verification/champions.json'))['rows']
           requested = os.environ['REQUESTED_FAMILY']
           selected = rows if requested == 'all' else [r for r in rows if r['family'] == requested]
           if not selected:
               raise SystemExit('Unknown champion family')
+          matrix=[]
+          for row in selected:
+              existing=0
+              if os.environ['CONTINUE_PENDING']=='true':
+                  request=urllib.request.Request('https://devnode.telegraphprotocol.com/api/wasm?intent='+row['family'], headers={'User-Agent':'Telegraph-evaluator-integration/1.0'})
+                  data=json.load(urllib.request.urlopen(request,timeout=30))
+                  entries=(data.get('intents',{}).get(row['family']) or {}).get('entries',[])
+                  matches=[e for e in entries if e.get('author_address','').lower()=='0x8b224783fe5b3c52b7db0cb9b1754f8812b75287' and e.get('wasm_hash','').removeprefix('0x')==row['keccak'] and e.get('activation_status')=='pending']
+                  if not matches:
+                      continue
+                  existing=matches[-1]['registration_id']
+              matrix.append({'family':row['family'],'existing':existing})
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              out.write('matrix=' + json.dumps({'include': [{'family': r['family']} for r in selected]}) + '\n')
+              out.write('matrix=' + json.dumps({'include': matrix}) + '\n')
+              out.write('has_candidates=' + ('true' if matrix else 'false') + '\n')
           PY
   verify:
     needs: prepare
+    if: needs.prepare.outputs.has_candidates == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     strategy:
@@ -80,7 +100,8 @@ jobs:
       - name: Prepare exact package and reference runtime
         env:
           FAMILY: ${{ matrix.family }}
-        run: python3 verification/prepare.py --family "$FAMILY"
+          EXISTING: ${{ matrix.existing }}
+        run: python3 verification/prepare.py --family "$FAMILY" --existing "$EXISTING"
       - name: Publish restricted-forward request
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

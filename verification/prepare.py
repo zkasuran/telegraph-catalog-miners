@@ -62,11 +62,18 @@ def fetch(url, target, expected=None, ceiling=1 << 30):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--family", required=True)
+    parser.add_argument("--existing",type=int,default=0)
     args = parser.parse_args()
     inventory = json.loads((HERE / "champions.json").read_text())
     row = next((r for r in inventory["rows"] if r["family"] == args.family), None)
     if row is None:
         raise SystemExit("family is not in the exact champion inventory")
+    row=dict(row)
+    if args.existing:
+        if args.existing<1:
+            raise SystemExit("invalid existing registration")
+        row["existing_registration_id"]=args.existing
+        row["forward_port"]=38600+row["slot"]
     root = Path(os.environ["RUNNER_TEMP"]) / "telegraph-evaluator"
     root.mkdir(exist_ok=True)
     model = root / "foundation"
@@ -95,7 +102,7 @@ def main():
     (root / "state.json").write_text(json.dumps(state))
     lease = {"family": args.family, "slot": row["slot"], "run_id": os.environ["GITHUB_RUN_ID"], "batch": os.environ["VERIFY_BATCH"],
              "public_key": private_key.with_suffix(".pub").read_text().strip(), "adapter_hash": row["keccak"],
-             "forward_port":row["forward_port"], "runnable_url": row["runnable_url"]}
+             "forward_port":row["forward_port"], "runnable_url": row["runnable_url"], "existing_registration_id":row.get("existing_registration_id",0)}
     (root / "lease.json").write_text(json.dumps(lease, indent=2))
     print("Prepared one exact package, pinned foundation and restricted-forwarding public key")
 

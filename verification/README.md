@@ -16,6 +16,12 @@ The matrix is manually dispatched and limited to the 13 recorded champion files.
 The coordinator verifies each public endpoint before signing a registration.
 The test does not guarantee a win on a new evaluation round.
 
+The continuation option selects only the operator's exact pending package hashes.
+It starts another bounded test window for those existing registration IDs, using
+a separate restricted forward port. The coordinator verifies that new endpoint
+before moving the registered HTTPS path to it. No registration is resubmitted by
+this continuation mode.
+
 The new Diamond continues to reserve a retired package's hash after deregistration.
 Recovery files therefore add ignored `x-*` metadata to obtain a fresh registration
 hash. Every tensor byte, descriptor and original model metadata field is checked

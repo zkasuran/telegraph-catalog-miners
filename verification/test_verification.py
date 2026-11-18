@@ -42,6 +42,12 @@ class Decisions(unittest.TestCase):
         rejected = {**self.entry, "activation_status": "rejected"}
         self.assertEqual(serve.find_decision([rejected], self.row, self.start)["status"], "rejected")
 
+    def test_continuation_only_accepts_its_exact_existing_registration(self):
+        old={**self.entry,"registered_at":"2026-11-17T00:05:00Z"}
+        row={**self.row,"existing_registration_id":100}
+        self.assertEqual(serve.find_decision([old],row,self.start)["registration_id"],100)
+        self.assertIsNone(serve.find_decision([{**old,"registration_id":99}],row,self.start))
+
     def test_manifest_has_only_public_exact_bindings(self):
         rows = json.loads((Path(__file__).parent / "champions.json").read_text())["rows"]
         self.assertEqual(len(rows), 13)

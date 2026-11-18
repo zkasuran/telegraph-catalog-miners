@@ -26,7 +26,7 @@ def find_decision(entries, row, start):
         if entry.get("author_address", "").lower() != OWNER or entry.get("wasm_hash", "").removeprefix("0x") != row["keccak"]:
             continue
         registered = dt.datetime.fromisoformat(entry["registered_at"].replace("Z", "+00:00"))
-        if registered < start:
+        if registered < start and entry.get("registration_id")!=row.get("existing_registration_id"):
             continue
         if entry.get("activation_status") in ("active", "rejected", "superseded", "deregistered"):
             return {"family": row["family"], "status": entry["activation_status"], "registration_id": entry["registration_id"], "adapter_hash": row["keccak"]}
@@ -47,6 +47,19 @@ def main():
     original_executor = None
     forward = None
     verdict = {"family": row["family"], "status": "not_started"}
+    if row.get("existing_registration_id"):
+        try:
+            data=read(NODE+"/api/wasm?intent="+row["family"]+"&poll="+str(time.time_ns()))
+            entries=(data.get("intents",{}).get(row["family"]) or {}).get("entries",[])
+            already=find_decision(entries,row,start)
+            if already:
+                (root/"verdict.json").write_text(json.dumps(already,indent=2))
+                print("Existing registration already decided: "+already["status"],flush=True)
+                if already["status"]!="active":
+                    raise RuntimeError("existing candidate was not activated")
+                return
+        except (OSError,ValueError,KeyError):
+            pass
     with (root / "executor.log").open("w") as executor_log, (root / "forward.log").open("w") as forward_log:
         try:
             executor = subprocess.Popen([state["executable"], "--package", state["package"], "--listen", "127.0.0.1:8800"], env=environment, stdout=executor_log, stderr=executor_log)
