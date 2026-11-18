@@ -1,0 +1,79 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Bounded evaluator training experiment
+run-name: Train empty evaluator family ${{ inputs.family }}
+on:
+  workflow_dispatch:
+    inputs:
+      family:
+        description: One source-licensed family experiment
+        required: true
+        type: choice
+        options:
+          - SENTIMENT_ANALYSIS
+          - CONTENT_MODERATION
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-training-${{ inputs.family }}
+  cancel-in-progress: false
+jobs:
+  train:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      FAMILY: ${{ inputs.family }}
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Static and adversarial checks
+        run: bash verification/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Install hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/train-venv"
+          "$RUNNER_TEMP/train-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/training/requirements.lock
+          "$RUNNER_TEMP/train-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/train-venv/bin/python" verification/training/audit.py --lock verification/training/requirements.lock --out "$RUNNER_TEMP/audit-requirements.txt" --report "$RUNNER_TEMP/audit-result.json"
+      - name: Fetch source-bound disjoint pairs
+        timeout-minutes: 20
+        run: |
+          mkdir -p "$RUNNER_TEMP/telegraph-training"
+          "$RUNNER_TEMP/train-venv/bin/python" verification/training/data.py --family "$FAMILY" --out "$RUNNER_TEMP/telegraph-training/data"
+      - name: Train and verify the exported reference runtime
+        timeout-minutes: 285
+        run: |
+          timeout --signal=TERM --kill-after=20s 16800 "$RUNNER_TEMP/train-venv/bin/python" verification/training/run.py --family "$FAMILY" --root "$RUNNER_TEMP/telegraph-training"
+      - name: Preserve result and licence evidence
+        if: always()
+        run: python3 verification/training/preserve.py --root "$RUNNER_TEMP/telegraph-training"
+      - name: Upload result and licence evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: training-${{ inputs.family }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/telegraph-training/result.json
+            ${{ runner.temp }}/telegraph-training/runtime-result.json
+            ${{ runner.temp }}/telegraph-training/package-manifest.json
+            ${{ runner.temp }}/telegraph-training/dataset-gate.json
+            ${{ runner.temp }}/telegraph-training/tokenizer-check.json
+            ${{ runner.temp }}/telegraph-training/data/data-report.json
+            ${{ runner.temp }}/telegraph-training/*.safetensors
+            ${{ runner.temp }}/telegraph-training/checkpoint-config.json
+            verification/training/licences.json
+            ${{ runner.temp }}/audit-result.json
