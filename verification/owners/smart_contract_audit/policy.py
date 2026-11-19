@@ -3,6 +3,16 @@
 import os
 import re
 
+REPO = "zkasuran/telegraph-catalog-miners"
+
+
+def public_repository(event, context_repository):
+    """Use the hosted workflow's real event metadata, not a rate-limited lookup."""
+    repository = event.get("repository", {}) if isinstance(event, dict) else {}
+    if not isinstance(repository, dict) or context_repository != REPO or repository.get("full_name") != REPO or repository.get("private") is not False:
+        raise ValueError("exact owned public repository metadata required")
+    return True
+
 
 def remote_only():
     expected = {"GITHUB_ACTIONS": "true", "GITHUB_REPOSITORY": "zkasuran/telegraph-catalog-miners",
@@ -49,3 +59,43 @@ def quality(metrics):
         if m["accuracy"] < m.get("shortcut_accuracy", 1) + 0.10:
             failures.append(name + " shortcut improvement below 0.10")
     return {"verdict": "FAIL" if failures else "PASS", "failures": failures}
+
+
+def main():
+    import argparse
+    import json
+    from pathlib import Path
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--event", type=Path)
+    parser.add_argument("--report", type=Path)
+    parser.add_argument("--check-public-contract", action="store_true")
+    args = parser.parse_args()
+    if args.check_public_contract:
+        public_repository({"repository": {"full_name": REPO, "private": False}}, REPO)
+        for value in (True, None, 0, "false"):
+            try:
+                public_repository({"repository": {"full_name": REPO, "private": value}}, REPO)
+            except ValueError:
+                pass
+            else:
+                raise ValueError("private/ambiguous repository control passed")
+        print(json.dumps({"public_repository_positive_and_refusal_controls": 5, "neural_work": False}))
+        return
+    remote_only()
+    if os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch" or args.event is None or str(args.event) != os.environ.get("GITHUB_EVENT_PATH"):
+        raise ValueError("actual hosted dispatch event path required")
+    raw = args.event.read_bytes()
+    if len(raw) > 1 << 20:
+        raise ValueError("event metadata ceiling")
+    event = json.loads(raw)
+    passed = public_repository(event, os.environ["GITHUB_REPOSITORY"])
+    report = {"public_repository_verified": passed, "repository": REPO, "run_id": os.environ["GITHUB_RUN_ID"],
+              "evidence": "GitHub hosted workflow event payload and immutable default repository context"}
+    if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, indent=2) + "\n")
+    print(json.dumps(report))
+
+
+if __name__ == "__main__":
+    main()

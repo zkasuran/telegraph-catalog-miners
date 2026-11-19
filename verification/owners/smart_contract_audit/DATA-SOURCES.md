@@ -32,4 +32,6 @@ ethereum-cryptography 3.2.0 is an unchanged MIT dependency used only to compute 
 
 ## Public live scope
 
+Hosted workflow admission uses GitHub's documented `GITHUB_EVENT_PATH`, the full event webhook payload, plus the default repository context. GitHub documents that `GITHUB_*` and `RUNNER_*` defaults cannot be overwritten by workflow configuration. The exact repository identity and boolean `private: false` are required. This replaces the unauthenticated visibility lookup that returned a real 403 rate-limit error in run 44574642219. It changes the verification channel, not the public-only, model-quality or source-data gates. Reference: https://docs.github.com/en/actions/reference/workflows-and-actions/variables.
+
 Keyless metadata only: https://devnode.telegraphprotocol.com/engine/v1/intents/SMART_CONTRACT_AUDIT_GENERAL. The source review read all 19 listed miners, not evaluation rows. Judgment and generic routing are confirmed. No miner provider credentials or calls were used. The owned CodeWire description explicitly accepts contract source or the whole question. The absence of typed schemas remains a coverage limit rather than a blanket scorer block.

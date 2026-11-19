@@ -58,7 +58,7 @@ jobs:
       - name: Run actual standalone source and failure gate
         timeout-minutes: 10
         run: |
-          python3 -c 'import json,urllib.request; r=json.load(urllib.request.urlopen("https://api.github.com/repos/zkasuran/telegraph-catalog-miners",timeout=30)); assert r["private"] is False'
+          python3 verification/owners/smart_contract_audit/policy.py --event "$GITHUB_EVENT_PATH" --report "$RUNNER_TEMP/smart-audit/public-repository-report.json"
           bash verification/owners/smart_contract_audit/verify.sh "$RUNNER_TEMP/smart-audit"
       - name: Install existing hash-locked CPU dependencies
         timeout-minutes: 15

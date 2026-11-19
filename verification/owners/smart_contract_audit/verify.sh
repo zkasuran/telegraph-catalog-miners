@@ -5,6 +5,7 @@ HERE="$(dirname "$(realpath "$0")")"
 OUT="${1:-$HERE/.verify-output}"
 mkdir -p "$OUT"
 export PYTHONDONTWRITEBYTECODE=1
+python3 -W error "$HERE/policy.py" --check-public-contract
 python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -v
 node --check "$HERE/execute.mjs"
 if ! test -d "$HERE/node_modules"; then

@@ -5,9 +5,22 @@ import unittest
 
 from contracts import finite_bits, response_bits, training_pairs
 from registration_common import strict_json
+from policy import public_repository
 
 
 class ContractChecks(unittest.TestCase):
+    def test_hosted_public_repository_contract_refuses_private_and_wrong_identity(self):
+        repo = "zkasuran/telegraph-catalog-miners"
+        self.assertTrue(public_repository({"repository": {"full_name": repo, "private": False}}, repo))
+        for value in (True, None, 0, "false"):
+            with self.assertRaises(ValueError):
+                public_repository({"repository": {"full_name": repo, "private": value}}, repo)
+        with self.assertRaises(ValueError):
+            public_repository({"repository": {"full_name": "someone/else", "private": False}}, repo)
+        for event in (None, {"repository": None}, {"repository": []}):
+            with self.assertRaises(ValueError):
+                public_repository(event, repo)
+
     def test_source_pairs_receive_actual_collator_margin_without_mutation(self):
         rows = [{"prompt": " p\n", "chosen": "yes\r\n", "rejected": " no ", "source_sha256": "source-marker"}]
         before = copy.deepcopy(rows)
