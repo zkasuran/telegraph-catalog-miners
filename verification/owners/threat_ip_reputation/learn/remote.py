@@ -21,6 +21,7 @@ from pathlib import Path
 from contracts import (BASE_FILES, BASE_REVISION, FAMILY, FORMATS, FOUNDATION, KIT, KIT_SHA,
                        LABELS, basic_margins, margin_accuracy, read_development, remote_only,
                        render, sha, validation_gate, words, write_json)
+from training_record import development_record
 
 HERE = Path(__file__).resolve().parent
 RELEASE = "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/"
@@ -98,7 +99,7 @@ def shortcuts(rows, controls):
     return {name: margin_accuracy(values) for name, values in margins.items()}
 
 
-def engine_vectors(root, foundation, package, manifest, tokenizer, rows):
+def engine_vectors(root, foundation, package, manifest, tokenizer, rows, full_validation=False):
     remote_only()
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))
@@ -143,17 +144,35 @@ def engine_vectors(root, foundation, package, manifest, tokenizer, rows):
                     controls.append(field)
                 else:
                     raise ValueError("reference accepted a wrong pinned identity")
-            vectors = [tokenizer.encode(render(row["prompt"], row[side])).ids for row in rows[:4] for side in ("chosen", "rejected")]
-            body = {**identity, "batch": [{"tokens": tokens} for tokens in vectors]}
-            first, second = post(body), post(body)
-            if any(first.get(key) != value for key, value in identity.items()) or first.get("results") != second.get("results") or len(first.get("results", [])) != len(vectors):
-                raise ValueError("reference identities or repeated bits differ")
-            bits = [value["score"] for value in first["results"]]
+            selected = rows if full_validation else rows[:4]
+            vectors = [tokenizer.encode(render(row["prompt"], row[side])).ids for row in selected for side in ("chosen", "rejected")]
+            bits = []
+            for start in range(0, len(vectors), 8):
+                batch = vectors[start:start + 8]
+                first = post({**identity, "batch": [{"tokens": tokens} for tokens in batch]})
+                if any(first.get(key) != value for key, value in identity.items()) or len(first.get("results", [])) != len(batch):
+                    raise ValueError("reference literal identity or result count differs")
+                bits.extend(value["score"] for value in first["results"])
+            repeated = post({**identity, "batch": [{"tokens": tokens} for tokens in vectors[:8]]})
+            if [value["score"] for value in repeated.get("results", [])] != bits[:8] or any(repeated.get(key) != value for key, value in identity.items()):
+                raise ValueError("reference repeated bits or identity differs")
             if any(type(value) is not int or not 0 <= value < 1 << 32 or value & 0x7f800000 == 0x7f800000 for value in bits):
                 raise ValueError("reference returned invalid finite FP32 bits")
-            return {"full_parser_passed": True, "reference_engine_passed": True, "repeat_bits_identical": True,
-                    "negative_identity_controls": len(controls), "vectors": [{"tokens": tokens, "score_bits": value} for tokens, value in zip(vectors, bits)],
-                    "scope": "validation fixed vectors, not an independent quality audit"}
+            proof = {"full_parser_passed": True, "reference_engine_passed": True, "repeat_bits_identical": True,
+                     "negative_identity_controls": len(controls), "vectors": [{"tokens": tokens, "score_bits": value} for tokens, value in zip(vectors[:8], bits[:8])],
+                     "scope": "validation fixed vectors, not an independent quality audit"}
+            if full_validation:
+                scores = [struct.unpack("<f", struct.pack("<I", value))[0] for value in bits]
+                wins = [scores[2*i] > scores[2*i+1] for i in range(len(selected))]
+                metrics = {}
+                for fmt in FORMATS:
+                    indices = [i for i, row in enumerate(selected) if row["format"] == fmt]
+                    metrics[fmt] = {"accuracy": sum(wins[i] for i in indices) / len(indices),
+                                    "per_label": {label: sum(wins[i] for i in indices if selected[i]["label"] == label) /
+                                                  sum(selected[i]["label"] == label for i in indices) for label in LABELS}}
+                proof["validation_formats"] = metrics
+                proof["validation_pairs"] = len(selected)
+            return proof
         finally:
             process.terminate()
             try:
@@ -225,12 +244,15 @@ def main():
         return values
     licences = json.loads((HERE / "licences.json").read_text())
     cfg = AutoConfig.from_pretrained(base, local_files_only=True)
-    def export(directory, output, trained):
+    def export(directory, output, trained, measured):
         tensors, params = read_peft(directory, cfg)
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"], foundation_version="modernbert-base-lora16-v1",
                         rank=params["rank"], alpha=params["alpha"], target_modules=params["target_modules"], max_tokens=512,
-                        training={"family": FAMILY, "trained": trained, "audit_required": True, "train_sha256": sha((HERE / "data/train.jsonl").read_bytes()),
-                                  "validation_sha256": sha((HERE / "data/validation.jsonl").read_bytes()), "scope": "source-specific observation expiry fidelity, not universal IP truth"})
+                        training=development_record(measured, len(splits["validation"])))
+        meta["x-development-provenance"] = json.dumps({"trained": trained, "audit_required": True,
+                                                       "train_sha256": sha((HERE / "data/train.jsonl").read_bytes()),
+                                                       "validation_sha256": sha((HERE / "data/validation.jsonl").read_bytes()),
+                                                       "scope": "source-specific observation expiry fidelity, not universal IP truth; development is not independent audit"})
         for key in ("notice", "apache_2_0", "kit_mit", "sand", "cc0", "source_notice"):
             meta["x-" + key.replace("_", "-")] = licences[key]
         write_package(output, meta, {name: tensors[name] for name in tensor_names(cfg.num_hidden_layers)})
@@ -244,7 +266,7 @@ def main():
     seed_dir.mkdir(exist_ok=True)
     initial.save_pretrained(seed_dir)
     trainer.save_reward_head(initial, seed_dir)
-    export(seed_dir, root / "untrained.safetensors", False)
+    export(seed_dir, root / "untrained.safetensors", False, untrained)
     del initial
     gc.collect()
     adapter = root / "trained-adapter"
@@ -252,17 +274,28 @@ def main():
     trained = evaluate(model)
     (adapter / "tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())
     package = root / (FAMILY + ".safetensors")
-    meta = export(adapter, package, True)
+    meta = export(adapter, package, True, trained)
     del model
     gc.collect()
     frozen_at = dt.datetime.now(dt.timezone.utc).isoformat()
+    decision = validation_gate(trained, untrained, strongest)
+    report.update(status="CANDIDATE_FROZEN_AUDIT_REQUIRED" if decision["passed"] else "VALIDATION_FAILED", frozen_at=frozen_at,
+                  package_sha256=sha(package.read_bytes()), package_bytes=package.stat().st_size,
+                  validation={"trained": trained, "untrained": untrained, "shortcuts": shortcut_values, "gate": decision},
+                  frozen_controls_sha256=sha((root / "frozen-controls.json").read_bytes()), hyperparameters=asdict(hp),
+                  versions={name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "numpy", "safetensors")},
+                  runtime_node=socket.gethostname(), serving_commit=os.environ["GITHUB_SHA"])
+    write_json(root / "candidate-report.json", report)  # Preserve actual metrics even if parser/runtime fails.
     for name in ("adapterexec", "adapterbuild"):
         subprocess.run(["go", "build", "-trimpath", "-o", str(root / name), "./cmd/" + name], cwd=kit, check=True, timeout=600)
     spec = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"], "foundation_version": "modernbert-base-lora16-v1", "tokenizer_hash": FOUNDATION["tokenizer.json"],
             "base_model": str(base), "r_max": 16, "num_layers": cfg.num_hidden_layers, "hidden_size": cfg.hidden_size, "targets": {key: list(value) for key, value in target_dims(cfg).items()}}
     write_json(root / "foundation.json", spec)
     parse = subprocess.run([str(root / "adapterbuild"), "lora", "--intent", FAMILY, "--package", str(package), "--class", "judgment",
-                            "--foundation", str(root / "foundation.json"), "--out", str(root)], capture_output=True, text=True, check=True, timeout=60)
+                            "--foundation", str(root / "foundation.json"), "--out", str(root)], capture_output=True, text=True, timeout=60)
+    write_json(root / "parser-result.json", {"exit": parse.returncode, "stdout": parse.stdout, "stderr": parse.stderr})
+    if parse.returncode:
+        raise RuntimeError("actual full parser refused package; exact stderr retained in parser-result.json")
     manifest = json.loads(parse.stdout)
     if manifest["sha256"] != sha(package.read_bytes()):
         raise ValueError("full package parser hash mismatch")

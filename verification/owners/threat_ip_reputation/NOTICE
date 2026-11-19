@@ -30,3 +30,6 @@ review or independent threat audit is claimed.
 
 Remote learner additions
 ModernBERT architecture and weights retain Apache-2.0. The pinned licence grant and original Apache text are retained in learn/licences.json. Jacob Durham waives rights to the original blocklist and generator under CC0; see UPSTREAM-JACOB.txt and UPSTREAM-CC0.txt. Preference contrasts are our AI-assisted construction from publisher observations, not human-reviewed annotations. Native validation is selection data, not an independent audit.
+
+Parser/runtime recovery
+The prior checkpoint contains an invalid standard TrainingRecord without children. Metadata recovery preserves the original record in an x-extension, original grant values, tensor descriptors and all tensor payload bytes. Native development accuracy was 50% in every training epoch. Metadata repair is not a quality improvement, independent audit or canonical win.

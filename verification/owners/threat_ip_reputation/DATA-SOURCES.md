@@ -47,3 +47,7 @@ Original grant: https://raw.githubusercontent.com/jacobyoby/honeypot-blocklist/2
 ModernBERT's pinned model card states: 'We release the ModernBERT model architectures, model weights, training codebase under the Apache 2.0 license.' Primary card: https://huggingface.co/answerdotai/ModernBERT-base/raw/8949b909ec900327062f0ebf497f51aef5e6f0c8/README.md
 
 Training runs only in the bounded public CPU workflow. No protected pool rows or prior exposed audits enter this dataset. Audit last_seen must exceed the actual frozen candidate timestamp and audit components must not share development IP, /24 or ASN. No audit is currently collected.
+
+## Actual failed development run
+
+Run 44586142914 at f2d2c59fc410d23b9434de11341c944328972804 passed its frozen training-data gate and 640 tokenizer/render checks. All three epoch development aggregates were 50%; epoch 0 was restored. No per-format or independent audit result was retained in its stale report. The source/parser contract requires nonempty training children. Replay uses only those exact licensed checkpoints and records actual full-parser stderr plus reference-engine development metrics. No retraining or new training data is introduced.

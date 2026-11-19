@@ -18,6 +18,8 @@ class SourceOnly:
 sys.meta_path.insert(0, SourceOnly())
 import contracts
 import test_learner
+import test_training_record
+import test_replay
 
 HERE = Path(__file__).resolve().parent
 
@@ -32,7 +34,9 @@ def main():
                 raise ValueError("remote code contains top-level neural imports")
     data = contracts.read_development(HERE / "data")
     stream = io.StringIO()
-    suite = unittest.defaultTestLoader.loadTestsFromTestCase(test_learner.LearnerTests)
+    suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(test_learner.LearnerTests),
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_training_record.TrainingRecordTests),
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_replay.ReplayTests)])
     result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
     if not result.wasSuccessful():
         print(stream.getvalue())

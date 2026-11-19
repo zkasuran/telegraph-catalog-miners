@@ -25,3 +25,7 @@ The source-only workflow runs on standard public CPU runners with one job, an ex
 ## Remote learning boundary
 
 learn/remote.py refuses local execution before neural imports, downloads or engine startup. The source gate exercises that real refusal. Frozen train/validation hashes and whole source groups are checked before fitting. Only training fits the immutable shortcut coefficients; future audits must reuse their exported bytes. Every claimed format must pass 80% overall, 70% per label, five points over untrained and ten points over the strongest tested shortcut. Validation selects the frozen candidate. A separate fresh audit is still required. The training stage cannot emit REGISTRATION_READY. The actual reference executor must echo literal bare identities, reject three wrong identities and return repeated identical finite score bits. These runtime checks run remotely, never in the local release gate. No signer, provider credential or forwarding key is part of this stage.
+
+## Failure recovery controls
+
+The actual TrainingRecord defect is tested without neural imports. Repacking changes metadata only and streams tensor bytes verbatim, checking their digest and unchanged descriptors. Original licence strings and provenance remain in the header. Original parser failure and every recovery parser result retain exact stdout/stderr before another stage runs. Runtime evaluation is public CPU only. A corrected container cannot authorize registration of a weak model. No audit is used for selection.

@@ -40,3 +40,7 @@ See `DATA-SOURCES.md` for the original granting clauses and hashes. See `SECURIT
 ## Bounded remote learning stage
 
 The workflow now also offers train-development. It uses the pinned ModernBERT/Telegraph source pipeline on one ubuntu-24.04 CPU job with a 330-minute limit. The local release gate remains source-only. Frozen licensed observation preferences are under learn/data. The remote stage runs actual tokenizer conformance, unchanged training-data gates, train-only shortcut fitting, seed-matched untrained validation, LoRA training and validation-only selection. It exports licensed checkpoint deltas, runs the full package parser and actual reference engine before reporting the freeze. A successful stage reports CANDIDATE_FROZEN_AUDIT_REQUIRED, not registration readiness or a canonical win. Fresh independent audit, endpoint and node qualification remain later gates.
+
+## Recover the actual failed integration
+
+The replay-runtime workflow mode downloads the exact result artifact of run 44586142914 using read-only GitHub runner permissions. It does not train. It verifies the exact original package hashes, reproduces the original parser refusal, fixes only the malformed training metadata then checks full parsing and actual reference-engine scores. Every tensor byte and original grant remains unchanged. The original model reached only 50% development accuracy. A runtime recovery remains unqualified without genuine quality improvement and a clean independent audit.
