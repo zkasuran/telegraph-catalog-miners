@@ -53,6 +53,11 @@ def prompt(row):
     return "Return the single most central keyphrase for this research abstract.\n\n" + row["text"]
 
 
+def whole_annotation(row):
+    """One literal, complete original-annotation wire rendering for every gate."""
+    return json.dumps({"keywords": row["author_keywords"]}, ensure_ascii=False, separators=(",", ":"))
+
+
 def answer(term, style):
     if style == "plain":
         return term
@@ -80,7 +85,7 @@ def main():
     groups = group_sources(rows)
     fit, counts = [], Counter()
     for row in rows:
-        whole = json.dumps({"keywords": row["author_keywords"]}, ensure_ascii=False, separators=(",", ":"))
+        whole = whole_annotation(row)
         row["whole_annotation_render_tokens"] = len(tok.encode(render(prompt(row), whole)).ids)
         row["prompt_bytes"] = len(prompt(row).encode())
         if row["whole_annotation_render_tokens"] > MAX_TOKENS:

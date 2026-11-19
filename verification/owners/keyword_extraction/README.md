@@ -6,9 +6,11 @@ This module prepares source-bound keyword relevance experiments from original eL
 
 The pinned complete inventory contains 19,699 v1 XML files. The same deterministic sample was expanded to 4,096 files without deleting or redownloading the previous 2,048. All selected blobs were verified. It yielded 1,783 licensed research-article-tagged XML records with original author keywords. Of these, 1,503 whole title/abstract/author-keyword renderings fit the 384-token budget. Nothing is cropped to keep an annotation.
 
-Boundary-aware proposal construction finds 268 reciprocal contrasts. Eight original-text reviews reject ambiguous directions. Five contrasts were accepted as AI-assisted comparative centrality/informativeness preferences, producing 10 source-derived pairs. Another 255 proposals are unreviewed. The unrejected proposal graph has an upper bound of 121 independent contrasts, not 121 proven valid contrasts. These are sample and recipe counts, not the annotation rate of the full eLife corpus.
+Boundary-aware proposal construction finds 268 reciprocal contrasts. Thirteen original-text reviews reject ambiguous directions. Sixteen contrasts were accepted as AI-assisted comparative centrality/informativeness preferences, producing 32 source-derived pairs. Another 239 proposals are unreviewed. The unrejected proposal graph's capacity is not a count of proven valid contrasts. These are sample and recipe counts, not the annotation rate of the full eLife corpus.
 
-No approved dataset or trained neural candidate exists. Current reviewed data has four train pairs, no validation pairs and six audit pairs. The assembler retains these candidates but refuses the empty validation split. It does not issue an approved manifest. No remote job, runtime score, registration or qualification is claimed.
+No approved dataset or trained neural candidate exists. Current reviewed data has 12 train pairs over five components, two validation pairs over one component and 18 audit pairs over five components. Donor/source groups sharing normalized answers are merged before splitting. The assembler refuses the insufficient 64/16/64 counts rather than ignoring overlap or manufacturing independence. It does not issue an approved manifest.
+
+Source-only public CI run 44574231869 passed 27 tests at source commit 63378f7100b86696bc8dabf4b6132442d8153a44. Its actual source-result artifact is distinct from neural quality evidence. No trained runtime score, registration or qualification is claimed.
 
 ## Measurement boundary
 

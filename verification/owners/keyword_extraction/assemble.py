@@ -6,9 +6,16 @@ from collections import defaultdict
 from pathlib import Path
 
 from gates import check_splits
-from prepare_data import MAX_TOKENS, TOKENIZER_SHA, Union, answer, prompt
+from prepare_data import (
+    MAX_TOKENS,
+    TOKENIZER_SHA,
+    Union,
+    answer,
+    prompt,
+    whole_annotation,
+)
 from scorer import render
-from source import contains, sha, write
+from source import contains, norm, sha, write
 
 
 def main():
@@ -33,6 +40,7 @@ def main():
         if row["group_id"] in owners:
             union.join(i, owners[row["group_id"]])
         owners[row["group_id"]] = i
+    answer_owners = {}
     for r in approved:
         p = proposals[r["proposal_id"]]
         if r.get("choice_a") not in {"term_a", "term_b"} or r.get("choice_b") not in {"term_a", "term_b"} or r["choice_a"] == r["choice_b"]:
@@ -40,6 +48,11 @@ def main():
         if r.get("review_origin") != "AI-assisted" or not r.get("reason_a") or not r.get("reason_b"):
             raise ValueError("explicit AI-assisted review and reasons required, no human-review substitution")
         union.join(ids[p["doi_a"]], ids[p["doi_b"]])
+        for term in (p["term_a"], p["term_b"]):
+            key = norm(answer(term, "array"))
+            if key in answer_owners:
+                union.join(ids[p["doi_a"]], answer_owners[key])
+            answer_owners[key] = ids[p["doi_a"]]
     components = defaultdict(list)
     for i, row in enumerate(rows):
         components[union.root(i)].append(row)
@@ -69,7 +82,7 @@ def main():
             if not contains(row["text"], chosen) or not contains(row["text"], rejected):
                 raise ValueError("both contrasted terms must be literal in this exact passage")
             # Check whole original annotations, not just shorter target answers.
-            whole = json.dumps({"keywords": row["author_keywords"]}, ensure_ascii=False)
+            whole = whole_annotation(row)
             if len(tok.encode(render(prompt(row), whole)).ids) > MAX_TOKENS:
                 raise ValueError("whole original annotation no longer fits")
             for style in ("plain", "array", "object"):

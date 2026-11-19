@@ -10,6 +10,8 @@
 | Ambiguous keyword syntax | Bounded string-list parser, bracket checking, numeric comma ambiguity requires JSON | Parser controls and 200 randomized cases |
 | Keyword stuffing | Bounded term count, normalized duplicate penalty | Duplicate penalty and bounds tests |
 | Leakage through donors, authors or formatting | Prefilter DOI/author/text components, topic inheritance, donor union and cross-split answer checks | Transitive author/topic and overlap refusal tests |
+| Shared answer strings cross source splits | Merge source/donor components sharing normalized answer text before assigning splits | Actual SARS-CoV-2 overlap refusal and corrected assembly |
+| Source capacity and assembly use different JSON layouts | Shared exact complete-annotation renderer without dropping source keywords | Complete list equality and literal wire rendering test |
 | False source preference labels | Proposals remain unreviewed until explicit centrality reasons exist | Six documented original-text rejections and empty approval refusal |
 | Shortcut learning | Train-only immutable integer coefficients plus unmodified primary dataset gate | Frozen coefficient test. Real dataset gate still pending |
 | Wrong runnable identity or nonfinite score | Literal primary wire contract, primary Go input roots and strict FP32 decoding | Primary Go equality probe, root/prefix and nonfinite controls |

@@ -21,3 +21,5 @@ The new independent-audit job references actions/download-artifact at d3f86a106a
 Primary action grant: https://raw.githubusercontent.com/actions/download-artifact/d3f86a106a0bac45b974a628896c90dbdf5c8093/LICENSE
 
 Source-only gate context: laptop-refusal controls run in an explicit empty environment, while a separate guard-only control verifies the public workflow context. Neither control downloads or prepares model assets. This preserves the same source grants and model quality gates when CI runs the package.
+
+Current constructed review data contains 32 source-derived pairs from 16 explicit AI-assisted contrasts. Thirteen ambiguous inversions were rejected. Shared normalized answer text joins source/donor components before splitting; repeated keywords do not create independent entities. Full original author-keyword annotations use one shared compact JSON rendering in collection and assembly, with no keyword or source-prose cropping.

@@ -13,7 +13,7 @@ from unittest import mock
 
 from audit_remote import FORMATS, metrics, verdict, views
 from gates import check_pilot_counts, check_splits, fit_baselines, shortcut_report
-from prepare_data import answer, group_sources, prompt
+from prepare_data import answer, group_sources, prompt, whole_annotation
 from preserve import stamp
 from remote import remote_only, verify_sources
 from scorer import render, score, terms
@@ -169,6 +169,12 @@ class KeywordTests(unittest.TestCase):
         self.assertLessEqual(cfg["timeout_seconds"], 6900)
         self.assertLessEqual(cfg["max_rss_bytes"], 10 << 30)
         self.assertEqual(cfg["maximum_data_shortcut"], 0.65)
+
+    def test_complete_annotation_wire_is_shared_without_cropping(self):
+        row = {"author_keywords": ["α", "PI(4,5)P2", "cell wall"]}
+        value = whole_annotation(row)
+        self.assertEqual(value, '{"keywords":["α","PI(4,5)P2","cell wall"]}')
+        self.assertEqual(json.loads(value)["keywords"], row["author_keywords"])
 
     def test_pilot_counts_cannot_accept_tiny_splits(self):
         with self.assertRaisesRegex(ValueError, "insufficient reviewed pairs"):
