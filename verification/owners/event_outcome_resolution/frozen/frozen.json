@@ -1,0 +1,52 @@
+{
+  "audit_neural_status": "never measured; controller independent measurement after validation freeze",
+  "baseline_sha256": "88e7550aa9ac3d6cb6ab4fe1e02b345a15ba8b3ae8cce59f28a33d9bde4fda59",
+  "cross_split_overlap": 0,
+  "family": "EVENT_OUTCOME_RESOLUTION",
+  "files": {
+    "audit": {
+      "events": 64,
+      "independent_groups": 39,
+      "pairs": 384,
+      "sha256": "765870187ac6bb504b8f2a64394fe829b3ec6e6cf6db266f1286f32673c407f9",
+      "shortcuts": {
+        "answer_only_label": "label token counts counterbalanced; neural surface probe still required",
+        "prefer_longer": 0.5,
+        "token_overlap": 0.5,
+        "train_fitted_answer_unigram": 0.5,
+        "utf8_length": 0.5
+      }
+    },
+    "train": {
+      "events": 128,
+      "independent_groups": 45,
+      "pairs": 768,
+      "sha256": "9c2b1af66f9d00dd8e1402b91aab48ac36267462bee548cfe54c92327b6339f8",
+      "shortcuts": {
+        "answer_only_label": "label token counts counterbalanced; neural surface probe still required",
+        "prefer_longer": 0.5,
+        "token_overlap": 0.5,
+        "train_fitted_answer_unigram": 0.5,
+        "utf8_length": 0.5
+      }
+    },
+    "validation": {
+      "events": 32,
+      "independent_groups": 17,
+      "pairs": 192,
+      "sha256": "6e7f00a34468e94957bce5d8087bdbd390f72d013e3d9fde41f2db673d20070e",
+      "shortcuts": {
+        "answer_only_label": "label token counts counterbalanced; neural surface probe still required",
+        "prefer_longer": 0.5,
+        "token_overlap": 0.5,
+        "train_fitted_answer_unigram": 0.5,
+        "utf8_length": 0.5
+      }
+    }
+  },
+  "schema_version": 1,
+  "scope": "official historical award-list entailment with supplied evidence, not future prediction",
+  "selection": "smallest SHA256(event_id) within each previously separated time split",
+  "source_receipts_sha256": "61d9a1f8db68e6071bd51162bce879bffc37210bde375a5811bde6bf301b7899",
+  "source_report_sha256": "b8644d9d8dc8cca39691d2fa5ed5c5bbf232bfb32c5fcecbebce34f425695abb"
+}

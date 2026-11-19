@@ -1,0 +1,72 @@
+{
+  "audit_rule_measurement": "deterministic reference only",
+  "excluded": {
+    "entity_crosses_time_boundary": 9,
+    "no_published_recipients": 49,
+    "no_same_year_negative": 1,
+    "source_date_precedes_edition_quarantine": 1
+  },
+  "family": "EVENT_OUTCOME_RESOLUTION",
+  "files": {
+    "audit": {
+      "events": 331,
+      "labels": {
+        "no": 662,
+        "unresolved": 662,
+        "yes": 662
+      },
+      "max_event_bytes": 204,
+      "pairs": 1986,
+      "period": ">=1971",
+      "sha256": "afbf10cc2f5366dabdb18f13261196463dafbbc64af62b37e53c48328ba15bb4",
+      "shortcuts": {
+        "answer_only_label": "label token counts counterbalanced; neural surface probe still required",
+        "prefer_longer": 0.5,
+        "token_overlap": 0.5,
+        "utf8_length": 0.5
+      }
+    },
+    "train": {
+      "events": 203,
+      "labels": {
+        "no": 406,
+        "unresolved": 406,
+        "yes": 406
+      },
+      "max_event_bytes": 184,
+      "pairs": 1218,
+      "period": "<=1950",
+      "sha256": "fbcaf7e88090b19ac0880eacb1957ca1429ed8d320b78a05f2f5fc4a5c6fb3c0",
+      "shortcuts": {
+        "answer_only_label": "label token counts counterbalanced; neural surface probe still required",
+        "prefer_longer": 0.5,
+        "token_overlap": 0.5,
+        "utf8_length": 0.5
+      }
+    },
+    "validation": {
+      "events": 94,
+      "labels": {
+        "no": 188,
+        "unresolved": 188,
+        "yes": 188
+      },
+      "max_event_bytes": 186,
+      "pairs": 564,
+      "period": "1951-1970",
+      "sha256": "92ab272a91358b8545f7c67021c2abc5ad35a37e583b49403874d486e8fb90ce",
+      "shortcuts": {
+        "answer_only_label": "label token counts counterbalanced; neural surface probe still required",
+        "prefer_longer": 0.5,
+        "token_overlap": 0.5,
+        "utf8_length": 0.5
+      }
+    }
+  },
+  "normalized_cross_split_overlap": 0,
+  "schema_version": 1,
+  "source_inventory": 688,
+  "source_receipts_sha256": "61d9a1f8db68e6071bd51162bce879bffc37210bde375a5811bde6bf301b7899",
+  "source_scope": "official historical award-list entailment with supplied evidence, not future prediction",
+  "untouched_neural_audit": true
+}

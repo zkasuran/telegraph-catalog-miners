@@ -1,0 +1,145 @@
+{
+  "fetched_at": "2026-11-19T11:03:11.208631+00:00",
+  "inventory_records": 688,
+  "kit_commit": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "reported_count": 688,
+  "sources": [
+    {
+      "bytes": 38247,
+      "final_url": "https://devnode.telegraphprotocol.com/engine/v1/intents/EVENT_OUTCOME_RESOLUTION_GENERAL",
+      "path": "live-child.json",
+      "sha256": "dd0e60a139621367c12b111ec3228c4e145934fb10e02973f13a90a922b379df",
+      "status": 200,
+      "url": "https://devnode.telegraphprotocol.com/engine/v1/intents/EVENT_OUTCOME_RESOLUTION_GENERAL"
+    },
+    {
+      "bytes": 158687,
+      "final_url": "https://www.nobelprize.org/about/terms-of-use-for-api-nobelprize-org-and-data-nobelprize-org/",
+      "path": "nobel-terms.html",
+      "sha256": "dcf5cacbeb16823e69a558b7913015ff6e66609b8e5ed373693ae8dbdd516d91",
+      "status": 200,
+      "url": "https://www.nobelprize.org/about/terms-of-use-for-api-nobelprize-org-and-data-nobelprize-org/"
+    },
+    {
+      "bytes": 162702,
+      "final_url": "https://www.nobelprize.org/about/developer-zone-2/",
+      "path": "nobel-api-docs.html",
+      "sha256": "4b9867e5885e6bc4726a0fb2c2abcb381af828ba0701b12dc04e2db9dd2e8a4d",
+      "status": 200,
+      "url": "https://www.nobelprize.org/about/developer-zone-2/"
+    },
+    {
+      "bytes": 1074,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/LICENSE",
+      "path": "kit-LICENSE",
+      "sha256": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/LICENSE"
+    },
+    {
+      "bytes": 39897,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+      "path": "kit-float_runtime_train_adapter.py",
+      "sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py"
+    },
+    {
+      "bytes": 22166,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/engine/llm/client.go",
+      "path": "kit-pkg_engine_llm_client.go",
+      "sha256": "2d3ed396928c41df72792f9dd4e21c42acd667df786b6ac08de69d98b80fbc83",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/engine/llm/client.go"
+    },
+    {
+      "bytes": 7161,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/cmd/adapterexec/main.go",
+      "path": "kit-cmd_adapterexec_main.go",
+      "sha256": "fc0c3c4b89ae28486baf68d614b1d137ce161a91477fce281eb0571bcee0bf2f",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/cmd/adapterexec/main.go"
+    },
+    {
+      "bytes": 18503,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/remote/remote.go",
+      "path": "kit-pkg_wasm_remote_remote.go",
+      "sha256": "9d8939b86181449d2c92a5c7f1a720ca34aee27b5ae491c84246c4e2eb2c871f",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/remote/remote.go"
+    },
+    {
+      "bytes": 8794,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/onchain.go",
+      "path": "kit-pkg_scoring_responseparser_onchain.go",
+      "sha256": "93ce816faf09a7cb1759e96ea1ec36df937e989412ac6b36e70cb024c5950be3",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/onchain.go"
+    },
+    {
+      "bytes": 6088,
+      "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/prompt.go",
+      "path": "kit-pkg_scoring_responseparser_prompt.go",
+      "sha256": "6c738da893d4990243e19cac02dcb8554674e20035de5e2e5ca603922aa1d982",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/prompt.go"
+    },
+    {
+      "bytes": 98083,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=0",
+      "path": "prizes-00.json",
+      "sha256": "700b719f38b51742f956cb7424ecffff177b8ef2ce0a75e14b92b7a9b6251625",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=0"
+    },
+    {
+      "bytes": 93523,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=100",
+      "path": "prizes-01.json",
+      "sha256": "ff5014e6412cc32831eb7859ca5f03eb1bb4d400b08a8e5f1ef3f92dd8b07106",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=100"
+    },
+    {
+      "bytes": 102257,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=200",
+      "path": "prizes-02.json",
+      "sha256": "b9238f3b8adb4da2d4d4b5e4210080e5a1dbabbca33ee50f797d1a0fa7f30851",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=200"
+    },
+    {
+      "bytes": 126186,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=300",
+      "path": "prizes-03.json",
+      "sha256": "611e5e4917fb314b72d234fdc8cd112a2ea63efcfb62ad6eebb50fbc603d497c",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=300"
+    },
+    {
+      "bytes": 123754,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=400",
+      "path": "prizes-04.json",
+      "sha256": "6f44f5486017d0038ddde5640e016ce7c088aef3c82926954d6ea038d389c6d5",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=400"
+    },
+    {
+      "bytes": 135118,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=500",
+      "path": "prizes-05.json",
+      "sha256": "d1d3cd8e2dbd08d17a8d4efb4529ba400aa420eae5e494ebdbced15ddf1ba779",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=500"
+    },
+    {
+      "bytes": 120198,
+      "final_url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=600",
+      "path": "prizes-06.json",
+      "sha256": "bc6249f1508a42ed69aaecb6a61e31c93427735b132fbb01c425d7e6bef7e910",
+      "status": 200,
+      "url": "https://api.nobelprize.org/2.1/nobelPrizes?limit=100&offset=600"
+    }
+  ],
+  "unique_year_categories": 688
+}

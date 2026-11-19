@@ -1,0 +1,127 @@
+{
+  "class": "judgment",
+  "evaluation": {
+    "bootstrap_evaluator": false,
+    "kind": "judgment",
+    "via": "generic"
+  },
+  "intent_id": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "intent_name": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "lifecycle": {
+    "reasons": [],
+    "since": "2026-11-19T00:07:31.889871Z",
+    "state": "active"
+  },
+  "onchain": {
+    "format_version": 4,
+    "off_chain": [
+      "event",
+      "winner",
+      "resolved_at",
+      "sources"
+    ],
+    "ready": true,
+    "request": [
+      {
+        "index": 0,
+        "max_bytes": 256,
+        "name": "event",
+        "slot": "strings",
+        "type": "string"
+      }
+    ],
+    "response": [
+      {
+        "allowed": [
+          "yes",
+          "no",
+          "unresolved"
+        ],
+        "index": 0,
+        "max_bytes": 256,
+        "name": "outcome",
+        "slot": "strings",
+        "type": "enum"
+      },
+      {
+        "index": 0,
+        "name": "resolved_yes",
+        "slot": "bools",
+        "type": "bool"
+      }
+    ],
+    "served_by": "EVENT_OUTCOME_RESOLUTION"
+  },
+  "request": {
+    "params": [
+      {
+        "description": "The event or question to resolve",
+        "name": "event",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "schema_version": 4,
+    "served_by": "EVENT_OUTCOME_RESOLUTION"
+  },
+  "response": {
+    "fields": [
+      {
+        "description": "The event or question being resolved",
+        "name": "event",
+        "off_chain": true,
+        "type": "string"
+      },
+      {
+        "allowed": [
+          "yes",
+          "no",
+          "unresolved"
+        ],
+        "description": "Resolved outcome",
+        "name": "outcome",
+        "processed": true,
+        "type": "enum"
+      },
+      {
+        "description": "Whether the event resolved YES (happened / passed / won)",
+        "false_when": [
+          "false",
+          "no",
+          "0"
+        ],
+        "name": "resolved_yes",
+        "scored": true,
+        "true_when": [
+          "true",
+          "yes",
+          "1"
+        ],
+        "type": "bool"
+      },
+      {
+        "description": "The winner's name, when the event has one",
+        "name": "winner",
+        "off_chain": true,
+        "type": "string"
+      },
+      {
+        "description": "Date or time the outcome was settled",
+        "name": "resolved_at",
+        "off_chain": true,
+        "type": "string"
+      },
+      {
+        "description": "URLs or names of the sources the answer cites",
+        "name": "sources",
+        "off_chain": true,
+        "type": "list"
+      }
+    ],
+    "format_version": 4,
+    "served_by": "EVENT_OUTCOME_RESOLUTION"
+  },
+  "version": 1,
+  "wasm": null,
+  "wasm_count": 0
+}

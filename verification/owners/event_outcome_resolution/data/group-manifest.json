@@ -1,0 +1,4786 @@
+{
+  "1901/Chemistry": {
+    "recipient_ids": [
+      "160"
+    ],
+    "source_sha256": "91a891a937ce692967b522e29f3a62d2aaf4529c1d6ad5383db9fe94bf86cd5b",
+    "split": "train"
+  },
+  "1901/Literature": {
+    "recipient_ids": [
+      "569"
+    ],
+    "source_sha256": "762f913e89406ce60ac4e5bc37bad85863acd422c798d5c5fb0fe54784386f02",
+    "split": "train"
+  },
+  "1901/Peace": {
+    "recipient_ids": [
+      "462",
+      "463"
+    ],
+    "source_sha256": "93862c9495b11bf0257521169a48c29ccd9416eeee6393d2daa4ce056c107477",
+    "split": "train"
+  },
+  "1901/Physics": {
+    "recipient_ids": [
+      "1"
+    ],
+    "source_sha256": "a7a4b3296fa8bf4e7a54855d5f2c37ee47da6d83a0aca1876a82230b60dbbda5",
+    "split": "train"
+  },
+  "1901/Physiology or Medicine": {
+    "recipient_ids": [
+      "293"
+    ],
+    "source_sha256": "1a2f93220c5e20e0cbb59a0642da308811234916552fb1ce39dee3f4565e8a2b",
+    "split": "train"
+  },
+  "1902/Chemistry": {
+    "recipient_ids": [
+      "161"
+    ],
+    "source_sha256": "649bd485287abf7561ac65c04532cbf033b6949323b1800c847f610992e30e77",
+    "split": "train"
+  },
+  "1902/Literature": {
+    "recipient_ids": [
+      "571"
+    ],
+    "source_sha256": "fdde4ad7bcf5c05d00ea5bb10bd467969b53b717af9fcc417f2cdaff652a963e",
+    "split": "train"
+  },
+  "1902/Peace": {
+    "recipient_ids": [
+      "464",
+      "465"
+    ],
+    "source_sha256": "c3a642e43cc2f8a9f80dcebf7224b4c76a5484d38fc4cb3e94f49ae81a276c85",
+    "split": "train"
+  },
+  "1902/Physics": {
+    "recipient_ids": [
+      "2",
+      "3"
+    ],
+    "source_sha256": "7080343c969e54d51e181a63e02a500b8153118062800984d46f49c9c12de3b2",
+    "split": "train"
+  },
+  "1902/Physiology or Medicine": {
+    "recipient_ids": [
+      "294"
+    ],
+    "source_sha256": "586b476d9b126ed392f02456d227687969176e5586f0f7184f65d68ca41780f1",
+    "split": "train"
+  },
+  "1903/Chemistry": {
+    "recipient_ids": [
+      "162"
+    ],
+    "source_sha256": "3e455ae36ccbbbebff6be2bb33d66955f91da3f0e4e7b2124957116658472709",
+    "split": "train"
+  },
+  "1903/Literature": {
+    "recipient_ids": [
+      "572"
+    ],
+    "source_sha256": "86f8cab6948545a0651136966347038488f6f95ca17c0ff24626cf00e3f8f1cf",
+    "split": "train"
+  },
+  "1903/Peace": {
+    "recipient_ids": [
+      "466"
+    ],
+    "source_sha256": "f7435bbb2a6f102b5ae8cb776470614c8cf18728ded26d2928c65dfb810aaa1e",
+    "split": "train"
+  },
+  "1903/Physics": {
+    "recipient_ids": [
+      "4",
+      "5",
+      "6"
+    ],
+    "source_sha256": "8d3171c2fb2b40e850881b86dd9fb6ca2d4334171770919239aace68473a6a99",
+    "split": "train"
+  },
+  "1903/Physiology or Medicine": {
+    "recipient_ids": [
+      "295"
+    ],
+    "source_sha256": "b30413d62ab9ae9c172fc921100181edc000ee3b43a872c5b6bfcb373d9dc177",
+    "split": "train"
+  },
+  "1904/Chemistry": {
+    "recipient_ids": [
+      "163"
+    ],
+    "source_sha256": "bccc7497639ffb5b1cbf24f8b349307c5abffdf17ac473716cc88121695f98f9",
+    "split": "train"
+  },
+  "1904/Literature": {
+    "recipient_ids": [
+      "573",
+      "574"
+    ],
+    "source_sha256": "63bcf8a7a851080f9e9cd0bf484466fbf347a7293c46bcbbdf8c4608bb129775",
+    "split": "train"
+  },
+  "1904/Peace": {
+    "recipient_ids": [
+      "467"
+    ],
+    "source_sha256": "f6d85051135ba477a6ad8a331ea530ce955c82521fae3fe948dce6ee28d42ddc",
+    "split": "train"
+  },
+  "1904/Physics": {
+    "recipient_ids": [
+      "8"
+    ],
+    "source_sha256": "18ea12464a8bf1152f9fcd5b1ee8196b1de0d58e874d3c39a99e65f20198e49f",
+    "split": "train"
+  },
+  "1904/Physiology or Medicine": {
+    "recipient_ids": [
+      "296"
+    ],
+    "source_sha256": "a2d6c79f4b32e8047ae0e28cf60a6441ca59166783ae988cf0e38eddf51af866",
+    "split": "train"
+  },
+  "1905/Chemistry": {
+    "recipient_ids": [
+      "164"
+    ],
+    "source_sha256": "d1c867d0e7dfb9d4c74cfe34272fd49a28545fbf0e65a64bb3b6d860987460d0",
+    "split": "train"
+  },
+  "1905/Literature": {
+    "recipient_ids": [
+      "575"
+    ],
+    "source_sha256": "867e75668d3dcce0067e301ab6d0c5d5772cac0180e55f628c065a6ab4a78670",
+    "split": "train"
+  },
+  "1905/Peace": {
+    "recipient_ids": [
+      "468"
+    ],
+    "source_sha256": "6658aa8290467f6eb51082f1c81b6dc664ff19f98fe88beac3ceb605b8b1eaf1",
+    "split": "train"
+  },
+  "1905/Physics": {
+    "recipient_ids": [
+      "9"
+    ],
+    "source_sha256": "7617f1cc639a6f0010a58ca36972df15689556bf35b25657244b3ed84e778736",
+    "split": "train"
+  },
+  "1905/Physiology or Medicine": {
+    "recipient_ids": [
+      "297"
+    ],
+    "source_sha256": "63384fa1eaa84b689f9972edd227cf820284d09aaba30eb652f257c00c41133f",
+    "split": "train"
+  },
+  "1906/Chemistry": {
+    "recipient_ids": [
+      "165"
+    ],
+    "source_sha256": "6df43084b526d7277eeefd00c151f8c2869a0dc991b9be4d14802f8fcd192d97",
+    "split": "train"
+  },
+  "1906/Literature": {
+    "recipient_ids": [
+      "576"
+    ],
+    "source_sha256": "5f5bc1d966dadd58e26fd3654c16e798e90ceb471b9b8d38c7f76aeb83d28245",
+    "split": "train"
+  },
+  "1906/Peace": {
+    "recipient_ids": [
+      "470"
+    ],
+    "source_sha256": "680ec59cd17a2b0ead6e9b6c432be339905621c12f9aedc49c014a895786f3a3",
+    "split": "train"
+  },
+  "1906/Physics": {
+    "recipient_ids": [
+      "10"
+    ],
+    "source_sha256": "3285e2321191f0964c931d41a625256eb216dfa495a8737c056d2eadc8681989",
+    "split": "train"
+  },
+  "1906/Physiology or Medicine": {
+    "recipient_ids": [
+      "298",
+      "299"
+    ],
+    "source_sha256": "6e628412133113fac34959fde420d7d53fd818764af343ac3e1399991efd4eab",
+    "split": "train"
+  },
+  "1907/Chemistry": {
+    "recipient_ids": [
+      "166"
+    ],
+    "source_sha256": "3068f888b88ac7284e2091af275d0b0c487df9f3922d47023e129cb7b73bb782",
+    "split": "train"
+  },
+  "1907/Literature": {
+    "recipient_ids": [
+      "577"
+    ],
+    "source_sha256": "6838021d612e040fa6cfb3eb61044526d07585392f1cb73349a744171fa112b5",
+    "split": "train"
+  },
+  "1907/Peace": {
+    "recipient_ids": [
+      "471",
+      "472"
+    ],
+    "source_sha256": "bd4ce3b3903875b192d8964b28a398a0f3eaf162d3e9762996e146d770506f83",
+    "split": "train"
+  },
+  "1907/Physics": {
+    "recipient_ids": [
+      "11"
+    ],
+    "source_sha256": "036c65cd7c46c936e2c7d38f6eb7927ed8c2e9d2df8a1c37f1e5b35387673afa",
+    "split": "train"
+  },
+  "1907/Physiology or Medicine": {
+    "recipient_ids": [
+      "300"
+    ],
+    "source_sha256": "cea8987b2d183e33925ac19401c0eef2f63e56a8db1b291b736196077d72b4f7",
+    "split": "train"
+  },
+  "1908/Chemistry": {
+    "recipient_ids": [
+      "167"
+    ],
+    "source_sha256": "9d96a53b6b3eafd5612c188f87ef6f57b8dbc1f3f0f3f96421e93c570524995d",
+    "split": "train"
+  },
+  "1908/Literature": {
+    "recipient_ids": [
+      "578"
+    ],
+    "source_sha256": "afe7d4a6773747a5d1a65e903dfad356bc0ef1c7dc8007d4a4b317bcef2cd5b4",
+    "split": "train"
+  },
+  "1908/Peace": {
+    "recipient_ids": [
+      "473",
+      "474"
+    ],
+    "source_sha256": "d3e2a497a2710378d020fea7e78157b4d1919fcbf5d54b71a5882ac20aa02ac6",
+    "split": "train"
+  },
+  "1908/Physics": {
+    "recipient_ids": [
+      "12"
+    ],
+    "source_sha256": "4f0cad0a4770d8634ca0dad908ccaaca9f27d68efc469cc870af51c9a1f794f8",
+    "split": "train"
+  },
+  "1908/Physiology or Medicine": {
+    "recipient_ids": [
+      "301",
+      "302"
+    ],
+    "source_sha256": "73e8fa35e9cc4b685913380f54547a1a598a298bb1a3bdca83dae4497c3eda29",
+    "split": "train"
+  },
+  "1909/Chemistry": {
+    "recipient_ids": [
+      "168"
+    ],
+    "source_sha256": "c60934b0aba321b33611b6d9eb578a076186476812a6287cf285a84c1acd2bbd",
+    "split": "train"
+  },
+  "1909/Literature": {
+    "recipient_ids": [
+      "579"
+    ],
+    "source_sha256": "a318c6901892768b068e5d89864952dba7917022438c5776a24ea62afee0e781",
+    "split": "train"
+  },
+  "1909/Peace": {
+    "recipient_ids": [
+      "475",
+      "476"
+    ],
+    "source_sha256": "0dffa21987ea6736eef6c68e8d0b2c022a9b2ad0186169dc779901c50c20e99b",
+    "split": "train"
+  },
+  "1909/Physics": {
+    "recipient_ids": [
+      "13",
+      "14"
+    ],
+    "source_sha256": "f5b90339a710f3211e4c29d3c71f9891adddf8e0d98cedf6f2e115dfd85a5062",
+    "split": "train"
+  },
+  "1909/Physiology or Medicine": {
+    "recipient_ids": [
+      "303"
+    ],
+    "source_sha256": "e4e25752e23f1012f9e7686fd5ffa1322f6a333b2a5a5afdceb6eac9e312094b",
+    "split": "train"
+  },
+  "1910/Chemistry": {
+    "recipient_ids": [
+      "169"
+    ],
+    "source_sha256": "297cda86b77613be02fb29b22928c38346bd9dc905d8b8229c1f5702ee5328c5",
+    "split": "train"
+  },
+  "1910/Literature": {
+    "recipient_ids": [
+      "580"
+    ],
+    "source_sha256": "389af5e40e41b6ccbc7a1b67cb81e304d6d372d3882d4d89ec877bfc82d8d41e",
+    "split": "train"
+  },
+  "1910/Peace": {
+    "recipient_ids": [
+      "477"
+    ],
+    "source_sha256": "51c0a2ef2c2eb6020a4752c4a99a6dbe1691215dca7a142a00c7d53a33ea3209",
+    "split": "train"
+  },
+  "1910/Physics": {
+    "recipient_ids": [
+      "15"
+    ],
+    "source_sha256": "ecc569f90230f6db6a79f61eea32e721aaae791897522a305eaa0e2a09817761",
+    "split": "train"
+  },
+  "1910/Physiology or Medicine": {
+    "recipient_ids": [
+      "304"
+    ],
+    "source_sha256": "9452523204b4153bfa4627c792ac5aae1a81bea1d7e5e6e1a38bbcd1c8621044",
+    "split": "train"
+  },
+  "1911/Chemistry": {
+    "recipient_ids": [
+      "6"
+    ],
+    "source_sha256": "0f6ef07c65808183ab7b54ea421776f78f00830fe0b58d7d0c51c99a31f2a98e",
+    "split": "train"
+  },
+  "1911/Literature": {
+    "recipient_ids": [
+      "581"
+    ],
+    "source_sha256": "2b067c3c1865135a4ee6d1df28cdd79a9bd99d5c760b2831ec53f2d2ea435abe",
+    "split": "train"
+  },
+  "1911/Peace": {
+    "recipient_ids": [
+      "478",
+      "479"
+    ],
+    "source_sha256": "402b733d8595a7bfdf3a629cbb8800015ce54cf5b791ea3aedc2f9586511eccb",
+    "split": "train"
+  },
+  "1911/Physics": {
+    "recipient_ids": [
+      "16"
+    ],
+    "source_sha256": "8683410c1711c9896d8949f377a81d3a8e4cc0280f556f3da3af0ae865077a64",
+    "split": "train"
+  },
+  "1911/Physiology or Medicine": {
+    "recipient_ids": [
+      "305"
+    ],
+    "source_sha256": "b5505a7d17e478aa679eb251220befc0978e00e301b55bc245fa0d3bc9306596",
+    "split": "train"
+  },
+  "1912/Chemistry": {
+    "recipient_ids": [
+      "172",
+      "173"
+    ],
+    "source_sha256": "0c8daa4b6fb3da7c50689b4c06d06c9af8a940f6f1201974a0527a26ab378e02",
+    "split": "train"
+  },
+  "1912/Literature": {
+    "recipient_ids": [
+      "582"
+    ],
+    "source_sha256": "05b528690401e94f56e08ea8f5ef687270a59a57850198580012da29fa27a2c1",
+    "split": "train"
+  },
+  "1912/Peace": {
+    "recipient_ids": [
+      "480"
+    ],
+    "source_sha256": "7aaceccfcbd1d8582fd689001139f6b4e98d68cc5b7ae048689f1c6cbe66b222",
+    "split": "train"
+  },
+  "1912/Physics": {
+    "recipient_ids": [
+      "17"
+    ],
+    "source_sha256": "159e855d508ba2a1d8cc6260173883826ef3daa01e6af4f95a097bf8adf504dd",
+    "split": "train"
+  },
+  "1912/Physiology or Medicine": {
+    "recipient_ids": [
+      "306"
+    ],
+    "source_sha256": "b68504213b65956f10ce2df19fa4bc0b4ee5bb08da0d542091995f0cb87da036",
+    "split": "train"
+  },
+  "1913/Chemistry": {
+    "recipient_ids": [
+      "174"
+    ],
+    "source_sha256": "137bac7059dc071f5e08fed08c6a966c9dfc3cb2b97eb0eaa38b2c5120e7fc9e",
+    "split": "train"
+  },
+  "1913/Literature": {
+    "recipient_ids": [
+      "583"
+    ],
+    "source_sha256": "745652548ba57e8bde97d1505ec8e7f556e1f0aba06b2a98a32bd9fb13949cee",
+    "split": "train"
+  },
+  "1913/Peace": {
+    "recipient_ids": [
+      "481"
+    ],
+    "source_sha256": "eed5c3d3b1d5b4181a3e490da3f28f6ed56fa226903f765653737c461fbdd1fc",
+    "split": "train"
+  },
+  "1913/Physics": {
+    "recipient_ids": [
+      "18"
+    ],
+    "source_sha256": "06b44341c7bd26a234aebe6e18975dc2fbf7fa907caf0856029cdb733d330886",
+    "split": "train"
+  },
+  "1913/Physiology or Medicine": {
+    "recipient_ids": [
+      "307"
+    ],
+    "source_sha256": "cb8208c42fb476d3d5fd7494d0a4280f76c3cd350d1aadda51f7dd1b268d71c3",
+    "split": "train"
+  },
+  "1914/Chemistry": {
+    "recipient_ids": [
+      "175"
+    ],
+    "source_sha256": "3da2f031215a954e58736e441c022916c0ddad8ea71ed1168ae26c837c6d2bc9",
+    "split": "train"
+  },
+  "1914/Physics": {
+    "recipient_ids": [
+      "19"
+    ],
+    "source_sha256": "909cb9fe4122abaa8d893a6a0317de8c4b3a815a3a3bde1d61f60f8898328371",
+    "split": "train"
+  },
+  "1914/Physiology or Medicine": {
+    "recipient_ids": [
+      "308"
+    ],
+    "source_sha256": "b8e6b711716cbd3c4ebd63b275f0bf9a2ab1b505751fbe161f0ef8a8bf6c913c",
+    "split": "train"
+  },
+  "1915/Chemistry": {
+    "recipient_ids": [
+      "176"
+    ],
+    "source_sha256": "5c7df55c6572cf5e6e4797b32a34e635c13c04496f1d60bad31a58077d2e5d6d",
+    "split": "train"
+  },
+  "1915/Literature": {
+    "recipient_ids": [
+      "584"
+    ],
+    "source_sha256": "e1cfe6d23d02b97db1e1f1a4d65fb4c0a9e220abacf8bdd09d089e82303cbcf6",
+    "split": "train"
+  },
+  "1915/Physics": {
+    "recipient_ids": [
+      "20",
+      "21"
+    ],
+    "source_sha256": "855b91f65a1454b6f585a3fe038f67ed53eb6aa76ff384595f5731da28a89824",
+    "split": "train"
+  },
+  "1917/Literature": {
+    "recipient_ids": [
+      "586",
+      "587"
+    ],
+    "source_sha256": "ab77bfdda5ace98a188303b7aa26eacd6feceaaf299dea83656b8386a727061b",
+    "split": "train"
+  },
+  "1917/Physics": {
+    "recipient_ids": [
+      "22"
+    ],
+    "source_sha256": "a6085cd56b576b270cdd15d63c18a94e8d1bad84908a551d35bf683b91164af7",
+    "split": "train"
+  },
+  "1918/Chemistry": {
+    "recipient_ids": [
+      "177"
+    ],
+    "source_sha256": "2e23e2c5d941c27cf01de2bc818482b7fd85c1e9843aee2d5b602a26129b92c4",
+    "split": "train"
+  },
+  "1918/Physics": {
+    "recipient_ids": [
+      "23"
+    ],
+    "source_sha256": "6dcc63123df03e204abb4a250e867654cf87d1de89e79872b2a824fb49a0fb5a",
+    "split": "train"
+  },
+  "1919/Literature": {
+    "recipient_ids": [
+      "588"
+    ],
+    "source_sha256": "4986d337d6032b3d3f1f1fe5821ca6e3b24fbb193e54b80cc66207866447621f",
+    "split": "train"
+  },
+  "1919/Peace": {
+    "recipient_ids": [
+      "483"
+    ],
+    "source_sha256": "96f2f5a57e3fddb5da5a31084e8b3ef50aa104683449aafd281183db20b536ff",
+    "split": "train"
+  },
+  "1919/Physics": {
+    "recipient_ids": [
+      "24"
+    ],
+    "source_sha256": "d38d60c3b3de14f661a9dd607c07fed233008d7dc6fb78770bf6ef37ed6fdc31",
+    "split": "train"
+  },
+  "1919/Physiology or Medicine": {
+    "recipient_ids": [
+      "309"
+    ],
+    "source_sha256": "8c4ad4ca7696a66b7e2b98c06f15673167fc68b139e20cf6a994ee1fe09bd4c1",
+    "split": "train"
+  },
+  "1920/Chemistry": {
+    "recipient_ids": [
+      "178"
+    ],
+    "source_sha256": "d44ea1a3ae3bf1779af9ed0e39e564d2e49ff93b2f2b57bb47637da80e19a93a",
+    "split": "train"
+  },
+  "1920/Literature": {
+    "recipient_ids": [
+      "589"
+    ],
+    "source_sha256": "81025cbff71b62e2a40345f73874586e09c1dfda9dbbaaa19e27fb1fdacf19d7",
+    "split": "train"
+  },
+  "1920/Peace": {
+    "recipient_ids": [
+      "484"
+    ],
+    "source_sha256": "54def6937370ca09d1e3f8fdf69878c916c62078ad9ed5e00d50c6b7a04f7f91",
+    "split": "train"
+  },
+  "1920/Physics": {
+    "recipient_ids": [
+      "25"
+    ],
+    "source_sha256": "28e4532e997066f317d3e73e60d2bc0c0d260f8df49032491da3b60a8693f301",
+    "split": "train"
+  },
+  "1920/Physiology or Medicine": {
+    "recipient_ids": [
+      "310"
+    ],
+    "source_sha256": "4cca867f0b92f005211f26e58f63bfb747653a0d513c5fb26453b760231b51ed",
+    "split": "train"
+  },
+  "1921/Chemistry": {
+    "recipient_ids": [
+      "179"
+    ],
+    "source_sha256": "2a5a4bdd56f151745c184860dd2b170d3adaae43e1879a21a6eb49b05210bd71",
+    "split": "train"
+  },
+  "1921/Literature": {
+    "recipient_ids": [
+      "590"
+    ],
+    "source_sha256": "5a50fa8b52027680d2c20b73b3ae84dbd3101308fbb5f898aa2d77905290c35f",
+    "split": "train"
+  },
+  "1921/Peace": {
+    "recipient_ids": [
+      "485",
+      "486"
+    ],
+    "source_sha256": "8475fa491dba62f75e6be84260f6b60e049dbc9ed43621e05413733acc2b376a",
+    "split": "train"
+  },
+  "1921/Physics": {
+    "recipient_ids": [
+      "26"
+    ],
+    "source_sha256": "65e2e2f529b193fccd7d4e0d73407386c85fbf086055a580a6b2275b0e0bcba5",
+    "split": "train"
+  },
+  "1922/Chemistry": {
+    "recipient_ids": [
+      "180"
+    ],
+    "source_sha256": "6509c0a414d3faa2f6766d2a63e9d13ec735f80f66178e3251d8967f0b500000",
+    "split": "train"
+  },
+  "1922/Literature": {
+    "recipient_ids": [
+      "592"
+    ],
+    "source_sha256": "15b4f6dbdcbd59bd27c7bc1037e4cc8b8ae2e09404719c238637e0a50bab73b1",
+    "split": "train"
+  },
+  "1922/Peace": {
+    "recipient_ids": [
+      "487"
+    ],
+    "source_sha256": "54124dd4b6abf1da3502ad903115c8927c13dae29b1a4eb817382dd7787b44f3",
+    "split": "train"
+  },
+  "1922/Physics": {
+    "recipient_ids": [
+      "27"
+    ],
+    "source_sha256": "f484a4b8826f14863dce0a2ceb3bc7d702e6484cd4d3fab40316e171b2c8959b",
+    "split": "train"
+  },
+  "1922/Physiology or Medicine": {
+    "recipient_ids": [
+      "311",
+      "312"
+    ],
+    "source_sha256": "c34839033cf97f6ae44c657b5836813b889b09002d65259fbbbe8b02aea6cae3",
+    "split": "train"
+  },
+  "1923/Chemistry": {
+    "recipient_ids": [
+      "181"
+    ],
+    "source_sha256": "8330e56a772867cb38b0f985693d1541faf9ae0bafc592f14c911159d63d0022",
+    "split": "train"
+  },
+  "1923/Literature": {
+    "recipient_ids": [
+      "593"
+    ],
+    "source_sha256": "13437f81d76cc0e5e2dab8323547e8264f171fff4a309a685f4e7f4e4d4b303f",
+    "split": "train"
+  },
+  "1923/Physics": {
+    "recipient_ids": [
+      "28"
+    ],
+    "source_sha256": "0323ebc9efdeb713ad66ac1c26a45314d2a475f019716ab11bf0231457e2e8d1",
+    "split": "train"
+  },
+  "1923/Physiology or Medicine": {
+    "recipient_ids": [
+      "313",
+      "314"
+    ],
+    "source_sha256": "c0480b775030871ac6defa698d92ceb66b1b9d8af60c662dd7bc0601ad926f2a",
+    "split": "train"
+  },
+  "1924/Literature": {
+    "recipient_ids": [
+      "594"
+    ],
+    "source_sha256": "c05492a5ef1e268a22b8ae8b3b45eb51372bf543157f0d785899baa2dd676a2f",
+    "split": "train"
+  },
+  "1924/Physics": {
+    "recipient_ids": [
+      "29"
+    ],
+    "source_sha256": "9f27ada10e382d72f65554e6dd8a84dec90102f40ee831f19a07a36d3a594b49",
+    "split": "train"
+  },
+  "1924/Physiology or Medicine": {
+    "recipient_ids": [
+      "315"
+    ],
+    "source_sha256": "d8a1f0d38e338ed63246bdecf8aa9c4200a7cf93c20390a6383106cc44712815",
+    "split": "train"
+  },
+  "1925/Chemistry": {
+    "recipient_ids": [
+      "182"
+    ],
+    "source_sha256": "c5774a4e48531556a9f34086af4bc4fcd5895587ead4af611bd1bf7bf21bc601",
+    "split": "train"
+  },
+  "1925/Literature": {
+    "recipient_ids": [
+      "596"
+    ],
+    "source_sha256": "f94b85c86663895a2df9eb5d2854e7fd25235f6af71457ee8a90613568f7b65e",
+    "split": "train"
+  },
+  "1925/Peace": {
+    "recipient_ids": [
+      "488",
+      "489"
+    ],
+    "source_sha256": "1d1959a3ea52531be45864e961ed9c4e5908ddc07d9ad316ff946b1760634343",
+    "split": "train"
+  },
+  "1925/Physics": {
+    "recipient_ids": [
+      "30",
+      "31"
+    ],
+    "source_sha256": "c92cb6841d4458dea7d01f0a694ca9c1074899ce6712f706d4f5f27df086b540",
+    "split": "train"
+  },
+  "1926/Chemistry": {
+    "recipient_ids": [
+      "183"
+    ],
+    "source_sha256": "7afa6503eb80a898f941756ffa268c4b93694947035be56e3155345c8cfd15d2",
+    "split": "train"
+  },
+  "1926/Literature": {
+    "recipient_ids": [
+      "597"
+    ],
+    "source_sha256": "71ba9764320344f9e4a216c5da4ddb47ae49e615b8d817cd4c4abcd3cdb49539",
+    "split": "train"
+  },
+  "1926/Peace": {
+    "recipient_ids": [
+      "490",
+      "491"
+    ],
+    "source_sha256": "b54e72bdef2ad979d2cfaa6867e843a6753fb08111ff31bed7155b9ad171e564",
+    "split": "train"
+  },
+  "1926/Physics": {
+    "recipient_ids": [
+      "32"
+    ],
+    "source_sha256": "dad4c87e6f3d339a71447341b01dea862fd81eeea6332edbe630dc56e545d82b",
+    "split": "train"
+  },
+  "1926/Physiology or Medicine": {
+    "recipient_ids": [
+      "316"
+    ],
+    "source_sha256": "b474924d9c20bec8482634d523cf70f7a0c15f84ce64e46da6ed3f6ec5a5087e",
+    "split": "train"
+  },
+  "1927/Chemistry": {
+    "recipient_ids": [
+      "184"
+    ],
+    "source_sha256": "06818aff729d7b5d2cfac05794595d31775a9a9b7a487bad8245565c1cf48570",
+    "split": "train"
+  },
+  "1927/Literature": {
+    "recipient_ids": [
+      "600"
+    ],
+    "source_sha256": "9b3dfd076e4b26cacddb5ba794abdc0b1556de6e9f72a590423222b603d72a66",
+    "split": "train"
+  },
+  "1927/Peace": {
+    "recipient_ids": [
+      "492",
+      "493"
+    ],
+    "source_sha256": "3954e2326a70d8af07a78f3ae8c72f73301fc90f16e3d24a20a44357b15ea386",
+    "split": "train"
+  },
+  "1927/Physics": {
+    "recipient_ids": [
+      "33",
+      "34"
+    ],
+    "source_sha256": "ec14d02f95e04cc8c787761cd23cf1bc5fec02700ff146ff16f119b2248974d2",
+    "split": "train"
+  },
+  "1927/Physiology or Medicine": {
+    "recipient_ids": [
+      "317"
+    ],
+    "source_sha256": "88c8950aaf8aff1b4afdb2d13b6f30eafb202b53007d3222a2253bb8828cf983",
+    "split": "train"
+  },
+  "1928/Chemistry": {
+    "recipient_ids": [
+      "185"
+    ],
+    "source_sha256": "1faf5eb2d831d5e766b27f2730111677a46306f88a6abb2df7d77775f3d958e6",
+    "split": "train"
+  },
+  "1928/Literature": {
+    "recipient_ids": [
+      "601"
+    ],
+    "source_sha256": "d2ad6e14125662d18e87e6ae9572f1696d82b96b0a7fe0acb9e0e7610e3dd68f",
+    "split": "train"
+  },
+  "1928/Physics": {
+    "recipient_ids": [
+      "35"
+    ],
+    "source_sha256": "f950e024661aac995a5614d268bde7fe5a6bf8725f61fdbb7104732d3df1c316",
+    "split": "train"
+  },
+  "1928/Physiology or Medicine": {
+    "recipient_ids": [
+      "318"
+    ],
+    "source_sha256": "0ae54652b1843d1394aebe34107a7f4962b2c5d2f65738d3bfd4abe527b32b70",
+    "split": "train"
+  },
+  "1929/Chemistry": {
+    "recipient_ids": [
+      "186",
+      "187"
+    ],
+    "source_sha256": "fa58330d642963f67a7a4bea6d7134be3772b9f41c86c195be8f76b001ff0a07",
+    "split": "train"
+  },
+  "1929/Literature": {
+    "recipient_ids": [
+      "602"
+    ],
+    "source_sha256": "9a3f09bea7a3dd8d3e2f27ac87aa9e1b1778e3bb4b861b8044c94ed3d69a9ffe",
+    "split": "train"
+  },
+  "1929/Peace": {
+    "recipient_ids": [
+      "494"
+    ],
+    "source_sha256": "83ea48f3b31dc2f992a72a40cf29ef2cc90763ce6b0e7786295d0c79bca4ad97",
+    "split": "train"
+  },
+  "1929/Physics": {
+    "recipient_ids": [
+      "36"
+    ],
+    "source_sha256": "ad0a790546f3e36fd7506135a0655a11376b79a457e1d80b85a836747969f838",
+    "split": "train"
+  },
+  "1929/Physiology or Medicine": {
+    "recipient_ids": [
+      "319",
+      "320"
+    ],
+    "source_sha256": "3158d012cbaa349f39fcb4809d33fba5f53801e90c81278b7cb59e230b6eeea7",
+    "split": "train"
+  },
+  "1930/Chemistry": {
+    "recipient_ids": [
+      "188"
+    ],
+    "source_sha256": "89f998053ece868d396a9eb691023ccea86c53fa5c12d65dbd6b0591e7ea382e",
+    "split": "train"
+  },
+  "1930/Literature": {
+    "recipient_ids": [
+      "603"
+    ],
+    "source_sha256": "090fff6ec7b05bd40d7a45868e498b7ff26201487e7fe631cd72ae2df2487c84",
+    "split": "train"
+  },
+  "1930/Peace": {
+    "recipient_ids": [
+      "495"
+    ],
+    "source_sha256": "43d32e175acecc0074f2cc8f0213aa712bdbf4aa9e8fb1d894abff26f55a3566",
+    "split": "train"
+  },
+  "1930/Physics": {
+    "recipient_ids": [
+      "37"
+    ],
+    "source_sha256": "b63988b6de08769a27cca48fc8cfbfaa199619521338d6e06decdebd434b0347",
+    "split": "train"
+  },
+  "1930/Physiology or Medicine": {
+    "recipient_ids": [
+      "321"
+    ],
+    "source_sha256": "47a172bc9b2f6d00bd7b5a90346a873b5d1ef5a5c67ba462a7e21e77eeed2b68",
+    "split": "train"
+  },
+  "1931/Chemistry": {
+    "recipient_ids": [
+      "189",
+      "190"
+    ],
+    "source_sha256": "227afd82e34ace846599765fa0c367cbdf8d405ab38a389c3ae4d32d0416a4b1",
+    "split": "train"
+  },
+  "1931/Literature": {
+    "recipient_ids": [
+      "604"
+    ],
+    "source_sha256": "24fe29bf3b10de372b275014bf3476b51af67071de406529ee80c622bebbed0a",
+    "split": "train"
+  },
+  "1931/Peace": {
+    "recipient_ids": [
+      "496",
+      "497"
+    ],
+    "source_sha256": "19dcd11fce91d69e4feb3963ec7183ca12feebb13a79844b4ceeb7a05f0eaca6",
+    "split": "train"
+  },
+  "1931/Physiology or Medicine": {
+    "recipient_ids": [
+      "322"
+    ],
+    "source_sha256": "d1e31b9fdf2a4163587aa427e4c6d78c354eae901b9d3f65a2bfcda223e17837",
+    "split": "train"
+  },
+  "1932/Chemistry": {
+    "recipient_ids": [
+      "191"
+    ],
+    "source_sha256": "a26dddba3c917e5270bf02f53ab93a65dc20e1a86c7d3c7447d8863f6c2968c0",
+    "split": "train"
+  },
+  "1932/Literature": {
+    "recipient_ids": [
+      "605"
+    ],
+    "source_sha256": "190677300b8b1a5eb4d4a4b0978587f9c1487f5c1e9e0875e7af2cce769557d0",
+    "split": "train"
+  },
+  "1932/Physics": {
+    "recipient_ids": [
+      "38"
+    ],
+    "source_sha256": "6329754700ff12ee468232dc125d91f6310a990175c2d6a9b631e2868ef61de9",
+    "split": "train"
+  },
+  "1932/Physiology or Medicine": {
+    "recipient_ids": [
+      "323",
+      "324"
+    ],
+    "source_sha256": "bfe90559acb067a82921b8ad43be52a0ebec5aefebf74adba3911da131a91a27",
+    "split": "train"
+  },
+  "1933/Literature": {
+    "recipient_ids": [
+      "606"
+    ],
+    "source_sha256": "b9683e8107ab78f9bf400f2853bff5e0a1e929a91403cc776fdf1513c7a37ad0",
+    "split": "train"
+  },
+  "1933/Peace": {
+    "recipient_ids": [
+      "498"
+    ],
+    "source_sha256": "52ce66174fdd5479af79af5fb7cdddd3de6413acef0f44f99ee3bf3d5580de7a",
+    "split": "train"
+  },
+  "1933/Physics": {
+    "recipient_ids": [
+      "39",
+      "40"
+    ],
+    "source_sha256": "e6c2e8c194f652839003dc4ae9b0394b5873e5ec6e3a2912e6e27e069c83bebc",
+    "split": "train"
+  },
+  "1933/Physiology or Medicine": {
+    "recipient_ids": [
+      "325"
+    ],
+    "source_sha256": "bcd192af82eda2f5db0d649951f3013b1afdbdd0e74727a6a3712a9a38a4e759",
+    "split": "train"
+  },
+  "1934/Chemistry": {
+    "recipient_ids": [
+      "192"
+    ],
+    "source_sha256": "e6b40f6c5e5868516bef5b73876320bf182bb36fef39ab06c5989c91d234536e",
+    "split": "train"
+  },
+  "1934/Literature": {
+    "recipient_ids": [
+      "607"
+    ],
+    "source_sha256": "68dd32681280fc9f1ed18c327705b1536601146fabe4c921b437d2a758677cb3",
+    "split": "train"
+  },
+  "1934/Peace": {
+    "recipient_ids": [
+      "499"
+    ],
+    "source_sha256": "4df64a8304b0016cad644aecc08359810292043e54751f2c36ef5de5d5872296",
+    "split": "train"
+  },
+  "1934/Physiology or Medicine": {
+    "recipient_ids": [
+      "326",
+      "327",
+      "328"
+    ],
+    "source_sha256": "972e1e6f1146e61208025300cc3bcb8b0ff7e61c589503ff938b52e1e4727a74",
+    "split": "train"
+  },
+  "1935/Chemistry": {
+    "recipient_ids": [
+      "193",
+      "194"
+    ],
+    "source_sha256": "f36996e6a1e2137a2be7e37969a844942b57a7ae8ddc6e18acc0bcecc7d9dc05",
+    "split": "train"
+  },
+  "1935/Peace": {
+    "recipient_ids": [
+      "500"
+    ],
+    "source_sha256": "ca8939542722f5f91be3062ff1a79a8651bd12b5394d4e0fb372eaa59ebee517",
+    "split": "train"
+  },
+  "1935/Physics": {
+    "recipient_ids": [
+      "41"
+    ],
+    "source_sha256": "a9e3659fa2e42c1de223180ae768c39b85201a2e1007c115d1c806cd27ce9eda",
+    "split": "train"
+  },
+  "1935/Physiology or Medicine": {
+    "recipient_ids": [
+      "329"
+    ],
+    "source_sha256": "deb44954cf450e6fd287be00909062e273f6ad4aec6328104c0853d4294d2fcf",
+    "split": "train"
+  },
+  "1936/Chemistry": {
+    "recipient_ids": [
+      "195"
+    ],
+    "source_sha256": "70965a6aad547ddc12ad0983fdef19ba275b7979f10a401badb0b0367f426346",
+    "split": "train"
+  },
+  "1936/Literature": {
+    "recipient_ids": [
+      "608"
+    ],
+    "source_sha256": "8fd195d2c229c84cf3d06250d8f51792a74b28b3d12ddefba9361e4c52b1fa9c",
+    "split": "train"
+  },
+  "1936/Peace": {
+    "recipient_ids": [
+      "501"
+    ],
+    "source_sha256": "800c3c549a2fd01169b2f667e0340be2a7936076ff70b623deaedb0aea59f301",
+    "split": "train"
+  },
+  "1936/Physics": {
+    "recipient_ids": [
+      "42",
+      "43"
+    ],
+    "source_sha256": "b6a784f26e9fdafea7b1fe4e484de4352429b4e3917743f4e2f609661969ff1a",
+    "split": "train"
+  },
+  "1936/Physiology or Medicine": {
+    "recipient_ids": [
+      "330",
+      "331"
+    ],
+    "source_sha256": "397142805d4c8aa9085ed62f7500786d794e0e89d68c59a19db91588db849e78",
+    "split": "train"
+  },
+  "1937/Chemistry": {
+    "recipient_ids": [
+      "196",
+      "197"
+    ],
+    "source_sha256": "a4e736405df48db5487630d8bcdd0fd312c7a6f24d023e6da98d5ab50f2e2389",
+    "split": "train"
+  },
+  "1937/Literature": {
+    "recipient_ids": [
+      "609"
+    ],
+    "source_sha256": "defb933e3816c1e94201b6f9b8f737e4cf6388be9cf9e5296920197a8f9fa486",
+    "split": "train"
+  },
+  "1937/Peace": {
+    "recipient_ids": [
+      "502"
+    ],
+    "source_sha256": "165c2fff222b28c62a3b04e4753bd140783ebeb4292823801872e2fe7316cbe5",
+    "split": "train"
+  },
+  "1937/Physics": {
+    "recipient_ids": [
+      "44",
+      "45"
+    ],
+    "source_sha256": "5bd606aa7f99549bf22d9e2f55c95ab48864902e475170e95db334050f53257f",
+    "split": "train"
+  },
+  "1937/Physiology or Medicine": {
+    "recipient_ids": [
+      "332"
+    ],
+    "source_sha256": "60e6affe55f44168b4bdd4a9e40399cfd87f61bb9863b6a718d0558436bec0ed",
+    "split": "train"
+  },
+  "1938/Chemistry": {
+    "recipient_ids": [
+      "198"
+    ],
+    "source_sha256": "ca3fbdf2cee48ee84dfbf909a0a9ced70aaf0f74fbec4783cefa62e2c7ba88b4",
+    "split": "train"
+  },
+  "1938/Literature": {
+    "recipient_ids": [
+      "610"
+    ],
+    "source_sha256": "4f5e78fc4939304ec90074e71843e8ec72fe833e3c96a85b159b841fc44381fe",
+    "split": "train"
+  },
+  "1938/Peace": {
+    "recipient_ids": [
+      "503"
+    ],
+    "source_sha256": "ce7d61c9ba3a35387b2ff049a259c48b3a1f3a361bcbfc1a0b2ffd97b02e046f",
+    "split": "train"
+  },
+  "1938/Physics": {
+    "recipient_ids": [
+      "46"
+    ],
+    "source_sha256": "20b2ebafbf57db52edfcac3320fa95a01a4215cd82482150b058f947815b490f",
+    "split": "train"
+  },
+  "1938/Physiology or Medicine": {
+    "recipient_ids": [
+      "333"
+    ],
+    "source_sha256": "036c56ff3cfefcec746e382c593979d04d3fdb5fd6143757f620163a6d224357",
+    "split": "train"
+  },
+  "1939/Chemistry": {
+    "recipient_ids": [
+      "199",
+      "200"
+    ],
+    "source_sha256": "667fcd2aea4c161fb1a55312f4db5a4b9657fa2902e451110f4057e539822482",
+    "split": "train"
+  },
+  "1939/Literature": {
+    "recipient_ids": [
+      "613"
+    ],
+    "source_sha256": "3875a2b26e2d7176048aa6eca6823af3362e50adc96c2e60fc483c2a5cf5423f",
+    "split": "train"
+  },
+  "1939/Physics": {
+    "recipient_ids": [
+      "47"
+    ],
+    "source_sha256": "c7e4b7f5be6d31bc5cd7f681383fceaecceee934b24d7ee50576919b1b023622",
+    "split": "train"
+  },
+  "1939/Physiology or Medicine": {
+    "recipient_ids": [
+      "334"
+    ],
+    "source_sha256": "27a85d2711b7dbb0677d1a1448ab58eb17baf587ef160ab313fed458c758e45b",
+    "split": "train"
+  },
+  "1943/Chemistry": {
+    "recipient_ids": [
+      "201"
+    ],
+    "source_sha256": "7bd65f7df46212d18fecb99103ed5e7e6aa5dc41e2a943a000e72d2cc720b6c6",
+    "split": "train"
+  },
+  "1943/Physics": {
+    "recipient_ids": [
+      "48"
+    ],
+    "source_sha256": "f2f85ee2097d22e9ec0acf276696632fa7f60ec6df969921d365c74dd3dc3c9a",
+    "split": "train"
+  },
+  "1943/Physiology or Medicine": {
+    "recipient_ids": [
+      "335",
+      "336"
+    ],
+    "source_sha256": "406cde500c25fbbd92dc4ae2a3d224e8a600230b87cb5e5c4ea71718747fdcb4",
+    "split": "train"
+  },
+  "1944/Chemistry": {
+    "recipient_ids": [
+      "202"
+    ],
+    "source_sha256": "e277c78aa8c815e6170bc0a17a7c15ebed5ac21ce37054d4027ff5b0b6466275",
+    "split": "train"
+  },
+  "1944/Literature": {
+    "recipient_ids": [
+      "614"
+    ],
+    "source_sha256": "887a61eefe090fc98a6fb4cb74ce7f7f57fdb355f671dd7bc33c8aee40314838",
+    "split": "train"
+  },
+  "1944/Physics": {
+    "recipient_ids": [
+      "49"
+    ],
+    "source_sha256": "591e47e87745d80f8c309eb33a3e042888590cb1a1bb464e3ad7749b2dfcdd21",
+    "split": "train"
+  },
+  "1944/Physiology or Medicine": {
+    "recipient_ids": [
+      "337",
+      "338"
+    ],
+    "source_sha256": "bc563f162afde8007530d989686a01441df81ee9a6ea6107f5daf035abf2a873",
+    "split": "train"
+  },
+  "1945/Chemistry": {
+    "recipient_ids": [
+      "203"
+    ],
+    "source_sha256": "1110bd03681bcd9cb6174672cbbbd86f99daf4e08a2e0b96ac4f95d6959341d0",
+    "split": "train"
+  },
+  "1945/Literature": {
+    "recipient_ids": [
+      "615"
+    ],
+    "source_sha256": "ecb0f0803ae3fd2cc207521c2b0709bb893089a07bfd0943aefb292b56dc9285",
+    "split": "train"
+  },
+  "1945/Peace": {
+    "recipient_ids": [
+      "505"
+    ],
+    "source_sha256": "bf99299473a0743a1dc2d45805b2650f748546ee28f4055128154aed1e1684cc",
+    "split": "train"
+  },
+  "1945/Physics": {
+    "recipient_ids": [
+      "50"
+    ],
+    "source_sha256": "77390da9eae4dc2b2e6429a1e31c5095b2f4d3a79277ebd24fd77cf962588b82",
+    "split": "train"
+  },
+  "1945/Physiology or Medicine": {
+    "recipient_ids": [
+      "339",
+      "340",
+      "341"
+    ],
+    "source_sha256": "40e238fb52a46dfae2d5d5a63b67e463a3e5abe3e07d20acfae440d712592209",
+    "split": "train"
+  },
+  "1946/Chemistry": {
+    "recipient_ids": [
+      "204",
+      "205",
+      "206"
+    ],
+    "source_sha256": "dff43b8e4fadeb599c71e40c268e56fa82ec0bdb5c4d0109a1b7b343f17cda3c",
+    "split": "train"
+  },
+  "1946/Literature": {
+    "recipient_ids": [
+      "617"
+    ],
+    "source_sha256": "49f960d11fa3fe0560983a78a33730dc372e0bf79b0a25f7766d2518bd827461",
+    "split": "train"
+  },
+  "1946/Peace": {
+    "recipient_ids": [
+      "506",
+      "507"
+    ],
+    "source_sha256": "ac44630a056ee202a352f058a67d97bac5a427bde5e6deb43ff607d2b0d61cec",
+    "split": "train"
+  },
+  "1946/Physics": {
+    "recipient_ids": [
+      "51"
+    ],
+    "source_sha256": "e5128cf21bdd19f9734e5fa159c079104fe6e4ff49357a9e0b7a58d39cb16587",
+    "split": "train"
+  },
+  "1946/Physiology or Medicine": {
+    "recipient_ids": [
+      "342"
+    ],
+    "source_sha256": "10d507f8f3d0d5fe4b9117e3f71407143e89cb0c0b4ba7571eee910efcf9050d",
+    "split": "train"
+  },
+  "1947/Chemistry": {
+    "recipient_ids": [
+      "207"
+    ],
+    "source_sha256": "e8ccfc423b4cc0b0e69f4a48c1dc0c8b870cfdbdcafbdc7a3db97e81c8ff8280",
+    "split": "train"
+  },
+  "1947/Literature": {
+    "recipient_ids": [
+      "618"
+    ],
+    "source_sha256": "9b3917d3ffd23f889656f4b75bd1dc4964db78c5fbf590a824bb28fcb525cf23",
+    "split": "train"
+  },
+  "1947/Peace": {
+    "recipient_ids": [
+      "508",
+      "509"
+    ],
+    "source_sha256": "5b558c6d91a97707ff37e7874696d61f19dd351ddc673ba50c423dd6cf9a7d78",
+    "split": "train"
+  },
+  "1947/Physics": {
+    "recipient_ids": [
+      "52"
+    ],
+    "source_sha256": "ba547d15eb53b1151002ffee5c4fab0cc999c33af04e8be1f8d8ec0e55b45efe",
+    "split": "train"
+  },
+  "1947/Physiology or Medicine": {
+    "recipient_ids": [
+      "343",
+      "344",
+      "345"
+    ],
+    "source_sha256": "ad1e9c5dde95f11949a544f6fbc87309ba2370da0e13e5f4295b458ffc0da1aa",
+    "split": "train"
+  },
+  "1948/Chemistry": {
+    "recipient_ids": [
+      "208"
+    ],
+    "source_sha256": "91f68397143fcf48033d35915850d4d31bc790ba03d650adcae2cfb7e4c339a2",
+    "split": "train"
+  },
+  "1948/Literature": {
+    "recipient_ids": [
+      "619"
+    ],
+    "source_sha256": "de5a5ae101aad2874716566933c32cfa66e6249788b2ee61855fa56e5136f929",
+    "split": "train"
+  },
+  "1948/Physics": {
+    "recipient_ids": [
+      "53"
+    ],
+    "source_sha256": "48970a9daf02bf77c8e97af6adead3a2fbbc1d20f403b18c2820f8bd4206112c",
+    "split": "train"
+  },
+  "1948/Physiology or Medicine": {
+    "recipient_ids": [
+      "346"
+    ],
+    "source_sha256": "690749d0998cd88ba6db7deb9af5fdb18234b213d2937df81cd0cccff901eab1",
+    "split": "train"
+  },
+  "1949/Chemistry": {
+    "recipient_ids": [
+      "209"
+    ],
+    "source_sha256": "616eddf74c20935eff8701156d8d6a6e38e5ddb754c11bd4877a836e9f10088a",
+    "split": "train"
+  },
+  "1949/Literature": {
+    "recipient_ids": [
+      "620"
+    ],
+    "source_sha256": "527006115202409844ab11adee5fee26ed0b5753bb482f79659792c3b5c79b23",
+    "split": "train"
+  },
+  "1949/Peace": {
+    "recipient_ids": [
+      "510"
+    ],
+    "source_sha256": "7ed52dac9abc09d8ef0207cc5520c64a8ad5de9eb1bbaff06656e40e77048649",
+    "split": "train"
+  },
+  "1949/Physics": {
+    "recipient_ids": [
+      "54"
+    ],
+    "source_sha256": "1624c4d69883d937aa348469e84e80cdd487bbc162c48f82a62801fb880c9bce",
+    "split": "train"
+  },
+  "1949/Physiology or Medicine": {
+    "recipient_ids": [
+      "347",
+      "348"
+    ],
+    "source_sha256": "1c3fa793cc4905d9830421c2801d989452d85a3bfe64ea51fac58979378ea234",
+    "split": "train"
+  },
+  "1950/Chemistry": {
+    "recipient_ids": [
+      "210",
+      "211"
+    ],
+    "source_sha256": "6671a2df338650e1dd80049f50ef8cad02f7e21f40aeeca9f6f3887abc8fc9a4",
+    "split": "train"
+  },
+  "1950/Literature": {
+    "recipient_ids": [
+      "621"
+    ],
+    "source_sha256": "e603046e5e8cdc16ff209d9faf47716fce74e901071cddbb53afb1e079ff7c4f",
+    "split": "train"
+  },
+  "1950/Peace": {
+    "recipient_ids": [
+      "511"
+    ],
+    "source_sha256": "943b1c01f5a347007a7dedf4e8b7722ae4e813e307a3fc4bef4b6952ebe2efdf",
+    "split": "train"
+  },
+  "1950/Physics": {
+    "recipient_ids": [
+      "55"
+    ],
+    "source_sha256": "95d1a8338dae154c5efdeba935cc17c5d203a2ebf960da44ae1398fec2240415",
+    "split": "train"
+  },
+  "1950/Physiology or Medicine": {
+    "recipient_ids": [
+      "349",
+      "350",
+      "351"
+    ],
+    "source_sha256": "a4c0955e9510400cf53314beffed0526ed679c93fce887de8fd9ef08f5cdadf4",
+    "split": "train"
+  },
+  "1951/Chemistry": {
+    "recipient_ids": [
+      "212",
+      "213"
+    ],
+    "source_sha256": "a96cb700e16ac30cd83091d975e2567c67e9e09f959618bf310bcf416fa432f0",
+    "split": "validation"
+  },
+  "1951/Literature": {
+    "recipient_ids": [
+      "622"
+    ],
+    "source_sha256": "592a07513c9da3044c32682c9af6c916feb1f76aa9b33a7b651eddefedf563aa",
+    "split": "validation"
+  },
+  "1951/Peace": {
+    "recipient_ids": [
+      "512"
+    ],
+    "source_sha256": "08b14b1ee76fb9cb3a56a5bf1d4e2a8c9c3722fe46f1eac76291659ebf91f60c",
+    "split": "validation"
+  },
+  "1951/Physics": {
+    "recipient_ids": [
+      "56",
+      "57"
+    ],
+    "source_sha256": "38d495cdf9f6856f63b532a4c9856e6f3f58909aa0cacfc7363abe54212ff0ff",
+    "split": "validation"
+  },
+  "1951/Physiology or Medicine": {
+    "recipient_ids": [
+      "352"
+    ],
+    "source_sha256": "ae87fce90b0156fb416b302ba740916653367c13385eee332d0625481da5bec7",
+    "split": "validation"
+  },
+  "1952/Chemistry": {
+    "recipient_ids": [
+      "214",
+      "215"
+    ],
+    "source_sha256": "d0d1d477a865e851c7d4135ac92eacd2fd57fa6e9955e4f858b8d87e6a38ab97",
+    "split": "validation"
+  },
+  "1952/Literature": {
+    "recipient_ids": [
+      "623"
+    ],
+    "source_sha256": "b721483d0742a8e780900c0135de93d9da135a6008848db1641a22102c00e3f9",
+    "split": "validation"
+  },
+  "1952/Peace": {
+    "recipient_ids": [
+      "513"
+    ],
+    "source_sha256": "83e8f99bce44ff6f034eff8ca1119ae229d4a8b61d88e21e43cbaa6198ded549",
+    "split": "validation"
+  },
+  "1952/Physics": {
+    "recipient_ids": [
+      "58",
+      "59"
+    ],
+    "source_sha256": "b489a61e28e86a83b0343aae2aa2456527ccd9b3233a5804b7fb36554050dea4",
+    "split": "validation"
+  },
+  "1952/Physiology or Medicine": {
+    "recipient_ids": [
+      "353"
+    ],
+    "source_sha256": "547ba6756c24f49809b1bdf39dde4de80a3c8ef8400a7017694a6fb6776b8bf3",
+    "split": "validation"
+  },
+  "1953/Chemistry": {
+    "recipient_ids": [
+      "216"
+    ],
+    "source_sha256": "5d2892b349a26f0ec909f01852b0152e607a792f3e7d604781122ec2f56c04e0",
+    "split": "validation"
+  },
+  "1953/Literature": {
+    "recipient_ids": [
+      "624"
+    ],
+    "source_sha256": "44a8c6f87ce7fb625132d742d2393a48f52f4e8f27ae2ed8c2364c4a75ad6518",
+    "split": "validation"
+  },
+  "1953/Peace": {
+    "recipient_ids": [
+      "514"
+    ],
+    "source_sha256": "189e941c8f6433d5d7197682680f010369c52348857b80d7cc2d2ead906cfee5",
+    "split": "validation"
+  },
+  "1953/Physics": {
+    "recipient_ids": [
+      "60"
+    ],
+    "source_sha256": "ebd4803d3fbba38210e7d5f01dfb61347fd9a6d5fd72b5cffd98e0f4146b8c65",
+    "split": "validation"
+  },
+  "1953/Physiology or Medicine": {
+    "recipient_ids": [
+      "354",
+      "355"
+    ],
+    "source_sha256": "47e5ee0966373b830443b51e29ffa3df27e5829040e4a00d204a2e9a5fedaa91",
+    "split": "validation"
+  },
+  "1954/Chemistry": {
+    "recipient_ids": [
+      "217"
+    ],
+    "source_sha256": "e8890d6b8075ffbc124caa2f7975013786bcedee607fa6bb327d09286321753b",
+    "split": "validation"
+  },
+  "1954/Literature": {
+    "recipient_ids": [
+      "625"
+    ],
+    "source_sha256": "1d530f66127c1fe68d68eabf4d8d95740028bc847f85e6633eec4f56b387b77e",
+    "split": "validation"
+  },
+  "1954/Physics": {
+    "recipient_ids": [
+      "61",
+      "62"
+    ],
+    "source_sha256": "3767e13fed5cfeb35dcae7c12e1e772d9f2d2a8c5a438b9a7e6c12671be12bf4",
+    "split": "validation"
+  },
+  "1954/Physiology or Medicine": {
+    "recipient_ids": [
+      "356",
+      "357",
+      "358"
+    ],
+    "source_sha256": "44e20317e8038d5665738131acdc467e2c63a9ee3f17dbe8d50dbf171c8aef6c",
+    "split": "validation"
+  },
+  "1955/Chemistry": {
+    "recipient_ids": [
+      "218"
+    ],
+    "source_sha256": "c9dbc828e1dd01a81ca7838bc7f32fbeaa7ab2cf8468368c2b761a13c56d42b3",
+    "split": "validation"
+  },
+  "1955/Literature": {
+    "recipient_ids": [
+      "626"
+    ],
+    "source_sha256": "70df9199c4b2a5da3bd4a462ca381d06d0dd965e75a2648ea80f8c330c901b27",
+    "split": "validation"
+  },
+  "1955/Physics": {
+    "recipient_ids": [
+      "63",
+      "64"
+    ],
+    "source_sha256": "bbbdc830afa95a9047e3fbf77422df1ac05207c30dafbc0ce045e16968e2b7d1",
+    "split": "validation"
+  },
+  "1955/Physiology or Medicine": {
+    "recipient_ids": [
+      "359"
+    ],
+    "source_sha256": "f18e69860e1a57df3b5dfb3667fc1469c0b6823750f77f4ea87e2e1073d9914a",
+    "split": "validation"
+  },
+  "1956/Chemistry": {
+    "recipient_ids": [
+      "219",
+      "220"
+    ],
+    "source_sha256": "8e2123840a55fe166d70324bc0dfc2fa9b4d24feaf1a05514d0780652885153b",
+    "split": "validation"
+  },
+  "1956/Literature": {
+    "recipient_ids": [
+      "627"
+    ],
+    "source_sha256": "db6a0389af9b6974264ba8d48e6b3b11348664d1e77608e07283d9acba58b4fe",
+    "split": "validation"
+  },
+  "1956/Physiology or Medicine": {
+    "recipient_ids": [
+      "360",
+      "361",
+      "362"
+    ],
+    "source_sha256": "143388d3da9e68f35863791e7f7f9423f532d70e8df51da2fe0e3010420ce68b",
+    "split": "validation"
+  },
+  "1957/Chemistry": {
+    "recipient_ids": [
+      "221"
+    ],
+    "source_sha256": "4aa4296e541436f91198c4bf7706304c3947fe942a45a2afd50f7161d2d163f4",
+    "split": "validation"
+  },
+  "1957/Literature": {
+    "recipient_ids": [
+      "628"
+    ],
+    "source_sha256": "86d0a9b4e147b098f4371bd4a9133ba257205099cfc7784f7c4fffe18757596c",
+    "split": "validation"
+  },
+  "1957/Peace": {
+    "recipient_ids": [
+      "516"
+    ],
+    "source_sha256": "f44819a75c1ef0c473e6c62acb32b0300b0cc0ec2d33a8f5729899b36cf6dbda",
+    "split": "validation"
+  },
+  "1957/Physics": {
+    "recipient_ids": [
+      "68",
+      "69"
+    ],
+    "source_sha256": "b01a655e581727309266f2e76f106c5d4577dffcc0c369ba89069a85bf7bd9da",
+    "split": "validation"
+  },
+  "1957/Physiology or Medicine": {
+    "recipient_ids": [
+      "363"
+    ],
+    "source_sha256": "f8a4f23d69ad10797c55ca246792845d76ce09f1af2eaee53a9b8850e06fcc7d",
+    "split": "validation"
+  },
+  "1958/Literature": {
+    "recipient_ids": [
+      "629"
+    ],
+    "source_sha256": "473f994732dca725676726c6abdb4d013345f44b479c418c0a336306c93e4d72",
+    "split": "validation"
+  },
+  "1958/Peace": {
+    "recipient_ids": [
+      "517"
+    ],
+    "source_sha256": "cceee3d06b0bb8597ea736bbc0b72dcd968521bcfdb7eaa4fbe25a1eb5b365f6",
+    "split": "validation"
+  },
+  "1958/Physics": {
+    "recipient_ids": [
+      "70",
+      "721",
+      "71"
+    ],
+    "source_sha256": "846b6de7dd79051a9ecb9440213ce4dc809e74d47852a44e48f136fb6a159850",
+    "split": "validation"
+  },
+  "1958/Physiology or Medicine": {
+    "recipient_ids": [
+      "364",
+      "365",
+      "366"
+    ],
+    "source_sha256": "b862d3c34518c700d8e3acf479ea7d3bde42ea61a255946e061b8fd02364ab60",
+    "split": "validation"
+  },
+  "1959/Chemistry": {
+    "recipient_ids": [
+      "223"
+    ],
+    "source_sha256": "aaf76ca93dd3140a84015104c39f70fdcb9367df746bdf34febdf4c2b74c381a",
+    "split": "validation"
+  },
+  "1959/Literature": {
+    "recipient_ids": [
+      "630"
+    ],
+    "source_sha256": "fdac1c17d01903e2a5aaa7e06ccc1bfd7b6fa234f7f530947b98ad19e4f9465e",
+    "split": "validation"
+  },
+  "1959/Peace": {
+    "recipient_ids": [
+      "518"
+    ],
+    "source_sha256": "ad89c022f7a90a7f8c47dcc6560f829471423bff44e844dd16ccdabbf1728fe0",
+    "split": "validation"
+  },
+  "1959/Physics": {
+    "recipient_ids": [
+      "72",
+      "73"
+    ],
+    "source_sha256": "2dbc17847e75fe40f535abd5d3228ab35951f581539e05531163f4536d6f3c54",
+    "split": "validation"
+  },
+  "1959/Physiology or Medicine": {
+    "recipient_ids": [
+      "367",
+      "368"
+    ],
+    "source_sha256": "408ff244b3296d5fafb52f91edefe24de8989b17201b67624ada525101c67b48",
+    "split": "validation"
+  },
+  "1960/Chemistry": {
+    "recipient_ids": [
+      "224"
+    ],
+    "source_sha256": "58f671385527cbddd234213502738855e9a5f7044022c9b41288e0c2abcacef2",
+    "split": "validation"
+  },
+  "1960/Literature": {
+    "recipient_ids": [
+      "631"
+    ],
+    "source_sha256": "33e739c40af13f6b5c7739509377e802d89677acc756c1fc4ac4b2b708a73df2",
+    "split": "validation"
+  },
+  "1960/Peace": {
+    "recipient_ids": [
+      "519"
+    ],
+    "source_sha256": "3e02fc5bf1181756cd5ddedc3934ab6de85746f2a5b79025fd929351eab62c55",
+    "split": "validation"
+  },
+  "1960/Physics": {
+    "recipient_ids": [
+      "74"
+    ],
+    "source_sha256": "dcaace87f00e62f4f36a3f583ac306d8a68f6a96088fc11bd0a924073ebdddcb",
+    "split": "validation"
+  },
+  "1960/Physiology or Medicine": {
+    "recipient_ids": [
+      "369",
+      "370"
+    ],
+    "source_sha256": "2a8f31a3e8de0e0405d4028c48c0b47475535882c357d9d2f078772424083e02",
+    "split": "validation"
+  },
+  "1961/Chemistry": {
+    "recipient_ids": [
+      "225"
+    ],
+    "source_sha256": "140e76a857a0a156bbd38a735928cfc156c710fca11a6b7e3eb0a94f9359e61e",
+    "split": "validation"
+  },
+  "1961/Literature": {
+    "recipient_ids": [
+      "633"
+    ],
+    "source_sha256": "94a85bcc07afe5fdc9a0aa6922674498e3fea3b0912179191e67da52e8bd26c0",
+    "split": "validation"
+  },
+  "1961/Peace": {
+    "recipient_ids": [
+      "520"
+    ],
+    "source_sha256": "1a5cf5e11a877fe2fb207a2263cbef978cbf049e4effd266d706d56092fd248d",
+    "split": "validation"
+  },
+  "1961/Physics": {
+    "recipient_ids": [
+      "75",
+      "76"
+    ],
+    "source_sha256": "23731c79e2f19687ae63fa91a09013fb13464346d79d4fdf3e80cae854107f78",
+    "split": "validation"
+  },
+  "1961/Physiology or Medicine": {
+    "recipient_ids": [
+      "371"
+    ],
+    "source_sha256": "a96d4ceecc7a0f84024945fdc1582b18024429988a07961656f83af5d7f8d670",
+    "split": "validation"
+  },
+  "1962/Chemistry": {
+    "recipient_ids": [
+      "226",
+      "227"
+    ],
+    "source_sha256": "dd41c89610263e5e619af08102630662c0db4f20056e8921d11afc3396cf65dd",
+    "split": "validation"
+  },
+  "1962/Literature": {
+    "recipient_ids": [
+      "634"
+    ],
+    "source_sha256": "9f92a1fcb66b56cc8a1fac42572095584dbd037e8cc8ac3448be1e691f697c1d",
+    "split": "validation"
+  },
+  "1962/Peace": {
+    "recipient_ids": [
+      "217"
+    ],
+    "source_sha256": "51bd3965b4122310af11ae2f5bf48522fa48e75d35271956a1e0fed2a234088e",
+    "split": "validation"
+  },
+  "1962/Physics": {
+    "recipient_ids": [
+      "77"
+    ],
+    "source_sha256": "0151bed976a12b42629780036d00e1d7e23b129e2a44792abfb33518cb0ff73d",
+    "split": "validation"
+  },
+  "1962/Physiology or Medicine": {
+    "recipient_ids": [
+      "372",
+      "373",
+      "374"
+    ],
+    "source_sha256": "f472cb6275c3d993150ee632e2ebad218c73da784c2e8830993da0722d5941d2",
+    "split": "validation"
+  },
+  "1963/Chemistry": {
+    "recipient_ids": [
+      "228",
+      "229"
+    ],
+    "source_sha256": "359b05a1b7566098d71399262cb97bd754a97933beaeb4679719d96dcfb2f186",
+    "split": "validation"
+  },
+  "1963/Literature": {
+    "recipient_ids": [
+      "635"
+    ],
+    "source_sha256": "e7579771c029b8cff21ed374eb68870af778cd91d5ce713b202812713cdda6c6",
+    "split": "validation"
+  },
+  "1963/Physics": {
+    "recipient_ids": [
+      "78",
+      "79",
+      "80"
+    ],
+    "source_sha256": "b138c772f5b4b9a9bfb54f12655bf8aae731f7b0ff836cd8e9d43f39f4f6dd00",
+    "split": "validation"
+  },
+  "1963/Physiology or Medicine": {
+    "recipient_ids": [
+      "375",
+      "376",
+      "377"
+    ],
+    "source_sha256": "fc0e0093201cf1cc4e542f3b83d6407ec619e616e0f940561150141c210fd5f4",
+    "split": "validation"
+  },
+  "1964/Chemistry": {
+    "recipient_ids": [
+      "230"
+    ],
+    "source_sha256": "11759ba1ce085c72f4260a3711a9b5aab9cc27d637b4c820843f94cbaf1f8355",
+    "split": "validation"
+  },
+  "1964/Literature": {
+    "recipient_ids": [
+      "637"
+    ],
+    "source_sha256": "2c410fc2c3733b9cefae93ab9ffcf5337f7ec0c1ac152b749cb9137f0371bdb0",
+    "split": "validation"
+  },
+  "1964/Peace": {
+    "recipient_ids": [
+      "524"
+    ],
+    "source_sha256": "1c9db8a1f3b1ba21b6888b9c8bb51b4829acf6ccf336ee6e64fe29b508a1cdd6",
+    "split": "validation"
+  },
+  "1964/Physics": {
+    "recipient_ids": [
+      "81",
+      "82",
+      "83"
+    ],
+    "source_sha256": "3d636e5ce0cbec2407dfd718c1985d2096066ec7b1f0660cd1b5adfce8fdd39f",
+    "split": "validation"
+  },
+  "1964/Physiology or Medicine": {
+    "recipient_ids": [
+      "378",
+      "379"
+    ],
+    "source_sha256": "94e3f8a408d13250a8feceaf37502384a47b337432f01118dd8866754f12724c",
+    "split": "validation"
+  },
+  "1965/Chemistry": {
+    "recipient_ids": [
+      "231"
+    ],
+    "source_sha256": "c9fa56a0a325c9ccdc38ffd0a3da00ce9001878765fcde696acb9ac348b5b0ee",
+    "split": "validation"
+  },
+  "1965/Literature": {
+    "recipient_ids": [
+      "638"
+    ],
+    "source_sha256": "c80ef56b02c68747e924aff41e2f8adf28ab3591527d69799e0b354639802bda",
+    "split": "validation"
+  },
+  "1965/Peace": {
+    "recipient_ids": [
+      "525"
+    ],
+    "source_sha256": "96667d6f219d8572dccbd10e01ef84e64414264d60f73df17903c3e6c8c92729",
+    "split": "validation"
+  },
+  "1965/Physics": {
+    "recipient_ids": [
+      "84",
+      "85",
+      "86"
+    ],
+    "source_sha256": "2ccf06c84a52993c61f0c6992906786dcd3c748939c9b79bcdbb374818c59db4",
+    "split": "validation"
+  },
+  "1965/Physiology or Medicine": {
+    "recipient_ids": [
+      "380",
+      "381",
+      "382"
+    ],
+    "source_sha256": "673c734e1261a2422c9b459382135aa347d909b94feabcec63d2a44f9cdde9f9",
+    "split": "validation"
+  },
+  "1966/Chemistry": {
+    "recipient_ids": [
+      "232"
+    ],
+    "source_sha256": "57e90d6ed9574e3d02138acd4a77d5533c8ac9cd8a302040eb8e55af809b8ffd",
+    "split": "validation"
+  },
+  "1966/Literature": {
+    "recipient_ids": [
+      "639",
+      "640"
+    ],
+    "source_sha256": "29c4a96a2cd5895b77e865b85345d36e8c8e5efaa9629da63f56c3b860eb94a0",
+    "split": "validation"
+  },
+  "1966/Physics": {
+    "recipient_ids": [
+      "87"
+    ],
+    "source_sha256": "3eeb7c17e2f261aa61a8490bdf3fff90d9b58dad1f8458122dfee346db3e5041",
+    "split": "validation"
+  },
+  "1966/Physiology or Medicine": {
+    "recipient_ids": [
+      "383",
+      "384"
+    ],
+    "source_sha256": "f4291378a54d9a9ef04a9a4fa95557aca20b2f47ca9d09b8dcf3d5cd70bbef35",
+    "split": "validation"
+  },
+  "1967/Chemistry": {
+    "recipient_ids": [
+      "233",
+      "234",
+      "235"
+    ],
+    "source_sha256": "95af6f72c118b595353afad0fd2016d274b6b029b24630bb0425942fcf2effa6",
+    "split": "validation"
+  },
+  "1967/Literature": {
+    "recipient_ids": [
+      "641"
+    ],
+    "source_sha256": "d1e1af1703809411435c5b9985dd16f354b777ac60f083b66f2ed983c41eff12",
+    "split": "validation"
+  },
+  "1967/Physics": {
+    "recipient_ids": [
+      "88"
+    ],
+    "source_sha256": "5aadc5a5ec864f097c43245d7ad4d15aec27c2d268a1f772199814a8994a52ce",
+    "split": "validation"
+  },
+  "1967/Physiology or Medicine": {
+    "recipient_ids": [
+      "385",
+      "386",
+      "387"
+    ],
+    "source_sha256": "4ae2e50882ef228125d74f4047f92c33bbaedd77b8d7ca240da515376d17f961",
+    "split": "validation"
+  },
+  "1968/Chemistry": {
+    "recipient_ids": [
+      "236"
+    ],
+    "source_sha256": "a210f26c5d2beb6999b4fde25bacafce6aef5adc07f8ffd84d42277172fb8de0",
+    "split": "validation"
+  },
+  "1968/Literature": {
+    "recipient_ids": [
+      "642"
+    ],
+    "source_sha256": "850c6b978d5f361b88b934eaf2dbba78f3065c375be63c5d25689271139d866d",
+    "split": "validation"
+  },
+  "1968/Peace": {
+    "recipient_ids": [
+      "526"
+    ],
+    "source_sha256": "38c4af1a805a90f0822b9c0e9267528a3f74119c5c5fa2f6ee940ef6dcdc3714",
+    "split": "validation"
+  },
+  "1968/Physics": {
+    "recipient_ids": [
+      "89"
+    ],
+    "source_sha256": "e352edaa0604d63228d274201cca11e4e796db2ef58ed3925320414f69bf39b2",
+    "split": "validation"
+  },
+  "1968/Physiology or Medicine": {
+    "recipient_ids": [
+      "388",
+      "389",
+      "390"
+    ],
+    "source_sha256": "57e28faaf1b05ab837e882d2b598683adbbf99bbec6033e186da7c59bfe68b14",
+    "split": "validation"
+  },
+  "1969/Chemistry": {
+    "recipient_ids": [
+      "237",
+      "238"
+    ],
+    "source_sha256": "bddcc7b6d2c6656b2ebc77a8b1ba92d31f4787b4eda7b1890dd8705cf8d46ab0",
+    "split": "validation"
+  },
+  "1969/Economic Sciences": {
+    "recipient_ids": [
+      "677",
+      "678"
+    ],
+    "source_sha256": "f01fd57b6eaf1b954e7ad6ee87123ac112fb94354807d80a37a5770c3df62c03",
+    "split": "validation"
+  },
+  "1969/Literature": {
+    "recipient_ids": [
+      "643"
+    ],
+    "source_sha256": "0a8e2a63403ddc46437805c852601ac17df447f17f23657e7230a8c44ed3e466",
+    "split": "validation"
+  },
+  "1969/Peace": {
+    "recipient_ids": [
+      "527"
+    ],
+    "source_sha256": "6eb3a8f6b7a9a3f9b7be77f5bb1b6bf25dd4aff288eaae39f5f53aaae47b2540",
+    "split": "validation"
+  },
+  "1969/Physics": {
+    "recipient_ids": [
+      "90"
+    ],
+    "source_sha256": "fda6273810074d2bd89afb18539d16f7ae248703787686edc1c83dde2a898707",
+    "split": "validation"
+  },
+  "1969/Physiology or Medicine": {
+    "recipient_ids": [
+      "391",
+      "392",
+      "393"
+    ],
+    "source_sha256": "4222a9b9c35ecdc52974353dbf6be9c5de16baeada024a90b16e512ab8d85572",
+    "split": "validation"
+  },
+  "1970/Chemistry": {
+    "recipient_ids": [
+      "239"
+    ],
+    "source_sha256": "9849a4248181d92b84d5c96e709a417f769328d4adc2ab7c939dbe6c64f63e5b",
+    "split": "validation"
+  },
+  "1970/Economic Sciences": {
+    "recipient_ids": [
+      "679"
+    ],
+    "source_sha256": "2069c6171dc31198fec881ddcb392a3935d5a26e9d409b9c4fa5dfd2b18c4f2a",
+    "split": "validation"
+  },
+  "1970/Literature": {
+    "recipient_ids": [
+      "644"
+    ],
+    "source_sha256": "b8a0959ccba54c0c4b9552fc5843932b18667ef30ccc8e6f912ab23d94abc7e2",
+    "split": "validation"
+  },
+  "1970/Peace": {
+    "recipient_ids": [
+      "528"
+    ],
+    "source_sha256": "c3dc2a8b6d6e9e44a6d51bb8527d0983884c4a739ad27ec87c1e9e8b16287dbb",
+    "split": "validation"
+  },
+  "1970/Physics": {
+    "recipient_ids": [
+      "91",
+      "92"
+    ],
+    "source_sha256": "515c5078bfbfb0a57d9e7e5784a2fbef6f11a92d35a55019a1d4b436d32942ac",
+    "split": "validation"
+  },
+  "1970/Physiology or Medicine": {
+    "recipient_ids": [
+      "394",
+      "395",
+      "396"
+    ],
+    "source_sha256": "a54c0b1ee7ff5e0a0dc1d8777b0935825d2f2f05e3756ddeb74094be09c79131",
+    "split": "validation"
+  },
+  "1971/Chemistry": {
+    "recipient_ids": [
+      "240"
+    ],
+    "source_sha256": "613c7cab7f43af97ed191982087749d6b4428928ecf909a5b46f46de358d8f34",
+    "split": "audit"
+  },
+  "1971/Economic Sciences": {
+    "recipient_ids": [
+      "680"
+    ],
+    "source_sha256": "534f969be98f9e2b9bc339c68e085c3f353ba11217df6c42d49f0f9d7ae9f6f8",
+    "split": "audit"
+  },
+  "1971/Literature": {
+    "recipient_ids": [
+      "645"
+    ],
+    "source_sha256": "2347c70729d7fdb5eb5b750c38207bfc45919ac2527c0f872a1aff00e434a283",
+    "split": "audit"
+  },
+  "1971/Peace": {
+    "recipient_ids": [
+      "529"
+    ],
+    "source_sha256": "61f44490c1277ccc898bba5eee8a0f9e43b07073782885ef2d1c8224d3bd472e",
+    "split": "audit"
+  },
+  "1971/Physics": {
+    "recipient_ids": [
+      "93"
+    ],
+    "source_sha256": "d5182d245e5aa4c98161c85a9ad352475144493237d0994f3597cc652b0633e2",
+    "split": "audit"
+  },
+  "1971/Physiology or Medicine": {
+    "recipient_ids": [
+      "397"
+    ],
+    "source_sha256": "e548c4470ca8d5ccdf183d1f6499060e63ec910cf56e4f2eb6507c689b53701b",
+    "split": "audit"
+  },
+  "1972/Chemistry": {
+    "recipient_ids": [
+      "241",
+      "242",
+      "243"
+    ],
+    "source_sha256": "a77130bf749780890ff9d8d592f255e4c69da2ea65688bf746117aad825a3235",
+    "split": "audit"
+  },
+  "1972/Economic Sciences": {
+    "recipient_ids": [
+      "681",
+      "682"
+    ],
+    "source_sha256": "543df0aa275be277ec72bfed59423f3eb372ee7681d9c4079f8900e8cef30c46",
+    "split": "audit"
+  },
+  "1972/Literature": {
+    "recipient_ids": [
+      "647"
+    ],
+    "source_sha256": "1e230ef167e06d1d92225f87c26bd203e227d81bc6cda3479ad8bf3ce8cc1e92",
+    "split": "audit"
+  },
+  "1972/Physiology or Medicine": {
+    "recipient_ids": [
+      "398",
+      "399"
+    ],
+    "source_sha256": "22df6761e170fb8299d7e446080c4812222d82d0f5546567f51014065a8aebb4",
+    "split": "audit"
+  },
+  "1973/Chemistry": {
+    "recipient_ids": [
+      "244",
+      "245"
+    ],
+    "source_sha256": "fe9579db35cc41efe010dbeab3b3f3c2483f2c3b4e9f7ba3de5343b4ac3bd217",
+    "split": "audit"
+  },
+  "1973/Economic Sciences": {
+    "recipient_ids": [
+      "683"
+    ],
+    "source_sha256": "b76f9230abc0c56189fe109c824e5364207ad31d790d225c055694073cbb86d5",
+    "split": "audit"
+  },
+  "1973/Literature": {
+    "recipient_ids": [
+      "648"
+    ],
+    "source_sha256": "3c3d8774f0b6fc3e81ff827aced2f9a52fc998edc466dff6b856bf0ed9ce5b01",
+    "split": "audit"
+  },
+  "1973/Peace": {
+    "recipient_ids": [
+      "530",
+      "531"
+    ],
+    "source_sha256": "c5ef90890f7a270e8279e5ea18ee9d804dd1ca94812fc984102ffb65e8d0a2de",
+    "split": "audit"
+  },
+  "1973/Physics": {
+    "recipient_ids": [
+      "97",
+      "98",
+      "99"
+    ],
+    "source_sha256": "8eb8860e6ca6f4a685a9e855354305d20d4227a5b1d473b9f60625066ddca305",
+    "split": "audit"
+  },
+  "1973/Physiology or Medicine": {
+    "recipient_ids": [
+      "400",
+      "401",
+      "402"
+    ],
+    "source_sha256": "a9aa3e5e4082d54b12f08617ee8fedd559946b2dbdb7ff5213052cb9319aed33",
+    "split": "audit"
+  },
+  "1974/Chemistry": {
+    "recipient_ids": [
+      "246"
+    ],
+    "source_sha256": "c9e1b2d3c13f1b8b3c7d43f7e847a452296d5901241b5be4ebdc04a504ce14ea",
+    "split": "audit"
+  },
+  "1974/Economic Sciences": {
+    "recipient_ids": [
+      "684",
+      "685"
+    ],
+    "source_sha256": "3304fe7d97920931aaf899cb1340b8b86e3350ae44155f4fe22d6b55e4829600",
+    "split": "audit"
+  },
+  "1974/Literature": {
+    "recipient_ids": [
+      "649",
+      "650"
+    ],
+    "source_sha256": "82f2ab7116ef974bce02939d44ef405275374b1b17f2daa8c73046b19919cc0e",
+    "split": "audit"
+  },
+  "1974/Peace": {
+    "recipient_ids": [
+      "532",
+      "533"
+    ],
+    "source_sha256": "8623326f95cb18d28e9b5c9e71b38eb7dc003caf477cafd05293e5be21600ff0",
+    "split": "audit"
+  },
+  "1974/Physics": {
+    "recipient_ids": [
+      "100",
+      "101"
+    ],
+    "source_sha256": "fcb24ba9d86bda4679e012866a1f8b3c9ff12e8d8d4b4e6520c03ce7bea38786",
+    "split": "audit"
+  },
+  "1974/Physiology or Medicine": {
+    "recipient_ids": [
+      "403",
+      "404",
+      "405"
+    ],
+    "source_sha256": "58812a3765ebc2e2541af8946869018a5b36836d41cfff27ce5c3d9daa2645fa",
+    "split": "audit"
+  },
+  "1975/Chemistry": {
+    "recipient_ids": [
+      "247",
+      "248"
+    ],
+    "source_sha256": "5d006135696bdc24c7d11d938645d27cc573c4cc3c3d4f215d6432e1c974d25d",
+    "split": "audit"
+  },
+  "1975/Economic Sciences": {
+    "recipient_ids": [
+      "686",
+      "687"
+    ],
+    "source_sha256": "0284b1a0465510104307ae6d4d444dd2ffe45645abbd4277be1271d680f7493d",
+    "split": "audit"
+  },
+  "1975/Literature": {
+    "recipient_ids": [
+      "651"
+    ],
+    "source_sha256": "f3fbcc6fbda769f74cd9ca06284b92e3d92a1fd28ca5fd913281b066bbeecae6",
+    "split": "audit"
+  },
+  "1975/Peace": {
+    "recipient_ids": [
+      "534"
+    ],
+    "source_sha256": "e096f7ff97cdb2212d0581485c1c3eb41f75e37da148d6408952c813b9bb404a",
+    "split": "audit"
+  },
+  "1975/Physics": {
+    "recipient_ids": [
+      "102",
+      "103",
+      "104"
+    ],
+    "source_sha256": "8b96031e74e8eccfee58a0f6e0afa51ac866b376645975c15c79a1c301588742",
+    "split": "audit"
+  },
+  "1975/Physiology or Medicine": {
+    "recipient_ids": [
+      "406",
+      "407",
+      "408"
+    ],
+    "source_sha256": "5e190e1ac4265faf8d00564e65e92377bd11a3b55794bc14aaa6818bfe51d7d9",
+    "split": "audit"
+  },
+  "1976/Chemistry": {
+    "recipient_ids": [
+      "249"
+    ],
+    "source_sha256": "2afe177d7dbd45e944b9f3f781457982d2668a255e943274abccade1d7e62456",
+    "split": "audit"
+  },
+  "1976/Economic Sciences": {
+    "recipient_ids": [
+      "688"
+    ],
+    "source_sha256": "230bc5d46b9d93e1d757f1afd95c0103565ea030e82db7675b05f9ae875c5a42",
+    "split": "audit"
+  },
+  "1976/Literature": {
+    "recipient_ids": [
+      "652"
+    ],
+    "source_sha256": "b53253afbd4534378831bed7a4606d2579b53aa6ad1a58d3f6d7998fe245b5af",
+    "split": "audit"
+  },
+  "1976/Peace": {
+    "recipient_ids": [
+      "535",
+      "536"
+    ],
+    "source_sha256": "d27e4c529cf6d98dfd904fd63334140a7ccf4cf15a202d3dd54b69336107dc3c",
+    "split": "audit"
+  },
+  "1976/Physics": {
+    "recipient_ids": [
+      "105",
+      "106"
+    ],
+    "source_sha256": "c7611d53a5c617404c6bb64f679b39e5ed29e9da96fa2f40669a7a50549befd6",
+    "split": "audit"
+  },
+  "1976/Physiology or Medicine": {
+    "recipient_ids": [
+      "409",
+      "410"
+    ],
+    "source_sha256": "066d4c56ede91fc7015f9a4c5f737f2b3637ee45ec3a461b1f85a40f07777aba",
+    "split": "audit"
+  },
+  "1977/Chemistry": {
+    "recipient_ids": [
+      "250"
+    ],
+    "source_sha256": "abbe853dc442ca6540dbe746e05c53cd2ffd119e5fcd0ca78fc2b937bd078ff2",
+    "split": "audit"
+  },
+  "1977/Economic Sciences": {
+    "recipient_ids": [
+      "689",
+      "690"
+    ],
+    "source_sha256": "45af79daac4d67019885a83af75fd6703ae247754441a3e581d0f35005e49dbb",
+    "split": "audit"
+  },
+  "1977/Literature": {
+    "recipient_ids": [
+      "653"
+    ],
+    "source_sha256": "c0fcc611b77446fda73062ed403ae5f94b62ce0b3a7611b2815cb1cb58709246",
+    "split": "audit"
+  },
+  "1977/Peace": {
+    "recipient_ids": [
+      "537"
+    ],
+    "source_sha256": "4b360c93c377ae4fa03a60f17000392c1cc412b2249af0341f3907256c43d4c6",
+    "split": "audit"
+  },
+  "1977/Physics": {
+    "recipient_ids": [
+      "107",
+      "108",
+      "109"
+    ],
+    "source_sha256": "63195544e00876aeda1e85119de6e659d091db2ad19a77cd6775384c0a11d6d5",
+    "split": "audit"
+  },
+  "1977/Physiology or Medicine": {
+    "recipient_ids": [
+      "411",
+      "412",
+      "413"
+    ],
+    "source_sha256": "3a60bf7e4781262453e84f0d813250c80c3dcb74a2646c40d54c325fde67730c",
+    "split": "audit"
+  },
+  "1978/Chemistry": {
+    "recipient_ids": [
+      "251"
+    ],
+    "source_sha256": "b86aa4bca3f6b61b7c575dc71f802e2fcbf5ad8c63a145676ee655c18cde2d4a",
+    "split": "audit"
+  },
+  "1978/Economic Sciences": {
+    "recipient_ids": [
+      "691"
+    ],
+    "source_sha256": "d18a7ab5dc02df3b0ddbb3818a5cc751bb6b34014d60cd107ffff64f2fa5405b",
+    "split": "audit"
+  },
+  "1978/Literature": {
+    "recipient_ids": [
+      "654"
+    ],
+    "source_sha256": "d7c91057b078e234bfce2433ff128136c80bee4af7a6fd929c1e31ba8d5f3a45",
+    "split": "audit"
+  },
+  "1978/Peace": {
+    "recipient_ids": [
+      "538",
+      "539"
+    ],
+    "source_sha256": "65ff75e68b8a911711e2916130c45c144661945e3041b721fbc100d9be4f0431",
+    "split": "audit"
+  },
+  "1978/Physics": {
+    "recipient_ids": [
+      "110",
+      "111",
+      "112"
+    ],
+    "source_sha256": "8078d13557991c9cb7b8bf63da49a71fc7cadc462daaea80126cfeb7107b5d3d",
+    "split": "audit"
+  },
+  "1978/Physiology or Medicine": {
+    "recipient_ids": [
+      "414",
+      "415",
+      "416"
+    ],
+    "source_sha256": "ddceca80c7ea2192d543af5d641938378b1dd0b863955a9b08f1cb862563de8f",
+    "split": "audit"
+  },
+  "1979/Chemistry": {
+    "recipient_ids": [
+      "252",
+      "253"
+    ],
+    "source_sha256": "e51b5010cf3be5ff0fe38af01ac0da698303b62b9055bc560c04ea5253c2e9e9",
+    "split": "audit"
+  },
+  "1979/Economic Sciences": {
+    "recipient_ids": [
+      "692",
+      "693"
+    ],
+    "source_sha256": "0a974b9547cfe1e284f2da071d43b591c374a1a353dc6db7409b04c97f84567a",
+    "split": "audit"
+  },
+  "1979/Literature": {
+    "recipient_ids": [
+      "655"
+    ],
+    "source_sha256": "c7c898869f2d5217408e0dd53df5207a6bb591d3f33fba1791115989fd55273f",
+    "split": "audit"
+  },
+  "1979/Peace": {
+    "recipient_ids": [
+      "540"
+    ],
+    "source_sha256": "e0fd239a63b4332d0175c68a0e6937322ec2cba8424c37db22943ffcd03e8b5f",
+    "split": "audit"
+  },
+  "1979/Physics": {
+    "recipient_ids": [
+      "113",
+      "114",
+      "115"
+    ],
+    "source_sha256": "0cc99d804be835464d3a12cd0fa9dc58175a81f9229ec594ca8336769fa4fd61",
+    "split": "audit"
+  },
+  "1979/Physiology or Medicine": {
+    "recipient_ids": [
+      "417",
+      "418"
+    ],
+    "source_sha256": "e619eb5e3a3c9afe6c2cfd1446d1bea4a6f0e85eba8fb2c672cd7345bf3adad0",
+    "split": "audit"
+  },
+  "1980/Economic Sciences": {
+    "recipient_ids": [
+      "694"
+    ],
+    "source_sha256": "bd780bfceda05bf60ea116b4ef247aeea5f7173e9b9778f775966ad99b02f62b",
+    "split": "audit"
+  },
+  "1980/Literature": {
+    "recipient_ids": [
+      "657"
+    ],
+    "source_sha256": "616bd9b57c8a93482897ba4a02bbd0d5a49e69efda5be1902c84d8d5a167e8c0",
+    "split": "audit"
+  },
+  "1980/Peace": {
+    "recipient_ids": [
+      "541"
+    ],
+    "source_sha256": "30d82df185cb4594dc9f76fb5234c81f85e2e9c5d879b23b39ae4c2b7c9c0ee3",
+    "split": "audit"
+  },
+  "1980/Physics": {
+    "recipient_ids": [
+      "116",
+      "117"
+    ],
+    "source_sha256": "c27dda9c6d3630a1d2f980be1d293207d004a9ebbc72265ae3857c20382f9f62",
+    "split": "audit"
+  },
+  "1980/Physiology or Medicine": {
+    "recipient_ids": [
+      "419",
+      "420",
+      "421"
+    ],
+    "source_sha256": "85bb75ba55550d495b03b050edcea828dccbf5842e9a46a66efc7638d41fdff3",
+    "split": "audit"
+  },
+  "1981/Chemistry": {
+    "recipient_ids": [
+      "257",
+      "258"
+    ],
+    "source_sha256": "b80ae45b7f701b1ce6868bcc51c87b06b8440bac947c02612ed6ec7cc01188d1",
+    "split": "audit"
+  },
+  "1981/Economic Sciences": {
+    "recipient_ids": [
+      "695"
+    ],
+    "source_sha256": "bc5d91cf52d8547d11ab1fb219ca16922af76c2afaf15011f60e8b8eaa76774f",
+    "split": "audit"
+  },
+  "1981/Literature": {
+    "recipient_ids": [
+      "658"
+    ],
+    "source_sha256": "a5d07f50ec0a98d3476861f2837c9693f25fd25c4cda9891a39b6c04ad8f2392",
+    "split": "audit"
+  },
+  "1981/Physics": {
+    "recipient_ids": [
+      "118",
+      "119",
+      "120"
+    ],
+    "source_sha256": "e3b74c6a42a4860805e2fe51f3236d57ec345d2e25216fa73e3dd0c89072b6a0",
+    "split": "audit"
+  },
+  "1981/Physiology or Medicine": {
+    "recipient_ids": [
+      "422",
+      "423",
+      "424"
+    ],
+    "source_sha256": "88005bf6327388c11012135e95aba24c864bc0e601ef1b76887c20b52970290f",
+    "split": "audit"
+  },
+  "1982/Chemistry": {
+    "recipient_ids": [
+      "259"
+    ],
+    "source_sha256": "7bfa6317d794f297463b18d15c27c2f9260f8f74a5b59bc26c9285f79aca407c",
+    "split": "audit"
+  },
+  "1982/Economic Sciences": {
+    "recipient_ids": [
+      "696"
+    ],
+    "source_sha256": "316f5b6b0df0b1dd3c8c93877806dfd12e11c88d69fdf61ad7c6c539164adde9",
+    "split": "audit"
+  },
+  "1982/Literature": {
+    "recipient_ids": [
+      "659"
+    ],
+    "source_sha256": "212df039798c8945070327e5a29116c658d90e3972f946548b2325d4185d5829",
+    "split": "audit"
+  },
+  "1982/Peace": {
+    "recipient_ids": [
+      "543",
+      "544"
+    ],
+    "source_sha256": "5cfc4b427f30dcfa3a8657cca0837ede70fdbee2af04b7a18dae327180c4084c",
+    "split": "audit"
+  },
+  "1982/Physics": {
+    "recipient_ids": [
+      "121"
+    ],
+    "source_sha256": "30b4a139aa5f4d359a93f36583601461425f5a882467a9ddf2c037f83ec7fd11",
+    "split": "audit"
+  },
+  "1982/Physiology or Medicine": {
+    "recipient_ids": [
+      "425",
+      "426",
+      "427"
+    ],
+    "source_sha256": "7d7fa4a39ef10db3deb790a756baeb729a0ace996fe0344e8c92842ab6b650eb",
+    "split": "audit"
+  },
+  "1983/Chemistry": {
+    "recipient_ids": [
+      "260"
+    ],
+    "source_sha256": "cc64b3caf4dfd5f826b24348e858c3cbd04e2640781f52f892da50424d0795db",
+    "split": "audit"
+  },
+  "1983/Economic Sciences": {
+    "recipient_ids": [
+      "697"
+    ],
+    "source_sha256": "42a9f13e15f7723bbb20a61384b253b3e70ae6d737eea53d54c5bb2864012835",
+    "split": "audit"
+  },
+  "1983/Literature": {
+    "recipient_ids": [
+      "660"
+    ],
+    "source_sha256": "00c3d5fbec570e5872e4275738920593254d72f617f39fdcc8e40c608399e4fc",
+    "split": "audit"
+  },
+  "1983/Peace": {
+    "recipient_ids": [
+      "545"
+    ],
+    "source_sha256": "5c7a666f25e3a8355e7291f79fbcf648c073aa62d7a80deedb08633dce50a6f0",
+    "split": "audit"
+  },
+  "1983/Physics": {
+    "recipient_ids": [
+      "122",
+      "123"
+    ],
+    "source_sha256": "f2f5a80a68ad376a0eaf221ddf007feef2a6ab5043b62aba20d3cbb0f3bf58db",
+    "split": "audit"
+  },
+  "1983/Physiology or Medicine": {
+    "recipient_ids": [
+      "428"
+    ],
+    "source_sha256": "3e58127982330685af4f64897fdd1775b3687e9bddfc2d0e2cd33253de8c23b6",
+    "split": "audit"
+  },
+  "1984/Chemistry": {
+    "recipient_ids": [
+      "261"
+    ],
+    "source_sha256": "ccd81ccc8cf74b2840674fc03830371f279f2dc56e9eb116cce6fcb0573f4a54",
+    "split": "audit"
+  },
+  "1984/Economic Sciences": {
+    "recipient_ids": [
+      "698"
+    ],
+    "source_sha256": "ad38356a6ab0eb7bd862d27c37f58e8e2cbdf161859474b53b03a748cec16195",
+    "split": "audit"
+  },
+  "1984/Literature": {
+    "recipient_ids": [
+      "661"
+    ],
+    "source_sha256": "8cbb94db0653c16cff18e79decf388d75fb91d575c34ca6f1277a9589dfcad60",
+    "split": "audit"
+  },
+  "1984/Peace": {
+    "recipient_ids": [
+      "546"
+    ],
+    "source_sha256": "9b1df6d22c6d9a7f6d22bb02ece07eb66e41c1e5b485a0ad45305a20dc313938",
+    "split": "audit"
+  },
+  "1984/Physics": {
+    "recipient_ids": [
+      "124",
+      "125"
+    ],
+    "source_sha256": "1bc3db1efd66a2ba21990792aa23cdebc8cd472e17eb9eed789b3e41ee51dc66",
+    "split": "audit"
+  },
+  "1984/Physiology or Medicine": {
+    "recipient_ids": [
+      "429",
+      "430",
+      "431"
+    ],
+    "source_sha256": "9d807b73e61a7257c3cd52093aa3565f04bde993e3f7a69fed8f8a9b1a48cde5",
+    "split": "audit"
+  },
+  "1985/Chemistry": {
+    "recipient_ids": [
+      "262",
+      "263"
+    ],
+    "source_sha256": "2a3512030074fe3adfe9f0b624935afc291e8e75a09440575827e6428fed97ae",
+    "split": "audit"
+  },
+  "1985/Economic Sciences": {
+    "recipient_ids": [
+      "699"
+    ],
+    "source_sha256": "250954bd69b4165fa0b073f2bdf1db193e33105b979d8df19865afc09acc9fc3",
+    "split": "audit"
+  },
+  "1985/Literature": {
+    "recipient_ids": [
+      "662"
+    ],
+    "source_sha256": "ab88a3b610466b46c87015b2cbd46f66e42a12b789ed1a22ca66afd8a5bb2ff0",
+    "split": "audit"
+  },
+  "1985/Peace": {
+    "recipient_ids": [
+      "547"
+    ],
+    "source_sha256": "25719007514c87a1d7d26caa0ee99d2420585df14f67a0c1f3dcc3d120323087",
+    "split": "audit"
+  },
+  "1985/Physics": {
+    "recipient_ids": [
+      "126"
+    ],
+    "source_sha256": "fb8fe141768bb0c5b9ef6824eba29775b19b29274f4a1709ab6d19c997de5edb",
+    "split": "audit"
+  },
+  "1985/Physiology or Medicine": {
+    "recipient_ids": [
+      "432",
+      "433"
+    ],
+    "source_sha256": "bcc35ebed647a57c1ca5878dd0fb9db48ed7f41780d0f2273ed38637b3f01f7e",
+    "split": "audit"
+  },
+  "1986/Chemistry": {
+    "recipient_ids": [
+      "264",
+      "265",
+      "266"
+    ],
+    "source_sha256": "218d8b7c5c10a192810ff72c57249b598d1f8f4d236705c3f7229b8caeb44eef",
+    "split": "audit"
+  },
+  "1986/Economic Sciences": {
+    "recipient_ids": [
+      "700"
+    ],
+    "source_sha256": "6b612b476c48b29fecffa6aedca5406fe523b16d19e23773a869ac29af2f3088",
+    "split": "audit"
+  },
+  "1986/Literature": {
+    "recipient_ids": [
+      "663"
+    ],
+    "source_sha256": "d298d85ee635a29b7477c5687cd831fa848161c688241c6f19685bae1ddc4663",
+    "split": "audit"
+  },
+  "1986/Peace": {
+    "recipient_ids": [
+      "548"
+    ],
+    "source_sha256": "07f369e0363d7aa70224a02d4ed09ac134a61e729579a5110095525846aa320c",
+    "split": "audit"
+  },
+  "1986/Physics": {
+    "recipient_ids": [
+      "127",
+      "128",
+      "129"
+    ],
+    "source_sha256": "11f6a994634b213702c889e5f295d68e66aa64856d86cac310d2c52b16c0231a",
+    "split": "audit"
+  },
+  "1986/Physiology or Medicine": {
+    "recipient_ids": [
+      "434",
+      "435"
+    ],
+    "source_sha256": "fa64cae58ebd9094e78f2f7750e26e06884d3c024c2384236f87d0882988911f",
+    "split": "audit"
+  },
+  "1987/Chemistry": {
+    "recipient_ids": [
+      "267",
+      "268",
+      "269"
+    ],
+    "source_sha256": "a235d020ade2caddeca333b03f344288dc1a6dfd678def134c7a87c2a001ee93",
+    "split": "audit"
+  },
+  "1987/Economic Sciences": {
+    "recipient_ids": [
+      "701"
+    ],
+    "source_sha256": "91caf4df210a480627fcae364aee9d2b2d75b73342595eed71ae386878154604",
+    "split": "audit"
+  },
+  "1987/Literature": {
+    "recipient_ids": [
+      "664"
+    ],
+    "source_sha256": "44474496ee8c5709dd39b39044161087230c5bcc73f0c32ae292c52b0d6905d4",
+    "split": "audit"
+  },
+  "1987/Peace": {
+    "recipient_ids": [
+      "549"
+    ],
+    "source_sha256": "971f2e73ca57c3dbe1204e94631c88d64d1ef1c84a332079b2d89ad4ad64390e",
+    "split": "audit"
+  },
+  "1987/Physics": {
+    "recipient_ids": [
+      "130",
+      "131"
+    ],
+    "source_sha256": "53c77adfc47a0c0796c3f612b7c66e082f2bfa1f54096c48bc694f12d44001bd",
+    "split": "audit"
+  },
+  "1987/Physiology or Medicine": {
+    "recipient_ids": [
+      "436"
+    ],
+    "source_sha256": "c421d38a0fe64d6ef36b6139342fbcb4b3366ac43bf9f56ed163d373310539e2",
+    "split": "audit"
+  },
+  "1988/Chemistry": {
+    "recipient_ids": [
+      "270",
+      "271",
+      "272"
+    ],
+    "source_sha256": "bdc392c58a8636d55f4a715c89d229cb62f266354494fbbfde20defb4c7d6f64",
+    "split": "audit"
+  },
+  "1988/Economic Sciences": {
+    "recipient_ids": [
+      "702"
+    ],
+    "source_sha256": "e59e13a86695b7a29a35c64330f775eaf898c7ec4a181d8f3db3e118e93a6f8b",
+    "split": "audit"
+  },
+  "1988/Literature": {
+    "recipient_ids": [
+      "665"
+    ],
+    "source_sha256": "d2b9c8dc4627af83b0baa8e3fd8437ce2dd2d4dbff38aaf21a62f300969ce953",
+    "split": "audit"
+  },
+  "1988/Peace": {
+    "recipient_ids": [
+      "550"
+    ],
+    "source_sha256": "3e1cd523ee5fda856359f51077c50edd242a5c5a2d33c5c276ccd9763261c1fe",
+    "split": "audit"
+  },
+  "1988/Physics": {
+    "recipient_ids": [
+      "132",
+      "133",
+      "134"
+    ],
+    "source_sha256": "e99179c5e248fa016d2e92167313787070ca6414a13be665cf10168339c9a8b9",
+    "split": "audit"
+  },
+  "1988/Physiology or Medicine": {
+    "recipient_ids": [
+      "437",
+      "438",
+      "439"
+    ],
+    "source_sha256": "9c9b536b4e34a4abe87a886eab9b7474ac2d017532eaee055dda222ed2a7c0f7",
+    "split": "audit"
+  },
+  "1989/Chemistry": {
+    "recipient_ids": [
+      "273",
+      "274"
+    ],
+    "source_sha256": "03775fdc10f5ada22351ad21e0aa637744396885d7f2b5a734570d29af596916",
+    "split": "audit"
+  },
+  "1989/Economic Sciences": {
+    "recipient_ids": [
+      "703"
+    ],
+    "source_sha256": "5756269b8cf15fda0a3e33e0725db7e275317ac649cf99549830d9f5e2723fe7",
+    "split": "audit"
+  },
+  "1989/Literature": {
+    "recipient_ids": [
+      "666"
+    ],
+    "source_sha256": "eb8e83a09765c4b56228cf1c8dfab2b89b205849b9034eb014f3504127a7109b",
+    "split": "audit"
+  },
+  "1989/Peace": {
+    "recipient_ids": [
+      "551"
+    ],
+    "source_sha256": "6b9d14a6fc6b740483bdf203fa46b86ae905f1a7e6fa2a9742f5c497c32e8c75",
+    "split": "audit"
+  },
+  "1989/Physics": {
+    "recipient_ids": [
+      "135",
+      "136",
+      "137"
+    ],
+    "source_sha256": "0f7f77aa2663c7eff5a830e93735ec49e5a5cab13faa4c36c56a5452389e2134",
+    "split": "audit"
+  },
+  "1989/Physiology or Medicine": {
+    "recipient_ids": [
+      "440",
+      "441"
+    ],
+    "source_sha256": "9e8344baa87e4329ae1279759a8749939ef03675b3bf6687ef93b2002cbbc318",
+    "split": "audit"
+  },
+  "1990/Chemistry": {
+    "recipient_ids": [
+      "275"
+    ],
+    "source_sha256": "758e7f4c93a3ca56d2746cf7599a9eac19aec0d9e28bcbeee52dfadf9377640a",
+    "split": "audit"
+  },
+  "1990/Economic Sciences": {
+    "recipient_ids": [
+      "704",
+      "705",
+      "706"
+    ],
+    "source_sha256": "f0dcf84f31e81cf8ece633ee64459ec173b09fd0eb938dea5383342496a8ab99",
+    "split": "audit"
+  },
+  "1990/Literature": {
+    "recipient_ids": [
+      "667"
+    ],
+    "source_sha256": "e1a9528726f35b739e29308b8019649619d495b5dee9b6e16503d63a409d488a",
+    "split": "audit"
+  },
+  "1990/Peace": {
+    "recipient_ids": [
+      "552"
+    ],
+    "source_sha256": "bea5031a3dce24a894c38f3d891fe00d2d5113467b6c7b657f254147bfafd414",
+    "split": "audit"
+  },
+  "1990/Physics": {
+    "recipient_ids": [
+      "138",
+      "139",
+      "140"
+    ],
+    "source_sha256": "23c49e78dbad3be6a06484d93d616fc857b232ba0d7bba7aa526d16f5312146e",
+    "split": "audit"
+  },
+  "1990/Physiology or Medicine": {
+    "recipient_ids": [
+      "442",
+      "443"
+    ],
+    "source_sha256": "97f438e2c1f29f5bcd9c5fb5f718ccd240b3379ff0cf1425f647a38b3ca39b15",
+    "split": "audit"
+  },
+  "1991/Chemistry": {
+    "recipient_ids": [
+      "276"
+    ],
+    "source_sha256": "88a986f66ea1818cf956212f2cca686bf8ba8099fa6f8b8276c86ac15c6dea12",
+    "split": "audit"
+  },
+  "1991/Economic Sciences": {
+    "recipient_ids": [
+      "707"
+    ],
+    "source_sha256": "55cbb6e31060778a16ef6f0225e5086adb4e8c40d7092cf9339a34522783b0d2",
+    "split": "audit"
+  },
+  "1991/Literature": {
+    "recipient_ids": [
+      "668"
+    ],
+    "source_sha256": "d92f60a4c594f12b0d77071fea1b561161a9a008e274a7b95a8ce8c797df9f7f",
+    "split": "audit"
+  },
+  "1991/Peace": {
+    "recipient_ids": [
+      "553"
+    ],
+    "source_sha256": "86b81e5bfbb9b22f412aeae8d0d67671081ddc8f467d9c78f53343a02881a051",
+    "split": "audit"
+  },
+  "1991/Physics": {
+    "recipient_ids": [
+      "141"
+    ],
+    "source_sha256": "d78b91f0a3d47af5675eabf57d0c917bb464e2fc2aef12acd78e80ccfda04896",
+    "split": "audit"
+  },
+  "1991/Physiology or Medicine": {
+    "recipient_ids": [
+      "444",
+      "445"
+    ],
+    "source_sha256": "d8fcdcf100c51edb45e30fdaacb3ca84f3d0c99ba16d31627793967efe367354",
+    "split": "audit"
+  },
+  "1992/Chemistry": {
+    "recipient_ids": [
+      "277"
+    ],
+    "source_sha256": "a125ea2853f0ac5e662f3acd39a6ebbc1c6201ce0ab57d4316b559a4edd72dad",
+    "split": "audit"
+  },
+  "1992/Economic Sciences": {
+    "recipient_ids": [
+      "708"
+    ],
+    "source_sha256": "98458cbad80eb16949f8a39b9323953acc2190a801c7cad38748696bc5532f30",
+    "split": "audit"
+  },
+  "1992/Literature": {
+    "recipient_ids": [
+      "669"
+    ],
+    "source_sha256": "8cab64bbdcea3668604060f7b30a9674ed17da6d2ffd4d44da648ffa57faddbd",
+    "split": "audit"
+  },
+  "1992/Peace": {
+    "recipient_ids": [
+      "554"
+    ],
+    "source_sha256": "9a8d41b985f67d9d18a826185fe61f00a4d602f2e3ae43885cdd22fc7754acf1",
+    "split": "audit"
+  },
+  "1992/Physics": {
+    "recipient_ids": [
+      "142"
+    ],
+    "source_sha256": "7c7830fa6d42ecf89e9fbc97913d4bc73a8cda78482ad9dab0567d47cdf9011d",
+    "split": "audit"
+  },
+  "1992/Physiology or Medicine": {
+    "recipient_ids": [
+      "446",
+      "447"
+    ],
+    "source_sha256": "79db4391e725ec2fad0209f57a08b877ae7fe690cf8234d0ae4d95e0140eb642",
+    "split": "audit"
+  },
+  "1993/Chemistry": {
+    "recipient_ids": [
+      "278",
+      "279"
+    ],
+    "source_sha256": "913ba93cfeed978cfbe870239b1647098bc7118e7eb0dec987451f01b8f9efd8",
+    "split": "audit"
+  },
+  "1993/Economic Sciences": {
+    "recipient_ids": [
+      "709",
+      "710"
+    ],
+    "source_sha256": "f8d6d8b42c4572e219af53ed2ccc891d888c2cc0f69e325473dab0f83626070e",
+    "split": "audit"
+  },
+  "1993/Literature": {
+    "recipient_ids": [
+      "670"
+    ],
+    "source_sha256": "7f5bba8b2c1c062b3edc0c0d39a5fe312d1b6b8f6c92f8c5445a88fbf88ebc47",
+    "split": "audit"
+  },
+  "1993/Peace": {
+    "recipient_ids": [
+      "555",
+      "556"
+    ],
+    "source_sha256": "75cd5afc7b27922df291b9bd916d3181f33bfb23023263a6c1a601c1e5693189",
+    "split": "audit"
+  },
+  "1993/Physics": {
+    "recipient_ids": [
+      "143",
+      "144"
+    ],
+    "source_sha256": "dcf310c54d191805c95d59275f85f3b9182e1bb734f791de219f1f283ef11a54",
+    "split": "audit"
+  },
+  "1993/Physiology or Medicine": {
+    "recipient_ids": [
+      "448",
+      "449"
+    ],
+    "source_sha256": "ef6a942db490c35b010b7431374d1954de5055aa19a8d526a8248419d83b587b",
+    "split": "audit"
+  },
+  "1994/Chemistry": {
+    "recipient_ids": [
+      "280"
+    ],
+    "source_sha256": "d2a3b1165c0380c5ddc1c7df56f5c21d914e6623db743b8d89ea1bf39caecf3e",
+    "split": "audit"
+  },
+  "1994/Economic Sciences": {
+    "recipient_ids": [
+      "711",
+      "712",
+      "713"
+    ],
+    "source_sha256": "cd39243ceb38159d1aad2e58c20170722f4c4a541b7db844a42216131013694b",
+    "split": "audit"
+  },
+  "1994/Literature": {
+    "recipient_ids": [
+      "671"
+    ],
+    "source_sha256": "231945bb7e36b761fb7adb87d562dfbaddde14f95d561c6d5b897c7f088367d4",
+    "split": "audit"
+  },
+  "1994/Peace": {
+    "recipient_ids": [
+      "557",
+      "558",
+      "559"
+    ],
+    "source_sha256": "089b16c8bfd6563b03f93cbe753e577c0d5d12ff9cf0f1c6ffbf60bb1c660623",
+    "split": "audit"
+  },
+  "1994/Physics": {
+    "recipient_ids": [
+      "145",
+      "146"
+    ],
+    "source_sha256": "ac135f5f8218e2f51110cf60f346c7ce1777853e0edf4242f60f415f292461ba",
+    "split": "audit"
+  },
+  "1994/Physiology or Medicine": {
+    "recipient_ids": [
+      "450",
+      "451"
+    ],
+    "source_sha256": "2d1a59772812dd85f86c6f3870914b68bcde6e234f1bf158be7d93a2e42cb656",
+    "split": "audit"
+  },
+  "1995/Chemistry": {
+    "recipient_ids": [
+      "281",
+      "282",
+      "283"
+    ],
+    "source_sha256": "d88d6179d1ffc55ce4511a934a1dd6c300982b41521006b61231ade9eb8499e9",
+    "split": "audit"
+  },
+  "1995/Economic Sciences": {
+    "recipient_ids": [
+      "714"
+    ],
+    "source_sha256": "f07311bd84d4c3032b80edc158052f0ef3c12fcd98129bc1674a515ff89f19ff",
+    "split": "audit"
+  },
+  "1995/Literature": {
+    "recipient_ids": [
+      "672"
+    ],
+    "source_sha256": "be17ee4e4c0e02bf63c74a8a0ed4f3c6cd294c28b6b292d204f1f15598b3a304",
+    "split": "audit"
+  },
+  "1995/Peace": {
+    "recipient_ids": [
+      "560",
+      "561"
+    ],
+    "source_sha256": "3a92b89d123e5770327e9d7774e6dff6e199448b529e68a2a063147bb416606a",
+    "split": "audit"
+  },
+  "1995/Physics": {
+    "recipient_ids": [
+      "147",
+      "148"
+    ],
+    "source_sha256": "0d5ae63ba1674d31873abd15380190cf91ffc09eb7692b963e1537e00cb077f7",
+    "split": "audit"
+  },
+  "1995/Physiology or Medicine": {
+    "recipient_ids": [
+      "452",
+      "453",
+      "454"
+    ],
+    "source_sha256": "aeb6c7f3cf0bb8c07f03a1fc32d43400263689dd629671b39bbd3fc80ccc60cc",
+    "split": "audit"
+  },
+  "1996/Chemistry": {
+    "recipient_ids": [
+      "284",
+      "285",
+      "286"
+    ],
+    "source_sha256": "360fdae0f9c0aebfefc520d0591a2414c748dcb8da5f4ec48aa7b150a532f399",
+    "split": "audit"
+  },
+  "1996/Economic Sciences": {
+    "recipient_ids": [
+      "715",
+      "716"
+    ],
+    "source_sha256": "99d2c86a4984e4504caaccae4902da47d37ef9e8df2e877a6011e77ea6a420cc",
+    "split": "audit"
+  },
+  "1996/Literature": {
+    "recipient_ids": [
+      "673"
+    ],
+    "source_sha256": "f3078004f44e770050270b98df75fca599bee9e369edad7561d09df23bf242dd",
+    "split": "audit"
+  },
+  "1996/Peace": {
+    "recipient_ids": [
+      "562",
+      "563"
+    ],
+    "source_sha256": "163d9708843992e211d8b0a80136f2842bf28c647af11db5f88daa57ae4c061c",
+    "split": "audit"
+  },
+  "1996/Physics": {
+    "recipient_ids": [
+      "149",
+      "150",
+      "151"
+    ],
+    "source_sha256": "b3a34d704957af17d699a4d49ccf303d37c9638774bda2ad292f984a56b731ad",
+    "split": "audit"
+  },
+  "1996/Physiology or Medicine": {
+    "recipient_ids": [
+      "455",
+      "456"
+    ],
+    "source_sha256": "74b470e5b0419c7b21893684463a3c683d0d69d046975a00de7247aa7b0874bb",
+    "split": "audit"
+  },
+  "1997/Chemistry": {
+    "recipient_ids": [
+      "287",
+      "288",
+      "289"
+    ],
+    "source_sha256": "60ccbee0f30becc54e14a7cad64eb79beb19645ada4d7bf4a6e879ec81140fcb",
+    "split": "audit"
+  },
+  "1997/Economic Sciences": {
+    "recipient_ids": [
+      "717",
+      "718"
+    ],
+    "source_sha256": "8208f7535a17ffb3d22f6d83634e2471f8ffa4d9ab5e096d3e9c56fd96107e5e",
+    "split": "audit"
+  },
+  "1997/Literature": {
+    "recipient_ids": [
+      "674"
+    ],
+    "source_sha256": "d433f17d3a7cb4578ad1bd806408788695a5f9169ba989e757e6280e2123a006",
+    "split": "audit"
+  },
+  "1997/Peace": {
+    "recipient_ids": [
+      "564",
+      "565"
+    ],
+    "source_sha256": "d130e1e686c0236da4e2944a4715999f44b0ef804834c0fb3bebfc68595fb339",
+    "split": "audit"
+  },
+  "1997/Physics": {
+    "recipient_ids": [
+      "152",
+      "153",
+      "154"
+    ],
+    "source_sha256": "4a2719118cf61e0c841dcc381bedda105d4ce408ebe293a49f66b632f6833b9e",
+    "split": "audit"
+  },
+  "1997/Physiology or Medicine": {
+    "recipient_ids": [
+      "457"
+    ],
+    "source_sha256": "977e0976b075d2a34c2b5cd09ecb397b8691b0494ae1eafaddc0f39a20fbe272",
+    "split": "audit"
+  },
+  "1998/Chemistry": {
+    "recipient_ids": [
+      "290",
+      "291"
+    ],
+    "source_sha256": "23b8f3f9928c13f3b1ec3a5f1fdd9c483100f42b76964f156557f742f66023e8",
+    "split": "audit"
+  },
+  "1998/Economic Sciences": {
+    "recipient_ids": [
+      "719"
+    ],
+    "source_sha256": "75074d64c82ab57c03a0b5622582e761b73a0a212d559ca7122a22888a71b6d8",
+    "split": "audit"
+  },
+  "1998/Literature": {
+    "recipient_ids": [
+      "675"
+    ],
+    "source_sha256": "80a51b3a79307ec80572e9d69d6b8d3ee50542615c1ca88452b84a0955da44a5",
+    "split": "audit"
+  },
+  "1998/Peace": {
+    "recipient_ids": [
+      "566",
+      "567"
+    ],
+    "source_sha256": "6c958195b3bd819842cc82e0f699de86c55b3a152abac97f40c00995a17dae46",
+    "split": "audit"
+  },
+  "1998/Physics": {
+    "recipient_ids": [
+      "155",
+      "156",
+      "157"
+    ],
+    "source_sha256": "0f6439043224374ae27436b75e3efabe42184e6c9ddcfe9e35e6ae5201aee170",
+    "split": "audit"
+  },
+  "1998/Physiology or Medicine": {
+    "recipient_ids": [
+      "458",
+      "459",
+      "460"
+    ],
+    "source_sha256": "ebc220424a114373a185c51009efd4727a0bc5398d09fd907dd7256360c44f18",
+    "split": "audit"
+  },
+  "1999/Chemistry": {
+    "recipient_ids": [
+      "292"
+    ],
+    "source_sha256": "1b3716cb663aa66be93112d859dff999e82b758ea3b2592103f1f76976c86d94",
+    "split": "audit"
+  },
+  "1999/Economic Sciences": {
+    "recipient_ids": [
+      "720"
+    ],
+    "source_sha256": "c649688e2c5d0d690d0c92b9d7bf15f42ebe75d91d9caa948d28ede5815238c7",
+    "split": "audit"
+  },
+  "1999/Literature": {
+    "recipient_ids": [
+      "676"
+    ],
+    "source_sha256": "191820eb84f0274e5d84addc3550764edfc8dc321fddca11ca6082cce8cdf000",
+    "split": "audit"
+  },
+  "1999/Peace": {
+    "recipient_ids": [
+      "568"
+    ],
+    "source_sha256": "40edda1a1ddb108f97e59f506dc8b4aa869f70c99f78603d137003013bf6a39a",
+    "split": "audit"
+  },
+  "1999/Physics": {
+    "recipient_ids": [
+      "158",
+      "159"
+    ],
+    "source_sha256": "77380709563097b287ed67247ef6a52df8a420c1e8b22d25c54921a54c2687c1",
+    "split": "audit"
+  },
+  "1999/Physiology or Medicine": {
+    "recipient_ids": [
+      "461"
+    ],
+    "source_sha256": "c45b0c4409ebf464552a6b6cad4e5bb0de3fe96add984607b54b50aac6e95a0c",
+    "split": "audit"
+  },
+  "2000/Chemistry": {
+    "recipient_ids": [
+      "729",
+      "730",
+      "731"
+    ],
+    "source_sha256": "f8ed3975e8e41fbbe76bc7a6084c22aabfbb005277e62416bfc6128e9c622c87",
+    "split": "audit"
+  },
+  "2000/Economic Sciences": {
+    "recipient_ids": [
+      "732",
+      "733"
+    ],
+    "source_sha256": "13d0e3f7361de8311c8c918957986cbea3070e6bd8981d581dc863477a60e55a",
+    "split": "audit"
+  },
+  "2000/Literature": {
+    "recipient_ids": [
+      "734"
+    ],
+    "source_sha256": "a151e857aed4d0eb0fba09a54b3ebd6c6f8839ecca271e9e84e94bb07aff50d7",
+    "split": "audit"
+  },
+  "2000/Peace": {
+    "recipient_ids": [
+      "725"
+    ],
+    "source_sha256": "db0c1bdfeff473e2186ef1f9e7f16df094c9e7688c182586f03980b4477bbc61",
+    "split": "audit"
+  },
+  "2000/Physics": {
+    "recipient_ids": [
+      "726",
+      "727",
+      "728"
+    ],
+    "source_sha256": "d7a2475e7a0620aaa79d5ae36a9315311a1a352c88f19da4dcd53bf61c91c55c",
+    "split": "audit"
+  },
+  "2000/Physiology or Medicine": {
+    "recipient_ids": [
+      "722",
+      "723",
+      "724"
+    ],
+    "source_sha256": "85d676cb16ef3a206255ed824528950407636c1b983c4649fdff59c525af5980",
+    "split": "audit"
+  },
+  "2001/Chemistry": {
+    "recipient_ids": [
+      "741",
+      "742",
+      "743"
+    ],
+    "source_sha256": "2e03e9c1612f4cda0e0d44d499559235fb35e25b215133abf861a360b32454b3",
+    "split": "audit"
+  },
+  "2001/Economic Sciences": {
+    "recipient_ids": [
+      "744",
+      "745",
+      "746"
+    ],
+    "source_sha256": "7b8ef7487b3f45e6d1a0b9feedcfe4eaf881708fd915820bfbdf4e60ac558ad1",
+    "split": "audit"
+  },
+  "2001/Literature": {
+    "recipient_ids": [
+      "747"
+    ],
+    "source_sha256": "f5b0017d832ab31710fbeefa460fef60d218767accfff3f19bfb4e6a24a34734",
+    "split": "audit"
+  },
+  "2001/Peace": {
+    "recipient_ids": [
+      "748",
+      "749"
+    ],
+    "source_sha256": "082b6f931e3a5ce4e4cc6a61be972674ebf1f6199c512333b069076bc14ab473",
+    "split": "audit"
+  },
+  "2001/Physics": {
+    "recipient_ids": [
+      "738",
+      "739",
+      "740"
+    ],
+    "source_sha256": "58ea05efb40cf0f67d18541e3785aa0e02f824832a74b8fe2ac02cf22c602f08",
+    "split": "audit"
+  },
+  "2001/Physiology or Medicine": {
+    "recipient_ids": [
+      "735",
+      "736",
+      "737"
+    ],
+    "source_sha256": "f734f7a8178b329765b48fec86e6748fd4a3c123ea53374a38b47c28f093a580",
+    "split": "audit"
+  },
+  "2002/Chemistry": {
+    "recipient_ids": [
+      "756",
+      "757",
+      "758"
+    ],
+    "source_sha256": "a2c5c328f068c8cd762599649123a725d4e1a7c500482c0fad61d9bf5e1b6b5f",
+    "split": "audit"
+  },
+  "2002/Economic Sciences": {
+    "recipient_ids": [
+      "759",
+      "760"
+    ],
+    "source_sha256": "e1b61747b26d2084878a775e6f4952c28147c3c3da637ff310ed131038f5e097",
+    "split": "audit"
+  },
+  "2002/Literature": {
+    "recipient_ids": [
+      "761"
+    ],
+    "source_sha256": "0d21e8c433609df4ef8359138b372d7e784644b8ab96641d85bace76b6af7745",
+    "split": "audit"
+  },
+  "2002/Peace": {
+    "recipient_ids": [
+      "762"
+    ],
+    "source_sha256": "69d46f9a7cb9666226634848c2eb12fb695a6d45199d05f8913e5b60559d9484",
+    "split": "audit"
+  },
+  "2002/Physics": {
+    "recipient_ids": [
+      "753",
+      "754",
+      "755"
+    ],
+    "source_sha256": "529c20c37fd0820fa0880f3fb9bf7a72ddf4574706d96be3dda05bbeaa984b3f",
+    "split": "audit"
+  },
+  "2002/Physiology or Medicine": {
+    "recipient_ids": [
+      "750",
+      "751",
+      "752"
+    ],
+    "source_sha256": "5a59c5dee70a31636bd43a5adbc148eec290dc99cc37f6173f327670ac4c8924",
+    "split": "audit"
+  },
+  "2003/Chemistry": {
+    "recipient_ids": [
+      "769",
+      "770"
+    ],
+    "source_sha256": "6f9a707943998c4838f1cb0de1785250757c7927f55cd2043d6774e7f3b28567",
+    "split": "audit"
+  },
+  "2003/Economic Sciences": {
+    "recipient_ids": [
+      "771",
+      "772"
+    ],
+    "source_sha256": "3922c8563257a0b797e1b22ab01fe65a064a615a8e42242a0cb47be292f36ac5",
+    "split": "audit"
+  },
+  "2003/Literature": {
+    "recipient_ids": [
+      "763"
+    ],
+    "source_sha256": "372a878d12f70065dd72e067a2d1010e8c6cbffa49a6ed1d4b8e2393dfa72dd2",
+    "split": "audit"
+  },
+  "2003/Peace": {
+    "recipient_ids": [
+      "773"
+    ],
+    "source_sha256": "d22d09b6611b5dec30cd8f07682cd6019a65aeb42e60ab94cbd0ba7286d14a3c",
+    "split": "audit"
+  },
+  "2003/Physics": {
+    "recipient_ids": [
+      "766",
+      "767",
+      "768"
+    ],
+    "source_sha256": "f7d7bef31aae8a815ade0d9c2a9d62e140158573e15b0baef08f21f9f560faed",
+    "split": "audit"
+  },
+  "2003/Physiology or Medicine": {
+    "recipient_ids": [
+      "764",
+      "765"
+    ],
+    "source_sha256": "76ceb038c5724a90e7abd87c8e34384d9eaade00b4da503d39192651493aabdd",
+    "split": "audit"
+  },
+  "2004/Chemistry": {
+    "recipient_ids": [
+      "779",
+      "780",
+      "781"
+    ],
+    "source_sha256": "f53346b5fc2f134eaf038d54ba05b4d45ede9be1c730af3c64272c48a7298935",
+    "split": "audit"
+  },
+  "2004/Economic Sciences": {
+    "recipient_ids": [
+      "786",
+      "787"
+    ],
+    "source_sha256": "ddca592e64799303a7c65bc917125b7a70ed485d242c80b02188f698efa5d608",
+    "split": "audit"
+  },
+  "2004/Literature": {
+    "recipient_ids": [
+      "782"
+    ],
+    "source_sha256": "0c61a6120340817f9e4d61fd6ced3c050293303e7b0949649bdabc3d9f5e40ab",
+    "split": "audit"
+  },
+  "2004/Peace": {
+    "recipient_ids": [
+      "783"
+    ],
+    "source_sha256": "609970a8bc625f27a59796fb5c6ca0198fef7374927115a9037ca7f44d10074f",
+    "split": "audit"
+  },
+  "2004/Physics": {
+    "recipient_ids": [
+      "776",
+      "777",
+      "778"
+    ],
+    "source_sha256": "1944b4d4c301ba708517a4e32df818925c7d0ae091484e9394eafee129f0541a",
+    "split": "audit"
+  },
+  "2004/Physiology or Medicine": {
+    "recipient_ids": [
+      "774",
+      "775"
+    ],
+    "source_sha256": "51e114286c10b4736812e4f4acd38e164dd784fecdddccc808371afaa494eaef",
+    "split": "audit"
+  },
+  "2005/Chemistry": {
+    "recipient_ids": [
+      "794",
+      "795",
+      "796"
+    ],
+    "source_sha256": "16f1e70c76d63ad1031131b858833d4604a518b55aa9c992d44cb5dc5ce577cd",
+    "split": "audit"
+  },
+  "2005/Economic Sciences": {
+    "recipient_ids": [
+      "799",
+      "800"
+    ],
+    "source_sha256": "475a02e4ee775dffe35af54768e9eda31daedf70b0f8886a3ad6f58087a51768",
+    "split": "audit"
+  },
+  "2005/Literature": {
+    "recipient_ids": [
+      "801"
+    ],
+    "source_sha256": "834d180c39235d89572efc8ddaa865383567b598ebca65c4b8ba20c6a32bbe0b",
+    "split": "audit"
+  },
+  "2005/Peace": {
+    "recipient_ids": [
+      "797",
+      "798"
+    ],
+    "source_sha256": "33a6135167ceec43ca27642c0fa9135e859548e2f3245b2c89c74798a8854293",
+    "split": "audit"
+  },
+  "2005/Physics": {
+    "recipient_ids": [
+      "791",
+      "792",
+      "793"
+    ],
+    "source_sha256": "aa67052e7f4055301676e724ca1ab902cc84baf362819869a372c42952ea7e61",
+    "split": "audit"
+  },
+  "2005/Physiology or Medicine": {
+    "recipient_ids": [
+      "789",
+      "790"
+    ],
+    "source_sha256": "bf84aa14e315e767fe146dfc6db859823ff08b87eec88db4bfff0960aa31db2e",
+    "split": "audit"
+  },
+  "2006/Chemistry": {
+    "recipient_ids": [
+      "806"
+    ],
+    "source_sha256": "0acc10095bf781b74dcbb2facb16da474482deefc09ac0236ff9a21f1cc6d400",
+    "split": "audit"
+  },
+  "2006/Economic Sciences": {
+    "recipient_ids": [
+      "807"
+    ],
+    "source_sha256": "6ff257204b1701fb254c63b00808dd65b72973913f97c8fd6829089c2124eebe",
+    "split": "audit"
+  },
+  "2006/Literature": {
+    "recipient_ids": [
+      "808"
+    ],
+    "source_sha256": "73c252e12ba45de968e51772af656a6524c8e7d7230d0532a8992aa091b20c80",
+    "split": "audit"
+  },
+  "2006/Peace": {
+    "recipient_ids": [
+      "809",
+      "810"
+    ],
+    "source_sha256": "ac1523fe71d635b6ae3317ef0ea50520c671e46a1d229dabf7e5fda62246758c",
+    "split": "audit"
+  },
+  "2006/Physics": {
+    "recipient_ids": [
+      "804",
+      "805"
+    ],
+    "source_sha256": "1152d89d262ba4cbb209c43fd7613eca37a3fae76d20addcd57d7d2281ab7284",
+    "split": "audit"
+  },
+  "2006/Physiology or Medicine": {
+    "recipient_ids": [
+      "802",
+      "803"
+    ],
+    "source_sha256": "d30650fccf096a0c9ad235ad3bb56fc05e15578708df04905945b284ad016410",
+    "split": "audit"
+  },
+  "2007/Chemistry": {
+    "recipient_ids": [
+      "816"
+    ],
+    "source_sha256": "331a685f2213839757beab9bd07f469c111ca24a3b0a087a4eb5cfec7ef5dab4",
+    "split": "audit"
+  },
+  "2007/Economic Sciences": {
+    "recipient_ids": [
+      "820",
+      "821",
+      "822"
+    ],
+    "source_sha256": "9a60ed676dd2abd11d31cf30cf75f6706e1a99a50e6b88fbd1811b58525ed3c4",
+    "split": "audit"
+  },
+  "2007/Literature": {
+    "recipient_ids": [
+      "817"
+    ],
+    "source_sha256": "1bdd0c63338964bff9af086a0a104369f5f784e2020a6a987059c1f84f34bc5e",
+    "split": "audit"
+  },
+  "2007/Peace": {
+    "recipient_ids": [
+      "818",
+      "819"
+    ],
+    "source_sha256": "c7ebf38482ae7b8de88e67d0390c106d26f9d1f4afe3d30aaee6f51ef73d83ad",
+    "split": "audit"
+  },
+  "2007/Physics": {
+    "recipient_ids": [
+      "814",
+      "815"
+    ],
+    "source_sha256": "115176993ae283fecbcd33cb9d12bfbc822aeb3f771f95777fc86769c17bbbb0",
+    "split": "audit"
+  },
+  "2007/Physiology or Medicine": {
+    "recipient_ids": [
+      "811",
+      "812",
+      "813"
+    ],
+    "source_sha256": "d126e116ac16ce6b20ca51002e15f66df95721965cf273e617c2f582ed7e5e36",
+    "split": "audit"
+  },
+  "2008/Chemistry": {
+    "recipient_ids": [
+      "829",
+      "830",
+      "831"
+    ],
+    "source_sha256": "aa5f32d3635385242e796497ab5034e22e01c84e4d256437511f5dee41f2db6f",
+    "split": "audit"
+  },
+  "2008/Economic Sciences": {
+    "recipient_ids": [
+      "834"
+    ],
+    "source_sha256": "dddec5551873f16014493fc2f2f5467f48a47415eb6aafee35744c888fc1608a",
+    "split": "audit"
+  },
+  "2008/Literature": {
+    "recipient_ids": [
+      "832"
+    ],
+    "source_sha256": "e7de5666f205b3ec7636f857506f12e00e224c6f0f60273c665d46292158b900",
+    "split": "audit"
+  },
+  "2008/Peace": {
+    "recipient_ids": [
+      "833"
+    ],
+    "source_sha256": "11c1ee2ada329c8a770a76b9a5304778477f315b4787a0255e9395886fb4c28d",
+    "split": "audit"
+  },
+  "2008/Physics": {
+    "recipient_ids": [
+      "826",
+      "827",
+      "828"
+    ],
+    "source_sha256": "7d6509a648fb319d2b33eda8fc8ca0ef08f470fd08fed062d86ed4f92fe7bc67",
+    "split": "audit"
+  },
+  "2008/Physiology or Medicine": {
+    "recipient_ids": [
+      "823",
+      "824",
+      "825"
+    ],
+    "source_sha256": "dd8ff64b4275cee61b2afb928ba72cae47ea2a11e5026e9489245258c1104c69",
+    "split": "audit"
+  },
+  "2009/Chemistry": {
+    "recipient_ids": [
+      "841",
+      "842",
+      "843"
+    ],
+    "source_sha256": "9fb03a4ea9e2289aa68587cb45c67abf62584ad07687e0cda02313ea3ac77a87",
+    "split": "audit"
+  },
+  "2009/Economic Sciences": {
+    "recipient_ids": [
+      "846",
+      "847"
+    ],
+    "source_sha256": "1427ad7fa2f4063aa9fc45aade3999109d00e78d4f8811c50557749e205fda81",
+    "split": "audit"
+  },
+  "2009/Literature": {
+    "recipient_ids": [
+      "844"
+    ],
+    "source_sha256": "9a7647c43964f2d3a5da320c66b3c4ced84cda5300c216fecf84507c9f508adb",
+    "split": "audit"
+  },
+  "2009/Peace": {
+    "recipient_ids": [
+      "845"
+    ],
+    "source_sha256": "8dba9a541b31d0564ed8532048dc868133d0f77b639588ab7d7ad38cf6bd02b2",
+    "split": "audit"
+  },
+  "2009/Physics": {
+    "recipient_ids": [
+      "838",
+      "839",
+      "840"
+    ],
+    "source_sha256": "8b02d879e85ec4457d4ed047934bf01599c232db397cea75c49c8698e932df8e",
+    "split": "audit"
+  },
+  "2009/Physiology or Medicine": {
+    "recipient_ids": [
+      "835",
+      "836",
+      "837"
+    ],
+    "source_sha256": "7fbb30e2ce889750686f5060ab73f66ecc2e23f821f84daa98ed3cd6c80d194b",
+    "split": "audit"
+  },
+  "2010/Chemistry": {
+    "recipient_ids": [
+      "851",
+      "852",
+      "853"
+    ],
+    "source_sha256": "1d5090fff41b5be052964d0d28bbf4a37f87ced581d827c6972153997bd0594d",
+    "split": "audit"
+  },
+  "2010/Economic Sciences": {
+    "recipient_ids": [
+      "856",
+      "857",
+      "858"
+    ],
+    "source_sha256": "de1da24e6f76cbd97a50f9f30df72672524a2753402ba5d18989622a43e6b8a1",
+    "split": "audit"
+  },
+  "2010/Literature": {
+    "recipient_ids": [
+      "854"
+    ],
+    "source_sha256": "58ea01adcb1ce30fc83ae5d818f82077281b43eea9a7309a2e352e770b574401",
+    "split": "audit"
+  },
+  "2010/Peace": {
+    "recipient_ids": [
+      "855"
+    ],
+    "source_sha256": "a74a50abe67ccf22d728ef1160e0c77aaf74f4b489e00cb3768f5fad658ae249",
+    "split": "audit"
+  },
+  "2010/Physics": {
+    "recipient_ids": [
+      "849",
+      "850"
+    ],
+    "source_sha256": "6079872d8d6d50476ef9c576ce86022ef4504b7911964de4b962392e8974eec3",
+    "split": "audit"
+  },
+  "2010/Physiology or Medicine": {
+    "recipient_ids": [
+      "848"
+    ],
+    "source_sha256": "413ba112aa0c9bfa21f025a56f8bb06082311f0fa54baf7aa350b4511d5f2b8f",
+    "split": "audit"
+  },
+  "2011/Chemistry": {
+    "recipient_ids": [
+      "867"
+    ],
+    "source_sha256": "c3dcf4820b166ec85a9014217d6cd19e1194bc8f03f534f67b2bc47a8a3132c4",
+    "split": "audit"
+  },
+  "2011/Economic Sciences": {
+    "recipient_ids": [
+      "872",
+      "873"
+    ],
+    "source_sha256": "e5939b9699680d5704eaa4f20bc7c6ab29400629edf7d9ca1d077b7bd736d328",
+    "split": "audit"
+  },
+  "2011/Literature": {
+    "recipient_ids": [
+      "868"
+    ],
+    "source_sha256": "0c252a5b08b24dc5f0fc7c4307bd4aeeb90807afc326351e70304cd59a6552f4",
+    "split": "audit"
+  },
+  "2011/Peace": {
+    "recipient_ids": [
+      "869",
+      "870",
+      "871"
+    ],
+    "source_sha256": "4de4b96b8a145cce6bb1b78b909312c59095dae8172d9a8f3a8aa1ac40e048f7",
+    "split": "audit"
+  },
+  "2011/Physics": {
+    "recipient_ids": [
+      "864",
+      "865",
+      "866"
+    ],
+    "source_sha256": "094b4bf7f9cf99dcb16ac496ab753b4ba1a3cc3a2fc4ee72843e27f4842c3bd9",
+    "split": "audit"
+  },
+  "2011/Physiology or Medicine": {
+    "recipient_ids": [
+      "861",
+      "862",
+      "863"
+    ],
+    "source_sha256": "a8a7e983b94ba706f53670196c728c421f74da210d1a359a8915e46a8e3fa42d",
+    "split": "audit"
+  },
+  "2012/Chemistry": {
+    "recipient_ids": [
+      "878",
+      "879"
+    ],
+    "source_sha256": "c22299b3949df2561e57a36a7053c119782faf5cf8766370b082767d3851ad3b",
+    "split": "audit"
+  },
+  "2012/Economic Sciences": {
+    "recipient_ids": [
+      "882",
+      "883"
+    ],
+    "source_sha256": "9f8d9b80ca20c0334a25fc14c325a44a3b6c0dc7b0ea4d9fb9ab4d5e0859dbdc",
+    "split": "audit"
+  },
+  "2012/Literature": {
+    "recipient_ids": [
+      "880"
+    ],
+    "source_sha256": "bdc29c66d90a2a176459d1488b7b14d83fe9da5b608b489f2d62cf913162b367",
+    "split": "audit"
+  },
+  "2012/Peace": {
+    "recipient_ids": [
+      "881"
+    ],
+    "source_sha256": "2becae078b267b6f516c6a830de2028396533c1bd72aac1125fe87096848a2b8",
+    "split": "audit"
+  },
+  "2012/Physics": {
+    "recipient_ids": [
+      "876",
+      "877"
+    ],
+    "source_sha256": "86595cb4260f8bfeb7555c82643a9e570964dc6a51c2c1e473f19600c4089175",
+    "split": "audit"
+  },
+  "2012/Physiology or Medicine": {
+    "recipient_ids": [
+      "874",
+      "875"
+    ],
+    "source_sha256": "cf6215efbe8b88954e5b55c8bff76bed57dac5e326d1869dbff512b33e707dcf",
+    "split": "audit"
+  },
+  "2013/Chemistry": {
+    "recipient_ids": [
+      "889",
+      "890",
+      "891"
+    ],
+    "source_sha256": "cac3814fe0914536b67c97ffffe1e05003ef2f0d4f8ceb4bc2bebe3874fec0d5",
+    "split": "audit"
+  },
+  "2013/Economic Sciences": {
+    "recipient_ids": [
+      "894",
+      "895",
+      "896"
+    ],
+    "source_sha256": "8443a6710e519adaa289c534ea4acb5378f3d1d1eaa253b1c68976f1ee315439",
+    "split": "audit"
+  },
+  "2013/Literature": {
+    "recipient_ids": [
+      "892"
+    ],
+    "source_sha256": "5d396116959742552aab64dc96e17c6551e7c1d9a14cf8f598b2db48a80b8ab7",
+    "split": "audit"
+  },
+  "2013/Peace": {
+    "recipient_ids": [
+      "893"
+    ],
+    "source_sha256": "30e526f0d8f4d0b3418722fc2b8bcecca0abca9241a596f1ad2a15f8cc1f46c7",
+    "split": "audit"
+  },
+  "2013/Physics": {
+    "recipient_ids": [
+      "887",
+      "888"
+    ],
+    "source_sha256": "0eb08b09491ce7a93e8b8bb495d9dadb17c488df66a2e9500e172c84ceedc345",
+    "split": "audit"
+  },
+  "2013/Physiology or Medicine": {
+    "recipient_ids": [
+      "884",
+      "885",
+      "886"
+    ],
+    "source_sha256": "6d434a38460ba04dd7aab06e853d42a28f9ab4e1949703baff80d8c834d3f0b0",
+    "split": "audit"
+  },
+  "2014/Chemistry": {
+    "recipient_ids": [
+      "909",
+      "910",
+      "911"
+    ],
+    "source_sha256": "32ad7a30d11c538e083d1c2a4448c181792127dcc0245ae91acf246d8a155a01",
+    "split": "audit"
+  },
+  "2014/Economic Sciences": {
+    "recipient_ids": [
+      "915"
+    ],
+    "source_sha256": "b552bcdf4242ac1b817638460ab927aff8786da0114f837912083c936dd7d077",
+    "split": "audit"
+  },
+  "2014/Literature": {
+    "recipient_ids": [
+      "912"
+    ],
+    "source_sha256": "92c3ac4e50d5e4df4fbae8448d2cb2d5beddfa729e657811346035f0b6bc4290",
+    "split": "audit"
+  },
+  "2014/Peace": {
+    "recipient_ids": [
+      "913",
+      "914"
+    ],
+    "source_sha256": "fead57d2c72246b30744e31d70255cd4e5a320f5559fde6b526dcfed83417a66",
+    "split": "audit"
+  },
+  "2014/Physics": {
+    "recipient_ids": [
+      "906",
+      "907",
+      "908"
+    ],
+    "source_sha256": "a0df666a0b52e46722bdee349576f4a2ed82bceb5c72ecb50e3d377f251826bf",
+    "split": "audit"
+  },
+  "2014/Physiology or Medicine": {
+    "recipient_ids": [
+      "903",
+      "904",
+      "905"
+    ],
+    "source_sha256": "a22f3ab639ac45e549e865122f575d65e1411f14df42542e550ec5f154d191c0",
+    "split": "audit"
+  },
+  "2015/Chemistry": {
+    "recipient_ids": [
+      "921",
+      "922",
+      "923"
+    ],
+    "source_sha256": "1cdcfd934d88934548b6e1784087aa7e778ea47355a8b0f104bbf8c452f9caa6",
+    "split": "audit"
+  },
+  "2015/Economic Sciences": {
+    "recipient_ids": [
+      "926"
+    ],
+    "source_sha256": "736806f91ad76a602dad49f38dc326cf7e700aaa999e2b68d31be3bf351f1a8d",
+    "split": "audit"
+  },
+  "2015/Literature": {
+    "recipient_ids": [
+      "924"
+    ],
+    "source_sha256": "3daf9bb475ee6966065709eaf1b8b05b2c38bea1bed90155926aedc53067a13d",
+    "split": "audit"
+  },
+  "2015/Peace": {
+    "recipient_ids": [
+      "925"
+    ],
+    "source_sha256": "3b51173ef68956fec325749e899567132fe450623be198098cfcf606ae847dee",
+    "split": "audit"
+  },
+  "2015/Physics": {
+    "recipient_ids": [
+      "919",
+      "920"
+    ],
+    "source_sha256": "be1b2bf1469d401157a2c7f30c04f8595422f9e8b6f3fdbe34703fc092c81ac7",
+    "split": "audit"
+  },
+  "2015/Physiology or Medicine": {
+    "recipient_ids": [
+      "916",
+      "917",
+      "918"
+    ],
+    "source_sha256": "e52c0a8356b17103776a55d5b9617213fb91a66b7da41b9c1418c3aea4375f3d",
+    "split": "audit"
+  },
+  "2016/Chemistry": {
+    "recipient_ids": [
+      "931",
+      "932",
+      "933"
+    ],
+    "source_sha256": "e2400a65780b4211c0e473d9495e417c6e504d8d709e963f4326ef10f5b58c6d",
+    "split": "audit"
+  },
+  "2016/Economic Sciences": {
+    "recipient_ids": [
+      "935",
+      "936"
+    ],
+    "source_sha256": "f51fc24235aa72f808ad85bbfa996cd7f6d8f6988ffe11b412baa602c799c44a",
+    "split": "audit"
+  },
+  "2016/Literature": {
+    "recipient_ids": [
+      "937"
+    ],
+    "source_sha256": "1816e770f8e9463165d25953a2852e93954ee7515f53e6796b03d64ff33ca999",
+    "split": "audit"
+  },
+  "2016/Peace": {
+    "recipient_ids": [
+      "934"
+    ],
+    "source_sha256": "f723bf9811136dd08788631274c6c8f0c585aa7afc50ff94f9bb8b5aee151b47",
+    "split": "audit"
+  },
+  "2016/Physics": {
+    "recipient_ids": [
+      "928",
+      "929",
+      "930"
+    ],
+    "source_sha256": "baec842d918cb0126527c3ecd766b6d77146a9bd32e11650b5b85de5bd4e698b",
+    "split": "audit"
+  },
+  "2016/Physiology or Medicine": {
+    "recipient_ids": [
+      "927"
+    ],
+    "source_sha256": "4a0b2d7d3447f9f898119e7d6106b32022ede35fc14747d75c65bc91ffb8792b",
+    "split": "audit"
+  },
+  "2017/Chemistry": {
+    "recipient_ids": [
+      "944",
+      "945",
+      "946"
+    ],
+    "source_sha256": "043eecee9584b1bbfd170dc22c9ec51afbc81071365f2a745381bbac9fc9399b",
+    "split": "audit"
+  },
+  "2017/Economic Sciences": {
+    "recipient_ids": [
+      "949"
+    ],
+    "source_sha256": "1245d545a76a7ec210847bef2f5a3793cd88d722546d8c7ea485d8835ede5f55",
+    "split": "audit"
+  },
+  "2017/Literature": {
+    "recipient_ids": [
+      "947"
+    ],
+    "source_sha256": "36f012fc77bd4e34df266027439273e3e8118c6c7e229bbd700247380138f5f7",
+    "split": "audit"
+  },
+  "2017/Peace": {
+    "recipient_ids": [
+      "948"
+    ],
+    "source_sha256": "0c4f2ce56b058c3870adbb819ce5c1ff9cf917493ecf45c6026ba35acbc6e1f3",
+    "split": "audit"
+  },
+  "2017/Physics": {
+    "recipient_ids": [
+      "941",
+      "942",
+      "943"
+    ],
+    "source_sha256": "58990754fb24338c1e7ea1ba74b2dcaf50124c77a77092a06d53cb9eae8a755a",
+    "split": "audit"
+  },
+  "2017/Physiology or Medicine": {
+    "recipient_ids": [
+      "938",
+      "939",
+      "940"
+    ],
+    "source_sha256": "b298f96e05223d2ea0aa2c03661ea78270be877a58bee5d0077fb0f07e10fb26",
+    "split": "audit"
+  },
+  "2018/Chemistry": {
+    "recipient_ids": [
+      "963",
+      "964",
+      "965"
+    ],
+    "source_sha256": "64b2036282965885bad50ec532cbfffeba2e603ae573dc7609afcbe366b330ec",
+    "split": "audit"
+  },
+  "2018/Economic Sciences": {
+    "recipient_ids": [
+      "968",
+      "969"
+    ],
+    "source_sha256": "ad1c5f85464a90f425360a7f26901eb909939bbd43debf31dacca07c54134102",
+    "split": "audit"
+  },
+  "2018/Literature": {
+    "recipient_ids": [
+      "979"
+    ],
+    "source_sha256": "0055dd87ef670ea83fd51175d331b3d275a808419d01bb512ff80486a6b0a488",
+    "split": "audit"
+  },
+  "2018/Peace": {
+    "recipient_ids": [
+      "966",
+      "967"
+    ],
+    "source_sha256": "bc96fe4e0b47b571cee5ed41b29833a8526a59397474a5ab9347133b0c4ce5ec",
+    "split": "audit"
+  },
+  "2018/Physics": {
+    "recipient_ids": [
+      "960",
+      "961",
+      "962"
+    ],
+    "source_sha256": "1ee003c77cbd31846ef6bc94e0a1cd5d12bd8c063b577c913d7c9d22bf725e6a",
+    "split": "audit"
+  },
+  "2018/Physiology or Medicine": {
+    "recipient_ids": [
+      "958",
+      "959"
+    ],
+    "source_sha256": "4d4203ca66bbcf53ffbfc1d7beb3e465031cb599d04adf5abffd0e896a5f7868",
+    "split": "audit"
+  },
+  "2019/Chemistry": {
+    "recipient_ids": [
+      "976",
+      "977",
+      "978"
+    ],
+    "source_sha256": "6591db2677f39cdcff63b1d0c26d19e48d3b575c1d21f0a15b3877f3c174ba11",
+    "split": "audit"
+  },
+  "2019/Economic Sciences": {
+    "recipient_ids": [
+      "982",
+      "983",
+      "984"
+    ],
+    "source_sha256": "a26c96f06c7b9789233bded6ccdeb2807efadedf2f6c1a73e0c1b6a2696fc368",
+    "split": "audit"
+  },
+  "2019/Literature": {
+    "recipient_ids": [
+      "980"
+    ],
+    "source_sha256": "9826ee007e288d4ddf053e011d4d30b1c0f75cce58974189ff8061ea1d7d2313",
+    "split": "audit"
+  },
+  "2019/Peace": {
+    "recipient_ids": [
+      "981"
+    ],
+    "source_sha256": "c32988d6869086d99513055aabc6982d4be4e37d037187f28edf9d44872821c8",
+    "split": "audit"
+  },
+  "2019/Physics": {
+    "recipient_ids": [
+      "973",
+      "974",
+      "975"
+    ],
+    "source_sha256": "9b6b2dadc6491b400fe86ace9dc49fdde843f6a2e7f1ad6e5f4f0874af196457",
+    "split": "audit"
+  },
+  "2019/Physiology or Medicine": {
+    "recipient_ids": [
+      "970",
+      "971",
+      "972"
+    ],
+    "source_sha256": "1869a9c2eec1227d0a4f6e4983f7a2620a78f63392fedeb467e54eec9b4af334",
+    "split": "audit"
+  },
+  "2020/Chemistry": {
+    "recipient_ids": [
+      "991",
+      "992"
+    ],
+    "source_sha256": "8377a1991f0af6707c1cc4ad8112256d5e7567e6fa1f377b4a8ba4d4839babd1",
+    "split": "audit"
+  },
+  "2020/Economic Sciences": {
+    "recipient_ids": [
+      "995",
+      "996"
+    ],
+    "source_sha256": "d4376c2717c82d3e574323063932461391194f27b88f32c3bbc982cd9b794ea0",
+    "split": "audit"
+  },
+  "2020/Literature": {
+    "recipient_ids": [
+      "993"
+    ],
+    "source_sha256": "f16af0d73d07485a140b9f795d6b48aba0a4c386e76940ae5f72d6a6da63f623",
+    "split": "audit"
+  },
+  "2020/Peace": {
+    "recipient_ids": [
+      "994"
+    ],
+    "source_sha256": "c523b0551a3ce973eee17d65c63f50b998a4703fc9b6cfa8c834ec9d4b876b1a",
+    "split": "audit"
+  },
+  "2020/Physics": {
+    "recipient_ids": [
+      "988",
+      "989",
+      "990"
+    ],
+    "source_sha256": "1845f18ad271a08d657e8789c67577b1530531497c596a47abf68732a15a1e96",
+    "split": "audit"
+  },
+  "2020/Physiology or Medicine": {
+    "recipient_ids": [
+      "985",
+      "986",
+      "987"
+    ],
+    "source_sha256": "7d6977a012dd375ab329e8e378cc70d6d4cee2c4f741aacce346052756131692",
+    "split": "audit"
+  },
+  "2021/Chemistry": {
+    "recipient_ids": [
+      "1002",
+      "1003"
+    ],
+    "source_sha256": "254fa42e2e963a47b872a24b2231ae3fee38c2558ceecd45897e79b05aa2d78d",
+    "split": "audit"
+  },
+  "2021/Economic Sciences": {
+    "recipient_ids": [
+      "1007",
+      "1008",
+      "1009"
+    ],
+    "source_sha256": "5ba43e0a36417c1da7a26cb6f5e48d5e9c2c08dcf3627b68be9b24aa52956120",
+    "split": "audit"
+  },
+  "2021/Literature": {
+    "recipient_ids": [
+      "1004"
+    ],
+    "source_sha256": "9ee77fa3db7100dce6cdb795681780e6cd0ecbf087fe57f7dba499ff03921c56",
+    "split": "audit"
+  },
+  "2021/Peace": {
+    "recipient_ids": [
+      "1005",
+      "1006"
+    ],
+    "source_sha256": "3aae5a97a992c8ce3eaa5ded93ddf87deeb95680a7fb8789198804e37efc6c82",
+    "split": "audit"
+  },
+  "2021/Physics": {
+    "recipient_ids": [
+      "999",
+      "1000",
+      "1001"
+    ],
+    "source_sha256": "dcdd39ebd2ba37ca194dfab0dd0a235bd68be78e21fcdf185ecd624a60c32383",
+    "split": "audit"
+  },
+  "2021/Physiology or Medicine": {
+    "recipient_ids": [
+      "997",
+      "998"
+    ],
+    "source_sha256": "621cd8fcd541853b8a2b09f00defdeb0e77039b68a4d68877626e728fd79c017",
+    "split": "audit"
+  },
+  "2022/Chemistry": {
+    "recipient_ids": [
+      "1015",
+      "1016",
+      "743"
+    ],
+    "source_sha256": "c50cea81bebcb9f6d07fb1fe8ba187dc79b38f58a94e34d60fce94dc1d0ece84",
+    "split": "audit"
+  },
+  "2022/Literature": {
+    "recipient_ids": [
+      "1017"
+    ],
+    "source_sha256": "b40637511119639d643ebfba2e545a3bc1c9659a9d47578cbad2bc4a5cd697d8",
+    "split": "audit"
+  },
+  "2022/Peace": {
+    "recipient_ids": [
+      "1018",
+      "1019",
+      "1020"
+    ],
+    "source_sha256": "b7ea942bac7bb126c5fd042753bb8541e20a4f2296618b32faecdd24045c4b5c",
+    "split": "audit"
+  },
+  "2022/Physics": {
+    "recipient_ids": [
+      "1012",
+      "1013",
+      "1014"
+    ],
+    "source_sha256": "5b0cd9f4f9dd7d701ca742d4d0b5f38ab270917a6653eb43922e09e28089e91c",
+    "split": "audit"
+  },
+  "2022/Physiology or Medicine": {
+    "recipient_ids": [
+      "1011"
+    ],
+    "source_sha256": "fb34b690f3f58a09683c0aad5f61237a91a74daf7768f092ddfcaca50ac1c2fe",
+    "split": "audit"
+  },
+  "2023/Chemistry": {
+    "recipient_ids": [
+      "1029",
+      "1030",
+      "1031"
+    ],
+    "source_sha256": "654b8ea2584a609dab9e61106f96cf39461d02ad4e8e4c025543b6ea750b2d71",
+    "split": "audit"
+  },
+  "2023/Economic Sciences": {
+    "recipient_ids": [
+      "1034"
+    ],
+    "source_sha256": "e3d27862d6334bf07439488fe34a535e9371b43c785c995421f2549b8d7f67a5",
+    "split": "audit"
+  },
+  "2023/Literature": {
+    "recipient_ids": [
+      "1032"
+    ],
+    "source_sha256": "f62c404aa63541b823ed5aaed7f2932a282b2a84e23eec6167c571e88e59e92a",
+    "split": "audit"
+  },
+  "2023/Peace": {
+    "recipient_ids": [
+      "1033"
+    ],
+    "source_sha256": "310044b60599327f97e21793193b3389e697046924abd034bcd4d6d650b10696",
+    "split": "audit"
+  },
+  "2023/Physics": {
+    "recipient_ids": [
+      "1026",
+      "1027",
+      "1028"
+    ],
+    "source_sha256": "9471b944784934c1458df02ef9d9c003ff341e0c192fc77ef76cf248f9c20595",
+    "split": "audit"
+  },
+  "2023/Physiology or Medicine": {
+    "recipient_ids": [
+      "1024",
+      "1025"
+    ],
+    "source_sha256": "bcdbcf2edb15e2c8255cd650aeedb856363b76e450dc4b591143d0a85546c62b",
+    "split": "audit"
+  },
+  "2024/Chemistry": {
+    "recipient_ids": [
+      "1039",
+      "1040",
+      "1041"
+    ],
+    "source_sha256": "0988c528c45a571a1eff184085910005479939ad9f0261fe29d371a0caf7c5d2",
+    "split": "audit"
+  },
+  "2024/Economic Sciences": {
+    "recipient_ids": [
+      "1044",
+      "1045",
+      "1046"
+    ],
+    "source_sha256": "7e459d3e2dac89a35e3c2defa369818125e5f1716f2b0a2df698fd1dee76ae1f",
+    "split": "audit"
+  },
+  "2024/Literature": {
+    "recipient_ids": [
+      "1042"
+    ],
+    "source_sha256": "49887aeceb9eba2b9e9898ace35e9d920cdce19de76acafd99cdcf69f93269ec",
+    "split": "audit"
+  },
+  "2024/Peace": {
+    "recipient_ids": [
+      "1043"
+    ],
+    "source_sha256": "7847aa42c96a95d56592d1613a9bd25d70520658229dfca78ab26f6bb1f2a5a3",
+    "split": "audit"
+  },
+  "2024/Physics": {
+    "recipient_ids": [
+      "1037",
+      "1038"
+    ],
+    "source_sha256": "e64c33f2d105ced20f62abb05c8cf48ac71050c15f1fc4d7904bd9c34e513db9",
+    "split": "audit"
+  },
+  "2024/Physiology or Medicine": {
+    "recipient_ids": [
+      "1035",
+      "1036"
+    ],
+    "source_sha256": "5c5b416c86a5024242c2d886c63e3cef40c775cb46f575544794531baedb741b",
+    "split": "audit"
+  },
+  "2025/Chemistry": {
+    "recipient_ids": [
+      "1053",
+      "1054",
+      "1055"
+    ],
+    "source_sha256": "df32de2204d0cce174735fde9c6aa1a4bd9a5865a45e705bc2f54c1342483d21",
+    "split": "audit"
+  },
+  "2025/Economic Sciences": {
+    "recipient_ids": [
+      "1058",
+      "1059",
+      "1060"
+    ],
+    "source_sha256": "b11266e035411ee4f6761d3e798539deade4dff4e96ae27c84a46170dad1349a",
+    "split": "audit"
+  },
+  "2025/Literature": {
+    "recipient_ids": [
+      "1056"
+    ],
+    "source_sha256": "819e3a39819e16c9fb0665871e180fd8acf8d6252afbe2d385acae2adf462f2f",
+    "split": "audit"
+  },
+  "2025/Peace": {
+    "recipient_ids": [
+      "1057"
+    ],
+    "source_sha256": "bfdda808942d9a03d2949bc3e1243a5430a145a43ed8de03a50c22c64ec3dd3b",
+    "split": "audit"
+  },
+  "2025/Physics": {
+    "recipient_ids": [
+      "1050",
+      "1051",
+      "1052"
+    ],
+    "source_sha256": "143f4d5f9970644b6ef8a1e3c08bf03381c4fd2050c5fbe7fc52c1c401e8d298",
+    "split": "audit"
+  },
+  "2025/Physiology or Medicine": {
+    "recipient_ids": [
+      "1047",
+      "1048",
+      "1049"
+    ],
+    "source_sha256": "4fa0f1c1addce81c977834996b84a59909b637114fe7e8246eb8181c115858a4",
+    "split": "audit"
+  },
+  "2026/Chemistry": {
+    "recipient_ids": [
+      "1065",
+      "1066"
+    ],
+    "source_sha256": "f49b75f46b94a73c7a4881c0edd9be240e62626c14ed7ec9d4fbb44900c759d3",
+    "split": "audit"
+  },
+  "2026/Economic Sciences": {
+    "recipient_ids": [
+      "1069",
+      "1070"
+    ],
+    "source_sha256": "bd7cfdf2569096c85de58f090270c98dacb9419afe05291164f95cda83c09cb2",
+    "split": "audit"
+  },
+  "2026/Literature": {
+    "recipient_ids": [
+      "1067"
+    ],
+    "source_sha256": "5cdfe96564e2a862fe12c449a76ed87e29ba40f83470e5e8fef5462700e75f14",
+    "split": "audit"
+  },
+  "2026/Peace": {
+    "recipient_ids": [
+      "1068"
+    ],
+    "source_sha256": "31f5761f9427abad11773313a20db91f6253c647fcefcda040aa261f03212c3f",
+    "split": "audit"
+  },
+  "2026/Physics": {
+    "recipient_ids": [
+      "1064"
+    ],
+    "source_sha256": "c39c4d33ec225928e765baf3f616356b39572d08036974d17e49d2d9b885c698",
+    "split": "audit"
+  },
+  "2026/Physiology or Medicine": {
+    "recipient_ids": [
+      "1061",
+      "1062",
+      "1063"
+    ],
+    "source_sha256": "5f73f54f78b8f8106786d8bf8db206652b444b5d1ab682a5c4f35b3bec46f3f6",
+    "split": "audit"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "coefficients": {},
+  "direction_tie_policy": "positive; selected using train only",
+  "length_direction": 1,
+  "overlap_direction": 1,
+  "rule": "sum(train chosen token counts minus rejected token counts); tied scores count half",
+  "train_universe_sha256": "fbcaf7e88090b19ac0880eacb1957ca1429ed8d320b78a05f2f5fc4a5c6fb3c0",
+  "training_sha256": "9c2b1af66f9d00dd8e1402b91aab48ac36267462bee548cfe54c92327b6339f8"
+}

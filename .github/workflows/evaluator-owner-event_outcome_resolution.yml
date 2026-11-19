@@ -1,0 +1,69 @@
+{
+  "name": "Owner EVENT_OUTCOME_RESOLUTION",
+  "run-name": "EVENT_OUTCOME_RESOLUTION ${{ inputs.mode }}",
+  "on": {"workflow_dispatch": {"inputs": {
+    "mode": {"type": "choice", "required": true, "default": "verify", "options": ["verify", "serve"]},
+    "owner_attempt": {"type": "string", "required": false},
+    "package_url": {"type": "string", "required": false},
+    "package_sha256": {"type": "string", "required": false},
+    "package_keccak": {"type": "string", "required": false},
+    "report_url": {"type": "string", "required": false},
+    "report_sha256": {"type": "string", "required": false},
+    "slot": {"type": "string", "required": false},
+    "forward_port": {"type": "string", "required": false},
+    "runnable_url": {"type": "string", "required": false}
+  }}},
+  "permissions": {"contents": "read"},
+  "concurrency": {"group": "owner-event-outcome-resolution-${{ inputs.mode }}", "cancel-in-progress": false},
+  "env": {"PYTHONDONTWRITEBYTECODE": "1", "TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "4", "MKL_NUM_THREADS": "4", "OWNER_ATTEMPT": "${{ inputs.owner_attempt }}"},
+  "jobs": {
+    "train": {
+      "if": "${{ inputs.mode == 'verify' }}",
+      "runs-on": "ubuntu-24.04", "timeout-minutes": 250,
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"name": "Packaged source-only gate", "run": "bash verification/owners/event_outcome_resolution/verify.sh"},
+        {"name": "Hash-locked public CPU dependencies", "timeout-minutes": 20, "run": "mkdir -p \"$RUNNER_TEMP/event-outcome-training\" && python3 -m venv \"$RUNNER_TEMP/event-venv\" && \"$RUNNER_TEMP/event-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/event_outcome_resolution/requirements.lock && \"$RUNNER_TEMP/event-venv/bin/python\" -m pip check && \"$RUNNER_TEMP/event-venv/bin/python\" verification/owners/event_outcome_resolution/audit_dependencies.py --lock verification/owners/event_outcome_resolution/requirements.lock --out \"$RUNNER_TEMP/advisories.txt\" --report \"$RUNNER_TEMP/event-outcome-training/dependency-audit.json\""},
+        {"name": "Train only on training and select only on validation", "timeout-minutes": 225, "run": "timeout --signal=TERM --kill-after=20s 13200 \"$RUNNER_TEMP/event-venv/bin/python\" verification/owners/event_outcome_resolution/remote.py"},
+        {"name": "Preserve licensed candidate and failed checkpoints", "if": "always()", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "event-candidate", "retention-days": 7, "if-no-files-found": "warn", "path": "${{ runner.temp }}/event-outcome-training/candidate.json\n${{ runner.temp }}/event-outcome-training/EVENT_OUTCOME_RESOLUTION.safetensors\n${{ runner.temp }}/event-outcome-training/untrained.safetensors\n${{ runner.temp }}/event-outcome-training/dataset-gate.json\n${{ runner.temp }}/event-outcome-training/tokenizer-check.json\n${{ runner.temp }}/event-outcome-training/adapter/\n${{ runner.temp }}/event-outcome-training/dependency-audit.json"}}
+      ]
+    },
+    "audit": {
+      "needs": ["train"], "if": "${{ inputs.mode == 'verify' }}",
+      "runs-on": "ubuntu-24.04", "timeout-minutes": 330,
+      "strategy": {"fail-fast": false, "max-parallel": 2, "matrix": {"format": ["json", "prose"]}},
+      "env": {"AUDIT_FORMAT": "${{ matrix.format }}"},
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+        {"uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093", "with": {"name": "event-candidate", "path": "${{ runner.temp }}/event-candidate"}},
+        {"name": "Hash-locked tokenization environment", "timeout-minutes": 20, "run": "python3 -m venv \"$RUNNER_TEMP/event-venv\" && \"$RUNNER_TEMP/event-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/event_outcome_resolution/requirements.lock && \"$RUNNER_TEMP/event-venv/bin/python\" -m pip check"},
+        {"name": "Full independent actual-engine audit and controls", "timeout-minutes": 305, "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/event-venv/bin/python\" verification/owners/event_outcome_resolution/runtime.py --format \"$AUDIT_FORMAT\" --candidate-dir \"$RUNNER_TEMP/event-candidate\""},
+        {"name": "Preserve actual measured audit including failure", "if": "always()", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "event-audit-${{ matrix.format }}", "retention-days": 7, "if-no-files-found": "warn", "path": "${{ runner.temp }}/event-runtime-${{ matrix.format }}/audit-${{ matrix.format }}.json\n${{ runner.temp }}/event-runtime-${{ matrix.format }}/*-parser.stdout\n${{ runner.temp }}/event-runtime-${{ matrix.format }}/*-engine.log"}}
+      ]
+    },
+    "report": {
+      "needs": ["train", "audit"], "if": "${{ inputs.mode == 'verify' }}",
+      "runs-on": "ubuntu-24.04", "timeout-minutes": 10,
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093", "with": {"name": "event-candidate", "path": "${{ runner.temp }}/event-candidate"}},
+        {"uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093", "with": {"pattern": "event-audit-*", "merge-multiple": true, "path": "${{ runner.temp }}/event-audits"}},
+        {"name": "Combine only completed passing audit evidence", "run": "python3 -W error verification/owners/event_outcome_resolution/report.py --candidate-dir \"$RUNNER_TEMP/event-candidate\" --audits \"$RUNNER_TEMP/event-audits\" --out \"$RUNNER_TEMP/event-result\""},
+        {"uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "event-registration-ready", "retention-days": 7, "if-no-files-found": "error", "path": "${{ runner.temp }}/event-result/"}}
+      ]
+    },
+    "serve": {
+      "if": "${{ inputs.mode == 'serve' }}", "runs-on": "ubuntu-24.04", "timeout-minutes": 350,
+      "env": {"PACKAGE_URL": "${{ inputs.package_url }}", "PACKAGE_SHA256": "${{ inputs.package_sha256 }}", "PACKAGE_KECCAK": "${{ inputs.package_keccak }}", "REPORT_URL": "${{ inputs.report_url }}", "REPORT_SHA256": "${{ inputs.report_sha256 }}", "SLOT": "${{ inputs.slot }}", "FORWARD_PORT": "${{ inputs.forward_port }}", "RUNNABLE_URL": "${{ inputs.runnable_url }}"},
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+        {"name": "Source-only gate before serving", "run": "bash verification/owners/event_outcome_resolution/verify.sh"},
+        {"name": "Start exact executor with public restricted lease", "timeout-minutes": 25, "run": "mkdir -p \"$RUNNER_TEMP/event-serving\"; python3 verification/owners/event_outcome_resolution/serving.py run --root \"$RUNNER_TEMP/event-serving\" > \"$RUNNER_TEMP/event-serving.log\" 2>&1 & worker=$!; printf '%s' \"$worker\" > \"$RUNNER_TEMP/event-serving/pid.txt\"; python3 verification/owners/event_outcome_resolution/serving.py lease --root \"$RUNNER_TEMP/event-serving\""},
+        {"name": "Upload only public restricted forwarding lease", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "event-serving-lease", "retention-days": 1, "if-no-files-found": "error", "path": "${{ runner.temp }}/event-serving/lease.json"}},
+        {"name": "Keep the same bounded public CPU endpoint", "timeout-minutes": 310, "run": "python3 verification/owners/event_outcome_resolution/serving.py wait --root \"$RUNNER_TEMP/event-serving\""}
+      ]
+    }
+  }
+}

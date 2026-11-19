@@ -1,0 +1,20 @@
+Copyright (c) 2026 zkasuran. New owned source, trained deltas and reward heads
+use LicenseRef-zkasuran-SAND-1.0. The complete reviewed terms are in LICENSE.
+
+Official historical award data: Nobel Prize Outreach API version 2.1, CC0 subject
+to retained implementation terms. Original API record bytes remain unchanged.
+Source labels are official award records. Candidate answers and cutoff-policy
+preferences were constructed by AI-assisted code, not human-reviewed preferences.
+No endorsement is implied. Grants and limitations are in DATA-SOURCES.md.
+
+Telegraph reference kit: Copyright (c) 2026 telegraphprotocol, MIT, pinned commit
+1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd. Full MIT terms accompany the code in
+sources/kit-LICENSE and UPSTREAM-LICENCES.json. Original source grants remain.
+
+ModernBERT: Answer.AI and LightOn, Apache-2.0, pinned model revision
+8949b909ec900327062f0ebf497f51aef5e6f0c8. Full Apache-2.0 terms accompany the
+source in UPSTREAM-LICENCES.json and every exported candidate and checkpoint.
+Warner et al. (2024), bibliography key modernbert, arXiv:2412.13663.
+
+Training/runtime work runs only in the exact owner workflow on standard free
+public CPU runners. Source-only local verification performs no neural operation.
