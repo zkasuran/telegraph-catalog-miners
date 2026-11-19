@@ -1,0 +1,278 @@
+{
+  "T1": {
+    "title": "MINING_HASHPRICE_VERIFY_GENERAL consumption contract",
+    "author": "Telegraph Protocol",
+    "url": "https://devnode.telegraphprotocol.com/engine/v1/intents/MINING_HASHPRICE_VERIFY_GENERAL",
+    "http_status": 200,
+    "bytes": 27187,
+    "sha256": "a010846513a1a987e855fe9bb088833c35878f782c1f03a354658205ea8f5345",
+    "elapsed_ms": 736.972,
+    "fetched_at": "2026-11-17T01:11:57.150059+00:00",
+    "file": "research/T1.txt"
+  },
+  "T3": {
+    "title": "Contribute Evaluation Data",
+    "author": "Telegraph Protocol",
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-docs/4cf5ab8b4e1a933d98f9bbd6a27effe090ab3ca6/scoring/contribute-evaluation-data.md",
+    "http_status": 200,
+    "bytes": 21741,
+    "sha256": "fbf861c3ca6b0429f3bc0cd4656842dc2d059cc476850d78ad271a659b4a50f1",
+    "elapsed_ms": 336.128,
+    "fetched_at": "2026-11-17T01:11:57.486425+00:00",
+    "file": "research/T3.txt"
+  },
+  "T4": {
+    "title": "YAML Configuration",
+    "author": "Telegraph Protocol",
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-docs/4cf5ab8b4e1a933d98f9bbd6a27effe090ab3ca6/miners/yaml-config.md",
+    "http_status": 200,
+    "bytes": 33842,
+    "sha256": "4c2293096833d4a7935690ed7a92dcb5b49b4e5eac1fc66bb6c79e43b703470b",
+    "elapsed_ms": 325.644,
+    "fetched_at": "2026-11-17T01:11:57.813020+00:00",
+    "file": "research/T4.txt"
+  },
+  "D1": {
+    "title": "Difficulty",
+    "author": "Bitcoin Wiki contributors",
+    "url": "https://en.bitcoin.it/w/index.php?title=Difficulty&oldid=70582",
+    "http_status": 403,
+    "bytes": 5606,
+    "sha256": "8eb4632a749e4de350ff1547c25229835cdb7cc10be54b689840126ee4788d27",
+    "elapsed_ms": 116.296,
+    "fetched_at": "2026-11-17T01:11:57.929908+00:00",
+    "file": "research/D1.txt",
+    "reading_note": "Revision URL collector returned 403. Direct article was read through webfetch. The existing local snapshot is private evidence."
+  },
+  "CORE-POW": {
+    "title": "CheckProofOfWorkImpl and DeriveTarget",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/src/pow.cpp",
+    "http_status": 200,
+    "bytes": 6547,
+    "sha256": "9b27f47410b0906b30f12ead4a95e4d345f7832606838f1440ef35b84c708fe2",
+    "elapsed_ms": 355.03,
+    "fetched_at": "2026-11-17T01:11:58.285539+00:00",
+    "file": "research/CORE-POW.txt"
+  },
+  "CORE-TARGET": {
+    "title": "arith_uint256::SetCompact",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/src/arith_uint256.cpp",
+    "http_status": 200,
+    "bytes": 6473,
+    "sha256": "33099a41d032d02f49f2d0269f31749c6b9d7cee3fdc8ce0c3cadfe46786d1a8",
+    "elapsed_ms": 358.409,
+    "fetched_at": "2026-11-17T01:11:58.644544+00:00",
+    "file": "research/CORE-TARGET.txt"
+  },
+  "CORE-REWARD": {
+    "title": "GetBlockSubsidy and coinbase reward check",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/src/validation.cpp",
+    "http_status": 200,
+    "bytes": 323125,
+    "sha256": "b0d310506b9970b0870d0f9e1057c77c12c4aa653e879cc9192dd2c1d5f61c0a",
+    "elapsed_ms": 417.595,
+    "fetched_at": "2026-11-17T01:11:59.062483+00:00",
+    "file": "research/CORE-REWARD.txt"
+  },
+  "CORE-MERKLE": {
+    "title": "Partial Merkle tree serialization and extraction",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/src/merkleblock.cpp",
+    "http_status": 200,
+    "bytes": 6928,
+    "sha256": "5b59728d343a9d8a40833e11bdb202b80efe1cdd42b39ba5df4528c228c4f3c7",
+    "elapsed_ms": 365.064,
+    "fetched_at": "2026-11-17T01:11:59.428272+00:00",
+    "file": "research/CORE-MERKLE.txt"
+  },
+  "CORE-TX": {
+    "title": "Transaction serialization",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/src/primitives/transaction.h",
+    "http_status": 200,
+    "bytes": 13730,
+    "sha256": "57769818190672703fb5e1159785a0f7c5b050987b591580450a72eb3fcbba05",
+    "elapsed_ms": 340.312,
+    "fetched_at": "2026-11-17T01:11:59.769507+00:00",
+    "file": "research/CORE-TX.txt"
+  },
+  "CORE-LICENSE": {
+    "title": "Bitcoin Core COPYING",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/COPYING",
+    "http_status": 200,
+    "bytes": 1142,
+    "sha256": "7c4a87f43afaf667b4c2187af92ebdd27310a24cec113f973e058e3300a76002",
+    "elapsed_ms": 365.725,
+    "fetched_at": "2026-11-17T01:12:00.135770+00:00",
+    "file": "research/CORE-LICENSE.txt"
+  },
+  "PUBLICNODE": {
+    "title": "PublicNode Terms of service",
+    "author": "Allnodes Inc.",
+    "url": "https://www.publicnode.com/terms",
+    "http_status": 200,
+    "bytes": 150267,
+    "sha256": "81ca4bdb0c7191243522c254d69cb73c9e31545e5b3a5a8ad860012824a473de",
+    "elapsed_ms": 291.869,
+    "fetched_at": "2026-11-17T01:12:00.428203+00:00",
+    "file": "research/PUBLICNODE.txt"
+  },
+  "PUBLICNODE-BTC": {
+    "title": "Bitcoin RPC gateway",
+    "author": "Allnodes Inc.",
+    "url": "https://bitcoin-rpc.publicnode.com",
+    "http_status": 200,
+    "bytes": 872903,
+    "sha256": "ce0a56b6ffc068d809b4fc53a9e32df9096734c4770a671cc310397f4b460367",
+    "elapsed_ms": 891.172,
+    "fetched_at": "2026-11-17T01:12:01.319695+00:00",
+    "file": "research/PUBLICNODE-BTC.txt"
+  },
+  "BC-TERMS": {
+    "title": "BlockCypher Services Agreement",
+    "author": "BlockCypher Inc.",
+    "url": "https://www.blockcypher.com/terms-of-service.html",
+    "http_status": 200,
+    "bytes": 53909,
+    "sha256": "d85f44103ce6eecd04375f1bde6a7bdbbacf5ea2b2137d16859db670cb9fa600",
+    "elapsed_ms": 1074.784,
+    "fetched_at": "2026-11-17T01:12:02.395076+00:00",
+    "file": "research/BC-TERMS.txt"
+  },
+  "BC-DOC": {
+    "title": "BlockCypher Bitcoin API documentation",
+    "author": "BlockCypher Inc.",
+    "url": "https://www.blockcypher.com/dev/bitcoin/",
+    "http_status": 200,
+    "bytes": 944108,
+    "sha256": "58ae1ef20ed264955e06d58a7bce03620828ecbd270152ee7266c99c5767d19c",
+    "elapsed_ms": 905.108,
+    "fetched_at": "2026-11-17T01:12:03.300975+00:00",
+    "file": "research/BC-DOC.txt"
+  },
+  "M1": {
+    "title": "Mempool Terms of Service",
+    "author": "Mempool Holdings S.A. de C.V.",
+    "url": "https://raw.githubusercontent.com/mempool/mempool/936c2f5d152851dc9cd87111b180ef1ee635658b/frontend/src/app/components/terms-of-service/terms-of-service.component.html",
+    "http_status": 200,
+    "bytes": 9249,
+    "sha256": "aefa31c6e4a77e508acb5d1c3da1f393138ddfdc65fc475c659e2ef53fa0507e",
+    "elapsed_ms": 406.138,
+    "fetched_at": "2026-11-17T01:12:03.707575+00:00",
+    "file": "research/M1.txt"
+  },
+  "B1": {
+    "title": "Esplora HTTP API",
+    "author": "Blockstream",
+    "url": "https://raw.githubusercontent.com/Blockstream/esplora/master/API.md",
+    "http_status": 200,
+    "bytes": 15495,
+    "sha256": "1dfd54665fb1fa985d391afa235f5e2b86f6317a194a86eb8e0e922c7644a1ea",
+    "elapsed_ms": 367.458,
+    "fetched_at": "2026-11-17T01:12:04.075601+00:00",
+    "file": "research/B1.txt"
+  },
+  "B2": {
+    "title": "Terms of Use Agreement",
+    "author": "Blockstream Corporation",
+    "url": "https://blockstream.com/terms.md",
+    "http_status": 200,
+    "bytes": 134,
+    "sha256": "e08b9f4f7f7bd7fd15e895dc0d2bc74b22c819e3e42c02d1f135700dd037273f",
+    "elapsed_ms": 1303.536,
+    "fetched_at": "2026-11-17T01:12:05.379834+00:00",
+    "file": "research/B2.txt"
+  },
+  "DRPC": {
+    "title": "dRPC Terms of Service",
+    "author": "dRPC",
+    "url": "https://drpc.org/terms-of-use",
+    "http_status": 200,
+    "bytes": 244384,
+    "sha256": "a2f08cdc823d8f5ac8190da1e54fcf0088626a79649bdb592feffbaa5577c994",
+    "elapsed_ms": 1087.827,
+    "fetched_at": "2026-11-17T01:12:06.468257+00:00",
+    "file": "research/DRPC.txt"
+  },
+  "BIP34": {
+    "title": "Block v2, Height in Coinbase",
+    "author": "Gavin Andresen",
+    "url": "https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki",
+    "read": true
+  },
+  "CF-LICENSE": {
+    "title": "Wrangler MIT license",
+    "author": "Cloudflare",
+    "url": "https://github.com/cloudflare/workers-sdk/blob/main/LICENSE-MIT",
+    "read": true
+  },
+  "WORKERD-LICENSE": {
+    "title": "workerd Apache-2.0 license",
+    "author": "Cloudflare",
+    "url": "https://github.com/cloudflare/workerd/blob/main/LICENSE",
+    "read": true
+  },
+  "ESLINT-LICENSE": {
+    "title": "ESLint MIT license",
+    "author": "OpenJS Foundation",
+    "url": "https://github.com/eslint/eslint/blob/v10.15.0/LICENSE",
+    "read": true
+  },
+  "CI-CHECKOUT": {
+    "title": "actions/checkout MIT license",
+    "author": "GitHub",
+    "url": "https://github.com/actions/checkout/blob/11bd71901bbe5b1630ceea73d27597364c9af683/LICENSE",
+    "read": true
+  },
+  "CI-NODE": {
+    "title": "actions/setup-node MIT license",
+    "author": "GitHub",
+    "url": "https://github.com/actions/setup-node/blob/49933ea5288caeca8642d1e84afbd3f7d6820020/LICENSE",
+    "read": true
+  },
+  "CI-PYTHON": {
+    "title": "actions/setup-python MIT license",
+    "author": "GitHub",
+    "url": "https://github.com/actions/setup-python/blob/a26af69be951a213d495a4c3e4e4022e16d87065/LICENSE",
+    "read": true
+  },
+  "CORE-RPC-ERRORS": {
+    "title": "Bitcoin Core RPCErrorCode definitions",
+    "author": "Bitcoin Core developers",
+    "url": "https://github.com/bitcoin/bitcoin/blob/v29.0/src/rpc/protocol.h",
+    "read": true
+  },
+  "CORE-RAWTRANSACTION": {
+    "title": "getrawtransaction block-hash lookup and errors",
+    "author": "Bitcoin Core developers",
+    "url": "https://github.com/bitcoin/bitcoin/blob/v29.0/src/rpc/rawtransaction.cpp",
+    "read": true
+  },
+  "CORE-RPC-INTERFACE": {
+    "title": "JSON-RPC Interface, JSON-RPC 1.1 vs 2.0",
+    "author": "Bitcoin Core developers",
+    "url": "https://raw.githubusercontent.com/bitcoin/bitcoin/v29.0/doc/JSON-RPC-interface.md",
+    "http_status": 200,
+    "bytes": 10791,
+    "sha256": "c56badff1616ff19b112ebbc97d600726101ca8e8fa2c91b15b901b96c938930",
+    "elapsed_ms": 419.775,
+    "fetched_at": "2026-11-17T09:57:51.357461+00:00",
+    "private_snapshot": "research/CORE-RPC-INTERFACE.txt"
+  },
+  "JSONRPC-1": {
+    "title": "JSON-RPC 1.0 Specification, Response",
+    "author": "JSON-RPC.ORG",
+    "url": "https://www.jsonrpc.org/specification_v1",
+    "read": true
+  },
+  "JSONRPC-2": {
+    "title": "JSON-RPC 2.0 Specification, Response object",
+    "author": "JSON-RPC Working Group",
+    "url": "https://www.jsonrpc.org/specification",
+    "read": true
+  }
+}

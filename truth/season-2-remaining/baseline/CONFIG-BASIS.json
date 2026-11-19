@@ -1,0 +1,10 @@
+{
+  "compatibility_date": "2025-06-01",
+  "compatibility_flags": [],
+  "bindings": [],
+  "bindings_preserved": true,
+  "existing_worker": "telegraph-s2-hashprice",
+  "keep_vars": true,
+  "observability_enabled": false,
+  "plan_change": false
+}

@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+version: '1'
+kind: miner
+id: 0
+slug: truth-finance-yield
+protocol: generic
+name: Finance reference 136
+description: 'SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0. Own observed
+  Ethereum USDC base supply rates for Aave V3 and Compound V3. Current-rate APY uses
+  per-second compounding over 365 days and excludes incentive rewards.'
+base_url: https://telegraph-s2-hashprice.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+- path: /truth/v2/finance-yield
+  external_path: /truth/v2/finance-yield
+  method: GET
+  description: Own observed Ethereum USDC base supply rates for Aave V3 and Compound
+    V3. Current-rate APY uses per-second compounding over 365 days and excludes incentive
+    rewards.
+  intents:
+  - CRYPTO_YIELD_RATE_GENERAL
+  params:
+    query:
+      required:
+      - name: project
+        type: string
+        intents:
+        - '*'
+        description: Lending protocol, e.g. aave-v3
+      - name: symbol
+        type: string
+        intents:
+        - '*'
+        description: Asset of the pool, e.g. USDC
+      - name: chain
+        type: string
+        intents:
+        - '*'
+        description: Chain of the pool, e.g. Ethereum
+semantics:
+  supported_intents:
+  - CRYPTO_YIELD_RATE_GENERAL
+intent_mapping:
+  CRYPTO_YIELD_RATE_GENERAL:
+    endpoint: /truth/v2/finance-yield
+    input:
+      project:
+        from: project
+      symbol:
+        from: symbol
+      chain:
+        from: chain
+    output:
+      supply_apy:
+        path: supply_apy
+        unit: basis points

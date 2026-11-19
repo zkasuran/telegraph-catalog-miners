@@ -1,0 +1,24 @@
+{
+  "source": "operations-validator",
+  "intent": "VALIDATOR_PERFORMANCE_VERIFY_GENERAL",
+  "body_sha256": "e13a1aea622323efe643895eb2c90f22af8782d45a53c9d15ac5d601289a96ca",
+  "bytes": 1592,
+  "nonce": "c43bdc181b87333ac85fa4a797c2a310",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "signed": true,
+  "http": 200,
+  "binding_verified": true,
+  "row_hash": "424f51688d02a231c2d44065b0c98503d3b03c36e1dad8989e39df1726017cb9",
+  "row_hashes": null,
+  "node_rows": [
+    {
+      "row_hash": "424f51688d02a231c2d44065b0c98503d3b03c36e1dad8989e39df1726017cb9",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "unverified",
+      "created_at": "2026-11-19T03:10:19.139807Z",
+      "updated_at": "2026-11-19T03:10:19.142153Z"
+    }
+  ],
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/operations-validator.json"
+}

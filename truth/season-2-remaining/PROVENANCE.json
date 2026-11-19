@@ -1,0 +1,831 @@
+{
+  "binary_wrap": 0,
+  "source_modules_modified": false,
+  "files": [
+    {
+      "file": "BASELINE-HASHES.json",
+      "bytes": 11371,
+      "sha256": "c8f18cf9132c2148f739c64d466115497d7789f24bcc1b2cd70edb5307774d10",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "CONTRACTS.json",
+      "bytes": 1428,
+      "sha256": "3cc540160dbe797c70dd1195b41b83421a89912f6191da2e77c3783a836a8c6c",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "NOTICE",
+      "bytes": 687,
+      "sha256": "f025e0d36ca0affeb202e24a394c43ad521838693f44ba360211df37613861a5",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2038,
+      "sha256": "498cd5e9145fde3f5249233051690ad16f898ea09f729c19d52628d79baec36b",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "SECURITY.md",
+      "bytes": 1981,
+      "sha256": "5439c9ba996dc8b747e66cc787f4bc790a311f79d3169abcfc9a8aa6a7e49d2f",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "baseline/CONFIG-BASIS.json",
+      "bytes": 244,
+      "sha256": "271ac10976af820ccbd1679fea8c499a9dac5ac927d79fd487a888a2414e739b",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/CONTRACTS.json",
+      "bytes": 1227,
+      "sha256": "8a2fca8f063f542c18c3909bac22cfb8819f51787659ede079063952acc10eb7",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/DATA-SOURCES.md",
+      "bytes": 3225,
+      "sha256": "eb8de2a63382bd58150127da72d76c9802c6948476d2a29dbf943ad172527d3f",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/EVALUATION-PERMISSION.txt",
+      "bytes": 1377,
+      "sha256": "48ddd4d6ca445b1d64801beebf68668cfa8ba9588a097a6e01173cb82488e483",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/LICENSE",
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/MANIFEST.json",
+      "bytes": 10588,
+      "sha256": "cc7bfb36fbe15fdc716c24bafde9ffb385181b0e491cd4845b81428390927791",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/MODULE-HASHES.json",
+      "bytes": 1600,
+      "sha256": "583bbbd769c63dadb1b686968f42636d78d3c797a26a0a4822c382337c8b4fe9",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/NOTICE",
+      "bytes": 1727,
+      "sha256": "907fa87e4acae316bab61cdef2ed1070f448eec43a2ee831b498656f32696edc",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/PROVENANCE.json",
+      "bytes": 6101,
+      "sha256": "eadf52ab2a9b7d0afaabaf3ed1aa15c62dea0f8d534771b182b70c946174c128",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/README.md",
+      "bytes": 6437,
+      "sha256": "51cea2f50902d224a44723a9d81ad9389c0bba80c14692d7bd8eaa98d89a0702",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/SECURITY.md",
+      "bytes": 3273,
+      "sha256": "a4d8659aae9a3f75aaa669949e31ad535f2777c586575eac63e2bb654153f76d",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/check-package.py",
+      "bytes": 2032,
+      "sha256": "f0b0d12fa9f9c24edb167d1c17fc36cd8c9071647851fbe6473a041e20b28df7",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/descriptor-schema.json",
+      "bytes": 2055,
+      "sha256": "774c6f4198cf1be1f2b86d419581a94179a27409a6437b7f3d2a4f4ac8b99098",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/dispatcher.mjs",
+      "bytes": 1646,
+      "sha256": "dd0d6e0e8338000aa30414f6d80ab3a38ca347a73e381f10efe32b9ee8cd7c81",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/eslint.config.mjs",
+      "bytes": 761,
+      "sha256": "8acf0c0e11ed8ac42b34430dd29dee839d059126b9ea04527744581c17d22369",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/mutation-check.mjs",
+      "bytes": 2684,
+      "sha256": "a995297c08a021af2ed308a37f8edb1ba6a5824ebc194c12887aa84f7ce1e1e5",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/DATA-SOURCES.md",
+      "bytes": 2890,
+      "sha256": "0288ae35b43da5e890ab0a5124221169a30815eb9a31d4c4834743f124391c06",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/LICENSE",
+      "bytes": 6922,
+      "sha256": "d2927ca338e70788998b469661a559a7bd27cc79be3c3c3d70d23e96448f0017",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/NOTICE",
+      "bytes": 932,
+      "sha256": "fcbb9fa906fe3778a9214f14a4fab6854d7e4e7a36a160300922d0be57c176bd",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/evidence/public/ambiguous.json",
+      "bytes": 49038,
+      "sha256": "17efd81e31b4f4591f1721321c9416d3a6b258086387e36d381d8880ff8118ac",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/evidence/public/inactive.json",
+      "bytes": 6658,
+      "sha256": "c7f1f7d467be23058a1bfe3844f1bd7e17fc57fd6962f99dc842de48ff66160a",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/evidence/public/lapsed-active.json",
+      "bytes": 5478,
+      "sha256": "72da9f78a1e626b46ae5117b88f4ad7546edc617b36feb1c4f73a5e18d19641a",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/evidence/public/valid-name.json",
+      "bytes": 7506,
+      "sha256": "e056a48ec8d4d19364b2a3078a151a07d88275b4154e3f1af07c2618359bdf23",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/test_worker.mjs",
+      "bytes": 10701,
+      "sha256": "27abfe2e4e7fb93bf0e62ffc4c406c3a6b868b46555ef2c554259f70c74c5f58",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/corporate/worker.mjs",
+      "bytes": 11571,
+      "sha256": "20a9f48f236210623b6ce5041d639a5fbf3e83b62e7380966b836fedbca98b0b",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/DATA-SOURCES.md",
+      "bytes": 6244,
+      "sha256": "4e2d016d8b570838be31fd5f097f756c37a652d59ceb6538288ce36b5ac163aa",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/ENVELOPE-RESULT.json",
+      "bytes": 2023,
+      "sha256": "6af44c640dbe40fb5d183ec0be6267472e46023b138443b267b8cc79c2395bdc",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/ENVELOPES.md",
+      "bytes": 3443,
+      "sha256": "ea8d98b31d70cf16b8e17b4b54856e6fdcaa229e01fe621d38743d57f1f951ca",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/EVALUATION-PERMISSION.txt",
+      "bytes": 1696,
+      "sha256": "ded44da01effe4f07c7a607b816ea4fdd55eb3de5c1b3e42a8f5f725c8f782b4",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/HASHPRICE-ENVELOPE.patch",
+      "bytes": 7274,
+      "sha256": "d7f9d2acfe9db7557c67037d436b73af19c5783b60bdf593f38ced8532399536",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/HASHPRICE-RELIABILITY.patch",
+      "bytes": 10646,
+      "sha256": "0a93a3aff1499cbf1dacf1fe8edea65a1d4fde1fb1eeba1bbe8c75b8a8f199f0",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/LICENSE",
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/NOTICE",
+      "bytes": 1552,
+      "sha256": "c7b93ef9e4de55d349a6c40cbfbb791a7f5301fc8d08c36780553fb7fb19928a",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/RELIABILITY-RESULT.json",
+      "bytes": 1821,
+      "sha256": "c1e130ce259e18e07daa476c1e8a52dc1d92e94a41e35ce2f65efe6cc4db76fa",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/RELIABILITY.md",
+      "bytes": 3217,
+      "sha256": "e687e848a2eb4aa59eec1f7b684e0bc344068ee2c52a692bd4e9faa8b400633d",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/bibliography.json",
+      "bytes": 10607,
+      "sha256": "755880c4dddbe8025c02c8152f133f189c23177649685a3772d2a6273fdabbb0",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/core.mjs",
+      "bytes": 5429,
+      "sha256": "cb1ff4d0d8e3a3ac3015b9396c1a6cb340015bed9511d6c37723d71ed0ca127f",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/entry.mjs",
+      "bytes": 390,
+      "sha256": "20a83b5adaaa26bf124c2d2a0d6cb8a82827c4c8c4988220b13416c4081889ac",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/envelope-mutations.py",
+      "bytes": 1979,
+      "sha256": "ef1f0f314ca7d5908f1ee06b37073e52972bebbab7abfee59414a4ddd6f583ab",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/evidence/fixtures-public.json",
+      "bytes": 1509216,
+      "sha256": "2391799752b73f8a5e388edc2bf419043c96619a3acdbc8e6d9d9fae34fe72c1",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/proof.mjs",
+      "bytes": 5882,
+      "sha256": "3e06b8fe77c2e9f0c6ba0ae503f2fa0325995ad510a6b284bba446cd2a6be11a",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/test-envelope.mjs",
+      "bytes": 6896,
+      "sha256": "d44299021f4a9724912eecc2e706ee9d190845fdbb40f4e2df43b2de8e5b8fe6",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/test-retry.mjs",
+      "bytes": 7372,
+      "sha256": "cf6cb317c4dd5d71873e09bd003b6159ddf6a258b567a6711b8ade5c10431b9c",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/test-worker.mjs",
+      "bytes": 12952,
+      "sha256": "f08c5300a610fdfde08a4ee649bba5da94efaed83a185f04d295d645f2b4a767",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/hashprice/worker.mjs",
+      "bytes": 16158,
+      "sha256": "1efa601379c8c121ac80c924b1a49dc27480c3e914cec73589604e000505fb10",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/onchain/DATA-SOURCES.md",
+      "bytes": 4148,
+      "sha256": "0dceb1160fa9519b7a567bad37b475a6bf6030118ca7c69cdad670700cda23b2",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/onchain/EVALUATION-PERMISSION.txt",
+      "bytes": 970,
+      "sha256": "2357cc92eb519481eadd8a828374ba4b89c3b5477baddf08cae76815cd1553c5",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/onchain/LICENSE",
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/onchain/NOTICE",
+      "bytes": 1084,
+      "sha256": "6ceb6514dd5079ecbadccfbcc21a632cb15722e313aec21b665076db26f35417",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/onchain/test-worker.mjs",
+      "bytes": 8621,
+      "sha256": "f126064a6ad25aeb37956c2085473a15374bfef216bdf9440eeffa76785b45ab",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/onchain/worker.mjs",
+      "bytes": 12231,
+      "sha256": "8d853d319dc6dd6d6940c33ab5702f20477d846df0c07fe94ab0cfe1026def6e",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/original/NOTICE",
+      "bytes": 855,
+      "sha256": "26d1732cd4bfe3a1794af05c6c985697b44c3f62cddda99755c6d75d487b7302",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/original/coinbase.mjs",
+      "bytes": 5975,
+      "sha256": "c4773fe8011b94ad2df6c0f37af4a1b66c90c87a4179068101abd4683ac677a3",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/sources/original/worker.mjs",
+      "bytes": 18040,
+      "sha256": "5b5c66a585ef260179292bdb1ca06b74953cd50fc0f8afdeefcd16dca7faa32b",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/test-dispatcher.mjs",
+      "bytes": 20277,
+      "sha256": "9fcf5f1bc23c1fb5d5ed64dedb3720a5eef6f38e1a7b43c08ffae30559ff212f",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/test-fixtures.mjs",
+      "bytes": 7090,
+      "sha256": "2ec47f7fd08058453918ca138223afdac887f2f5ce0abe14a83cfed493c0f2b0",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/truth/balance.jsonl",
+      "bytes": 5770,
+      "sha256": "e341640788f31f9fed57e659fb331d5fb5004908582b33ed26757819b159089d",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/truth/balance.yaml",
+      "bytes": 5396,
+      "sha256": "3a25181882f202a004f66259a2223847704fd8901a010d1f10a8fee206d502ec",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/truth/company.jsonl",
+      "bytes": 4308,
+      "sha256": "34702602994306b37b3355a8ea3f5562f395b30400444102e15c6d7120b5da34",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/truth/company.yaml",
+      "bytes": 4019,
+      "sha256": "2b7435f0e25034cf786947e1e0debc685b3eaaafeaf41fa71e1f19fad5800ad4",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/truth/hashprice.jsonl",
+      "bytes": 6033,
+      "sha256": "eae3bf29d96e6fc09927287ced4bb1d072ec19e8f27c795eb2b504ec331edc9d",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/truth/hashprice.yaml",
+      "bytes": 5675,
+      "sha256": "ad2ed4a395a16d8797956a465915032169263f59773b4bddb0f50f37216aeed5",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/verify.sh",
+      "bytes": 904,
+      "sha256": "d2221f2b9f1d51efab39f15912731a69f48f395738025dd9cd373db624b51ab7",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/worker.mjs",
+      "bytes": 264,
+      "sha256": "c8ada6df72da954f59960c1830219561847468cb7b3528317108fe6d04edc44e",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/workers-fetch.mjs",
+      "bytes": 678,
+      "sha256": "9b5538906aa2de4ace7d2bdbdd38d973768cc58588d4961cb43972f0e4249d16",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline/wrangler.json",
+      "bytes": 1065,
+      "sha256": "0834225fe44f00eccd69baed6304fce9c631ad9271ecc2034f6233dbddc32254",
+      "lineage": "own",
+      "component": "preserved baseline"
+    },
+    {
+      "file": "baseline-fixture-clock.mjs",
+      "bytes": 913,
+      "sha256": "396ae9cd10014a41901d010f25e496eb590bdd8a731c886e631cf1781be9e202",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "baseline-gate.py",
+      "bytes": 940,
+      "sha256": "378497a11d38154de890fd83d37f01db5d2a27cceb02821eff92d919e962f672",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "check-package.py",
+      "bytes": 5496,
+      "sha256": "56e6ccb2c3689024b56b7516f2600a7c7df77ce31addba4c2f382f96f10559c8",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/DATA-SOURCES.md",
+      "bytes": 12331,
+      "sha256": "af8758315111387dcd0529dd7e1bde3f428f1a643c859d6535352c9dc6731dd4",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/LICENSE",
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/NOTICE",
+      "bytes": 1796,
+      "sha256": "df3b1dcd201ded52adbb67f19d13e5d69dea208e37f90de18581ed6e72e1ff51",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/aave-math-MIT.txt",
+      "bytes": 1061,
+      "sha256": "e92e3bd72bfa3ac55cf64fd1a59b54c9f14147e23ca2a2f5fece1f15d4b85338",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/aave-registry-MIT.txt",
+      "bytes": 1048,
+      "sha256": "89a56f27966d48afc7139903ba6a4bd9854d8413b3ff0ef9092f2402c596a12e",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/arithmetic-vectors.json",
+      "bytes": 79525,
+      "sha256": "62f4f1717b6cd9a56295083e859ad94aad4e8e42b34a8814845fa5f8c2559597",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/finance.mjs",
+      "bytes": 25637,
+      "sha256": "d1f89a62a76e1bc5e978c03ef27de5ec4f1d50c1ae88286f1caddd8714669597",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/finance/reference.json",
+      "bytes": 15321,
+      "sha256": "88e2a4b4948b98c2d80688dd764a7b639d42c3ecc5fcf52000e18efc0d6d8eee",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/108/OBSERVATIONS.json",
+      "bytes": 1935,
+      "sha256": "8442466fb74c06ac8ffeb468769a010682f3aeaf4622243a1a01e6fa78f4ee99",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/108/card.json",
+      "bytes": 591,
+      "sha256": "074fd8f648272d3e5e3bd462574554efb4850e5dbf77068d214bcddb4dfa059b",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/168/FIELD-RESOLUTION.json",
+      "bytes": 381,
+      "sha256": "19c297da077966d7fb3cfc1960f47c7b2bd804f73fe5fa48c479c9b1fceaffd4",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/168/OBSERVATIONS.json",
+      "bytes": 1787,
+      "sha256": "d580957490ccb006bf65d11484fd16e2944cf7153e3309b09bb98dcfa43e00a9",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/168/card.json",
+      "bytes": 674,
+      "sha256": "ea2979b1a13792d8e45af06400f7a12193538d1b72f78adc6e2be4dd2263b9c3",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/DATA-SOURCES.md",
+      "bytes": 1725,
+      "sha256": "7af3db83651e1cbc49cc0329fae1e1ea73fba93f1ce5a7b1efb872cd0b84ec7e",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/LICENSE",
+      "bytes": 6450,
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/NOTICE",
+      "bytes": 485,
+      "sha256": "fa3f86834cf6c15ed0b5f4f792ac25f03fa36ad7a007dc0a2e960ddf56c48b72",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/108/identity-1.body",
+      "bytes": 645,
+      "sha256": "8b8ba21bb1c23c0e6c6681c0d09d604457557278029eea539382bebe49b9ad17",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/108/identity-100000.body",
+      "bytes": 643,
+      "sha256": "fec660ea2755ae913789f02ffc9d9a40c7259872b9e2cec08149ab26a736ae6d",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/108/identity-500000.body",
+      "bytes": 645,
+      "sha256": "b2e8b24d45219a03acda9e8e482571ab3b403f0f948dbc808d2607185acf6515",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/108/xatu-1.body",
+      "bytes": 260,
+      "sha256": "66fcf2f9881419a92c213d946ea1ae185657f61978e6bc83bf3f3ed2e72b7cc5",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/108/xatu-100000.body",
+      "bytes": 246,
+      "sha256": "3a654daaa36cbb5e4d80a8f421dd79c84045063ea036ec55a458504455a2cef7",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/108/xatu-500000.body",
+      "bytes": 246,
+      "sha256": "6546e7b760eafa1a358be99ab8ea5a24561bbdf0eddd0381891270bdc498aef4",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/168/metar-EGLC.body",
+      "bytes": 21550,
+      "sha256": "d127a649b0edc5f84e95303eeb38eeb3aec70608d92d67356ce4fef142d7d921",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/168/metar-OPKC.body",
+      "bytes": 20924,
+      "sha256": "b3fa69f6dbad71206ec849448e86772cc99c8d45f7cb2d2f1a8b6839c62b5015",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/fixtures/168/metar-RJTT.body",
+      "bytes": 21375,
+      "sha256": "fa65f1530ebd1b3a1caa1ec5ec7ef41c89121852ff952a8e0e792ad2eeba7d8c",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "sources/operations/operations.mjs",
+      "bytes": 16152,
+      "sha256": "7f734de1bf12e7c85ae820813c7274ebee72cfdec206e733daf066dc2f2c9cdb",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "test-integration.mjs",
+      "bytes": 10127,
+      "sha256": "9b5442e9e735e79b7f2f1d7eac36ff8c8346a856eda86e9c1a6bb4e950fce2f1",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/finance-reserve.json",
+      "bytes": 1717,
+      "sha256": "f32087d29b2c3eadd17b9eb63739840c58ca66f1b638f34999a7a92905c9c2f1",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/finance-reserve.jsonl",
+      "bytes": 1569,
+      "sha256": "db4b6c861347dbc6263a9e2eff4a9a06c0a243731f3630bf992759006e4aca4a",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/finance-reserve.yaml",
+      "bytes": 1351,
+      "sha256": "faf4a0cd11678858c20256647a9688c7656495d98c7e6403be8240bee678b806",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/finance-yield.json",
+      "bytes": 2161,
+      "sha256": "10cc12b14755f4712e6561f72429b1a39dd87abc7cce16e5a6dea638a14bfa16",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/finance-yield.jsonl",
+      "bytes": 1783,
+      "sha256": "e00aa412d46c2a44487117834223eba7df0401013637328608913b10d5b07639",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/finance-yield.yaml",
+      "bytes": 1559,
+      "sha256": "012a9e2b800357bc15faf497ec995f903ec95b1038538aba1f4b14cedf27a12d",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/operations-validator.json",
+      "bytes": 1941,
+      "sha256": "3d3309e9199b85d2dc7815db7efc4067badee4742bdda4ff27e252f7bcf6640a",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/operations-validator.jsonl",
+      "bytes": 1592,
+      "sha256": "e13a1aea622323efe643895eb2c90f22af8782d45a53c9d15ac5d601289a96ca",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/operations-validator.yaml",
+      "bytes": 1997,
+      "sha256": "73a3bc30821a03afad326f40108c963df26d23abc931f75d361b2fbbfed8d608",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/operations-weather.json",
+      "bytes": 2109,
+      "sha256": "75a0cf143603179847523665c38636ffe10d168900696e2226c164c7ef387a7a",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/operations-weather.jsonl",
+      "bytes": 1749,
+      "sha256": "06ce1c0517148165e0164f6469ca4e24896731c724828a7c466b0685cea5a69f",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "truth/operations-weather.yaml",
+      "bytes": 2165,
+      "sha256": "cc9218a712609e0528eac8504943551ba86bfd3acda1129e0b3248a23cbb1df4",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "verify.sh",
+      "bytes": 575,
+      "sha256": "3e8e61491365f89625ac448b1bc227078c4a956806290cb6039c91d87dbabe9e",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "worker.mjs",
+      "bytes": 994,
+      "sha256": "48594b4dce6a9eaa219a021719a64518e2a6683b06ea446301b12c7b159e4b33",
+      "lineage": "own",
+      "component": "approved source or integration"
+    },
+    {
+      "file": "wrangler.json",
+      "bytes": 1863,
+      "sha256": "4063d9c36cf4548379e062420e5b36644c07b041a35582288d376602335e0e76",
+      "lineage": "own",
+      "component": "approved source or integration"
+    }
+  ],
+  "third_party_data_terms": [
+    "sources/finance/DATA-SOURCES.md",
+    "sources/operations/DATA-SOURCES.md"
+  ],
+  "legacy_lineage": "baseline/PROVENANCE.json",
+  "new_routes_deployed": false
+}

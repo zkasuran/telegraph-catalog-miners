@@ -1,0 +1,44 @@
+{
+  "observed_at": "2026-11-18T09:41:46.779Z",
+  "results": [
+    {
+      "temperature_c": 11,
+      "temp_c": 11,
+      "location": "London",
+      "station": "EGLC",
+      "observed_at": "2026-11-18T09:20:00.000Z",
+      "age_seconds": 1306.779000043869,
+      "observation_type": "station observation",
+      "spatial_scope": "Named city airport station, not an interpolated city-centre reading",
+      "raw_metar": "EGLC 180920Z 23009KT 9999 FEW034 11/08 Q0985=",
+      "attribution": "MET Norway / Avinor, CC BY 4.0 and NLOD 2.0",
+      "source": "https://api.met.no/weatherapi/tafmetar/1.0/metar.xml?icao=EGLC"
+    },
+    {
+      "temperature_c": 32,
+      "temp_c": 32,
+      "location": "Karachi",
+      "station": "OPKC",
+      "observed_at": "2026-11-18T09:00:00.000Z",
+      "age_seconds": 2506.779000043869,
+      "observation_type": "station observation",
+      "spatial_scope": "Named city airport station, not an interpolated city-centre reading",
+      "raw_metar": "OPKC 180900Z 07007KT 5000 HZ NSC 32/05 Q1017 NOSIG=",
+      "attribution": "MET Norway / Avinor, CC BY 4.0 and NLOD 2.0",
+      "source": "https://api.met.no/weatherapi/tafmetar/1.0/metar.xml?icao=OPKC"
+    },
+    {
+      "temperature_c": 18,
+      "temp_c": 18,
+      "location": "Tokyo",
+      "station": "RJTT",
+      "observed_at": "2026-11-18T09:00:00.000Z",
+      "age_seconds": 2506.779000043869,
+      "observation_type": "station observation",
+      "spatial_scope": "Named city airport station, not an interpolated city-centre reading",
+      "raw_metar": "RJTT 180900Z 15006KT 9999 FEW020 BKN025 18/15 Q1002 BECMG FM1000 20016KT=",
+      "attribution": "MET Norway / Avinor, CC BY 4.0 and NLOD 2.0",
+      "source": "https://api.met.no/weatherapi/tafmetar/1.0/metar.xml?icao=RJTT"
+    }
+  ]
+}

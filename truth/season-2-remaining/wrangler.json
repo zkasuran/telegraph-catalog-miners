@@ -1,0 +1,60 @@
+{
+  "name": "telegraph-s2-hashprice",
+  "main": "worker.mjs",
+  "compatibility_date": "2025-06-01",
+  "compatibility_flags": [],
+  "keep_vars": true,
+  "observability": {
+    "enabled": false
+  },
+  "send_metrics": false,
+  "no_bundle": true,
+  "find_additional_modules": true,
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": [
+        "baseline/dispatcher.mjs",
+        "baseline/workers-fetch.mjs",
+        "baseline/sources/original/worker.mjs",
+        "baseline/sources/original/coinbase.mjs",
+        "baseline/sources/corporate/worker.mjs",
+        "baseline/sources/onchain/worker.mjs",
+        "baseline/sources/hashprice/entry.mjs",
+        "baseline/sources/hashprice/worker.mjs",
+        "baseline/sources/hashprice/core.mjs",
+        "baseline/sources/hashprice/proof.mjs",
+        "baseline/worker.mjs",
+        "sources/finance/finance.mjs",
+        "sources/operations/operations.mjs"
+      ],
+      "fallthrough": false
+    },
+    {
+      "type": "Text",
+      "globs": [
+        "baseline/LICENSE",
+        "baseline/NOTICE",
+        "baseline/EVALUATION-PERMISSION.txt",
+        "baseline/sources/original/NOTICE",
+        "baseline/sources/corporate/LICENSE",
+        "baseline/sources/corporate/NOTICE",
+        "baseline/sources/onchain/LICENSE",
+        "baseline/sources/onchain/NOTICE",
+        "baseline/sources/onchain/EVALUATION-PERMISSION.txt",
+        "baseline/sources/hashprice/LICENSE",
+        "baseline/sources/hashprice/NOTICE",
+        "baseline/sources/hashprice/EVALUATION-PERMISSION.txt",
+        "LICENSE",
+        "NOTICE",
+        "sources/finance/LICENSE",
+        "sources/finance/NOTICE",
+        "sources/finance/aave-math-MIT.txt",
+        "sources/finance/aave-registry-MIT.txt",
+        "sources/operations/LICENSE",
+        "sources/operations/NOTICE"
+      ],
+      "fallthrough": false
+    }
+  ]
+}

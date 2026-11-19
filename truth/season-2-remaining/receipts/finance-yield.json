@@ -1,0 +1,24 @@
+{
+  "source": "finance-yield",
+  "intent": "CRYPTO_YIELD_RATE_GENERAL",
+  "body_sha256": "e00aa412d46c2a44487117834223eba7df0401013637328608913b10d5b07639",
+  "bytes": 1783,
+  "nonce": "1118803adfc36638c0ff76d0ff28243e",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "signed": true,
+  "http": 200,
+  "binding_verified": true,
+  "row_hash": "ed17d9084062e35552040c22997936148dec698a0582e8fb392521daf6440bf1",
+  "row_hashes": null,
+  "node_rows": [
+    {
+      "row_hash": "ed17d9084062e35552040c22997936148dec698a0582e8fb392521daf6440bf1",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "attested",
+      "created_at": "2026-11-19T03:09:53.279884Z",
+      "updated_at": "2026-11-19T03:09:53.281643Z"
+    }
+  ],
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/finance-yield.json"
+}

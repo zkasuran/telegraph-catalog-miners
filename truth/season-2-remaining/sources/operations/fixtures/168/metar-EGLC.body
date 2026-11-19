@@ -1,0 +1,582 @@
+<metno:aviationProducts
+   xmlns:metno="http://api.met.no"
+   xmlns:gml="http://www.opengis.net/gml/3.2"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://api.met.no aviation_products.xsd">
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-1" >
+				<gml:timePosition>2026-11-17T09:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 170950Z 24014KT 9999 -RA SCT019/// BKN026/// //////CB 13/10 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-2" >
+				<gml:timePosition>2026-11-17T10:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171020Z 25018G31KT 9999 SCT024/// //////CB 13/09 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-3" >
+				<gml:timePosition>2026-11-17T10:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171050Z 24014KT 9999 SCT024/// BKN029/// BKN036/// //////TCU 13/09 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-4" >
+				<gml:timePosition>2026-11-17T11:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171120Z 24018KT 9999 SCT027 BKN036 BKN042 13/09 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-5" >
+				<gml:timePosition>2026-11-17T11:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171150Z 24017G28KT 5000 -RA BKN029/// BKN036/// BKN043/// //////TCU 13/09 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-6" >
+				<gml:timePosition>2026-11-17T12:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171220Z 24016KT 9999 FEW030 SCT045 13/08 Q0981 RERA=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-7" >
+				<gml:timePosition>2026-11-17T12:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171250Z 24020G31KT 9999 SCT041 BKN049 14/07 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-8" >
+				<gml:timePosition>2026-11-17T13:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171320Z 24017KT 9999 SCT042 BKN048 14/06 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-9" >
+				<gml:timePosition>2026-11-17T13:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171350Z 23013G24KT 200V260 9999 NCD 14/06 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-10" >
+				<gml:timePosition>2026-11-17T14:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171420Z 23018KT 9999 NCD 13/05 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-11" >
+				<gml:timePosition>2026-11-17T14:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171450Z 23012G24KT 9999 NCD 13/06 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-12" >
+				<gml:timePosition>2026-11-17T15:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171520Z 23011KT 9999 NCD 13/07 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-13" >
+				<gml:timePosition>2026-11-17T15:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171550Z 22008KT 190V250 9999 NCD 12/07 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-14" >
+				<gml:timePosition>2026-11-17T16:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171620Z 22008KT 190V250 9999 NCD 12/08 Q0979=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-15" >
+				<gml:timePosition>2026-11-17T16:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171650Z 22009KT 9999 -RA NCD 12/08 Q0979=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-16" >
+				<gml:timePosition>2026-11-17T17:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171720Z 22007KT 190V270 9999 NCD 12/08 Q0979=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-17" >
+				<gml:timePosition>2026-11-17T17:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171750Z 23008KT 190V250 9999 NCD 11/08 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-18" >
+				<gml:timePosition>2026-11-17T18:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171820Z 23010KT 9999 -RA NCD 11/08 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-19" >
+				<gml:timePosition>2026-11-17T18:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171850Z 25012KT 9999 FEW023 11/07 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-20" >
+				<gml:timePosition>2026-11-17T19:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171920Z 24011KT 9999 NCD 11/07 Q0980=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-21" >
+				<gml:timePosition>2026-11-17T19:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 171950Z 24012KT 9999 NCD 10/06 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-22" >
+				<gml:timePosition>2026-11-17T20:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172020Z 24013KT 9999 NCD 10/06 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-23" >
+				<gml:timePosition>2026-11-17T20:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172050Z 24014KT 9999 NCD 10/06 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-24" >
+				<gml:timePosition>2026-11-17T21:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172120Z 24011KT 9999 NCD 10/06 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-25" >
+				<gml:timePosition>2026-11-17T21:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172150Z 24011KT 9999 NCD 10/07 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-26" >
+				<gml:timePosition>2026-11-17T22:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172220Z 23011KT 9999 NCD 09/07 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-27" >
+				<gml:timePosition>2026-11-17T22:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172250Z 23010KT 9999 NCD 09/07 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-28" >
+				<gml:timePosition>2026-11-17T23:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172320Z 23011KT 9999 NCD 09/07 Q0981=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-29" >
+				<gml:timePosition>2026-11-17T23:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 172350Z 24010KT 9999 NCD 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-30" >
+				<gml:timePosition>2026-11-18T00:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180020Z 24010KT 9999 NCD 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-31" >
+				<gml:timePosition>2026-11-18T00:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180050Z 24010KT 9999 NCD 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-32" >
+				<gml:timePosition>2026-11-18T01:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180120Z 24012KT 9999 NCD 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-33" >
+				<gml:timePosition>2026-11-18T01:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180150Z 24013KT 9999 FEW025 SCT033 BKN046 10/08 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-34" >
+				<gml:timePosition>2026-11-18T02:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180220Z 24012KT 9999 BKN027/// //////TCU 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-35" >
+				<gml:timePosition>2026-11-18T02:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180250Z 23014KT 9999 BKN042 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-36" >
+				<gml:timePosition>2026-11-18T03:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180320Z 23012KT 9999 SCT037 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-37" >
+				<gml:timePosition>2026-11-18T03:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180350Z 24011KT 9999 FEW026 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-38" >
+				<gml:timePosition>2026-11-18T04:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180420Z 24011KT 9999 FEW035 10/07 Q0982=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-39" >
+				<gml:timePosition>2026-11-18T04:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180450Z 24011KT 9999 SCT032/// BKN047/// //////TCU 10/07 Q0983=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-40" >
+				<gml:timePosition>2026-11-18T05:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180520Z 23010KT 9999 FEW030/// //////TCU 10/07 Q0983=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-41" >
+				<gml:timePosition>2026-11-18T05:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180550Z 24011KT 210V270 9999 -RA FEW025 SCT032 BKN038 10/07 Q0983=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-42" >
+				<gml:timePosition>2026-11-18T06:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180620Z 24007KT 9999 SCT026 SCT043 10/07 Q0984=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-43" >
+				<gml:timePosition>2026-11-18T06:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180650Z 24009KT 9999 FEW034 SCT044 10/07 Q0984=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-44" >
+				<gml:timePosition>2026-11-18T07:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180720Z 24008KT 9999 SCT031 BKN042 10/07 Q0984=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-45" >
+				<gml:timePosition>2026-11-18T07:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180750Z 24008KT 210V270 9999 -RA SCT023 BKN030 BKN045 10/07 Q0985=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-46" >
+				<gml:timePosition>2026-11-18T08:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180820Z 24011KT 9999 FEW031 BKN049 11/07 Q0985=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-47" >
+				<gml:timePosition>2026-11-18T08:50:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180850Z 24010KT 9999 NCD 11/07 Q0985=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>EGLC</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-48" >
+				<gml:timePosition>2026-11-18T09:20:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType>AUTO</metno:metarType>
+		<metno:metarText>
+			EGLC 180920Z 23009KT 9999 FEW034 11/08 Q0985=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+</metno:aviationProducts>

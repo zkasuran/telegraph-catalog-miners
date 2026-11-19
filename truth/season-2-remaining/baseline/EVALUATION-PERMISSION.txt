@@ -1,0 +1,23 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+Supplemental shared-deployment evaluation permission, 2026-11-17
+
+The licensor permits Telegraph Protocol, its node operators, validators and
+reviewers to store, reproduce, pin, share and execute this exact source package
+and its three unsigned truth-source YAML and JSONL descriptors for evaluation,
+ranking, audit and reproduction. Configuration and descriptor routing changes
+necessary for protocol transport and an existing free account are permitted.
+The licensor's coordinator may publish this exact licensor-authored package and
+deploy the dispatcher on the licensor's existing telegraph-s2-hashprice Worker.
+
+This permission covers the dispatcher and the unmodified licensor-authored
+original, corporate, onchain and hashprice modules. Their existing LICENSE,
+NOTICE and evaluation permission texts remain in force. This supplemental grant
+does not withdraw any prior grant. It does not permit a competing miner, sale of
+upstream RPC access or changes to the source modules.
+
+Public facts are not claimed as exclusive software property. Upstream service
+terms remain applicable. No license to upstream software, website content or
+protected evaluation material is granted. This permission is unsigned prepared
+material. It is not a signature, upload receipt, admission or human review.

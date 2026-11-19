@@ -1,0 +1,20 @@
+Finance reference source and handlers
+Copyright (c) 2026 zkasuran
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+
+Our runtime modules and calculations are written from the documented task and public numerical facts. No upstream runtime software or model weight is copied.
+
+Aave address metadata: BGD Labs, Copyright 2022, MIT.
+Aave APY mathematical reference: Aave, Copyright (c) 2021, MIT.
+Their exact copyright and permission notices are included as aave-registry-MIT.txt and aave-math-MIT.txt.
+
+Bitview (bitview.space), https://bitview.space/, CC BY 4.0, https://creativecommons.org/licenses/by/4.0/.
+Changes to the corroboration data: confirmed balance subtraction, aggregation and comparison. This grant applies to Bitview balance observations only.
+
+Current RPC transport: Nodies public Ethereum endpoint, https://ethereum-public.nodies.app. Nodies documents shared public endpoint access, subject to lawful responsible use. Service intellectual property belongs to Nodies and is not copied. The returned values are our own computations on public chain facts, not Nodies software.
+
+Historical transport: Allnodes PublicNode, https://ethereum-rpc.publicnode.com. Its original observations, dates, source URLs and attribution remain in reference fixtures. PublicNode's Endpoint terms authorize automated reads and use of blockchain data in own applications. Those historical permissions do not grant resale of Endpoint access. This free reference service does not sell raw data access.
+
+The WBTC oracle attestation is an on-chain observation, not a complete custody or liabilities audit. Issuer Website/API content is not included in the ready source bundle.
+
+CAISO and Binlist candidates remain private and unqueued. No permission is inferred from a free API or a public GitHub file.

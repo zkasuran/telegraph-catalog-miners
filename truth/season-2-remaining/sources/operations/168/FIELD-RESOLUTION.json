@@ -1,0 +1,9 @@
+{
+  "alias_value_is_identical": true,
+  "current_chain_spec_field": "temperature_c",
+  "current_native_codec_verified": false,
+  "mapping_field": "temperature_c",
+  "reason": "Map only the field in the freshly read exact child spec. Preserve the old native name as a response alias, not an extra mapping field.",
+  "runtime_alias": "temp_c",
+  "saved_native_job_field": "temp_c"
+}

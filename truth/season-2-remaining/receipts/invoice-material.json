@@ -1,0 +1,54 @@
+{
+  "source": "invoice-material",
+  "intent": "INVOICE_LEDGER_RECONCILE_GENERAL",
+  "body_sha256": "15b6ade974619928f11a799f1b65c7c095b69152002d7e58e049ccdb0269cc87",
+  "bytes": 4429,
+  "nonce": "4cf49aff94e7f7f68f9cd229a7ccc493",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "signed": true,
+  "http": 200,
+  "binding_verified": true,
+  "row_hash": null,
+  "row_hashes": [
+    "7804755ccc6c269fab8d1171cb88e493ed1b7b63450cbb50c31a7ccc0cecfefa",
+    "357961d3649d00333393479a0251c25b02dcef18e924aadc9544aaf0d63acdf3",
+    "7011c76d7fad1f3408db47c7f1150aa3aee1dfaba343b31a50a0f625921debf6",
+    "ccc97c746385971268d7bdcafa948c42f6acf36c89bb31643fda22f117e398d6"
+  ],
+  "node_rows": [
+    {
+      "row_hash": "7804755ccc6c269fab8d1171cb88e493ed1b7b63450cbb50c31a7ccc0cecfefa",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "unverified",
+      "created_at": "2026-11-19T05:03:45.497263Z",
+      "updated_at": "2026-11-19T05:03:45.498833Z"
+    },
+    {
+      "row_hash": "357961d3649d00333393479a0251c25b02dcef18e924aadc9544aaf0d63acdf3",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "unverified",
+      "created_at": "2026-11-19T05:03:45.496011Z",
+      "updated_at": "2026-11-19T05:03:45.498833Z"
+    },
+    {
+      "row_hash": "7011c76d7fad1f3408db47c7f1150aa3aee1dfaba343b31a50a0f625921debf6",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "unverified",
+      "created_at": "2026-11-19T05:03:45.49488Z",
+      "updated_at": "2026-11-19T05:03:45.498833Z"
+    },
+    {
+      "row_hash": "ccc97c746385971268d7bdcafa948c42f6acf36c89bb31643fda22f117e398d6",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "unverified",
+      "created_at": "2026-11-19T05:03:45.493179Z",
+      "updated_at": "2026-11-19T05:03:45.498833Z"
+    }
+  ],
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/invoice-material.json",
+  "scope": "Four generated/unverified comparisons of actual non-payable lab invoices and ledger records. Not production commerce or a training dataset."
+}

@@ -1,0 +1,12 @@
+{
+  "admitted": false,
+  "current_node_schema_verified": false,
+  "deployed": false,
+  "generated_provenance": "unverified",
+  "intent": "WEATHER_CHECK_TEMPERATURE",
+  "issue": 168,
+  "mapping_gate": "Exact native task and field capture, with explicit weather alias",
+  "material_license": "CC-BY-4.0",
+  "private_loader_verified": false,
+  "scope": "Observed current MET Norway / Avinor METAR temperature, CC BY 4.0 and NLOD 2.0. London uses EGLC, Karachi OPKC and Tokyo RJTT. These are named airport observations, not city-centre interpolation or forecasts. Exact station and observation times are checked. Both temperature_c and temp_c carry the same Celsius reading."
+}

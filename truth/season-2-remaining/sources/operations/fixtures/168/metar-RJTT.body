@@ -1,0 +1,558 @@
+<metno:aviationProducts
+   xmlns:metno="http://api.met.no"
+   xmlns:gml="http://www.opengis.net/gml/3.2"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://api.met.no aviation_products.xsd">
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-1" >
+				<gml:timePosition>2026-11-17T10:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171000Z 33013KT 5000 -RA BR FEW006 BKN009 BKN012 11/10 Q1021 TEMPO 4000 RA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-2" >
+				<gml:timePosition>2026-11-17T10:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171030Z 34013KT 5000 -RA BR FEW006 BKN009 BKN012 11/10 Q1020 TEMPO 4000 RA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-3" >
+				<gml:timePosition>2026-11-17T11:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171100Z 34014KT 4000 RA BR FEW005 BKN007 BKN012 11/10 Q1019 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-4" >
+				<gml:timePosition>2026-11-17T11:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171130Z 34013KT 5000 RA BR FEW005 BKN007 11/10 Q1019 TEMPO 4000 SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-5" >
+				<gml:timePosition>2026-11-17T12:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171200Z 34013KT 5000 RA BR FEW005 BKN007 BKN013 11/10 Q1018 TEMPO 4000 SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-6" >
+				<gml:timePosition>2026-11-17T12:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171230Z 35017KT 7000 SHRA FEW005 BKN007 BKN017 11/10 Q1017 TEMPO 4000 SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-7" >
+				<gml:timePosition>2026-11-17T13:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171300Z 34014KT 7000 SHRA FEW005 BKN007 11/10 Q1017 TEMPO 4000 SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-8" >
+				<gml:timePosition>2026-11-17T13:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171330Z 33013KT 8000 SHRA FEW005 BKN007 10/09 Q1016 TEMPO 2000 +SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-9" >
+				<gml:timePosition>2026-11-17T14:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171400Z 33014KT 6000 SHRA BR FEW005 BKN007 BKN020 11/10 Q1015 TEMPO 3000 +SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-10" >
+				<gml:timePosition>2026-11-17T14:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171430Z 33014KT 6000 SHRA BR FEW005 BKN007 BKN070 11/10 Q1014 TEMPO 3000 +SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-11" >
+				<gml:timePosition>2026-11-17T15:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171500Z 34013KT 5000 SHRA BR FEW005 SCT007 BKN035 11/10 Q1014 TEMPO 4000 SHRA BR FEW005 BKN008=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-12" >
+				<gml:timePosition>2026-11-17T15:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171530Z 33015KT 7000 SHRA FEW005 BKN007 BKN035 11/10 Q1013 TEMPO 4000 SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-13" >
+				<gml:timePosition>2026-11-17T16:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171600Z 34015KT 9999 -SHRA FEW005 SCT007 BKN060 11/10 Q1012 TEMPO 4000 SHRA BR FEW005 BKN008=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-14" >
+				<gml:timePosition>2026-11-17T16:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171630Z 34016KT 9999 -SHRA FEW005 BKN008 BKN070 11/10 Q1011 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-15" >
+				<gml:timePosition>2026-11-17T17:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171700Z 34016KT 9999 FEW005 BKN008 BKN020 11/10 Q1011 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-16" >
+				<gml:timePosition>2026-11-17T17:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171730Z 34017KT 9999 FEW005 BKN008 11/10 Q1010 TEMPO FM1830 4000 -SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-17" >
+				<gml:timePosition>2026-11-17T18:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171800Z 34018KT 9999 FEW007 BKN009 BKN070 11/10 Q1009 TEMPO FM1830 4000 -SHRA BR=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-18" >
+				<gml:timePosition>2026-11-17T18:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171830Z 32013KT 4000 -SHRA BR FEW006 BKN009 BKN020 11/10 Q1009 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-19" >
+				<gml:timePosition>2026-11-17T19:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171900Z 34015KT 5000 SHRA BR FEW006 SCT009 BKN040 12/11 Q1008 TEMPO TL2030 4000 SHRA BR FEW005 BKN008=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-20" >
+				<gml:timePosition>2026-11-17T19:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 171930Z 34013KT 4000 SHRA BR FEW005 BKN007 BKN020 12/11 Q1008 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-21" >
+				<gml:timePosition>2026-11-17T20:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172000Z 35014KT 9999 -SHRA FEW005 SCT020 BKN100 12/12 Q1007 TEMPO FEW005 BKN008=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-22" >
+				<gml:timePosition>2026-11-17T20:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172030Z 33013KT 9999 -SHRA FEW008 BKN023 12/11 Q1007 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-23" >
+				<gml:timePosition>2026-11-17T21:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172100Z 33015KT 9999 FEW008 BKN026 13/11 Q1007 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-24" >
+				<gml:timePosition>2026-11-17T21:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172130Z 33017KT 9999 FEW008 BKN026 13/11 Q1007 BECMG 33006KT=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-25" >
+				<gml:timePosition>2026-11-17T22:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172200Z 33014KT 9999 FEW008 SCT026 BKN045 13/11 Q1007 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-26" >
+				<gml:timePosition>2026-11-17T22:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172230Z 33012KT 9999 FEW010 SCT030 13/11 Q1008 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-27" >
+				<gml:timePosition>2026-11-17T23:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 172300Z 33008KT 9999 FEW010 14/12 Q1008 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-28" >
+				<gml:timePosition>2026-11-18T00:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180000Z 26005KT 210V320 9999 FEW010 15/12 Q1007 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-29" >
+				<gml:timePosition>2026-11-18T00:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180030Z 24004KT 210V290 9999 FEW010 16/12 Q1007 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-30" >
+				<gml:timePosition>2026-11-18T01:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180100Z 27004KT 240V310 9999 FEW030 SCT/// 16/12 Q1007 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-31" >
+				<gml:timePosition>2026-11-18T01:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180130Z 29003KT 9999 FEW030 BKN/// 16/12 Q1007 BECMG 20005KT=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-32" >
+				<gml:timePosition>2026-11-18T02:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180200Z 18009KT 160V230 9999 FEW030 BKN/// 17/12 Q1006 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-33" >
+				<gml:timePosition>2026-11-18T02:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180230Z 18005KT 9999 FEW030 SCT/// 18/12 Q1005 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-34" >
+				<gml:timePosition>2026-11-18T03:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180300Z 17008KT 9999 FEW030 SCT/// 18/13 Q1005 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-35" >
+				<gml:timePosition>2026-11-18T03:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180330Z 18009KT 9999 FEW030 SCT/// 18/13 Q1005 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-36" >
+				<gml:timePosition>2026-11-18T04:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180400Z 17008KT 120V200 9999 FEW030 SCT/// 19/12 Q1004 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-37" >
+				<gml:timePosition>2026-11-18T04:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180430Z 18006KT 150V220 9999 FEW030 19/12 Q1004 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-38" >
+				<gml:timePosition>2026-11-18T05:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180500Z 18007KT 120V180 9999 FEW030 SCT/// 20/12 Q1003 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-39" >
+				<gml:timePosition>2026-11-18T05:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180530Z 19011KT 9999 FEW030 19/13 Q1003 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-40" >
+				<gml:timePosition>2026-11-18T06:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180600Z 20012KT 9999 FEW030 BKN/// 19/14 Q1003 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-41" >
+				<gml:timePosition>2026-11-18T06:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180630Z 20010KT 9999 FEW030 BKN/// 19/14 Q1002 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-42" >
+				<gml:timePosition>2026-11-18T07:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180700Z 19010KT 9999 FEW015 BKN/// 18/15 Q1002 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-43" >
+				<gml:timePosition>2026-11-18T07:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180730Z 18009KT 9999 FEW015 BKN/// 18/15 Q1002 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-44" >
+				<gml:timePosition>2026-11-18T08:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180800Z 18009KT 9999 FEW015 SCT/// 18/14 Q1002 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-45" >
+				<gml:timePosition>2026-11-18T08:30:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180830Z 16007KT 9999 FEW020 18/15 Q1002 NOSIG=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+	<metno:meteorologicalAerodromeReport>
+		<metno:icaoAirportIdentifier>RJTT</metno:icaoAirportIdentifier>
+		<metno:validTime>
+			<gml:TimeInstant gml:id="it-46" >
+				<gml:timePosition>2026-11-18T09:00:00</gml:timePosition>
+			</gml:TimeInstant>
+		</metno:validTime>
+		<metno:metarType></metno:metarType>
+		<metno:metarText>
+			RJTT 180900Z 15006KT 9999 FEW020 BKN025 18/15 Q1002 BECMG FM1000 20016KT=
+		</metno:metarText>
+	</metno:meteorologicalAerodromeReport>
+</metno:aviationProducts>

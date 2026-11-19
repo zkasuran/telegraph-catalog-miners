@@ -1,0 +1,24 @@
+{
+  "source": "finance-reserve",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "body_sha256": "db4b6c861347dbc6263a9e2eff4a9a06c0a243731f3630bf992759006e4aca4a",
+  "bytes": 1569,
+  "nonce": "e2bb9bfe2d4e71eef8471722c3ee234f",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "signed": true,
+  "http": 200,
+  "binding_verified": true,
+  "row_hash": "0b280854ba57f18b0a4ea9bcace49afb868d8c027c09ea1fc3382ca20be882bf",
+  "row_hashes": null,
+  "node_rows": [
+    {
+      "row_hash": "0b280854ba57f18b0a4ea9bcace49afb868d8c027c09ea1fc3382ca20be882bf",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "attested",
+      "created_at": "2026-11-19T03:09:34.34224Z",
+      "updated_at": "2026-11-19T03:09:34.34534Z"
+    }
+  ],
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/finance-reserve.json"
+}

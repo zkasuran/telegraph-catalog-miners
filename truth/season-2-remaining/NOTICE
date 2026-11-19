@@ -1,0 +1,13 @@
+Four-route reference integration
+Copyright (c) 2026 zkasuran
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+
+All baseline files retain their original bytes and notices under baseline/.
+Finance source and public observations retain their original bytes and notices
+under sources/finance/. Aave MIT notices are included there.
+Operations source retains its original bytes. No catalog or preference pairs
+are included. Validator facts: ethPandaOps Xatu, CC BY 4.0. Weather facts:
+MET Norway / Avinor, CC BY 4.0 and NLOD 2.0.
+No third-party source code, model weights or issuer API bodies are added.
+
+The integration is prepared locally. Deployment and source admission are separate.

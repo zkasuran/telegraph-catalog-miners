@@ -1,0 +1,34 @@
+{
+  "origin": "https://telegraph-s2-hashprice.margyn.workers.dev",
+  "unsigned": true,
+  "node_loader_verified": false,
+  "sources": [
+    {
+      "intent_id": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+      "public_path": "/truth/v1/company",
+      "handler_path": "/company",
+      "yaml": "truth/company.yaml",
+      "jsonl": "truth/company.jsonl",
+      "original_descriptor_sha256": "3167e4b9c0e29e0f295628800db1d4c80d9bf25b07dce4dc56aa2a3d1ac30b48",
+      "routing_only_data_change": true
+    },
+    {
+      "intent_id": "ONCHAIN_METRIC_VERIFY_GENERAL",
+      "public_path": "/truth/v1/balance",
+      "handler_path": "/metric",
+      "yaml": "truth/balance.yaml",
+      "jsonl": "truth/balance.jsonl",
+      "original_descriptor_sha256": "12ba4180317fa5106ddc2a8e6ca276f8a8897f43ffcd9c9b9f5135215b6e85a4",
+      "routing_only_data_change": true
+    },
+    {
+      "intent_id": "MINING_HASHPRICE_VERIFY_GENERAL",
+      "public_path": "/truth/v1/hashprice",
+      "handler_path": "/hashprice",
+      "yaml": "truth/hashprice.yaml",
+      "jsonl": "truth/hashprice.jsonl",
+      "original_descriptor_sha256": "1334e86e79720ce87625387a588ce183ce0c5fc6dd196433a39b4cd012a89963",
+      "routing_only_data_change": true
+    }
+  ]
+}

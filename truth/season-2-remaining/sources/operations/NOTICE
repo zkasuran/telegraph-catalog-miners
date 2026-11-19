@@ -1,0 +1,7 @@
+Copyright (c) 2026 zkasuran. LicenseRef-zkasuran-SAND-1.0.
+Public validator facts: ethPandaOps Xatu, CC BY 4.0.
+Public airport METAR facts: MET Norway / Avinor, CC BY 4.0 and NLOD 2.0.
+Changes to data: exact-index and station selection with epoch and timestamp checks.
+Balance values remain in gwei. Temperatures remain degrees Celsius.
+The original module also contains unused functions. Their data are not packaged
+and their paths are not mounted. No operations catalog is included.

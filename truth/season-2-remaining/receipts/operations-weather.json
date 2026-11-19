@@ -1,0 +1,24 @@
+{
+  "source": "operations-weather",
+  "intent": "WEATHER_CHECK_TEMPERATURE",
+  "body_sha256": "06ce1c0517148165e0164f6469ca4e24896731c724828a7c466b0685cea5a69f",
+  "bytes": 1749,
+  "nonce": "62da21f47fe1b83885445539345788ef",
+  "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+  "signed": true,
+  "http": 200,
+  "binding_verified": true,
+  "row_hash": "ea6d2a9c6eb22ee7f8973391fd5d58ec5b79b7e9ac4fc7173552e8f586b2a447",
+  "row_hashes": null,
+  "node_rows": [
+    {
+      "row_hash": "ea6d2a9c6eb22ee7f8973391fd5d58ec5b79b7e9ac4fc7173552e8f586b2a447",
+      "status": "admitted",
+      "reason_code": null,
+      "provenance_class": "unverified",
+      "created_at": "2026-11-19T03:10:40.626571Z",
+      "updated_at": "2026-11-19T03:10:40.628958Z"
+    }
+  ],
+  "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/operations-weather.json"
+}

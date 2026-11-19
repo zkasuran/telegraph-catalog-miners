@@ -1,0 +1,23 @@
+{
+  "name": "telegraph-s2-hashprice",
+  "main": "worker.mjs",
+  "compatibility_date": "2025-06-01",
+  "compatibility_flags": [],
+  "keep_vars": true,
+  "observability": { "enabled": false },
+  "send_metrics": false,
+  "no_bundle": true,
+  "find_additional_modules": true,
+  "rules": [{ "type": "ESModule", "globs": [
+    "dispatcher.mjs", "workers-fetch.mjs",
+    "sources/original/worker.mjs", "sources/original/coinbase.mjs",
+    "sources/corporate/worker.mjs", "sources/onchain/worker.mjs",
+    "sources/hashprice/entry.mjs", "sources/hashprice/worker.mjs",
+    "sources/hashprice/core.mjs", "sources/hashprice/proof.mjs"
+  ], "fallthrough": false }, { "type": "Text", "globs": [
+    "LICENSE", "NOTICE", "EVALUATION-PERMISSION.txt", "sources/original/NOTICE",
+    "sources/corporate/LICENSE", "sources/corporate/NOTICE",
+    "sources/onchain/LICENSE", "sources/onchain/NOTICE", "sources/onchain/EVALUATION-PERMISSION.txt",
+    "sources/hashprice/LICENSE", "sources/hashprice/NOTICE", "sources/hashprice/EVALUATION-PERMISSION.txt"
+  ], "fallthrough": false }]
+}

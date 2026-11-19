@@ -1,0 +1,18 @@
+GLEIF LEI reference data comes from the offered Global LEI Index API.
+Data licence: CC0-1.0. Rights clause: GLEIF LEI Data Terms of Use, II.3.
+https://www.gleif.org/en/meta/lei-data-terms-of-use
+No endorsement or association is claimed.
+
+Original code and descriptor: Copyright 2026 zkasuran.
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+The evaluation-material grant in LICENSE permits Telegraph's use of the
+unmodified descriptor and its enclosing truth_source JSONL row.
+These terms do not restrict third-party CC0 data.
+
+Public kit source snapshots in private research evidence:
+Copyright (c) 2026 telegraphprotocol, MIT License.
+Their complete copyright and permission notice is retained in
+evidence/sources/kit-license.body. No kit code is part of the worker.
+
+Official guide snapshots are private research evidence. They are not included
+in the public-safe publication list. PROVENANCE.json identifies every source.

@@ -1,0 +1,205 @@
+{
+  "request": {
+    "id": "inactive",
+    "company": "815600AE2D204A011F75",
+    "jurisdiction": "IT",
+    "http": 200,
+    "active": false
+  },
+  "url": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75",
+  "status": 200,
+  "fetched_at": "2026-11-17T00:34:37.566Z",
+  "elapsed_ms": 250,
+  "content_type": "application/vnd.api+json",
+  "sha256": "16fbea58b88ad7f29d8f41db099c1f91b42d9476dd929dd892b8d4f1513b8aaf",
+  "bytes": 3079,
+  "body_representation": "Unmodified public HTTP body",
+  "raw_file": "inactive.raw.json",
+  "data_license": "CC0-1.0",
+  "source_attribution": "GLEIF Global LEI Index",
+  "document": {
+    "meta": {
+      "goldenCopy": {
+        "publishDate": "2026-11-16T16:00:00Z"
+      }
+    },
+    "data": {
+      "type": "lei-records",
+      "id": "815600AE2D204A011F75",
+      "attributes": {
+        "lei": "815600AE2D204A011F75",
+        "entity": {
+          "legalName": {
+            "name": "VALE S.R.L.",
+            "language": "it-IT"
+          },
+          "otherNames": [],
+          "transliteratedOtherNames": [],
+          "legalAddress": {
+            "language": "it-IT",
+            "addressLines": [
+              "VIA DANIELE PICCININI, 2"
+            ],
+            "addressNumber": null,
+            "addressNumberWithinBuilding": null,
+            "mailRouting": null,
+            "city": "BERGAMO",
+            "region": "IT-BG",
+            "country": "IT",
+            "postalCode": "24122"
+          },
+          "headquartersAddress": {
+            "language": "it-IT",
+            "addressLines": [
+              "VIA DANIELE PICCININI, 2"
+            ],
+            "addressNumber": null,
+            "addressNumberWithinBuilding": null,
+            "mailRouting": null,
+            "city": "BERGAMO",
+            "region": "IT-BG",
+            "country": "IT",
+            "postalCode": "24122"
+          },
+          "registeredAt": {
+            "id": "RA000407",
+            "other": null
+          },
+          "registeredAs": "04421130164",
+          "jurisdiction": "IT",
+          "category": "GENERAL",
+          "legalForm": {
+            "id": "OV32",
+            "other": null
+          },
+          "associatedEntity": {
+            "lei": null,
+            "name": null
+          },
+          "status": "INACTIVE",
+          "expiration": {
+            "date": null,
+            "reason": null
+          },
+          "successorEntity": {
+            "lei": "815600B491ADCA737C06",
+            "name": null
+          },
+          "successorEntities": [
+            {
+              "lei": "815600B491ADCA737C06"
+            }
+          ],
+          "creationDate": null,
+          "subCategory": null,
+          "otherAddresses": [],
+          "eventGroups": [
+            {
+              "groupType": "STANDALONE",
+              "events": [
+                {
+                  "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                  "effectiveDate": "2020-12-27T23:00:00Z",
+                  "recordedDate": "2020-12-29T01:19:17Z",
+                  "type": "MERGERS_AND_ACQUISITIONS",
+                  "status": "COMPLETED",
+                  "affectedFields": [
+                    {
+                      "value": "815600B491ADCA737C06",
+                      "xpath": "/lei:LEIData/lei:LEIRecords/lei:LEIRecord/lei:Entity/lei:SuccessorEntity/lei:SuccessorLEI"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "registration": {
+          "initialRegistrationDate": "2020-01-22T09:04:14Z",
+          "lastUpdateDate": "2020-12-29T01:19:17Z",
+          "status": "RETIRED",
+          "nextRenewalDate": "2021-01-22T09:04:14Z",
+          "managingLou": "815600EAD78C57FCE690",
+          "corroborationLevel": "FULLY_CORROBORATED",
+          "validatedAt": {
+            "id": "RA000407",
+            "other": null
+          },
+          "validatedAs": "04421130164",
+          "otherValidationAuthorities": []
+        },
+        "bic": null,
+        "mic": null,
+        "ocid": null,
+        "qcc": null,
+        "gem": null,
+        "spglobal": [
+          "653149694"
+        ],
+        "conformityFlag": "NOT_APPLICABLE"
+      },
+      "relationships": {
+        "managing-lou": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/managing-lou"
+          }
+        },
+        "lei-issuer": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/lei-issuer"
+          }
+        },
+        "field-modifications": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/field-modifications"
+          }
+        },
+        "direct-parent": {
+          "links": {
+            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/direct-parent-reporting-exception"
+          }
+        },
+        "ultimate-parent": {
+          "links": {
+            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/ultimate-parent-reporting-exception"
+          }
+        },
+        "successor-entity": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/successor-entity"
+          }
+        },
+        "successor-entities": {
+          "links": {
+            "related": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75/successor-entities"
+          }
+        }
+      },
+      "links": {
+        "self": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75"
+      }
+    }
+  },
+  "normalized_http": 200,
+  "normalized": {
+    "active": false,
+    "legal_name": "VALE S.R.L.",
+    "registration_id": "815600AE2D204A011F75",
+    "jurisdiction": "IT",
+    "registered_address": "VIA DANIELE PICCININI, 2, BERGAMO, IT-BG, IT, 24122",
+    "evidence": {
+      "lei": "815600AE2D204A011F75",
+      "authority": "RA000407",
+      "registered_as": "04421130164",
+      "entity_status": "INACTIVE",
+      "lei_registration_status": "RETIRED",
+      "last_update": "2020-12-29T01:19:17Z",
+      "publication": "2026-11-16T16:00:00Z",
+      "fetched_at": "2026-11-17T00:34:37.316Z",
+      "source_url": "https://api.gleif.org/api/v1/lei-records/815600AE2D204A011F75",
+      "terms": "GLEIF LEI reference data CC0-1.0; original normalization LicenseRef-zkasuran-SAND-1.0",
+      "scope": "Entity status as reported in the Global LEI Index. No certification of national good standing or incorporation date.",
+      "attribution": "Global Legal Entity Identifier Foundation (GLEIF). No endorsement."
+    }
+  }
+}

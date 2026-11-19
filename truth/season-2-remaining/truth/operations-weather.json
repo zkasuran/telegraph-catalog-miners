@@ -1,0 +1,65 @@
+{
+  "auth": {
+    "type": "none"
+  },
+  "base_url": "https://telegraph-s2-hashprice.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "description": "Observed current MET Norway / Avinor METAR temperature, CC BY 4.0 and NLOD 2.0. London uses EGLC, Karachi OPKC and Tokyo RJTT. These are named airport observations, not city-centre interpolation or forecasts. Exact station and observation times are checked. Both temperature_c and temp_c carry the same Celsius reading.",
+  "endpoints": [
+    {
+      "description": "Observed current MET Norway / Avinor METAR temperature, CC BY 4.0 and NLOD 2.0. London uses EGLC, Karachi OPKC and Tokyo RJTT. These are named airport observations, not city-centre interpolation or forecasts. Exact station and observation times are checked. Both temperature_c and temp_c carry the same Celsius reading.",
+      "external_path": "/truth/v2/operations/weather",
+      "intents": [
+        "WEATHER_CHECK_TEMPERATURE"
+      ],
+      "method": "GET",
+      "params": {
+        "query": {
+          "required": [
+            {
+              "description": "London, Karachi or Tokyo. Explicit EGLC, OPKC and RJTT are also supported. Other locations are refused.",
+              "intents": [
+                "WEATHER_CHECK_TEMPERATURE"
+              ],
+              "name": "location",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "path": "/truth/v2/operations/weather"
+    }
+  ],
+  "errors": {
+    "code_path": "code",
+    "message_path": "error"
+  },
+  "id": 0,
+  "intent_mapping": {
+    "WEATHER_CHECK_TEMPERATURE": {
+      "endpoint": "/truth/v2/operations/weather",
+      "input": {
+        "location": {
+          "from": "location"
+        }
+      },
+      "output": {
+        "temperature_c": {
+          "path": "temperature_c",
+          "unit": "degrees Celsius"
+        }
+      }
+    }
+  },
+  "kind": "miner",
+  "name": "Operations weather",
+  "protocol": "generic",
+  "rate_limit_per_sec": 1,
+  "semantics": {
+    "supported_intents": [
+      "WEATHER_CHECK_TEMPERATURE"
+    ]
+  },
+  "slug": "zk-operations-weather",
+  "version": "1"
+}

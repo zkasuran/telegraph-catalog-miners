@@ -1,0 +1,2402 @@
+[
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "34060.761751",
+    "rate": "1482984572045375357076320892",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "38999.627872",
+    "rate": "50394078218",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "20793.939076",
+    "rate": "1124732814437341862498465063",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "46183.608195",
+    "rate": "54732369339",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "20861.103749",
+    "rate": "1126911539763917543874554669",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "46278.909642",
+    "rate": "54786111510",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1236.778235",
+    "rate": "116607076689185403344071417",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "60421.067788",
+    "rate": "61894579026",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14244.014000",
+    "rate": "885584660979624195480007247",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "17557.984762",
+    "rate": "32144445869",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "52184.369644",
+    "rate": "1827518636227057729231906860",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "54299.213875",
+    "rate": "59010729553",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "17905.861646",
+    "rate": "1026251685299732210055517163",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "48345.104729",
+    "rate": "55929427213",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "50173.005471",
+    "rate": "1794638795718266929461923349",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1694.512606",
+    "rate": "4963680592",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "30404.956635",
+    "rate": "1396367404355945812860541056",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "11690.008402",
+    "rate": "24551833736",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1161.434595",
+    "rate": "109879403816604472967709592",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "30501.876548",
+    "rate": "44354491552",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "31579.671758",
+    "rate": "1425026327362437686892677957",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2954.744329",
+    "rate": "8208935394",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "28703.515277",
+    "rate": "1353345365982223418391441251",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "29951.559924",
+    "rate": "43920682895",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "13983.919149",
+    "rate": "874798489471038096434121691",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1449.763742",
+    "rate": "4292998579",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "63322.512962",
+    "rate": "1992282666218413799340084909",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "24110.157683",
+    "rate": "38908236621",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14696.037274",
+    "rate": "904057716483252677970982953",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "24479.352269",
+    "rate": "39249606520",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3929.478782",
+    "rate": "331422278915472390849058514",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "29626.080705",
+    "rate": "43661290024",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "9286.939203",
+    "rate": "656843055451102174468629385",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "56736.505729",
+    "rate": "60190483245",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16109.976645",
+    "rate": "959732409818837306104595224",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10582.555673",
+    "rate": "22889993034",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "10436.658792",
+    "rate": "714745202907310916223375809",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "7900.595071",
+    "rate": "18462990514",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "13505.922922",
+    "rate": "854667347231907123763142444",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3549.031487",
+    "rate": "9631214367",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18783.137450",
+    "rate": "1057204635197405303375986960",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "30858.137272",
+    "rate": "44632196179",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "29835.270415",
+    "rate": "1382167648485652484271917298",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "22448.546152",
+    "rate": "37324662874",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "49645.762956",
+    "rate": "1785838071831775641080415483",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "40374.035950",
+    "rate": "51271271914",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "326.554619",
+    "rate": "32133602957991652985217683",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3221.711947",
+    "rate": "8855759483",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "57159.286561",
+    "rate": "1904482173696205057203056656",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "38852.705899",
+    "rate": "50298855779",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16340.801586",
+    "rate": "968534049999307231108232418",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "831.429928",
+    "rate": "2532565747",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "17021.139127",
+    "rate": "994034412960389987592637713",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "37047.892283",
+    "rate": "49105181782",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "6674.830072",
+    "rate": "511315312296311317174306646",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3911.150846",
+    "rate": "10467581381",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16380.612327",
+    "rate": "970044280731981310253532552",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "46321.015919",
+    "rate": "54809827004",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "38705.639418",
+    "rate": "1583209769275378456340782874",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "18364.372966",
+    "rate": "33059005862",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8794.115740",
+    "rate": "630958741614518372901099601",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "49798.708198",
+    "rate": "56709760794",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "33463.094201",
+    "rate": "1469327110060356259423954619",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "53255.772289",
+    "rate": "58491924971",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16807.909269",
+    "rate": "986111888394730475235369259",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1692.999213",
+    "rate": "4959576745",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "31855.572183",
+    "rate": "1431639874116393837379821736",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8801.121632",
+    "rate": "20019388719",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3434.708798",
+    "rate": "295256475349571137371062732",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1655.963990",
+    "rate": "4858982969",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "58202.321907",
+    "rate": "1919893575278948695944273973",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "20116.407893",
+    "rate": "34959571989",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "33133.033649",
+    "rate": "1461704086407782332840349485",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "14873.443823",
+    "rate": "28894458440",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3248.977472",
+    "rate": "281335285788915592118040466",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "5250.262962",
+    "rate": "13381901832",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14454.814785",
+    "rate": "894242039936172867924274827",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "25588.907931",
+    "rate": "40253962040",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "4244.804960",
+    "rate": "353807185017190738482519772",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "59650.747456",
+    "rate": "61545801576",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18304.510609",
+    "rate": "1040436101603266238813886298",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "16864.903216",
+    "rate": "31336746704",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "25557.421279",
+    "rate": "1268563823071250576435168836",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "61585.900462",
+    "rate": "62414799026",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "12441.067557",
+    "rate": "808307570748470073979051669",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "43569.203323",
+    "rate": "53221375246",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "15488.638023",
+    "rate": "935647706011588918370508402",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "31712.662096",
+    "rate": "45288548625",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "6188.483172",
+    "rate": "481714984778873159280319883",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "38307.818778",
+    "rate": "49943187892",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "4274.011113",
+    "rate": "355855388139948861007868610",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8323.621063",
+    "rate": "19203637393",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "4410.774147",
+    "rate": "365391040588990909751643571",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "27255.963679",
+    "rate": "41705573478",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "35062.156875",
+    "rate": "1505457743524975657305621750",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "5886.678766",
+    "rate": "14678331273",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1665.955573",
+    "rate": "154089727465481441918249057",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "13297.931490",
+    "rate": "26819491937",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "59193.533581",
+    "rate": "1934322379227314611706218276",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "47321.367321",
+    "rate": "55368100336",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14409.797442",
+    "rate": "892399505837592169310280943",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "31663.732348",
+    "rate": "45251330600",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "12587.846086",
+    "rate": "814826895336237269568511210",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "9826.886680",
+    "rate": "21703889020",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "4071.696972",
+    "rate": "341580381946765432870189224",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10255.060180",
+    "rate": "22381391510",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "7025.750905",
+    "rate": "532141868602122149987703459",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10464.958698",
+    "rate": "22708301843",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "30256.458362",
+    "rate": "1392685384954894066361757462",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10313.763543",
+    "rate": "22473160145",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "33552.071978",
+    "rate": "1471372220492733140248978212",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "4263.304411",
+    "rate": "11260306413",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8868.877091",
+    "rate": "634928763364434896670083998",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "24745.940393",
+    "rate": "39493837949",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "26463.939254",
+    "rate": "1293738740115199306223682540",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "17950.350828",
+    "rate": "32592740844",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1537.117899",
+    "rate": "142984388410981747433295337",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "5185.470699",
+    "rate": "13246892612",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "63656.202071",
+    "rate": "1996823319648124818299714907",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8538.333182",
+    "rate": "19573045576",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "62404.974865",
+    "rate": "1979689979778056376269280321",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "6309.640967",
+    "rate": "15511520616",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "53193.420543",
+    "rate": "1843615151289071372916169006",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "9033.041933",
+    "rate": "20408150413",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "27536.577647",
+    "rate": "1322730796246058413487378835",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "11740.296967",
+    "rate": "24625268205",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3219.950164",
+    "rate": "279141972877978318383373868",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "24351.534970",
+    "rate": "39131837741",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "42739.907525",
+    "rate": "1662787378354146765258803829",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "11768.071551",
+    "rate": "24665753585",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8164.638746",
+    "rate": "596891690774323166377287254",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "62820.230679",
+    "rate": "62956899418",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "10940.920052",
+    "rate": "739120057670184591509296278",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "38566.450657",
+    "rate": "50112503914",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5566.441455",
+    "rate": "442532318480600500541000059",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "7539.185248",
+    "rate": "17816224213",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "26439.201776",
+    "rate": "1293060100506751590911292326",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "9720.412752",
+    "rate": "21533142881",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "9758.433737",
+    "rate": "680995339234932924113056294",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "19000.855782",
+    "rate": "33762692296",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "13202.829721",
+    "rate": "841689160193886682951927781",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "6989.593644",
+    "rate": "16806694873",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5176.850980",
+    "rate": "417186214895645415058514822",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "46890.194623",
+    "rate": "55128676900",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "43000.527700",
+    "rate": "1667716821208030330472955001",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "9308.604114",
+    "rate": "20863956097",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "10670.932811",
+    "rate": "726143416774239416991549121",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "34522.834647",
+    "rate": "47355946793",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "56615.852308",
+    "rate": "1896357535893091123303550321",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "27190.852620",
+    "rate": "41650106801",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "7875.196950",
+    "rate": "580829019039085096661359660",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "38883.204253",
+    "rate": "50318645773",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "39673.453809",
+    "rate": "1602885609556123762746006767",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "19922.514302",
+    "rate": "34754759950",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2846.454996",
+    "rate": "250482805454579684598352084",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8357.534157",
+    "rate": "19262271178",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1489.015284",
+    "rate": "138806293515912512242861554",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3788.552780",
+    "rate": "10186886349",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "10691.565214",
+    "rate": "727141055035645495467086938",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "53001.878656",
+    "rate": "58364393284",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14517.722278",
+    "rate": "896811134084952180836192782",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2768.722712",
+    "rate": "7750302842",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "6365.523711",
+    "rate": "492591820178073373659584240",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10555.915834",
+    "rate": "22848924718",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "31457.278116",
+    "rate": "1422078393084113196653754852",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "314.535264",
+    "rate": "982020488",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "27146.322083",
+    "rate": "1312279698755420350375741804",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "52733.877646",
+    "rate": "58229216626",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3648.249185",
+    "rate": "311026157078738668585558660",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "15519.219475",
+    "rate": "29707216961",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2411.013826",
+    "rate": "215999197917588315606746633",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "42082.903881",
+    "rate": "52329138274",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "46211.198532",
+    "rate": "1726530953447890833146102675",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10870.714217",
+    "rate": "23330855475",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18368.122930",
+    "rate": "1042681006962267853514606474",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "15639.649497",
+    "rate": "29856509477",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "44715.589928",
+    "rate": "1699563629441795759977065490",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "20473.807978",
+    "rate": "35333665859",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "21186.751707",
+    "rate": "1137408307388217966701290509",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1803.319661",
+    "rate": "5257348002",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2486.845313",
+    "rate": "222090623032135991294438712",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "18550.000618",
+    "rate": "33265851161",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "45592.713752",
+    "rate": "1715467098710157814952057461",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "43790.838026",
+    "rate": "53352299202",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "31946.884502",
+    "rate": "1433819102809942456583845287",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12071.796932",
+    "rate": "25105135514",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "12538.912826",
+    "rate": "812658191826220907415900548",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "43153.221133",
+    "rate": "52974177409",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "11387.468168",
+    "rate": "760220067054760467649170643",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "9516.365755",
+    "rate": "21203332609",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "61582.462441",
+    "rate": "1968265074422902726451899142",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "33789.181946",
+    "rate": "46829076006",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "4007.217256",
+    "rate": "336987623908911512284354467",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12732.249506",
+    "rate": "26040065863",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "13629.090789",
+    "rate": "859893532229841001120756266",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "59651.510430",
+    "rate": "61546148932",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14633.980192",
+    "rate": "901541718335795103066660432",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "47567.883924",
+    "rate": "55504179256",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "7965.153105",
+    "rate": "585848855379980346036752394",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "4883.990054",
+    "rate": "12611017623",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2974.801591",
+    "rate": "260424045370714303779903755",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "51307.055048",
+    "rate": "57499679286",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16449.085087",
+    "rate": "972636489436282696852296120",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "876.866460",
+    "rate": "2665306250",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "21016.077675",
+    "rate": "1131920632024706197564952839",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12075.862444",
+    "rate": "25110975758",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "44948.967273",
+    "rate": "1703819839762014501110643773",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "36131.148863",
+    "rate": "48481207072",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "19681.028385",
+    "rate": "1087922992573639300142867957",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "17661.223645",
+    "rate": "32263016472",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5118.576297",
+    "rate": "413339115796835861303523242",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "26786.880998",
+    "rate": "41303786812",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "46815.014423",
+    "rate": "1737215584089360883718981187",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3565.354389",
+    "rate": "9669393059",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1339.150346",
+    "rate": "125676277376442450563161082",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "22870.470601",
+    "rate": "37734323759",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "56810.267425",
+    "rate": "1899271736895341125496540647",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3263.784352",
+    "rate": "8956502041",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "630.767868",
+    "rate": "61167332701886339298514037",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "22486.883501",
+    "rate": "37362105286",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1393.288784",
+    "rate": "130439386151848866515146749",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "4791.528726",
+    "rate": "12413417775",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "13238.768240",
+    "rate": "843236847137374579089205408",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "10722.559456",
+    "rate": "23104954688",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "22786.026933",
+    "rate": "1187417345850830499192732265",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12921.319491",
+    "rate": "26302713646",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "6300.781303",
+    "rate": "488627950129164127264643746",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "23870.209595",
+    "rate": "38684385643",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "36291.310578",
+    "rate": "1532369211223893687822511246",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "6886.446318",
+    "rate": "16613591403",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18091.574237",
+    "rate": "1032884606081971194343077833",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "17416.144880",
+    "rate": "31980815328",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16232.643791",
+    "rate": "964419503176874350368037092",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1860.295369",
+    "rate": "5410045831",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "27078.752428",
+    "rate": "1310459028962776582556837961",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "29220.885611",
+    "rate": "43335373469",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "20743.740902",
+    "rate": "1123101352629129934708016679",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "45356.451651",
+    "rate": "54262055010",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "20066.550057",
+    "rate": "1100828186249000283677424373",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3227.834659",
+    "rate": "8870440257",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "10439.483598",
+    "rate": "714883415852075672645159811",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "6417.405231",
+    "rate": "15720350632",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "42092.342795",
+    "rate": "1650432916852397665674279325",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "15830.165766",
+    "rate": "30091259067",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "24893.285245",
+    "rate": "1249709342615031619347273708",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "46358.598218",
+    "rate": "54830979490",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "63709.925730",
+    "rate": "1997552437876715624255115010",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "15925.819317",
+    "rate": "30208468999",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "40068.303660",
+    "rate": "1610803094533921586769650429",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "7551.510327",
+    "rate": "17838499390",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "29145.817645",
+    "rate": "1364708524278849517772292979",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "5189.038075",
+    "rate": "13254341013",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "48722.850013",
+    "rate": "1770243875468518424983192264",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "45111.386835",
+    "rate": "54121363065",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "24976.230517",
+    "rate": "1252083634543634422228328399",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "26971.773740",
+    "rate": "41462762675",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5743.895416",
+    "rate": "453867607767175358874033266",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "19011.185913",
+    "rate": "33773985342",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "49396.957790",
+    "rate": "1781657966732350990247866587",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "32909.530593",
+    "rate": "46185594249",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "50154.940456",
+    "rate": "1794338532687200431518071510",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "30687.029821",
+    "rate": "44499121711",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5317.479526",
+    "rate": "426409538859705379748276996",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "35043.204621",
+    "rate": "47724412569",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18422.531321",
+    "rate": "1044597111292348785674975823",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1960.894605",
+    "rate": "5677874587",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2213.962012",
+    "rate": "199994632239450770839162217",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "7847.572239",
+    "rate": "18368924476",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5298.688173",
+    "rate": "425181994254244212629751826",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "36467.772137",
+    "rate": "48711756228",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "16094.866019",
+    "rate": "959153512336625941109082822",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3823.686349",
+    "rate": "10267580911",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "6033.343173",
+    "rate": "472085412691287363280034332",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "7371.138679",
+    "rate": "17510941283",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "28809.294409",
+    "rate": "1356074700731750277889110617",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "20500.757328",
+    "rate": "35361695854",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "387.522042",
+    "rate": "38020189225422774793710434",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "18033.870065",
+    "rate": "32687352492",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "41339.762840",
+    "rate": "1635880505469029429411535580",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "15922.202943",
+    "rate": "30204045515",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5330.216511",
+    "rate": "427240726033597269761197548",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "38480.657836",
+    "rate": "50056438908",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8465.099170",
+    "rate": "613297331958864948769355661",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3148.206016",
+    "rate": "8678977451",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "63593.173977",
+    "rate": "1995967246725621137183285869",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "57449.062422",
+    "rate": "60527259227",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "435.630473",
+    "rate": "42640864788876393769515799",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "37974.549956",
+    "rate": "49723668412",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "30565.998847",
+    "rate": "1400345186999140741497268072",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "63331.952843",
+    "rate": "63178951122",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "26227.979533",
+    "rate": "1287246668847018153646303879",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "61946.524743",
+    "rate": "62574140662",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5922.157459",
+    "rate": "465126600435102108014054479",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "17793.817728",
+    "rate": "32414654225",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "29943.239248",
+    "rate": "1384874364974377014758767099",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "47.727696",
+    "rate": "150983512",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "41571.337834",
+    "rate": "1640380999490537449289985719",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "27722.967641",
+    "rate": "42100585526",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "31477.933447",
+    "rate": "1422576500734291492925153977",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "59961.754002",
+    "rate": "61687077890",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8340.966742",
+    "rate": "606552090472149887178360214",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "61176.462774",
+    "rate": "62232913268",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "17814.074221",
+    "rate": "1022957083121339027250331076",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "41674.907281",
+    "rate": "52079758405",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3002.295751",
+    "rate": "262540846217613668069633504",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "26832.316819",
+    "rate": "41342927708",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "525.933857",
+    "rate": "51257010223852979403855452",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "62919.816862",
+    "rate": "63000234903",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "525.274166",
+    "rate": "51194335269378491579852978",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "15730.964512",
+    "rate": "29969242537",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "23908.184614",
+    "rate": "1221071349919827353922109480",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "23956.323167",
+    "rate": "38764904134",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2639.921300",
+    "rate": "234275070314543734651084860",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12168.541912",
+    "rate": "25243821981",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "4964.903608",
+    "rate": "403122609725562347830658704",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12412.930516",
+    "rate": "25591481634",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "11148.780693",
+    "rate": "748997169283140807332789542",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "51414.945857",
+    "rate": "57555434508",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14686.911212",
+    "rate": "903688112705696566431555608",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "6615.773816",
+    "rate": "16101198160",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "9765.745532",
+    "rate": "681365330220016902757034208",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "35706.481640",
+    "rate": "48187945892",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "10536.250635",
+    "rate": "719606563398442096862104349",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "47440.170645",
+    "rate": "55433753521",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "42522.677900",
+    "rate": "1658659986957254553357017105",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "1217.641571",
+    "rate": "3643537119",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "22643.512474",
+    "rate": "1183061066066444890290097218",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "49028.830855",
+    "rate": "56298862890",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "24353.263623",
+    "rate": "1234111956178192753340923122",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "63773.502255",
+    "rate": "63369310928",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "2097.312210",
+    "rate": "190398204121840484606943939",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "28284.678086",
+    "rate": "42569276438",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "55116.348131",
+    "rate": "1873590603706884187692887477",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8706.572680",
+    "rate": "19859521041",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18167.813023",
+    "rate": "1035594867918621688553139959",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2479.748122",
+    "rate": "7024419331",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "33384.231578",
+    "rate": "1467510988540720482077510527",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3819.337889",
+    "rate": "10257604523",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "34864.453415",
+    "rate": "1501060740524391539849494484",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "56032.061927",
+    "rate": "59853988278",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1351.102867",
+    "rate": "126729815394366310605264749",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "982.818100",
+    "rate": "2972696849",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "34080.320691",
+    "rate": "1483428381918712279583021310",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "43234.667287",
+    "rate": "53022728824",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "14563.612816",
+    "rate": "898681113906956349478952344",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "25923.935440",
+    "rate": "40551075964",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8230.482014",
+    "rate": "600509941793743954372187069",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "22275.885702",
+    "rate": "37155482860",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "18573.744876",
+    "rate": "1049903209354765925569814864",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "40930.727465",
+    "rate": "51619779726",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "38886.065259",
+    "rate": "1586907338774444511677592679",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "30191.203919",
+    "rate": "44110321581",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "3269.856106",
+    "rate": "282909913033768245683737100",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "488.099422",
+    "rate": "1511166067",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "30358.515501",
+    "rate": "1395217351228726182750690240",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "42876.332053",
+    "rate": "52808561026",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "7814.325084",
+    "rate": "577417825910477146558718700",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2488.591903",
+    "rate": "7046882536",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "24197.426734",
+    "rate": "1229565330532030082156829851",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2115.889578",
+    "rate": "6086145580",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "12227.244736",
+    "rate": "798733693914216583626207941",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "62138.498573",
+    "rate": "62658638746",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "35806.280738",
+    "rate": "1521836159466377415381758099",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2243.563883",
+    "rate": "6418547351",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "22034.659472",
+    "rate": "1164233353651296324390002389",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "42618.713708",
+    "rate": "52653690421",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "30949.497265",
+    "rate": "1409754471933404747527166227",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "3953.397151",
+    "rate": "10563733851",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "9481.673833",
+    "rate": "666889134298978686977072419",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "40983.682098",
+    "rate": "51652732488",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "45251.831181",
+    "rate": "1709316436731837911973909986",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12205.431494",
+    "rate": "25296544836",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "19738.695219",
+    "rate": "1089863992983365053004362264",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "60332.604605",
+    "rate": "61854720035",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "5461.131592",
+    "rate": "435744145321917111628790588",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "12606.978352",
+    "rate": "25864838686",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1747.143338",
+    "rate": "161024998241549200317300569",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "28861.954301",
+    "rate": "43043844169",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "42156.889129",
+    "rate": "1651671225158631948683747634",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8741.499202",
+    "rate": "19918670313",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "38169.209482",
+    "rate": "1572134955707557223957879393",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "31894.587103",
+    "rate": "45426546551",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "30286.629275",
+    "rate": "1393434571905710978755320141",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "5459.098539",
+    "rate": "13813186270",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "27916.687211",
+    "rate": "1332806246173545298354936056",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "16520.793602",
+    "rate": "30927955721",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "8651.155933",
+    "rate": "623323037631598322397084173",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "25418.552019",
+    "rate": "40101810108",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "11456.763892",
+    "rate": "763454844868505721645027008",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "44636.170175",
+    "rate": "53846748908",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "59987.388708",
+    "rate": "1945730031540358935041859263",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "8517.846088",
+    "rate": "19537983052",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "7989.439139",
+    "rate": "587199783698920318002480897",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "2697.344059",
+    "rate": "7572544087",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "25574.339818",
+    "rate": "1269039518870859109883855461",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "30687.456414",
+    "rate": "44499454178",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "1092.037615",
+    "rate": "103642426140793494552496989",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "5380.491657",
+    "rate": "13651536048",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "31536000000000000000000000000000000",
+    "expected": "17391.292764",
+    "rate": "1007640103669081824361755566",
+    "type": "generated arithmetic test vector, not a market observation"
+  },
+  {
+    "denominator": "1000000000000000000",
+    "expected": "52871.458024",
+    "rate": "58298682579",
+    "type": "generated arithmetic test vector, not a market observation"
+  }
+]

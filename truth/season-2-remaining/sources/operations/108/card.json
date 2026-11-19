@@ -1,0 +1,12 @@
+{
+  "admitted": false,
+  "current_node_schema_verified": false,
+  "deployed": false,
+  "generated_provenance": "unverified",
+  "intent": "VALIDATOR_PERFORMANCE_VERIFY_GENERAL",
+  "issue": 108,
+  "mapping_gate": "Exact native task and field capture, with explicit weather alias",
+  "material_license": "CC-BY-4.0",
+  "private_loader_verified": false,
+  "scope": "Delayed finalized Ethereum mainnet validator effective balance from ethPandaOps Xatu, CC BY 4.0. Exact index and public key are checked. Missing, wrong-epoch or older-than-one-hour records are refused. No uptime or APR claim."
+}

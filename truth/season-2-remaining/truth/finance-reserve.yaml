@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+version: '1'
+kind: miner
+id: 0
+slug: truth-finance-reserve
+protocol: generic
+name: Finance reference 77
+description: 'SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0. Own observation
+  of the WBTC PoR oracle attestation on Ethereum mainnet at a finalized block. BTC
+  reserves in zero-decimal micro-BTC. No liability completeness or bank assurance.'
+base_url: https://telegraph-s2-hashprice.margyn.workers.dev
+auth:
+  type: none
+endpoints:
+- path: /truth/v2/finance-reserve
+  external_path: /truth/v2/finance-reserve
+  method: GET
+  description: Own observation of the WBTC PoR oracle attestation on Ethereum mainnet
+    at a finalized block. BTC reserves in zero-decimal micro-BTC. No liability completeness
+    or bank assurance.
+  intents:
+  - ASSET_RESERVE_ATTESTATION_GENERAL
+  params:
+    query:
+      required:
+      - name: asset
+        type: string
+        intents:
+        - '*'
+        description: 'The tokenized asset: its symbol or contract address'
+semantics:
+  supported_intents:
+  - ASSET_RESERVE_ATTESTATION_GENERAL
+intent_mapping:
+  ASSET_RESERVE_ATTESTATION_GENERAL:
+    endpoint: /truth/v2/finance-reserve
+    input:
+      asset:
+        from: asset
+    output:
+      attested_reserve:
+        path: attested_reserve
+        unit: micro-units of the underlying asset

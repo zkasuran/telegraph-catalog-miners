@@ -1,0 +1,13 @@
+{
+  "origin": "https://telegraph-s2-hashprice.margyn.workers.dev",
+  "deployed": false,
+  "current_native_codec_verified": false,
+  "loader_verified": false,
+  "admission_verified": false,
+  "routes": [
+    {"issue": 77, "stem": "finance-reserve", "path": "/truth/v2/finance-reserve", "intent": "ASSET_RESERVE_ATTESTATION_GENERAL", "required": {"asset": "string"}, "field": "attested_reserve", "unit": "micro-units of the underlying asset", "wire_type": "decimal string", "decimals": 0, "range": [1, 1000000000000000000]},
+    {"issue": 136, "stem": "finance-yield", "path": "/truth/v2/finance-yield", "intent": "CRYPTO_YIELD_RATE_GENERAL", "required": {"project": "string", "symbol": "string", "chain": "string"}, "field": "supply_apy", "unit": "basis points", "wire_type": "decimal string", "decimals": 6, "range": [0, 100000]},
+    {"issue": 108, "stem": "operations-validator", "path": "/truth/v2/operations/validator", "intent": "VALIDATOR_PERFORMANCE_VERIFY_GENERAL", "required": {"validator_index": "integer"}, "field": "effective_balance", "unit": "gwei", "wire_type": "JSON integer", "decimals": 6, "range": [0, 2100000000000]},
+    {"issue": 168, "stem": "operations-weather", "path": "/truth/v2/operations/weather", "intent": "WEATHER_CHECK_TEMPERATURE", "required": {"location": "string"}, "field": "temperature_c", "unit": "degrees Celsius", "wire_type": "JSON number", "alias": "temp_c", "range": [-90, 60]}
+  ]
+}

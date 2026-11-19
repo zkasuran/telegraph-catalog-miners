@@ -1,0 +1,47 @@
+{
+  "observed_at": "2026-11-18T09:41:46.779Z",
+  "results": [
+    {
+      "effective_balance": 32000000000,
+      "validator_index": 1,
+      "pubkey": "0xa1d1ad0714035353258038e964ae9675dc0252ee22cea896825c01458e1807bfad2f9969338798548d9858a571f7425c",
+      "epoch": 490022,
+      "epoch_start_time": "2026-11-18T09:01:11.000Z",
+      "age_seconds": 2435.779000043869,
+      "network": "Ethereum mainnet",
+      "source_kind": "delayed finalized consensus data",
+      "attribution": "ethPandaOps Xatu, CC BY 4.0",
+      "source": "https://lab.ethpandaops.io/api/v1/mainnet/fct_validator_balance",
+      "finalized_latest_crosscheck": true,
+      "exact_epoch_crosscheck": false
+    },
+    {
+      "effective_balance": 0,
+      "validator_index": 100000,
+      "pubkey": "0xa410d9d4dd37589027f858e99848f4d27400373e035ca52d98672dcffe91629523d8c7c17009572d6f9ccb0b523083bd",
+      "epoch": 490022,
+      "epoch_start_time": "2026-11-18T09:01:11.000Z",
+      "age_seconds": 2435.779000043869,
+      "network": "Ethereum mainnet",
+      "source_kind": "delayed finalized consensus data",
+      "attribution": "ethPandaOps Xatu, CC BY 4.0",
+      "source": "https://lab.ethpandaops.io/api/v1/mainnet/fct_validator_balance",
+      "finalized_latest_crosscheck": true,
+      "exact_epoch_crosscheck": false
+    },
+    {
+      "effective_balance": 0,
+      "validator_index": 500000,
+      "pubkey": "0xa5af18fe20ceee7546d592f2eabecb8d64c3945008e856c510268d37881506a888d00fe89544b025670f1a7ce6a56a7b",
+      "epoch": 490022,
+      "epoch_start_time": "2026-11-18T09:01:11.000Z",
+      "age_seconds": 2435.779000043869,
+      "network": "Ethereum mainnet",
+      "source_kind": "delayed finalized consensus data",
+      "attribution": "ethPandaOps Xatu, CC BY 4.0",
+      "source": "https://lab.ethpandaops.io/api/v1/mainnet/fct_validator_balance",
+      "finalized_latest_crosscheck": true,
+      "exact_epoch_crosscheck": false
+    }
+  ]
+}

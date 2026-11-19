@@ -1,0 +1,14 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+worker.mjs and coinbase.mjs are the byte-identical captured current deployment.
+Their original comments and bytes are preserved. They lack an inline SPDX
+notice. This sidecar supplies the software notice without changing either file.
+The package LICENSE applies to the licensor's source. The supplemental package
+EVALUATION-PERMISSION.txt grants exact-bundle audit and evaluation reproduction.
+
+Original upstream calls remain mempool.space and Blockstream Esplora. No
+third-party software is embedded. No upstream response archive is republished
+here. Express data-redistribution permission for those services is not
+established by this package. Preservation of existing behavior is not a new
+grant of upstream rights. See the package DATA-SOURCES.md for this limitation.

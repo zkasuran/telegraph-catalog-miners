@@ -1,0 +1,163 @@
+{
+  "deployment_version": "b1f8b7bb-3a90-4cab-9255-8bb1e8a4dfb1",
+  "new_route_successes": 9,
+  "new_route_successes_required": 9,
+  "full_live_cases_passed": 30,
+  "full_live_cases": 31,
+  "unresolved_live_case": "Existing PublicNode Bitcoin truth route rate-limited; no reference is emitted",
+  "private_node_codec_verified": false,
+  "uploads": [
+    {
+      "source": "finance-reserve",
+      "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+      "body_sha256": "db4b6c861347dbc6263a9e2eff4a9a06c0a243731f3630bf992759006e4aca4a",
+      "bytes": 1569,
+      "nonce": "e2bb9bfe2d4e71eef8471722c3ee234f",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "signed": true,
+      "http": 200,
+      "binding_verified": true,
+      "row_hash": "0b280854ba57f18b0a4ea9bcace49afb868d8c027c09ea1fc3382ca20be882bf",
+      "row_hashes": null,
+      "node_rows": [
+        {
+          "row_hash": "0b280854ba57f18b0a4ea9bcace49afb868d8c027c09ea1fc3382ca20be882bf",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "attested",
+          "created_at": "2026-11-19T03:09:34.34224Z",
+          "updated_at": "2026-11-19T03:09:34.34534Z"
+        }
+      ],
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/finance-reserve.json"
+    },
+    {
+      "source": "finance-yield",
+      "intent": "CRYPTO_YIELD_RATE_GENERAL",
+      "body_sha256": "e00aa412d46c2a44487117834223eba7df0401013637328608913b10d5b07639",
+      "bytes": 1783,
+      "nonce": "1118803adfc36638c0ff76d0ff28243e",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "signed": true,
+      "http": 200,
+      "binding_verified": true,
+      "row_hash": "ed17d9084062e35552040c22997936148dec698a0582e8fb392521daf6440bf1",
+      "row_hashes": null,
+      "node_rows": [
+        {
+          "row_hash": "ed17d9084062e35552040c22997936148dec698a0582e8fb392521daf6440bf1",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "attested",
+          "created_at": "2026-11-19T03:09:53.279884Z",
+          "updated_at": "2026-11-19T03:09:53.281643Z"
+        }
+      ],
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/finance-yield.json"
+    },
+    {
+      "source": "operations-validator",
+      "intent": "VALIDATOR_PERFORMANCE_VERIFY_GENERAL",
+      "body_sha256": "e13a1aea622323efe643895eb2c90f22af8782d45a53c9d15ac5d601289a96ca",
+      "bytes": 1592,
+      "nonce": "c43bdc181b87333ac85fa4a797c2a310",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "signed": true,
+      "http": 200,
+      "binding_verified": true,
+      "row_hash": "424f51688d02a231c2d44065b0c98503d3b03c36e1dad8989e39df1726017cb9",
+      "row_hashes": null,
+      "node_rows": [
+        {
+          "row_hash": "424f51688d02a231c2d44065b0c98503d3b03c36e1dad8989e39df1726017cb9",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "unverified",
+          "created_at": "2026-11-19T03:10:19.139807Z",
+          "updated_at": "2026-11-19T03:10:19.142153Z"
+        }
+      ],
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/operations-validator.json"
+    },
+    {
+      "source": "operations-weather",
+      "intent": "WEATHER_CHECK_TEMPERATURE",
+      "body_sha256": "06ce1c0517148165e0164f6469ca4e24896731c724828a7c466b0685cea5a69f",
+      "bytes": 1749,
+      "nonce": "62da21f47fe1b83885445539345788ef",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "signed": true,
+      "http": 200,
+      "binding_verified": true,
+      "row_hash": "ea6d2a9c6eb22ee7f8973391fd5d58ec5b79b7e9ac4fc7173552e8f586b2a447",
+      "row_hashes": null,
+      "node_rows": [
+        {
+          "row_hash": "ea6d2a9c6eb22ee7f8973391fd5d58ec5b79b7e9ac4fc7173552e8f586b2a447",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "unverified",
+          "created_at": "2026-11-19T03:10:40.626571Z",
+          "updated_at": "2026-11-19T03:10:40.628958Z"
+        }
+      ],
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/operations-weather.json"
+    },
+    {
+      "source": "invoice-material",
+      "intent": "INVOICE_LEDGER_RECONCILE_GENERAL",
+      "body_sha256": "15b6ade974619928f11a799f1b65c7c095b69152002d7e58e049ccdb0269cc87",
+      "bytes": 4429,
+      "nonce": "4cf49aff94e7f7f68f9cd229a7ccc493",
+      "submitter": "0xdb6c6340342e71a63cd11ebac2185204b7777777",
+      "signed": true,
+      "http": 200,
+      "binding_verified": true,
+      "row_hash": null,
+      "row_hashes": [
+        "7804755ccc6c269fab8d1171cb88e493ed1b7b63450cbb50c31a7ccc0cecfefa",
+        "357961d3649d00333393479a0251c25b02dcef18e924aadc9544aaf0d63acdf3",
+        "7011c76d7fad1f3408db47c7f1150aa3aee1dfaba343b31a50a0f625921debf6",
+        "ccc97c746385971268d7bdcafa948c42f6acf36c89bb31643fda22f117e398d6"
+      ],
+      "node_rows": [
+        {
+          "row_hash": "7804755ccc6c269fab8d1171cb88e493ed1b7b63450cbb50c31a7ccc0cecfefa",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "unverified",
+          "created_at": "2026-11-19T05:03:45.497263Z",
+          "updated_at": "2026-11-19T05:03:45.498833Z"
+        },
+        {
+          "row_hash": "357961d3649d00333393479a0251c25b02dcef18e924aadc9544aaf0d63acdf3",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "unverified",
+          "created_at": "2026-11-19T05:03:45.496011Z",
+          "updated_at": "2026-11-19T05:03:45.498833Z"
+        },
+        {
+          "row_hash": "7011c76d7fad1f3408db47c7f1150aa3aee1dfaba343b31a50a0f625921debf6",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "unverified",
+          "created_at": "2026-11-19T05:03:45.49488Z",
+          "updated_at": "2026-11-19T05:03:45.498833Z"
+        },
+        {
+          "row_hash": "ccc97c746385971268d7bdcafa948c42f6acf36c89bb31643fda22f117e398d6",
+          "status": "admitted",
+          "reason_code": null,
+          "provenance_class": "unverified",
+          "created_at": "2026-11-19T05:03:45.493179Z",
+          "updated_at": "2026-11-19T05:03:45.498833Z"
+        }
+      ],
+      "receipt_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/truth/season-2-remaining/receipts/invoice-material.json",
+      "scope": "Four generated/unverified comparisons of actual non-payable lab invoices and ledger records. Not production commerce or a training dataset."
+    }
+  ],
+  "historical_revocations_complete": false,
+  "all_work_complete": false
+}

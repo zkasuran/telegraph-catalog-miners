@@ -1,0 +1,529 @@
+{
+  "reserve": {
+    "address_count": 109,
+    "address_set_source": "preserved issuer disclosure, not independently proven custody",
+    "answer_satoshis": "11614464510048",
+    "answered_in_round": "36893488147419104285",
+    "balances": [
+      {
+        "address": "3PRCCQMdWwjEKy89iVdL8LouknsgygwWpL",
+        "satoshis": 301302044052
+      },
+      {
+        "address": "3NfBFZRgKfHVJy7rSTutZyGpa5M2GpRdwu",
+        "satoshis": 262071394693
+      },
+      {
+        "address": "3EmKqHZhXic3TymhuY8NLS7Bdk91erm4V7",
+        "satoshis": 240209389793
+      },
+      {
+        "address": "3QdyHj1i4y5CywEFWJ5PwoqGzDxGyJGPeb",
+        "satoshis": 240181813293
+      },
+      {
+        "address": "3MnCLWSq31hetgbVA1Xn1VxVVb31SPeSKa",
+        "satoshis": 240181809493
+      },
+      {
+        "address": "3HHLh4HSK8wj1w3YW9i4Chdnuybgadhpz1",
+        "satoshis": 240118370993
+      },
+      {
+        "address": "31sW8NHLr9MELRdoGPWrEk6wBd1pj2uzkB",
+        "satoshis": 240114335793
+      },
+      {
+        "address": "36jGhq48YgvjJWtEpqrc57QzXcBJQyCsS7",
+        "satoshis": 240038599893
+      },
+      {
+        "address": "36ZsF5YgJDW25eZKS6gnZMqW4gr6wv9xp1",
+        "satoshis": 239997486293
+      },
+      {
+        "address": "3KWe9k7TG2j7xNw8BP9YHXBeHy1knC1xGS",
+        "satoshis": 238623390693
+      },
+      {
+        "address": "3ARRJS9VNVkMdiESpxq2AGfpZUQRUvdGgd",
+        "satoshis": 237934308243
+      },
+      {
+        "address": "3FDtvkk7hpZq5GuEJxt3Ps95vjtdDEfJ4T",
+        "satoshis": 224073391293
+      },
+      {
+        "address": "36h9DtMdqYWTxSg1yys2exZPFQoQXv8QRL",
+        "satoshis": 223072087494
+      },
+      {
+        "address": "31oMgrBjhbAr1ZZjFUFYfDT1ZYvx3Qp9qL",
+        "satoshis": 192804298833
+      },
+      {
+        "address": "3CDy1xZavmpd27jV6TZm5teH8U6hrdXRES",
+        "satoshis": 192804297833
+      },
+      {
+        "address": "3Muz5dT5EguQgTiXgQ1eqJYNkjjQuSMgsb",
+        "satoshis": 188001213187
+      },
+      {
+        "address": "3MkzCjZjodyaBXz7W8i9NTjduEdykdkd89",
+        "satoshis": 175047305523
+      },
+      {
+        "address": "35bXvntqjj5LnEpRVqU9bLcAPtT9crggYj",
+        "satoshis": 165436241693
+      },
+      {
+        "address": "3PyK2LYBfYMUXsa8sMhTSHQZ8StQy3Xoz8",
+        "satoshis": 120669184293
+      },
+      {
+        "address": "3FVsTChmR7WYgfnU3CAmrrD3kqmaRMaJCC",
+        "satoshis": 120669183693
+      },
+      {
+        "address": "3573rMHLB3VABY7VaXMWhRoCBVspLGC4xV",
+        "satoshis": 120669179293
+      },
+      {
+        "address": "35LMppVy98ofPKeUXUk79FUSkVC8yiXHUF",
+        "satoshis": 120669179293
+      },
+      {
+        "address": "3DhbEcm1SuJjTRxZBXxHyceYGm7GdRB2pM",
+        "satoshis": 120669179293
+      },
+      {
+        "address": "3MwfxJqsy943oqYhbdKiaBrFSK9xbyiAi9",
+        "satoshis": 120669179293
+      },
+      {
+        "address": "3Cr3vRcZD5q4XbXCVTo8sFCN9Xb7z5isth",
+        "satoshis": 120663764993
+      },
+      {
+        "address": "34CyVpeNgNNEoBdEoSSH6aTjrUZDavaUtr",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "38EovPeRhGniW3cpYLJwptCqJkx9Y1Pg7G",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "39P2pJ9EmN3qmPAm1TTZPzp6T5LSsJq3eQ",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3Agd6vor95XcHvf1MPKE69KEpNbZTKD6JF",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3AKea5UYSyMc2oRRdQYhkn57nXWMm5woDz",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3CQBneh4TJtHGUP4QS3mfJc75NoiGgKwV3",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3DJNy9xMcMsNdmdipTgqME3TJCRkv7uS2g",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3FHRnMSaGMAaLcoHbA5EVcEuYVxTEZdTyp",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3HziaqLNy8PpyQFLdwr2yxCjwEjRUjN6Eg",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3NW5tDLFceDb1a75QkGampkuuceZ3YPMUX",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3P4EDeK5fxCLEQzM7iQ7n95DWgG1cXSaqG",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3PRHbh8ajUXv5wPD11CxFRs1hWBo8vR3zW",
+        "satoshis": 120663764193
+      },
+      {
+        "address": "3JvmhjuxvLVM8NQzAwwMvzWAK6zDLQ5Aor",
+        "satoshis": 120663762193
+      },
+      {
+        "address": "3A25qkpmhCrYGEZh39wc71u89dSXGCYSvd",
+        "satoshis": 120663507093
+      },
+      {
+        "address": "3BCm2gVB29QDFLWt768jjTwKoe1N1QVwSU",
+        "satoshis": 120608811293
+      },
+      {
+        "address": "31x6dwHmXYHqd7YiwvJNPX8ryvDj8Cdht1",
+        "satoshis": 120608810493
+      },
+      {
+        "address": "32Ver3t9feJgByfNLF8pggtNFPMf22iC3Q",
+        "satoshis": 120608810493
+      },
+      {
+        "address": "3CPEGQzA227hHR2jUf66MdgBJ5wPnDdaW9",
+        "satoshis": 120608810493
+      },
+      {
+        "address": "3HpHptRrwK5x9i7uULvk116QhsAnRJfJb8",
+        "satoshis": 120608810493
+      },
+      {
+        "address": "3PnoF45bZhJcPKGLf4nQzyQVAEFsxBxQQa",
+        "satoshis": 120608810493
+      },
+      {
+        "address": "34Qg9U75RNPqAmZzF2amJ1XNGQyVek7HkQ",
+        "satoshis": 120608808993
+      },
+      {
+        "address": "36m2gCFRpkikK6AXUQGKLabKmd8PMjwx1Z",
+        "satoshis": 120608808993
+      },
+      {
+        "address": "3BPbdokvatbZEFJHuVUstG9zeSDLr5RdvL",
+        "satoshis": 120608808993
+      },
+      {
+        "address": "3HGSCuXjnfEncUCPQ4GzNrv3BHcmLZFdeT",
+        "satoshis": 120608808993
+      },
+      {
+        "address": "3QbVP6bTSXN2tXG66MTKtHtiJ1coKXnrjP",
+        "satoshis": 120608808993
+      },
+      {
+        "address": "3MLH54DXCtmydRocRZz9pEkfTTGWribBa3",
+        "satoshis": 120608808493
+      },
+      {
+        "address": "37kFT7mcJqgkqKbd66VbgkHSQgnys2V7hp",
+        "satoshis": 120608807293
+      },
+      {
+        "address": "34MPipmU3suumfX7WxTUTxmLX2uVK1Np8R",
+        "satoshis": 120456754193
+      },
+      {
+        "address": "3BCWh8prqQDsZDi6Pmvut9HJrhii1Vk7Ak",
+        "satoshis": 120456754193
+      },
+      {
+        "address": "32Cav9GPxma3wRprn2FtPQ7gxmCZ8ZEmzv",
+        "satoshis": 120456752493
+      },
+      {
+        "address": "3PxV5m54ZwMDheUyFecvRVQHJK7WG1t49V",
+        "satoshis": 120456751293
+      },
+      {
+        "address": "31sADuWnUApAxzXJZTaEziCn9DhZVUajwK",
+        "satoshis": 120379812693
+      },
+      {
+        "address": "3HauLvRoUBueiiLwebk19w6rnUTYJkdwNW",
+        "satoshis": 120379812693
+      },
+      {
+        "address": "3NmVi1xVYZj5YXU8wcQyoUfcVRCLcYhqqQ",
+        "satoshis": 120379812693
+      },
+      {
+        "address": "39ydxDT3H6KygeXQn8f1tYXk6BtCTrsutw",
+        "satoshis": 120379810493
+      },
+      {
+        "address": "3GE2pWumzKXnNMA9PFggsBwyk7NYSJvGGg",
+        "satoshis": 120378073693
+      },
+      {
+        "address": "3EedqW1fD4QRFmrPgkZZZvzHRzj9f4xVSX",
+        "satoshis": 120378073093
+      },
+      {
+        "address": "35dn2Sfsi9qmqZke8SfSVcaggED9uJYQhn",
+        "satoshis": 120297990793
+      },
+      {
+        "address": "3Kx4doXvL4UhDrKJqn8FoS5wVU3VeS9ebM",
+        "satoshis": 120297990793
+      },
+      {
+        "address": "3PkGNCt85M3aNQkBqiT5Psgmz8FjNujEKK",
+        "satoshis": 120297990793
+      },
+      {
+        "address": "3Jj1juATP11jHfBvRiu3BbzdJCNeRskqzJ",
+        "satoshis": 120297989093
+      },
+      {
+        "address": "36U3VfLRN9kbQQXRGwP5SGUYebSB3MqVnp",
+        "satoshis": 120117161493
+      },
+      {
+        "address": "3CuoRMhRXvsxdYsNL4kmKDJyAhaDB7SmBn",
+        "satoshis": 120117161493
+      },
+      {
+        "address": "3CdzzKFGY7ZahrMCM1tBgoxrgSPUWX4RVY",
+        "satoshis": 120117159793
+      },
+      {
+        "address": "3KeG7RzDwGaTywRfQgPCQaeyMgi7C89eQc",
+        "satoshis": 120117159793
+      },
+      {
+        "address": "bc1qj589mwxxqppxr73q4ueyzx8pdnc3fc2fk25xzangp3ku3pt68mls78rc0m",
+        "satoshis": 120000000330
+      },
+      {
+        "address": "3CrWGaRncSudU3EZPEhvWqeU2PG1xutr5x",
+        "satoshis": 119121281586
+      },
+      {
+        "address": "3A37hJV9JPWR4UMCXC3QvKSeVGiRwgGtiU",
+        "satoshis": 118640179033
+      },
+      {
+        "address": "3AfJyKGXVBUcaWdyJeWxsasq1dHPw8pRZz",
+        "satoshis": 115008558636
+      },
+      {
+        "address": "3QmVyCw6YnEvt1jXLeF5863uHPLRaKhWs5",
+        "satoshis": 109520449435
+      },
+      {
+        "address": "3HM8YGKhwwnZKmrUEoGroEgaG3dv8xkVZz",
+        "satoshis": 107183349057
+      },
+      {
+        "address": "3APCmmVbkpKSmLkTbGUvdPUyfqA4CZ25a4",
+        "satoshis": 90337117903
+      },
+      {
+        "address": "bc1q8gy2ffusr5shl802fmrcdhx3m95wjauqfhp5ymzr4hm5rf92hh5qeydvhl",
+        "satoshis": 77543000000
+      },
+      {
+        "address": "3LbLR4uiq7RFrWgDKHfdgktAC88qtwY2Li",
+        "satoshis": 74728794017
+      },
+      {
+        "address": "3JMDjCYxxi5MF3aXRx8Dg13Rign3masTXj",
+        "satoshis": 72765151961
+      },
+      {
+        "address": "3Py2iN5SEwSCtT5QHkDU1qhbvmdmMZ8cpK",
+        "satoshis": 62582995363
+      },
+      {
+        "address": "3MzRi499Cbcr4795iRnznfC97EFji23h7n",
+        "satoshis": 39968048564
+      },
+      {
+        "address": "33gNdUGQTBT7cUbNx4892keGA2L64ixrfJ",
+        "satoshis": 37335975847
+      },
+      {
+        "address": "32fN3YjNhtAzUjBHfTVFtiPBFPgy1MkBAC",
+        "satoshis": 35218293011
+      },
+      {
+        "address": "3CxK8MVHuqXW85z4MF7A4FYk8k6jKPFgPW",
+        "satoshis": 23841717228
+      },
+      {
+        "address": "3JqwUY7pUwEWu2hz6mwzZKSQnvKyRRXCQM",
+        "satoshis": 21432352049
+      },
+      {
+        "address": "36RYMHxKrvNvrFcovZVXEQWC11LLbPE56V",
+        "satoshis": 14851427812
+      },
+      {
+        "address": "bc1qlgxt8u2x3r26eefvq0zp9flqfhgaqkelrvlv8y0wwxn63z53uutqhz0j8l",
+        "satoshis": 10000007210
+      },
+      {
+        "address": "bc1qtharwcyel9ef9ckzhxa4xml6rpykr4umvs5uf5d2knq8w2p9293qcn26fj",
+        "satoshis": 10000000330
+      },
+      {
+        "address": "3K43ux5cCAxfKgymq5eHnHS1toC9nrERbT",
+        "satoshis": 9024950521
+      },
+      {
+        "address": "35GGyCXMGfhLkz5mnsMyvt6Z37gtkwMzg4",
+        "satoshis": 7637874279
+      },
+      {
+        "address": "bc1qxhgd6t3l4rkl4s7qnqacvy36hs8052pktetp25zny0r55qu4n3aqf3rl07",
+        "satoshis": 6732411458
+      },
+      {
+        "address": "3KAGrSyTsKLckBgN7AiAfojbScfjGAHwFz",
+        "satoshis": 5984736105
+      },
+      {
+        "address": "3HKt3hyRQ3DSCcZsGPM5awME3AKMsJr3af",
+        "satoshis": 4603536436
+      },
+      {
+        "address": "3GTk9xdRHnPQ61Pm7Jnv2Z8hsXv5FMVyeY",
+        "satoshis": 2621071506
+      },
+      {
+        "address": "3EuEvwodW88xEuwecsLb76x16tLxcUZAxx",
+        "satoshis": 499899665
+      },
+      {
+        "address": "3FKkCxSZe1c4xZiVyJVBTbvzs9Lj1snqVC",
+        "satoshis": 360150029
+      },
+      {
+        "address": "3MM2BiaXBACfKUtVsyNr2RDXyNEhunez6v",
+        "satoshis": 867937
+      },
+      {
+        "address": "bc1qsu3umzp5s2ugrtxmdds5lxzssncf4hfzxh2wufcdp4n7cv4vy3gqkhwtff",
+        "satoshis": 701948
+      },
+      {
+        "address": "3P73PXL5Gk7qKVQWgWu3Frrc4QPNomqCWs",
+        "satoshis": 500000
+      },
+      {
+        "address": "3AdKaaTBFPQgpFen9YERPmrfV7QVvkYQfp",
+        "satoshis": 312715
+      },
+      {
+        "address": "bc1q7n7a0llkggx9j55wma2p6d7mj92qhy467fnkrxkgyxme5z556s5sukeha5",
+        "satoshis": 300000
+      },
+      {
+        "address": "bc1q8sxr369hmgm7saqucnhwa3ppm7elgle8ah6kmzwvp8hprgwwcraqvzrsst",
+        "satoshis": 150000
+      },
+      {
+        "address": "bc1qlggc7z544fyxhc2s30ktljns5fcff2pzf2tt0pdl7pftlgfkazrslxanhx",
+        "satoshis": 99414
+      },
+      {
+        "address": "3HaHcbNmhJKgJ3dtbm2tg8XH87BJkRx7QE",
+        "satoshis": 7687
+      },
+      {
+        "address": "35cv1mcZBJkvkjY2KQSdmbo7Mq7E2yEVZD",
+        "satoshis": 1693
+      },
+      {
+        "address": "3J37HnDBzWN1sm65mbD9U5zvKrp2bzhuYJ",
+        "satoshis": 1147
+      },
+      {
+        "address": "39a4H2y1EhXi7CvstvAhxTS2bDxpAH5fD6",
+        "satoshis": 600
+      },
+      {
+        "address": "3CdEWt1ARZJEejR2xtpdA3dUGk3f2eHGA8",
+        "satoshis": 546
+      }
+    ],
+    "btc_block": {
+      "hash": "00000000000000000000e9e7adc59068e310c8f9874665c480f30a9afb048486",
+      "height": 976273
+    },
+    "complete_observed_satoshis": "11647206877982",
+    "decimals": 8,
+    "description": "\"WBTC PoR\"",
+    "ethereum_block": {
+      "hash": "0xa3ee9019743e0c678863f31adbd0d0b3b258e329535b2a2b174688695bf28053",
+      "height": 26434690,
+      "timestamp": 1794917591
+    },
+    "feed": "0xa81FE04086865e63E12dD3776978E49DEEa2ea4e",
+    "limitations": [
+      "On-chain oracle attestation is not a cryptographic proof of liability completeness.",
+      "Bitcoin balances are independently computed for the disclosed address set at an observed stable tip.",
+      "Ethereum attestation round and Bitcoin observation are distinct points in time."
+    ],
+    "observed_micro_btc": 116144645100,
+    "relative_difference_bps": "28.19102671989195571767649115",
+    "round_id": "36893488147419104285",
+    "tip_stable": true,
+    "updated_at": 1794855299
+  },
+  "yield": {
+    "aave_apr_ray": "41918639874829493618415054",
+    "aave_provider_words": [
+      0,
+      7285142230,
+      2776222682157126,
+      0,
+      2617003361870971,
+      41918639874829493618415054,
+      49410131336044163978290375,
+      0,
+      0,
+      1194309377249050585391441771,
+      1259652745924047089157551015,
+      1794917579
+    ],
+    "aave_reserve_words": [
+      7237005577332262213973186574461266551101134606747188597468891267601119313920,
+      1194309377249050585391441771,
+      41918639874829493618415054,
+      1259652745924047089157551015,
+      49410131336044163978290375,
+      0,
+      1794917579,
+      3,
+      872098396310152698756227359515231329174652284764,
+      92195730569863513439342587157164721798497473690,
+      656028995407626786791396700217488207564943511556,
+      906457040377089435841458393656629260160736689659,
+      7285142230,
+      0,
+      0
+    ],
+    "aave_supply_apy_bps": "428.0963214799072637384315004685061746209555592661786974128622878109800",
+    "block": {
+      "hash": "0xa3ee9019743e0c678863f31adbd0d0b3b258e329535b2a2b174688695bf28053",
+      "height": 26434690,
+      "timestamp": 1794917591
+    },
+    "chain_id": 1,
+    "checks": {
+      "aave_provider_rate_matches_pool": true,
+      "compound_model_matches_rate": true,
+      "same_aave_bytes_two_providers": true,
+      "same_block_hash_two_providers": true,
+      "same_comet_bytes_two_providers": true
+    },
+    "compound_independent_model_rate": "1267780735",
+    "compound_model": {
+      "supplyKink": 900000000000000000,
+      "supplyPerSecondInterestRateBase": 0,
+      "supplyPerSecondInterestRateSlopeHigh": 101344495180,
+      "supplyPerSecondInterestRateSlopeLow": 1141552511
+    },
+    "compound_rate_per_second_wad": "1267780735",
+    "compound_supply_apy_bps": "407.9072132753008616347196580254797869464905174611694402798735156223500",
+    "compound_utilization_wad": "902371944087004731",
+    "convention": "Base supply yield at a constant current rate, compounded each second for 365 days. No incentive rewards and no promise of realised yield.",
+    "independence": "Two RPC operators verify transport/state agreement. They are not independent yield assessments. Separate contract paths and model arithmetic verify interpretation."
+  }
+}
