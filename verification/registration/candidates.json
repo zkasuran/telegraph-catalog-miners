@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "candidates": [
+    {
+      "family": "SENTIMENT_ANALYSIS",
+      "child": "SENTIMENT_ANALYSIS_GENERAL",
+      "class": "judgment",
+      "file": "SENTIMENT_ANALYSIS.safetensors",
+      "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/37e3c48cfc71e182adf05012a493325a367b0fe2/verification/registration/artifacts/sentiment/SENTIMENT_ANALYSIS.safetensors",
+      "sha256": "f2eefcc7b7fd807bcbd260d97c8b3b0a6b50276199b475131df968a5b60d43d9",
+      "keccak": "4fba5da30996be940825450ae3abc5a438b1c582e098346469b83be42168a125",
+      "slot": 1,
+      "forward_port": 48601,
+      "runnable_url": "https://tga1.zkasuran.dev/_s2sent/runnable",
+      "owner": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+      "existing_registration_id": 0,
+      "verified_run_id": "44441475723",
+      "verified_commit": "a18b51ce4be30741a86e2432416b5b283a795b4d",
+      "candidate_proof": {
+        "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/37e3c48cfc71e182adf05012a493325a367b0fe2/verification/registration/artifacts/sentiment/candidate-manifest.json",
+        "sha256": "32c0e285f6726b07ced06f07b53f33a94194d373973de56bfb74f94c55ecfa7d"
+      },
+      "runtime_proof": {
+        "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/37e3c48cfc71e182adf05012a493325a367b0fe2/verification/registration/artifacts/sentiment/runtime-result.json",
+        "sha256": "dd66981ce9936b2bf7f906a6be416ec4a3a6f3d4830bdfe5691b1778614b32a5"
+      },
+      "source_proof": {
+        "url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/37e3c48cfc71e182adf05012a493325a367b0fe2/verification/registration/artifacts/sentiment/data-binding.json",
+        "sha256": "4ee10138832d9958f6e06f6da8c19eecedd1f10936d100e95e74def299e6e119"
+      }
+    }
+  ]
+}
