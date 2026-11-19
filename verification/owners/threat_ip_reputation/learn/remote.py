@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tarfile
 import time
+import threading
 import urllib.error
 import urllib.request
 from dataclasses import asdict
@@ -24,6 +25,7 @@ from contracts import (BASE_FILES, BASE_REVISION, FAMILY, FORMATS, FOUNDATION, K
                        render, sha, validation_gate, words, write_json)
 from training_record import development_record
 from class_binding import collect_classes
+from wire import Server, Backend
 
 HERE = Path(__file__).resolve().parent
 RELEASE = "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/"
@@ -112,7 +114,10 @@ def engine_vectors(root, foundation, package, manifest, tokenizer, rows, full_va
            "FOUNDATION_ENGINE_WASM_HASH": FOUNDATION["foundation_engine.wasm"], "FOUNDATION_POOL_SIZE": "1"}
     adapter_hash = manifest["keccak256"].removeprefix("0x")
     identity = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"], "tokenizer_hash": FOUNDATION["tokenizer.json"], "adapter_hash": adapter_hash}
-    url = "http://127.0.0.1:" + str(port) + "/runnable"
+    frontend = Server(("127.0.0.1", 0), identity, Backend(port))
+    frontend_thread = threading.Thread(target=frontend.serve_forever, daemon=True)
+    frontend_thread.start()
+    url = "http://127.0.0.1:" + str(frontend.server_address[1]) + "/runnable"
     def post(body):
         request = urllib.request.Request(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
         with urllib.request.urlopen(request, timeout=600) as response:
@@ -162,7 +167,8 @@ def engine_vectors(root, foundation, package, manifest, tokenizer, rows, full_va
                 raise ValueError("reference returned invalid finite FP32 bits")
             proof = {"full_parser_passed": True, "reference_engine_passed": True, "repeat_bits_identical": True,
                      "negative_identity_controls": len(controls), "vectors": [{"tokens": tokens, "score_bits": value} for tokens, value in zip(vectors[:8], bits[:8])],
-                     "scope": "validation fixed vectors, not an independent quality audit"}
+                     "scope": "validation fixed vectors, not an independent quality audit",
+                     "identity_refusal_layer": "strict token-only serving front end; reference engine inputs and score bits unchanged"}
             if full_validation:
                 scores = [struct.unpack("<f", struct.pack("<I", value))[0] for value in bits]
                 wins = [scores[2*i] > scores[2*i+1] for i in range(len(selected))]
@@ -176,6 +182,9 @@ def engine_vectors(root, foundation, package, manifest, tokenizer, rows, full_va
                 proof["validation_pairs"] = len(selected)
             return proof
         finally:
+            frontend.shutdown()
+            frontend.server_close()
+            frontend_thread.join(timeout=10)
             process.terminate()
             try:
                 process.wait(timeout=15)
