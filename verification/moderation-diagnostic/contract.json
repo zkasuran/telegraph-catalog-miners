@@ -1,0 +1,45 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "name": "moderation-c3-h6-validation-only",
+  "motivation": "Flat original validation trajectory after three completed epochs. No prior test errors choose settings.",
+  "repository": "zkasuran/telegraph-catalog-miners",
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "source_bindings": {
+    "run.py": "5b2ba64a11ff141ac96a20c491fc282f917e722183b2ab67c17e6a12c8ff519b",
+    "data.py": "82709147c3d628c258e871c414195396097af8c228370c53e10c110018ddf9ce",
+    "sources.json": "73acea9578e0bdda4b7f47724ab4a34ec055abb1bd4b10c50a65ad2927874430",
+    "requirements.lock": "4c2b80fd53899579cccb949ef49760b5f53d32cb00e2e3c85bdc857345c832ac",
+    "licences.json": "99ced81fe4590ace72b41e69f55464694d1306fbecc69388108c08a2670b2b1f",
+    "preserve.py": "5d69c863798bf1a3d804079a20fc844291c2f6c1382946e8369018884947e6f6"
+  },
+  "original_splits": {
+    "train": "ba68b3405925b3bdfe39a4b57a49edde9267e75b708c2e9fb463c1bcd6c7e28b",
+    "validation": "66aa1dee115e7ee165502535e678ef2d6671739a1f0a44df6a88f5af5e5a90c1",
+    "test": "df63197a46ac7ba72b4231eb4c7d2fca857576fa3a08cf623ef8dc1dc7b369a7"
+  },
+  "c3_reproduction": {
+    "training_loss_4dp": [0.6952, 0.6902, 0.6861],
+    "validation_accuracy": [0.5, 0.5, 0.4922],
+    "validation_loss_4dp": [0.6956, 0.6930, 0.6926],
+    "best_epoch": 1,
+    "best_payload_sha256": "a3aba6f42f182877c9e89931748eccec9b81c7bbdfb63a51c7633bddcdb8d4f4",
+    "failure_policy": "Any mismatch invalidates causal comparison. No audit access. Cross-machine FP32 drift is possible."
+  },
+  "arms": {"C3": 3, "H6": 6},
+  "hyperparameters": {
+    "max_length": 256, "batch_size": 2, "grad_accum": 8,
+    "eval_batch": 4, "gate_min_acc": 0.8, "grad_checkpointing": false,
+    "seed": 42, "lora_rank": 8, "lora_alpha": 32, "lora_dropout": 0.1,
+    "lr": 0.0001, "weight_decay": 0.01,
+    "early_stopping": true, "es_metric": "val_loss", "es_patience": 1,
+    "es_min_delta": 0.001, "loss_floor": 0.0001,
+    "gate_min_margin_over_baseline": 0.1
+  },
+  "audit": {"originals": 256, "per_label": 128, "salt": "moderation-audit-v2", "source_split": "test"},
+  "selection": ["minimum of six label/format accuracies descending", "worst group BT loss ascending", "minimum overall format accuracy descending", "earlier epoch ascending", "C3 before H6"],
+  "gates": {"overall": 0.8, "per_label": 0.7, "length_gain": 0.1, "untrained_gain": 0.05},
+  "limits": {"snapshots": 9, "optimizer_steps": 432, "job_minutes": 330, "threads": 4},
+  "release_status": "Trained candidate only. Parser, exported runtime and node qualification require separate controller integration."
+}

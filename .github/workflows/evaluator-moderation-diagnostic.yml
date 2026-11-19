@@ -1,0 +1,68 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Bounded moderation schedule diagnostic
+run-name: Moderation C3 H6 validation-only diagnostic
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_exclusions_json:
+        description: Additional normalized source group SHA-256 IDs as a JSON array, checked by controller
+        required: true
+        default: '[]'
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-training-CONTENT_MODERATION
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      DIAGNOSTIC_PUBLIC_REPOSITORY: 'true'
+      CAMPAIGN_EXCLUSIONS_JSON: ${{ inputs.campaign_exclusions_json }}
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '42'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      HF_HUB_OFFLINE: '1'
+      CUDA_VISIBLE_DEVICES: ''
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+          sparse-checkout-cone-mode: false
+      - name: Source-only release checks
+        timeout-minutes: 5
+        run: |
+          bash verification/verify.sh
+          bash verification/moderation-diagnostic/verify.sh
+      - name: Install and audit existing hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/train-venv"
+          "$RUNNER_TEMP/train-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/training/requirements.lock
+          "$RUNNER_TEMP/train-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/train-venv/bin/python" verification/training/audit.py --lock verification/training/requirements.lock --out "$RUNNER_TEMP/moderation-audit-requirements.txt" --report "$RUNNER_TEMP/moderation-audit-result.json"
+      - name: Frozen two-arm remote diagnostic
+        timeout-minutes: 295
+        run: timeout --signal=TERM --kill-after=20s 17520 "$RUNNER_TEMP/train-venv/bin/python" verification/moderation-diagnostic/run_remote.py --root "$RUNNER_TEMP/moderation-diagnostic"
+      - name: Preserve licensed checkpoints even on failure
+        if: always()
+        timeout-minutes: 5
+        run: python3 verification/moderation-diagnostic/preserve_all.py --root "$RUNNER_TEMP/moderation-diagnostic"
+      - name: Upload diagnostics and licensed checkpoints
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: moderation-c3-h6-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/moderation-diagnostic/evidence/
+            ${{ runner.temp }}/moderation-audit-result.json

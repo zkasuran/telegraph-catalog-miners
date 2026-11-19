@@ -1,0 +1,78 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Recover immutable sentiment evaluator
+run-name: Recover sentiment artifact 14413342566 without retraining
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: evaluator-sentiment-recover
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+          sparse-checkout-cone-mode: false
+      - name: Static and adversarial checks
+        run: bash verification/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Retrieve exact original run artifact
+        timeout-minutes: 5
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 verification/training/sentiment_recover.py fetch --root "$RUNNER_TEMP/sentiment-recovery"
+      - name: Install original hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/recovery-venv"
+          "$RUNNER_TEMP/recovery-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/training/requirements.lock
+          "$RUNNER_TEMP/recovery-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/recovery-venv/bin/python" verification/training/audit.py --lock verification/training/requirements.lock --out "$RUNNER_TEMP/recovery-audit-requirements.txt" --report "$RUNNER_TEMP/sentiment-recovery/audit-result.json"
+      - name: Regenerate and bind exact source-only splits
+        timeout-minutes: 10
+        run: |
+          python3 verification/training/data.py --family SENTIMENT_ANALYSIS --out "$RUNNER_TEMP/sentiment-recovery/data"
+          python3 verification/training/sentiment_recover.py verify-data --root "$RUNNER_TEMP/sentiment-recovery"
+      - name: Prepare pinned runtime and static checker
+        timeout-minutes: 20
+        run: python3 verification/training/sentiment_recover.py prepare --root "$RUNNER_TEMP/sentiment-recovery"
+      - name: Fresh authoritative class snapshot and full Stage 1 validation
+        timeout-minutes: 3
+        run: python3 verification/training/sentiment_recover.py validate --root "$RUNNER_TEMP/sentiment-recovery"
+      - name: All-format runtime and identical repeated score bits
+        timeout-minutes: 125
+        run: timeout --signal=TERM --kill-after=20s 7320 "$RUNNER_TEMP/recovery-venv/bin/python" verification/training/runtime_all_formats.py --root "$RUNNER_TEMP/sentiment-recovery"
+      - name: Emit controller registration-test candidate
+        run: python3 verification/training/sentiment_recover.py candidate --root "$RUNNER_TEMP/sentiment-recovery"
+      - name: Upload candidate and bounded diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: sentiment-recovery-candidate
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/sentiment-recovery/*.json
+            ${{ runner.temp }}/sentiment-recovery/*.txt
+            ${{ runner.temp }}/sentiment-recovery/runtime.log
+            ${{ runner.temp }}/sentiment-recovery/SENTIMENT_ANALYSIS.safetensors
+            ${{ runner.temp }}/sentiment-recovery/checkpoint.safetensors
+            ${{ runner.temp }}/sentiment-recovery/data/data-report.json
+            verification/training/licences.json
