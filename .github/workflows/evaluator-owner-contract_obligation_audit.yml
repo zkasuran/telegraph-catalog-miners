@@ -1,0 +1,271 @@
+{
+  "name": "Contract obligation owner pipeline",
+  "run-name": "Contract owner ${{ inputs.mode }}",
+  "on": {
+    "workflow_dispatch": {
+      "inputs": {
+        "mode": {
+          "description": "Train/audit or serve one verified package",
+          "type": "choice",
+          "required": true,
+          "default": "train",
+          "options": [
+            "train",
+            "serve"
+          ]
+        },
+        "package_url": {
+          "description": "Proof-bound package_url",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "package_sha256": {
+          "description": "Proof-bound package_sha256",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "package_keccak": {
+          "description": "Proof-bound package_keccak",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "report_url": {
+          "description": "Proof-bound report_url",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "report_sha256": {
+          "description": "Proof-bound report_sha256",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "slot": {
+          "description": "Proof-bound slot",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "forward_port": {
+          "description": "Proof-bound forward_port",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        "runnable_url": {
+          "description": "Proof-bound runnable_url",
+          "type": "string",
+          "required": false,
+          "default": ""
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "contract-owner-${{ inputs.mode }}",
+    "cancel-in-progress": false
+  },
+  "jobs": {
+    "train": {
+      "if": "inputs.mode == 'train'",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 240,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TOKENIZERS_PARALLELISM": "false",
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "persist-credentials": false,
+            "sparse-checkout": "verification/owners/contract_obligation_audit\n.github/workflows/evaluator-owner-contract_obligation_audit.yml",
+            "sparse-checkout-cone-mode": false
+          }
+        },
+        {
+          "name": "Actual standalone source gate",
+          "run": "bash verification/owners/contract_obligation_audit/verify.sh",
+          "timeout-minutes": 5
+        },
+        {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Hash-locked CPU dependencies and full release audit",
+          "timeout-minutes": 20,
+          "run": "python3 -m venv \"$RUNNER_TEMP/contract-venv\"\n\"$RUNNER_TEMP/contract-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/contract_obligation_audit/requirements.lock\n\"$RUNNER_TEMP/contract-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/audit_dependencies.py --lock verification/owners/contract_obligation_audit/requirements.lock --out \"$RUNNER_TEMP/dependency-releases.txt\" --report \"$RUNNER_TEMP/dependency-audit.json\""
+        },
+        {
+          "name": "Construct frozen clean source splits",
+          "timeout-minutes": 10,
+          "run": "python3 verification/owners/contract_obligation_audit/balanced.py --out \"$RUNNER_TEMP/contract-run/data\"\npython3 verification/owners/contract_obligation_audit/source_gate.py --data \"$RUNNER_TEMP/contract-run/data\" --report \"$RUNNER_TEMP/contract-run/source-gate.json\""
+        },
+        {
+          "name": "Train and freeze, no audit selection",
+          "timeout-minutes": 195,
+          "run": "timeout --signal=TERM --kill-after=20s 11400 \"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/train_remote.py --root \"$RUNNER_TEMP/contract-run\""
+        },
+        {
+          "name": "Retain licensed success or failure checkpoint",
+          "if": "always()",
+          "run": "python3 verification/owners/contract_obligation_audit/preserve_remote.py --root \"$RUNNER_TEMP/contract-run\""
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always()",
+          "with": {
+            "name": "contract-frozen",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json"
+          }
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always()",
+          "with": {
+            "name": "contract-licensed-checkpoint",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/contract-run/licensed-checkpoint.zip\n${{ runner.temp }}/dependency-audit.json"
+          }
+        }
+      ]
+    },
+    "audit": {
+      "if": "inputs.mode == 'train'",
+      "needs": "train",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 115,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TOKENIZERS_PARALLELISM": "false",
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "persist-credentials": false,
+            "sparse-checkout": "verification/owners/contract_obligation_audit\n.github/workflows/evaluator-owner-contract_obligation_audit.yml",
+            "sparse-checkout-cone-mode": false
+          }
+        },
+        {
+          "name": "Actual standalone source gate",
+          "run": "bash verification/owners/contract_obligation_audit/verify.sh",
+          "timeout-minutes": 5
+        },
+        {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Hash-locked CPU dependencies and full release audit",
+          "timeout-minutes": 20,
+          "run": "python3 -m venv \"$RUNNER_TEMP/contract-venv\"\n\"$RUNNER_TEMP/contract-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/contract_obligation_audit/requirements.lock\n\"$RUNNER_TEMP/contract-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/audit_dependencies.py --lock verification/owners/contract_obligation_audit/requirements.lock --out \"$RUNNER_TEMP/dependency-releases.txt\" --report \"$RUNNER_TEMP/dependency-audit.json\""
+        },
+        {
+          "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "with": {
+            "name": "contract-frozen",
+            "path": "${{ runner.temp }}/contract-run"
+          }
+        },
+        {
+          "name": "Independent frozen quality and actual parser/engine audit",
+          "timeout-minutes": 85,
+          "run": "timeout --signal=TERM --kill-after=20s 4980 \"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/audit_remote.py --root \"$RUNNER_TEMP/contract-run\""
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always()",
+          "with": {
+            "name": "contract-registration-result",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/contract-run/registration-ready.json\n${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/audit-score-bits.json\n${{ runner.temp }}/contract-run/*-parser.json\n${{ runner.temp }}/contract-run/full-parser-tests.log\n${{ runner.temp }}/contract-run/*-engine.log\n${{ runner.temp }}/contract-run/data/source-manifest.json"
+          }
+        }
+      ]
+    },
+    "serve": {
+      "if": "inputs.mode == 'serve'",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 330,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TOKENIZERS_PARALLELISM": "false",
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "PACKAGE_URL": "${{ inputs.package_url }}",
+        "PACKAGE_SHA256": "${{ inputs.package_sha256 }}",
+        "PACKAGE_KECCAK": "${{ inputs.package_keccak }}",
+        "REPORT_URL": "${{ inputs.report_url }}",
+        "REPORT_SHA256": "${{ inputs.report_sha256 }}",
+        "SLOT": "${{ inputs.slot }}",
+        "FORWARD_PORT": "${{ inputs.forward_port }}",
+        "RUNNABLE_URL": "${{ inputs.runnable_url }}"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "persist-credentials": false,
+            "sparse-checkout": "verification/owners/contract_obligation_audit\n.github/workflows/evaluator-owner-contract_obligation_audit.yml",
+            "sparse-checkout-cone-mode": false
+          }
+        },
+        {
+          "name": "Actual standalone source gate",
+          "run": "bash verification/owners/contract_obligation_audit/verify.sh",
+          "timeout-minutes": 5
+        },
+        {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Prepare exact parser, foundation and public restricted lease",
+          "timeout-minutes": 20,
+          "run": "python3 verification/owners/contract_obligation_audit/serve_remote.py --phase prepare --root \"$RUNNER_TEMP/contract-serve\""
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "contract-public-lease",
+            "retention-days": 1,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/contract-serve/public-lease/lease.json"
+          }
+        },
+        {
+          "name": "Hold exact free reference executor and ephemeral restricted forwarding",
+          "timeout-minutes": 300,
+          "run": "timeout --signal=TERM --kill-after=20s 17700 python3 verification/owners/contract_obligation_audit/serve_remote.py --phase hold --root \"$RUNNER_TEMP/contract-serve\""
+        }
+      ]
+    }
+  }
+}

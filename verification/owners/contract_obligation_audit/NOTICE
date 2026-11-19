@@ -1,0 +1,22 @@
+ContractNLI source text and annotations:
+Yuta Koreeda and Christopher Manning (2021).
+ContractNLI: A Dataset for Document-level Natural Language Inference for Contracts.
+Findings of EMNLP 2021, pages 1907-1919.
+https://aclanthology.org/2021.findings-emnlp.164/
+https://github.com/stanfordnlp/contract-nli/tree/eced6528dd3c1d14d73f9a87df8f7bdbc03126f9
+CC BY 4.0. Original source rights remain unchanged. Bounded selection and
+AI-assisted relation-flip answer templates are new changes, not human preference reviews.
+
+ModernBERT: Answer.AI and LightOn, Apache-2.0.
+https://huggingface.co/answerdotai/ModernBERT-base/tree/8949b909ec900327062f0ebf497f51aef5e6f0c8
+The primary card grants the architectures, pretrained weights and training
+codebase under Apache 2.0. The backbone is unchanged.
+
+Telegraph reference kit: Copyright (c) 2026 telegraphprotocol, MIT.
+https://github.com/telegraphprotocol/telegraph-wasm-baseline/tree/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd
+Full retained grants are in licences.json and embedded in every exported delta.
+The reference engine and foundation are pinned, not binary-wrapped or altered.
+
+New source/contract code and trained deltas: Copyright (c) 2026 zkasuran.
+LicenseRef-zkasuran-SAND-1.0. These terms do not restrict original CC BY text,
+annotations or source-derived data. No licensor endorsement is implied.
