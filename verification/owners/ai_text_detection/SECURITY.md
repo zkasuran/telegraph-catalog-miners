@@ -3,6 +3,7 @@
 | Attack | Defence | Test |
 |---|---|---|
 | Wrong source bytes or missing grant | Git blob plus SHA-256 and per-article CC BY clause | Manifest and tampered-XML controls |
+| Sparse checkout omits gate inputs | Exact owned source and workflow paths in non-cone checkout | Incomplete-checkout refusal control |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |

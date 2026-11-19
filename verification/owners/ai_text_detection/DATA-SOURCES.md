@@ -60,3 +60,5 @@ row, provider response capture or prior exposed audit is a training input.
 Journal text is source text. Publication metadata is source annotation. Generated
 origin records are machine provenance. Verdict comparisons are constructed
 preferences. None of those records is described as human-reviewed preference data.
+The source manifest stays byte-identical across the checkout integration repair.
+Its separate fit, validation and audit groups are not rebuilt after a failed job.

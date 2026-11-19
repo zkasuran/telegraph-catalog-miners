@@ -8,6 +8,18 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 
+def validate_checkout(config):
+    expected = {"/verification/owners/ai_text_detection/", "/.github/workflows/evaluator-owner-ai_text_detection.yml"}
+    for job in config["jobs"].values():
+        checkout = job["steps"][0]
+        settings = checkout.get("with", {})
+        if (not checkout.get("uses", "").startswith("actions/checkout@") or
+                settings.get("persist-credentials") is not False or
+                settings.get("sparse-checkout-cone-mode") is not False or
+                set(settings.get("sparse-checkout", "").split("\n")) != expected):
+            raise ValueError("standalone checkout must include the exact source and workflow")
+
+
 def main():
     for path in HERE.glob("*.py"):
         compile(path.read_text(), str(path), "exec")
@@ -18,6 +30,7 @@ def main():
         if not (HERE / name).is_file() or not (HERE / name).stat().st_size:
             raise ValueError("missing standalone release asset: " + name)
     workflow = json.loads((HERE / "workflow.json").read_text())
+    validate_checkout(workflow)
     path = HERE.parents[2] / ".github/workflows/evaluator-owner-ai_text_detection.yml"
     if path.read_bytes() != (HERE / "workflow.json").read_bytes():
         raise ValueError("owned workflow differs from validated JSON/YAML config")

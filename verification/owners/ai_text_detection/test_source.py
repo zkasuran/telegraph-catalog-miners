@@ -17,6 +17,7 @@ from common import (COUNTS, FORMATS, HERE, baseline_report, check_splits, fit_ba
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
+from static_check import validate_checkout
 from wire import check_reply, score_value
 
 
@@ -36,6 +37,14 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_actual_standalone_checkout_contract_and_failure_control(self):
+        config = json.loads((HERE / "workflow.json").read_text())
+        validate_checkout(config)
+        changed = copy.deepcopy(config)
+        changed["jobs"]["verify"]["steps"][0]["with"]["sparse-checkout"] = "/verification/owners/ai_text_detection/"
+        with self.assertRaisesRegex(ValueError, "exact source and workflow"):
+            validate_checkout(changed)
+
     def test_full_manifest_counts_grants_groups_and_spans(self):
         source = json.loads((HERE / "sources.json").read_text())
         report = source["source_report"]

@@ -73,7 +73,8 @@
           "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
           "with": {
             "persist-credentials": false,
-            "sparse-checkout": "verification/owners/ai_text_detection"
+            "sparse-checkout-cone-mode": false,
+            "sparse-checkout": "/verification/owners/ai_text_detection/\n/.github/workflows/evaluator-owner-ai_text_detection.yml"
           }
         },
         {
@@ -156,7 +157,8 @@
           "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
           "with": {
             "persist-credentials": false,
-            "sparse-checkout": "verification/owners/ai_text_detection"
+            "sparse-checkout-cone-mode": false,
+            "sparse-checkout": "/verification/owners/ai_text_detection/\n/.github/workflows/evaluator-owner-ai_text_detection.yml"
           }
         },
         {
