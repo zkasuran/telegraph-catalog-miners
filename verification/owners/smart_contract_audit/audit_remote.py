@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 from data import FAMILY, ATTEMPT, answers, render, sha, write
 from policy import execution_gate, quality, remote_only
 from remote_prepare import bound_data, prepare
-from contracts import finite_bits, response_bits
+from contracts import finite_bits, response_bits, heldout_pairs
 
 
 def decode(bits):
@@ -31,8 +31,11 @@ def main():
     remote_only()
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", required=True, type=Path)
-    root = parser.parse_args().root
-    if (root / "audit-result.json").exists():
+    parser.add_argument("--split", choices=("validation", "audit"), default="audit")
+    args = parser.parse_args()
+    root, split = args.root, args.split
+    report_path = root / (split + "-result.json")
+    if report_path.exists():
         raise ValueError("audit already measured; no adaptive repeat")
     manifest = json.loads((root / "candidate-manifest.json").read_text())
     if manifest["run_id"] != os.environ["GITHUB_RUN_ID"] or manifest["commit"] != os.environ["GITHUB_SHA"]:
@@ -41,7 +44,7 @@ def main():
         raise ValueError("candidate belongs to another owner attempt")
     rows, binding = bound_data(root)
     execution_gate(rows, json.loads((root / "evm-report.json").read_text()), binding["inventory_sha256"])
-    audit = [r for r in rows if r["split"] == "audit"]
+    audit, independent_audit = heldout_pairs(rows, split)
     foundation, _, _, hashes, _ = prepare(root, training=False)
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(str(foundation / "tokenizer.json"))
@@ -56,9 +59,10 @@ def main():
               "data": binding, "candidate_manifest_sha256": sha((root / "candidate-manifest.json").read_bytes()),
               "runtime_sha256": manifest["executor_sha256"], "foundation": hashes,
               "node_identity": "pinned Telegraph node-compatible kit " + manifest["kit"]["revision"],
-              "live_node_qualification": "not attempted", "audit_designs": len({r["template_group"] for r in audit}),
-              "audit_source_rows": len(audit), "measurements": {}, "verdict": "INCOMPLETE"}
-    write(root / "audit-result.json", report)  # durable before starting model inference
+               "live_node_qualification": "not attempted", "audit_designs": len({r["template_group"] for r in audit}) if independent_audit else 0,
+               "audit_source_rows": len(audit) if independent_audit else 0, "measured_pairs": len(audit), "measured_split": split,
+              "audit_used_for_selection": False, "measurements": {}, "verdict": "INCOMPLETE"}
+    write(report_path, report)  # durable before starting model inference
     vectors = {}
     maximum = 0
     for style, name in enumerate(("prose", "json", "report")):
@@ -85,7 +89,7 @@ def main():
                "FOUNDATION_MODEL_HASH": hashes["foundation_lora_fp32.onnx"],
                "FOUNDATION_ENGINE_WASM_PATH": str(foundation / "foundation_engine.wasm"),
                "FOUNDATION_ENGINE_WASM_HASH": hashes["foundation_engine.wasm"]}
-        with (root / (candidate + "-runtime.log")).open("w") as log:
+        with (root / (candidate + "-" + split + "-runtime.log")).open("w") as log:
             process = subprocess.Popen([str(root / "adapterexec"), "--package", str(package), "--listen", f"127.0.0.1:{port}"],
                                        env=env, stdout=log, stderr=log)
             try:
@@ -155,7 +159,7 @@ def main():
                         "by_label": {str(v): sum(w for r, w in zip(audit, wins) if r["vulnerable"] == v) / sum(r["vulnerable"] == v for r in audit) for v in (True, False)},
                         "repeat_vectors": 8}
                     report["measurements"][candidate] = measurements
-                    write(root / "audit-result.json", report)
+                    write(report_path, report)
                 if candidate == "candidate":
                     recorded = measurements["prose"]["bits"][:8]
                     report["vectors"] = [{"tokens": ids, "score_bits": bits} for ids, bits in zip(vectors["prose"][:8], recorded)]
@@ -169,7 +173,7 @@ def main():
                     process.kill()
                     process.wait(timeout=10)
     metrics = {}
-    shortcuts = json.loads((root / "shortcut-report.json").read_text())["audit"]
+    shortcuts = json.loads((root / "shortcut-report.json").read_text())[split]
     for name in ("prose", "json", "report"):
         m = report["measurements"]["candidate"][name]
         metrics[name] = {**m, "untrained_accuracy": report["measurements"]["untrained"][name]["accuracy"],
@@ -177,10 +181,14 @@ def main():
                          "shortcut_accuracy": max(shortcuts["length"], shortcuts["source_answer_overlap"], shortcuts["answer_only"], report["measurements"]["candidate"][name + "_answer_only"]["accuracy"])}
     report.update(quality(metrics))
     report["limits"] = ["Bounded original fixture groups are not universal contract proof", "Same author constructs source and claims; no human review", "No canonical qualification or runnable public endpoint"]
-    write(root / "audit-result.json", report)
+    write(report_path, report)
     print(json.dumps({"verdict": report["verdict"], "failures": report["failures"], "audit_source_rows": len(audit)}))
     if report["verdict"] != "PASS":
         raise ValueError("independent exported-runtime quality gate failed")
+    if not independent_audit:
+        # Development selection cannot claim the independent audit or emit
+        # the registration-ready report below.
+        return
     grants = json.loads((root / "grant-report.json").read_text())
     if grants["grants_verified"] is not True or grants["source_manifest_sha256"] != manifest["source_manifest_sha256"]:
         raise ValueError("source grants not bound to candidate")

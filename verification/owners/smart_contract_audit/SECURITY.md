@@ -8,6 +8,7 @@
 | Training leakage | Whole designs and vulnerable/fixed siblings remain grouped | Normalized clone and group-leak negative tests |
 | Annotation shortcut | No vulnerability annotation in source, both reports share finding words | Length, answer-only and overlap checks |
 | Candidate trained on audit | Separate audit job receives already frozen package hashes; training bytes are unchanged | Run/commit/package bindings and automatic adapter recheck |
+| Weak candidate consumes the audit during tuning | Saved-best exported bytes must pass all unchanged validation format/subgroup/baseline gates first; validation cannot emit registration-ready | Pure split-boundary refusal/control test and actual reference-engine validation before audit job |
 | Truncated guard or precondition | Reject any full render above 384 authoritative tokens | Remote tokenizer check, not run locally |
 | Endpoint returns another model | Exact foundation, tokenizer, adapter and token-root echo | Pinned literal client test plus real remote audit |
 | Floating baseline refit drift | Fixed integer coefficients, no fresh floating-point fit | Training identity and frozen-file SHA-256 |

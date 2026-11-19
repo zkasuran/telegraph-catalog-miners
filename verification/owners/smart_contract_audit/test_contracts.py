@@ -5,12 +5,23 @@ import unittest
 import os
 from unittest.mock import patch
 
-from contracts import finite_bits, response_bits, training_pairs
+from contracts import finite_bits, response_bits, training_pairs, heldout_pairs
 from registration_common import strict_json
 from policy import public_repository
 
 
 class ContractChecks(unittest.TestCase):
+    def test_validation_cannot_claim_or_select_on_independent_audit(self):
+        rows = [{"split": "train", "id": "fit"}, {"split": "validation", "id": "develop"}, {"split": "audit", "id": "closed"}]
+        selected, ready_allowed = heldout_pairs(rows, "validation")
+        self.assertEqual([r["id"] for r in selected], ["develop"])
+        self.assertFalse(ready_allowed)
+        selected, ready_allowed = heldout_pairs(rows, "audit")
+        self.assertEqual([r["id"] for r in selected], ["closed"])
+        self.assertTrue(ready_allowed)
+        with self.assertRaises(ValueError):
+            heldout_pairs(rows, "train")
+
     def test_live_class_source_requires_exact_identity_and_freshness(self):
         from class_source import validate
         from datetime import datetime, timezone

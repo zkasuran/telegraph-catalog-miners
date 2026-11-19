@@ -16,6 +16,7 @@ fi
 npm --prefix "$HERE" audit --audit-level=low
 python3 -W error "$HERE/data.py" --out "$OUT/data"
 python3 -W error "$HERE/contracts.py" --inventory "$OUT/data/inventory.json"
+PYTHONPATH="$HERE${PYTHONPATH:+:$PYTHONPATH}" python3 -W error -c 'from contracts import heldout_pairs; rows=[{"split":"validation"},{"split":"audit"}]; p,allowed=heldout_pairs(rows,"validation"); assert len(p)==1 and not allowed; print("Validation source boundary excludes audit and registration-ready claims")'
 timeout --signal=TERM --kill-after=5s 180 node "$HERE/execute.mjs" "$OUT/data/inventory.json" "$OUT/evm-report.json"
 python3 -W error "$HERE/shortcuts.py" --inventory "$OUT/data/inventory.json" --frozen "$HERE/frozen-baselines.json" --out "$OUT/shortcut-report.json"
 python3 -W error "$HERE/failure_controls.py" --root "$OUT"

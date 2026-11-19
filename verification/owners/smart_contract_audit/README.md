@@ -32,4 +32,4 @@ Serving downloads only exact immutable public candidate/report bytes. It builds 
 
 Coverage is bounded setter authorization and arithmetic-call effects. The reference does not prove reentrancy safety, proxy state, arbitrary bytecode or universal factual truth. There is no human adjudication and pretrained-model exposure cannot be ruled out. Source, constructed reports and measured model results are separate artifacts.
 
-The source build is verified. Neural accuracy and canonical qualification are not claimed by this README. See `DATA-SOURCES.md` and `SECURITY.md`. Our additions use LicenseRef-zkasuran-SAND-1.0 with unchanged upstream grants.
+The source build is verified. The first saved candidate had 50% validation accuracy and is unqualified. The improved training-only recipe increases optimizer updates, keeps validation selection and requires real exported-engine validation to pass before exposing the independent audit. Neural accuracy and canonical qualification are not claimed by this README. See `DATA-SOURCES.md` and `SECURITY.md`. Our additions use LicenseRef-zkasuran-SAND-1.0 with unchanged upstream grants.

@@ -38,7 +38,10 @@ def main():
     from float_runtime.lora_format import metadata, tensor_names, write_package, target_dims
 
     torch.set_num_threads(min(4, os.cpu_count() or 1))
-    hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=8, epochs=3,
+    # The previous twelve-update recipe stayed at 50% validation. More actual
+    # optimizer updates are selected from that development evidence only.
+    hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=1, epochs=12,
+                            lr=3e-4, es_patience=4, es_min_delta=0.0,
                             eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False)
     train = training_pairs([r for r in rows if r["split"] == "train"])
     validation = training_pairs([r for r in rows if r["split"] == "validation"])
@@ -155,6 +158,9 @@ def main():
           "full_parser_passed": True,
           "phase": "candidate frozen before independent audit", "node_qualification": "not attempted"})
     print("Candidate and seed-matched untrained packages frozen. Audit has not run.")
+    # Validate exported saved-best bytes, not a later in-memory reward head.
+    # A failed development gate leaves the independent audit untouched.
+    subprocess.run([sys.executable, str(HERE / "audit_remote.py"), "--root", str(root), "--split", "validation"], check=True, timeout=7200)
 
 
 if __name__ == "__main__":

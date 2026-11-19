@@ -6,6 +6,13 @@ import struct
 FORMATS = ("prose", "json", "report")
 
 
+def heldout_pairs(rows, split):
+    """Keep development selection separate from the once-only independent audit."""
+    if split not in ("validation", "audit"):
+        raise ValueError("held-out validation or audit split required")
+    return [r for r in rows if r["split"] == split], split == "audit"
+
+
 def training_pairs(rows):
     """Honor the pinned trainer's optional-margin default without editing source data.
 
