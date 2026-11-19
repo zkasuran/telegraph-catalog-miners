@@ -2,10 +2,12 @@
 """Meaningful pure-data boundary and licence retention tests. No model work."""
 import copy
 import json
+import os
 import struct
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from checkpoint_terms import decode_attribution, family_bundle, remote_guard, stamp
 from general_sources import Union
@@ -148,7 +150,7 @@ class PilotTests(unittest.TestCase):
             family_bundle({}, bad)
 
     def test_publication_is_guarded_while_semantic_audit_failed(self):
-        with self.assertRaises(RuntimeError):
+        with patch.dict(os.environ, {}, clear=True), self.assertRaises(RuntimeError):
             remote_guard()
 
 
