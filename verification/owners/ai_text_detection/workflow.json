@@ -103,7 +103,7 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate.py --root \"$RUNNER_TEMP/ai-owner\" --partition development"
         },
         {
-          "name": "Frozen train-validation and complete package parser",
+          "name": "Continue licensed checkpoint, validate all formats and parse package",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""
         },

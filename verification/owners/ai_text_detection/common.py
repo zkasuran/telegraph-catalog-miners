@@ -78,6 +78,39 @@ def render(prompt, answer):
     return f"### Task:\n{prompt}\n\n### Answer:\n{answer}"
 
 
+def audit_excerpts(human, decoded):
+    """Symmetric whole-word byte fit. No score, label or retry chooses a view.
+
+    Source human controls already have collapsed whitespace. Apply that same
+    transformation to generated text then keep the largest shared word count
+    from 16 through 24 fitting both literal 256-byte request slots.
+    """
+    human_words, generated_words = human.split(), decoded.split()
+    if len(human_words) < 24 or len(generated_words) < 24:
+        raise ValueError("fixed generation/source has fewer than 24 words")
+    for count in range(24, 15, -1):
+        h, g = " ".join(human_words[:count]), " ".join(generated_words[:count])
+        if 32 <= len(h.encode()) <= MAX_TEXT_BYTES and 32 <= len(g.encode()) <= MAX_TEXT_BYTES:
+            if identity(h) == identity(g):
+                raise ValueError("identical production histories cannot supply an origin preference")
+            return h, g, {"word_count": count, "human_bytes": len(h.encode()), "synthetic_bytes": len(g.encode()),
+                          "changes": "Whitespace collapsed on both origins; equal-count whole-word prefixes selected for the literal request ceiling."}
+    raise ValueError("both origins cannot fit the unchanged request ceiling at 16 words")
+
+
+def validation_gate(formats, baselines):
+    if set(formats) != set(FORMATS) or set(baselines) != set(FORMATS):
+        return {"passed": False, "failures": ["missing validation format"]}
+    failures = []
+    for style, metrics in formats.items():
+        labels = metrics.get("accuracy_by_label", {})
+        if (metrics["n_eval"] != 2 * COUNTS["validation"] or metrics["pairwise_accuracy"] < 0.80 or
+                set(labels) != {"Human", "AI-generated"} or min(labels.values()) < 0.70 or
+                metrics["pairwise_accuracy"] < max(baselines[style].values()) + 0.10):
+            failures.append(style + " failed unchanged validation quality/label/shortcut gate")
+    return {"passed": not failures, "failures": failures}
+
+
 def pair(row, style="json"):
     if style not in FORMATS or row["origin"] not in ("human_control", "synthetic"):
         raise ValueError("unsupported origin or answer format")

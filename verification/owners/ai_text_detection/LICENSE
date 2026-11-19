@@ -147,3 +147,4 @@ that template's own terms require of an adaptation.
 
 Source boundary: The original portions listed in NOTICE and sources.json
 retain their own grants. These terms cover only our additions.
+This boundary also applies to continuation checkpoints and failed exports.

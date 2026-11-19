@@ -62,3 +62,31 @@ origin records are machine provenance. Verdict comparisons are constructed
 preferences. None of those records is described as human-reviewed preference data.
 The source manifest stays byte-identical across the checkout integration repair.
 Its separate fit, validation and audit groups are not rebuilt after a failed job.
+
+## Continuation revision and independent audit
+
+The first model's validation result was 0.5469, below the unchanged 0.80 gate.
+Its original 64 audit articles and named authors are quarantined. A new fixed
+hash-order scan of 151 source candidates yielded 64 fresh eligible audit groups.
+They are disjoint from fit, validation and retired audit source/entity groups.
+The complete original inventory still supplies the population count. The scan
+of 151 is a bounded refresh, not the size of the source corpus.
+
+Training and validation articles are unchanged. The model continues from the
+exact source-fitted checkpoint with a declared optimizer reset. No old audit
+output supplies training labels or tunes the candidate. The new audit has no
+model quality score yet and stays sealed until all validation formats pass.
+
+Audit views collapse whitespace on both origins and select the largest shared
+whole-word prefix from 16 through 24 words that fits both unchanged 256-byte
+slots. Word count is equal within each source pair. No label, model score or
+generation retry selects a view. Every original source span and generation
+record remains attributed. Byte and identical-text refusal gates remain active.
+
+[PEFT-STATE-0.21.2] The pinned primary implementation documents that
+`get_peft_model_state_dict` and `set_peft_model_state_dict` handle the arbitrary
+adapter-name removal and insertion when preserving learned state. The pipeline
+checks all learned keys, shapes, finiteness and exact tensor equality after
+loading, before any continuation fitting. It does not claim to restore an
+optimizer that the original trainer never exported.
+https://github.com/huggingface/peft/blob/v0.21.2/src/peft/utils/save_and_load.py

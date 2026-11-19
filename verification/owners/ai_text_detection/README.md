@@ -43,6 +43,20 @@ Only real passes emit `registration-ready.json`. Publication, endpoint activatio
 and testnet registration use the automatic action adapter. No signer is present
 in this pipeline. The serving runner uploads only a restricted public lease.
 
+## Continued model development
+
+The initial two-epoch model passed its source and full package parser gates but
+scored only 54.69% on validation. Its attempted audit generation failed before
+any reference-engine quality score. That package is retained, not registered.
+
+Revision 2 continues its exact licensed adapter with at most eight epochs,
+accumulation 8 and learning rate 0.0003. The backbone, rank, source fit groups and
+validation groups remain fixed. The original optimizer was not exported, so a
+new bounded AdamW optimizer is explicit. A fresh 64-group audit replaces the
+quarantined original block. Every supported validation format must pass before
+that audit can be generated or measured. More updates are a testable improvement
+path, not a claim that the next model passes.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to

@@ -1,0 +1,51 @@
+{
+  "family": "AI_TEXT_DETECTION",
+  "package_sha256": "f64a4d000d713041df6cf33cd72422ae635210b6db6de6f610c22f307d57fe72",
+  "package_keccak": "0x1a27012a2ddb1167dd8db20ee80d1c13c798439a685146716f739f8b777666f8",
+  "source_manifest_sha256": "a38863c8d1d0643b250bc19c84c0d7c1dfb6fe008b56ab8670f271a90630c567",
+  "development_sha256": "032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3",
+  "baseline_sha256": "a132e0eb3faf6da485596ff52047780a20096eec6adc795c1e19d14c47c8e77f",
+  "validation": {
+    "n_eval": 64,
+    "pairwise_accuracy": 0.5469,
+    "val_loss": 0.690817,
+    "length_baseline": 0.5,
+    "beats_length_baseline": false,
+    "verdict": "FAIL",
+    "fail_reason": "accuracy 0.5469 is below --gate-min-acc 0.8"
+  },
+  "hyperparameters": {
+    "max_length": 256,
+    "batch_size": 1,
+    "grad_accum": 16,
+    "grad_checkpointing": false,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "epochs": 2,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "eval_split": 0.15,
+    "seed": 42,
+    "eval_batch": 1,
+    "gate_min_acc": 0.8,
+    "gate_min_margin_over_baseline": 0.1,
+    "early_stopping": true,
+    "es_metric": "val_loss",
+    "es_patience": 1,
+    "es_min_delta": 0.001,
+    "loss_floor": 0.0001
+  },
+  "audit_used_for_selection": false,
+  "run_id": 44565365361,
+  "commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
+  "versions": {
+    "torch": "2.15.0+cpu",
+    "transformers": "5.22.1",
+    "peft": "0.21.2",
+    "numpy": "2.4.6",
+    "safetensors": "0.8.0"
+  },
+  "elapsed_training_seconds": 716.6117279609998,
+  "full_parser_passed": true
+}

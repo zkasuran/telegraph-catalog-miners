@@ -48,12 +48,16 @@ def main():
     if "--hash=sha256:" not in lock or "torch==2.15.0+cpu" not in lock:
         raise ValueError("hash-locked CPU dependencies missing")
     # A source gate must not import a neural package directly or indirectly.
-    local = ("common.py", "source.py", "wire.py", "preserve.py", "test_source.py", "static_check.py")
+    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "preserve.py", "test_source.py", "static_check.py")
     for name in local:
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
                 raise ValueError("neural import in local release path")
+    recipe = json.loads((HERE / "recipe.json").read_text())
+    if (recipe["schema_version"] != 1 or recipe["epochs"] > 8 or recipe["grad_accum"] != 8 or
+            recipe["lora_rank"] != 8 or recipe["lora_alpha"] != 32 or recipe["original_run_id"] != 44565365361):
+        raise ValueError("unbounded or unbound continuation recipe")
     print("PASS: compiled Python syntax, JSON configs, bounded pinned public workflow and local import boundary")
 
 

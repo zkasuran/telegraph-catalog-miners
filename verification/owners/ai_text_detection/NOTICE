@@ -18,3 +18,9 @@ are not human-reviewed annotations. No licensor endorsement is implied.
 
 Standalone packaging includes the exact owned workflow with its source gate.
 Checkout integration repairs do not change the source corpus or its grants.
+
+Continuation v2 retains the exact licensed checkpoint from public GitHub run
+44565365361. The old 64-article audit block is quarantined. Training and validation
+article identities remain unchanged. A new audit source block keeps its own
+article grants and attribution. Source control and checkpoint retention are not
+model-quality or canonical-registration claims.

@@ -13,7 +13,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 from common import (COUNTS, FORMATS, HERE, baseline_report, check_splits, fit_baselines,
-                    identity, pair, quality, remote_only, render, sha)
+                    identity, pair, quality, remote_only, render, sha, audit_excerpts, validation_gate)
+from checkpoint_contract import check_checkpoint
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -37,6 +38,38 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_fresh_audit_quarantines_old_articles_and_named_authors(self):
+        spec = json.loads((HERE / "sources.json").read_text())
+        refreshed = spec["audit_refresh"]
+        current = spec["source_report"]["articles"]["test"]
+        self.assertEqual(len(current), 64)
+        self.assertTrue(refreshed["train_validation_unchanged"])
+        self.assertFalse({r["source_id"] for r in current}.intersection(refreshed["retired_article_ids"]))
+        self.assertFalse({a for r in current for a in r["author_ids"]}.intersection(refreshed["retired_author_ids"]))
+
+    def test_exact_original_checkpoint_and_failure_controls(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        raw = (HERE / "recovery/original-checkpoint.safetensors").read_bytes()
+        binding = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
+        self.assertFalse(binding["tensor_payload_interpreted"])
+        with self.assertRaisesRegex(ValueError, "byte identity"):
+            check_checkpoint(raw + b"x", recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
+        with self.assertRaisesRegex(ValueError, "source lineage"):
+            check_checkpoint(raw, recipe["checkpoint_sha256"], "f" * 64)
+
+    def test_symmetric_byte_fit_does_not_relax_limits_or_identity(self):
+        human = " ".join("humanword" + str(i) for i in range(24))
+        generated = "\n\n".join("generated" + str(i) for i in range(24))
+        h, g, view = audit_excerpts(human, generated)
+        self.assertEqual(len(h.split()), len(g.split()))
+        self.assertLessEqual(len(h.encode()), 256)
+        self.assertLessEqual(len(g.encode()), 256)
+        self.assertGreaterEqual(view["word_count"], 16)
+        with self.assertRaisesRegex(ValueError, "identical"):
+            audit_excerpts(human, human)
+        with self.assertRaisesRegex(ValueError, "unchanged request ceiling"):
+            audit_excerpts(human, " ".join("x" * 256 for _ in range(24)))
+
     def test_actual_standalone_checkout_contract_and_failure_control(self):
         config = json.loads((HERE / "workflow.json").read_text())
         validate_checkout(config)
@@ -224,6 +257,17 @@ class WireAndQualityTests(unittest.TestCase):
             if mutation == "shortcut": shortcuts["json"]["answer_only"] = 0.8
             if mutation == "count": trained["json"]["n_eval"] = 64
             self.assertEqual(quality(trained, untrained, shortcuts)["verdict"], "FAIL", mutation)
+
+    def test_validation_seals_audit_on_any_failed_format_or_label(self):
+        metrics = {f: {"n_eval": 64, "pairwise_accuracy": 0.85,
+                      "accuracy_by_label": {"Human": 0.8, "AI-generated": 0.9}} for f in FORMATS}
+        baseline = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5} for f in FORMATS}
+        self.assertTrue(validation_gate(metrics, baseline)["passed"])
+        metrics["bare_label"]["pairwise_accuracy"] = 0.5469
+        self.assertFalse(validation_gate(metrics, baseline)["passed"])
+        metrics["bare_label"]["pairwise_accuracy"] = 0.85
+        metrics["prose"]["accuracy_by_label"]["Human"] = 0.69
+        self.assertFalse(validation_gate(metrics, baseline)["passed"])
 
 
 if __name__ == "__main__":

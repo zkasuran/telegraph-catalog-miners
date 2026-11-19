@@ -4,6 +4,9 @@
 |---|---|---|
 | Wrong source bytes or missing grant | Git blob plus SHA-256 and per-article CC BY clause | Manifest and tampered-XML controls |
 | Sparse checkout omits gate inputs | Exact owned source and workflow paths in non-cone checkout | Incomplete-checkout refusal control |
+| Weak validation consumes an audit | All claimed validation formats must pass first | Validation refusal keeps audit sealed |
+| Old audit tunes a later model | Retired articles and named authors quarantined | Fresh-audit source/entity exclusion test |
+| Checkpoint state is swapped | Opaque SHA/grant checks locally, exact learned-state checks remotely | Wrong byte/source identity refusals |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -26,3 +29,9 @@ probabilities, non-English text and modern generators remain unvalidated. A five
 hour CPU serving lease is temporary and requires renewal without changing package
 bytes or unresolved registration identity. Real engine and serving tests run only
 remotely; source-only local tests do not pretend to prove them.
+
+Continuation uses the exact saved adapter and a fresh bounded optimizer because
+the original optimizer state was not exported. This is disclosed, not presented
+as an exact training-process resume. Generator byte-fit diagnostics preserve
+failures without retrying seeds for favourable outputs. Local checkpoint checks
+interpret metadata and hash opaque bytes only, never load a neural model.

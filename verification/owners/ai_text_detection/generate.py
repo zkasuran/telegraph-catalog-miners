@@ -8,7 +8,7 @@ import re
 import time
 from pathlib import Path
 
-from common import HERE, dump, fetch, identity, remote_only, sha
+from common import HERE, audit_excerpts, dump, fetch, identity, remote_only, sha
 from source import parse_article
 
 
@@ -22,8 +22,12 @@ def main():
     root.mkdir(parents=True, exist_ok=True)
     spec = json.loads((HERE / "sources.json").read_text())
     wanted = ("train", "validation") if args.partition == "development" else ("test",)
-    if args.partition == "audit" and not (root / "frozen-candidate.json").exists():
-        raise ValueError("audit generation requires a frozen candidate")
+    if args.partition == "audit":
+        if not (root / "frozen-candidate.json").exists():
+            raise ValueError("audit generation requires a frozen candidate")
+        frozen = json.loads((root / "frozen-candidate.json").read_text())
+        if frozen.get("validation_gate", {}).get("passed") is not True:
+            raise ValueError("audit remains sealed until every validation format passes")
     name = "gpt2" if args.partition == "development" else "distilgpt2"
     generator = spec["generators"][name]
     model_dir = root / ("generator-" + name)
@@ -71,15 +75,32 @@ def main():
                                             pad_token_id=tok.eos_token_id)
                 continuation = tokens[0, prefix_tokens:].tolist()
                 decoded = tok.decode(continuation, skip_special_tokens=True)
+                # Diagnostic counts are retained even if the unchanged byte or
+                # identity gate refuses this source. No generated text becomes
+                # a local fixture or is selected by reward-model outcomes.
+                dump(root / (args.partition + "-generation-progress.json"),
+                     {"source_id": row["source_id"], "generated_groups": count,
+                      "decoded_bytes": len(decoded.encode()), "generated_words": len(decoded.split()),
+                      "seed": seed, "generator": name})
                 spans = list(re.finditer(r"\S+", decoded))
                 if len(spans) < 24:
                     raise ValueError("fixed generation produced fewer than 24 words")
-                text = decoded[spans[0].start():spans[23].end()]
-                if not 32 <= len(text.encode()) <= 256 or identity(text) == identity(row["human_text"]):
-                    raise ValueError("generated excerpt invalid or identical to human control")
+                if args.partition == "audit":
+                    human_text, text, view = audit_excerpts(row["human_text"], decoded)
+                else:
+                    # Original development bytes are deliberately unchanged for
+                    # safe continuation of the source-fitted checkpoint.
+                    human_text, text = row["human_text"], decoded[spans[0].start():spans[23].end()]
+                    view = {"word_count": 24, "changes": "Original development view retained."}
+                    if not 32 <= len(text.encode()) <= 256:
+                        raise ValueError("development excerpt exceeds unchanged byte gate")
+                    if identity(text) == identity(human_text):
+                        raise ValueError("development origins have identical visible text")
                 base = {"source_id": row["source_id"], "group_id": row["group_id"],
                         "split": split, "year": row["year"], "source_sha256": row["sha256"]}
-                human = {**base, "origin": "human_control", "text": row["human_text"]}
+                human = {**base, "origin": "human_control", "text": human_text}
+                if args.partition == "audit":
+                    human["excerpt_view"] = view
                 synthetic = {**base, "origin": "synthetic", "text": text, "generator": name,
                              "generator_revision": generator["revision"],
                              "generator_weight_sha256": generator["weight_sha256"], "seed": seed,
@@ -88,6 +109,8 @@ def main():
                              "generation": {"top_p": 0.9, "top_k": 50, "temperature": 0.9, "new_tokens": 64},
                              "disclosure": "Synthetic text created using " + name + ". Not human-reviewed.",
                              "licence": row["licence"], "source_attribution": row["url"]}
+                if args.partition == "audit":
+                    synthetic["excerpt_view"] = view
                 for item in (human, synthetic):
                     output.write(json.dumps(item, ensure_ascii=False) + "\n")
                 output.flush()
