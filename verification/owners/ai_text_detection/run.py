@@ -18,6 +18,7 @@ from common import (COUNTS, FAMILY, HERE, MAX_TOKENS, SCOPE, baseline_report, du
                     fetch, fit_baselines, lines, pair, remote_only, render, sha, validation_gate, FORMATS)
 from checkpoint_contract import check_checkpoint
 from development_contract import layout_training_pairs, repetition_gate, validate_locked
+from window_contract import validate_plan, validate_augmented, expanded_training_pairs
 
 FOUNDATION = {
     "foundation_lora_fp32.onnx": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
@@ -75,21 +76,19 @@ def main():
         raise ValueError("original source-fitted development bytes changed during continuation")
     splits = {s: [pair(r, "json" if int(r["group_id"][:2], 16) % 2 == 0 else "prose")
                   for r in original if r["split"] == s] for s in ("train", "validation")}
-    splits["train"] = layout_training_pairs(original)
-    counted_gate = repetition_gate(splits["train"])
-    dump(root / "literal-repetition-gate.json", counted_gate)
-    if not counted_gate["passed"]:
-        raise ValueError("literal repeated-negative data gate failed before model preparation")
+    plan = json.loads((HERE / "train-window-plan.json").read_text())
+    validate_plan(plan, source, sha((HERE / "sources.json").read_bytes()))
+    augmentation_raw = (root / "augmentation-generation.jsonl").read_bytes()
+    augmentation_report = json.loads((root / "augmentation-generation-report.json").read_text())
+    if (augmentation_report["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or
+            augmentation_report["commit"] != os.environ["GITHUB_SHA"] or
+            augmentation_report["plan_sha256"] != sha((HERE / "train-window-plan.json").read_bytes())):
+        raise ValueError("actual training augmentation run/commit/plan binding mismatch")
+    augmented = validate_augmented(augmentation_raw, plan, source, augmentation_report)
     validation_formats = {style: [pair(r, style) for r in original if r["split"] == "validation"] for style in FORMATS}
     validation_rows = [r for rows in validation_formats.values() for r in rows]
     if any(len(splits[s]) != 2 * COUNTS[s] for s in splits) or any(r["split"] == "test" for r in original):
         raise ValueError("development count or audit contamination")
-    fitted = fit_baselines(splits["train"])
-    dump(root / "frozen-baselines.json", fitted)
-    baselines = {s: baseline_report(rows, fitted) for s, rows in splits.items()}
-    if any(v > 0.65 for values in baselines.values() for v in values.values()):
-        raise ValueError("development shortcut exceeds 65%")
-    validation_baselines = {style: baseline_report(rows, fitted) for style, rows in validation_formats.items()}
     foundation, base, kit = prepare(root)
     subprocess.run(["go", "test", "-v", str(HERE / "stagecheck.go"), str(HERE / "stagecheck_test.go")],
                    cwd=kit, check=True, timeout=600)
@@ -101,6 +100,30 @@ def main():
     from tokenizers import Tokenizer
     from transformers import AutoConfig, AutoTokenizer
     torch.set_num_threads(4)
+    node_check = Tokenizer.from_file(str(foundation / "tokenizer.json"))
+    node_check.no_padding()
+    node_check.no_truncation()
+    candidates, token_refusals = [], []
+    grouped_views = {}
+    for row in augmented:
+        grouped_views.setdefault(row["view_id"], []).append(row)
+    for view, rows in grouped_views.items():
+        if any(len(node_check.encode(render(p["prompt"], p[side])).ids) > MAX_TOKENS
+               for r in rows for style in FORMATS[:2] for p in [pair(r, style)] for side in ("chosen", "rejected")):
+            token_refusals.append(view)
+        else:
+            candidates.extend(rows)
+    splits["train"], expanded = expanded_training_pairs(original, candidates)
+    expanded["full_context_refused_views"] = token_refusals
+    expanded["augmentation_sha256"] = sha(augmentation_raw)
+    dump(root / "training-expansion-report.json", expanded)
+    dump(root / "literal-repetition-gate.json", expanded["actual_repetition"])
+    fitted = fit_baselines(splits["train"])
+    dump(root / "frozen-baselines.json", fitted)
+    baselines = {s: baseline_report(rows, fitted) for s, rows in splits.items()}
+    if any(v > 0.65 for values in baselines.values() for v in values.values()):
+        raise ValueError("expanded development shortcut exceeds unchanged 65% gate")
+    validation_baselines = {style: baseline_report(rows, fitted) for style, rows in validation_formats.items()}
     hp = trainer.Hyperparams(max_length=MAX_TOKENS, batch_size=1, grad_accum=recipe["grad_accum"], epochs=recipe["epochs"], lr=recipe["lr"],
                             eval_batch=1, lora_rank=8, lora_alpha=32, gate_min_acc=0.80,
                             grad_checkpointing=False)
@@ -240,6 +263,7 @@ def main():
               "elapsed_training_seconds": time.monotonic() - started, "full_parser_passed": True,
               "validation_formats": validation_results, "validation_gate": selected_gate,
               "checkpoint_lineage": recipe, "independent_validation_groups": COUNTS["validation"]}
+    frozen["training_expansion"] = expanded
     dump(root / "frozen-candidate.json", frozen)
     if not selected_gate["passed"]:
         raise ValueError("all-format validation failed; preserve candidate and do not expose fresh audit")

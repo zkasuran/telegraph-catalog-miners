@@ -10,6 +10,8 @@
 | Repeated bare negatives leak | Each opposite bare label appears once in training | Actual four-of-38 defect reproduction and unique-negative repair |
 | Restored validation data becomes training | Exact byte, producer and original source-role bindings | Locked-data role-swap refusal |
 | Good average hides one failed format | Epoch selection prioritizes every actual gate and weakest format/label margin | Failed-bare/low-mean-loss selection refusal |
+| Augmentation leaks held-out sources | New windows bind only original training IDs, spans and roles | Validation-role and span-mismatch refusal controls |
+| More bare labels game the data gate | Larger actual corpus must pass primary gate and worst-case reuse bound | Expanded structural fixture under unchanged ceilings |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -42,3 +44,10 @@ interpret metadata and hash opaque bytes only, never load a neural model.
 Layout augmentation is symmetric within each source pair and train-only. Literal
 validation and audit strings stay unchanged. The training helper guards before
 neural imports and emits actual epoch metrics without overwriting loss fields.
+
+Additional source windows are generated only in a bounded public CPU step. All
+source articles are reverified before model import. The job records actual
+producer/run/commit identity, structural refusals and used view IDs. There is no
+model-score selection of new windows. Starting-checkpoint validation is actually
+measured and kept if later fitting worsens it. Source held-out audit data remains
+sealed and original quality thresholds cannot be reduced by this pipeline.

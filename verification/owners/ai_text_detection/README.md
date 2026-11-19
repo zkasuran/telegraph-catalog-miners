@@ -69,6 +69,13 @@ the audit stayed sealed. The next continuation adds train-only terminal-verdict
 layouts and selects measured epochs by the weakest format/label margin, not just
 average loss. It keeps the same sources and strict validation/audit thresholds.
 
+Layout-only continuation still failed bare validation and consumed no audit.
+The next bounded job tests more source-backed training contexts: 127 eligible
+non-overlapping windows from the same training articles. Synthetic counterparts
+are unbuilt until the remote step runs. The original locked data stays intact,
+with validation and audit excluded from augmentation. A larger actual training
+corpus must pass every unchanged gate before any quality claim.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to

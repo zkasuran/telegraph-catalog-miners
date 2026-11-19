@@ -6,4 +6,4 @@ export PYTHONDONTWRITEBYTECODE=1
 bash -n "$ROOT/verify.sh"
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_*.py' -v
 python3 -W error "$ROOT/static_check.py"
-printf '%s\n' 'ALL GREEN: source-only gate, locked roles, licensed checkpoints and weakest-format selection controls'
+printf '%s\n' 'ALL GREEN: source-only gate, grouped training windows, locked roles and unchanged quality controls'

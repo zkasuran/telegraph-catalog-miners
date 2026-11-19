@@ -150,7 +150,8 @@ def pair(row, style="json"):
             "label_kind": "preference_pair", "label": good, "origin": row["origin"],
             "source_id": row["source_id"], "group_id": row["group_id"],
             "text_id": identity(text), "style": style, "split": row["split"],
-            "generator": row.get("generator", "publisher"), "year": row["year"]}
+            "generator": row.get("generator", "publisher"), "year": row["year"],
+            "view_id": row.get("view_id", "original:" + row["group_id"])}
 
 
 def check_splits(splits):
@@ -158,7 +159,8 @@ def check_splits(splits):
         raise ValueError("missing split")
     seen_groups, seen_text = set(), set()
     for split, rows in splits.items():
-        if len(rows) != 2 * COUNTS[split]:
+        if ((split != "train" and len(rows) != 2 * COUNTS[split]) or
+                (split == "train" and not 2 * COUNTS[split] <= len(rows) <= 4 * COUNTS[split])):
             raise ValueError("wrong split size: " + split)
         groups = {}
         ids = set()
@@ -181,9 +183,14 @@ def check_splits(splits):
             expected_generator = "distilgpt2" if split == "test" else "gpt2"
             if r["origin"] == "synthetic" and r["generator"] != expected_generator:
                 raise ValueError("held-out generator violation")
-        if any({r["origin"] for r in rs} != {"human_control", "synthetic"} or len(rs) != 2
-               for rs in groups.values()):
-            raise ValueError("article derivatives not paired as one group")
+        if len(groups) != COUNTS[split]:
+            raise ValueError("independent article group count changed")
+        for rs in groups.values():
+            views = {}
+            for row in rs:
+                views.setdefault(row["view_id"], []).append(row)
+            if any(len(v) != 2 or {r["origin"] for r in v} != {"human_control", "synthetic"} for v in views.values()):
+                raise ValueError("article/view derivatives not paired as one group")
         if seen_groups.intersection(groups) or seen_text.intersection(ids):
             raise ValueError("cross-split article or normalized text overlap")
         seen_groups.update(groups)

@@ -1,0 +1,4876 @@
+{
+  "schema_version": 1,
+  "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+  "existing_train_article_groups": 128,
+  "windows": [
+    {
+      "source_id": "10.7554/eLife.04114",
+      "group_id": "74d321645dcb31705092aa76aedc4fc833f896dbb8149671f19d7b22e2864d1e",
+      "view_id": "3a0b603b0352c743c0db2d71ab2f7fa0ca3d80294f8c579649b8beb1669a9098",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "ad80f67114a62354ff82287dffb5ec5aeb4a6ad9ece89e8bc554d93822ce656d",
+      "prefix": "detection of functional RTC/PIC by labeling nascent DNA combined with detection of",
+      "human_source_window": "viral integrase. We show that the viral capsid (CA) protein remains associated with cytoplasmic RTC/PIC, but is lost on nuclear PIC in a HeLa-derived",
+      "prefix_span": [
+        284,
+        366
+      ],
+      "human_span": [
+        367,
+        516
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04114-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Peng Ke",
+        "Muranyi Walter",
+        "Glass Bärbel",
+        "Laketa Vibor",
+        "Yant Stephen R",
+        "Tsai Luong",
+        "Cihlar Tomas",
+        "Müller Barbara",
+        "Kräusslich Hans-Georg"
+      ],
+      "seed": 973824059
+    },
+    {
+      "source_id": "10.7554/eLife.01724",
+      "group_id": "c7d098436c5e1e0dff93e271f0dbd450e9610b7d9c3ad52f6b10cc58d88abddb",
+      "view_id": "9818d19f592b6b2d2c37f9f46ffc82554f333b7202b032c1335e0153ba373d43",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "e9331c5e31f8514b9db3d9f2cab7edd39841bf3f1cfa3e4b34ddc969ee0eff54",
+      "prefix": "vitro to gain insight into the motors mode of operation. We reveal",
+      "human_source_window": "that hKif15 is a plus-end-directed processive homotetramer that can step against loads of up to 3.5 pN. We further show that hKif15 is the",
+      "prefix_span": [
+        257,
+        323
+      ],
+      "human_span": [
+        324,
+        462
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01724-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Drechsler Hauke",
+        "McHugh Toni",
+        "Singleton Martin R",
+        "Carter Nicholas J",
+        "McAinsh Andrew D"
+      ],
+      "seed": 2551763359
+    },
+    {
+      "source_id": "10.7554/eLife.04491",
+      "group_id": "ec0f1f0b088a1d6823970af7993196526308af5ae913ab02f107b4efe649a2db",
+      "view_id": "5929f4e26135437b6f0e5cd4ab8df1f1e97794208627f2022aeb57c7748f7ea2",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "8a2bd076c656d1a659a0694520c2d4953446b6a03e72f1a58f79e39395004785",
+      "prefix": "approach to determine the r-protein composition and conformation of 30S ribosome assembly",
+      "human_source_window": "intermediates in Escherichia coli. The relative timing of assembly of the 3' domain and the formation of the central pseudoknot (PK) structure depends on",
+      "prefix_span": [
+        283,
+        372
+      ],
+      "human_span": [
+        373,
+        526
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04491-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Sashital Dipali G",
+        "Greeman Candacia A",
+        "Lyumkis Dmitry",
+        "Potter Clinton",
+        "Carragher Bridget",
+        "Williamson James R"
+      ],
+      "seed": 1495921890
+    },
+    {
+      "source_id": "10.7554/eLife.02409",
+      "group_id": "0a2755c800ff7a050f98cfddcb47b3f073b69e206218b68e35d2cc450b254674",
+      "view_id": "2892cc89fcd5c7c949cc1962323d56d74bcdcff4955026affefef5059455cecd",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "0f289a049988843e2cfdfbeed7eb9c26b9b025208dc52d41d48444562c7fa846",
+      "prefix": "pH change is not well understood. Here, we show that the enzyme",
+      "human_source_window": "glutamine synthetase (Gln1) forms filaments at low pH and that filament formation leads to enzymatic inactivation. Filament formation by Gln1 is a highly cooperative",
+      "prefix_span": [
+        204,
+        267
+      ],
+      "human_span": [
+        268,
+        433
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02409-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Petrovska Ivana",
+        "Nüske Elisabeth",
+        "Munder Matthias C",
+        "Kulasegaran Gayathrie",
+        "Malinovska Liliana",
+        "Kroschwald Sonja",
+        "Richter Doris",
+        "Fahmy Karim",
+        "Gibson Kimberley",
+        "Verbavatz Jean-Marc",
+        "Alberti Simon"
+      ],
+      "seed": 680709257
+    },
+    {
+      "source_id": "10.7554/eLife.02862",
+      "group_id": "466dc7ae993325bb610211eaf21eca98bd9d75ee75300b1f35b2b39e2f18b92d",
+      "view_id": "d6ec2d7fd28de8a0b1eab904e356808581ceb96492fa2bee1bdbe63b881039ae",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "27dbe6290a799cbbe0317de04ca0ece15e4f75ef9f3a87d6873fafb950192d00",
+      "prefix": "When yeast lipids are present in the diet, free calcium levels rise",
+      "human_source_window": "in Blood Brain Barrier glial cells. This induces transport of LTP across the Blood Brain Barrier by two LDL receptor-related proteins: LRP1 and Megalin.",
+      "prefix_span": [
+        266,
+        333
+      ],
+      "human_span": [
+        334,
+        486
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02862-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Brankatschk Marko",
+        "Dunst Sebastian",
+        "Nemetschke Linda",
+        "Eaton Suzanne"
+      ],
+      "seed": 3605802367
+    },
+    {
+      "source_id": "10.7554/eLife.01916",
+      "group_id": "724f2468159e0228da941c22180a85d46336c79c76fad067200a1c7777fc7ff0",
+      "view_id": "45522bd19612fd7f868ccce5e74c985ad885c34346b331a970c07a7fac5c6045",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6b7fee12dfebde0925ce3954a1493e6d980d378b502b2a0054785606979b1b87",
+      "prefix": "states of a cell’s flagella cooperatively determine whether the cell ‘runs’ or",
+      "human_source_window": "‘tumbles’ remains poorly characterized. Here, we measure the swimming behavior of individual E. coli cells while simultaneously detecting the rotational states of each flagellum.",
+      "prefix_span": [
+        263,
+        341
+      ],
+      "human_span": [
+        342,
+        520
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01916-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Mears Patrick J",
+        "Koirala Santosh",
+        "Rao Chris V",
+        "Golding Ido",
+        "Chemla Yann R"
+      ],
+      "seed": 1163013073
+    },
+    {
+      "source_id": "10.7554/eLife.01610",
+      "group_id": "9aeab28030b36882bcc79afc62faa22c9682b4395fe621f8c15a60b312a05d2f",
+      "view_id": "8329e9c3082afb181998846eb8d03337a014f2607f6481d5dd88cf3f15f96e07",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "4567175a106b8ab10b5e45e8a0f960dd90e68687cc8a5651c7031404f28d2e37",
+      "prefix": "subunits between holoenzymes, including unactivated ones, enabling the calcium-independent phosphorylation of new",
+      "human_source_window": "subunits. We show, using a single-molecule TIRF microscopy technique, that the exchange process is triggered by the activation of CaMKII, and that exchange is",
+      "prefix_span": [
+        245,
+        358
+      ],
+      "human_span": [
+        359,
+        517
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01610-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Stratton Margaret",
+        "Lee Il-Hyung",
+        "Bhattacharyya Moitrayee",
+        "Christensen Sune M",
+        "Chao Luke H",
+        "Schulman Howard",
+        "Groves Jay T",
+        "Kuriyan John"
+      ],
+      "seed": 2200562115
+    },
+    {
+      "source_id": "10.7554/eLife.04147",
+      "group_id": "6bb8227d31033ea8b2b242e651e96323a869cad78f630d61f3912ba3de15c512",
+      "view_id": "0fc0bfa0823aec5e4c532fbb34553edf2e7372ca9e257f26735f2a550859309d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "58cdcdb2cbfcfaec39916280a33cf97cf311fc07708d84d13221eb68085e1d5a",
+      "prefix": "as hedonic valence and intensity are functionally integrated in the lateral horn",
+      "human_source_window": "(LH) of the vinegar fly, Drosophila melanogaster. We characterized an olfactory-processing pathway, comprised of inhibitory projection neurons (iPNs) that target the LH exclusively, at",
+      "prefix_span": [
+        253,
+        333
+      ],
+      "human_span": [
+        334,
+        518
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04147-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Strutz Antonia",
+        "Soelter Jan",
+        "Baschwitz Amelie",
+        "Farhan Abu",
+        "Grabe Veit",
+        "Rybak Jürgen",
+        "Knaden Markus",
+        "Schmuker Michael",
+        "Hansson Bill S",
+        "Sachse Silke"
+      ],
+      "seed": 264290208
+    },
+    {
+      "source_id": "10.7554/eLife.00961",
+      "group_id": "65f5b11ea2979cf843a212c9fac2d5268abd957c989a363ee0bfda2dae493570",
+      "view_id": "163321de24e3b7eee14c1945333a6a85c142f56726e421bc7410d59135bc9e37",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "6bbcff1ed857e939b8ad6b789ee7f8f774e88bfdf9b60eed058aa87d036116e2",
+      "prefix": "photosynthesis is associated with diverse and flexible evolutionary paths that group into",
+      "human_source_window": "four major trajectories. We conducted a meta-analysis of 18 lineages containing species that use C3, C4, or intermediate C3–C4 forms of photosynthesis to parameterise",
+      "prefix_span": [
+        219,
+        308
+      ],
+      "human_span": [
+        309,
+        475
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00961-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Williams Ben P",
+        "Johnston Iain G",
+        "Covshoff Sarah",
+        "Hibberd Julian M"
+      ],
+      "seed": 372449758
+    },
+    {
+      "source_id": "10.7554/eLife.03110",
+      "group_id": "1b6ee458c138b94d65a9b01a60c5e79cad74a69f3089d31a535b4dd22c6ec0ca",
+      "view_id": "1f9f24fa2c76732587e1484be859d6e585056f50881cdbb6205a8e301ba07d8f",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "8993fc5dda075282bdf33a62b50e224c8aa98f02667ba18f1a21da2e633c224b",
+      "prefix": "activity of AID leading to intra- and intergenic deletions via homologous recombination",
+      "human_source_window": "of sequence repeats. Repeat recombination occurs at high frequencies even when the homologous sequences are hundreds of bases away from the positions of AID-mediated",
+      "prefix_span": [
+        297,
+        384
+      ],
+      "human_span": [
+        385,
+        550
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03110-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Buerstedde Jean-Marie",
+        "Lowndes Noel",
+        "Schatz David G"
+      ],
+      "seed": 530523386
+    },
+    {
+      "source_id": "10.7554/eLife.03635",
+      "group_id": "01243113a7862297c4499f10390923085d3d9b19ff4ec4c0c8d78c6a8dcd3c70",
+      "view_id": "0c05c9d3694dde8d4bcf960b614d30954a3128441b9500d7d7e91face043a240",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6cc9bf51fdf9db83c2252e967f23a33d08fec9b29fbcfae8a78dd0da0d0d79d1",
+      "prefix": "switches are controlled. Using native elongating transcript analysis (NET-seq), we show that",
+      "human_source_window": "transcription itself is a component of bi-modal switches, facilitating reciprocal expression in gene clusters. HMS2, encoding a growth-regulated transcription factor, switches between sense- or",
+      "prefix_span": [
+        218,
+        310
+      ],
+      "human_span": [
+        311,
+        504
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03635-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Nguyen Tania",
+        "Fischl Harry",
+        "Howe Françoise S",
+        "Woloszczuk Ronja",
+        "Serra Barros Ana",
+        "Xu Zhenyu",
+        "Brown David",
+        "Murray Struan C",
+        "Haenni Simon",
+        "Halstead James M",
+        "O'Connor Leigh",
+        "Shipkovenska Gergana",
+        "Steinmeetz Lars M",
+        "Mellor Jane"
+      ],
+      "seed": 201705939
+    },
+    {
+      "source_id": "10.7554/eLife.04811",
+      "group_id": "ac73402d426a617cd752228b7c3b99d026eb8b80d8d767dabb3a3b2a139f8ecf",
+      "view_id": "9a8812422dc6f56e41348c223bbe06a954f54f83b06b14c76ffe23d3327c61f4",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "2778f0dde290b536efee41d7056253b5a159973042807814e35b30b8fe98985f",
+      "prefix": "rewards, as outcomes fulfilling physiological needs, to build a normative theory showing",
+      "human_source_window": "how learning motivated behaviors may be modulated by internal states. Within this framework, we mathematically prove that seeking rewards is equivalent to the fundamental",
+      "prefix_span": [
+        298,
+        386
+      ],
+      "human_span": [
+        387,
+        557
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04811-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Keramati Mehdi",
+        "Gutkin Boris"
+      ],
+      "seed": 2592608834
+    },
+    {
+      "source_id": "10.7554/eLife.00324",
+      "group_id": "181468d8c5eca956d7180867d2a6e837bc31f2210ebd32ecba8bcc9c18709ad0",
+      "view_id": "9873156f8062c26589525c28cf77840fc9895ae96de687963cfa86d2ec3b04dd",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "69a9d7f8c46e386910e252d5c8496a05dc616a05abfa251296b9160414e2c19b",
+      "prefix": "the photoreceptor layer in age-related macular degeneration (AMD), the leading cause of",
+      "human_source_window": "irreversible blindness in industrialized nations. Here we show that sFLT-1, an endogenous inhibitor of vascular endothelial growth factor A (VEGF-A), is synthesized by photoreceptors",
+      "prefix_span": [
+        306,
+        393
+      ],
+      "human_span": [
+        394,
+        576
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00324-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Luo Ling",
+        "Uehara Hironori",
+        "Zhang Xiaohui",
+        "Das Subrata K",
+        "Olsen Thomas",
+        "Holt Derick",
+        "Simonis Jacquelyn M",
+        "Jackman Kyle",
+        "Singh Nirbhai",
+        "Miya Tadashi R",
+        "Huang Wei",
+        "Ahmed Faisal",
+        "Bastos-Carvalho Ana",
+        "Le Yun Zheng",
+        "Mamalis Christina",
+        "Chiodo Vince A",
+        "Hauswirth William W",
+        "Baffi Judit",
+        "Lacal Pedro M",
+        "Orecchia Angela",
+        "Ferrara Napoleone",
+        "Gao Guangping",
+        "Young-hee Kim",
+        "Fu Yingbin",
+        "Owen Leah",
+        "Albuquerque Romulo",
+        "Baehr Wolfgang",
+        "Thomas Kirk",
+        "Li Dean Y",
+        "Chalam Kakarla V",
+        "Shibuya Masabumi",
+        "Grisanti Salvatore",
+        "Wilson David J",
+        "Ambati Jayakrishna",
+        "Ambati Balamurali K"
+      ],
+      "seed": 2557678959
+    },
+    {
+      "source_id": "10.7554/eLife.02504",
+      "group_id": "88689a9fa2458511e0692c9575f0eb4d08bc6cc6c5ced5a47593248bb6eaf96c",
+      "view_id": "b7d8bbd8e82d09c89db466c35c485a0c4f5a1e44f1fe13f145590330dc254e1c",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "c412709b2cbe3e9cdeae78d61795ca1fb3024184543d2ce800885e3cb636bcdf",
+      "prefix": "hybrid zones between subspecies. Male hybrids often show reduced fertility, a common",
+      "human_source_window": "reproductive barrier between incipient species. Laboratory crosses have identified sterility loci, but each encompasses hundreds of genes. We map genetic determinants of testis weight",
+      "prefix_span": [
+        266,
+        350
+      ],
+      "human_span": [
+        351,
+        534
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02504-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Turner Leslie M",
+        "Harr Bettina"
+      ],
+      "seed": 3084434392
+    },
+    {
+      "source_id": "10.7554/eLife.02109",
+      "group_id": "7d72b483b8422732962d0604ad1f4a0b87940b7277228c253c9ed0479550983a",
+      "view_id": "67bddf22a8446029779a0309d9f5206a80650848df373c9fbffe42c7c241bdad",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "b4523ad310bebd840a6fd523a1d08801f5cc399b421e605643b3d4e78477e135",
+      "prefix": "plasticity of peripheral inputs induced by learning. We addressed this question in",
+      "human_source_window": "the adult mouse olfactory system by combining odor discrimination studies with functional imaging of sensory input activity in awake mice. Here we show that",
+      "prefix_span": [
+        258,
+        340
+      ],
+      "human_span": [
+        341,
+        497
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02109-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Abraham Nixon M",
+        "Vincis Roberto",
+        "Lagier Samuel",
+        "Rodriguez Ivan",
+        "Carleton Alan"
+      ],
+      "seed": 1740496674
+    },
+    {
+      "source_id": "10.7554/eLife.01098",
+      "group_id": "b00f3dea6d4eb37545310b2a9aaabbee9a6c6942b371346a10410f170e1ce93b",
+      "view_id": "3a2096bc78773129addea3e5b1bc346210161023905272774447dbe21f66e6f0",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "156b971fef497470605177057cd8488b4f7f356531ed7eb3da998c53be777844",
+      "prefix": "genes related to xenobiotic detoxification, stress resistance, and insulin signaling. These mutant",
+      "human_source_window": "mice also have increased adiponectin levels and alterations in glucose homeostasis consistent with the removal of the counter-insulin effects of growth hormone. While these",
+      "prefix_span": [
+        246,
+        344
+      ],
+      "human_span": [
+        345,
+        517
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01098-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Sun Liou Y",
+        "Spong Adam",
+        "Swindell William R",
+        "Fang Yimin",
+        "Hill Cristal",
+        "Huber Joshua A",
+        "Boehm Jacob D",
+        "Westbrook Reyhan",
+        "Salvatori Roberto",
+        "Bartke Andrzej"
+      ],
+      "seed": 975214268
+    },
+    {
+      "source_id": "10.7554/eLife.02667",
+      "group_id": "5d800796de08fc401869c03870f18488bcda1cdf3cc7442730601b37e2f04860",
+      "view_id": "6e24c2096d93dc432587f0ecde34c96b59ffc73adfeb0d4444feac6979e351da",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "8caa59ac617524f55e4b19acf15b815b7114735c3a1a280bb3eea6c9c3b14f3f",
+      "prefix": "hydrophobic groove shifts the equilibrium far towards the active conformation. We resolve",
+      "human_source_window": "the controversy about the mechanism of autophosphorylation by demonstrating intermolecular autophosphorylation in a long-lived dimer by combining X-ray crystallography with functional assays. We then",
+      "prefix_span": [
+        270,
+        359
+      ],
+      "human_span": [
+        360,
+        559
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02667-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Zorba Adelajda",
+        "Buosi Vanessa",
+        "Kutter Steffen",
+        "Kern Nadja",
+        "Pontiggia Francesco",
+        "Cho Young-Jin",
+        "Kern Dorothee"
+      ],
+      "seed": 1847902729
+    },
+    {
+      "source_id": "10.7554/eLife.01990",
+      "group_id": "d16a28c9cfb9f399ae561f1d1586d445c95475f8e4c347646919fa35ad805010",
+      "view_id": "84f5cd059d68c54c892e69ab4297c8c5c3b0b84db4cbaae047c5505ef39d954a",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "ef800865df118c179b70373ac5b961328aee7a7012219ba25419b65891c0e8ca",
+      "prefix": "host hydrolytic activities facilitate decomposition of bacterial matrices and generation of soluble",
+      "human_source_window": "PRR ligands. Here, we show that Arabidopsis thaliana upon bacterial infection or exposure to microbial patterns produces a metazoan lysozyme-like hydrolase (lysozyme 1, LYS1).",
+      "prefix_span": [
+        263,
+        362
+      ],
+      "human_span": [
+        363,
+        538
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01990-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Liu Xiaokun",
+        "Grabherr Heini M",
+        "Willmann Roland",
+        "Kolb Dagmar",
+        "Brunner Frédéric",
+        "Bertsche Ute",
+        "Kühner Daniel",
+        "Franz-Wachtel Mirita",
+        "Amin Bushra",
+        "Felix Georg",
+        "Ongena Marc",
+        "Nürnberger Thorsten",
+        "Gust Andrea A"
+      ],
+      "seed": 2230701317
+    },
+    {
+      "source_id": "10.7554/eLife.04591",
+      "group_id": "b0415df4885c06764d06e38e154795165d2f8e35ffdbdbcc92f4138e2c6d36b8",
+      "view_id": "4c897ab8e4757173ebb7883fa96859e9c31f3d955d763d28ca21d78de1510e3d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6cf762ee45adf6c29947a96dc3530053c463d5c27ec5b649eeea77a086dfb1ef",
+      "prefix": "present evidence that a group of intrinsically-disordered, serine-rich proteins regulate the dynamics",
+      "human_source_window": "of P granules in C. elegans embryos. The MEG (maternal-effect germline defective) proteins are germ plasm components that are required redundantly for fertility. We",
+      "prefix_span": [
+        239,
+        340
+      ],
+      "human_span": [
+        341,
+        505
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04591-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Wang Jennifer T",
+        "Smith Jarrett",
+        "Chen Bi-Chang",
+        "Schmidt Helen",
+        "Rasoloson Dominique",
+        "Paix Alexandre",
+        "Lambrus Bramwell G",
+        "Calidas Deepika",
+        "Betzig Eric",
+        "Seydoux Geraldine"
+      ],
+      "seed": 1284078264
+    },
+    {
+      "source_id": "10.7554/eLife.02020",
+      "group_id": "bf1ba8747603afe1b85970b7f43dfb8bdd57f65f0fe63fb0f26d0af9264b0fda",
+      "view_id": "c16c02a884387133e3c8fc9301fc3d3ab71055c4feee640f0cb15b666e70ce90",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "077c81c815508b32d32ea7449f514c71b17cca4859502a49817b34bd9ed2a6d5",
+      "prefix": "This algorithm extracts phenotypic information from ordinary non-clinical photographs and, using machine",
+      "human_source_window": "learning, models human facial dysmorphisms in a multidimensional 'Clinical Face Phenotype Space'. The space locates patients in the context of known syndromes and thereby",
+      "prefix_span": [
+        293,
+        397
+      ],
+      "human_span": [
+        398,
+        568
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02020-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Ferry Quentin",
+        "Steinberg Julia",
+        "Webber Caleb",
+        "FitzPatrick David R",
+        "Ponting Chris P",
+        "Zisserman Andrew",
+        "Nellåker Christoffer"
+      ],
+      "seed": 3245081256
+    },
+    {
+      "source_id": "10.7554/eLife.00792",
+      "group_id": "e8391f93b538731af9d5bd77be4b5fbf669938880ba6d944d1b8f905fe565c4e",
+      "view_id": "048adfb08bc60dba53f7dd1ea0c59674344a85c4ffedb3a63fea2ccd835decf1",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "14eacba3c7bab4aabdbd385bbda626bed98bb873b3546fca7c3d7ee5dcb19d40",
+      "prefix": "in situ and the first structural analysis of the Yersinia injectisome. Unexpectedly,",
+      "human_source_window": "basal bodies of injectisomes inside the bacterial cells showed length variations of 20%. The in situ structures of the Y. enterocolitica and S. flexneri",
+      "prefix_span": [
+        292,
+        376
+      ],
+      "human_span": [
+        377,
+        529
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00792-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Kudryashev Mikhail",
+        "Stenta Marco",
+        "Schmelz Stefan",
+        "Amstutz Marlise",
+        "Wiesand Ulrich",
+        "Castaño-Díez Daniel",
+        "Degiacomi Matteo T",
+        "Münnich Stefan",
+        "Bleck Christopher KE",
+        "Kowal Julia",
+        "Diepold Andreas",
+        "Heinz Dirk W",
+        "Dal Peraro Matteo",
+        "Cornelis Guy R",
+        "Stahlberg Henning"
+      ],
+      "seed": 76210096
+    },
+    {
+      "source_id": "10.7554/eLife.02951",
+      "group_id": "08e859bbba5e42b38ec4bea7566547beaf7b1a332d5b012698e32c5f658a199b",
+      "view_id": "a2bb5cb6184b9b1b218bcb9db59fbdf99c6e90df1467ca43ff581ff6cd024686",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "69a7861403bf7613f7ecd0f4db7e21d83fc42337205c27cb71af00b6585e0274",
+      "prefix": "movements. Using genetically targeted activation of neural subsets, we drove distinct motor",
+      "human_source_window": "programs that clean individual body parts. This enabled competition experiments revealing that the motor programs are organized into a suppression hierarchy; motor programs that",
+      "prefix_span": [
+        263,
+        354
+      ],
+      "human_span": [
+        355,
+        532
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02951-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Seeds Andrew M",
+        "Ravbar Primoz",
+        "Chung Phuong",
+        "Hampel Stefanie",
+        "Midgley Frank M Jr",
+        "Mensh Brett D",
+        "Simpson Julie H"
+      ],
+      "seed": 2730187958
+    },
+    {
+      "source_id": "10.7554/eLife.04123",
+      "group_id": "22c48fcebb31720d9a2da3c3e290f4e8e22440a5bec83df803695a941d73be66",
+      "view_id": "ec2669251b653c0c634aa37895a1b8d0ee1d9ae692e3ba20c2dbf4aed0bdf526",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d7a3dc10c4cf1f468006304672de94fe678456b79ede76c52bd88bdbf6d0449d",
+      "prefix": "not well understood. We report biochemical reconstitution on supported lipid bilayers of",
+      "human_source_window": "protein clusters containing the adhesion receptor Nephrin, and its cytoplasmic partners, Nck and N-WASP. With Nephrin attached to the bilayer, multivalent interactions enable these",
+      "prefix_span": [
+        268,
+        356
+      ],
+      "human_span": [
+        357,
+        537
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04123-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Banjade Sudeep",
+        "Rosen Michael K"
+      ],
+      "seed": 3961940261
+    },
+    {
+      "source_id": "10.7554/eLife.02270",
+      "group_id": "8c08e2e4be45e07639eff23e118ece26b6760334453391a6d19ce1030630b798",
+      "view_id": "147fa836cb9d986c25743e89dcab2e075a66892775e13e9aa767cec2579bdc4f",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "70c03c23981c2a10693430bb90b212149279602fa9c1ecba2ba142a566a097c6",
+      "prefix": "in the immune system remains poorly understood. In this study, we show",
+      "human_source_window": "that T-cell specific deletion of Pak2 gene in mice resulted in severe T cell lymphopenia accompanied by marked defects in development, maturation, and egress",
+      "prefix_span": [
+        251,
+        321
+      ],
+      "human_span": [
+        322,
+        479
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02270-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Phee Hyewon",
+        "Au-Yeung Byron B",
+        "Pryshchep Olga",
+        "O'Hagan Kyle Leonard",
+        "Fairbairn Stephanie Grace",
+        "Radu Maria",
+        "Kosoff Rachelle",
+        "Mollenauer Marianne",
+        "Cheng Debra",
+        "Chernoff Jonathan",
+        "Weiss Arthur"
+      ],
+      "seed": 343910454
+    },
+    {
+      "source_id": "10.7554/eLife.02863",
+      "group_id": "c102db6fc4ec5a97feb3205b38be2da143890a07ad8518952f6aaa50831801fc",
+      "view_id": "521f3a565e232cf1c8e859aaba93472a9e9b34eb77d4d28f4542b042aeef54dd",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "bd05d7fddc6e5bf467ccc1ab4689dee898114cfe7154aa102c35578366dac156",
+      "prefix": "in the face of unpredictable environmental and evolutionary changes. BQS makes strong",
+      "human_source_window": "and diverse predictions about the network features that allow stable responses under arbitrary perturbations, including the random addition of new connections. We show that",
+      "prefix_span": [
+        231,
+        316
+      ],
+      "human_span": [
+        317,
+        489
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02863-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Albergante Luca",
+        "Blow J Julian",
+        "Newman Timothy J"
+      ],
+      "seed": 1377778262
+    },
+    {
+      "source_id": "10.7554/eLife.04617",
+      "group_id": "07eb7c70d3ab92101c059b7671ba9e6c2b8966533ac74b232873c6af70016c97",
+      "view_id": "a945838093cdcd4ad75fa93025fc603325d2b1d0c94cab19c23d5147e3128e0a",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6b3134280965f72de9f3191c866330293b10d90b17d01820214228d5c0c372dd",
+      "prefix": "pan-neuronal Cre lines. The forebrain knockout mice showed >90% deletion of BMAL1",
+      "human_source_window": "in the SCN and exhibited an immediate and complete loss of circadian behavior in constant conditions. Circadian rhythms in peripheral tissues persisted, but became",
+      "prefix_span": [
+        252,
+        333
+      ],
+      "human_span": [
+        334,
+        497
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04617-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Izumo Mariko",
+        "Pejchal Martina",
+        "Schook Andrew C",
+        "Lange Ryan P",
+        "Walisser Jacqueline A",
+        "Sato Takashi R",
+        "Wang Xiaozhong",
+        "Bradfield Christopher A",
+        "Takahashi Joseph S"
+      ],
+      "seed": 2839905152
+    },
+    {
+      "source_id": "10.7554/eLife.03695",
+      "group_id": "88450eb11a3b36325052c602a8e3dc6c2747666603a523da7e713cc3bfb6dcef",
+      "view_id": "6cbcd31d2e127fc9ac4d46274ec3cfaeeb73cf53e1751618efc37a56a39e7045",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "2594e44e39fa3519034497e5d3e0a1e02ecacd2fb83bbf21a263aeb4f6bbdc46",
+      "prefix": "this study, we show that, when subject to a hypotonic bath, giant",
+      "human_source_window": "vesicles consisting of phase separating lipid mixtures undergo osmotic relaxation exhibiting damped oscillations in phase behavior, which is synchronized with swell–burst lytic cycles: in",
+      "prefix_span": [
+        262,
+        327
+      ],
+      "human_span": [
+        328,
+        515
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03695-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Oglęcka Kamila",
+        "Rangamani Padmini",
+        "Liedberg Bo",
+        "Kraut Rachel S",
+        "Parikh Atul N"
+      ],
+      "seed": 1824314141
+    },
+    {
+      "source_id": "10.7554/eLife.03197",
+      "group_id": "6656a081a5e96e003663852755067d1c9d52731589cfb4629fee546a2bdb6671",
+      "view_id": "cef09f8c29342f1215f67ba1cae8e79ad9e051bf185528c5536bfa3cd7edd43d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6dade6eff692e30b2c8f8fb77327c659d2ed215d86b90ba719903f649bc47e70",
+      "prefix": "required to position DNA at mid-cell, without which infectivity is compromised. Here,",
+      "human_source_window": "we show that PhuZ filaments, like microtubules, stochastically switch from growing in a distinctly polar manner to catastrophic depolymerization (dynamic instability) both in vitro",
+      "prefix_span": [
+        283,
+        368
+      ],
+      "human_span": [
+        369,
+        549
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03197-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Erb Marcella L",
+        "Kraemer James A",
+        "Coker Joanna K C",
+        "Chaikeeratisak Vorrapon",
+        "Nonejuie Poochit",
+        "Agard David A",
+        "Pogliano Joe"
+      ],
+      "seed": 3471875980
+    },
+    {
+      "source_id": "10.7554/eLife.01157",
+      "group_id": "c4bde9d050e87ede4a311a585a6bf73ef99b0c688637f19b215d035b846d3b00",
+      "view_id": "64b8070aef392bb584e8de4e388c6e40c3579991dcddb70bf6d45fc52abe59f4",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "da6a4201cc90135a1e3682939a2d6077a99c0b355f9d7671da6b0da72454df95",
+      "prefix": "EEG dynamics that suggests a mechanistic model. In the absence of zolpidem,",
+      "human_source_window": "all subjects show a strong low frequency oscillatory peak ∼6–10 Hz in the EEG power spectrum most prominent over frontocentral regions and with high",
+      "prefix_span": [
+        259,
+        334
+      ],
+      "human_span": [
+        335,
+        483
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01157-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Williams Shawniqua T",
+        "Conte Mary M",
+        "Goldfine Andrew M",
+        "Noirhomme Quentin",
+        "Gosseries Olivia",
+        "Thonnard Marie",
+        "Beattie Bradley",
+        "Hersh Jennifer",
+        "Katz Douglas I",
+        "Victor Jonathan D",
+        "Laureys Steven",
+        "Schiff Nicholas D"
+      ],
+      "seed": 1689782026
+    },
+    {
+      "source_id": "10.7554/eLife.03658",
+      "group_id": "77156de96835798659cd51740886880141b0ef85617bd608828fec1b042e9487",
+      "view_id": "3018e7bd4feb01ffcbe8bd06db43f1179fc8ed78fbb97df355ac6e610577ca6f",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "2e1997c62a8150fff4dba17fac708af0f193f29f24579135d0d63a38e52f048f",
+      "prefix": "their visualization at individual release sites. Here, using pH-sensitive optical probes targeted",
+      "human_source_window": "to synaptic vesicles, we visualized single spontaneous fusion events and found that they are retrieved extremely rapidly with faster re-acidification kinetics than their action",
+      "prefix_span": [
+        276,
+        373
+      ],
+      "human_span": [
+        374,
+        550
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03658-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Leitz Jeremy",
+        "Kavalali Ege"
+      ],
+      "seed": 806938557
+    },
+    {
+      "source_id": "10.7554/eLife.03282",
+      "group_id": "eb2f457f4e6c5facf33108033f760dd01588bd28aad11d1377315ad803ab5319",
+      "view_id": "74a82cc47a22f378d39697eed5fafd8924d27bd932656a944c4358b2baff5890",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "e1a997d257c0f430f647bdf66e169f951707a79b38faa55e61657d549a645070",
+      "prefix": "to spontaneously-forming adherent epithelial cell clusters, we found that basal force fluctuations",
+      "human_source_window": "were coupled to E-cadherin localization at the level of individual cell-cell junctions. At the multi-cellular scale, cell-cell force exchange depended on the cell position",
+      "prefix_span": [
+        299,
+        397
+      ],
+      "human_span": [
+        398,
+        569
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03282-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Ng Mei Rosa",
+        "Besser Achim",
+        "Brugge Joan S",
+        "Danuser Gaudenz"
+      ],
+      "seed": 1957178564
+    },
+    {
+      "source_id": "10.7554/eLife.00603",
+      "group_id": "b619c271d31c5e0bbb9e57dbcbad1c781b1f62fd5aa20972835f21db2e427d32",
+      "view_id": "09952afc37f8e62b07d0c8e185c44cdb8671c84ea869cfd41d01e2a69ec67bcb",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "3dc9b2de77d45669f5ad744940103bec720484a2de07bd6fabb17a1324582011",
+      "prefix": "regulatory programs along a time course of growth on glucose over 300",
+      "human_source_window": "million years. We found that modules have diverged proportionally to phylogenetic distance, with prominent changes in gene regulation accompanying changes in lifestyle and ploidy,",
+      "prefix_span": [
+        224,
+        293
+      ],
+      "human_span": [
+        294,
+        473
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00603-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Thompson Dawn A",
+        "Roy Sushmita",
+        "Chan Michelle",
+        "Styczynsky Mark P",
+        "Pfiffner Jenna",
+        "French Courtney",
+        "Socha Amanda",
+        "Thielke Anne",
+        "Napolitano Sara",
+        "Muller Paul",
+        "Kellis Manolis",
+        "Konieczka Jay H",
+        "Wapinski Ilan",
+        "Regev Aviv"
+      ],
+      "seed": 160770812
+    },
+    {
+      "source_id": "10.7554/eLife.01279",
+      "group_id": "bd515c9381ea2c879542c73df3a162a74144f89c7aef25e4d94461581414746f",
+      "view_id": "d395023e11cfe6a8f6332caf0c1d5ce27998402065a64d17584d87e1e9754fdf",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "214d2af579a09c2e20e57addcb64c3a5f20c2d10d7ef25054b2df9a192502f9a",
+      "prefix": "Rap through an ill-defined non-canonical catalytic mechanism. The plexin GAP is activated",
+      "human_source_window": "by semaphorin-induced dimerization, the structural basis for which remained unknown. Here we present the crystal structures of the active dimer of zebrafish PlexinC1 cytoplasmic",
+      "prefix_span": [
+        271,
+        360
+      ],
+      "human_span": [
+        361,
+        538
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01279-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Wang Yuxiao",
+        "Pascoe Heath G",
+        "Brautigam Chad A",
+        "He Huawei",
+        "Zhang Xuewu"
+      ],
+      "seed": 3549758014
+    },
+    {
+      "source_id": "10.7554/eLife.00822",
+      "group_id": "5acb48ddb5028284f515e308b8d7a2754f999a0c83fddc5f6d07bea977657caf",
+      "view_id": "3ac124f2a7840e788437e689a1933ea62a0d3dc9b5febd966ae0f5778ae886e6",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "0fe0ad4568c0963a5a04f02ad421ccb4424547d846c652eec45e16dbe6edc7b3",
+      "prefix": "also encodes the miR-92 component that negatively regulates its oncogenic cooperation with",
+      "human_source_window": "c-Myc. This miR-92 effect is, at least in part, mediated by its direct repression of Fbw7, which promotes the proteosomal degradation of c-Myc. Thus,",
+      "prefix_span": [
+        294,
+        384
+      ],
+      "human_span": [
+        385,
+        534
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00822-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Olive Virginie",
+        "Sabio Erich",
+        "Bennett Margaux J",
+        "De Jong Caitlin S",
+        "Biton Anne",
+        "McGann James C",
+        "Greaney Samantha K",
+        "Sodir Nicole M",
+        "Zhou Alicia Y",
+        "Balakrishnan Asha",
+        "Foth Mona",
+        "Luftig Micah A",
+        "Goga Andrei",
+        "Speed Terence P",
+        "Xuan Zhenyu",
+        "Evan Gerard I",
+        "Wan Ying",
+        "Minella Alex C",
+        "He Lin"
+      ],
+      "seed": 985736434
+    },
+    {
+      "source_id": "10.7554/eLife.02042",
+      "group_id": "b8ad585209cc4d274f6dccdeaa98f2d671fe6b6bd29b5567bd103b25381099b7",
+      "view_id": "a5841381390c3ec51666166501f9d334615d308c81bfb33ed34ebe3150aece32",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "aed516c67cd57d6c254b9279557ce612f12ff7d6733112c45301a1a9e738566d",
+      "prefix": "obstacle. To increase the resolution obtained by standard chromatin immunoprecipitation, we developed",
+      "human_source_window": "a novel strategy using micrococcal nuclease digestion of cross-linked chromatin. We find that the chromatin remodeler Chd1 is recruited to promoter proximal nucleosomes of",
+      "prefix_span": [
+        264,
+        365
+      ],
+      "human_span": [
+        366,
+        537
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02042-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Skene Peter J",
+        "Hernandez Aaron E",
+        "Groudine Mark",
+        "Henikoff Steven"
+      ],
+      "seed": 2776896385
+    },
+    {
+      "source_id": "10.7554/eLife.02938",
+      "group_id": "c0db9a468f2f37ef7969e098d0aae9f58e7436f6697a5e8211e9bcde85931717",
+      "view_id": "553b3226400a6ce4e3bc967744039c5047c53914fff8644bb233bf26d84b7d1a",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "a98ee87e778282591a38bcc4ed8a3ed78b6f5d61bb3ab6dad55a28d74e284f36",
+      "prefix": "to cellular events involved in ejaculation. We show that the SPV and",
+      "human_source_window": "SPD spicule-associated sensory neurons and the spicule socket neuronal support cells function with intromission circuit components, including the cholinergic SPC and PCB and the",
+      "prefix_span": [
+        272,
+        340
+      ],
+      "human_span": [
+        341,
+        518
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02938-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "LeBoeuf Brigitte",
+        "Correa Paola",
+        "Jee Changhoon",
+        "García L. René"
+      ],
+      "seed": 1429942822
+    },
+    {
+      "source_id": "10.7554/eLife.02440",
+      "group_id": "2021551872605e23f57ab6c81db4aa8bfdfc6efb74a1c08e828e977cdb8e7d02",
+      "view_id": "c3b560c0d0d9af5c673389ba69075c9c97e2ad56097976b35f2001fbf6606464",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "ed84eb933d7dc4e02454f4ce238d7356ea0210e43a568b51c5d425bbc430925d",
+      "prefix": "non-cooperative (small groups) phenotypes in burying beetles (Nicrophorus nepalensis) along an elevational",
+      "human_source_window": "and temperature gradient. We experimentally created large and small groups along the gradient and manipulated interspecific competition with flies by heating carcasses. We show",
+      "prefix_span": [
+        237,
+        343
+      ],
+      "human_span": [
+        344,
+        520
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02440-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Sun Syuan-Jyun",
+        "Rubenstein Dustin R",
+        "Chen Bo-Fei",
+        "Chan Shih-Fan",
+        "Liu Jian-Nan",
+        "Liu Mark",
+        "Hwang Wenbe",
+        "Yang Ping-Shih",
+        "Shen Sheng-Feng"
+      ],
+      "seed": 3283443904
+    },
+    {
+      "source_id": "10.7554/eLife.04449",
+      "group_id": "4f9af40ca7e37d9d8e76a5e1dad12938ce5e94f2f79a3be70ee59b79a2fd39fa",
+      "view_id": "0201375e280edfb6b9659ec6448ab5e6c61cd087b871c53519b67b521c88a315",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "c452303d396e56b227565f9730b02e63467512f433d00e9a438ec54e548a30e2",
+      "prefix": "developing C. elegans male gonad. LINKIN is a previously uncharacterized, transmembrane protein",
+      "human_source_window": "conserved throughout Metazoa. We identified seven atypical FG-GAP domains in the extracellular domain, which potentially folds into a β-propeller structure resembling the α-integrin ligand-binding",
+      "prefix_span": [
+        266,
+        361
+      ],
+      "human_span": [
+        362,
+        558
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04449-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Kato Mihoko",
+        "Chou Tsui-Fen",
+        "Yu Collin Z",
+        "DeModena John A",
+        "Sternberg Paul W"
+      ],
+      "seed": 33634142
+    },
+    {
+      "source_id": "10.7554/eLife.01888",
+      "group_id": "4486f40b1cffb37d0e189469e78ac76c88f563745ae4ea5de91f35bc8b5334ff",
+      "view_id": "cf322d003b625e50a16bb13b3f6ca84df27b0219558515f100983a19be37d259",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "db371d66cdcd21be34b9fe45dd217b1538068ba2a355d70e862499e7d3414b39",
+      "prefix": "three barrier proteins—Envoplakin, Periplakin, and Involucrin. EPI−/− mice were highly resistant to",
+      "human_source_window": "developing benign tumours when treated with 7,12-dimethylbenz(a)anthracene (DMBA) and 12-O-tetradecanoylphorbol-13-acetate (TPA). The DMBA response was normal, but EPI−/− skin exhibited an exaggerated atopic response",
+      "prefix_span": [
+        246,
+        345
+      ],
+      "human_span": [
+        346,
+        562
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01888-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Cipolat Sara",
+        "Hoste Esther",
+        "Natsuga Ken",
+        "Quist Sven R",
+        "Watt Fiona M"
+      ],
+      "seed": 3476172032
+    },
+    {
+      "source_id": "10.7554/eLife.04660",
+      "group_id": "200054bb8d798d8b789d6a09a13b2635f6d80c08f9b091d982f4779d06dce610",
+      "view_id": "51aa4286bd31901d4b2ba32db14e2a618b1b2c9b00b031e82f24b0a95d200695",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "810832569fbad7f83c673bd15097cf7aa2a877662f1f1071969861a547a21522",
+      "prefix": "profiling to analyze the detailed molecular signatures of dorsal root ganglion (DRG)",
+      "human_source_window": "sensory neurons. We used two mouse reporter lines and surface IB4 labeling to purify three major non-overlapping classes of neurons: 1)IB4+SNS-Cre/TdTomato+, 2)IB4-SNS-Cre/TdTomato+, and 3)Parv-Cre/TdTomato+",
+      "prefix_span": [
+        277,
+        361
+      ],
+      "human_span": [
+        362,
+        569
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04660-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Chiu Isaac M",
+        "Barrett Lee B",
+        "Williams Erika K",
+        "Strochlic David E",
+        "Lee Seungkyu",
+        "Weyer Andy D",
+        "Lou Shan",
+        "Bryman Gregory",
+        "Roberson David P",
+        "Ghasemlou Nader",
+        "Piccoli Cara",
+        "Ahat Ezgi",
+        "Wang Victor",
+        "Cobos Enrique J",
+        "Stucky Cheryl L",
+        "Ma Qiufu",
+        "Liberles Stephen D",
+        "Woolf Clifford"
+      ],
+      "seed": 1370112646
+    },
+    {
+      "source_id": "10.7554/eLife.01412",
+      "group_id": "a7c52de5c16051260bdb9d93bc767e2b9524d07bd56cd507f1b48dee6901f006",
+      "view_id": "e29b1797195b97c1ce5528e27f2c98d62ee38f332addd503ebd48215cc4411b5",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "a9f34f05ac76c78458836362995a4ddebf5206ed73bfdecd01b5fc5f70beb968",
+      "prefix": "changes in pH had no major effect. By contrast, changes in Na+",
+      "human_source_window": "concentration caused a marked conformational change that was largely pH-independent. Crystallographically determined, apparent dissociation constants indicated ∼10-fold stronger Na+ binding at pH 8 than",
+      "prefix_span": [
+        268,
+        330
+      ],
+      "human_span": [
+        331,
+        533
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01412-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Paulino Cristina",
+        "Kühlbrandt Werner"
+      ],
+      "seed": 3801814935
+    },
+    {
+      "source_id": "10.7554/eLife.00184",
+      "group_id": "fc672161041c8e55748dc0683e03551331e02551bb78edec2e67506d849df52c",
+      "view_id": "0291b6158400a5babbc1e1cd73f741878f92312305168ff7c75337f7f1a586f1",
+      "split": "train",
+      "year": 2012,
+      "source_sha256": "f0382e8a8fb24557b0ddd104aee6d08c9037afce09e2147eaba408cc222ce098",
+      "prefix": "studies of a dual RCK-containing, multi-ligand gated K+ channel from Geobacter sulfurreducens,",
+      "human_source_window": "named GsuK. We demonstrate that ADP and NAD+ activate the GsuK channel, whereas Ca2+ serves as an allosteric inhibitor. Multiple crystal structures elucidate the",
+      "prefix_span": [
+        261,
+        355
+      ],
+      "human_span": [
+        356,
+        517
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00184-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Kong Chunguang",
+        "Zeng Weizhong",
+        "Ye Sheng",
+        "Chen Liping",
+        "Sauer David Bryant",
+        "Lam Yeeling",
+        "Derebe Mehabaw Getahun",
+        "Jiang Youxing"
+      ],
+      "seed": 43103765
+    },
+    {
+      "source_id": "10.7554/eLife.00710",
+      "group_id": "30496ec3d15ac815f679528227ec60d5fbc34a1f9a3277a79c750d836b9b948e",
+      "view_id": "ebefe7354f3fb57bfdc42ece262a3b7d8681a36a26b69009899292c96b41c0b2",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "17b9d916a9749b72629fcc2aaf342a21be422263ea83adbae71df865dce9b0a1",
+      "prefix": "in vivo. A structural understanding of the genesis of aggregates and their",
+      "human_source_window": "modulation by cellular chaperones could facilitate the development of therapies but has been hindered by the heterogeneity of amyloid aggregates. Using cryo-electron microscopy (cryoEM)",
+      "prefix_span": [
+        230,
+        304
+      ],
+      "human_span": [
+        305,
+        490
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00710-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Shahmoradian Sarah H",
+        "Galaz-Montoya Jesus G",
+        "Schmid Michael F",
+        "Cong Yao",
+        "Ma Boxue",
+        "Spiess Christoph",
+        "Frydman Judith",
+        "Ludtke Steven J",
+        "Chiu Wah"
+      ],
+      "seed": 3958368053
+    },
+    {
+      "source_id": "10.7554/eLife.04878",
+      "group_id": "1e58121c9876ef62ad71e9fb3d800243e739efd0d28168440c7b1711500117af",
+      "view_id": "23ebd6b6be7feaf44dc11a5e2dac1591ad1a2f136ebd4df447cca10afb389801",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "0f0ed15a7833e186b263ecf236823f739581190da5c531af98c96118d8478a8a",
+      "prefix": "kinematics in semi-restrained animals exposed to a range of virtual stimuli. Two-photon",
+      "human_source_window": "calcium imaging revealed a small visual area, AF7, which was activated specifically by the optimal prey stimulus. This pretectal region is innervated by two",
+      "prefix_span": [
+        257,
+        344
+      ],
+      "human_span": [
+        345,
+        501
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04878-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Semmelhack Julia L",
+        "Donovan Joseph C",
+        "Thiele Tod R",
+        "Kuehn Enrico",
+        "Laurell Eva",
+        "Baier Herwig"
+      ],
+      "seed": 602658486
+    },
+    {
+      "source_id": "10.7554/eLife.03346",
+      "group_id": "08b6c181e6f3133e6db25ac7a6a502fdc2243d8fa180b319a7d28eac254e4773",
+      "view_id": "31a77ca070d1d0fdd592dfb2133946e0b79dd4b11dc0f7babd38696f51f4f51d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "36855acc091cbbe796365f1652c6c73f9b81409536dadf3778e179d752b8d646",
+      "prefix": "on the transcriptional cascades driven by the C/EBP protein family and the",
+      "human_source_window": "master regulator PPARγ. To elucidate further components of the adipogenic gene regulatory network, we performed a large-scale transcription factor (TF) screen overexpressing 734 TFs",
+      "prefix_span": [
+        272,
+        346
+      ],
+      "human_span": [
+        347,
+        528
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03346-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Gubelmann Carine",
+        "Schwalie Petra C",
+        "Raghav Sunil K",
+        "Röder Eva",
+        "Delessa Tenagne",
+        "Kiehlmann Elke",
+        "Waszak Sebastian M",
+        "Corsinotti Andrea",
+        "Udin Gilles",
+        "Holcombe Wiebke",
+        "Rudofsky Gottfried",
+        "Trono Didier",
+        "Wolfrum Christian",
+        "Deplancke Bart"
+      ],
+      "seed": 833060000
+    },
+    {
+      "source_id": "10.7554/eLife.02833",
+      "group_id": "8300fcfff2eb24514987b8325f1b130515fac3a78b6a3ab95f5a46be2f369989",
+      "view_id": "09c2edae2f080539912d0175f2fe80ce7022b77b6bb86878ae75e14f4b7eaa99",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "b948895657256d7306a0745aeae56d900dcc24afd632a21a0e1ac1c51bd4dc2c",
+      "prefix": "depends on Polycomb Group (PcG) functions, which include trimethylation of lysine 27",
+      "human_source_window": "of histone H3 (H3K27me3). To search for parasegment-specific signatures that reflect PcG function, chromatin from single parasegments was isolated and profiled. The H3K27me3 profiles",
+      "prefix_span": [
+        250,
+        334
+      ],
+      "human_span": [
+        335,
+        517
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02833-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Bowman Sarah K",
+        "Deaton Aimee M",
+        "Domingues Heber",
+        "Wang Peggy I",
+        "Sadreyev Ruslan I",
+        "Kingston Robert E",
+        "Bender Welcome"
+      ],
+      "seed": 163769774
+    },
+    {
+      "source_id": "10.7554/eLife.03720",
+      "group_id": "a88e28ddcd8b2c0b246c840e1b30492819980016b7ac6544011579461417eee0",
+      "view_id": "738c30e7bd8541427707de14586809ac8e0ea5d4f076455a72ee5746db9f676e",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "aca0318be2bb680c4c76c4d3a89fe3a5d7da7ccc28508a8e098b3605c211be5b",
+      "prefix": "and Neuropilin1 (NRP1), are targeted in therapeutic strategies for vascular disease and",
+      "human_source_window": "cancer. NRP1 is essential for vascular morphogenesis, but how NRP1 functions to guide vascular development has not been completely elucidated. Here, we generated a",
+      "prefix_span": [
+        253,
+        340
+      ],
+      "human_span": [
+        341,
+        504
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03720-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Gelfand Maria V",
+        "Hagan Nellwyn",
+        "Tata Aleksandra",
+        "Oh Won-Jong",
+        "Lacoste Baptiste",
+        "Kang Kyu-Tae",
+        "Kopycinska Justyna",
+        "Bischoff Joyce",
+        "Wang Jia-Huai",
+        "Gu Chenghua"
+      ],
+      "seed": 1938567399
+    },
+    {
+      "source_id": "10.7554/eLife.02536",
+      "group_id": "cd75cc24ca583531dc67ea1e4a31510f214ab609799583c3098ce18f2c7223b6",
+      "view_id": "947a093916265f44ed51ad8fd37580cd8d3d207d94b6036ca4d685126dae4dd9",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d9a5bca89232fe18f09131e03979763ba0ed5a00bd7b7b834858b69e07598f45",
+      "prefix": "output cells of the cerebellar cortex, differs between cerebellar modules and correlates",
+      "human_source_window": "with their expression of the glycolytic enzyme aldolase C or zebrin. Simple spike and complex spike frequencies were significantly higher in Purkinje cells located",
+      "prefix_span": [
+        244,
+        332
+      ],
+      "human_span": [
+        333,
+        496
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02536-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Zhou Haibo",
+        "Lin Zhanmin",
+        "Voges Kai",
+        "Ju Chiheng",
+        "Gao Zhenyu",
+        "Bosman Laurens WJ",
+        "Ruigrok Tom JH",
+        "Hoebeek Freek E",
+        "De Zeeuw Chris I",
+        "Schonewille Martijn"
+      ],
+      "seed": 2491025721
+    },
+    {
+      "source_id": "10.7554/eLife.02112",
+      "group_id": "2c94ae8a0afdba1e857e922b84e616ec17a20f4f54201601c1a5d3a1fa691c00",
+      "view_id": "29a1c97bcc1762a5148f099d1490c0f9af944da631504c6eba642631564caf55",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "e3936c7dc9bc96e10a54c57e199a55b7157d31f3f108525234699ac5f6eea85a",
+      "prefix": "be phosphorylated. Here we report analysis of CTD Tyr1 using genetically tractable",
+      "human_source_window": "chicken DT40 cells. Cells expressing an Rpb1 derivative with all Tyr residues mutated to Phe (Rpb1-Y1F) were inviable. Remarkably, Rpb1-Y1F was unstable, degraded to",
+      "prefix_span": [
+        235,
+        317
+      ],
+      "human_span": [
+        318,
+        483
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02112-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Hsin Jing-Ping",
+        "Li Wencheng",
+        "Hoque Mainul",
+        "Tian Bin",
+        "Manley James L"
+      ],
+      "seed": 698468731
+    },
+    {
+      "source_id": "10.7554/eLife.00708",
+      "group_id": "34e70ee6fcafee6ec698f60cd22c15e2b4617b61fe141c021f2cb474680dbb3b",
+      "view_id": "f5e7fce15fed3f982dab256bc63c93a0cd53f2479be27cdafdda95bf2c93c87c",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "90086e5eb2d94c240d8bd10bdb51a7bfa0d83727caac032b3740b628df97ba58",
+      "prefix": "activation. The structural basis for Her2 heterodimerization, however, remains poorly understood. The",
+      "human_source_window": "unexpected recent finding of asymmetric ectodomain dimer structures of Drosophila EGFR (dEGFR) suggests a possible structural basis for Her2 heterodimerization, but all available structures",
+      "prefix_span": [
+        248,
+        349
+      ],
+      "human_span": [
+        350,
+        539
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00708-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Arkhipov Anton",
+        "Shan Yibing",
+        "Kim Eric T",
+        "Dror Ron O",
+        "Shaw David E"
+      ],
+      "seed": 4125621473
+    },
+    {
+      "source_id": "10.7554/eLife.03549",
+      "group_id": "0478661893f452578bb686d1d557b5a3419fd1c0f51f6745e5e90d1dc5027863",
+      "view_id": "134ddaba0179c3372a15ad589ab869d09e10420583449196aefad7a9c4265416",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d4331e1039018fbf581440e45e3d1e7de531259024d2e3f56c22993fee4e0310",
+      "prefix": "protein Zfp335. Zfp335bloto/bloto mice exhibit a naïve T cell deficiency due to",
+      "human_source_window": "an intrinsic developmental defect that begins to manifest in the thymus and continues into the periphery, affecting T cells that have recently undergone thymic",
+      "prefix_span": [
+        245,
+        324
+      ],
+      "human_span": [
+        325,
+        484
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03549-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Han Brenda Y",
+        "Wu Shuang",
+        "Foo Chuan-Sheng",
+        "Horton Robert M",
+        "Jenne Craig N",
+        "Watson Susan R",
+        "Whittle Belinda",
+        "Goodnow Chris C",
+        "Cyster Jason G"
+      ],
+      "seed": 323869370
+    },
+    {
+      "source_id": "10.7554/eLife.02238",
+      "group_id": "2f7988ea60438389737e39c91b8cd339691a2505317305ab4eefbc0e1bdaa5fe",
+      "view_id": "fad4f4f866b0d523872ced052171b1909d65dfecf33ca1a9d973a0553830fe97",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "ec55ba119dc5bb1cd8942779d00bee89544fcb329fd6c00774fbcd2667ff11c7",
+      "prefix": "which ejection of the planarian pharynx is selectively induced by brief exposure",
+      "human_source_window": "of animals to sodium azide. To identify genes required for pharynx regeneration, we performed an RNAi screen of 356 genes upregulated after amputation, using",
+      "prefix_span": [
+        254,
+        334
+      ],
+      "human_span": [
+        335,
+        492
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02238-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Adler Carolyn E",
+        "Seidel Chris W",
+        "McKinney Sean A",
+        "Sánchez Alvarado Alejandro"
+      ],
+      "seed": 4208260344
+    },
+    {
+      "source_id": "10.7554/eLife.05105",
+      "group_id": "91f18a0a25e5b77e98b07cb73dee1f4e8e1b7e8f166ef16b61fdce0ccfaecebd",
+      "view_id": "f786ffa734d987cdfc38eb42d0a5f95e43eb87539a24508150425b1ad02e6952",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "dc69f64d2013d167724459e70feb064af7b5081ce14de826619b7144d282fc9d",
+      "prefix": "show that disruption of the dopamine transporter gene lengthens the period of",
+      "human_source_window": "ultradian locomotor rhythms in mice. Period lengthening also results from chemogenetic activation of midbrain dopamine neurons and psychostimulant treatment, while the antipsychotic haloperidol has",
+      "prefix_span": [
+        249,
+        326
+      ],
+      "human_span": [
+        327,
+        524
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-05105-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Blum Ian D",
+        "Zhu Lei",
+        "Moquin Luc",
+        "Kokoeva Maia V",
+        "Gratton Alain",
+        "Giros Bruno",
+        "Storch Kai-Florian"
+      ],
+      "seed": 4152819623
+    },
+    {
+      "source_id": "10.7554/eLife.01857",
+      "group_id": "6eb5abdb04b5dbdc325f2aec1296eb439e71c4c6f58857f9152a7cb41be760ba",
+      "view_id": "1d8dc63c24152d307702da14d2c46d96b1a46ad045bc7b460426339f4ab4d889",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "c5d818bd42bd9a6a28aa97eeed3661bdf5268f4d6ed4e815f7027e8802233f7d",
+      "prefix": "intestinal stem cell (ISC) self-renewal in Drosophila adult midgut. We find that",
+      "human_source_window": "BMP signaling is asymmetric between ISC and its differentiated daughter cell. Two BMP ligands, Dpp and Gbb, are produced by enterocytes and act in",
+      "prefix_span": [
+        235,
+        315
+      ],
+      "human_span": [
+        316,
+        462
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01857-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Tian Aiguo",
+        "Jiang Jin"
+      ],
+      "seed": 495830588
+    },
+    {
+      "source_id": "10.7554/eLife.01831",
+      "group_id": "879d98628ac9acf53c44f75622d58fa3092f74f4e19f90273af2f7abe0cdaadd",
+      "view_id": "ef88f79c5d2b7058f64bbec0aec079970b964bb14cbede4135cc5434ffc14700",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "b120c43e620a8500cd468f31e6f84aa8e36225620fe2abc589d654f8d2767f08",
+      "prefix": "genetic programs. This feature makes them a convenient system to study reprogramming",
+      "human_source_window": "during regeneration. We find that massive damage inflicted to the posterior or the dorsal compartment of the wing disc causes a transient breakdown of",
+      "prefix_span": [
+        272,
+        356
+      ],
+      "human_span": [
+        357,
+        507
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01831-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Herrera Salvador C",
+        "Morata Ginés"
+      ],
+      "seed": 4018730908
+    },
+    {
+      "source_id": "10.7554/eLife.02687",
+      "group_id": "b39c130f3e65e39bcae3553ebd7db96e5de876c73c3f8291c94b6d5b3a1b2ef2",
+      "view_id": "598d1c10c85bab88e8c9a27f71e1c9dffadd2a95cec688679010510b9b4302a1",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "fa12537f0400ff6db563df23083490b59c30eb103eb514901737aac43db5c723",
+      "prefix": "with yet unknown mechanism. We report here the crystal structures of Rabex-5",
+      "human_source_window": "in complex with the dimeric Rabaptin-5C21 (Rabaptin-5C212) and in complex with Rabaptin-5C212 and Rab5, along with biophysical and biochemical analyses. We show that Rabex-5CC",
+      "prefix_span": [
+        256,
+        332
+      ],
+      "human_span": [
+        333,
+        508
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02687-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Zhang Zhe",
+        "Zhang Tianlong",
+        "Wang Shanshan",
+        "Gong Zhou",
+        "Tang Chun",
+        "Chen Jiangye",
+        "Ding Jianping"
+      ],
+      "seed": 1502419984
+    },
+    {
+      "source_id": "10.7554/eLife.01479",
+      "group_id": "dccac8dcb8e08903ab935be151353b2545e518973ea0be20ed6f7c78b032c555",
+      "view_id": "a876825579bb6e834712644844ecdd06d7c46fe4fe132eb2bcf467560f2e1067",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "fc8c85c445da03792be29bf815c66a7564c74b64d965345dc5adecec8fcb90bf",
+      "prefix": "Flagella exist in all eukaryotic phyla, but neither the mechanism by which",
+      "human_source_window": "flagella grow nor the conservation of this process in evolution are known. Here, we study how protein complexes assemble onto the growing axoneme tip",
+      "prefix_span": [
+        229,
+        303
+      ],
+      "human_span": [
+        304,
+        453
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01479-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Höög Johanna L",
+        "Lacomble Sylvain",
+        "O’Toole Eileen T",
+        "Hoenger Andreas",
+        "McIntosh J Richard",
+        "Gull Keith"
+      ],
+      "seed": 2826338901
+    },
+    {
+      "source_id": "10.7554/eLife.02043",
+      "group_id": "255d6da2ab88afc55a493d34a39523495aa8b25b44c7b668738918cc6f456dfe",
+      "view_id": "2ed68827372aa2b87f8de8ff72d0e349b3c5b78bba7c9f74aa12151f311c9c5f",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "aa2b73b2bed93cd5b319a4287143d6f81262222db7e388fd3b6c54607e8f6462",
+      "prefix": "model of the cyanobacterial CCM, giving the parameter regime (expression levels, catalytic",
+      "human_source_window": "rates, permeability of carboxysome shell) for efficient carbon fixation. Efficiency requires saturating the RuBisCO reaction, staying below saturation for carbonic anhydrase, and avoiding wasteful",
+      "prefix_span": [
+        270,
+        360
+      ],
+      "human_span": [
+        361,
+        557
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02043-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Mangan Niall",
+        "Brenner Michael"
+      ],
+      "seed": 785811495
+    },
+    {
+      "source_id": "10.7554/eLife.00367",
+      "group_id": "27857f6090c1d04225430d847428f9279e524fdcb94fb9b10b0d70b5be4113e5",
+      "view_id": "c9f2ae686a38b0015b2d6131f4bee92e8dfe5f5e60270fa93a5d975e730fd1bc",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "4d5d5bb5d6b0ab7be112868f7e40e1f3b6ad17150c8809cdeb0088999ea01e85",
+      "prefix": "to hydrolyze sucrose extracellularly and import the resulting monosaccharides, single cells cannot",
+      "human_source_window": "grow at low cell and sucrose concentrations. Three engineered strategies overcame this problem: forming multicellular clumps, importing sucrose before hydrolysis, and increasing invertase expression.",
+      "prefix_span": [
+        259,
+        357
+      ],
+      "human_span": [
+        358,
+        557
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00367-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Koschwanez John H",
+        "Foster Kevin R",
+        "Murray Andrew W"
+      ],
+      "seed": 3388124776
+    },
+    {
+      "source_id": "10.7554/eLife.00498",
+      "group_id": "f5c82d358cc77e4ddaec91cee51a01a8c95a8f26d92f96e56f69d66e82b2f133",
+      "view_id": "02deba8392c3f05804f025b155db32017bcbc307f04757e082c048513fc2b425",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "97e25da7b137d218c7f62a59dc097b101ce5ea4e1e2a21ffb49171f9bcb663e1",
+      "prefix": "serine in eIF2α. This collection of signaling pathways is termed the ‘integrated",
+      "human_source_window": "stress response’ (ISR). eIF2α phosphorylation diminishes protein synthesis, while allowing preferential translation of some mRNAs. Starting with a cell-based screen for inhibitors of PERK",
+      "prefix_span": [
+        257,
+        337
+      ],
+      "human_span": [
+        338,
+        525
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00498-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Sidrauski Carmela",
+        "Acosta-Alvear Diego",
+        "Khoutorsky Arkady",
+        "Vedantham Punitha",
+        "Hearn Brian R",
+        "Li Han",
+        "Gamache Karine",
+        "Gallagher Ciara M",
+        "Ang Kenny K-H",
+        "Wilson Chris",
+        "Okreglak Voytek",
+        "Ashkenazi Avi",
+        "Hann Byron",
+        "Nader Karim",
+        "Arkin Michelle R",
+        "Renslo Adam R",
+        "Sonenberg Nahum",
+        "Walter Peter"
+      ],
+      "seed": 48151171
+    },
+    {
+      "source_id": "10.7554/eLife.04120",
+      "group_id": "a8f77209b033d7469c698b584e4067478b7b0cd4e3283f99305cf80923c2bc0e",
+      "view_id": "0975c6731533f12fa56ab97ed9c9d2d26cbf67da3cde51fdf2fd1aab80db3023",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "27027facc695b8b4c73258b3c9651449af1fcfaa79b5150ca33a758d0234fb39",
+      "prefix": "in these RNAs, and direct their export through the Crm1 pathway. Rev-RRE",
+      "human_source_window": "assembly occurs via several Rev oligomerization and RNA-binding steps, but how these steps are coordinated to form an export-competent complex is unclear. Here, we",
+      "prefix_span": [
+        239,
+        311
+      ],
+      "human_span": [
+        312,
+        475
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04120-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Jayaraman Bhargavi",
+        "Crosby David C",
+        "Homer Christina",
+        "Ribeiro Isabel",
+        "Mavor David",
+        "Frankel Alan D"
+      ],
+      "seed": 158713459
+    },
+    {
+      "source_id": "10.7554/eLife.02130",
+      "group_id": "28e8ada59cc0d9576465ea07645eaf9a790053bacd9c51040cf0d7f14d6dd342",
+      "view_id": "317bd5d41b04847bfc1d41f5b87756ae222f6ab47afa1b72ea776739876e2e34",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "73d4297d518fec930c805122ef289621d7ca9d6690d35190016338c55be179e1",
+      "prefix": "fraction of febrile children with positive malaria smears per homestead, and b)",
+      "human_source_window": "the mean age of children with malaria per homestead. These two measures were inversely correlated, indicating that children in homesteads at higher transmission acquire",
+      "prefix_span": [
+        258,
+        337
+      ],
+      "human_span": [
+        338,
+        506
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02130-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Bejon Philip",
+        "Williams Thomas N",
+        "Nyundo Christopher",
+        "Hay Simon I",
+        "Benz David",
+        "Gething Peter W",
+        "Otiende Mark",
+        "Peshu Judy",
+        "Bashraheil Mahfudh",
+        "Greenhouse Bryan",
+        "Bousema Teun",
+        "Bauni Evasius",
+        "Marsh Kevin",
+        "Smith David L",
+        "Borrmann Steffen"
+      ],
+      "seed": 830199252
+    },
+    {
+      "source_id": "10.7554/eLife.00499",
+      "group_id": "b16c46d63fa1b55668e4f29449364701f6b8cecf2fd0e6cd0c401163a3813457",
+      "view_id": "c84014ca59524e671aacf30a4b806842b76f7b0996ea5a73e308b20a6c987e10",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "8fdda3032c45b4e1693cce4340c03624121d57f3a399407939119e02edddd71c",
+      "prefix": "(AR). To prospectively identify AR mutations that might confer resistance to enzalutamide,",
+      "human_source_window": "we performed a reporter-based mutagenesis screen and identified a novel mutation, F876L, which converted enzalutamide into an AR agonist. Ectopic expression of AR F876L",
+      "prefix_span": [
+        283,
+        373
+      ],
+      "human_span": [
+        374,
+        542
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00499-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Balbas Minna D",
+        "Evans Michael J",
+        "Hosfield David J",
+        "Wongvipat John",
+        "Arora Vivek K",
+        "Watson Philip A",
+        "Chen Yu",
+        "Greene Geoffrey L",
+        "Shen Yang",
+        "Sawyers Charles L"
+      ],
+      "seed": 3359642826
+    },
+    {
+      "source_id": "10.7554/eLife.01119",
+      "group_id": "e0dedfb14f2acba1a05aa18a622e8c13b3863ccb96e0eff1a3378470e64894e9",
+      "view_id": "9fdbc6a319b19eb4e7b6ab0e8f3432d69eff058e50170e6c763c5e09bf49939d",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "498f3721c8846b46b4b03fdeb3877c17afba5b3335b98ef8878eaa950cba5d24",
+      "prefix": "tissue. Treatment of 3T3-L1 adipocytes with specific inhibitors of these kinases restored",
+      "human_source_window": "β-adrenergic signaling and lipolysis attenuated by TNFα and Poly (I:C). Conversely, overexpression of the kinases reduced induction of Ucp1, lipolysis, cAMP levels, and phosphorylation",
+      "prefix_span": [
+        249,
+        338
+      ],
+      "human_span": [
+        339,
+        523
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01119-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Mowers Jonathan",
+        "Uhm Maeran",
+        "Reilly Shannon M",
+        "Simon Joshua",
+        "Leto Dara",
+        "Chiang Shian-Huey",
+        "Chang Louise",
+        "Saltiel Alan R"
+      ],
+      "seed": 2681980579
+    },
+    {
+      "source_id": "10.7554/eLife.02076",
+      "group_id": "4e72258171f597e8a7a072bcdaf6443068bd5dd811a2d98199c78756bba82d9e",
+      "view_id": "65b747924844bdb8fc658e4d82dcb0ab227c9e5fa99d1c13dd40edd4116cf9fe",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6a16908dd8bd2e4bd5543ffce9b1fb588d030d4964b4d0f1cc9e1a9360d8db20",
+      "prefix": "signals in the same climbing fibers: learned increases and decreases in the",
+      "human_source_window": "gain of the vestibulo-ocular reflex (VOR). During VOR-increase training, climbing fiber activity on one trial predicted changes in cerebellar output on the next trial,",
+      "prefix_span": [
+        253,
+        328
+      ],
+      "human_span": [
+        329,
+        496
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02076-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Kimpo Rhea R",
+        "Rinaldi Jacob M",
+        "Kim Christina K",
+        "Payne Hannah L",
+        "Raymond Jennifer L"
+      ],
+      "seed": 1706510226
+    },
+    {
+      "source_id": "10.7554/eLife.01104",
+      "group_id": "df56905b98e71433ab7eaf1c17e8c5bb06035984754b6e98728c096f766ecefb",
+      "view_id": "adff37d135bee89fe33a463212c9ebf5c2077b252ae709c97efc3d4c74162ad8",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "44a388116f470e4703176c1516ca98d6a152a189a3034fba2f4e37f53fb1d82f",
+      "prefix": "but errors can range from days to months. Microbes may provide a",
+      "human_source_window": "novel method for estimating PMI that avoids many of these limitations. Here we show that postmortem microbial community changes are dramatic, measurable, and repeatable",
+      "prefix_span": [
+        238,
+        302
+      ],
+      "human_span": [
+        303,
+        471
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01104-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Metcalf Jessica L",
+        "Wegener Parfrey Laura",
+        "Gonzalez Antonio",
+        "Lauber Christian L",
+        "Knights Dan",
+        "Ackermann Gail",
+        "Humphrey Gregory C",
+        "Gebert Matthew J",
+        "Van Treuren Will",
+        "Berg-Lyons Donna",
+        "Keepers Kyle",
+        "Guo Yan",
+        "Bullard James",
+        "Fierer Noah",
+        "Carter David O",
+        "Knight Rob"
+      ],
+      "seed": 2919184337
+    },
+    {
+      "source_id": "10.7554/eLife.03421",
+      "group_id": "f4bfeaea3201e3fb1ed6824c691dabc5a427025acd31756a6c959b3da2d4b301",
+      "view_id": "f2936ada420cf8d1452511d0317ae4aa48595512719d7ecfd4398a9fd8f3a591",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "4bb9649b88f41b8149b9329482f02be324d670217b5d2d3256d01e7b3ba0dad4",
+      "prefix": "widely held assumption that reduced ER glutathione fuels disulfide reduction, we expressed",
+      "human_source_window": "a modified form of a cytosolic glutathione-degrading enzyme, ChaC1, in the ER lumen. ChaC1CtoS purged the ER of glutathione eliciting the expected kinetic defect",
+      "prefix_span": [
+        258,
+        348
+      ],
+      "human_span": [
+        349,
+        510
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03421-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Tsunoda Satoshi",
+        "Avezov Edward",
+        "Zyryanova Alisa",
+        "Konno Tasuku",
+        "Mendes-Silva Leonardo",
+        "Pinho Melo Eduardo",
+        "Harding Heather P",
+        "Ron David"
+      ],
+      "seed": 4069747418
+    },
+    {
+      "source_id": "10.7554/eLife.01949",
+      "group_id": "fb628841fb760c4b427c6bd06179601cd08cb3c77cd990dac1f4e95325d9c869",
+      "view_id": "d51de71d5ba6c54818908e58cce0d87568c342be3f29274a08a7aede3001c7d9",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d38c423728e3559a7149c3b59beb2380ff7d86eab75b1398a0b626c4d3a4c590",
+      "prefix": "Th1 and Th17 T cell responses in vivo, and a defect in",
+      "human_source_window": "the Tfh function. Depletion of Tregs in these mice rescued the Th1 but not the Th17 response. Our data suggest that IL-6 signaling in",
+      "prefix_span": [
+        261,
+        315
+      ],
+      "human_span": [
+        316,
+        449
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01949-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Nish Simone A",
+        "Schenten Dominik",
+        "Wunderlich Thomas",
+        "Pope Scott D",
+        "Gao Yan",
+        "Hoshi Namiko",
+        "Yu Shuang",
+        "Yan Xiting",
+        "Lee Heung Kyu",
+        "Pasman Lesley",
+        "Brodsky Igor",
+        "Yordy Brian",
+        "Zhao Hongyu",
+        "Brüning Jens",
+        "Medzhitov Ruslan"
+      ],
+      "seed": 3575506717
+    },
+    {
+      "source_id": "10.7554/eLife.01457",
+      "group_id": "c97efb68e5dda575f50ea7b4af66adaadf2240f8beeee72648a508299e7e8bf7",
+      "view_id": "8791cfd83bf1b85737feb8c3612cf09153782a35561bf200ab8f7802f52cc239",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "646471568e41dfcf89c7e8c8719a358b1867e0bf919b2226dfdf7c1662da8c2e",
+      "prefix": "generated a transgenic mouse expressing a naturally occurring self-peptide, gp250, that positively",
+      "human_source_window": "selects an MCC-specific TCR, AND, as the only MHC class II I-Ek ligand to study the MCC highly organized immunodominance hierarchy. The single gp250/I-Ek",
+      "prefix_span": [
+        270,
+        368
+      ],
+      "human_span": [
+        369,
+        522
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01457-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Lo Wan-Lin",
+        "Solomon Benjamin D",
+        "Donermeyer David L",
+        "Hsieh Chyi-Song",
+        "Allen Paul M"
+      ],
+      "seed": 2274480088
+    },
+    {
+      "source_id": "10.7554/eLife.03891",
+      "group_id": "0f1fcebeb2a3cc5cd24fc7a6def44100249ccf2fdd1b7ed39765be270e564c70",
+      "view_id": "211a3bfa61793635edd40a015107a3f6ca1c7787632ec62c353c433083287a1a",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "5827f85c08bcef2ea2f7a5bb21a968a12c3b98d069bd62a4b6a7d8ac2ed6a329",
+      "prefix": "In this study, we show that upon ectopic expression, the receptor-like kinase",
+      "human_source_window": "genes Nod Factor Receptor 1 (NFR1), NFR5, and SYMRK initiate spontaneous nodule organogenesis and nodulation-related gene expression in the absence of rhizobia. Furthermore, overexpressed",
+      "prefix_span": [
+        289,
+        366
+      ],
+      "human_span": [
+        367,
+        554
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03891-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Ried Martina Katharina",
+        "Antolín-Llovera Meritxell",
+        "Parniske Martin"
+      ],
+      "seed": 555367418
+    },
+    {
+      "source_id": "10.7554/eLife.03180",
+      "group_id": "b6e8dd6ec4edef392345c4b4bd6c4f801efc80ca5c9d52bce413809593c46cee",
+      "view_id": "1d0bbfe813881daf17cef7b68146060681a8571342f26e6c38cdedb26983ac66",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "62aa20acdbdab4fbf3fbbee50ddcf9b5dafee91022752a0d38affb903573ec9d",
+      "prefix": "CD28 after T cell priming we generated a strain of mice where",
+      "human_source_window": "CD28 is removed from CD4+ T cells after priming. We show that continued CD28 expression is important for effector CD4+ T cells following infection;",
+      "prefix_span": [
+        230,
+        291
+      ],
+      "human_span": [
+        292,
+        439
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03180-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Linterman Michelle A",
+        "Denton Alice E",
+        "Divekar Devina P",
+        "Zvetkova Ilona",
+        "Kane Leanne",
+        "Ferreira Cristina",
+        "Veldhoen Marc",
+        "Clare Simon",
+        "Dougan Gordon",
+        "Espéli Marion",
+        "Smith Kenneth G C"
+      ],
+      "seed": 487309288
+    },
+    {
+      "source_id": "10.7554/eLife.04664",
+      "group_id": "2ab171625b73f911a91061193162ca876004122d68636dd0edf231534c441771",
+      "view_id": "0bf485764d4381439155bdea7a816ccf6ca050971203315380ec546463a05df8",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "2735a3a76d0d5c5993cf0f9c94e06650d47e2c510edb77b082f9253e6a5fcee5",
+      "prefix": "lividus, the Hbox12 homeodomain-containing repressor is expressed by prospective dorsal cells, spatially",
+      "human_source_window": "facing and preceding the onset of nodal transcription. We report that Hbox12-misexpression provokes DV abnormalities, attenuating nodal and nodal-dependent transcription. Reciprocally, impairing hbox12 function",
+      "prefix_span": [
+        282,
+        386
+      ],
+      "human_span": [
+        387,
+        597
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04664-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Cavalieri Vincenzo",
+        "Spinelli Giovanni"
+      ],
+      "seed": 200574326
+    },
+    {
+      "source_id": "10.7554/eLife.02395",
+      "group_id": "f4544eae3ed0e2b3b52ab4a1df57e47efb884006b3feea6de8b2cd2c59c914a9",
+      "view_id": "134367e541daf28cf44d52566cf90838c5fab8c282c47d14fcf3666aa00bb0b3",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "56a89741c5d273d842fbd63041740d6493a98cc985768af0374e5f586888f119",
+      "prefix": "and aversive visual learning assays for Drosophila that are comparable to the",
+      "human_source_window": "widely used olfactory learning assays. These assays share critical features, such as reinforcing stimuli (sugar reward and electric shock punishment), and allow direct comparison",
+      "prefix_span": [
+        249,
+        326
+      ],
+      "human_span": [
+        327,
+        505
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02395-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Vogt Katrin",
+        "Schnaitmann Christopher",
+        "Dylla Kristina V",
+        "Knapek Stephan",
+        "Aso Yoshinori",
+        "Rubin Gerald M",
+        "Tanimoto Hiromu"
+      ],
+      "seed": 323184613
+    },
+    {
+      "source_id": "10.7554/eLife.03587",
+      "group_id": "c06d7ee85965fc7b3df7fe9c250b328fb70ce530442bd554ca44dbc9f2e27a38",
+      "view_id": "55f12023615b6742a6e5ef6d6c87190183b3eb049a305bbce152801215e49abc",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "61d9bce1f2a056bc41eccc0994f3669e88a862c001f0c0349cdf4e4e4a54e193",
+      "prefix": "model bacterium Caulobacter crescentus is cell cycle regulated and we unearth a",
+      "human_source_window": "bacterial transglutaminase homolog, HvyA, as restriction factor that prevents capsulation in G1-phase cells. This capsule protects cells from infection by a generalized transducing Caulobacter",
+      "prefix_span": [
+        218,
+        297
+      ],
+      "human_span": [
+        298,
+        490
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03587-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Ardissone Silvia",
+        "Fumeaux Coralie",
+        "Bergé Matthieu",
+        "Beaussart Audrey",
+        "Théraulaz Laurence",
+        "Radhakrishnan Sunish Kumar",
+        "Dufrêne Yves F",
+        "Viollier Patrick H"
+      ],
+      "seed": 1441865763
+    },
+    {
+      "source_id": "10.7554/eLife.00005",
+      "group_id": "98e351337ad797efd38cfd24c52975591aea86b11a4c8736822ad7a1fc53dee2",
+      "view_id": "c1ff9d8180e53643bb47d6067fea5dd1fec68096d304e86d5fdf9be74081ca14",
+      "split": "train",
+      "year": 2012,
+      "source_sha256": "1cbbd73740b14525c6381ccededac6a3a7d113806accbe55c853e3b19f9a3367",
+      "prefix": "importance, little is known about PRC2 architecture and subunit organization. Here, we",
+      "human_source_window": "present the first three-dimensional electron microscopy structure of the human PRC2 complex bound to its cofactor AEBP2. Using a novel internal protein tagging-method, in",
+      "prefix_span": [
+        246,
+        332
+      ],
+      "human_span": [
+        333,
+        503
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00005-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Ciferri Claudio",
+        "Lander Gabriel C",
+        "Maiolica Alessio",
+        "Herzog Franz",
+        "Aebersold Ruedi",
+        "Nogales Eva"
+      ],
+      "seed": 3254754689
+    },
+    {
+      "source_id": "10.7554/eLife.03464",
+      "group_id": "b83be352acae1cb7caeda9aad56833e6399d7c39143649bc82d77ce3e4508ab5",
+      "view_id": "57ea4ce295a6881e94dafdae9b299ffb8c6b4bfd6d0c23648e4905fcb51b649d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "f9d5e7e828fd666e9c77da7fd845c708833f5e7bd531123ba3e9e13b5d2ebd2f",
+      "prefix": "splenomegaly, and loss of Peyer's patches. TNF-dependent cell death has been proposed",
+      "human_source_window": "to cause the inflammatory phenotype and consistent with this we show Tnfr1, but not Tnfr2, deficiency suppresses the phenotype (and it does so more",
+      "prefix_span": [
+        283,
+        368
+      ],
+      "human_span": [
+        369,
+        516
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03464-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Rickard James A",
+        "Anderton Holly",
+        "Etemadi Nima",
+        "Nachbur Ueli",
+        "Darding Maurice",
+        "Peltzer Nieves",
+        "Lalaoui Najoua",
+        "Lawlor Kate E",
+        "Vanyai Hannah",
+        "Hall Cathrine",
+        "Bankovacki Aleks",
+        "Gangoda Lahiru",
+        "Wong Wendy Wei-Lynn",
+        "Corbin Jason",
+        "Huang Chunzi",
+        "Mocarski Edward S",
+        "Murphy James M",
+        "Alexander Warren S",
+        "Voss Anne K",
+        "Vaux David L",
+        "Kaiser William J",
+        "Walczak Henning",
+        "Silke John"
+      ],
+      "seed": 1474972898
+    },
+    {
+      "source_id": "10.7554/eLife.01305",
+      "group_id": "c3ee8ec51c09f4435a5bbf3afd72e5c6e67b2a5a859dc3809cd15c0178d1253c",
+      "view_id": "36715c14c112c5dd00c751ae0185f5d9c9b4745189758117fc86dea31a3f9dae",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "663094e617ed0895e1310b1b7e206f1fc76c4b701ed7ebbd0884edbff8ca7252",
+      "prefix": "with this syndrome. Using mouse models, we show that Chd7 haploinsufficiency results",
+      "human_source_window": "in reduced Fgf8 expression in the isthmus organiser (IsO), an embryonic signalling centre that directs early cerebellar development. Consistent with this observation, Chd7 and",
+      "prefix_span": [
+        249,
+        333
+      ],
+      "human_span": [
+        334,
+        509
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01305-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Yu Tian",
+        "Meiners Linda C",
+        "Danielsen Katrin",
+        "Wong Monica TY",
+        "Bowler Timothy",
+        "Reinberg Danny",
+        "Scambler Peter J",
+        "van Ravenswaaij-Arts Conny MA",
+        "Basson M Albert"
+      ],
+      "seed": 913398804
+    },
+    {
+      "source_id": "10.7554/eLife.00542",
+      "group_id": "50095cfaa665072415d76f4a15551481e115a9f7c373e63b52b146d77070067d",
+      "view_id": "84dded66af83e681eada4ce8077801a10c2c5ca12dea1f642130ba7ab9404483",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "c3826bcefe80ecdefd087b7ad9dba7e516aca004b95e7e52dd8b7925b68f86c2",
+      "prefix": "transcription factors activate 4E-BP expression amplifying the repression. Here we show that",
+      "human_source_window": "Drosophila FOXO binds the PDCD4 promoter and stimulates the transcription of PDCD4 in response to stress. We have shown previously that the 5′ UTR",
+      "prefix_span": [
+        260,
+        352
+      ],
+      "human_span": [
+        353,
+        499
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00542-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Olson Calla M",
+        "Donovan Marissa R",
+        "Spellberg Michael J",
+        "Marr Michael T II"
+      ],
+      "seed": 2229136742
+    },
+    {
+      "source_id": "10.7554/eLife.04499",
+      "group_id": "87bdc35457c615c5dca4aa89268045020857b4c080dbee30aeb4f661b56f3a28",
+      "view_id": "8b9869b69b35aa84743cfc42b014c07ef7a0327c939f57347211830b2813640e",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "89d7ab438ccd956e17a9f6d1e804696bf45b7501ca69b200ddcae8947b5f2369",
+      "prefix": "resonance imaging, we studied anesthesia-induced unconsciousness and recovery using the α2-agonist dexmedetomidine.",
+      "human_source_window": "During unconsciousness, cerebral metabolic rate of glucose and cerebral blood flow were preferentially decreased in the thalamus, the Default Mode Network (DMN), and the",
+      "prefix_span": [
+        282,
+        397
+      ],
+      "human_span": [
+        398,
+        567
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04499-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Akeju Oluwaseun",
+        "Loggia Marco L",
+        "Catana Ciprian",
+        "Pavone Kara J",
+        "Vazquez Rafael",
+        "Rhee James",
+        "Contreras Ramirez Violeta",
+        "Chonde Daniel B",
+        "Izquierdo-Garcia David",
+        "Arabasz Grae",
+        "Hsu Shirley",
+        "Habeeb Kathleen",
+        "Hooker Jacob M",
+        "Napadow Vitaly",
+        "Brown Emery",
+        "Purdon Patrick L"
+      ],
+      "seed": 2342021558
+    },
+    {
+      "source_id": "10.7554/eLife.02866",
+      "group_id": "d28c30c8998020ba74311cf3e511a362b887a24350b9b843ddf1a7a8b4927231",
+      "view_id": "bdfb505439fa76fec4527926d5613cd04474825786e8c34497f33f24cd99115e",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "960337398786a91718581d8c4ff3a6cdc1de4b785d5a83b50e4c03b800f45a35",
+      "prefix": "between the APs and COPI. Studies in Dictyostelium indicate that TSET is",
+      "human_source_window": "a heterohexamer, with two associated scaffolding proteins. TSET is non-essential in Dictyostelium, but may act in plasma membrane turnover, and is essentially identical to",
+      "prefix_span": [
+        243,
+        315
+      ],
+      "human_span": [
+        316,
+        487
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02866-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Hirst Jennifer",
+        "Schlacht Alexander",
+        "Norcott John P",
+        "Traynor David",
+        "Bloomfield Gareth",
+        "Antrobus Robin",
+        "Kay Robert R",
+        "Dacks Joel B",
+        "Robinson Margaret S"
+      ],
+      "seed": 3187363924
+    },
+    {
+      "source_id": "10.7554/eLife.00594",
+      "group_id": "bf7c85acb35b26b205b547b4b9ce2598d8d7d1d1deb1d0d53eb672c2edada2ce",
+      "view_id": "97c4e73edf501e04d5fec8d6600bf21ecca7043b860823acbfa4519918a54d9f",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "5291c5a46ca90dd53f5084eb936abc4698c5da468d2c3f0ed1313daaa7b692ae",
+      "prefix": "to the extracellular pore entryway without producing discernable alteration of the selectivity",
+      "human_source_window": "filter structure and is oriented to project its Lys27 into the pore. The most extracellular K+ binding site (S1) is devoid of K+ electron-density",
+      "prefix_span": [
+        258,
+        352
+      ],
+      "human_span": [
+        353,
+        498
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00594-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Banerjee Anirban",
+        "Lee Alice",
+        "Campbell Ernest",
+        "MacKinnon Roderick"
+      ],
+      "seed": 2546263870
+    },
+    {
+      "source_id": "10.7554/eLife.02501",
+      "group_id": "497614860c35817b66a4256e3aa5d222a6d1f4e7efb617d4c122d2d64fa58a5b",
+      "view_id": "d14e155144eff2b3728faeb4391ab661332502b813ba6ebcd3c87c04370cecc6",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "130034727515d0603188155d9a2ae869a3da77b3782d79f3bc5911baca3669c7",
+      "prefix": "different environments remains unclear, as the cost versus benefit of accurate protein",
+      "human_source_window": "synthesis is difficult to predict. We show that in Escherichia coli, a non-coded amino acid produced through oxidative damage is a significant threat to",
+      "prefix_span": [
+        240,
+        326
+      ],
+      "human_span": [
+        327,
+        479
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02501-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Bullwinkle Tammy",
+        "Reynolds Noah M",
+        "Raina Medha",
+        "Moghal Adil B",
+        "Matsa Eleftheria",
+        "Rajkovic Andrei",
+        "Kayadibi Huseyin",
+        "Fazlollahi Farbod",
+        "Ryan Christopher",
+        "Howitz Nathaniel",
+        "Faull Kym F",
+        "Lazazzera Beth",
+        "Ibba Michael"
+      ],
+      "seed": 3511555409
+    },
+    {
+      "source_id": "10.7554/eLife.01009",
+      "group_id": "43053363ad9a95c75c4d2a92aa298b9980dc1641bcf117203c461db0eaa12a5d",
+      "view_id": "bf476f1cbf3aa0ef20391908949136244217da602e0f7ab3868fd99c35298d9b",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "0b76a1a8d2c43dbf2e4540ad6d8c554efbaf2c382112e9b0ed396a8a0d457b06",
+      "prefix": "K+ efflux; however, the molecular identity of the potassium channel of human",
+      "human_source_window": "spermatozoa (hKSper) is unknown. Here, we characterize hKSper, reporting that it is regulated by intracellular calcium but is insensitive to intracellular alkalinization. We also",
+      "prefix_span": [
+        248,
+        324
+      ],
+      "human_span": [
+        325,
+        503
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01009-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Mannowetz Nadja",
+        "Naidoo Natasha M",
+        "Choo Seung-A Sara",
+        "Smith James F",
+        "Lishko Polina V"
+      ],
+      "seed": 3209129756
+    },
+    {
+      "source_id": "10.7554/eLife.04506",
+      "group_id": "77775a5f7694ce7701a1763904e462ee6fe7fa965cb8907d7342050f6c2de44f",
+      "view_id": "2b42e43dc13448d3a40cb766bd6c6d285f3d98ea732b6a11c68358118477ed8d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "54943de05bdf284a1b9bc92d95957a8ced8acf84e279e6adebe9c5c265252a5a",
+      "prefix": "as a repressor of the transcriptome largely independent of Set1C and H3K4me",
+      "human_source_window": "in the fission yeast Schizosaccharomyces pombe. Intriguingly, while Set1 is enriched at highly expressed and repressed loci, Set1 binding levels do not generally correlate",
+      "prefix_span": [
+        279,
+        354
+      ],
+      "human_span": [
+        355,
+        526
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04506-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Lorenz David R",
+        "Meyer Lauren F",
+        "Grady Patrick J R",
+        "Meyer Michelle M",
+        "Cam Hugh P"
+      ],
+      "seed": 725804093
+    },
+    {
+      "source_id": "10.7554/eLife.00654",
+      "group_id": "c7b23fb38a46bd8ff5f33d823fd38e7d97e56f0584496a086c7f0dccce63e3c4",
+      "view_id": "cf123662c09d4bfb8d31587ce771c1e22859a195ea255396a8951c39126e0fcc",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "4fab08ef39a3425a0fb864f616f30da36df3b572b02c2e4d95b5dbc62987e6be",
+      "prefix": "these dynamics, we imaged single molecules of Somatostatin Receptor 3 (SSTR3, a",
+      "human_source_window": "GPCR) and Smoothened (Smo, a Hedgehog signal transducer) in the ciliary membrane. While IFT trains moved processively from one end of the cilium to",
+      "prefix_span": [
+        255,
+        334
+      ],
+      "human_span": [
+        335,
+        482
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00654-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Ye Fan",
+        "Breslow David K",
+        "Koslover Elena F",
+        "Spakowitz Andrew J",
+        "Nelson W James",
+        "Nachury Maxence V"
+      ],
+      "seed": 3474077282
+    },
+    {
+      "source_id": "10.7554/eLife.02671",
+      "group_id": "1424069e30af4af85b9936e85ae1c5132e68df48b846b96195e6bd38d42c5665",
+      "view_id": "825e4f46d158aab9b36fc7cfbfe6dbfb67fcce42e7a0f1e2222eba105c4647c3",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "83e581542977ed55fe0baf6aa65ca767e84d424c1713aca027978a2a88b5f14f",
+      "prefix": "the development of the OC by regulating RGC axon growth in a",
+      "human_source_window": "non-cell autonomous manner. Here, we identify an unexpected function of Vax1 that is secreted from ventral hypothalamic cells and diffuses to RGC axons, where",
+      "prefix_span": [
+        226,
+        286
+      ],
+      "human_span": [
+        287,
+        445
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02671-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Kim Namsuk",
+        "Min Kwang Wook",
+        "Kang Kyung Hwa",
+        "Lee Eun Jung",
+        "Kim Hyoung-Tai",
+        "Moon Kyunghwan",
+        "Choi Jiheon",
+        "Le Dai",
+        "Lee Sang-Hee",
+        "Kim Jin Woo"
+      ],
+      "seed": 2187218758
+    },
+    {
+      "source_id": "10.7554/eLife.02104",
+      "group_id": "bc2ae1633af2a2a4578aaa83c64169277c467022c3a623c9d7c589628906798a",
+      "view_id": "5c958f811146461a364fed6add5bc2c7a4d07aebb588a759ed1e11510223ef9d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6fc5b6c81f8aa1fcab1f0f38e32127bd0681ad3ee91b73242242d28c1750c4be",
+      "prefix": "NSL to transcription regulation in mESCs is not well understood. Our genome-wide",
+      "human_source_window": "analysis show that i) MSL and NSL bind to specific and common sets of expressed genes, ii) NSL binds exclusively at promoters, iii) while",
+      "prefix_span": [
+        240,
+        320
+      ],
+      "human_span": [
+        321,
+        458
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02104-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Ravens Sarina",
+        "Fournier Marjorie",
+        "Ye Tao",
+        "Stierle Matthieu",
+        "Dembele Doulaye",
+        "Chavant Virginie",
+        "Tora Làszlò"
+      ],
+      "seed": 1553305473
+    },
+    {
+      "source_id": "10.7554/eLife.03526",
+      "group_id": "abf50c801e813da390f02ed07dcd183905e33eaecc3d2247d00d782f9266d7dc",
+      "view_id": "76bed2260cd093a4abb9a6c0467b4f5dc31a380fb8c5317178729f7487a51ad3",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "7fe7da0998549f1f82a26d2ba2ec31f54e5c95fe4123c133f704faf4c301f581",
+      "prefix": "even evolutionary stepping-stone, to switching between multiple systems. We hypothesized that mutations",
+      "human_source_window": "in gene regulation could lead to heritable control of chemotactic diversity. By simulating foraging and colonization of Escherichia coli using a single-cell chemotaxis model,",
+      "prefix_span": [
+        245,
+        348
+      ],
+      "human_span": [
+        349,
+        523
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03526-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Frankel Nicholas W",
+        "Pontius William",
+        "Dufour Yann S",
+        "Long Junjiajia",
+        "Hernandez-Nunez Luis",
+        "Emonet Thierry"
+      ],
+      "seed": 1992217126
+    },
+    {
+      "source_id": "10.7554/eLife.02755",
+      "group_id": "8a82a87acc243bea22cd40830f53682a1f366cda364b636f232a03a204cb7436",
+      "view_id": "6873b50bb6d93ee8d6e999f952c18fba2a13895251b112bf3e4a069ea4cb1e37",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "c68d003ee62af765f00001ffe516ca75fa544c6138a37a05d9f868c87df96ef8",
+      "prefix": "progenitors, its role in dendritic and synaptic development remains largely unknown. In",
+      "human_source_window": "order to target miR-9 in vivo, we developed a transgenic miRNA sponge mouse line allowing conditional inactivation of the miR-9 family in a spatio-temporal-controlled",
+      "prefix_span": [
+        240,
+        327
+      ],
+      "human_span": [
+        328,
+        494
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02755-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Giusti Sebastian A",
+        "Vogl Annette M",
+        "Brockmann Marisa M",
+        "Vercelli Claudia A",
+        "Rein Martin L",
+        "Trümbach Dietrich",
+        "Wurst Wolfgang",
+        "Cazalla Demian",
+        "Stein Valentin",
+        "Deussing Jan M",
+        "Refojo Damian"
+      ],
+      "seed": 1752413451
+    },
+    {
+      "source_id": "10.7554/eLife.03005",
+      "group_id": "761ec77311ef842650074d677908479988ccff399c64eb9a540f70532556f22c",
+      "view_id": "080a9067f84feb56e89d687a61cdbf37e3e7efb44b6f2f62684f98d6a520dc9f",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d552832ccf3d280a79a2037e7df75f2416a28b8ba81a631b721033e2fc03ffda",
+      "prefix": "when subjects can choose when to make a decision (reaction-time task), nor",
+      "human_source_window": "when sensory inputs have time-varying reliability. Using a reaction-time version of a visual/vestibular heading discrimination task, we show that behavior is clearly sub-optimal when",
+      "prefix_span": [
+        252,
+        326
+      ],
+      "human_span": [
+        327,
+        509
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03005-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Drugowitsch Jan",
+        "DeAngelis Gregory C",
+        "Klier Eliana M",
+        "Angelaki Dora E",
+        "Pouget Alexandre"
+      ],
+      "seed": 134910055
+    },
+    {
+      "source_id": "10.7554/eLife.01948",
+      "group_id": "f16588ed3519cdfd906a5e9fbd26e0f876881e4d26c974c60b4afa8c7cc42b18",
+      "view_id": "2f7ae10664c7e05f2e258c8db86aefcd685e005ac75d79b4ad5f65e4de1077bd",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "087f6ecc3644ed71656e5132fb99fb047e19f1955240cfa450648103d178fc9d",
+      "prefix": "ago provided an initial but incomplete description of diverse sensory cilia morphologies",
+      "human_source_window": "in C. elegans. To begin to explore the mechanisms that generate these remarkably complex structures, we have taken advantage of advances in electron microscopy",
+      "prefix_span": [
+        278,
+        366
+      ],
+      "human_span": [
+        367,
+        526
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01948-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Doroquez David B",
+        "Berciu Cristina",
+        "Anderson James R",
+        "Sengupta Piali",
+        "Nicastro Daniela"
+      ],
+      "seed": 796582150
+    },
+    {
+      "source_id": "10.7554/eLife.00133",
+      "group_id": "c19f2888b2ba3e20629c5a1d0bcf5539ab405251c41964546ba337a4616026e5",
+      "view_id": "3c15d80c29ae36335ae35fcf63ece5a2cc870e5636fb23266af39a7d455bd0de",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "65823fa2b5daa8a88c660a622510ad6a566d95b85916df112272f1525611ff1a",
+      "prefix": "the plus-end is oriented out from the cell body, dendrites exhibit a",
+      "human_source_window": "mixed MTs polarity containing both minus-end-out and plus-end-out MTs. The molecular mechanisms underlying this differential organization, as well as its functional significance, are unknown.",
+      "prefix_span": [
+        248,
+        316
+      ],
+      "human_span": [
+        317,
+        508
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00133-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Yan Jing",
+        "Chao Dan L",
+        "Toba Shiori",
+        "Koyasako Kotaro",
+        "Yasunaga Takuo",
+        "Hirotsune Shinji",
+        "Shen Kang"
+      ],
+      "seed": 1008064524
+    },
+    {
+      "source_id": "10.7554/eLife.02758",
+      "group_id": "44bc3266e421c77f8316c670cacbe5652b7411630b838be5de13772190c57aa8",
+      "view_id": "14e3e226d938782df372ad01354f7fb135f84feab53f482fda0fc741509c088d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "16385a50b0e759d7f05a7fc950a0d928f2adcf9529593748e1cc8852303762b3",
+      "prefix": "imaging and mathematical modeling to examine the mechanism by which ParA drives",
+      "human_source_window": "the translocation of the ParB/parS partition complex in Caulobacter crescentus. Our experiments, together with simulations grounded on experimentally-determined biochemical and cellular parameters, suggest a",
+      "prefix_span": [
+        267,
+        346
+      ],
+      "human_span": [
+        347,
+        554
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02758-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Lim Hoong Chuin",
+        "Surovtsev Ivan V",
+        "Beltran Bruno G",
+        "Huang Fang",
+        "Bewersdorf Jörg",
+        "Jacobs-Wagner Christine"
+      ],
+      "seed": 350478886
+    },
+    {
+      "source_id": "10.7554/eLife.02008",
+      "group_id": "4dd57415c0bca5e81aa47576d0318888c8ee394e4b397147dac5fbe18a9de385",
+      "view_id": "f082b3f96bf18c644e848d9561517fbe3305584804c92b3c3ced5048be752709",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "6a6d0f1a0ae83d5e7b6466e107b6cf8ccb747591bbbbded3de51fc7be057e5cc",
+      "prefix": "of cytidine nucleotides to uridine nucleotides (C-to-U) in single-strand DNA substrates. Among",
+      "human_source_window": "these enzymes, APOBEC3A (A3A) is the most potent inhibitor of L1 retrotransposition in cultured cell assays. However, previous characterization of L1 retrotransposition events generated",
+      "prefix_span": [
+        267,
+        361
+      ],
+      "human_span": [
+        362,
+        547
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02008-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Richardson Sandra R",
+        "Narvaiza Iñigo",
+        "Planegger Randy A",
+        "Weitzman Matthew D",
+        "Moran John V"
+      ],
+      "seed": 4035097593
+    },
+    {
+      "source_id": "10.7554/eLife.03697",
+      "group_id": "a79db251ca916b3d56f6613f765367d582066c5f5ffa02b2b279fede8fa75cf1",
+      "view_id": "af8ea27f49f1857553a7046703ed40bc8cdb8c9d23687b14ffa56b73e5223cad",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "b96384a764779b0832f9973557a7f2f8e6b2b521d57df608ec8f30e4360afa6f",
+      "prefix": "this question because production of learned song and induction of vocal variability",
+      "human_source_window": "are instantiated in separate circuits that converge on a motor cortex analogue controlling vocal output. To probe the interplay between learning and variability, we",
+      "prefix_span": [
+        250,
+        333
+      ],
+      "human_span": [
+        334,
+        498
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03697-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Garst-Orozco Jonathan",
+        "Babadi Baktash",
+        "Ölveczky Bence P"
+      ],
+      "seed": 2945360511
+    },
+    {
+      "source_id": "10.7554/eLife.01295",
+      "group_id": "9782aa4fea9d28f08bee977a61cd4ab7593b0c9358d8fa63ed204085dbbd6c7e",
+      "view_id": "d3deb781cbb412480db064c9e8aa55bb8ff80170d5f8af2358841feb08cfd65e",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "246cf027caab417dac1c8f32e908e1dec1502add87814dcfa0008c5b2de07617",
+      "prefix": "acyl transferase, DHHC5, have decreased Na/K pump activity. In DHHC5-deficient myocytes, Na/K",
+      "human_source_window": "pump activity and surface area/volume ratios are increased, the palmitoylated regulatory protein, phospholemman (PLM), and the cardiac Na/Ca exchanger (NCX1) show greater surface membrane",
+      "prefix_span": [
+        287,
+        380
+      ],
+      "human_span": [
+        381,
+        568
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01295-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Lin Mei-Jung",
+        "Fine Michael",
+        "Lu Jui-Yun",
+        "Hofmann Sandra L",
+        "Frazier Gary",
+        "Hilgemann Donald W"
+      ],
+      "seed": 3554588545
+    },
+    {
+      "source_id": "10.7554/eLife.02525",
+      "group_id": "e6a735cd3c3a619d5ca288d64f186e77464b095a55f90b2f6ab8a4e6f4d964b8",
+      "view_id": "fc48a7913f71c316e0c147c17bc4649dd18023a245e8a402f3930204c4ee1674",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d73923eb69b9744b1bc007fd54b215123278650b1faabafbdd2bdcb5cc015149",
+      "prefix": "mechanisms. Here, we systematically examined root hair phenotypes in brassinosteroid-related mutants, and",
+      "human_source_window": "found that brassinosteroid signaling inhibits root hair formation through GSK3-like kinases or upstream components. We found that with enhanced brassinosteroid signaling, GL2, a cell",
+      "prefix_span": [
+        259,
+        364
+      ],
+      "human_span": [
+        365,
+        547
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02525-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Cheng Yinwei",
+        "Zhu Wenjiao",
+        "Chen Yuxiao",
+        "Ito Shinsaku",
+        "Asami Tadao",
+        "Wang Xuelu"
+      ],
+      "seed": 4232619921
+    },
+    {
+      "source_id": "10.7554/eLife.00102",
+      "group_id": "242dd1c536b0ec847bb34a3418729bbcd01154a06bee8e69261ff3f0e49e6691",
+      "view_id": "e9d24ed91886de3592cbe204e69b81507a54ec0cddd7c0e0ad5cb06e1354ec37",
+      "split": "train",
+      "year": 2012,
+      "source_sha256": "8b495f0926e1a437b1dae3463f0d04f71a7b80e5129875905c635926ed33a2cb",
+      "prefix": "and gram-negative bacteria. A sequence containing 13 nucleotides near the active site",
+      "human_source_window": "of 23S rRNA ribozyme, which catalyzes peptide bond synthesis, was both necessary and sufficient to trigger TLR13-dependent interleukin-1β production. Single point mutations within this",
+      "prefix_span": [
+        237,
+        322
+      ],
+      "human_span": [
+        323,
+        507
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00102-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Li Xiao-Dong",
+        "Chen Zhijian J"
+      ],
+      "seed": 3922874073
+    },
+    {
+      "source_id": "10.7554/eLife.00806",
+      "group_id": "6efc036b63c400323db002629a64781589d6e5a41c15feafbca93cfc7359d6ba",
+      "view_id": "2159c4a1936e17d9071ab7adb728beb3b662edbaf85a36ca1f0269c95985ad50",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "7057386cc7f629104792446bfd9ad2c73fca6bc82c4f5968f9c06625cb1315c4",
+      "prefix": "embryonic stem cell (mESC) differentiation to uncover a new mechanism for PI3K",
+      "human_source_window": "signalling that is required for endoderm specification. We found that PI3K signalling promotes the transition from naïve endoderm precursors into committed anterior endoderm. PI3K",
+      "prefix_span": [
+        259,
+        337
+      ],
+      "human_span": [
+        338,
+        517
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00806-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Villegas S Nahuel",
+        "Rothová Michaela",
+        "Barrios-Llerena Martin E",
+        "Pulina Maria",
+        "Hadjantonakis Anna-Katerina",
+        "Le Bihan Thierry",
+        "Astrof Sophie",
+        "Brickman Joshua M"
+      ],
+      "seed": 559531169
+    },
+    {
+      "source_id": "10.7554/eLife.03648",
+      "group_id": "ef06eb3448753a6592ae2b9443b5eb7947357b67caa9c4fa236f0e4ab76df32e",
+      "view_id": "25d018f0d7a2a45e73baf2ad2e9cc29e9c57ea628aee19832a5a60bce57af19c",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "4b111d83d426f9d950fa546c9f5da09520ba51eb82989ca64b04c5bf0e6bb2d0",
+      "prefix": "into an open, active conformation. We screened for C. elegans mutants that",
+      "human_source_window": "phenocopy the loss of AP2 subunits and found that AP2 remains inactive in fcho-1 mutants. A subsequent screen for bypass suppressors of fcho-1 nulls",
+      "prefix_span": [
+        228,
+        302
+      ],
+      "human_span": [
+        303,
+        451
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03648-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Hollopeter Gunther",
+        "Lange Jeffrey J",
+        "Zhang Ying",
+        "Vu Thien N",
+        "Gu Mingyu",
+        "Ailion Michael",
+        "Lambie Eric J",
+        "Slaughter Brian D",
+        "Unruh Jay R",
+        "Florens Laurence",
+        "Jorgensen Erik M"
+      ],
+      "seed": 634394864
+    },
+    {
+      "source_id": "10.7554/eLife.00967",
+      "group_id": "bfdea26554b9efcc27d7f0736f55875428c5b6d03f32c618ca8c92277112fa2c",
+      "view_id": "351b0082c1f86e33769744859ca024f7a75cb3211650975f5110dcb5947bdb44",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "62ac8d63ce55684025c39da437bac3ee2f79eb820e657b1803cba01b4f518ba2",
+      "prefix": "and short isoforms (UNC-13L and S). Fast release was mediated by UNC-13L,",
+      "human_source_window": "whereas slow release required both UNC-13 proteins and was inhibited by Tomosyn. The spatial location of each protein correlated with its effect. Proteins adjacent",
+      "prefix_span": [
+        254,
+        327
+      ],
+      "human_span": [
+        328,
+        491
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00967-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Hu Zhitao",
+        "Tong Xia-Jing",
+        "Kaplan Joshua M"
+      ],
+      "seed": 890962050
+    },
+    {
+      "source_id": "10.7554/eLife.03970",
+      "group_id": "c408070e23b5031abc4b6fb623cb7019db4a86f40d92df95f7b149fed7e47a0f",
+      "view_id": "772a3c72b140d6ad13a84f737480c919e520f7037776ead33f9874705402bb82",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "1a449ccea7e5019950c3c541f72ed8e1251a9888a23695fe9702fd5f23737a1e",
+      "prefix": "plasma membrane proteins to define all primary endocytic vesicles, and labelling of",
+      "human_source_window": "specific proteins with a reducible SNAP-tag substrate. These approaches provide high temporal resolution and stringent discrimination between surface-connected and intracellular membranes. We find that",
+      "prefix_span": [
+        263,
+        346
+      ],
+      "human_span": [
+        347,
+        548
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03970-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Bitsikas Vassilis",
+        "Corrêa Ivan R",
+        "Nichols Benjamin J"
+      ],
+      "seed": 1999256690
+    },
+    {
+      "source_id": "10.7554/eLife.03023",
+      "group_id": "1e5ea93ddeb22919f99661b2500972495d4a61fdd49dfccd71c704b4af270b87",
+      "view_id": "481245f1b0efb92aa25a0243881923313d4171c86f7ed20e4ea1442d37398e16",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "e3f518fb3a613c042206b1d8c59366479b779538a05bc48bc417a11a9f59890d",
+      "prefix": "the proteome of aneuploid budding yeast strains. We show that although protein",
+      "human_source_window": "levels largely scale with gene copy number, subunits of multi-protein complexes are notable exceptions. Posttranslational mechanisms attenuate their expression when their encoding genes are",
+      "prefix_span": [
+        251,
+        329
+      ],
+      "human_span": [
+        330,
+        519
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03023-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Dephoure Noah",
+        "Hwang Sunyoung",
+        "O'Sullivan Ciara",
+        "Dodgson Stacie E",
+        "Gygi Steve P",
+        "Amon Angelika",
+        "Torres Eduardo M"
+      ],
+      "seed": 1209157105
+    },
+    {
+      "source_id": "10.7554/eLife.04177",
+      "group_id": "1a961e78f5cdeae726e07347ab7a63d70e3f9ed48a9b4dca16303bb6622bb3a5",
+      "view_id": "5e00dae157e8bcfbf3f11d82afa5505facb6e900737a57c6c27ddca720f6523e",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "bc0ec3869aa2bd57f809add35afaae94ff741ada5695cf2d07364f175e7f5c3e",
+      "prefix": "or how other immune cells recognize tumor cells to assist NK cells.",
+      "human_source_window": "Here, we show that the innate immune receptor Dectin-1 expressed on dendritic cells and macrophages is critical to NK-mediated killing of tumor cells that",
+      "prefix_span": [
+        239,
+        306
+      ],
+      "human_span": [
+        307,
+        461
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04177-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Chiba Shiho",
+        "Ikushima Hiroaki",
+        "Ueki Hiroshi",
+        "Yanai Hideyuki",
+        "Kimura Yoshitaka",
+        "Hangai Sho",
+        "Nishio Junko",
+        "Negishi Hideo",
+        "Tamura Tomohiko",
+        "Saijo Shinobu",
+        "Iwakura Yoichiro",
+        "Taniguchi Tadatsugu"
+      ],
+      "seed": 1577114337
+    },
+    {
+      "source_id": "10.7554/eLife.01901",
+      "group_id": "c423e861e6422b2f40549952c08d0f8dd034c27d972eff866f687cb202a81049",
+      "view_id": "f8498b9bc8d314f961fed7d4cc632fda439554db93ad7e477ba14ae0551ffcfd",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "d5054d27544d0797f06668da7cfd232a8251641fa28ad258aebf494d7dd7fa0d",
+      "prefix": "and C-LTMRs, and their associated terminal Schwann cells (TSCs). In this study,",
+      "human_source_window": "we investigated the organization, ultrastructure, and maintenance of longitudinal lanceolate complexes at each hair follicle subtype. We found that TSC processes at hair follicles",
+      "prefix_span": [
+        273,
+        352
+      ],
+      "human_span": [
+        353,
+        532
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01901-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Li Lishi",
+        "Ginty David D"
+      ],
+      "seed": 4165569435
+    },
+    {
+      "source_id": "10.7554/eLife.01879",
+      "group_id": "52032ae47d6df9216367ccffed04d285a179b827092f1a01798e5c2ef87d031b",
+      "view_id": "9ea5c1e3a11f3179dadcc6811b03f6e26c107c0d4a8059afc5a220e0e2c16f81",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "de69ad7e32f6b3d194866d8599e411234d2c6f3b88f6b6c1ef18824baf8f4e7b",
+      "prefix": "In addition to these proteins, specific vacuole lipids are required for efficient",
+      "human_source_window": "fusion in vivo and with the purified organelle. Reconstitution of vacuole fusion with all purified components reveals that high SNARE levels can mask the",
+      "prefix_span": [
+        238,
+        319
+      ],
+      "human_span": [
+        320,
+        473
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01879-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Zick Michael",
+        "Stroupe Christopher",
+        "Orr Amy",
+        "Douville Deborah",
+        "Wickner William T"
+      ],
+      "seed": 2661663203
+    },
+    {
+      "source_id": "10.7554/eLife.03751",
+      "group_id": "5ab1e6aaba4fca36f175017d0b41b81c1e544b7a261785154229fb13ae509633",
+      "view_id": "649bae3fa161c54545007b6b6a0c6531deb52c657e6ec2cafd28ed057092bd74",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "2139c4fb59f18412687bd14ebb36159bf176c9b076527242d3581cf4115d7500",
+      "prefix": "AKT (K179M) protected from druginduced cell death in a PH-domain dependent manner.",
+      "human_source_window": "An AKT kinase domain mutant found in human melanoma (G161V) lacked enzymatic activity in-vitro and in AKT1/AKT2 double knockout cells, but promoted growth-factor independent",
+      "prefix_span": [
+        311,
+        393
+      ],
+      "human_span": [
+        394,
+        567
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03751-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Vivanco Igor",
+        "Chen Zhi C",
+        "Tanos Barbara",
+        "Oldrini Barbara",
+        "Hsieh Wan-Ying",
+        "Yannuzzi Nicolas",
+        "Campos Carl",
+        "Mellinghoff Ingo K"
+      ],
+      "seed": 1687924287
+    },
+    {
+      "source_id": "10.7554/eLife.04279",
+      "group_id": "a15dc658fc3759b57bfe0913c4e73df7bb855f1c6768efd84c4c6ed370f1ed87",
+      "view_id": "cef5904d01eede7d62dadb6fa23f58367dc61121f140fe148d8d4848885b9658",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "e5fd7b8fb2c62a27b6070658e22644088b37109fc7ed8265e036a70f56aeadc6",
+      "prefix": "refinement of the recombinant strain. We used laboratory evolution to recapitulate this",
+      "human_source_window": "process of transfer and refinement, demonstrating that effective use of an introduced dichloromethane degradation pathway required one of several mutations to the bacterial host",
+      "prefix_span": [
+        249,
+        336
+      ],
+      "human_span": [
+        337,
+        514
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04279-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Michener Joshua K",
+        "Camargo Neves Aline A",
+        "Vuileumier Stéphane",
+        "Bringel Françoise",
+        "Marx Christopher J"
+      ],
+      "seed": 3472199757
+    },
+    {
+      "source_id": "10.7554/eLife.00759",
+      "group_id": "33f1bc91d770cfbc1ca7a463801a9c5341d34fe58c9992d6ca2d166dfd44358c",
+      "view_id": "f48666926d8b349b0a1511df9480227504ecbfd8e06b51e401d52d7fd4347a72",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "51a12c7c3e4cdb55aa4735584c041951e4f0a34f226ec2b1c23ed71d23bdca06",
+      "prefix": "characterize the nature of group behavior and interactions, and show strongly correlated",
+      "human_source_window": "group behavior in mice. We have found that the minimal models that rely only on individual traits and pairwise correlations between animals are not",
+      "prefix_span": [
+        224,
+        312
+      ],
+      "human_span": [
+        313,
+        460
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00759-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Shemesh Yair",
+        "Sztainberg Yehezkel",
+        "Forkosh Oren",
+        "Shlapobersky Tamar",
+        "Chen Alon",
+        "Schneidman Elad"
+      ],
+      "seed": 4102448786
+    },
+    {
+      "source_id": "10.7554/eLife.01856",
+      "group_id": "b5b84e74b293089a218124986b091be448da8cf01643ea019cfe4111d740b088",
+      "view_id": "25276c55fcfa8e1f50f0a7a0b5ca6f46d444544f3eaf42fb75e76b51fc851157",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "ec828f1137ecc4bdf566e0aa38b10294c5d6628cc86facda1cf47ad947efa2c5",
+      "prefix": "We show here that Nrf1 is initially translocated into the lumen of",
+      "human_source_window": "the ER, but is rapidly and efficiently retrotranslocated to the cytosolic side of the membrane in a manner that depends on p97/VCP. Normally, retrotranslocated",
+      "prefix_span": [
+        309,
+        375
+      ],
+      "human_span": [
+        376,
+        535
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01856-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Radhakrishnan Senthil K",
+        "den Besten Willem",
+        "Deshaies Raymond J"
+      ],
+      "seed": 623340629
+    },
+    {
+      "source_id": "10.7554/eLife.03297",
+      "group_id": "b5f46c3ee756feac17b60a753248600c54ccdda5f8eca142cc0762b4ec79503b",
+      "view_id": "268e9016680053dd7956ac6f1dc47783555ae359fba80b13c60d6ea6feb963fb",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "dc89b79614bf8ad94e697eaf47da77161955fe3dc9dcb96729c813bb8d706479",
+      "prefix": "cause brain developmental disorders, in safeguarding the genome through S phase during",
+      "human_source_window": "early steps of neural progenitor fate restrictive differentiation. Nde1 mutant neural progenitors showed catastrophic DNA double strand breaks concurrent with the DNA replication. This",
+      "prefix_span": [
+        223,
+        309
+      ],
+      "human_span": [
+        310,
+        494
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03297-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Houlihan Shauna L",
+        "Feng Yuanyi"
+      ],
+      "seed": 646877206
+    },
+    {
+      "source_id": "10.7554/eLife.00481",
+      "group_id": "051b252165861f0d76b554d34b195c9754010a036a1a0cfb0d27a99aa272d07d",
+      "view_id": "693713aa9beccc67e13255812c3d1045b339b2b893099d1f4f35b7021d49d526",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "4615f664045ed805997faa321e67ec22280e7b9b9b77108d5a7a17622e49da7a",
+      "prefix": "(MCs) are activated in vivo during DENV infection, and we show that",
+      "human_source_window": "this elevates systemic levels of their vasoactive products, including chymase, and promotes vascular leakage. Treatment of infected animals with MC-stabilizing drugs or a leukotriene",
+      "prefix_span": [
+        272,
+        339
+      ],
+      "human_span": [
+        340,
+        522
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00481-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "St John Ashley L",
+        "Rathore Abhay PS",
+        "Raghavan Bhuvanakantham",
+        "Ng Mah-Lee",
+        "Abraham Soman N"
+      ],
+      "seed": 1765217194
+    },
+    {
+      "source_id": "10.7554/eLife.01180",
+      "group_id": "1a7e8429c16874a49d06eff3a7b8144b49dec44924917ab38d22e8cd1bbcd13e",
+      "view_id": "5aaa524c836396f63e0fc38925feb0f4a71aedd8d579d63cc924adcc230aca97",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "9aa456e4d67265115bc1a256b0d85b0f675bf54df005ae98f0f11efb446a9e10",
+      "prefix": "sites, regulates SV release. The N-termini of major UNC-13/Munc13 isoforms contain a",
+      "human_source_window": "non-calcium binding C2A domain that mediates protein homo- or hetero-meric interactions. Here, we show that the C2A domain of Caenorhabditis elegans UNC-13 regulates release",
+      "prefix_span": [
+        249,
+        333
+      ],
+      "human_span": [
+        334,
+        507
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01180-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Zhou Keming",
+        "Stawicki Tamara M",
+        "Goncharov Alexandr",
+        "Jin Yishi"
+      ],
+      "seed": 1521111628
+    },
+    {
+      "source_id": "10.7554/eLife.01345",
+      "group_id": "c58094d84b1ea099b2ae373f31f3af04847ea3977f41eeab7538870f94d9ac75",
+      "view_id": "5455ae964bfa520ebf91db1b2c8e99506f865db19975d3ec6311ea5b2efc5cc2",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "2a886b810f1f9b6dc7e1a2b2b91780de25a83055eb721845ff4ef62858c644be",
+      "prefix": "to 1.7 Å resolution. We developed a data collection protocol to collect",
+      "human_source_window": "a full-tilt series in electron diffraction to atomic resolution. A single tilt series contains up to 90 individual diffraction patterns collected from a single",
+      "prefix_span": [
+        289,
+        360
+      ],
+      "human_span": [
+        361,
+        520
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-01345-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Shi Dan",
+        "Nannenga Brent L",
+        "Iadanza Matthew G",
+        "Gonen Tamir"
+      ],
+      "seed": 1414901398
+    },
+    {
+      "source_id": "10.7554/eLife.03300",
+      "group_id": "a4faf253f186ebd4db74725a76d680dc242a1dc4af26ad5b30287023a39a9332",
+      "view_id": "01d10015ce2268acc00adfa16f29da25be6f443707672be2fdc3a42eb97a2a59",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "8e66751ab9eab5964533b624c7e75e2c217117447ff920ae21d6721ddfdad006",
+      "prefix": "created mutant viruses that incorporate most of the ≈104 amino-acid mutations to",
+      "human_source_window": "hemagglutinin from A/WSN/1933 (H1N1) influenza. After passaging these viruses in tissue culture to select for functional variants, we used deep sequencing to quantify mutation",
+      "prefix_span": [
+        253,
+        333
+      ],
+      "human_span": [
+        334,
+        509
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03300-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Thyagarajan Bargavi",
+        "Bloom Jesse D"
+      ],
+      "seed": 30474261
+    },
+    {
+      "source_id": "10.7554/eLife.00429",
+      "group_id": "89815ef1e0f870542833370038022d5be208e3921049d52c727c412655a7829e",
+      "view_id": "65f926c53660bc4631da81a798d0eeebc6f82658771c04a870bf562805cc8cff",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "fca2dde17779730d8b40cd759297eb870002152d767ccca698d7b941b85f9995",
+      "prefix": "growth and metabolism, the roles of fatty acids and lipids in TOR-involved",
+      "human_source_window": "nutrient/food responses are obscure. Caenorhabditis elegans halts postembryonic growth and development shortly after hatching in response to monomethyl branched-chain fatty acid (mmBCFA) deficiency. Here,",
+      "prefix_span": [
+        245,
+        319
+      ],
+      "human_span": [
+        320,
+        524
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00429-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Zhu Huanhu",
+        "Shen Huali",
+        "Sewell Aileen K",
+        "Kniazeva Marina",
+        "Han Min"
+      ],
+      "seed": 1710827205
+    },
+    {
+      "source_id": "10.7554/eLife.04551",
+      "group_id": "cd77c8da829c1fa190447b50b36c12a6b2dfcc2ea7d4b5fe60a367b684f222ff",
+      "view_id": "771769e1be5d1d3e099c7dd501ee7f342f58ec1c8daafc5c75c0957258a88480",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "5e46295dc0dec22e1d08852e3aed7ae9d04a04c77a7ef87f1264d1f13720e066",
+      "prefix": "dendrites are greatly attenuated and may largely modulate AP output. In contrast",
+      "human_source_window": "to most other cortical and hippocampal neurons, hippocampal CA2 pyramidal neurons show unusually strong excitation by their distal dendritic inputs from entorhinal cortex (EC).",
+      "prefix_span": [
+        256,
+        336
+      ],
+      "human_span": [
+        337,
+        513
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04551-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Sun Qian",
+        "Srinivas Kalyan V",
+        "Sotayo Alaba",
+        "Siegelbaum Steven A"
+      ],
+      "seed": 1998023137
+    },
+    {
+      "source_id": "10.7554/eLife.02772",
+      "group_id": "332c18ab3af43585d36cb8d96a3d753be86e7ce182d3effd8a50581418da5cfb",
+      "view_id": "7704b497b540239b085f1cc93c7d892b1323d573064db196bb4530d97faea764",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "3f18309aee68a443e50931e5093fabbec7d8c4298f833ecc505a62c7b4876697",
+      "prefix": "behind TMEM16A-CaCC calcium-dependent gating, comprehensive surveys to identify and characterize potential calcium",
+      "human_source_window": "sensors of this channel are still lacking. By aligning distantly related calcium-activated ion channels in the TMEM16 family and conducting systematic mutagenesis of all",
+      "prefix_span": [
+        278,
+        392
+      ],
+      "human_span": [
+        393,
+        562
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02772-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Tien Jason",
+        "Peters Christian J",
+        "Wong Xiu Ming",
+        "Cheng Tong",
+        "Jan Yuh Nung",
+        "Jan Lily Yeh",
+        "Yang Huanghe"
+      ],
+      "seed": 1996797079
+    },
+    {
+      "source_id": "10.7554/eLife.03405",
+      "group_id": "5be1b54aa9a0d90db6624cd030c06ed439b2c4d57eb7f50315002f146b76e5ec",
+      "view_id": "c809a013aac33ff2f049526b565d24eb06c2d41540053fcb9c9f788b8c88f18d",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "054316bb8628e192bfc4520a1518dec5c29e0b2393bf5828912319ebecceca5c",
+      "prefix": "barrel cortex during artificial whisking against different surface coarseness or controlled passive",
+      "human_source_window": "whisker vibrations simulating different coarseness, we show that layer 2–3 neurons within barrel boundaries differentially respond to specific texture coarsenesses, while only a minority",
+      "prefix_span": [
+        236,
+        335
+      ],
+      "human_span": [
+        336,
+        522
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03405-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Garion Liora",
+        "Dubin Uri",
+        "Rubin Yoav",
+        "Khateb Mohamed",
+        "Schiller Yitzhak",
+        "Azouz Rony",
+        "Schiller Jackie"
+      ],
+      "seed": 3356074003
+    },
+    {
+      "source_id": "10.7554/eLife.02730",
+      "group_id": "9c735f17ddf0ec0ec5296bd0aafe6e4b7173ddb70d5a070b9d434773d132be2d",
+      "view_id": "1015f27c1357c0f87eced80732b42b41349caac44a2f4cf87ff7217209e1d121",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "34b7dc4b264059e683ccecbe65099c22c5c20ecbc72b0467dca09f5003607722",
+      "prefix": "the larva of the annelid Platynereis using serial-section transmission electron microscopy. In",
+      "human_source_window": "this 71-neuron circuit, photoreceptors connect via three layers of interneurons to motorneurons, which innervate trunk muscles. By combining eye ablations with behavioral experiments, we",
+      "prefix_span": [
+        260,
+        354
+      ],
+      "human_span": [
+        355,
+        541
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-02730-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Randel Nadine",
+        "Asadulina Albina",
+        "Bezares-Calderón Luis A",
+        "Verasztó Csaba",
+        "Williams Elizabeth A",
+        "Conzelmann Markus",
+        "Shahidi Réza",
+        "Jékely Gáspár"
+      ],
+      "seed": 269873788
+    },
+    {
+      "source_id": "10.7554/eLife.00640",
+      "group_id": "0d281ce9821a8517b7c1e93f2ab606782ba7dde431a77029b9d93662c06d24f6",
+      "view_id": "ae410057ad40f37da851a8e7cf119c367fe14d9d1d4efa46c578369df8127356",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "bcce34aae6184b320e65ea23e455ea5df9c6dc9d349a66f792bd2eac89b167ea",
+      "prefix": "reproductive success with females. Females showed a strong preference for wild-type males",
+      "human_source_window": "over miR-124 mutant males when given a choice of mates. These effects were traced to aberrant pheromone production. We identified the sex-specific splicing factor",
+      "prefix_span": [
+        303,
+        392
+      ],
+      "human_span": [
+        393,
+        555
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00640-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Weng Ruifen",
+        "Chin Jacqueline SR",
+        "Yew Joanne Y",
+        "Bushati Natascha",
+        "Cohen Stephen M"
+      ],
+      "seed": 2923495511
+    },
+    {
+      "source_id": "10.7554/eLife.00704",
+      "group_id": "87407e7d392b2fe60f8ef62be79c7e2d9a129dbb596c6b95489066039d37b62e",
+      "view_id": "9c606f52b06b74f9dea36648063294d84a4cf98808c467e3d0ee29a19d696555",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "f375cda59df7092a7b721afbedee447b1120c80ec24bc4c715aa763f0a22c042",
+      "prefix": "the identity of the pore-forming subunit remains to be established, since knockdown",
+      "human_source_window": "of all the candidate uniporter genes inhibit Ca2+ uptake in imaging assays, and reconstitution experiments have been equivocal. To definitively identify the channel, we",
+      "prefix_span": [
+        285,
+        368
+      ],
+      "human_span": [
+        369,
+        537
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00704-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Chaudhuri Dipayan",
+        "Sancak Yasemin",
+        "Mootha Vamsi K",
+        "Clapham David E"
+      ],
+      "seed": 2623565650
+    },
+    {
+      "source_id": "10.7554/eLife.03606",
+      "group_id": "502d573f74f7b5a3936727bb3b635c53eddcfd02b2a095a46d3427a5e2d5d37c",
+      "view_id": "ba596777566555104d1a1e2b5b53157602fe914c470d0856371ff6355092e629",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "c503c9990ef795a3740923cae4812cb72936154183f11d75a41b09b134b93893",
+      "prefix": "only allow one or a few types of ion to cross. Ion",
+      "human_source_window": "channels can also be ‘gated’, and have a central pore that can open or close to allow or stop the flow of selected ions.",
+      "prefix_span": [
+        227,
+        277
+      ],
+      "human_span": [
+        278,
+        398
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03606-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Zaydman Mark A",
+        "Kasimova Marina A",
+        "McFarland Kelli",
+        "Beller Zachary",
+        "Hou Panpan",
+        "Kinser Holly E",
+        "Liang Hongwu",
+        "Zhang Guohui",
+        "Shi Jingyi",
+        "Tarek Mounir",
+        "Cui Jianmin"
+      ],
+      "seed": 3126421367
+    },
+    {
+      "source_id": "10.7554/eLife.04437",
+      "group_id": "abc9dae4848c084ba3419bfc663d91677a8392a7e593db83e6fd0c2319910c00",
+      "view_id": "c448ca9a4aa7a1fbcf09a3555e775759f159d6642664cd80c5759da5a4f31bcd",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "ceb11e01a80d0c0ad8d3d6c72351b1b3c359cdf24d211a1e9ccdfb32c92a2d9a",
+      "prefix": "specifically in the FSCs to promote the unique partially polarized state of",
+      "human_source_window": "the FSC, establish apical-basal polarity throughout the lineage, and promote FSC maintenance in the niche. In addition, we identified a novel connection between EGFR",
+      "prefix_span": [
+        244,
+        319
+      ],
+      "human_span": [
+        320,
+        485
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-04437-v1.xml",
+      "licence": "CC-BY-4.0",
+      "authors": [
+        "Castanieto Angela",
+        "Johnston Michael J",
+        "Nystul Todd G"
+      ],
+      "seed": 3293104794
+    },
+    {
+      "source_id": "10.7554/eLife.00321",
+      "group_id": "c5871222f0bbbb0f1297755ebc88cd51d6895f52cf782021086912796f4ce045",
+      "view_id": "44f652bb8d130bc6993e8eee1724c24a4932bd3c640290a226bbf174553ce932",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "6dc1cd9412eea7edea16ef6bc942f890ee5a98fb1bf9abe1cd45ef5bb762842e",
+      "prefix": "across different memories in the hippocampal system are poorly understood. I monitored",
+      "human_source_window": "large-scale activity patterns of hippocampal neuronal ensembles in rats performing a novel, continuous task that combined one visually guided and two memory-guided types of",
+      "prefix_span": [
+        260,
+        346
+      ],
+      "human_span": [
+        347,
+        519
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00321-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Takahashi Susumu"
+      ],
+      "seed": 1156993723
+    },
+    {
+      "source_id": "10.7554/eLife.03198",
+      "group_id": "b22772ab48c1967b9895bdff04f918a0d889b8a40fd689e26e1bf92fba667550",
+      "view_id": "239ecdafaa36c882724599d1cbf55c5862a3d9f881a9aa0010362f8e202c905f",
+      "split": "train",
+      "year": 2014,
+      "source_sha256": "28ed19ef20c724ccb24ec2422e8a312fb0472d8d139f063a4d8f2f349875bca6",
+      "prefix": "We investigated intraspecific variation in imprinting, coupled with analysis of DNA methylation",
+      "human_source_window": "and small RNAs, among three Arabidopsis strains with diverse seed phenotypes. The majority of imprinted genes were parentally biased in the same manner among",
+      "prefix_span": [
+        292,
+        387
+      ],
+      "human_span": [
+        388,
+        545
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-03198-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Pignatta Daniela",
+        "Erdmann Robert M",
+        "Scheer Elias",
+        "Picard Colette L",
+        "Bell George W",
+        "Gehring Mary"
+      ],
+      "seed": 597609903
+    },
+    {
+      "source_id": "10.7554/eLife.00824",
+      "group_id": "3e07ddcb066745cce1ab92bd534170c294edf35db95d1e59fb8620321d6b198f",
+      "view_id": "3b8100e593bcfba1ce0c333d830ee203e0d68b1d8329791907719d03c3940865",
+      "split": "train",
+      "year": 2013,
+      "source_sha256": "b1e9566020fb23af691a88eeb47397ec80f2c70cf2b8ee94174e95b953978a77",
+      "prefix": "features of human retinal precursor cells. The inner layer of the eyecups",
+      "human_source_window": "contained photoreceptor precursor cells that expressed photoreceptor markers and exhibited axonemes and basal bodies characteristic of outer segments. Analysis of the USH2A transcripts of",
+      "prefix_span": [
+        294,
+        367
+      ],
+      "human_span": [
+        368,
+        555
+      ],
+      "prefix_word_range": [
+        36,
+        48
+      ],
+      "human_word_range": [
+        48,
+        72
+      ],
+      "url": "https://raw.githubusercontent.com/elifesciences/elife-article-xml/c3cd502f94edfb5aa0c5870ed9eff053773c6125/articles/elife-00824-v1.xml",
+      "licence": "CC-BY-3.0",
+      "authors": [
+        "Tucker Budd A",
+        "Mullins Robert F",
+        "Streb Luan M",
+        "Anfinson Kristin",
+        "Eyestone Mari E",
+        "Kaalberg Emily",
+        "Riker Megan J",
+        "Drack Arlene V",
+        "Braun Terry A",
+        "Stone Edwin M"
+      ],
+      "seed": 998310117
+    }
+  ],
+  "planned_additional_views": 127,
+  "maximum_generations": 128,
+  "minimum_valid_windows": 80,
+  "split": "train",
+  "audit_used": false,
+  "construction": "Source-only, non-overlapping whole-word windows. Synthetic counterparts are unbuilt and may be refused by remote structural checks.",
+  "source_rights": "Retain per-article CC BY, original authors, source URL and declared changes. Human-control origin remains a source assumption."
+}

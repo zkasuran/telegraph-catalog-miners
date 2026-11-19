@@ -37,6 +37,24 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     best, best_epoch, stale, step = None, -1, 0, 0
     epochs = []
     started = time.monotonic()
+    def measure():
+        metrics = {}
+        for style, rows in validation_formats.items():
+            result = trainer.evaluate(model, tok, rows, hp)
+            result["accuracy_by_label"] = {label: trainer.evaluate(model, tok, [r for r in rows if r["label"] == label], hp)["pairwise_accuracy"]
+                                            for label in ("Human", "AI-generated")}
+            metrics[style] = result
+        return metrics
+    # Preserve the actually measured starting checkpoint if all later updates
+    # worsen validation. This is not a fabricated epoch or a synthetic metric.
+    starting = measure()
+    best = validation_selection_key(starting, baselines)
+    model.save_pretrained(adapter)
+    tok.save_pretrained(adapter)
+    trainer.save_reward_head(model, adapter)
+    epochs.append({"epoch": -1, "optimizer_steps": 0, "training_loss": None, "validation_formats": starting,
+                   "validation_gate": validation_gate(starting, baselines), "selection_key": list(best), "selected": True,
+                   "role": "Actual measured source-fitted starting checkpoint, before new fitting."})
     for epoch in range(hp.epochs):
         model.train()
         optimizer.zero_grad(set_to_none=True)
@@ -53,12 +71,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
-        metrics = {}
-        for style, rows in validation_formats.items():
-            result = trainer.evaluate(model, tok, rows, hp)
-            result["accuracy_by_label"] = {label: trainer.evaluate(model, tok, [r for r in rows if r["label"] == label], hp)["pairwise_accuracy"]
-                                            for label in ("Human", "AI-generated")}
-            metrics[style] = result
+        metrics = measure()
         key = validation_selection_key(metrics, baselines)
         improved = best is None or key > best
         if improved:

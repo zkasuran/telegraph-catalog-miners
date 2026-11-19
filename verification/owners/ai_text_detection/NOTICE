@@ -37,3 +37,9 @@ No independent audit was consumed. New train-only layout and epoch-selection
 code keeps original sources, source roles, acceptance thresholds and grants.
 Optimizer/reward procedure portions use the pinned Telegraph trainer's MIT grant;
 our weakest-format selection and layout additions use SAND.
+
+Additional training windows reuse only the original licensed training articles.
+They are not new independent article groups or evaluation-pool rows. Source
+authors, original spans, SHA-256 and per-article grants stay attached. Any actual
+new machine text is disclosed as bounded GPT-2 output. No local synthetic text
+or human preference review is claimed. Validation and audit sources stay fixed.

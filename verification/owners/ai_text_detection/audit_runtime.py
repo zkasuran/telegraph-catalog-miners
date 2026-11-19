@@ -75,6 +75,11 @@ def main():
         if sha((root / path).read_bytes()) != frozen[key]:
             raise ValueError("development or baseline changed after freeze")
     records = lines((root / "development-generation.jsonl").read_bytes()) + lines((root / "audit-generation.jsonl").read_bytes())
+    augmentation = (root / "augmentation-generation.jsonl").read_bytes()
+    if sha(augmentation) != frozen["training_expansion"]["augmentation_sha256"]:
+        raise ValueError("training-only augmentation changed after model freeze")
+    kept_views = set(frozen["training_expansion"]["kept_view_ids"])
+    records += [r for r in lines(augmentation) if r["view_id"] in kept_views]
     generated = json.loads((root / "audit-generation-report.json").read_text())
     if (generated["output_sha256"] != sha((root / "audit-generation.jsonl").read_bytes()) or
             generated["source_manifest_sha256"] != sha(source_raw) or

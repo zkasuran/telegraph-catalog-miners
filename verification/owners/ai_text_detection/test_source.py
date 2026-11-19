@@ -16,6 +16,7 @@ from common import (COUNTS, FORMATS, HERE, baseline_report, check_splits, fit_ba
                     identity, pair, quality, remote_only, render, sha, audit_excerpts, validation_gate, validation_selection_key)
 from checkpoint_contract import check_checkpoint
 from development_contract import validate_locked, training_pairs, repetition_gate, layout_training_pairs
+from window_contract import validate_plan, validate_augmented, expanded_training_pairs
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -39,6 +40,51 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_source_window_plan_is_train_only_attributed_and_disjoint(self):
+        source_raw = (HERE / "sources.json").read_bytes()
+        source = json.loads(source_raw)
+        plan = json.loads((HERE / "train-window-plan.json").read_text())
+        validate_plan(plan, source, sha(source_raw))
+        self.assertEqual(len(plan["windows"]), 127)
+        bad = copy.deepcopy(plan)
+        bad["windows"][0]["split"] = "validation"
+        with self.assertRaises(ValueError):
+            validate_plan(bad, source, sha(source_raw))
+        bad = copy.deepcopy(plan)
+        bad["windows"][0]["human_span"][0] = 0
+        with self.assertRaises(ValueError):
+            validate_plan(bad, source, sha(source_raw))
+
+    def test_expanded_pair_structure_preserves_grouping_and_hard_reuse_bound(self):
+        # Constructed structural unit fixtures only. These are never written to
+        # the generator output or used as new training/audit data.
+        source = json.loads((HERE / "sources.json").read_text())
+        plan = json.loads((HERE / "train-window-plan.json").read_text())
+        original = [json.loads(s) for s in (HERE / "recovery/locked-development.jsonl").read_text().split("\n") if s]
+        fake = []
+        for view in plan["windows"][:80]:
+            human, generated, _ = audit_excerpts(view["human_source_window"],
+                "Constructed unit fixture " + view["view_id"][:8] + " " + " ".join("testword" + str(i) for i in range(30)))
+            base = {"source_id": view["source_id"], "group_id": view["group_id"], "view_id": view["view_id"],
+                    "split": "train", "year": view["year"], "source_sha256": view["source_sha256"]}
+            fake += [{**base, "origin": "human_control", "text": human},
+                     {**base, "origin": "synthetic", "text": generated, "generator": "gpt2",
+                      "generator_weight_sha256": source["generators"]["gpt2"]["weight_sha256"], "seed": view["seed"]}]
+        raw = "".join(json.dumps(r) + "\n" for r in fake).encode()
+        report = {"output_sha256": sha(raw), "source_manifest_sha256": plan["source_manifest_sha256"],
+                  "generator": source["generators"]["gpt2"], "valid_views": 80}
+        validated = validate_augmented(raw, plan, source, report)
+        pairs, counters = expanded_training_pairs(original, validated)
+        self.assertEqual(len(pairs), 416)
+        self.assertEqual(counters["independent_article_groups"], 128)
+        self.assertEqual(counters["bare_pairs"], 8)
+        self.assertLessEqual(counters["worst_case_internal_negative_leak"], 0.10)
+        self.assertFalse(counters["gate_thresholds_changed"])
+        split_rows = fixture_splits()
+        split_rows["train"] = pairs
+        check_splits(split_rows)
+        with self.assertRaises(ValueError):
+            expanded_training_pairs(original, validated[:100])
     def test_locked_development_primary_path_and_roles(self):
         raw = (HERE / "recovery/locked-development.jsonl").read_bytes()
         producer = json.loads((HERE / "recovery/locked-development-producer.json").read_text())
@@ -255,6 +301,9 @@ class SourceTests(unittest.TestCase):
             from train_formats import fit
             with self.assertRaises(RuntimeError):
                 fit(*([None] * 8))
+            import augment_training
+            with self.assertRaises(RuntimeError):
+                augment_training.main()
 
     def test_xml_tamper_and_missing_grant_refused(self):
         raw = b"<article><front><article-meta/></front></article>"

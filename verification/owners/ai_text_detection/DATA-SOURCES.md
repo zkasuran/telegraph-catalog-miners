@@ -127,3 +127,29 @@ validation gate pass and the weakest format/label margin before measured mean lo
 It never substitutes a synthetic loss or reads audit data. Full primary MIT terms
 remain in sources.json and checkpoint metadata.
 https://github.com/telegraphprotocol/telegraph-wasm-baseline/blob/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py
+
+## Additional train-only source windows
+
+Layout-only continuation did not clear bare-label validation. Its full data and
+parser gates passed and its audit remained sealed. More distinct training
+contexts are the next source-bound build path, not a lower acceptance gate.
+
+A source-only scan found 127 eligible second windows in the existing 128 training
+articles. Original inputs use words 0-11 as generator prefix and words 12-35 as
+the human control. New windows use words 36-47 and 48-71. Exact character spans,
+DOI, original article SHA-256, source URL, authors and CC BY grant are retained.
+The 127 windows are additional views, not independent articles. No validation or
+audit article enters this plan.
+
+Only bounded public CPU work generates new counterparts with pinned GPT-2.
+Structural byte, token, source and normalized-identity checks can refuse a view.
+Refusals are retained without using a reward score or retrying a seed. At least
+80 valid views are required. Whole views are trimmed in fixed order only to keep
+complete optimizer blocks, with exact used IDs in the frozen report.
+
+The larger actual corpus can include four original bare article pairs while
+passing the unchanged repetition gate and a worst-case negative reuse bound of
+10% for any internal split. The real upstream surface probe and quality tests
+still run. No generated source-window output is claimed before the job executes.
+All original human-control assumptions, generated-text disclosures and source
+rights remain in force. HC3 remains excluded.

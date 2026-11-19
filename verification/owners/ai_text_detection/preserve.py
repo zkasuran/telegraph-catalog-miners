@@ -41,9 +41,13 @@ def main():
             (out / name).write_bytes(source.read_bytes())
     if (root / "literal-repetition-gate.json").is_file():
         (out / "literal-repetition-gate.json").write_bytes((root / "literal-repetition-gate.json").read_bytes())
+    for name in ("augmentation-generation-report.json", "training-expansion-report.json"):
+        path = root / name
+        if path.is_file() and path.stat().st_size <= 256 << 10:
+            (out / name).write_bytes(path.read_bytes())
     source_manifest = (HERE / "sources.json").read_bytes()
     (out / "source-manifest.json").write_bytes(source_manifest)
-    for name in ("development-generation.jsonl", "audit-generation.jsonl"):
+    for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "audit-generation.jsonl"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 16 << 20:
             (out / name).write_bytes(path.read_bytes())
