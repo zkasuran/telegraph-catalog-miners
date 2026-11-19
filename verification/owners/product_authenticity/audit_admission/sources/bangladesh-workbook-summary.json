@@ -1,0 +1,147 @@
+{
+  "sha256": "fd8759f025daa914f2659ab6f82401ac99e433cda02e12198e38d253499e6a80",
+  "members": [
+    {
+      "name": "[Content_Types].xml",
+      "bytes": 1898,
+      "sha256": "f791935fd7982c64e0c58dd780d9e15107f97dc0da9987112aa932ec7a1c4ca6"
+    },
+    {
+      "name": "_rels/.rels",
+      "bytes": 588,
+      "sha256": "73e5a29f48d5ab979eeda062493bc7e679265c1344ef936978b8becec5549497"
+    },
+    {
+      "name": "xl/workbook.xml",
+      "bytes": 1622,
+      "sha256": "a2c12c0ad636a1aecb4a7654b9c8ee131cb9be8f0aaa9c6c9d2a1e3bb967b49e"
+    },
+    {
+      "name": "xl/_rels/workbook.xml.rels",
+      "bytes": 980,
+      "sha256": "24612fb23445b0b316a33b6bfc513e887916020d875f6b64b7a48f56a21e5fb2"
+    },
+    {
+      "name": "xl/worksheets/sheet1.xml",
+      "bytes": 3370,
+      "sha256": "0099df2d0ffbe6f37ba7a0161620a55f16d37e228d5a8a4bf02146857c3c82b6"
+    },
+    {
+      "name": "xl/worksheets/sheet2.xml",
+      "bytes": 2553,
+      "sha256": "8aa76f88e99ce3362e63606822c8090c3bcaa2b0d43dcba17453b54b73f0c0eb"
+    },
+    {
+      "name": "xl/worksheets/sheet3.xml",
+      "bytes": 5934,
+      "sha256": "e64ff7525a98855a02cfab9df77ac39be9f538eb3d068846810efb5b09444390"
+    },
+    {
+      "name": "xl/theme/theme1.xml",
+      "bytes": 6796,
+      "sha256": "e6029ab4958414b8bb862b17ffed3a708d1513e61a07d88e966071cca31d1bd4"
+    },
+    {
+      "name": "xl/styles.xml",
+      "bytes": 5142,
+      "sha256": "c4dacdcb7ee82898cefd2b75dee4a9b49b3e4f94cb6871a05fc98fad77687038"
+    },
+    {
+      "name": "xl/sharedStrings.xml",
+      "bytes": 8040,
+      "sha256": "2bab9eeb61ff4112469b9af70643bbc74f0d91022f16588f2292329bcacc97b7"
+    },
+    {
+      "name": "xl/drawings/drawing1.xml",
+      "bytes": 1427,
+      "sha256": "b8bb53f3475c971b6333548185722a98f6be40996f6294b2731bf4849b5a0ea6"
+    },
+    {
+      "name": "xl/media/image1.emf",
+      "bytes": 1559292,
+      "sha256": "b6b57f1d222e881e2acc842b9ddbee03aeef3fa134ced16f27bbccc144f3e3c4"
+    },
+    {
+      "name": "xl/drawings/drawing2.xml",
+      "bytes": 1216,
+      "sha256": "632772477af6fceec659448d35b42b396c6c2342700353bcb472f9a6057f9732"
+    },
+    {
+      "name": "xl/media/image2.png",
+      "bytes": 1317210,
+      "sha256": "74a6e53c05b8182924fd588990716ad998da09ef969b3449b9e0f97d042d2307"
+    },
+    {
+      "name": "xl/worksheets/_rels/sheet1.xml.rels",
+      "bytes": 464,
+      "sha256": "046f319d2b01bf9529da901ae33cb1cf8c7c7d06395167875fa0c4add6bf34c3"
+    },
+    {
+      "name": "xl/worksheets/_rels/sheet2.xml.rels",
+      "bytes": 464,
+      "sha256": "b080444923aed7a5612898d96f615efb7a847fda5c099575e1681eb2e702c04a"
+    },
+    {
+      "name": "xl/worksheets/_rels/sheet3.xml.rels",
+      "bytes": 322,
+      "sha256": "08bb3cc2258e8b92a5b8837d7580917fafdf0341a466d85361d3543a9960f1ef"
+    },
+    {
+      "name": "xl/drawings/_rels/drawing1.xml.rels",
+      "bytes": 292,
+      "sha256": "ceb2fad16f86f8d9dd968e74240a0efefe004b5a7e3f9402ca76eb378e1dda24"
+    },
+    {
+      "name": "xl/drawings/_rels/drawing2.xml.rels",
+      "bytes": 292,
+      "sha256": "58ae268bff59ae0b296505741bdf87a3cf9a4ff8f2caca0d9d08202aeb37e16b"
+    },
+    {
+      "name": "xl/printerSettings/printerSettings1.bin",
+      "bytes": 220,
+      "sha256": "8b51ff28316325c6059d1a06fef4003ced79b324ba6d358bf56f2c4a5732b5ed"
+    },
+    {
+      "name": "xl/printerSettings/printerSettings2.bin",
+      "bytes": 220,
+      "sha256": "8b51ff28316325c6059d1a06fef4003ced79b324ba6d358bf56f2c4a5732b5ed"
+    },
+    {
+      "name": "xl/printerSettings/printerSettings3.bin",
+      "bytes": 220,
+      "sha256": "1aa26156328db88111b6957a067b6b982b73e74dabd02d7bfc46578ee97f6bc1"
+    },
+    {
+      "name": "docProps/core.xml",
+      "bytes": 593,
+      "sha256": "28c8da8a21b4b78eac1ea3c0fcd000c8f777979c2b43bdd3d6ae3cd16eaa4b5f"
+    },
+    {
+      "name": "docProps/app.xml",
+      "bytes": 893,
+      "sha256": "bfe937f2babd2c9794bcb7f46be2084ff8bbb3623f8b0624ddc466139abf88da"
+    }
+  ],
+  "sheets": [
+    {
+      "name": "Monograph Adjustments- ESM",
+      "path": "xl/worksheets/sheet1.xml",
+      "state": "visible",
+      "populated_rows": 17
+    },
+    {
+      "name": "Monograph Adjustments- CFX",
+      "path": "xl/worksheets/sheet2.xml",
+      "state": "visible",
+      "populated_rows": 9
+    },
+    {
+      "name": "Analytical Condition",
+      "path": "xl/worksheets/sheet3.xml",
+      "state": "visible",
+      "populated_rows": 8
+    }
+  ],
+  "specimen_codes_in_cells": [],
+  "transformation": "All member hashes and all sheet/row counts retained. Analytical-method cell text is not exported."
+}

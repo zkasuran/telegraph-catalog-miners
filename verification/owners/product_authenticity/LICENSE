@@ -151,3 +151,7 @@ These terms cover our owner-authored code and trained delta additions only.
 They do not replace the original MIT reference-kit grant, Apache-2.0 ModernBERT
 grant or the public-domain and CC BY source-data grants retained in NOTICE.
 Original source copies retain their original rights. No prior grant is revoked.
+
+Audit-admission scope clarification: original and derived CC BY source facts
+retain their original grants. Our admission code and constructed software tests
+use these SAND terms. This notice does not change or revoke any earlier grant.

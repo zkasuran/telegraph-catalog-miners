@@ -18,7 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Actual source-only release gate
+        env:
+          PRODUCT_REPORT_DIR: ${{ runner.temp }}/product-authenticity-source
         run: bash verification/owners/product_authenticity/verify.sh
+      - name: Record actual full-source audit admission
+        run: python3 verification/owners/product_authenticity/audit_admission/audit_source_admission.py --snapshot verification/owners/product_authenticity/audit_admission/sources > "${{ runner.temp }}/product-authenticity-source/audit-admission.json"
+      - name: Preserve source-only reports, not model audit results
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: product-authenticity-source-admission
+          retention-days: 14
+          if-no-files-found: error
+          path: ${{ runner.temp }}/product-authenticity-source/*.json
   develop:
     if: ${{ inputs.mode == 'develop' }}
     needs: source

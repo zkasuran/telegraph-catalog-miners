@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "family": "PRODUCT_AUTHENTICITY",
+  "transformation": "Complete Table S2 text extraction with line-end whitespace removed. Original PDF and XML identities retained. No original source grant replaced.",
+  "nigeria_pdf_sha256": "91ab6c464da40d8f9761d46504b9e9659dd33cd0328c542de25756b6866bd945",
+  "files": {
+    "bangladesh-workbook-summary.json": {
+      "sha256": "0d768c136c7dc76ab2ac96ca7a101eaabbe490bb89bbff8e2a767040120ac444",
+      "bytes": 4562
+    },
+    "nigeria-table-s2.txt": {
+      "sha256": "cb8c4401541d07263563fdeddeb1ec436d28292c123a88169f6d16538bf20cd5",
+      "bytes": 73760
+    },
+    "source-grants.json": {
+      "sha256": "3191b046b138f91ef3820e5a1e62b731e9d2716e262fb6da11fa5236ceaa603c",
+      "bytes": 2073
+    }
+  }
+}

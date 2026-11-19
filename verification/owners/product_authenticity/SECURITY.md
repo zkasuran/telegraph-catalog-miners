@@ -25,3 +25,7 @@ model qualification, independent audit and reference-engine execution are absent
 ## Development model boundary
 
 Neural entrypoints require the exact owned workflow_dispatch standard public GitHub runner. Local source gates refuse neural imports. Byte-bounded source snapshots, fixed source hashes, grouped source/entity/time separation and exact raw renderer bytes are checked before training. Remote source gates run unchanged shortcut controls. Model selection uses validation loss only; no audit exists. Runtime reports come from the pinned full parser and reference engine, with literal bare adapter-hash echoes, repeated bits and three negative identity controls. No registration-ready file is emitted by development mode. All saved successful or failed checkpoint containers carry original upstream and SAND notices without changing tensor payloads.
+
+## Independent audit admission
+
+The additive source gate tests complete specimen inventory, original QMN identity, split-batch suffixes, column-bound batch extraction, attribution, compatible grants and refusal of quality/lookup-to-authenticity promotion. Its full-workbook inventory prevents treating an analytical-method attachment as a specimen corpus. See audit_admission/SECURITY.md. No model scoring occurs in this gate and no independent groups are fabricated from sample counts.

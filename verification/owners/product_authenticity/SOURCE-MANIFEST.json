@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "family": "PRODUCT_AUTHENTICITY",
-  "run_id": "377d6601b10342459cb169dbd9724775",
-  "scope": "source-only gate and remote-only model development, no independent audit or registration readiness",
+  "run_id": "62afb80808ea496caec5a89fbc0ba5c5",
+  "scope": "Preserved model development plus full source audit admission refusal, not registration readiness",
   "files": [
     {
       "path": "DATA-SOURCES.md",
-      "sha256": "2be5056ac9e3239ca5aad87a325efbc7ca48906e05efce9538f49a52a766ab86",
-      "bytes": 4126
+      "sha256": "4d5357bcacd993441190ec1b9ea4390337a75560d2794d1b0b76e9bda27714ec",
+      "bytes": 4775
     },
     {
       "path": "KIT-LICENSE",
@@ -16,23 +16,23 @@
     },
     {
       "path": "LICENSE",
-      "sha256": "7e55e9cdc6665761c4d3ba5b5372e26411aef2f499bfc623d33a4c69d9f161c3",
-      "bytes": 6801
+      "sha256": "e08e95c8d2693451b249c400050ccba0723b5c3c402969e5fe2b4b13ae791931",
+      "bytes": 7038
     },
     {
       "path": "NOTICE",
-      "sha256": "013234591b660972bb9ff26a4707136c920a6b5b515a203776e9c9602478ce67",
-      "bytes": 2028
+      "sha256": "aaa2a42dd50d1d791e6c4597ecb861f0fe69a9695ddeb047782c5306f3f2b110",
+      "bytes": 2345
     },
     {
       "path": "README.md",
-      "sha256": "97980c05461f63846d53683b611d0c8b8d4f598fc16fa8efc1e2c7db0916479c",
-      "bytes": 3462
+      "sha256": "1de925c95cdbf5f5d1b294d5d7c55e9c19b4b810d2d7e8d9f0accb2ef75a298d",
+      "bytes": 4295
     },
     {
       "path": "SECURITY.md",
-      "sha256": "c11df816d8cbd06f0cf3a582205681c652d648e57a49214e8af6a7ee8029d8a2",
-      "bytes": 2618
+      "sha256": "7612a2092e92fab63d15347c32ecad76ff7d20c25031b6647137e49bc882f8eb",
+      "bytes": 3106
     },
     {
       "path": "SOURCE-INVENTORY.json",
@@ -43,6 +43,66 @@
       "path": "UPSTREAM-PYFLAKES-LICENSE",
       "sha256": "22c47569cc0aae531b372361366818af01c6fc2e314770584a7866c92b3a0463",
       "bytes": 1093
+    },
+    {
+      "path": "audit_admission/DATA-SOURCES.md",
+      "sha256": "f0261ca18df3c3b1f56ce1847c7ea5d38ead1558779ee96052f87f648cfc2360",
+      "bytes": 2142
+    },
+    {
+      "path": "audit_admission/LICENSE",
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "bytes": 6450
+    },
+    {
+      "path": "audit_admission/NOTICE",
+      "sha256": "8da6fd7d7627a5514898d2e009e58d73dcbedbccc1601c92c010502e3bd85048",
+      "bytes": 1387
+    },
+    {
+      "path": "audit_admission/README.md",
+      "sha256": "c0a9aab5ef06d5a639f8129ffcdf2c34af24099634a942f80a22edba71619c3f",
+      "bytes": 1450
+    },
+    {
+      "path": "audit_admission/SECURITY.md",
+      "sha256": "6641ba6c1325446dc2cc641c0ba263a10b3ec1ad4ed445ff704c0d9aa9b0b7d0",
+      "bytes": 1407
+    },
+    {
+      "path": "audit_admission/audit_source_admission.py",
+      "sha256": "200f6775140553ae2eccf879382ce41f57db96f56464d9757b921a53e132441a",
+      "bytes": 15928
+    },
+    {
+      "path": "audit_admission/sources/SOURCE-MANIFEST.json",
+      "sha256": "35f33e376ed8bfdac6d4ab329c033f1fb83830a55a425eac2a90e067ca83e88c",
+      "bytes": 773
+    },
+    {
+      "path": "audit_admission/sources/bangladesh-workbook-summary.json",
+      "sha256": "0d768c136c7dc76ab2ac96ca7a101eaabbe490bb89bbff8e2a767040120ac444",
+      "bytes": 4562
+    },
+    {
+      "path": "audit_admission/sources/nigeria-table-s2.txt",
+      "sha256": "cb8c4401541d07263563fdeddeb1ec436d28292c123a88169f6d16538bf20cd5",
+      "bytes": 73760
+    },
+    {
+      "path": "audit_admission/sources/source-grants.json",
+      "sha256": "3191b046b138f91ef3820e5a1e62b731e9d2716e262fb6da11fa5236ceaa603c",
+      "bytes": 2073
+    },
+    {
+      "path": "audit_admission/test_audit_source_admission.py",
+      "sha256": "b47305db5c63bfb69d58516048ad2faef8bd54e1fe918d16ef1bc6de30c648bd",
+      "bytes": 5609
+    },
+    {
+      "path": "audit_admission/verify.sh",
+      "sha256": "41451b935e5207277441393d1d7edf348c1e70522ddb246541a5eaf8443a6fb2",
+      "bytes": 571
     },
     {
       "path": "development/KIT-LICENSE",
@@ -231,8 +291,8 @@
     },
     {
       "path": "verify.sh",
-      "sha256": "7db8c0890c568c2ceac521121270605441843dd99024dea94e8ed979cef1a8d4",
-      "bytes": 985
+      "sha256": "f6bec30017942029c64bcc353578ac1a6250f50f6124d5dc97b0932695ae8cfb",
+      "bytes": 1024
     }
   ]
 }

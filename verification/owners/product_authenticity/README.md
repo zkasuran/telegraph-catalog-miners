@@ -44,3 +44,9 @@ is claimed. Original source-author annotations remain distinct.
 The `develop` workflow mode trains a real ModernBERT LoRA response-quality scorer only on the standard public CPU runner. It handles verdict consistency, fact attribution and reference-versus-new-object limits in JSON and prose. It does not universally authenticate physical products or retrieve missing issuer evidence. New preferences are constructed from original source facts and are not human-reviewed. Source identifiers with G/F label prefixes are masked as technical fixture tags.
 
 Development contains 592 train comparisons from 74 original records and 608 validation comparisons from 76 source-held-out records. These comparisons are constructed report preferences, not independent physical specimens. Validation may select a frozen checkpoint. The independent 32-group audit remains unavailable and this mode cannot emit registration-ready.json or trigger registration. Its artifact binds actual model, parser and reference-runtime execution if those operations succeed.
+
+## Measured development and audit admission
+
+Development run 44603961619 at commit 5d8e9fcea5f52f53a3a1694323bb63d4422c681b produced a frozen package and actual full-parser/reference-engine results. Constructed source-held-out validation was 304/304 in JSON and 304/304 in prose. This is not independent physical-item accuracy or canonical qualification. The strongest declared validation shortcut was 62.5%. The model has not scored the new audit-source records.
+
+The additive audit-admission gate preserves all 29 earlier tests and adds 13 source controls. It reads all 260 Nigeria rows but admits no genuine labels from quality passes or database lookups. Bangladesh's workbook contains three methods sheets, not 189 individual specimen records. The independent 32-group audit remains unverified and registration stays disabled.

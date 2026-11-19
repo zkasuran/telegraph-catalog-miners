@@ -1,0 +1,19 @@
+Original source data first:
+
+Julia Gabel, Micha Lächele, Katharina Sander, Gesa Gnegel, Nkiru Sunny-Abarikwu, Rita Ezinwanne Ohazulike, Juliet Ngene, Jane Frances Chioke, Christine Häfele-Abah, Lutz Heide. https://creativecommons.org/licenses/by/4.0/
+Mohammad Sofiqur Rahman, Naoko Yoshida, Hirohito Tsuboi, James Regun Karmoker, Nadia Kabir, Simon Schaefermann, Yoshio Akimoto, Mohiuddin Ahmed Bhuiyan, Md Selim Reza, Kazuko Kimura. https://creativecommons.org/licenses/by/4.0/
+
+Nigeria: Quality of Essential Medicines from Different Sources in Enugu and
+Anambra, Nigeria. DOI 10.4269/ajtmh.23-0837. CC BY 4.0 as linked by the article.
+Bangladesh: A comprehensive analysis of selected medicines collected from private
+drug outlets of Dhaka city, Bangladesh in a simple random survey.
+DOI 10.1038/s41598-021-04309-1. Copyright The Author(s), CC BY 4.0.
+
+Original and derived source annotations retain their grants without SAND
+restrictions. Technical modifications extract the entire S2 table and retain
+workbook member/sheet inventory facts without analytical-method cell quotations.
+No endorsement from the authors, manufacturers or regulators is claimed.
+
+Our code and tests: copyright 2026 zkasuran, LicenseRef-zkasuran-SAND-1.0.
+Full terms in LICENSE. The parent static Pyflakes implementation retains MIT.
+AI assisted the code and tests. No human review of additions is claimed.

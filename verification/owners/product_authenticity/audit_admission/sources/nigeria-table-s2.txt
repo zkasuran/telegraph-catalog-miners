@@ -1,0 +1,420 @@
+Supplementary Table S2: List of all samples investigated in this study
+Note: Many medicines were purchased not directly from their manufacturer but from other commercial sources. For those medicines it cannot be verified whether the manufacturers’ storage recommendations have been complied with from the time of manufacture until the time of sample collection. Changes in medicines
+quality may have occurred due to inappropriate transport and storage conditions, and therefore non‐compliance with USP specifications is not necessarily due to substandard manufacturing or packaging. However, the results listed below reflect the quality in which health facilities, and ultimately patients, would receive
+these medicines.
+
+* Co‐trimoxazole comprises sulfamethoxazole and trimethoprim.
+§
+  Source A) Licensed pharmaceutical manufacturers and wholesalers ; Source B) Vendors in pharmaceutical markets of Onitsha and Enugu with unclear licensing status.
+#
+  For definitions of medicine quality refer to the main manuscript. USP 42 criteria was applied.
+
+
+
+                                                                                                                                           Verification of NAFDAC‐Reg. No
+                               Stated active                                                Stated                                         possible in Nigeria’s Registered                    Applied method for                                                                Assessement of
+                               pharmaceutical                                               manufacturing                  NAFDAC‐Reg.     Drug Product Database (Sep.                         quantification of            Assessment of assay        Assessment of dissolution assay AND
+No. Stated product name        ingredient                Stated manufacturer                country           Source§      No              2023)                              Batchnumber      dissolution testing          results#                   results#                  dissolution results# Sample ID
+   1 Harvad Cefuroxime tablets Cefuroxime axetil         ALPA LABORATORIES LTD.             India             B            B4‐7976         verified                           TC0009           UV/Vis                       in specification           in specification          in specification     QMN 001
+   2 Cefsafe‐500               Cefuroxime axetil         missing                            India             B            C4‐0252         verified                           HH108B21         UV/Vis                       in specification           in specification          in specification     QMN 002
+   3 Oxispa 500                Cefuroxime axetil         Zee Laboratories                   India             B            A4‐4096         verified                           ZET1408          UV/Vis                       in specification           in specification          in specification     QMN 003
+                                                         Scott‐Edil Advance Research
+    4 Cefuroxime Deno            Cefuroxime axetil       Laboratories & Education Ltd.      India             B            C4‐0958         not found                          1130Z007         UV/Vis                       in specification           in specification            in specification     QMN 004
+                                                         Shanghai Juchen Import and
+    5 Ciprofloxacin 500 mg      Ciprofloxacin            Exports Co. Ltd.                   China             B            missing         ‐                                  200203           HPLC                         in specification           in specification            in specification   QMN 005
+    6 Ugolife Ciprofloxacin‐500 Ciprofloxacin            Kesar Pharma (P) Ltd.              India             B            B4‐7467         not found                          T20466           HPLC                         in specification           in specification            in specification   QMN 006
+    7 Biocipro                  Ciprofloxacin            McCoy Pharma Pvt. Ltd.             India             B            B4‐2452         not found                          MP9422           HPLC                         moderate deviation         in specification            moderate deviation QMN 007
+                                                         Jiangsu Pengyao Pharmaceutical
+    8 Ciprofloxacin 500          Ciprofloxacin           Co. Ltd. (INC.)                    China             B            B4‐5947         verified                           201257           HPLC                         in specification           in specification            in specification     QMN 008
+    9 Biophage 500               Metformin               SKG‐Pharma Limited                 Nigeria           B            A4‐6597         verified                           2126             HPLC                         in specification           in specification            in specification     QMN 009
+   10 Gluformin                  Metformin               Nigerian‐German Chemicals Plc      Nigeria           B            04‐6426         verified                           FPB080321        HPLC                         in specification           in specification            in specification     QMN 010
+   11 Metformin                  Metformin               Fredun Pharmaceuticals Ltd.        India             B            B4‐0944         not found                          FK0002           HPLC                         in specification           in specification            in specification     QMN 011
+
+   12 Transglobe's Metformin     Metformin               EUROLIFE HEALTHCARE PVT. LTD. India                  B            A4‐4274         not found                          TMN005           HPLC                         in specification           in specification            in specification     QMN 012
+   13 AD‐Fluconazole             Fluconazole             Globela Pharma Pvt. Ltd.         India               B            B4‐1543         not found                          20GT047          HPLC                         in specification           in specification            in specification     QMN 013
+                                                         Mancare PHARMACEUTICALS PVT.
+   14 Nkoyo Fluconazole          Fluconazole             LTD.                             India               B            A4‐0421         not found                          TUL45            HPLC                         in specification           in specification            in specification     QMN 014
+   15 C Cotrim ‐ 480             Co‐trimoxazole*         CITICARE LAB. LTD.               Nigeria             B            04‐2872         not found                          018              HPLC                         falsified                  extreme deviation           falsified            QMN 015
+                                                         emzor Pharmaceutical Industries
+   16 Emtrim                     Co‐trimoxazole*         Ltd.                             Nigeria             B            04‐0267         verified                           R0371SA          HPLC                         in specification           in specification            in specification     QMN 016
+                                                         emzor Pharmaceutical Industries
+   17 Emgyl                      Metronidazole           Ltd.                             Nigeria             B            04‐0412         not found                          2557A            HPLC                         in specification           in specification            in specification     QMN 017
+                                                         NEMEL PHARMACEUTICALS
+   18 Nemegyl                    Metronidazole           LIMITED                          Nigeria             B            04‐5326         not found                          11B              HPLC                         in specification           in specification            in specification     QMN 018
+   19 Albegyl                    Metronidazole           ALBEN HEALTHCARE IND. LTD.       Nigeria             B            A4‐7707         verified                           043              HPLC                         in specification           in specification            in specification     QMN 019
+                                                         emzor Pharmaceutical Industries
+   20 Emgyl                      Metronidazole           Ltd.                             Nigeria             B            04‐0412         not found                          S0156SA          HPLC                         in specification           in specification            in specification     QMN 020
+                                                         New Divine Favour Pharmaceutical
+   21 New Divine Frusemide       Furosemide              Industries Ltd.                  Nigeria             B            A4‐8776         not found                          0029             UV/Vis                       in specification           in specification            in specification     QMN 021
+                                                         Mancare PHARMACEUTICALS PVT.
+   22 Lasimac                    Furosemide              LTD.                             India               B            B4‐6708         verified                           TUK07            UV/Vis                       in specification           in specification            in specification     QMN 022
+                                                                                                                                           product of different API and
+                                                         Mancare PHARMACEUTICALS PVT.                                                      brand registered under this Reg.
+   23 Aphantix                   Furosemide              LTD.                            India                B            04‐9146         No.                                TVK32            UV/Vis                       in specification           in specification            in specification     QMN 023
+                                                         Mancare PHARMACEUTICALS PVT.
+   24 Nkoyosix                   Furosemide              LTD.                            India                B            A4‐9179         verified                           TUL35            UV/Vis                       in specification           in specification            in specification     QMN 024
+                                                         emzor Pharmaceutical Industries
+   25 Chloroquine                Chloroquine             Ltd.                            Nigeria              B            04‐1218         not found                          1817Z            HPLC; UV/Vis                 in specification           in specification            in specification     QMN 025
+                                                         DANA PHARMACEUTICALS
+   26 Quimal                     Chloroquine             LIMITED                         Nigeria              B            04‐1785         verified                           QT145            HPLC; UV/Vis                 in specification           in specification            in specification     QMN 026
+                                                         SA'A Pharmaceutical Products
+   27 Sa'a Quine                 Chloroquine             Limited                         Nigeria              B            04‐2855         not found                          SQ19043          HPLC; UV/Vis                 probably falsified         extreme deviation           probably falsified QMN 027
+   28 Dexacure                   Dexamethasone           Unicure Pharmaceutical Ltd.     Nigeria              B            A4‐7117         verified                           201101           HPLC                         moderate deviation         moderate deviation          moderate deviation QMN 028
+   29 Rich Dexa                  Dexamethasone           Brussels Laboratories Pvt Ltd.  India                B            B4‐5389         not found                          Z19003           HPLC                         extreme deviation          extreme deviation           extreme deviation QMN 029
+                                                         Surmount Laboratories Private
+   30 Dexamethasone 0.5          Dexamethasone           Limited                         India                B            B4‐9983         not found                          TD9003           HPLC                         extreme deviation          moderate deviation          extreme deviation    QMN 030
+   31 Zanelb                     Dexamethasone           VAKS Pharma Pvt. Ltd.           India                B            B4‐8496         verified                           V20169           HPLC                         extreme deviation          moderate deviation          extreme deviation    QMN 031
+   32 Glanil                     Glibenclamide           Nigerian‐German Chemicals Plc   Nigeria              B            04‐2450         not found                          FPA070221        HPLC                         in specification           extreme deviation           extreme deviation    QMN 032
+   33 Gliben‐J                   Glibenclamide           JUHEL NIGERIA LIMITED           Nigeria              B            04‐5735         not found                          0041             HPLC                         in specification           in specification            in specification     QMN 033
+   34 Tionil                     Glibenclamide           Merit Organics Ltd.             India                B            B4‐7811         not found                          T32002           HPLC                         extreme deviation          extreme deviation           extreme deviation    QMN 034
+
+
+
+
+                                                                                                                                                                 7
+
+                                                   WEST‐COAST Pharmaceutical
+35 Redrex 25                 Hydrochlorothiazide   Works Ltd.                        India     B   unknown   ‐                                  WG19285     HPLC           in specification     in specification       in specification     QMN 035
+36 Hydrex                    Hydrochlorothiazide   JUHEL NIGERIA LIMITED             Nigeria   B   A4‐1209   verified                           0139        HPLC           in specification     in specification       in specification     QMN 036
+37 Eden Atenolol             Atenolol              IMPULSE PHARMA PVT LTD.           India     B   B4‐6760   not found                          200164      HPLC           in specification     in specification       in specification     QMN 037
+38 Atenolol                  Atenolol              ALPA LABORATORIES LTD.            India     B   B4‐8238   verified                           TE0184      HPLC           in specification     in specification       in specification     QMN 038
+                                                   Hunan Zhongnan Kelun
+39 Chupet Ceftriaxone SodiumCeftriaxone            Pharmaceutical Co., Ltd.          China     B   A4‐9142   verified                           200303      ‐              in specification     ‐                      in specification     QMN 039
+                                                   Scott‐Edil Advance Research
+40 Pocco Ceftriaxone InjectionCeftriaxone          Laboratories & Education Ltd.     India     B   B4‐9368   verified                           1340Z157    ‐              in specification     ‐                      in specification     QMN 040
+                                                   China National Medicines Guorui
+41 Rebok Ceftriaxone Sodium Ceftriaxone            Pharmaceutical Co., Ltd.          China     B   A4‐5327   not found                          200946      ‐              in specification     ‐                      in specification     QMN 041
+                                                   Shandong Xier Kangtai Pharm Co.
+42 Macephin                  Ceftriaxone           Ltd                               China     B   B4‐5559   not found                          201221      ‐              in specification     ‐                      in specification     QMN 042
+43 Chloro                    Chloroquine           LEOBEN HEALTHCARE                 Nigeria   B   04‐4166   not found                          0432        HPLC; UV/Vis   falsified            extreme deviation      falsified            QMN 043
+                                                   MAOBISON INTER‐LINK &
+44 Poletrim                  Co‐trimoxazole*       ASSOCIATES LTD.                   Nigeria   B   A4‐8482   not found                          777.51      HPLC           probably falsified   extreme deviation      probably falsified   QMN 044
+                                                                                                             product of different API and
+                                                                                                             brand registered under this Reg.
+45 Rotrim                    Co‐trimoxazole*       ROTAC MEDICAL LAB.              Nigeria     B   04‐5745   No.                                RML478      HPLC           falsified            extreme deviation      falsified            QMN 045
+46 Weltrim                   Co‐trimoxazole*       WELTEC HEALTHCARE LTD           Nigeria     B   04‐5245   not found                          NHL‐1001    HPLC           falsified            extreme deviation      falsified            QMN 046
+47 Hydrochlorothiazide       Hydrochlorothiazide   missing                         missing     B   missing   ‐                                  AE‐19118    HPLC           in specification     in specification       in specification     QMN 047
+                                                   WEST‐COAST Pharmaceutical
+48 Redrex 25                Hydrochlorothiazide    Works Ltd.                      India       B   B4‐9818   verified                           WG20005     HPLC           in specification     in specification       in specification     QMN 048
+49 Esidrex                  Hydrochlorothiazide    DELPHARM L'AIGLE                France      B   missing   ‐                                  2OFA301     HPLC           in specification     in specification       in specification     QMN 049 (1/2)
+50 Johnbee Fluconazole TableFluconazole            Scott‐Edil Pharmacia Ltd.       India       B   B4‐6796   not found                          XT9L037     HPLC           in specification     in specification       in specification     QMN 050
+                                                   Mancare PHARMACEUTICALS PVT.
+51 Fungiban                  Fluconazole           LTD.                            India       B   A4‐8168   verified                           TUE113      HPLC           extreme deviation    moderate deviation     extreme deviation    QMN 051
+52 Eden Atenolol             Atenolol              IMPULSE PHARMA PVT LTD.         India       B   B4‐6760   not found                          200164      HPLC           in specification     in specification       in specification     QMN 052
+                                                   emzor Pharmaceutical Industries
+53 Emgyl                     Metronidazole         Ltd.                            Nigeria     B   04‐0412   not found                          S0156SA     HPLC           in specification     in specification       in specification     QMN 053
+54 Cisepro‐500               Ciprofloxacin         Fredun Pharmaceuticals Ltd.     India       B   B4‐6330   not found                          AA0036      HPLC           in specification     in specification       in specification     QMN 054
+                                                   Shandong Xier Kangtai Pharm Co.
+55 G.Ossy Ceftriaxone       Ceftriaxone            Ltd                             China       B   B4‐4640   not found                          201216      ‐              in specification     ‐                      in specification   QMN 055
+56 Dexacure                 Dexamethasone          Unicure Pharmaceutical Ltd.     Nigeria     B   A4‐7117   verified                           210401      HPLC           in specification     in specification       in specification   QMN 056
+57 Diatab                   Glibenclamide          MAY&BAKER NIGERIA PLC           Nigeria     B   04‐7837   verified                           A202435     HPLC           in specification     in specification       in specification   QMN 057
+58 Glanil                   Glibenclamide          Nigerian‐German Chemicals Plc   Nigeria     B   04‐2450   not found                          FPD070421   HPLC           in specification     extreme deviation      extreme deviation QMN 058
+59 Sivophage                Metformin              Globela Pharma Pvt. Ltd.        India       B   B4‐0684   not found                          GT20258     HPLC           in specification     in specification       in specification   QMN 059
+60 Gluformin                Metformin              Nigerian‐German Chemicals Plc   Nigeria     B   04‐6426   verified                           FPD080121   HPLC           moderate deviation   in specification       moderate deviation QMN 060
+61 Atenolol                 Atenolol               missing                         missing     B   missing   ‐                                  BPQ170002   HPLC           in specification     in specification       in specification   QMN 061
+62 Latrim 480               Co‐trimoxazole*        Me Cure Industries Ltd.         Nigeria     B   04‐4483   verified                           CT.1146     HPLC           in specification     in specification       in specification   QMN 062
+63 Metrozol                 Metronidazole          VITABIOTICS (NIG.) LTD.         Nigeria     B   A4‐6028   not found                          T21521      HPLC           in specification     in specification       in specification   QMN 063
+64 Esodrex 25 mg            Hydrochlorothiazide    Anhui Medipharm Co. Ltd         China       B   missing   ‐                                  190329      HPLC           in specification     in specification       in specification   QMN 064
+65 Johnbee Fluconazole TableFluconazole            Scott‐Edil Pharmacia Ltd.       India       B   B4‐6796   not found                          XT9L037     HPLC           in specification     in specification       in specification   QMN 065
+66 Xymatyl 500              Cefuroxime axetil      Adora Products Pvt. Ltd.        India       B   B4‐5993   not found                          HG303L20    UV/Vis         in specification     in specification       in specification   QMN 066
+67 Cefurite                 Cefuroxime axetil      ASIAN PHARMA                    India       B   missing   ‐                                  AT11721     UV/Vis         moderate deviation   in specification       moderate deviation QMN 067
+                                                   Mancare PHARMACEUTICALS PVT.
+68 Lasimac                   Furosemide            LTD.                            India       B   B4‐6708   verified                           TUK03       UV/Vis         in specification     in specification       in specification     QMN 068
+                                                   Jiangsu Ruinian Qianjin
+69 Glulife‐500 mg            Metformin             Pharmaceutical Co. Ltd.         China       B   A4‐6354   not found                          200310      HPLC           in specification     in specification       in specification   QMN 069
+70 Me cure Dexamethasone     Dexamethasone         Me Cure Industries Ltd.         Nigeria     B   A4‐0201   verified                           DC.319      HPLC           moderate deviation   moderate deviation     moderate deviation QMN 070
+71 Dexacure                  Dexamethasone         Unicure Pharmaceutical Ltd.     Nigeria     B   A4‐7117   verified                           210201      HPLC           moderate deviation   moderate deviation     moderate deviation QMN 071
+72 Dexacortin                Dexamethasone         Maxwell Life Science Pvt. Ltd.  India       B   04‐2446   not found                          ET9514      HPLC           extreme deviation    moderate deviation     extreme deviation QMN 072
+                                                   Jiangsu Pengyao Pharmaceutical
+73 Xasten                    Dexamethasone         Co. Ltd. (INC.)                 China       B   04‐6822   verified                           200925      HPLC           moderate deviation   moderate deviation     moderate deviation QMN 073
+                                                   Mancare PHARMACEUTICALS PVT.
+74 Frusemide tablets shree axFurosemide            LTD.                            India       B   A4‐0604   not found                          TUK16       UV/Vis         in specification     in specification       in specification     QMN 074
+                                                                                                             product of different API and
+                                                   Mancare PHARMACEUTICALS PVT.                              brand registered under this Reg.
+75 Aphantix                  Furosemide            LTD.                         India          B   04‐9146   No.                                TVK28       UV/Vis         in specification     in specification       in specification     QMN 075
+                                                   Mancare PHARMACEUTICALS PVT.
+76 Lasimac                   Furosemide            LTD.                         India          B   B4‐6708   verified                           TUK02       UV/Vis         in specification     in specification       in specification     QMN 076
+77 Flucoxiom‐150             Fluconazole           Lesanto Laboratories         India          B   C4‐1024   not found                          L718002     HPLC           in specification     not tested (capsule)   in specification     QMN 077
+78 Fluconazole 150 mg        Fluconazole           Globela Pharma Pvt. Ltd.     India          B   B4‐7568   not found                          GT20110     HPLC           in specification     in specification       in specification     QMN 078
+                                                   Mancare PHARMACEUTICALS PVT.
+79 Nkoyo Fluconazole         Fluconazole           LTD.                         India          B   A4‐0421   not found                          TUL43       HPLC           in specification     in specification       in specification     QMN 079
+                                                   HEALTH CARE FORMULATIONS
+80 Roxirite                  Cefuroxime axetil     PVT. LTD.                    India          B   C4‐1189   verified                           T‐220       UV/Vis         in specification     in specification       in specification     QMN 080
+
+
+
+
+                                                                                                                                   8
+
+ 81 Oxispa 500                Cefuroxime axetil      MEDICO REMEDIES LTD.              India      B   B4‐6770    not found       OXS001       UV/Vis         in specification     in specification     in specification   QMN 081
+ 82 Harvad Cefuroxime tablets Cefuroxime axetil      ALPA LABORATORIES LTD.            India      B   B4‐7976    verified        TC0011       UV/Vis         in specification     in specification     in specification   QMN 082
+ 83 Ibu Ciprofloxacin ‐ 500   Ciprofloxacin          Kesar Pharma (P) Ltd.             India      B   C4‐0487    not found       T21001       HPLC           moderate deviation   in specification     moderate deviation QMN 083
+ 84 Osworth Metformin         Metformin              MAY&BAKER NIGERIA PLC             Nigeria    B   A4‐4310    verified        AC20039      HPLC           in specification     in specification     in specification   QMN 084
+ 85 Ciprofloxacin             Ciprofloxacin          Fredun Pharmaceuticals Ltd.       India      A   B4‐1176    verified        FC0020       HPLC           in specification     in specification     in specification   QMN 085
+ 86 Metformin                 Metformin              Fredun Pharmaceuticals Ltd.       India      A   B4‐0944    not found       FK0003       HPLC           in specification     in specification     in specification   QMN 086
+                                                     DANA PHARMACEUTICALS
+ 87 Quimal                     Chloroquine           LIMITED                           Nigeria    B   04‐1785    verified        QT145        HPLC; UV/Vis   moderate deviation   in specification     moderate deviation QMN 087
+ 88 Albequine                  Chloroquine           ALBEN HEALTHCARE IND. LTD.        Nigeria    B   B4‐0086    not found       017          HPLC; UV/Vis   in specification     moderate deviation   moderate deviation QMN 088
+
+ 89 Softhealth Ciprofloxcin tab Ciprofloxacin        Halewood Laboratories Pvt. Ltd.   India      B   B4‐6819    not found       HV1003       HPLC           in specification     in specification     in specification     QMN 089
+ 90 Cipro‐500                   Ciprofloxacin        NUEL PHARM. LTD.                  Nigeria    B   A4‐9505    not found       0621NCPO2    HPLC           in specification     in specification     in specification     QMN 090
+                                                     Anhui Chengshi Pharmaceutical
+ 91 Ceftriaxone injection      Ceftriaxone           Co. Ltd.                          China      B   B4‐7640    not found       303201201    ‐              in specification     ‐                    in specification     QMN 091
+ 92 Atenolol                   Atenolol              missing                           missing    B   missing    ‐               K4548002     HPLC           in specification     in specification     in specification     QMN 092
+ 93 Atenolol                   Atenolol              ALPA LABORATORIES LTD.            India      B   B4‐8238    verified        TE0184       HPLC           in specification     in specification     in specification     QMN 093
+                                                     New Divine Favour Pharmaceutical
+ 94 New Divine Frusemide       Furosemide            Industries Ltd.                   Nigeria    B   A4‐8776    not found       0029         UV/Vis         in specification     in specification     in specification     QMN 094
+ 95 Furosemide                 Furosemide            Bristol Laboratories Ltd          UK         B   missing    ‐               AUC240012    UV/Vis         in specification     in specification     in specification     QMN 095
+ 96 Eden Atenolol              Atenolol              IMPULSE PHARMA PVT LTD.           India      B   B4‐6760    not found       200165       HPLC           in specification     in specification     in specification     QMN 096
+ 97 Zuntrim                    Co‐trimoxazole*       ZUNAMEDIKS PHARM. LTD.            Nigeria    B   A11‐0988   verified        RT0003C      HPLC           extreme deviation    moderate deviation   extreme deviation    QMN 097
+ 98 Zunagyl                    Metronidazole         ZUNAMEDIKS PHARM. LTD.            Nigeria    B   A11‐0295   verified        GT0063D      HPLC           probably falsified   extreme deviation    probably falsified   QMN 098
+ 99 Elcexone                   Ceftriaxone           Inject Care Parenterals Pvt Ltd.  India      B   B4‐7427    not found       IC21263004   ‐              in specification     ‐                    in specification     QMN 099
+                                                     Shandong Xier Kangtai Pharm Co.
+100 Derm Ceftriaxone 1G InjectCeftriaxone            Ltd                               China      B   B4‐5844    not found       201172       ‐              in specification     ‐                    in specification     QMN 100
+                                                     China National Medicines Guorui
+101 Rebok Ceftriaxone Sodium Ceftriaxone             Pharmaceutical Co., Ltd.          China      B   A4‐5327    not found       200235       ‐              in specification     ‐                    in specification     QMN 101
+                                                     Shandong Xier Kangtai Pharm Co.
+102 Macephin                   Ceftriaxone           Ltd                               China      B   B4‐5559    not found       201221       ‐              in specification     ‐                    in specification     QMN 102
+                                                     Fourrts (India) Laboratories Pvt.
+103 Betafil                    Atenolol              Limited                           India      B   04‐8111    verified        H0410        HPLC           in specification     in specification     in specification     QMN 103
+104 Atenolol                   Atenolol              missing                           missing    B   missing    ‐               BPQ179021    HPLC           in specification     in specification     in specification     QMN 104
+                                                     emzor Pharmaceutical Industries
+105 Emgyl                      Metronidazole         Ltd.                              Nigeria    B   04‐0412    not found       338A         HPLC           in specification     in specification     in specification     QMN 105
+106 Loxagyl 200                Metronidazole         MAY&BAKER NIGERIA PLC             Nigeria    B   04‐0283    not found       A182113      HPLC           in specification     in specification     in specification     QMN 106
+107 Diamet                     Metformin             MAY&BAKER NIGERIA PLC             Nigeria    B   04‐7945    not found       A210792      HPLC           in specification     in specification     in specification     QMN 107
+                                                     BAROQUE PHARMACEUTICALS
+108 Tricophage ‐ 500           Metformin             PVT. LTD.                         India      B   B4‐2429    not found       G039008      HPLC           in specification     in specification     in specification     QMN 108
+                                                     HEALTH CARE FORMULATIONS
+109 Roxirite                  Cefuroxime axetil      PVT. LTD.                         India      B   C4‐1189    verified        T‐218        UV/Vis         in specification     in specification     in specification   QMN 109
+110 Cefurite                  Cefuroxime axetil      ASIAN PHARMA                      India      B   missing    ‐               AT11721      UV/Vis         moderate deviation   in specification     moderate deviation QMN 110
+111 Harvad Cefuroxime tablets Cefuroxime axetil      ALPA LABORATORIES LTD.            India      B   B4‐7976    verified        TC0011       UV/Vis         in specification     in specification     in specification   QMN 111
+                                                     Scott‐Edil Advance Research
+112 Cefuroxime Deno            Cefuroxime axetil     Laboratories & Education Ltd.     India      B   C4‐0958    not found       1130Z007     UV/Vis         in specification     in specification     in specification     QMN 112
+                                                     emzor Pharmaceutical Industries
+113 Emtrim                     Co‐trimoxazole*       Ltd.                              Nigeria    B   04‐0267    verified        S0412SA      HPLC           in specification     in specification     in specification   QMN 113
+114 Tionil                     Glibenclamide         Merit Organics Ltd.               India      B   B4‐7811    not found       T32002       HPLC           in specification     moderate deviation   moderate deviation QMN 114
+115 Glibenclamide              Glibenclamide         ZLF PHARMA UK LIMITED             UK         B   missing    ‐               190201       HPLC           in specification     moderate deviation   moderate deviation QMN 115
+116 Glibenclamide              Glibenclamide         MEDICO REMEDIES LTD.              India      B   B4‐8197    verified        GIB903       HPLC           moderate deviation   extreme deviation    extreme deviation QMN 116
+
+117 Transglobe                 Glibenclamide         OSAKA Pharmaceuticals Pvt. Ltd.   India      B   unknown    ‐               OS20032      HPLC           in specification     in specification     in specification     QMN 117
+                                                     WEST‐COAST Pharmaceutical
+118 Redrex 25                  Hydrochlorothiazide   Works Ltd.                        India      B   B4‐9818    verified        WG20004      HPLC           in specification     in specification     in specification     QMN 118
+119 Hydrochlorothiazide        Hydrochlorothiazide   missing                           missing    B   missing    ‐               AE‐19118     HPLC           in specification     in specification     in specification     QMN 119
+120 Hydrochlorothiazide        Hydrochlorothiazide   missing                           missing    B   missing    ‐               D200272      HPLC           in specification     in specification     in specification     QMN 120
+121 HCTZ 25                    Hydrochlorothiazide   T.O Chemical                      Thailand   B   missing    ‐               S102021      HPLC           in specification     in specification     in specification     QMN 121
+                                                     emzor Pharmaceutical Industries
+122 Chloroquine                Chloroquine           Ltd.                              Nigeria    B   04‐1218    not found       1840Z        HPLC; UV/Vis   in specification     in specification     in specification     QMN 122
+123 Dr. Meyer's Maxiquine      Chloroquine           VITABIOTICS (NIG.) LTD.           Nigeria    B   A11‐0393   not found       T61220       HPLC; UV/Vis   in specification     in specification     in specification     QMN 123
+                                                     DANA PHARMACEUTICALS
+124 Quimal                     Chloroquine           LIMITED                           Nigeria    B   04‐1785    verified        QT145        HPLC; UV/Vis   in specification     in specification     in specification   QMN 124
+125 Albequine                  Chloroquine           ALBEN HEALTHCARE IND. LTD.        Nigeria    B   B4‐0086    not found       017          HPLC; UV/Vis   moderate deviation   moderate deviation   moderate deviation QMN 125
+126 Gluformin                  Metformin             Nigerian‐German Chemicals Plc     Nigeria    B   04‐6426    verified        FPD080521    HPLC           in specification     in specification     in specification   QMN 126
+127 Diabetmin                  Metformin             HOVID Bhd.                        Malaysia   B   04‐0810    verified        CB01603      HPLC           in specification     in specification     in specification   QMN 127
+128 Biocipro                   Ciprofloxacin         McCoy Pharma Pvt. Ltd.            India      B   B4‐2452    not found       MP9420       HPLC           moderate deviation   moderate deviation   moderate deviation QMN 128
+129 Cenox                      Ciprofloxacin         Mediios Laboratories Ltd.         India      B   04‐3002    verified        M0063        HPLC           in specification     in specification     in specification   QMN 129
+
+
+
+
+                                                                                                                             9
+
+                                                    NEMEL PHARMACEUTICALS
+130 Nemel Cipro                 Ciprofloxacin       LIMITED                            Nigeria   B   B4‐1405    verified         02E          HPLC     in specification     in specification       in specification    QMN 130
+131 Cisepro‐500                 Ciprofloxacin       Fredun Pharmaceuticals Ltd.        India     B   B4‐6330    not found        AA0037       HPLC     in specification     in specification       in specification    QMN 131
+
+132 Flucozar                 Fluconazole            J.DUNCAN HEALTHCARE PVT. LTD. India          B   B4‐2169    not found        J005B915     HPLC     in specification     not tested (capsule)   in specification    QMN 132
+133 Johnbee Fluconazole TableFluconazole            Scott‐Edil Pharmacia Ltd.      India         B   B4‐6796    not found        XT9L037      HPLC     in specification     in specification       in specification    QMN 133
+134 Berlin Fluconazole       Fluconazole            Kesar Pharma (P) Ltd.          India         B   C4‐0748    not found        T20462       HPLC     in specification     in specification       in specification    QMN 134
+135 AD‐Fluconazole           Fluconazole            Globela Pharma Pvt. Ltd.       India         B   B4‐1543    not found        20GT047      HPLC     in specification     in specification       in specification    QMN 135
+                                                    Laborate Pharmaceuticals India
+136 Dexalab               Dexamethasone             Ltd.                           India         B   04‐5413    not found        KDSTE‐003    HPLC     moderate deviation   moderate deviation     moderate deviation QMN 136
+137 Me cure Dexamethasone Dexamethasone             Me Cure Industries Ltd.        Nigeria       B   A4‐0201    verified         DC.227       HPLC     in specification     moderate deviation     moderate deviation QMN 137
+138 Nkoyo Dexamethasone   Dexamethasone             AR Lifesciences                India         B   04‐8665    not found        L263         HPLC     extreme deviation    moderate deviation     extreme deviation QMN 138
+
+139 Pauco Dexamethasone tab Dexamethasone           PAUCO Pharmaceutical Ind. Ltd.     Nigeria   B   A4‐1036    not found        016          HPLC     moderate deviation   moderate deviation     moderate deviation QMN 139
+140 Loxaprim                Co‐trimoxazole*         MAY&BAKER NIGERIA PLC              Nigeria   B   04‐5567    verified         A170506      HPLC     in specification     in specification       in specification   QMN 140
+                                                    Mancare PHARMACEUTICALS PVT.
+141 Frusemide tablets shree axFurosemide            LTD.                               India     B   A4‐0604    not found        TUK17        UV/Vis   in specification     in specification       in specification    QMN 141
+                                                    Surelife Pharmaceutical Industries
+142 Frusatex                    Furosemide          Ltd.                               Nigeria   B   A11‐0107   not found        028          UV/Vis   in specification     moderate deviation     moderate deviation QMN 142
+                                                    NEMEL PHARMACEUTICALS
+143 Nemegyl                     Metronidazole       LIMITED                            Nigeria   B   04‐5326    not found        O1G          HPLC     in specification     in specification       in specification    QMN 143
+144 Co‐Trox                     Co‐trimoxazole*     VITABIOTICS (NIG.) LTD.            Nigeria   B   04‐0061    not found        T59421       HPLC     in specification     in specification       in specification    QMN 144
+145 Atenolol                    Atenolol            ALPA LABORATORIES LTD.             India     B   B4‐8238    verified         TE0183       HPLC     in specification     in specification       in specification    QMN 145
+146 Metrozol                    Metronidazole       VITABIOTICS (NIG.) LTD.            Nigeria   B   A4‐6028    not found        T461119      HPLC     in specification     in specification       in specification    QMN 146
+
+147 Cipxin‐500                  Ciprofloxacin       EUROLIFE HEALTHCARE PVT. LTD. India          B   04‐6293    not found        CPN046       HPLC     in specification     in specification       in specification    QMN 147 (1/2)
+                                                    Shandong Xier Kangtai Pharm Co.
+148 Camtaxone                   Ceftriaxone         Ltd                             China        B   A4‐7940    not found        20538        ‐        in specification     ‐                      in specification    QMN 148
+149 Pulmocef 500                Cefuroxime axetil   Micro Labs Ltd.                 India        A   A4‐1971    verified         PEFB0063     UV/Vis   in specification     in specification       in specification    QMN 149
+                                                    Jiangsu Ruinian Qianjin
+150 Gecip                       Ciprofloxacin       Pharmaceutical Co. Ltd.         China        A   B4‐5856    not found        200417       HPLC     in specification     in specification       in specification    QMN 150
+                                                    Jiangsu Pengyao Pharmaceutical
+151 GG Dexamethasone Tablet Dexamethasone           Co. Ltd. (INC.)                 China        A   A4‐1598    not found        200821       HPLC     extreme deviation    moderate deviation     extreme deviation   QMN 151
+                                                    CSPC Zhongnuo Pharmaceuticals
+152 Triaxin                     Ceftriaxone         Co. Ltd.                        China        A   04‐8886    verified         659200615    ‐        in specification     ‐                      in specification    QMN 152 (1/2)
+153 Oxispa 500                  Cefuroxime axetil   MEDICO REMEDIES LTD.            India        A   B4‐6770    not found        OXS001       UV/Vis   in specification     in specification       in specification    QMN 153
+                                                    BAROQUE PHARMACEUTICALS
+154 Doncinat ‐ 500              Cefuroxime axetil   PVT. LTD.                       India        A   A4‐6907    verified         C010058      UV/Vis   in specification     in specification       in specification   QMN 154
+155 Cipronol 500                Ciprofloxacin       Maxheal Laboratories Pvt. Ltd.  India        A   04‐6340    not found        PL21007      HPLC     in specification     in specification       in specification   QMN 155
+156 Ceftriaxone for injection   Ceftriaxone         Aqua Vitoe Laboratories         India        A   B4‐3696    not found        B042020      ‐        in specification     ‐                      in specification   QMN 156
+157 Ciprofloxacin 500           Ciprofloxacin       Fidson Healthcare Plc.          Nigeria      A   A11‐0403   not found        T2521001     HPLC     in specification     moderate deviation     moderate deviation QMN 157
+158 Xymatyl 500                 Cefuroxime axetil   Adora Products Pvt. Ltd.        India        A   B4‐5993    not found        HG303L20     UV/Vis   in specification     in specification       in specification   QMN 158
+                                                    Mancare PHARMACEUTICALS PVT.
+159 Nkoyo Fluconazole           Fluconazole         LTD.                            India        A   A4‐0421    not found        TVB62        HPLC     in specification     in specification       in specification   QMN 159
+160 Nkoyo Dexamethasone         Dexamethasone       McCoy Pharma Pvt. Ltd.          India        A   04‐8665    not found        L20072       HPLC     moderate deviation   moderate deviation     moderate deviation QMN 160
+                                                    Shanxi Zhongbao Shuguang
+161 Ceftriaxone Injection       Ceftriaxone         Pharmaceutical Co., Ltd.        China        A   A4‐9551    not found        210120       ‐        in specification     ‐                      in specification    QMN 161
+                                                    Scott‐Edil Advance Research
+162 IVIM Ceftriaxone for Inject Ceftriaxone         Laboratories & Education Ltd.   India        A   B4‐4837    not found        1340Z081     ‐        in specification     ‐                      in specification    QMN 162
+
+163 Ciprobiotic‐Forte           Ciprofloxacin       Emcure PHARMACEUTICALS LTD.        India     A   04‐2307    not found        E16QP20046   HPLC     in specification     in specification       in specification   QMN 163
+164 Diaformin                   Metformin           BAL PHARMA LIMITED                 India     A   B4‐7950    not found        MTE42        HPLC     in specification     in specification       in specification   QMN 164
+165 Glanil                      Glibenclamide       Nigerian‐German Chemicals Plc      Nigeria   A   04‐2450    not found        FPD070321    HPLC     in specification     moderate deviation     moderate deviation QMN 165
+166 Gluformin                   Metformin           Nigerian‐German Chemicals Plc      Nigeria   A   04‐6426    verified         FPC080121    HPLC     in specification     in specification       in specification   QMN 166
+                                                    Jiangsu Ruinian Qianjin
+167 Clezide                     Glibenclamide       Pharmaceutical Co. Ltd.            China     A   A4‐2100    verified         190524       HPLC     moderate deviation   in specification       moderate deviation QMN 167
+                                                    Jiangsu Pengyao Pharmaceutical
+168 Xasten                      Dexamethasone       Co. Ltd. (INC.)                    China     A   04‐6822    verified         200925       HPLC     moderate deviation   moderate deviation     moderate deviation QMN 168
+                                                    Shandong Xier Kangtai Pharm Co.
+169 Cevmid                      Ceftriaxone         Ltd                                China     A   A4‐3304    not found        200954       ‐        in specification     ‐                      in specification    QMN 169
+                                                    Jiangsu Pengyao Pharmaceutical
+170 Sopro Caplet                Ciprofloxacin       Co. Ltd. (INC.)                    China     A   B4‐0053    not found        190819       HPLC     in specification     in specification       in specification    QMN 170
+                                                    Jiangsu Ruinian Qianjin
+171 Vixa‐Metformin              Metformin           Pharmaceutical Co. Ltd.            China     A   A4‐2031    not found        191237       HPLC     in specification     in specification       in specification    QMN 171
+172 Cefsafe‐500                 Cefuroxime axetil   missing                            India     A   C4‐0252    verified         HH108B21     UV/Vis   in specification     in specification       in specification    QMN 172
+173 Eden Fluconazole            Fluconazole         IMPULSE PHARMA PVT LTD.            India     A   C4‐0072    not found        200149       HPLC     in specification     not tested (capsule)   in specification    QMN 173
+
+
+
+
+                                                                                                                            10
+
+174 Famagyl                   Metronidazole         PHAMATEX INDUSTRIES LIMITED         Nigeria   A   B4‐2269      verified         T0157       HPLC           in specification     in specification       in specification     QMN 174
+
+175 Pilotab                   Ciprofloxacin         PHAMATEX INDUSTRIES LIMITED         Nigeria   A   B4‐2270      verified         T1037       HPLC           in specification     in specification       in specification     QMN 175
+
+176 Diapil                    Metformin             PHAMATEX INDUSTRIES LIMITED         Nigeria   A   A11‐0211     not found        T0082       HPLC           in specification     in specification       in specification     QMN 176
+
+177 Flucox                    Fluconazole           PHAMATEX INDUSTRIES LIMITED         Nigeria   A   B4‐2972      verified         C1002       HPLC           in specification     not tested (capsule)   in specification     QMN 177
+                                                    BAROQUE PHARMACEUTICALS
+178 Licafur 500 Tablets       Cefuroxime axetil     PVT. LTD.                           India     A   B4‐0098      verified         C010009     UV/Vis         in specification     in specification       in specification     QMN 178
+
+179 Biophin Injection         Ceftriaxone           Intracin Pharmaceutical Pvt. Ltd.   India     A   04‐6529      not found        20P10       ‐              in specification     ‐                      in specification     QMN 179
+
+180 Gluconorm SR 500          Metformin             LINCOLN PHARMACEUTICALS LTD. India            A   A4‐6949      verified         HB9003      HPLC           in specification     in specification       in specification   QMN 180
+181 Galcipro 500              Ciprofloxacin         SKG‐Pharma Limited               Nigeria      A   A4‐0327      not found        2101        HPLC           moderate deviation   moderate deviation     moderate deviation QMN 181
+182 Primpex                   Co‐trimoxazole*       SKG‐Pharma Limited               Nigeria      A   04‐1959      not found        2136        HPLC           in specification     in specification       in specification   QMN 182
+183 Metrotab 400              Metronidazole         SKG‐Pharma Limited               Nigeria      A   04‐9101      verified         0721        HPLC           in specification     in specification       in specification   QMN 183
+184 Biophage 500              Metformin             SKG‐Pharma Limited               Nigeria      A   A4‐6597      verified         2120        HPLC           in specification     in specification       in specification   QMN 184
+185 Avrotrim                  Co‐trimoxazole*       SKG‐Pharma Limited               Nigeria      A   A4‐4549      verified         2148        HPLC           in specification     in specification       in specification   QMN 185
+186 Avrogyl                   Metronidazole         SKG‐Pharma Limited               Nigeria      A   A4‐4725      verified         2107        HPLC           in specification     in specification       in specification   QMN 186
+187 Avrocipro                 Ciprofloxacin         SKG‐Pharma Limited               Nigeria      A   A11‐0786     verified         0221        HPLC           moderate deviation   moderate deviation     moderate deviation QMN 187
+188 Gauze Chloroquin          Chloroquine           Gauze Pharm. & Labs. Ltd.        Nigeria      A   A11‐0076     not found        GCT031      HPLC; UV/Vis   in specification     in specification       in specification   QMN 188
+189 Cyplox                    Ciprofloxacin         MEDREICH LIMITED                 India        A   04‐3202      verified         B00045      HPLC           in specification     moderate deviation     moderate deviation QMN 189
+190 Glucophage 500 mg         Metformin             Merck S.L. Poligono Merck        Spain        A   04‐6233      verified         E206246     HPLC           in specification     in specification       in specification   QMN 190
+191 Zimatrim                  Co‐trimoxazole*       Gauze Pharm. & Labs. Ltd.        Nigeria      A   A11‐0064     not found        ZGT037      HPLC           probably falsified   extreme deviation      probably falsified QMN 191
+192 Co‐Trox                   Co‐trimoxazole*       VITABIOTICS (NIG.) LTD.          Nigeria      A   04‐0061      not found        T17919      HPLC           in specification     in specification       in specification   QMN 192
+193 Unigyl 200                Metronidazole         Unique Pharmaceuticals Ltd.      Nigeria      A   04‐8426      verified         UGT9011     HPLC           in specification     in specification       in specification   QMN 193
+194 Zimagil                   Metronidazole         Gauze Pharm. & Labs. Ltd.        Nigeria      A   A11‐0059     not found        ZGT091      HPLC           in specification     in specification       in specification   QMN 194
+195 Zimagil                   Metronidazole         Gauze Pharm. & Labs. Ltd.        Nigeria      A   A11‐0059     not found        ZGT082      HPLC           in specification     in specification       in specification   QMN 195
+196 Zimagil                   Metronidazole         Gauze Pharm. & Labs. Ltd.        Nigeria      A   A11‐0059     not found        ZGT089      HPLC           in specification     in specification       in specification   QMN 197
+197 Metformin                 Metformin             SWISS PHARMA PVT LTD.            India        A   C4‐0429      not found        0211        HPLC           in specification     in specification       in specification   QMN 198
+                                                    BAROQUE PHARMACEUTICALS
+198 Tricophage ‐ 500          Metformin             PVT. LTD.                        India        A   B4‐2429      not found        G039009     HPLC           in specification     in specification       in specification     QMN 199
+199 Axacef                    Cefuroxime axetil     MEDREICH LIMITED                 India        A   04‐6027      not found        C00127      UV/Vis         in specification     in specification       in specification     QMN 200
+                                                    BAROQUE PHARMACEUTICALS
+200 Tribinat‐500              Cefuroxime axetil     PVT. LTD.                        India        A   B4‐2436      not found        C039009     UV/Vis         in specification     in specification       in specification     QMN 201
+201 Zoxon                     Ceftriaxone           MEDREICH LIMITED                 India        A   04‐9534      verified         C00073      ‐              in specification     ‐                      in specification     QMN 202
+                                                    Scott‐Edil Advance Research
+202 Pocco Ceftriaxone InjectionCeftriaxone          Laboratories & Education Ltd.    India        A   B4‐9368      verified         1340Z136    ‐              in specification     ‐                      in specification     QMN 203
+                                                    CSPC Zhongnuo Pharmaceuticals
+203 Zidek                     Ceftriaxone           Co. Ltd.                         China        A   B4‐8006      not found        2005801     ‐              in specification     ‐                      in specification     QMN 204
+                                                    Mancare PHARMACEUTICALS PVT.
+204 Nkoyo Dexamethasone       Dexamethasone         LTD.                             India        A   04‐8665      not found        TVL55       HPLC           moderate deviation   moderate deviation     moderate deviation QMN 205
+205 Atenolol 50 mg Tablets    Atenolol              Scott‐Edil Pharmacia Ltd.        India        A   B4‐1651      verified         XT9L027     HPLC           in specification     in specification       in specification   QMN 206
+206 Hydrex                    Hydrochlorothiazide   JUHEL NIGERIA LIMITED            Nigeria      A   A4‐1209      verified         0131        HPLC           in specification     in specification       in specification   QMN 207
+                                                    New Divine Favour Pharmaceutical
+207 New Divine Frusemide      Furosemide            Industries Ltd.                  Nigeria      A   A4‐8776      not found        0029        UV/Vis         in specification     moderate deviation     moderate deviation QMN 208
+208 Fluconazole 150 mg        Fluconazole           Globela Pharma Pvt. Ltd.         India        A   B4‐7568      not found        GT20110     HPLC           in specification     in specification       in specification   QMN 209
+
+209 Trust Time DexamethasoneDexamethasone           DUPEN LABORATORIES PVT. LTD.        India     B   B4‐5651      verified         A009        HPLC           moderate deviation   moderate deviation     moderate deviation QMN 210
+210 Tamaflex 500            Ciprofloxacin           Maxtar Bio‐Genics                   India     A   A4‐9436      not found        M3TGU1902   HPLC           in specification     in specification       in specification   QMN 211
+                                                    Jiangsu Pengyao Pharmaceutical
+211 Destrax                   Dexamethasone         Co. Ltd. (INC.)                     China     A   B4‐3876      not found        181201      HPLC           probably falsified   extreme deviation      probably falsified   QMN 212
+212 Novalor caplets           Chloroquine           SKG‐Pharma Limited                  Nigeria   A   04‐1442      not found        2001        HPLC; UV/Vis   in specification     extreme deviation      extreme deviation    QMN 213
+213 Zoxon                     Ceftriaxone           MEDREICH LIMITED                    India     A   04‐9534      verified         C00150      ‐              in specification     ‐                      in specification     QMN 214
+214 Zoxon                     Ceftriaxone           MEDREICH LIMITED                    India     A   04‐9534      verified         C00069      ‐              in specification     ‐                      in specification     QMN 215
+215 Esidrex                   Hydrochlorothiazide   DELPHARM L'AIGLE                    France    B   missing      ‐                2OFA379     HPLC           in specification     in specification       in specification     QMN 216 (2/2)
+                                                    CSPC Zhongnuo Pharmaceuticals
+216 Triaxin                   Ceftriaxone           Co. Ltd.                            China     A   04‐8886      verified         659200616   ‐              in specification     ‐                      in specification     QMN 217 (2/2)
+
+217 Famagyl                   Metronidazole         PHAMATEX INDUSTRIES LIMITED         Nigeria   A   B4‐2269      verified         T1137       HPLC           in specification     in specification       in specification     QMN 218
+218 Afrab Chloroquine         Chloroquine           Afrab‐Chem Ltd.                     Nigeria   A   A11‐100076   verified         21252       HPLC; UV/Vis   in specification     in specification       in specification     QMN 219
+
+219 Flucox                    Fluconazole           PHAMATEX INDUSTRIES LIMITED         Nigeria   A   B4‐2972      verified         C1005       HPLC           in specification     not tested (capsule)   in specification   QMN 220
+220 Ciproheal Tablets         Ciprofloxacin         Maxheal Laboratories Pvt. Ltd.      India     A   04‐7436      not found        CF21036     HPLC           in specification     in specification       in specification   QMN 221
+221 Tionil                    Glibenclamide         Merit Organics Ltd.                 India     A   B4‐7811      not found        T32004      HPLC           moderate deviation   in specification       moderate deviation QMN 222
+
+
+
+
+                                                                                                                               11
+
+                                                  Mancare PHARMACEUTICALS PVT.
+222 Nkoyosix                Furosemide            LTD.                         India            A   A4‐9179   verified         TUL36        UV/Vis         in specification     in specification            in specification    QMN 223
+223 Chloroquine             Chloroquine           JUHEL NIGERIA LIMITED        Nigeria          A   04‐0171   not found        0006         HPLC; UV/Vis   in specification     in specification            in specification    QMN 224
+224 Hydrex                  Hydrochlorothiazide   JUHEL NIGERIA LIMITED        Nigeria          A   A4‐1209   verified         0157         HPLC           in specification     in specification            in specification    QMN 225
+225 Avrotrim                Co‐trimoxazole*       SKG‐Pharma Limited           Nigeria          A   A4‐4549   verified         2205         HPLC           in specification     in specification            in specification    QMN 226
+226 Adnil                   Glibenclamide         Globela Pharma Pvt. Ltd.     India            A   B4‐9967   not found        GT21094      HPLC           in specification     in specification            in specification    QMN 227
+227 Gliben‐J                Glibenclamide         JUHEL NIGERIA LIMITED        Nigeria          A   04‐5735   not found        0041         HPLC           in specification     in specification            in specification    QMN 228
+                                                  BAROQUE PHARMACEUTICALS
+228 Tribinat‐500            Cefuroxime axetil     PVT. LTD.                    India            A   B4‐2436   not found        C031010      UV/Vis         in specification     in specification            in specification    QMN 229
+229 Eden Fluconazole        Fluconazole           IMPULSE PHARMA PVT LTD.      India            A   C4‐0072   not found        200149       HPLC           in specification     not tested (capsule)        in specification    QMN 230
+230 AD‐Fluconazole          Fluconazole           Globela Pharma Pvt. Ltd.     India            A   B4‐1543   not found        20GT183      HPLC           in specification     in specification            in specification    QMN 231
+231 AD‐Fluconazole          Fluconazole           Globela Pharma Pvt. Ltd.     India            A   B4‐1543   not found        20GT048      HPLC           in specification     in specification            in specification    QMN 232
+232 Cefsafe‐500             Cefuroxime axetil     missing                      India            A   C4‐0252   verified         HH1015B21    UV/Vis         in specification     in specification            in specification    QMN 233
+233 Avrogyl                 Metronidazole         SKG‐Pharma Limited           Nigeria          A   A4‐4725   verified         2201         HPLC           in specification     in specification            in specification    QMN 234
+
+234 Ricogyl                 Metronidazole         RICO PHARMACEUTICAL IND. LTD. Nigeria         A   04‐4590   not found        RGT002       HPLC           moderate deviation   in specification            moderate deviation QMN 235
+
+235 Ricotrin                Co‐trimoxazole*       RICO PHARMACEUTICAL IND. LTD.      Nigeria    A   04‐4589   not found        RTN001       HPLC           extreme deviation    extreme deviation           extreme deviation   QMN 236
+236 Primpex                 Co‐trimoxazole*       SKG‐Pharma Limited                 Nigeria    A   04‐1959   not found        2210         HPLC           in specification     in specification            in specification    QMN 237
+                                                  Jiangsu Ruinian Qianjin
+237 Clezide                 Glibenclamide         Pharmaceutical Co. Ltd.            China      A   A4‐2100   verified         210331       HPLC           in specification     in specification            in specification   QMN 238
+238 Metrotab 200            Metronidazole         SKG‐Pharma Limited                 Nigeria    A   04‐9936   verified         2202         HPLC           in specification     in specification            in specification   QMN 239
+239 Glanil                  Glibenclamide         Nigerian‐German Chemicals Plc      Nigeria    A   04‐2450   not found        FPJ070121    HPLC           in specification     extreme deviation           extreme deviation QMN 240
+240 Clamide                 Glibenclamide         HOVID Bhd.                         Malaysia   A   04‐4015   verified         CA06595      HPLC           in specification     in specification            in specification   QMN 241
+241 Glanil                  Glibenclamide         Nigerian‐German Chemicals Plc      Nigeria    A   04‐2450   not found        FPD070421    HPLC           in specification     moderate deviation          moderate deviation QMN 242
+242 Hydrex                  Hydrochlorothiazide   JUHEL NIGERIA LIMITED              Nigeria    A   A4‐1209   verified         0158         HPLC           in specification     in specification            in specification   QMN 243
+243 Unigyl 200              Metronidazole         Unique Pharmaceuticals Ltd.        Nigeria    A   04‐8426   verified         UGT1067      HPLC           in specification     in specification            in specification   QMN 244
+244 Gliben‐J                Glibenclamide         JUHEL NIGERIA LIMITED              Nigeria    A   04‐5735   not found        0043         HPLC           in specification     in specification            in specification   QMN 245
+245 Sivonat                 Cefuroxime axetil     Saga Lifesciences Limited          India      A   C4‐0482   not found        SAKUO22101   UV/Vis         in specification     moderate deviation          moderate deviation QMN 246
+246 Eden Atenolol           Atenolol              IMPULSE PHARMA PVT LTD.            India      A   B4‐6760   not found        210917       HPLC           in specification     extreme deviation           extreme deviation QMN 247
+                                                  BAROQUE PHARMACEUTICALS
+247 Triflucon               Fluconazole           PVT. LTD.                          India      A   A4‐6953   verified         G031002      HPLC           in specification     not tested (capsule)        in specification    QMN 248
+
+248 Ratenol                 Atenolol              OSAKA Pharmaceuticals Pvt. Ltd.    India      A   A4‐3899   not found        OS033        HPLC           extreme deviation    moderate deviation          extreme deviation QMN 249
+249 Eden Atenolol           Atenolol              IMPULSE PHARMA PVT LTD.            India      A   B4‐6760   not found        210916       HPLC           in specification     extreme deviation           extreme deviation QMN 250
+250 M&B Chloroquine         Chloroquine           MAY&BAKER NIGERIA PLC              Nigeria    A   04‐0705   not found        A200600      HPLC; UV/Vis   in specification     in specification            in specification   QMN 251
+251 Hydrex                  Hydrochlorothiazide   JUHEL NIGERIA LIMITED              Nigeria    A   A4‐1209   verified         0127         HPLC           moderate deviation   in specification            moderate deviation QMN 252
+252 Unigyl 200              Metronidazole         Unique Pharmaceuticals Ltd.        Nigeria    A   04‐8426   verified         UGT1103      HPLC           in specification     in specification            in specification   QMN 253
+                                                  Jiangsu Pengyao Pharmaceutical
+253 GG Dexamethasone Tablet Dexamethasone         Co. Ltd. (INC.)                    China      A   A4‐1598   not found        200821       HPLC           extreme deviation    moderate deviation          extreme deviation   QMN 254
+254 Hydrex                  Hydrochlorothiazide   JUHEL NIGERIA LIMITED              Nigeria    A   A4‐1209   verified         0157         HPLC           in specification     in specification            in specification    QMN 255
+                                                  emzor Pharmaceutical Industries
+255 Chloroquine Tablets     Chloroquine           Ltd.                               Nigeria    A   04‐1218   not found        1819Z        HPLC; UV/Vis   in specification     in specification            in specification    QMN 256
+256 Loxagyl 200             Metronidazole         MAY&BAKER NIGERIA PLC              Nigeria    A   04‐0283   not found        A201841      HPLC           in specification     in specification            in specification    QMN 257
+
+257 Nkoyo Dexamethasone     Dexamethasone         Astamed Healthcare (I) Pvt. Ltd.   India      A   04‐8665   not found        1008         HPLC           moderate deviation   extreme deviation           extreme deviation QMN 258
+258 Nkoyo Dexamethasone     Dexamethasone         Maxwell Life Science Pvt. Ltd.     India      A   04‐8665   not found        LT110        HPLC           moderate deviation   moderate deviation          moderate deviation QMN 259
+259 Nkoyo Fluconazole       Fluconazole           Maxheal Laboratories Pvt. Ltd.     India      A   A4‐0421   not found        KF21001      HPLC           in specification     moderate deviation          moderate deviation QMN 260
+
+260 Cipxin‐500              Ciprofloxacin         EUROLIFE HEALTHCARE PVT. LTD. India           B   04‐6293   not found        CPN048       HPLC           in specification     not tested (not enough tabl in specification    QMN 261 (2/2)
+
+
+
+
+                                                                                                                          12
+
+Supplementary Table S3. Results of the examined PIN

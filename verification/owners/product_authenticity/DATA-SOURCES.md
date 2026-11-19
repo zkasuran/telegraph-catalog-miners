@@ -65,3 +65,7 @@ development-exposed audits are not training inputs or exported data here.
 ## Remote-only model development
 
 ModernBERT-base by Answer.AI and LightOn is public and ungated at revision 8949b909ec900327062f0ebf497f51aef5e6f0c8 with Apache-2.0 declared in the primary model metadata. Section 2 grants a perpetual, worldwide, no-charge copyright licence to reproduce and prepare derivative works. Full original terms are retained. The development data use original Newton, Metformin and Sanada source facts, not prior generated diagnostic responses or exposed model audit captures. Technical fixture tags are not real serials. Train sources and validation sources/entities/acquisition groups are disjoint. No independent audit is claimed.
+
+## Complete audit-source inventory correction
+
+Nigeria DOI 10.4269/ajtmh.23-0837 releases 260 S2 rows but not the 62 vendor identities. Four rows are source-falsified and five are probably falsified. Every other physical-authenticity state remains unresolved in our projection, including 194 quality passes. Bangladesh DOI 10.1038/s41598-021-04309-1 releases a workbook with three analytical-method sheets and no specimen-code cells. Forty aggregate genuine confirmations came from four manufacturers. These sources are not yet an independent model audit. Original granting clauses and all creator names are attached to the new source-only module.
