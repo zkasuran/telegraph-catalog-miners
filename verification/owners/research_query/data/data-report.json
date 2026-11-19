@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "family": "RESEARCH_QUERY",
+  "child": "RESEARCH_QUERY_GENERAL",
+  "files": {
+    "train": {
+      "rows": 128,
+      "groups": 64,
+      "sha256": "b1f85728407654f04d6c06e7509ffaed309222c93f16d9ef40d071bf9f86ec60"
+    },
+    "validation": {
+      "rows": 32,
+      "groups": 16,
+      "sha256": "f7e0218ed1126555820c1042b8266bc2dd488c02956a1f552b14dd4a7c81a7d3"
+    },
+    "audit": {
+      "rows": 64,
+      "groups": 32,
+      "sha256": "431f9c31ca54d06a9ce485e750fe40b4a349f4cc6a3d1e1a5b6df0aad77a5e7c"
+    }
+  },
+  "source_revision": "c3cd502f94edfb5aa0c5870ed9eff053773c6125",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "source_sample": {
+    "files_read": 6144,
+    "candidate_groups": 118,
+    "inventory_v1": 19699,
+    "entire_inventory_xml_read": false
+  },
+  "normalized_cross_split_overlap": {
+    "doi": 0,
+    "source_page": 0,
+    "normalized_evidence_claim_prompt_answer": 0,
+    "component": 0
+  },
+  "max_rendered_tokens": 154,
+  "max_prompt_bytes": 256,
+  "full_evidence_and_answers_visible": true,
+  "audit_metrics": "sealed until checkpoint frozen",
+  "label_provenance": "AI-assisted constructed preferences from original article sentences, not human-reviewed",
+  "scope": "Agreement with supplied complete short scientific sentence and opposite-direction query. Not scientific truth, retrieval or broad research quality.",
+  "split_method": "All eligible DOI/page/text components frozen first. SHA-256 order selects exactly 64/16/32 groups; two mirrored queries per group.",
+  "external_source_holdout": false,
+  "validation_shortcuts": {
+    "length": 0.5,
+    "token_length": 0.5,
+    "overlap": 0.5,
+    "answer_only": 0.5,
+    "surface": 0.5,
+    "citation": 0.5,
+    "hedging": 0.5
+  }
+}

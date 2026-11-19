@@ -1,0 +1,118 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "RESEARCH_QUERY",
+  "child": "RESEARCH_QUERY_GENERAL",
+  "source_revision": "c3cd502f94edfb5aa0c5870ed9eff053773c6125",
+  "source_inventory": {
+    "v1_files": 19699,
+    "xml_inspected": 6144,
+    "entire_xml_read": false
+  },
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "splits": {
+    "train": {
+      "rows": 128,
+      "groups": 64,
+      "sha256": "b1f85728407654f04d6c06e7509ffaed309222c93f16d9ef40d071bf9f86ec60"
+    },
+    "validation": {
+      "rows": 32,
+      "groups": 16,
+      "sha256": "f7e0218ed1126555820c1042b8266bc2dd488c02956a1f552b14dd4a7c81a7d3"
+    },
+    "audit": {
+      "rows": 64,
+      "groups": 32,
+      "sha256": "431f9c31ca54d06a9ce485e750fe40b4a349f4cc6a3d1e1a5b6df0aad77a5e7c"
+    }
+  },
+  "owned_source_sha256": {
+    "verify.py": "c22c65ed1dae11d909b608e432f8574de2f0f0b15b63ad04db22bff7db74eff0",
+    "report.py": "d448abc3405c106695444351f0315598fb03ca84431325696af9bfb18616d14f",
+    "verify.sh": "6bd838bc01ae8a415b080312c040b8573a0e5f04a825b86ce73db8fa0a558f6b",
+    "train_core.py": "9cf0578c618e829630a682f1b4935258a9a803b7622feb68492e68549e25a7ab",
+    "test_research.py": "14924ea6b2139fbea6f276a8b0e99836670e70270f66e64920a3ccb37594d369",
+    "terms.py": "bb4606410ad6276ca4793af25d2b0ffb48f24b6841f9c466c34d370e0e6496f7",
+    "scorer.py": "3102b207c1c83c62b13709d2b22fd3ac180d0c7438bf89fea92b9346be69684b",
+    "workflow.yml": "e12977c1b211cd76fa80bb4c96db584d4cc329ef6bbd85298a0395f01ae58f1b",
+    "source.py": "33f698b5c87d86e9fb125a5c0bf17003ceaa8e510c09e2403010e917df05eb05",
+    "prepare.py": "46c4e2e2a272b308b60dc1ff2330c8a52d287a5010e296e0c4482c7f78459271",
+    "remote.py": "ca068387a9f7bc3fb9629a48b15720672bd82720dea00979cb6f3fee61c957ae",
+    "serve.py": "c3372016492641e8e407889262fa9c103b43019ab35c14505614c2e8cd7b200d",
+    "common.py": "ad79a8251ebf3d67c06fd163805669138d2de9c84415bc156411c3bded64c4a7",
+    "test_owner.py": "1ed0f480f85755c5e85de501f007e0e919bb128dd82334c68df5b9d80f3abc81",
+    "serving/proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51",
+    "serving/common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784"
+  },
+  "shared_source_sha256": {
+    "prepare.py": "7d8e5ef2cf7f35ff5c339b04054d802fba2db5a34045f2d6761b554c4187ce03",
+    "qa-experiment/packagecheck.go": "2324813885a5e4dbaedc7a021c5a9569e8e5b01c7c0a96542e4f0d434bfdd4e1",
+    "qa-experiment/data.py": "5a1e426c814d0f02afaecce3963b56ccf025c98b61cc55e2bc36da0577c3a16d",
+    "qa-experiment/licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552",
+    "qa-experiment/runtime_check.py": "edd14813a0dd4234d3ee8f6198a514b416fe5d72c585ce48cd210094adbc1fce",
+    "qa-experiment/live_class.py": "7f57bc7d293b1faf6ef3824af0631cf4e1f2d0044c5468582920a9f17b9b1fa6",
+    "qa-experiment/training_policy.py": "f8b6f2e4cd72419be31ae8009faac7312be11c575d4c2477b72286efcd14ee6e",
+    "qa-experiment/packagecheck_test.go": "d8fd1e29fc3aa26b02a725a45a93fa36b921aad1d46b85f3bdef68bce77b4269",
+    "training/data.py": "82709147c3d628c258e871c414195396097af8c228370c53e10c110018ddf9ce",
+    "training/sources.json": "73acea9578e0bdda4b7f47724ab4a34ec055abb1bd4b10c50a65ad2927874430",
+    "training/run.py": "5b2ba64a11ff141ac96a20c491fc282f917e722183b2ab67c17e6a12c8ff519b",
+    "training/requirements.lock": "4c2b80fd53899579cccb949ef49760b5f53d32cb00e2e3c85bdc857345c832ac",
+    "training/audit.py": "0b4a5ae82a3ed524390a7b47a6ad0314fb785010cda99cbd705b72f9fb0affee",
+    "packagecheck.go": "2324813885a5e4dbaedc7a021c5a9569e8e5b01c7c0a96542e4f0d434bfdd4e1",
+    "packagecheck_test.go": "d8fd1e29fc3aa26b02a725a45a93fa36b921aad1d46b85f3bdef68bce77b4269",
+    "licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552"
+  },
+  "frozen_controls_sha256": "0976ba8a5093f441779bf12515efcc26db628038f91c6cb43ba105746cd186c5",
+  "data_artifacts_sha256": {
+    "data-report.json": "6b49ad3b095c61974925f3b1dc22e128c87c8e1622c5a7aaca9024598f70693b",
+    "dataset-gate.json": "7b9799ab94582f17a1dc1076c3ef1a5515f6acc809040ff1f59b291c4af4880e",
+    "frozen-controls.json": "0976ba8a5093f441779bf12515efcc26db628038f91c6cb43ba105746cd186c5",
+    "source-manifest.json": "bd2a4c18808412baaf56425058184dbf33cbbb572cfdecc6d12a65d201cb0921"
+  },
+  "licence_sha256": {
+    "LICENSE": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+    "KIT-LICENSE": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+    "UPSTREAM-APACHE-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "remote": {
+    "timeout_minutes": 330,
+    "cpu_threads": 4,
+    "rank": 8,
+    "alpha": 32,
+    "max_tokens": 256,
+    "batch_size": 1,
+    "grad_accum": 16,
+    "epochs": 3,
+    "optimizer_steps": 24,
+    "seed": 42
+  },
+  "audit_policy": {
+    "selection_split": "validation",
+    "selection_metric": "val_loss",
+    "audit_after_restoration": true,
+    "independent_groups": 32,
+    "correlated_pairs": 64,
+    "model_audit_local": false
+  },
+  "quality": {
+    "minimum_accuracy": 0.8,
+    "minimum_subset_accuracy": 0.7,
+    "minimum_untrained_gain": 0.05,
+    "minimum_shortcut_gain": 0.1,
+    "maximum_shortcut_accuracy": 0.65,
+    "maximum_evidence_removed_accuracy": 0.65
+  },
+  "limits": [
+    "Supplied-excerpt agreement from one publisher is not broad factual verification.",
+    "Source preferences are constructed with AI assistance, not human-reviewed.",
+    "Audit has 64 mirrored pairs from 32 independent article groups.",
+    "A source-held-out report is not canonical node qualification."
+  ],
+  "supported_formats": [
+    "prose",
+    "json"
+  ],
+  "source_manifest_sha256": "bd2a4c18808412baaf56425058184dbf33cbbb572cfdecc6d12a65d201cb0921"
+}

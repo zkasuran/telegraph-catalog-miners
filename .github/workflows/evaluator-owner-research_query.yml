@@ -1,0 +1,115 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Research query owner CPU pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [train, serve]
+        default: train
+      package_url:
+        type: string
+        default: ''
+      report_url:
+        type: string
+        default: ''
+      report_sha256:
+        type: string
+        default: ''
+      slot:
+        type: string
+        default: ''
+      forward_port:
+        type: string
+        default: ''
+      runnable_url:
+        type: string
+        default: ''
+permissions:
+  contents: read
+concurrency:
+  group: owner-research-query-${{ inputs.mode }}
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '4'
+      CUDA_VISIBLE_DEVICES: ''
+      PACKAGE_URL: ${{ inputs.package_url }}
+      REPORT_URL: ${{ inputs.report_url }}
+      REPORT_SHA256: ${{ inputs.report_sha256 }}
+      SLOT: ${{ inputs.slot }}
+      FORWARD_PORT: ${{ inputs.forward_port }}
+      RUNNABLE_URL: ${{ inputs.runnable_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: |
+            verification/owners/research_query
+            .github/workflows/evaluator-owner-research_query.yml
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Source-only release gate
+        run: bash verification/owners/research_query/verify.sh
+      - name: Preserve upstream terms before remote work
+        if: inputs.mode == 'train'
+        run: python3 verification/owners/research_query/terms.py --root "$RUNNER_TEMP/research-owner"
+      - name: Install pinned CPU training dependencies
+        if: inputs.mode == 'train'
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/research-venv"
+          "$RUNNER_TEMP/research-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/research_query/support/training/requirements.lock
+          "$RUNNER_TEMP/research-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/research-venv/bin/python" verification/owners/research_query/support/training/audit.py --lock verification/owners/research_query/support/training/requirements.lock --out "$RUNNER_TEMP/research-requirements.txt" --report "$RUNNER_TEMP/research-owner/dependency-audit.json"
+      - name: Frozen training validation audit and reference runtime
+        if: inputs.mode == 'train'
+        timeout-minutes: 305
+        run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/research-venv/bin/python" -W error verification/owners/research_query/remote.py --root "$RUNNER_TEMP/research-owner"
+      - name: Preserve licensed completed or failed checkpoints
+        if: always() && inputs.mode == 'train'
+        id: preserve
+        run: python3 verification/owners/research_query/terms.py --root "$RUNNER_TEMP/research-owner"
+      - name: Publish bounded training evidence
+        if: always() && inputs.mode == 'train' && steps.preserve.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: owner-research-query-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/research-owner/*.json
+            ${{ runner.temp }}/research-owner/*.safetensors
+            ${{ runner.temp }}/research-owner/LICENSE
+            ${{ runner.temp }}/research-owner/NOTICE
+            ${{ runner.temp }}/research-owner/KIT-LICENSE
+            ${{ runner.temp }}/research-owner/UPSTREAM-APACHE-2.0.txt
+            ${{ runner.temp }}/research-owner/checkpoint/
+            ${{ runner.temp }}/research-owner/initial/
+            ${{ runner.temp }}/research-owner/adapter/
+      - name: Prepare exact public executor and restricted lease
+        if: inputs.mode == 'serve'
+        timeout-minutes: 20
+        run: python3 verification/owners/research_query/serve.py --prepare --root "$RUNNER_TEMP/research-serving"
+      - name: Publish only the restricted public lease
+        if: inputs.mode == 'serve'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lease-RESEARCH_QUERY
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/research-serving/lease.json
+      - name: Serve identical audited engine and package
+        if: inputs.mode == 'serve'
+        timeout-minutes: 305
+        run: timeout --signal=TERM --kill-after=20s 18000 python3 verification/owners/research_query/serve.py --root "$RUNNER_TEMP/research-serving"

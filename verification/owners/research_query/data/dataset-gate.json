@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "n": 128,
+  "metrics": {
+    "unique_rejected_frac": 1.0,
+    "top_rejected_share": 0.0078,
+    "length_shortcut_acc": 0.5,
+    "eval_negative_leak": 0.0,
+    "surface_probe_acc": 0.4526,
+    "mean_len_chosen": 127.7,
+    "mean_len_rejected": 127.7
+  },
+  "failures": [],
+  "validation_controls": {
+    "length": 0.5,
+    "token_length": 0.5,
+    "overlap": 0.5,
+    "answer_only": 0.5,
+    "surface": 0.5,
+    "citation": 0.5,
+    "hedging": 0.5
+  },
+  "audit_scored": false,
+  "training_allowed": true
+}
