@@ -48,3 +48,8 @@ Actual training-window generation from run 44622803647 is retained with its
 producer, plan and source hashes. Reuse is not reported as new generation.
 Train-only format weights are symmetric across origins and pair sides. They
 alter fitting loss only, never validation/audit metrics or acceptance thresholds.
+
+Weight-16 continuation from run 44632309433 improved bare validation to 76.56%
+but did not qualify. Its exact licensed checkpoint is retained for a bounded
+weight-32 follow-up. Original source terms, input bytes and unweighted quality
+gates remain unchanged. No audit or canonical registration is claimed.

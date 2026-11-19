@@ -6,4 +6,4 @@ export PYTHONDONTWRITEBYTECODE=1
 bash -n "$ROOT/verify.sh"
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_*.py' -v
 python3 -W error "$ROOT/static_check.py"
-printf '%s\n' 'ALL GREEN: source-only gate, exact generated inputs, symmetric training weights and unchanged quality controls'
+printf '%s\n' 'ALL GREEN: source-only gate, retained improved checkpoint, bounded symmetric weights and unchanged quality controls'

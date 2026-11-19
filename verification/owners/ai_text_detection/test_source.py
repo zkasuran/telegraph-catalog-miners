@@ -55,6 +55,9 @@ class SourceTests(unittest.TestCase):
         self.assertEqual(expansion["bare_pairs"], 8)
         self.assertEqual(policy["total_training_weight"], 624)
         self.assertEqual(policy["weight_by_origin"], {"Human": 312.0, "AI-generated": 312.0})
+        _, stronger = weight_policy(rows, 32)
+        self.assertEqual(stronger["total_training_weight"], 752.0)
+        self.assertEqual(stronger["weight_by_origin"], {"Human": 376.0, "AI-generated": 376.0})
         self.assertFalse(policy["acceptance_thresholds_changed"])
         self.assertEqual({r["split"] for r in rows}, {"train"})
         invalid = copy.deepcopy(rows)
@@ -182,7 +185,17 @@ class SourceTests(unittest.TestCase):
         raw = (HERE / recipe["checkpoint_file"]).read_bytes()
         checked = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
         self.assertFalse(checked["tensor_payload_interpreted"])
-        self.assertEqual(recipe["continuation_run_id"], 44588237548)
+        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433))
+
+    def test_weight16_predecessor_remains_retained_when_followup_is_selected(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        raw = (HERE / "recovery/weight16-checkpoint.safetensors").read_bytes()
+        checked = check_checkpoint(raw, "39c3b89efa9da2c61ab841d82a7ceb31ba2da1acafbf6d2710163a987a073efe",
+                                   recipe["source_manifest_sha256"])
+        self.assertFalse(checked["tensor_payload_interpreted"])
+        actual = json.loads((HERE / "recovery/weight16-validation.json").read_text())
+        self.assertEqual(actual["formats"]["bare_label"]["pairwise_accuracy"], 0.7656)
+        self.assertFalse(actual["gate"]["passed"])
 
     def test_train_only_layout_diversity_preserves_pairs_and_byte_contract(self):
         records = [json.loads(line) for line in (HERE / "recovery/locked-development.jsonl").read_text().split("\n") if line]

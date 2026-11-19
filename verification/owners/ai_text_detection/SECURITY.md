@@ -56,3 +56,8 @@ sealed and original quality thresholds cannot be reduced by this pipeline.
 Prior actual generated training data can be reused only with exact bytes,
 producer/run/commit, source and plan bindings. This is not new data from an exposed
 audit. Training loss weights never alter validation/audit scores or a pass gate.
+
+The weight-32 follow-up keeps the existing weight ceiling and validates the exact
+improved predecessor's licensed bytes. Historical failed checkpoints remain
+available. A validation improvement still cannot authorize registration before
+the fresh independent audit and actual reference-engine controls pass.

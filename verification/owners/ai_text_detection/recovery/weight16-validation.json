@@ -1,0 +1,66 @@
+{
+  "formats": {
+    "json": {
+      "n_eval": 64,
+      "pairwise_accuracy": 0.875,
+      "val_loss": 0.404841,
+      "length_baseline": 0.5,
+      "beats_length_baseline": true,
+      "verdict": "PASS",
+      "accuracy_by_label": {
+        "Human": 0.8438,
+        "AI-generated": 0.9062
+      }
+    },
+    "prose": {
+      "n_eval": 64,
+      "pairwise_accuracy": 0.875,
+      "val_loss": 0.32761,
+      "length_baseline": 0.5,
+      "beats_length_baseline": true,
+      "verdict": "PASS",
+      "accuracy_by_label": {
+        "Human": 0.8125,
+        "AI-generated": 0.9375
+      }
+    },
+    "bare_label": {
+      "n_eval": 64,
+      "pairwise_accuracy": 0.7656,
+      "val_loss": 0.476002,
+      "length_baseline": 0.5,
+      "beats_length_baseline": true,
+      "verdict": "FAIL",
+      "fail_reason": "accuracy 0.7656 is below --gate-min-acc 0.8",
+      "accuracy_by_label": {
+        "Human": 0.8438,
+        "AI-generated": 0.6875
+      }
+    }
+  },
+  "baselines": {
+    "json": {
+      "length": 0.5,
+      "overlap": 0.5078125,
+      "answer_only": 0.5
+    },
+    "prose": {
+      "length": 0.5,
+      "overlap": 0.5078125,
+      "answer_only": 0.5
+    },
+    "bare_label": {
+      "length": 0.5,
+      "overlap": 0.515625,
+      "answer_only": 0.5
+    }
+  },
+  "gate": {
+    "passed": false,
+    "failures": [
+      "bare_label failed unchanged validation quality/label/shortcut gate"
+    ]
+  },
+  "independent_article_groups": 32,
+  "audit_used": false
+}

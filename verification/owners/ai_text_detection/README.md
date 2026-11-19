@@ -82,6 +82,11 @@ Those exact inputs are retained. The next fitting experiment weights the rare
 bare training format symmetrically, without changing unweighted validation or
 audit metrics. This is a testable improvement path, not a claimed quality pass.
 
+Weight 16 improved bare validation to 76.56%, with JSON/prose each at 87.50%.
+The model remained below the unchanged gates and consumed no audit. The next
+bounded follow-up continues that exact improved checkpoint with weight 32 and
+lower learning rate, keeping the same inputs and unweighted acceptance tests.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to
