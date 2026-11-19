@@ -1,0 +1,1414 @@
+[
+  {
+    "block_id": "402471dbfe13db9750df6f3b1f8e40527a732e3080d8698ac91a6e10ff4e9251",
+    "chosen_doi": "https://doi.org/10.1186/s12884-017-1344-2",
+    "chosen_pmid": "28566088",
+    "chosen_title": "Factors associated with utilization of skilled service delivery among women in rural Northern Ghana: a cross sectional study",
+    "entity_components": [
+      "29724178",
+      "28566088",
+      "27057324"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Factors associated with utilization of skilled service delivery among women in rural Northern Ghana: a cross sectional study\",\"paper_titles\":[\"Factors associated with utilization of skilled service delivery among women in rural Northern Ghana: a cross sectional study\"],\"dois\":[\"https://doi.org/10.1186/s12884-017-1344-2\"]}",
+        "rejected": "{\"answer\":\"Factors associated with syphilis screening uptake among pregnant women in health facilities in Brong Ahafo Region of Ghana\",\"paper_titles\":[\"Factors associated with syphilis screening uptake among pregnant women in health facilities in Brong Ahafo Region of Ghana\"],\"dois\":[\"https://doi.org/10.1186/s40748-015-0009-2\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Factors associated with utilization of skilled service delivery among women in rural Northern Ghana: a cross sectional study (https://doi.org/10.1186/s12884-017-1344-2)",
+        "rejected": "Related paper: Factors associated with syphilis screening uptake among pregnant women in health facilities in Brong Ahafo Region of Ghana (https://doi.org/10.1186/s40748-015-0009-2)"
+      },
+      "title": {
+        "chosen": "Factors associated with utilization of skilled service delivery among women in rural Northern Ghana: a cross sectional study",
+        "rejected": "Factors associated with syphilis screening uptake among pregnant women in health facilities in Brong Ahafo Region of Ghana"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "They receive antenatal care in health facilities, yet do not deliver there: predictors of health facility delivery by women in rural Ghana",
+    "query_title": "They receive antenatal care in health facilities, yet do not deliver there: predictors of health facility delivery by women in rural Ghana",
+    "rejected_doi": "https://doi.org/10.1186/s40748-015-0009-2",
+    "rejected_pmid": "27057324",
+    "rejected_title": "Factors associated with syphilis screening uptake among pregnant women in health facilities in Brong Ahafo Region of Ghana",
+    "seed_pmid": "29724178",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b18bdf3fdb55a8d26a68a4e"
+      ],
+      "rejected": [
+        "5b18bdf3fdb55a8d26a68a4e"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "c11e338eab9026a7337be87a887ed43d522983f64065ddcc38215d079bb1d85a",
+    "chosen_doi": "https://doi.org/10.1111/ppl.12748",
+    "chosen_pmid": "29688577",
+    "chosen_title": "Differential metabolism of pectic galactan in tomato and strawberry fruit: detection of the LM26 branched galactan epitope in ripe strawberry fruit",
+    "entity_components": [
+      "29291850",
+      "29688577",
+      "28797814"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Differential metabolism of pectic galactan in tomato and strawberry fruit: detection of the LM26 branched galactan epitope in ripe strawberry fruit\",\"paper_titles\":[\"Differential metabolism of pectic galactan in tomato and strawberry fruit: detection of the LM26 branched galactan epitope in ripe strawberry fruit\"],\"dois\":[\"https://doi.org/10.1111/ppl.12748\"]}",
+        "rejected": "{\"answer\":\"The roles and mechanisms of homogalacturonan and rhamnogalacturonan I pectins on the inhibition of cell migration\",\"paper_titles\":[\"The roles and mechanisms of homogalacturonan and rhamnogalacturonan I pectins on the inhibition of cell migration\"],\"dois\":[\"https://doi.org/10.1016/j.ijbiomac.2017.08.004\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Differential metabolism of pectic galactan in tomato and strawberry fruit: detection of the LM26 branched galactan epitope in ripe strawberry fruit (https://doi.org/10.1111/ppl.12748)",
+        "rejected": "Related paper: The roles and mechanisms of homogalacturonan and rhamnogalacturonan I pectins on the inhibition of cell migration (https://doi.org/10.1016/j.ijbiomac.2017.08.004)"
+      },
+      "title": {
+        "chosen": "Differential metabolism of pectic galactan in tomato and strawberry fruit: detection of the LM26 branched galactan epitope in ripe strawberry fruit",
+        "rejected": "The roles and mechanisms of homogalacturonan and rhamnogalacturonan I pectins on the inhibition of cell migration"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Disentangling pectic homogalacturonan and rhamnogalacturonan-I polysaccharides: Evidence for sub-populations in fruit parenchyma systems",
+    "query_title": "Disentangling pectic homogalacturonan and rhamnogalacturonan-I polysaccharides: Evidence for sub-populations in fruit parenchyma systems",
+    "rejected_doi": "https://doi.org/10.1016/j.ijbiomac.2017.08.004",
+    "rejected_pmid": "28797814",
+    "rejected_title": "The roles and mechanisms of homogalacturonan and rhamnogalacturonan I pectins on the inhibition of cell migration",
+    "seed_pmid": "29291850",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0ea77ffdb55a1606757768"
+      ],
+      "rejected": [
+        "5b0ea77ffdb55a1606757768"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "71e8afe0cb251e9c81bffeb977d71dcddc381a83bb5e5c672df576b57103aba9",
+    "chosen_doi": "https://doi.org/10.1136/bmjopen-2017-016501",
+    "chosen_pmid": "28893746",
+    "chosen_title": "Demographic profile and pregnancy outcomes of adolescents and older mothers in Saudi Arabia: analysis from Riyadh Mother (RAHMA) and Baby cohort study",
+    "entity_components": [
+      "29549196",
+      "28893746",
+      "26775164"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Demographic profile and pregnancy outcomes of adolescents and older mothers in Saudi Arabia: analysis from Riyadh Mother (RAHMA) and Baby cohort study\",\"paper_titles\":[\"Demographic profile and pregnancy outcomes of adolescents and older mothers in Saudi Arabia: analysis from Riyadh Mother (RAHMA) and Baby cohort study\"],\"dois\":[\"https://doi.org/10.1136/bmjopen-2017-016501\"]}",
+        "rejected": "{\"answer\":\"Association Between Hospital Trauma Designation and Maternal and Neonatal Outcomes after Injury among Pregnant Women in Washington State\",\"paper_titles\":[\"Association Between Hospital Trauma Designation and Maternal and Neonatal Outcomes after Injury among Pregnant Women in Washington State\"],\"dois\":[\"https://doi.org/10.1016/j.jamcollsurg.2015.12.010\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Demographic profile and pregnancy outcomes of adolescents and older mothers in Saudi Arabia: analysis from Riyadh Mother (RAHMA) and Baby cohort study (https://doi.org/10.1136/bmjopen-2017-016501)",
+        "rejected": "Related paper: Association Between Hospital Trauma Designation and Maternal and Neonatal Outcomes after Injury among Pregnant Women in Washington State (https://doi.org/10.1016/j.jamcollsurg.2015.12.010)"
+      },
+      "title": {
+        "chosen": "Demographic profile and pregnancy outcomes of adolescents and older mothers in Saudi Arabia: analysis from Riyadh Mother (RAHMA) and Baby cohort study",
+        "rejected": "Association Between Hospital Trauma Designation and Maternal and Neonatal Outcomes after Injury among Pregnant Women in Washington State"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Impact of adolescent age on maternal and neonatal outcomes in the Born in Bradford cohort",
+    "query_title": "Impact of adolescent age on maternal and neonatal outcomes in the Born in Bradford cohort",
+    "rejected_doi": "https://doi.org/10.1016/j.jamcollsurg.2015.12.010",
+    "rejected_pmid": "26775164",
+    "rejected_title": "Association Between Hospital Trauma Designation and Maternal and Neonatal Outcomes after Injury among Pregnant Women in Washington State",
+    "seed_pmid": "29549196",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b151f7efdb55a8d26a686cf"
+      ],
+      "rejected": [
+        "5b151f7efdb55a8d26a686cf"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "5553e15b9754685cbae64924c51513cf8799c2c4cf126a6a1d82e742a44015fe",
+    "chosen_doi": "https://doi.org/10.3791/2083-v",
+    "chosen_pmid": "20811327",
+    "chosen_title": "RhoC GTPase Activation Assay",
+    "entity_components": [
+      "29192060",
+      "20811327",
+      "28739254"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"RhoC GTPase Activation Assay\",\"paper_titles\":[\"RhoC GTPase Activation Assay\"],\"dois\":[\"https://doi.org/10.3791/2083-v\"]}",
+        "rejected": "{\"answer\":\"Functional analysis of the promoters of the small GTPases RhoA and RhoB in embryonic stem cells\",\"paper_titles\":[\"Functional analysis of the promoters of the small GTPases RhoA and RhoB in embryonic stem cells\"],\"dois\":[\"https://doi.org/10.1016/j.bbrc.2017.07.114\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: RhoC GTPase Activation Assay (https://doi.org/10.3791/2083-v)",
+        "rejected": "Related paper: Functional analysis of the promoters of the small GTPases RhoA and RhoB in embryonic stem cells (https://doi.org/10.1016/j.bbrc.2017.07.114)"
+      },
+      "title": {
+        "chosen": "RhoC GTPase Activation Assay",
+        "rejected": "Functional analysis of the promoters of the small GTPases RhoA and RhoB in embryonic stem cells"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "High-content tripartite split-GFP cell-based assays to screen for modulators of small GTPase activation",
+    "query_title": "High-content tripartite split-GFP cell-based assays to screen for modulators of small GTPase activation",
+    "rejected_doi": "https://doi.org/10.1016/j.bbrc.2017.07.114",
+    "rejected_pmid": "28739254",
+    "rejected_title": "Functional analysis of the promoters of the small GTPases RhoA and RhoB in embryonic stem cells",
+    "seed_pmid": "29192060",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b10f49ffdb55a4a783f6183"
+      ],
+      "rejected": [
+        "5b10f49ffdb55a4a783f6183"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4853c8be4e6088d1b64eed5af7938b12977ba34a686ad6369afd8051dbe06b58",
+    "chosen_doi": "https://doi.org/10.1038/srep14546",
+    "chosen_pmid": "26403195",
+    "chosen_title": "Many Atolls May be Uninhabitable Within Decades Due to Climate Change",
+    "entity_components": [
+      "29707635",
+      "26403195",
+      "28522534"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Many Atolls May be Uninhabitable Within Decades Due to Climate Change\",\"paper_titles\":[\"Many Atolls May be Uninhabitable Within Decades Due to Climate Change\"],\"dois\":[\"https://doi.org/10.1038/srep14546\"]}",
+        "rejected": "{\"answer\":\"21st-century rise in anthropogenic nitrogen deposition on a remote coral reef\",\"paper_titles\":[\"21st-century rise in anthropogenic nitrogen deposition on a remote coral reef\"],\"dois\":[\"https://doi.org/10.1126/science.aal3869\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Many Atolls May be Uninhabitable Within Decades Due to Climate Change (https://doi.org/10.1038/srep14546)",
+        "rejected": "Related paper: 21st-century rise in anthropogenic nitrogen deposition on a remote coral reef (https://doi.org/10.1126/science.aal3869)"
+      },
+      "title": {
+        "chosen": "Many Atolls May be Uninhabitable Within Decades Due to Climate Change",
+        "rejected": "21st-century rise in anthropogenic nitrogen deposition on a remote coral reef"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Most atolls will be uninhabitable by the mid-21st century because of sea-level rise exacerbating wave-driven flooding",
+    "query_title": "Most atolls will be uninhabitable by the mid-21st century because of sea-level rise exacerbating wave-driven flooding",
+    "rejected_doi": "https://doi.org/10.1126/science.aal3869",
+    "rejected_pmid": "28522534",
+    "rejected_title": "21st-century rise in anthropogenic nitrogen deposition on a remote coral reef",
+    "seed_pmid": "29707635",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b15d0eafdb55a8d26a687c7"
+      ],
+      "rejected": [
+        "5b15d0eafdb55a8d26a687c7"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "e8c0ef6b5313c3a071728cb0c15102c16aa21fd0fae09ea9f106a0257a3cdd3f",
+    "chosen_doi": "https://doi.org/10.1016/j.tibs.2018.03.007",
+    "chosen_pmid": "29716768",
+    "chosen_title": "Why Do Disordered and Structured Proteins Behave Differently in Phase Separation?",
+    "entity_components": [
+      "29303563",
+      "29716768",
+      "22879688"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Why Do Disordered and Structured Proteins Behave Differently in Phase Separation?\",\"paper_titles\":[\"Why Do Disordered and Structured Proteins Behave Differently in Phase Separation?\"],\"dois\":[\"https://doi.org/10.1016/j.tibs.2018.03.007\"]}",
+        "rejected": "{\"answer\":\"Novel perfluorinated polymer-based pervaporation membranes for the separation of solvent/water mixtures\",\"paper_titles\":[\"Novel perfluorinated polymer-based pervaporation membranes for the separation of solvent/water mixtures\"],\"dois\":[\"https://doi.org/10.1016/j.memsci.2010.01.058\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Why Do Disordered and Structured Proteins Behave Differently in Phase Separation? (https://doi.org/10.1016/j.tibs.2018.03.007)",
+        "rejected": "Related paper: Novel perfluorinated polymer-based pervaporation membranes for the separation of solvent/water mixtures (https://doi.org/10.1016/j.memsci.2010.01.058)"
+      },
+      "title": {
+        "chosen": "Why Do Disordered and Structured Proteins Behave Differently in Phase Separation?",
+        "rejected": "Novel perfluorinated polymer-based pervaporation membranes for the separation of solvent/water mixtures"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "In Aqua Veritas: The Indispensable yet Mostly Ignored Role of Water in Phase Separation and Membrane-less Organelles",
+    "query_title": "In Aqua Veritas: The Indispensable yet Mostly Ignored Role of Water in Phase Separation and Membrane-less Organelles",
+    "rejected_doi": "https://doi.org/10.1016/j.memsci.2010.01.058",
+    "rejected_pmid": "22879688",
+    "rejected_title": "Novel perfluorinated polymer-based pervaporation membranes for the separation of solvent/water mixtures",
+    "seed_pmid": "29303563",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0332edfdb55aa7f94c3411"
+      ],
+      "rejected": [
+        "5b0332edfdb55aa7f94c3411"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "350b8b66ee10da6b6ee646986336b033ef08890795109d10e878e9e9b70e3b78",
+    "chosen_doi": "https://doi.org/10.1016/j.acra.2015.12.012",
+    "chosen_pmid": "26897601",
+    "chosen_title": "Using 3D Modeling Techniques to Enhance Teaching of Difficult Anatomical Concepts",
+    "entity_components": [
+      "28856438",
+      "26897601",
+      "21602004"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Using 3D Modeling Techniques to Enhance Teaching of Difficult Anatomical Concepts\",\"paper_titles\":[\"Using 3D Modeling Techniques to Enhance Teaching of Difficult Anatomical Concepts\"],\"dois\":[\"https://doi.org/10.1016/j.acra.2015.12.012\"]}",
+        "rejected": "{\"answer\":\"Getting in touch\u20143D printing in Forensic Imaging\",\"paper_titles\":[\"Getting in touch\u20143D printing in Forensic Imaging\"],\"dois\":[\"https://doi.org/10.1016/j.forsciint.2011.04.022\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Using 3D Modeling Techniques to Enhance Teaching of Difficult Anatomical Concepts (https://doi.org/10.1016/j.acra.2015.12.012)",
+        "rejected": "Related paper: Getting in touch\u20143D printing in Forensic Imaging (https://doi.org/10.1016/j.forsciint.2011.04.022)"
+      },
+      "title": {
+        "chosen": "Using 3D Modeling Techniques to Enhance Teaching of Difficult Anatomical Concepts",
+        "rejected": "Getting in touch\u20143D printing in Forensic Imaging"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "3D printing the pterygopalatine fossa: a negative space model of a complex structure",
+    "query_title": "3D printing the pterygopalatine fossa: a negative space model of a complex structure",
+    "rejected_doi": "https://doi.org/10.1016/j.forsciint.2011.04.022",
+    "rejected_pmid": "21602004",
+    "rejected_title": "Getting in touch\u20143D printing in Forensic Imaging",
+    "seed_pmid": "28856438",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2c12d0fdb55aa5ebf3c40d"
+      ],
+      "rejected": [
+        "5b2c12d0fdb55aa5ebf3c40d"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "c67ee5d2383c9ed357fa38f695fc6928c631b2803ad129955ec570c34e300c18",
+    "chosen_doi": "https://doi.org/10.1136/bmjopen-2011-000390",
+    "chosen_pmid": "22586282",
+    "chosen_title": "Behavioural and weight status outcomes from an exploratory trial of the Healthy Lifestyles Programme (HeLP): a novel school-based obesity prevention programme",
+    "entity_components": [
+      "29845898",
+      "22586282",
+      "25777588"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Behavioural and weight status outcomes from an exploratory trial of the Healthy Lifestyles Programme (HeLP): a novel school-based obesity prevention programme\",\"paper_titles\":[\"Behavioural and weight status outcomes from an exploratory trial of the Healthy Lifestyles Programme (HeLP): a novel school-based obesity prevention programme\"],\"dois\":[\"https://doi.org/10.1136/bmjopen-2011-000390\"]}",
+        "rejected": "{\"answer\":\"Impact of a male\u2010only weight loss maintenance programme on social\u2013cognitive determinants of physical activity and healthy eating: A randomized controlled trial\",\"paper_titles\":[\"Impact of a male\u2010only weight loss maintenance programme on social\u2013cognitive determinants of physical activity and healthy eating: A randomized controlled trial\"],\"dois\":[\"https://doi.org/10.1111/bjhp.12137\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Behavioural and weight status outcomes from an exploratory trial of the Healthy Lifestyles Programme (HeLP): a novel school-based obesity prevention programme (https://doi.org/10.1136/bmjopen-2011-000390)",
+        "rejected": "Related paper: Impact of a male\u2010only weight loss maintenance programme on social\u2013cognitive determinants of physical activity and healthy eating: A randomized controlled trial (https://doi.org/10.1111/bjhp.12137)"
+      },
+      "title": {
+        "chosen": "Behavioural and weight status outcomes from an exploratory trial of the Healthy Lifestyles Programme (HeLP): a novel school-based obesity prevention programme",
+        "rejected": "Impact of a male\u2010only weight loss maintenance programme on social\u2013cognitive determinants of physical activity and healthy eating: A randomized controlled trial"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Pre\u2013post evaluation of a weight management service for families with overweight and obese children, translated from the efficacious lifestyle intervention Parenting, Eating and Activity for Child Health (PEACH)",
+    "query_title": "Pre\u2013post evaluation of a weight management service for families with overweight and obese children, translated from the efficacious lifestyle intervention Parenting, Eating and Activity for Child Health (PEACH)",
+    "rejected_doi": "https://doi.org/10.1111/bjhp.12137",
+    "rejected_pmid": "25777588",
+    "rejected_title": "Impact of a male\u2010only weight loss maintenance programme on social\u2013cognitive determinants of physical activity and healthy eating: A randomized controlled trial",
+    "seed_pmid": "29845898",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1299b5fdb55a4a783f6299"
+      ],
+      "rejected": [
+        "5b1299b5fdb55a4a783f6299"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "1d734c35bf8eabd147d31a741d0c2920b8f3289c1f1782af9bb9068103692769",
+    "chosen_doi": "https://doi.org/10.1021/bi401006a",
+    "chosen_pmid": "24070374",
+    "chosen_title": "The Conserved RGxxE Motif of the Bacterial FAD Assembly Factor SdhE Is Required for Succinate Dehydrogenase Flavinylation and Activity",
+    "entity_components": [
+      "27296776",
+      "24070374",
+      "22097960"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"The Conserved RGxxE Motif of the Bacterial FAD Assembly Factor SdhE Is Required for Succinate Dehydrogenase Flavinylation and Activity\",\"paper_titles\":[\"The Conserved RGxxE Motif of the Bacterial FAD Assembly Factor SdhE Is Required for Succinate Dehydrogenase Flavinylation and Activity\"],\"dois\":[\"https://doi.org/10.1021/bi401006a\"]}",
+        "rejected": "{\"answer\":\"Tryptophan 697 Modulates Hydride and Interflavin Electron Transfer in Human Methionine Synthase Reductase\",\"paper_titles\":[\"Tryptophan 697 Modulates Hydride and Interflavin Electron Transfer in Human Methionine Synthase Reductase\"],\"dois\":[\"https://doi.org/10.1021/bi2012228\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: The Conserved RGxxE Motif of the Bacterial FAD Assembly Factor SdhE Is Required for Succinate Dehydrogenase Flavinylation and Activity (https://doi.org/10.1021/bi401006a)",
+        "rejected": "Related paper: Tryptophan 697 Modulates Hydride and Interflavin Electron Transfer in Human Methionine Synthase Reductase (https://doi.org/10.1021/bi2012228)"
+      },
+      "title": {
+        "chosen": "The Conserved RGxxE Motif of the Bacterial FAD Assembly Factor SdhE Is Required for Succinate Dehydrogenase Flavinylation and Activity",
+        "rejected": "Tryptophan 697 Modulates Hydride and Interflavin Electron Transfer in Human Methionine Synthase Reductase"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "In-vitro, SDH5-dependent flavinylation of immobilized human respiratory complex II flavoprotein",
+    "query_title": "In-vitro, SDH5-dependent flavinylation of immobilized human respiratory complex II flavoprotein",
+    "rejected_doi": "https://doi.org/10.1021/bi2012228",
+    "rejected_pmid": "22097960",
+    "rejected_title": "Tryptophan 697 Modulates Hydride and Interflavin Electron Transfer in Human Methionine Synthase Reductase",
+    "seed_pmid": "27296776",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5afb7a35fdb55ab2ac8cdb82"
+      ],
+      "rejected": [
+        "5afb7a35fdb55ab2ac8cdb82"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "473ed11fc4efb3cc2bbf46b2ec9d9630a9a9c022dbc5591980eb65351f0b36c9",
+    "chosen_doi": "https://doi.org/10.1016/j.heliyon.2018.e00543",
+    "chosen_pmid": "29560457",
+    "chosen_title": "Characterization of metal binding sites onto biochar using rare earth elements as a fingerprint",
+    "entity_components": [
+      "17052726",
+      "29560457",
+      "19544055"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Characterization of metal binding sites onto biochar using rare earth elements as a fingerprint\",\"paper_titles\":[\"Characterization of metal binding sites onto biochar using rare earth elements as a fingerprint\"],\"dois\":[\"https://doi.org/10.1016/j.heliyon.2018.e00543\"]}",
+        "rejected": "{\"answer\":\"Effect of Fusarium oxysporum f. sp. lycopersici on the degradation of humic acid associated with Cu, Pb, and Ni: an in vitro study\",\"paper_titles\":[\"Effect of Fusarium oxysporum f. sp. lycopersici on the degradation of humic acid associated with Cu, Pb, and Ni: an in vitro study\"],\"dois\":[\"https://doi.org/10.1007/s00216-009-2894-6\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Characterization of metal binding sites onto biochar using rare earth elements as a fingerprint (https://doi.org/10.1016/j.heliyon.2018.e00543)",
+        "rejected": "Related paper: Effect of Fusarium oxysporum f. sp. lycopersici on the degradation of humic acid associated with Cu, Pb, and Ni: an in vitro study (https://doi.org/10.1007/s00216-009-2894-6)"
+      },
+      "title": {
+        "chosen": "Characterization of metal binding sites onto biochar using rare earth elements as a fingerprint",
+        "rejected": "Effect of Fusarium oxysporum f. sp. lycopersici on the degradation of humic acid associated with Cu, Pb, and Ni: an in vitro study"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Competition between humic acid and carbonates for rare earth elements complexation",
+    "query_title": "Competition between humic acid and carbonates for rare earth elements complexation",
+    "rejected_doi": "https://doi.org/10.1007/s00216-009-2894-6",
+    "rejected_pmid": "19544055",
+    "rejected_title": "Effect of Fusarium oxysporum f. sp. lycopersici on the degradation of humic acid associated with Cu, Pb, and Ni: an in vitro study",
+    "seed_pmid": "17052726",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b130959fdb55a4a783f62c6",
+        "5b138a6efdb55a4a783f6304"
+      ],
+      "rejected": [
+        "5b130959fdb55a4a783f62c6",
+        "5b138a6efdb55a4a783f6304"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "0913218fc82615b1cfb5f2e68ce3194914fcf24e0b74e253c5eae6d043b8d6d0",
+    "chosen_doi": "https://doi.org/10.1007/s11136-010-9672-y",
+    "chosen_pmid": "20473781",
+    "chosen_title": "Psychometric properties of the Chinese version of the Pediatric Quality of Life Inventory\u2122 4.0 generic core scales",
+    "entity_components": [
+      "28453201",
+      "20473781",
+      "19232705"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Psychometric properties of the Chinese version of the Pediatric Quality of Life Inventory\u2122 4.0 generic core scales\",\"paper_titles\":[\"Psychometric properties of the Chinese version of the Pediatric Quality of Life Inventory\u2122 4.0 generic core scales\"],\"dois\":[\"https://doi.org/10.1007/s11136-010-9672-y\"]}",
+        "rejected": "{\"answer\":\"Cross\u2010cultural invariance of the Academic Expectations Stress Inventory: Adolescent samples from Canada and Singapore\",\"paper_titles\":[\"Cross\u2010cultural invariance of the Academic Expectations Stress Inventory: Adolescent samples from Canada and Singapore\"],\"dois\":[\"https://doi.org/10.1016/j.adolescence.2009.01.009\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Psychometric properties of the Chinese version of the Pediatric Quality of Life Inventory\u2122 4.0 generic core scales (https://doi.org/10.1007/s11136-010-9672-y)",
+        "rejected": "Related paper: Cross\u2010cultural invariance of the Academic Expectations Stress Inventory: Adolescent samples from Canada and Singapore (https://doi.org/10.1016/j.adolescence.2009.01.009)"
+      },
+      "title": {
+        "chosen": "Psychometric properties of the Chinese version of the Pediatric Quality of Life Inventory\u2122 4.0 generic core scales",
+        "rejected": "Cross\u2010cultural invariance of the Academic Expectations Stress Inventory: Adolescent samples from Canada and Singapore"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Cross\u2010Cultural Measurement Invariance of Adolescent Self\u2010Report on the Pediatric Quality of Life Inventory \u2122 4.0",
+    "query_title": "Cross\u2010Cultural Measurement Invariance of Adolescent Self\u2010Report on the Pediatric Quality of Life Inventory \u2122 4.0",
+    "rejected_doi": "https://doi.org/10.1016/j.adolescence.2009.01.009",
+    "rejected_pmid": "19232705",
+    "rejected_title": "Cross\u2010cultural invariance of the Academic Expectations Stress Inventory: Adolescent samples from Canada and Singapore",
+    "seed_pmid": "28453201",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b14dbc9fdb55a8d26a68624"
+      ],
+      "rejected": [
+        "5b14dbc9fdb55a8d26a68624"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a8de064b4375d27a89a799a379696afa76401aefe853225a35a80a6a1e9b9a07",
+    "chosen_doi": "https://doi.org/10.1002/biof.1407",
+    "chosen_pmid": "29341292",
+    "chosen_title": "Amniotic fluid stem cell exosomes: Therapeutic perspective",
+    "entity_components": [
+      "28679310",
+      "29341292",
+      "26215566"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Amniotic fluid stem cell exosomes: Therapeutic perspective\",\"paper_titles\":[\"Amniotic fluid stem cell exosomes: Therapeutic perspective\"],\"dois\":[\"https://doi.org/10.1002/biof.1407\"]}",
+        "rejected": "{\"answer\":\"miR-431 promotes differentiation and regeneration of old skeletal muscle by targeting Smad4\",\"paper_titles\":[\"miR-431 promotes differentiation and regeneration of old skeletal muscle by targeting Smad4\"],\"dois\":[\"https://doi.org/10.1101/gad.263574.115\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Amniotic fluid stem cell exosomes: Therapeutic perspective (https://doi.org/10.1002/biof.1407)",
+        "rejected": "Related paper: miR-431 promotes differentiation and regeneration of old skeletal muscle by targeting Smad4 (https://doi.org/10.1101/gad.263574.115)"
+      },
+      "title": {
+        "chosen": "Amniotic fluid stem cell exosomes: Therapeutic perspective",
+        "rejected": "miR-431 promotes differentiation and regeneration of old skeletal muscle by targeting Smad4"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Protein and Molecular Characterization of a Clinically Compliant Amniotic Fluid Stem Cell-Derived Extracellular Vesicle Fraction Capable of Accelerating Muscle Regeneration Through Enhancement of Angiogenesis",
+    "query_title": "Protein and Molecular Characterization of a Clinically Compliant Amniotic Fluid Stem Cell-Derived Extracellular Vesicle Fraction Capable of Accelerating Muscle Regeneration Through Enhancement of Angiogenesis",
+    "rejected_doi": "https://doi.org/10.1101/gad.263574.115",
+    "rejected_pmid": "26215566",
+    "rejected_title": "miR-431 promotes differentiation and regeneration of old skeletal muscle by targeting Smad4",
+    "seed_pmid": "28679310",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b155139fdb55a8d26a68753"
+      ],
+      "rejected": [
+        "5b155139fdb55a8d26a68753"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d7a8018a1e432c78fc76f2f1b317b875390ed62146fc432439630b2d167c7901",
+    "chosen_doi": null,
+    "chosen_pmid": "20879516",
+    "chosen_title": "[Spatial heterogeneity of soil inorganic nitrogen in a broadleaved-Korean pine mixed forest in Changbai Mountains of northeast China].",
+    "entity_components": [
+      "29324707",
+      "20879516",
+      "19288734"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"[Spatial heterogeneity of soil inorganic nitrogen in a broadleaved-Korean pine mixed forest in Changbai Mountains of northeast China].\",\"paper_titles\":[\"[Spatial heterogeneity of soil inorganic nitrogen in a broadleaved-Korean pine mixed forest in Changbai Mountains of northeast China].\"],\"dois\":[]}",
+        "rejected": "{\"answer\":\"[Risk assessment of pig manure Cu-contamination of black soil in northeast China].\",\"paper_titles\":[\"[Risk assessment of pig manure Cu-contamination of black soil in northeast China].\"],\"dois\":[]}"
+      },
+      "prose": {
+        "chosen": "Related paper: [Spatial heterogeneity of soil inorganic nitrogen in a broadleaved-Korean pine mixed forest in Changbai Mountains of northeast China].",
+        "rejected": "Related paper: [Risk assessment of pig manure Cu-contamination of black soil in northeast China]."
+      },
+      "title": {
+        "chosen": "[Spatial heterogeneity of soil inorganic nitrogen in a broadleaved-Korean pine mixed forest in Changbai Mountains of northeast China].",
+        "rejected": "[Risk assessment of pig manure Cu-contamination of black soil in northeast China]."
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Evaluation of Controlled Release Urea on the Dynamics of Nitrate, Ammonium, and Its Nitrogen Release in Black Soils of Northeast China",
+    "query_title": "Evaluation of Controlled Release Urea on the Dynamics of Nitrate, Ammonium, and Its Nitrogen Release in Black Soils of Northeast China",
+    "rejected_doi": null,
+    "rejected_pmid": "19288734",
+    "rejected_title": "[Risk assessment of pig manure Cu-contamination of black soil in northeast China].",
+    "seed_pmid": "29324707",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1f44aafdb55a8d26a68c5d",
+        "5b226164fdb55a8d26a68d14"
+      ],
+      "rejected": [
+        "5b1f44aafdb55a8d26a68c5d",
+        "5b226164fdb55a8d26a68d14"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "90b2b7e17a2cea319168a99adf581b03d13f722f0d1331c38743e624e1c06446",
+    "chosen_doi": "https://doi.org/10.1099/ijsem.0.000837",
+    "chosen_pmid": "26652293",
+    "chosen_title": "Salinicola rhizosphaerae sp. nov., isolated from the rhizosphere of the mangrove Avicennia marina L.",
+    "entity_components": [
+      "29674561",
+      "26652293",
+      "21148737"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Salinicola rhizosphaerae sp. nov., isolated from the rhizosphere of the mangrove Avicennia marina L.\",\"paper_titles\":[\"Salinicola rhizosphaerae sp. nov., isolated from the rhizosphere of the mangrove Avicennia marina L.\"],\"dois\":[\"https://doi.org/10.1099/ijsem.0.000837\"]}",
+        "rejected": "{\"answer\":\"Complete Genome Sequence of Mycoplasma hyopneumoniae Strain 168\",\"paper_titles\":[\"Complete Genome Sequence of Mycoplasma hyopneumoniae Strain 168\"],\"dois\":[\"https://doi.org/10.1128/jb.01305-10\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Salinicola rhizosphaerae sp. nov., isolated from the rhizosphere of the mangrove Avicennia marina L. (https://doi.org/10.1099/ijsem.0.000837)",
+        "rejected": "Related paper: Complete Genome Sequence of Mycoplasma hyopneumoniae Strain 168 (https://doi.org/10.1128/jb.01305-10)"
+      },
+      "title": {
+        "chosen": "Salinicola rhizosphaerae sp. nov., isolated from the rhizosphere of the mangrove Avicennia marina L.",
+        "rejected": "Complete Genome Sequence of Mycoplasma hyopneumoniae Strain 168"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Complete Genome Sequence of the Heavy-Metal-Tolerant Endophytic Type Strain of Salinicola tamaricis",
+    "query_title": "Complete Genome Sequence of the Heavy-Metal-Tolerant Endophytic Type Strain of Salinicola tamaricis",
+    "rejected_doi": "https://doi.org/10.1128/jb.01305-10",
+    "rejected_pmid": "21148737",
+    "rejected_title": "Complete Genome Sequence of Mycoplasma hyopneumoniae Strain 168",
+    "seed_pmid": "29674561",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b211390fdb55a8d26a68cc4"
+      ],
+      "rejected": [
+        "5b211390fdb55a8d26a68cc4"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4212330d8aae8465c8029ac60b44c7b94554e62186adafcc27ff542bb73b8a40",
+    "chosen_doi": "https://doi.org/10.1093/jpids/piv028",
+    "chosen_pmid": "26407262",
+    "chosen_title": "Correlation of Clinical Outcomes With Multiplex Molecular Testing of Stool From Children Admitted to Hospital With Gastroenteritis in Botswana",
+    "entity_components": [
+      "28885460",
+      "26407262",
+      "26981577"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Correlation of Clinical Outcomes With Multiplex Molecular Testing of Stool From Children Admitted to Hospital With Gastroenteritis in Botswana\",\"paper_titles\":[\"Correlation of Clinical Outcomes With Multiplex Molecular Testing of Stool From Children Admitted to Hospital With Gastroenteritis in Botswana\"],\"dois\":[\"https://doi.org/10.1093/jpids/piv028\"]}",
+        "rejected": "{\"answer\":\"Oral Phage Therapy of Acute Bacterial Diarrhea With Two Coliphage Preparations: A Randomized Trial in Children From Bangladesh\",\"paper_titles\":[\"Oral Phage Therapy of Acute Bacterial Diarrhea With Two Coliphage Preparations: A Randomized Trial in Children From Bangladesh\"],\"dois\":[\"https://doi.org/10.1016/j.ebiom.2015.12.023\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Correlation of Clinical Outcomes With Multiplex Molecular Testing of Stool From Children Admitted to Hospital With Gastroenteritis in Botswana (https://doi.org/10.1093/jpids/piv028)",
+        "rejected": "Related paper: Oral Phage Therapy of Acute Bacterial Diarrhea With Two Coliphage Preparations: A Randomized Trial in Children From Bangladesh (https://doi.org/10.1016/j.ebiom.2015.12.023)"
+      },
+      "title": {
+        "chosen": "Correlation of Clinical Outcomes With Multiplex Molecular Testing of Stool From Children Admitted to Hospital With Gastroenteritis in Botswana",
+        "rejected": "Oral Phage Therapy of Acute Bacterial Diarrhea With Two Coliphage Preparations: A Randomized Trial in Children From Bangladesh"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Potential Diarrheal Pathogens Common Also in Healthy Children in Angola",
+    "query_title": "Potential Diarrheal Pathogens Common Also in Healthy Children in Angola",
+    "rejected_doi": "https://doi.org/10.1016/j.ebiom.2015.12.023",
+    "rejected_pmid": "26981577",
+    "rejected_title": "Oral Phage Therapy of Acute Bacterial Diarrhea With Two Coliphage Preparations: A Randomized Trial in Children From Bangladesh",
+    "seed_pmid": "28885460",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b168a76fdb55a8d26a688cf"
+      ],
+      "rejected": [
+        "5b168a76fdb55a8d26a688cf"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "7e54f4d6e58c46b8be5dd91c9a406aca99b874eebf943b4d76a6c19991392b3e",
+    "chosen_doi": "https://doi.org/10.1155/2012/107836",
+    "chosen_pmid": "22701492",
+    "chosen_title": "Amniotic Fluid and Amniotic Membrane Stem Cells: Marker Discovery",
+    "entity_components": [
+      "29695308",
+      "22701492",
+      "22999337"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Amniotic Fluid and Amniotic Membrane Stem Cells: Marker Discovery\",\"paper_titles\":[\"Amniotic Fluid and Amniotic Membrane Stem Cells: Marker Discovery\"],\"dois\":[\"https://doi.org/10.1155/2012/107836\"]}",
+        "rejected": "{\"answer\":\"Isolation and characterization of ovine mesenchymal stem cells derived from peripheral blood\",\"paper_titles\":[\"Isolation and characterization of ovine mesenchymal stem cells derived from peripheral blood\"],\"dois\":[\"https://doi.org/10.1186/1746-6148-8-169\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Amniotic Fluid and Amniotic Membrane Stem Cells: Marker Discovery (https://doi.org/10.1155/2012/107836)",
+        "rejected": "Related paper: Isolation and characterization of ovine mesenchymal stem cells derived from peripheral blood (https://doi.org/10.1186/1746-6148-8-169)"
+      },
+      "title": {
+        "chosen": "Amniotic Fluid and Amniotic Membrane Stem Cells: Marker Discovery",
+        "rejected": "Isolation and characterization of ovine mesenchymal stem cells derived from peripheral blood"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "The presence of human mesenchymal stem cells of renal origin in amniotic fluid increases with gestational time",
+    "query_title": "The presence of human mesenchymal stem cells of renal origin in amniotic fluid increases with gestational time",
+    "rejected_doi": "https://doi.org/10.1186/1746-6148-8-169",
+    "rejected_pmid": "22999337",
+    "rejected_title": "Isolation and characterization of ovine mesenchymal stem cells derived from peripheral blood",
+    "seed_pmid": "29695308",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1643a4fdb55a8d26a6883a"
+      ],
+      "rejected": [
+        "5b1643a4fdb55a8d26a6883a"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "45c643d832c92b58f8887dbd11a2cbbefebc03eb8922567f936776ec56339999",
+    "chosen_doi": "https://doi.org/10.1186/gb-2013-14-1-r2",
+    "chosen_pmid": "23320958",
+    "chosen_title": "MetAMOS: a modular and open source metagenomic assembly and analysis pipeline",
+    "entity_components": [
+      "27153620",
+      "23320958",
+      "29106441"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"MetAMOS: a modular and open source metagenomic assembly and analysis pipeline\",\"paper_titles\":[\"MetAMOS: a modular and open source metagenomic assembly and analysis pipeline\"],\"dois\":[\"https://doi.org/10.1186/gb-2013-14-1-r2\"]}",
+        "rejected": "{\"answer\":\"Orchid: a novel management, annotation and machine learning framework for analyzing cancer mutations\",\"paper_titles\":[\"Orchid: a novel management, annotation and machine learning framework for analyzing cancer mutations\"],\"dois\":[\"https://doi.org/10.1093/bioinformatics/btx709\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: MetAMOS: a modular and open source metagenomic assembly and analysis pipeline (https://doi.org/10.1186/gb-2013-14-1-r2)",
+        "rejected": "Related paper: Orchid: a novel management, annotation and machine learning framework for analyzing cancer mutations (https://doi.org/10.1093/bioinformatics/btx709)"
+      },
+      "title": {
+        "chosen": "MetAMOS: a modular and open source metagenomic assembly and analysis pipeline",
+        "rejected": "Orchid: a novel management, annotation and machine learning framework for analyzing cancer mutations"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "MOCAT2: a metagenomic assembly, annotation and profiling framework",
+    "query_title": "MOCAT2: a metagenomic assembly, annotation and profiling framework",
+    "rejected_doi": "https://doi.org/10.1093/bioinformatics/btx709",
+    "rejected_pmid": "29106441",
+    "rejected_title": "Orchid: a novel management, annotation and machine learning framework for analyzing cancer mutations",
+    "seed_pmid": "27153620",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1bc698fdb55a8d26a68b50"
+      ],
+      "rejected": [
+        "5b1bc698fdb55a8d26a68b50"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d298fff50303191b95b2e7b7ed993a29faa515a2bed011ff5956eeba8fd40b6d",
+    "chosen_doi": "https://doi.org/10.1038/srep19638",
+    "chosen_pmid": "26778053",
+    "chosen_title": "Chlamydia gallinacea, not C. psittaci, is the endemic chlamydial species in chicken (Gallus gallus)",
+    "entity_components": [
+      "29324884",
+      "26778053",
+      "19777885"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Chlamydia gallinacea, not C. psittaci, is the endemic chlamydial species in chicken (Gallus gallus)\",\"paper_titles\":[\"Chlamydia gallinacea, not C. psittaci, is the endemic chlamydial species in chicken (Gallus gallus)\"],\"dois\":[\"https://doi.org/10.1038/srep19638\"]}",
+        "rejected": "{\"answer\":\"Escherichia coli O157 Prevalence in Different Cattle Farm Types and Identification of Potential Risk Factors\",\"paper_titles\":[\"Escherichia coli O157 Prevalence in Different Cattle Farm Types and Identification of Potential Risk Factors\"],\"dois\":[\"https://doi.org/10.4315/0362-028x-72.9.1848\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Chlamydia gallinacea, not C. psittaci, is the endemic chlamydial species in chicken (Gallus gallus) (https://doi.org/10.1038/srep19638)",
+        "rejected": "Related paper: Escherichia coli O157 Prevalence in Different Cattle Farm Types and Identification of Potential Risk Factors (https://doi.org/10.4315/0362-028x-72.9.1848)"
+      },
+      "title": {
+        "chosen": "Chlamydia gallinacea, not C. psittaci, is the endemic chlamydial species in chicken (Gallus gallus)",
+        "rejected": "Escherichia coli O157 Prevalence in Different Cattle Farm Types and Identification of Potential Risk Factors"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A cross sectional study on Dutch layer farms to investigate the prevalence and potential risk factors for different Chlamydia species",
+    "query_title": "A cross sectional study on Dutch layer farms to investigate the prevalence and potential risk factors for different Chlamydia species",
+    "rejected_doi": "https://doi.org/10.4315/0362-028x-72.9.1848",
+    "rejected_pmid": "19777885",
+    "rejected_title": "Escherichia coli O157 Prevalence in Different Cattle Farm Types and Identification of Potential Risk Factors",
+    "seed_pmid": "29324884",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2cb8f6fdb55aa5ebf3c417"
+      ],
+      "rejected": [
+        "5b2cb8f6fdb55aa5ebf3c417"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "251712e60b05c445c3b4741550c2262011cfab393ef25480195bcaf0bc49dad2",
+    "chosen_doi": "https://doi.org/10.3389/fnana.2015.00037",
+    "chosen_pmid": "25904850",
+    "chosen_title": "Prosomeric organization of the hypothalamus in an elasmobranch, the catshark Scyliorhinus canicula",
+    "entity_components": [
+      "29593505",
+      "25904850",
+      "20800675"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Prosomeric organization of the hypothalamus in an elasmobranch, the catshark Scyliorhinus canicula\",\"paper_titles\":[\"Prosomeric organization of the hypothalamus in an elasmobranch, the catshark Scyliorhinus canicula\"],\"dois\":[\"https://doi.org/10.3389/fnana.2015.00037\"]}",
+        "rejected": "{\"answer\":\"Cell proliferation and apoptosis in the olfactory epithelium of the shark Scyliorhinus canicula\",\"paper_titles\":[\"Cell proliferation and apoptosis in the olfactory epithelium of the shark Scyliorhinus canicula\"],\"dois\":[\"https://doi.org/10.1016/j.jchemneu.2010.08.004\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Prosomeric organization of the hypothalamus in an elasmobranch, the catshark Scyliorhinus canicula (https://doi.org/10.3389/fnana.2015.00037)",
+        "rejected": "Related paper: Cell proliferation and apoptosis in the olfactory epithelium of the shark Scyliorhinus canicula (https://doi.org/10.1016/j.jchemneu.2010.08.004)"
+      },
+      "title": {
+        "chosen": "Prosomeric organization of the hypothalamus in an elasmobranch, the catshark Scyliorhinus canicula",
+        "rejected": "Cell proliferation and apoptosis in the olfactory epithelium of the shark Scyliorhinus canicula"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "The Shark Basal Hypothalamus: Molecular Prosomeric Subdivisions and Evolutionary Trends",
+    "query_title": "The Shark Basal Hypothalamus: Molecular Prosomeric Subdivisions and Evolutionary Trends",
+    "rejected_doi": "https://doi.org/10.1016/j.jchemneu.2010.08.004",
+    "rejected_pmid": "20800675",
+    "rejected_title": "Cell proliferation and apoptosis in the olfactory epithelium of the shark Scyliorhinus canicula",
+    "seed_pmid": "29593505",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b20255efdb55a8d26a68c9f"
+      ],
+      "rejected": [
+        "5b20255efdb55a8d26a68c9f"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "f1f95790594fd8517db9f8314192dae234254a19d3f38d667c84f26dab2b3369",
+    "chosen_doi": "https://doi.org/10.1016/j.jvir.2011.08.030",
+    "chosen_pmid": "22019180",
+    "chosen_title": "Evaluation of Treatment Response of Chemoembolization in Hepatocellular Carcinoma with Diffusion-Weighted Imaging on 3.0-T MR Imaging",
+    "entity_components": [
+      "29514710",
+      "22019180",
+      "21193596"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Evaluation of Treatment Response of Chemoembolization in Hepatocellular Carcinoma with Diffusion-Weighted Imaging on 3.0-T MR Imaging\",\"paper_titles\":[\"Evaluation of Treatment Response of Chemoembolization in Hepatocellular Carcinoma with Diffusion-Weighted Imaging on 3.0-T MR Imaging\"],\"dois\":[\"https://doi.org/10.1016/j.jvir.2011.08.030\"]}",
+        "rejected": "{\"answer\":\"Characterization of Complex Adnexal Masses: Value of Adding Perfusion- and Diffusion-weighted MR Imaging to Conventional MR Imaging\",\"paper_titles\":[\"Characterization of Complex Adnexal Masses: Value of Adding Perfusion- and Diffusion-weighted MR Imaging to Conventional MR Imaging\"],\"dois\":[\"https://doi.org/10.1148/radiol.10100751\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Evaluation of Treatment Response of Chemoembolization in Hepatocellular Carcinoma with Diffusion-Weighted Imaging on 3.0-T MR Imaging (https://doi.org/10.1016/j.jvir.2011.08.030)",
+        "rejected": "Related paper: Characterization of Complex Adnexal Masses: Value of Adding Perfusion- and Diffusion-weighted MR Imaging to Conventional MR Imaging (https://doi.org/10.1148/radiol.10100751)"
+      },
+      "title": {
+        "chosen": "Evaluation of Treatment Response of Chemoembolization in Hepatocellular Carcinoma with Diffusion-Weighted Imaging on 3.0-T MR Imaging",
+        "rejected": "Characterization of Complex Adnexal Masses: Value of Adding Perfusion- and Diffusion-weighted MR Imaging to Conventional MR Imaging"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Added value of diffusion-weighted imaging in hepatic tumors and its impact on patient management",
+    "query_title": "Added value of diffusion-weighted imaging in hepatic tumors and its impact on patient management",
+    "rejected_doi": "https://doi.org/10.1148/radiol.10100751",
+    "rejected_pmid": "21193596",
+    "rejected_title": "Characterization of Complex Adnexal Masses: Value of Adding Perfusion- and Diffusion-weighted MR Imaging to Conventional MR Imaging",
+    "seed_pmid": "29514710",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1c4e5afdb55a8d26a68b92"
+      ],
+      "rejected": [
+        "5b1c4e5afdb55a8d26a68b92"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "5e04899b5b851e3974813b41f7f7633d3b54c3b9fd507edca4033186e9fe5286",
+    "chosen_doi": "https://doi.org/10.1007/s11033-012-1801-y",
+    "chosen_pmid": "22736109",
+    "chosen_title": "Targeted spatio-temporal expression based characterization of state of infection and time-point of maximum defense in wheat NILs during leaf rust infection",
+    "entity_components": [
+      "25432546",
+      "22736109",
+      "26467989"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Targeted spatio-temporal expression based characterization of state of infection and time-point of maximum defense in wheat NILs during leaf rust infection\",\"paper_titles\":[\"Targeted spatio-temporal expression based characterization of state of infection and time-point of maximum defense in wheat NILs during leaf rust infection\"],\"dois\":[\"https://doi.org/10.1007/s11033-012-1801-y\"]}",
+        "rejected": "{\"answer\":\"Association mapping of North American spring wheat breeding germplasm reveals loci conferring resistance to Ug99 and other African stem rust races\",\"paper_titles\":[\"Association mapping of North American spring wheat breeding germplasm reveals loci conferring resistance to Ug99 and other African stem rust races\"],\"dois\":[\"https://doi.org/10.1186/s12870-015-0628-9\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Targeted spatio-temporal expression based characterization of state of infection and time-point of maximum defense in wheat NILs during leaf rust infection (https://doi.org/10.1007/s11033-012-1801-y)",
+        "rejected": "Related paper: Association mapping of North American spring wheat breeding germplasm reveals loci conferring resistance to Ug99 and other African stem rust races (https://doi.org/10.1186/s12870-015-0628-9)"
+      },
+      "title": {
+        "chosen": "Targeted spatio-temporal expression based characterization of state of infection and time-point of maximum defense in wheat NILs during leaf rust infection",
+        "rejected": "Association mapping of North American spring wheat breeding germplasm reveals loci conferring resistance to Ug99 and other African stem rust races"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Stage-specific reprogramming of gene expression characterizes Lr48-mediated adult plant leaf rust resistance in wheat",
+    "query_title": "Stage-specific reprogramming of gene expression characterizes Lr48-mediated adult plant leaf rust resistance in wheat",
+    "rejected_doi": "https://doi.org/10.1186/s12870-015-0628-9",
+    "rejected_pmid": "26467989",
+    "rejected_title": "Association mapping of North American spring wheat breeding germplasm reveals loci conferring resistance to Ug99 and other African stem rust races",
+    "seed_pmid": "25432546",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b118d9efdb55a4a783f6221"
+      ],
+      "rejected": [
+        "5b118d9efdb55a4a783f6221"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "e93215fdca350e78542e7dfc1140d9759d344425c2fd8d5d9d8c5565e69c584b",
+    "chosen_doi": "https://doi.org/10.1534/g3.115.020594",
+    "chosen_pmid": "26318155",
+    "chosen_title": "SNP Assay Development for Linkage Map Construction, Anchoring Whole-Genome Sequence, and Other Genetic and Genomic Applications in Common Bean",
+    "entity_components": [
+      "29071392",
+      "26318155",
+      "19121221"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"SNP Assay Development for Linkage Map Construction, Anchoring Whole-Genome Sequence, and Other Genetic and Genomic Applications in Common Bean\",\"paper_titles\":[\"SNP Assay Development for Linkage Map Construction, Anchoring Whole-Genome Sequence, and Other Genetic and Genomic Applications in Common Bean\"],\"dois\":[\"https://doi.org/10.1534/g3.115.020594\"]}",
+        "rejected": "{\"answer\":\"A first-generation microsatellite-based genetic linkage map of the Siberian jay (Perisoreus infaustus): insights into avian genome evolution\",\"paper_titles\":[\"A first-generation microsatellite-based genetic linkage map of the Siberian jay (Perisoreus infaustus): insights into avian genome evolution\"],\"dois\":[\"https://doi.org/10.1186/1471-2164-10-1\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: SNP Assay Development for Linkage Map Construction, Anchoring Whole-Genome Sequence, and Other Genetic and Genomic Applications in Common Bean (https://doi.org/10.1534/g3.115.020594)",
+        "rejected": "Related paper: A first-generation microsatellite-based genetic linkage map of the Siberian jay (Perisoreus infaustus): insights into avian genome evolution (https://doi.org/10.1186/1471-2164-10-1)"
+      },
+      "title": {
+        "chosen": "SNP Assay Development for Linkage Map Construction, Anchoring Whole-Genome Sequence, and Other Genetic and Genomic Applications in Common Bean",
+        "rejected": "A first-generation microsatellite-based genetic linkage map of the Siberian jay (Perisoreus infaustus): insights into avian genome evolution"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A transcriptome-SNP-derived linkage map of Apios americana (potato bean) provides insights about genome re-organization and synteny conservation in the phaseoloid legumes",
+    "query_title": "A transcriptome-SNP-derived linkage map of Apios americana (potato bean) provides insights about genome re-organization and synteny conservation in the phaseoloid legumes",
+    "rejected_doi": "https://doi.org/10.1186/1471-2164-10-1",
+    "rejected_pmid": "19121221",
+    "rejected_title": "A first-generation microsatellite-based genetic linkage map of the Siberian jay (Perisoreus infaustus): insights into avian genome evolution",
+    "seed_pmid": "29071392",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0ed670fdb55a160675777c"
+      ],
+      "rejected": [
+        "5b0ed670fdb55a160675777c"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4663baea029fbe7c8e421d76563c77e955648d1f35ea70e53fb04ff6c138398c",
+    "chosen_doi": "https://doi.org/10.1111/j.1365-313x.2011.04643.x",
+    "chosen_pmid": "21585570",
+    "chosen_title": "Suppression of the rice heterotrimeric G protein \u03b2\u2010subunit gene, RGB1, causes dwarfism and browning of internodes and lamina joint regions",
+    "entity_components": [
+      "28878591",
+      "21585570",
+      "29216416"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Suppression of the rice heterotrimeric G protein \u03b2\u2010subunit gene, RGB1, causes dwarfism and browning of internodes and lamina joint regions\",\"paper_titles\":[\"Suppression of the rice heterotrimeric G protein \u03b2\u2010subunit gene, RGB1, causes dwarfism and browning of internodes and lamina joint regions\"],\"dois\":[\"https://doi.org/10.1111/j.1365-313x.2011.04643.x\"]}",
+        "rejected": "{\"answer\":\"Illuminating the role of the G\u03b1 heterotrimeric G protein subunit, RGA1, in regulating photoprotection and photoavoidance in rice\",\"paper_titles\":[\"Illuminating the role of the G\u03b1 heterotrimeric G protein subunit, RGA1, in regulating photoprotection and photoavoidance in rice\"],\"dois\":[\"https://doi.org/10.1111/pce.13113\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Suppression of the rice heterotrimeric G protein \u03b2\u2010subunit gene, RGB1, causes dwarfism and browning of internodes and lamina joint regions (https://doi.org/10.1111/j.1365-313x.2011.04643.x)",
+        "rejected": "Related paper: Illuminating the role of the G\u03b1 heterotrimeric G protein subunit, RGA1, in regulating photoprotection and photoavoidance in rice (https://doi.org/10.1111/pce.13113)"
+      },
+      "title": {
+        "chosen": "Suppression of the rice heterotrimeric G protein \u03b2\u2010subunit gene, RGB1, causes dwarfism and browning of internodes and lamina joint regions",
+        "rejected": "Illuminating the role of the G\u03b1 heterotrimeric G protein subunit, RGA1, in regulating photoprotection and photoavoidance in rice"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Mutations in the gene of the G\u03b1 subunit of the heterotrimeric G protein are the cause for the brachytic1 semi-dwarf phenotype in barley and applicable for practical breeding",
+    "query_title": "Mutations in the gene of the G\u03b1 subunit of the heterotrimeric G protein are the cause for the brachytic1 semi-dwarf phenotype in barley and applicable for practical breeding",
+    "rejected_doi": "https://doi.org/10.1111/pce.13113",
+    "rejected_pmid": "29216416",
+    "rejected_title": "Illuminating the role of the G\u03b1 heterotrimeric G protein subunit, RGA1, in regulating photoprotection and photoavoidance in rice",
+    "seed_pmid": "28878591",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b082c74fdb55a48964dda9a"
+      ],
+      "rejected": [
+        "5b082c74fdb55a48964dda9a"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "1430adb7dcc4ec710fcc2ba26c5f1d60933975c91fa478bbc8d78d6b51651bbc",
+    "chosen_doi": "https://doi.org/10.1016/j.pain.2013.07.013",
+    "chosen_pmid": "23867733",
+    "chosen_title": "Neural mechanisms mediating positive and negative treatment expectations in visceral pain: A functional magnetic resonance imaging study on placebo and nocebo effects in healthy volunteers",
+    "entity_components": [
+      "29405507",
+      "23867733",
+      "19587233"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Neural mechanisms mediating positive and negative treatment expectations in visceral pain: A functional magnetic resonance imaging study on placebo and nocebo effects in healthy volunteers\",\"paper_titles\":[\"Neural mechanisms mediating positive and negative treatment expectations in visceral pain: A functional magnetic resonance imaging study on placebo and nocebo effects in healthy volunteers\"],\"dois\":[\"https://doi.org/10.1016/j.pain.2013.07.013\"]}",
+        "rejected": "{\"answer\":\"Belief in complementary and alternative medicine is related to age and paranormal beliefs in adults\",\"paper_titles\":[\"Belief in complementary and alternative medicine is related to age and paranormal beliefs in adults\"],\"dois\":[\"https://doi.org/10.1093/eurpub/ckp104\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Neural mechanisms mediating positive and negative treatment expectations in visceral pain: A functional magnetic resonance imaging study on placebo and nocebo effects in healthy volunteers (https://doi.org/10.1016/j.pain.2013.07.013)",
+        "rejected": "Related paper: Belief in complementary and alternative medicine is related to age and paranormal beliefs in adults (https://doi.org/10.1093/eurpub/ckp104)"
+      },
+      "title": {
+        "chosen": "Neural mechanisms mediating positive and negative treatment expectations in visceral pain: A functional magnetic resonance imaging study on placebo and nocebo effects in healthy volunteers",
+        "rejected": "Belief in complementary and alternative medicine is related to age and paranormal beliefs in adults"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Medicine\u2010related beliefs predict attribution of symptoms to a sham medicine: A prospective study",
+    "query_title": "Medicine\u2010related beliefs predict attribution of symptoms to a sham medicine: A prospective study",
+    "rejected_doi": "https://doi.org/10.1093/eurpub/ckp104",
+    "rejected_pmid": "19587233",
+    "rejected_title": "Belief in complementary and alternative medicine is related to age and paranormal beliefs in adults",
+    "seed_pmid": "29405507",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2a75b3fdb55aa5ebf3c3fc"
+      ],
+      "rejected": [
+        "5b2a75b3fdb55aa5ebf3c3fc"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "66a1dbec03ca8d57cba0d734552feb2de07b171631b96bb6c3f082fa59dab965",
+    "chosen_doi": "https://doi.org/10.1136/amiajnl-2014-002747",
+    "chosen_pmid": "24821743",
+    "chosen_title": "Launching PCORnet, a national patient-centered clinical research network",
+    "entity_components": [
+      "29507737",
+      "24821743",
+      "28755961"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Launching PCORnet, a national patient-centered clinical research network\",\"paper_titles\":[\"Launching PCORnet, a national patient-centered clinical research network\"],\"dois\":[\"https://doi.org/10.1136/amiajnl-2014-002747\"]}",
+        "rejected": "{\"answer\":\"Patient engagement in the design and execution of urologic oncology research\",\"paper_titles\":[\"Patient engagement in the design and execution of urologic oncology research\"],\"dois\":[\"https://doi.org/10.1016/j.urolonc.2017.07.002\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Launching PCORnet, a national patient-centered clinical research network (https://doi.org/10.1136/amiajnl-2014-002747)",
+        "rejected": "Related paper: Patient engagement in the design and execution of urologic oncology research (https://doi.org/10.1016/j.urolonc.2017.07.002)"
+      },
+      "title": {
+        "chosen": "Launching PCORnet, a national patient-centered clinical research network",
+        "rejected": "Patient engagement in the design and execution of urologic oncology research"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Willingness to participate in weight-related research as reported by patients in PCORnet clinical data research networks",
+    "query_title": "Willingness to participate in weight-related research as reported by patients in PCORnet clinical data research networks",
+    "rejected_doi": "https://doi.org/10.1016/j.urolonc.2017.07.002",
+    "rejected_pmid": "28755961",
+    "rejected_title": "Patient engagement in the design and execution of urologic oncology research",
+    "seed_pmid": "29507737",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1584edfdb55a8d26a6879c"
+      ],
+      "rejected": [
+        "5b1584edfdb55a8d26a6879c"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "6ea396e9c2a4951c6864cca6359ba74c2174c8ff7bc8d37ea0c07f5b7221897b",
+    "chosen_doi": "https://doi.org/10.1016/j.diabres.2011.07.014",
+    "chosen_pmid": "21835486",
+    "chosen_title": "Effects of short-term therapy with glibenclamide and repaglinide on incretin hormones and oxidative damage associated with postprandial hyperglycaemia in people with type 2 diabetes mellitus",
+    "entity_components": [
+      "28277069",
+      "21835486",
+      "27435790"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Effects of short-term therapy with glibenclamide and repaglinide on incretin hormones and oxidative damage associated with postprandial hyperglycaemia in people with type 2 diabetes mellitus\",\"paper_titles\":[\"Effects of short-term therapy with glibenclamide and repaglinide on incretin hormones and oxidative damage associated with postprandial hyperglycaemia in people with type 2 diabetes mellitus\"],\"dois\":[\"https://doi.org/10.1016/j.diabres.2011.07.014\"]}",
+        "rejected": "{\"answer\":\"The plasma 8-OHdG levels and oxidative stress following cholecystectomy: a randomised multicentre study of patients with minilaparotomy cholecystectomy versus laparoscopic cholecystectomy\",\"paper_titles\":[\"The plasma 8-OHdG levels and oxidative stress following cholecystectomy: a randomised multicentre study of patients with minilaparotomy cholecystectomy versus laparoscopic cholecystectomy\"],\"dois\":[\"https://doi.org/10.1080/00365521.2016.1208270\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Effects of short-term therapy with glibenclamide and repaglinide on incretin hormones and oxidative damage associated with postprandial hyperglycaemia in people with type 2 diabetes mellitus (https://doi.org/10.1016/j.diabres.2011.07.014)",
+        "rejected": "Related paper: The plasma 8-OHdG levels and oxidative stress following cholecystectomy: a randomised multicentre study of patients with minilaparotomy cholecystectomy versus laparoscopic cholecystectomy (https://doi.org/10.1080/00365521.2016.1208270)"
+      },
+      "title": {
+        "chosen": "Effects of short-term therapy with glibenclamide and repaglinide on incretin hormones and oxidative damage associated with postprandial hyperglycaemia in people with type 2 diabetes mellitus",
+        "rejected": "The plasma 8-OHdG levels and oxidative stress following cholecystectomy: a randomised multicentre study of patients with minilaparotomy cholecystectomy versus laparoscopic cholecystectomy"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Hyperglycaemia, oxidative stress and inflammatory markers",
+    "query_title": "Hyperglycaemia, oxidative stress and inflammatory markers",
+    "rejected_doi": "https://doi.org/10.1080/00365521.2016.1208270",
+    "rejected_pmid": "27435790",
+    "rejected_title": "The plasma 8-OHdG levels and oxidative stress following cholecystectomy: a randomised multicentre study of patients with minilaparotomy cholecystectomy versus laparoscopic cholecystectomy",
+    "seed_pmid": "28277069",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2c53effdb55aa5ebf3c412"
+      ],
+      "rejected": [
+        "5b2c53effdb55aa5ebf3c412"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a0e2ff0fdb372df51babae42bc207ad44f643743c9e259d6f663df5a41b17ee5",
+    "chosen_doi": "https://doi.org/10.1186/s13033-015-0013-y",
+    "chosen_pmid": "27408619",
+    "chosen_title": "The Friendship Bench programme: a cluster randomised controlled trial of a brief psychological intervention for common mental disorders delivered by lay health workers in Zimbabwe",
+    "entity_components": [
+      "29744313",
+      "27408619",
+      "26571280"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"The Friendship Bench programme: a cluster randomised controlled trial of a brief psychological intervention for common mental disorders delivered by lay health workers in Zimbabwe\",\"paper_titles\":[\"The Friendship Bench programme: a cluster randomised controlled trial of a brief psychological intervention for common mental disorders delivered by lay health workers in Zimbabwe\"],\"dois\":[\"https://doi.org/10.1186/s13033-015-0013-y\"]}",
+        "rejected": "{\"answer\":\"Changes in blood pressure among users of lay health worker or volunteer operated community-based blood pressure programs over time: a systematic review protocol\",\"paper_titles\":[\"Changes in blood pressure among users of lay health worker or volunteer operated community-based blood pressure programs over time: a systematic review protocol\"],\"dois\":[\"https://doi.org/10.11124/jbisrir-2015-1927\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: The Friendship Bench programme: a cluster randomised controlled trial of a brief psychological intervention for common mental disorders delivered by lay health workers in Zimbabwe (https://doi.org/10.1186/s13033-015-0013-y)",
+        "rejected": "Related paper: Changes in blood pressure among users of lay health worker or volunteer operated community-based blood pressure programs over time: a systematic review protocol (https://doi.org/10.11124/jbisrir-2015-1927)"
+      },
+      "title": {
+        "chosen": "The Friendship Bench programme: a cluster randomised controlled trial of a brief psychological intervention for common mental disorders delivered by lay health workers in Zimbabwe",
+        "rejected": "Changes in blood pressure among users of lay health worker or volunteer operated community-based blood pressure programs over time: a systematic review protocol"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Managing information gaps on caregivers of psychotic patients in primary health settings of Yogyakarta, Indonesia",
+    "query_title": "Managing information gaps on caregivers of psychotic patients in primary health settings of Yogyakarta, Indonesia",
+    "rejected_doi": "https://doi.org/10.11124/jbisrir-2015-1927",
+    "rejected_pmid": "26571280",
+    "rejected_title": "Changes in blood pressure among users of lay health worker or volunteer operated community-based blood pressure programs over time: a systematic review protocol",
+    "seed_pmid": "29744313",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2a2144fdb55aa5ebf3c3f5"
+      ],
+      "rejected": [
+        "5b2a2144fdb55aa5ebf3c3f5"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "c49920408a4d3b0fe3debb3f6f89f8a98e538573efa1b7f7013d5c81cf46cd75",
+    "chosen_doi": "https://doi.org/10.1016/j.cub.2016.04.039",
+    "chosen_pmid": "27212405",
+    "chosen_title": "Early Morphological Specialization for Insect-Spider Associations in Mesozoic Lacewings",
+    "entity_components": [
+      "29706517",
+      "27212405",
+      "24699575"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Early Morphological Specialization for Insect-Spider Associations in Mesozoic Lacewings\",\"paper_titles\":[\"Early Morphological Specialization for Insect-Spider Associations in Mesozoic Lacewings\"],\"dois\":[\"https://doi.org/10.1016/j.cub.2016.04.039\"]}",
+        "rejected": "{\"answer\":\"Cretevania bechlyi sp. nov., from Cretaceous Burmese amber (Hymenoptera: Evaniidae)\",\"paper_titles\":[\"Cretevania bechlyi sp. nov., from Cretaceous Burmese amber (Hymenoptera: Evaniidae)\"],\"dois\":[\"https://doi.org/10.11646/zootaxa.3609.1.7\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Early Morphological Specialization for Insect-Spider Associations in Mesozoic Lacewings (https://doi.org/10.1016/j.cub.2016.04.039)",
+        "rejected": "Related paper: Cretevania bechlyi sp. nov., from Cretaceous Burmese amber (Hymenoptera: Evaniidae) (https://doi.org/10.11646/zootaxa.3609.1.7)"
+      },
+      "title": {
+        "chosen": "Early Morphological Specialization for Insect-Spider Associations in Mesozoic Lacewings",
+        "rejected": "Cretevania bechlyi sp. nov., from Cretaceous Burmese amber (Hymenoptera: Evaniidae)"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Liverwort Mimesis in a Cretaceous Lacewing Larva",
+    "query_title": "Liverwort Mimesis in a Cretaceous Lacewing Larva",
+    "rejected_doi": "https://doi.org/10.11646/zootaxa.3609.1.7",
+    "rejected_pmid": "24699575",
+    "rejected_title": "Cretevania bechlyi sp. nov., from Cretaceous Burmese amber (Hymenoptera: Evaniidae)",
+    "seed_pmid": "29706517",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b10028dfdb55a16067577d9"
+      ],
+      "rejected": [
+        "5b10028dfdb55a16067577d9"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "f24b6c6a7996f6b840b31e6e188b624c0a61bfd961d0a7ed0cd6761578a58ac3",
+    "chosen_doi": "https://doi.org/10.1093/nar/gkx059",
+    "chosen_pmid": "28132027",
+    "chosen_title": "DRNApred, fast sequence-based method that accurately predicts and discriminates DNA- and RNA-binding residues",
+    "entity_components": [
+      "26109352",
+      "28132027",
+      "22684505"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"DRNApred, fast sequence-based method that accurately predicts and discriminates DNA- and RNA-binding residues\",\"paper_titles\":[\"DRNApred, fast sequence-based method that accurately predicts and discriminates DNA- and RNA-binding residues\"],\"dois\":[\"https://doi.org/10.1093/nar/gkx059\"]}",
+        "rejected": "{\"answer\":\"IMP: a multi-species functional genomics portal for integration, visualization and prediction of protein functions and networks\",\"paper_titles\":[\"IMP: a multi-species functional genomics portal for integration, visualization and prediction of protein functions and networks\"],\"dois\":[\"https://doi.org/10.1093/nar/gks458\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: DRNApred, fast sequence-based method that accurately predicts and discriminates DNA- and RNA-binding residues (https://doi.org/10.1093/nar/gkx059)",
+        "rejected": "Related paper: IMP: a multi-species functional genomics portal for integration, visualization and prediction of protein functions and networks (https://doi.org/10.1093/nar/gks458)"
+      },
+      "title": {
+        "chosen": "DRNApred, fast sequence-based method that accurately predicts and discriminates DNA- and RNA-binding residues",
+        "rejected": "IMP: a multi-species functional genomics portal for integration, visualization and prediction of protein functions and networks"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "High-throughput prediction of RNA, DNA and protein binding regions mediated by intrinsic disorder",
+    "query_title": "High-throughput prediction of RNA, DNA and protein binding regions mediated by intrinsic disorder",
+    "rejected_doi": "https://doi.org/10.1093/nar/gks458",
+    "rejected_pmid": "22684505",
+    "rejected_title": "IMP: a multi-species functional genomics portal for integration, visualization and prediction of protein functions and networks",
+    "seed_pmid": "26109352",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5afaea30fdb55ab2ac8cdb5f"
+      ],
+      "rejected": [
+        "5afaea30fdb55ab2ac8cdb5f"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "7b6949ec21aac77c57dd4829cc9453a1b6b7862f304e596030d07467a4553f0e",
+    "chosen_doi": "https://doi.org/10.1158/1078-0432.ccr-13-3060",
+    "chosen_pmid": "24771645",
+    "chosen_title": "FGFR1 mRNA and Protein Expression, not Gene Copy Number, Predict FGFR TKI Sensitivity across All Lung Cancer Histologies",
+    "entity_components": [
+      "26359452",
+      "24771645",
+      "25077897"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"FGFR1 mRNA and Protein Expression, not Gene Copy Number, Predict FGFR TKI Sensitivity across All Lung Cancer Histologies\",\"paper_titles\":[\"FGFR1 mRNA and Protein Expression, not Gene Copy Number, Predict FGFR TKI Sensitivity across All Lung Cancer Histologies\"],\"dois\":[\"https://doi.org/10.1158/1078-0432.ccr-13-3060\"]}",
+        "rejected": "{\"answer\":\"The HSP90 inhibitor ganetespib potentiates the antitumor activity of EGFR tyrosine kinase inhibition in mutant and wild-type non-small cell lung cancer\",\"paper_titles\":[\"The HSP90 inhibitor ganetespib potentiates the antitumor activity of EGFR tyrosine kinase inhibition in mutant and wild-type non-small cell lung cancer\"],\"dois\":[\"https://doi.org/10.1007/s11523-014-0329-6\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: FGFR1 mRNA and Protein Expression, not Gene Copy Number, Predict FGFR TKI Sensitivity across All Lung Cancer Histologies (https://doi.org/10.1158/1078-0432.ccr-13-3060)",
+        "rejected": "Related paper: The HSP90 inhibitor ganetespib potentiates the antitumor activity of EGFR tyrosine kinase inhibition in mutant and wild-type non-small cell lung cancer (https://doi.org/10.1007/s11523-014-0329-6)"
+      },
+      "title": {
+        "chosen": "FGFR1 mRNA and Protein Expression, not Gene Copy Number, Predict FGFR TKI Sensitivity across All Lung Cancer Histologies",
+        "rejected": "The HSP90 inhibitor ganetespib potentiates the antitumor activity of EGFR tyrosine kinase inhibition in mutant and wild-type non-small cell lung cancer"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Kinome RNAi Screens Reveal Synergistic Targeting of MTOR and FGFR1 Pathways for Treatment of Lung Cancer and HNSCC",
+    "query_title": "Kinome RNAi Screens Reveal Synergistic Targeting of MTOR and FGFR1 Pathways for Treatment of Lung Cancer and HNSCC",
+    "rejected_doi": "https://doi.org/10.1007/s11523-014-0329-6",
+    "rejected_pmid": "25077897",
+    "rejected_title": "The HSP90 inhibitor ganetespib potentiates the antitumor activity of EGFR tyrosine kinase inhibition in mutant and wild-type non-small cell lung cancer",
+    "seed_pmid": "26359452",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1cf491fdb55a8d26a68bc8"
+      ],
+      "rejected": [
+        "5b1cf491fdb55a8d26a68bc8"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "1cea1625161a5067068fe3daf3d2e8f3acd66a75f9fb318defe3ee19249535bd",
+    "chosen_doi": "https://doi.org/10.1016/j.yebeh.2014.01.008",
+    "chosen_pmid": "24583653",
+    "chosen_title": "Default mode network alterations during language task performance in children with benign epilepsy with centrotemporal spikes (BECTS)",
+    "entity_components": [
+      "29629540",
+      "24583653",
+      "28919388"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Default mode network alterations during language task performance in children with benign epilepsy with centrotemporal spikes (BECTS)\",\"paper_titles\":[\"Default mode network alterations during language task performance in children with benign epilepsy with centrotemporal spikes (BECTS)\"],\"dois\":[\"https://doi.org/10.1016/j.yebeh.2014.01.008\"]}",
+        "rejected": "{\"answer\":\"Altered brain functional connectivity induced by physical exercise may improve neuropsychological functions in patients with benign epilepsy\",\"paper_titles\":[\"Altered brain functional connectivity induced by physical exercise may improve neuropsychological functions in patients with benign epilepsy\"],\"dois\":[\"https://doi.org/10.1016/j.yebeh.2017.06.021\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Default mode network alterations during language task performance in children with benign epilepsy with centrotemporal spikes (BECTS) (https://doi.org/10.1016/j.yebeh.2014.01.008)",
+        "rejected": "Related paper: Altered brain functional connectivity induced by physical exercise may improve neuropsychological functions in patients with benign epilepsy (https://doi.org/10.1016/j.yebeh.2017.06.021)"
+      },
+      "title": {
+        "chosen": "Default mode network alterations during language task performance in children with benign epilepsy with centrotemporal spikes (BECTS)",
+        "rejected": "Altered brain functional connectivity induced by physical exercise may improve neuropsychological functions in patients with benign epilepsy"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Role of Language-Related Functional Connectivity in Patients with Benign Childhood Epilepsy with Centrotemporal Spikes",
+    "query_title": "Role of Language-Related Functional Connectivity in Patients with Benign Childhood Epilepsy with Centrotemporal Spikes",
+    "rejected_doi": "https://doi.org/10.1016/j.yebeh.2017.06.021",
+    "rejected_pmid": "28919388",
+    "rejected_title": "Altered brain functional connectivity induced by physical exercise may improve neuropsychological functions in patients with benign epilepsy",
+    "seed_pmid": "29629540",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b27a679fdb55aa5ebf3c3cd"
+      ],
+      "rejected": [
+        "5b27a679fdb55aa5ebf3c3cd"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "1e722d69de172538bfad0fb93cc5dce832bc84b095df83a7df78b5e5dcd9636f",
+    "chosen_doi": "https://doi.org/10.3109/0284186x.2013.812798",
+    "chosen_pmid": "24047337",
+    "chosen_title": "Stability of FDG-PET Radiomics features: An integrated analysis of test-retest and inter-observer variability",
+    "entity_components": [
+      "29513054",
+      "24047337",
+      "27114353"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Stability of FDG-PET Radiomics features: An integrated analysis of test-retest and inter-observer variability\",\"paper_titles\":[\"Stability of FDG-PET Radiomics features: An integrated analysis of test-retest and inter-observer variability\"],\"dois\":[\"https://doi.org/10.3109/0284186x.2013.812798\"]}",
+        "rejected": "{\"answer\":\"Inter-observer Variability Analysis of Automatic Lung Delineation in Normal and Disease Patients\",\"paper_titles\":[\"Inter-observer Variability Analysis of Automatic Lung Delineation in Normal and Disease Patients\"],\"dois\":[\"https://doi.org/10.1007/s10916-016-0504-7\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Stability of FDG-PET Radiomics features: An integrated analysis of test-retest and inter-observer variability (https://doi.org/10.3109/0284186x.2013.812798)",
+        "rejected": "Related paper: Inter-observer Variability Analysis of Automatic Lung Delineation in Normal and Disease Patients (https://doi.org/10.1007/s10916-016-0504-7)"
+      },
+      "title": {
+        "chosen": "Stability of FDG-PET Radiomics features: An integrated analysis of test-retest and inter-observer variability",
+        "rejected": "Inter-observer Variability Analysis of Automatic Lung Delineation in Normal and Disease Patients"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Influence of inter-observer delineation variability on radiomics stability in different tumor sites",
+    "query_title": "Influence of inter-observer delineation variability on radiomics stability in different tumor sites",
+    "rejected_doi": "https://doi.org/10.1007/s10916-016-0504-7",
+    "rejected_pmid": "27114353",
+    "rejected_title": "Inter-observer Variability Analysis of Automatic Lung Delineation in Normal and Disease Patients",
+    "seed_pmid": "29513054",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0e3750fdb55a160675770f"
+      ],
+      "rejected": [
+        "5b0e3750fdb55a160675770f"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  }
+]

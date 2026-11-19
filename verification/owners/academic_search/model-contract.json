@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "family": "ACADEMIC_SEARCH",
+  "child": "ACADEMIC_SEARCH_GENERAL",
+  "class": "judgment",
+  "formats": ["title", "json", "prose"],
+  "source_scope": "human article-relevance labels with AI-assisted title visibility review, not universal factual proof",
+  "independent_originals": {"train": 128, "validation": 32, "audit": 64},
+  "hyperparameters": {"max_length": 256, "lora_rank": 8, "lora_alpha": 32, "batch_size": 1, "grad_accum": 16, "epochs": 3, "seed": 42, "eval_batch": 1},
+  "selection": {"split": "validation", "metric": "val_loss", "direction": "min", "tie": "earlier_epoch", "audit_after_selection": true},
+  "quality": {"minimum_accuracy": 0.80, "minimum_per_label": 0.70, "minimum_untrained_gain": 0.05, "minimum_shortcut_gain": 0.10, "maximum_shortcut_accuracy": 0.65},
+  "maximum_workflow_minutes": 350,
+  "foundation_sha256": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "engine_sha256": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "status": "COMPLETE_BOUNDED_CPU_PIPELINE_PREPARED_REMOTE_UNVERIFIED"
+}

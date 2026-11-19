@@ -1,0 +1,6 @@
+{
+  "audit_scored": false,
+  "fit_split": "train",
+  "frozen_baselines_sha256": "4bcac8dc59866c63d52ebdbc4a86d44163581f1ea627bb157d16823f359c7ff3",
+  "training_sha256": "b4c0657384ddb5d6da264b4e631467b01a9768a70bcfde390baef8696d6e05ab"
+}

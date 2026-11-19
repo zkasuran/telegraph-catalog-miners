@@ -1,0 +1,2822 @@
+[
+  {
+    "block_id": "ecc2f3d602ef3924f74ee111c1da87d8cdb61be7c08a235201746185686c316e",
+    "chosen_doi": "https://doi.org/10.1111/bjh.14757",
+    "chosen_pmid": "28508413",
+    "chosen_title": "Serological weak D phenotypes: a review and guidance for interpreting the RhD blood type using the RHD genotype",
+    "entity_components": [
+      "17053462",
+      "28508413",
+      "21309779"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Serological weak D phenotypes: a review and guidance for interpreting the RhD blood type using the RHD genotype\",\"paper_titles\":[\"Serological weak D phenotypes: a review and guidance for interpreting the RhD blood type using the RHD genotype\"],\"dois\":[\"https://doi.org/10.1111/bjh.14757\"]}",
+        "rejected": "{\"answer\":\"Characterization of Jk(a+weak): a new blood group phenotype associated with an altered JK*01 allele\",\"paper_titles\":[\"Characterization of Jk(a+weak): a new blood group phenotype associated with an altered JK*01 allele\"],\"dois\":[\"https://doi.org/10.1111/j.1537-2995.2010.02795.x\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Serological weak D phenotypes: a review and guidance for interpreting the RhD blood type using the RHD genotype (https://doi.org/10.1111/bjh.14757)",
+        "rejected": "Related paper: Characterization of Jk(a+weak): a new blood group phenotype associated with an altered JK*01 allele (https://doi.org/10.1111/j.1537-2995.2010.02795.x)"
+      },
+      "title": {
+        "chosen": "Serological weak D phenotypes: a review and guidance for interpreting the RhD blood type using the RHD genotype",
+        "rejected": "Characterization of Jk(a+weak): a new blood group phenotype associated with an altered JK*01 allele"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "How I manage donors and patients with a weak D phenotype",
+    "query_title": "How I manage donors and patients with a weak D phenotype",
+    "rejected_doi": "https://doi.org/10.1111/j.1537-2995.2010.02795.x",
+    "rejected_pmid": "21309779",
+    "rejected_title": "Characterization of Jk(a+weak): a new blood group phenotype associated with an altered JK*01 allele",
+    "seed_pmid": "17053462",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1c6dcdfdb55a8d26a68b9b"
+      ],
+      "rejected": [
+        "5b1c6dcdfdb55a8d26a68b9b"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "2b3c5a2c804e92e25d7b00d9435b569e7b057c3d6a2b9b2e662fbba59388793f",
+    "chosen_doi": "https://doi.org/10.1136/thx.2008.110940",
+    "chosen_pmid": "19770168",
+    "chosen_title": "Simplified cell culture method for the diagnosis of atypical primary ciliary dyskinesia",
+    "entity_components": [
+      "21125367",
+      "19770168",
+      "22184204"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Simplified cell culture method for the diagnosis of atypical primary ciliary dyskinesia\",\"paper_titles\":[\"Simplified cell culture method for the diagnosis of atypical primary ciliary dyskinesia\"],\"dois\":[\"https://doi.org/10.1136/thx.2008.110940\"]}",
+        "rejected": "{\"answer\":\"Mutations of DNAH11 in patients with primary ciliary dyskinesia with normal ciliary ultrastructure\",\"paper_titles\":[\"Mutations of DNAH11 in patients with primary ciliary dyskinesia with normal ciliary ultrastructure\"],\"dois\":[\"https://doi.org/10.1136/thoraxjnl-2011-200301\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Simplified cell culture method for the diagnosis of atypical primary ciliary dyskinesia (https://doi.org/10.1136/thx.2008.110940)",
+        "rejected": "Related paper: Mutations of DNAH11 in patients with primary ciliary dyskinesia with normal ciliary ultrastructure (https://doi.org/10.1136/thoraxjnl-2011-200301)"
+      },
+      "title": {
+        "chosen": "Simplified cell culture method for the diagnosis of atypical primary ciliary dyskinesia",
+        "rejected": "Mutations of DNAH11 in patients with primary ciliary dyskinesia with normal ciliary ultrastructure"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "In vitro culturing of ciliary respiratory cells\u2014a model for studies of genetic diseases",
+    "query_title": "In vitro culturing of ciliary respiratory cells\u2014a model for studies of genetic diseases",
+    "rejected_doi": "https://doi.org/10.1136/thoraxjnl-2011-200301",
+    "rejected_pmid": "22184204",
+    "rejected_title": "Mutations of DNAH11 in patients with primary ciliary dyskinesia with normal ciliary ultrastructure",
+    "seed_pmid": "21125367",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b23ff3ffdb55a8d26a68e16"
+      ],
+      "rejected": [
+        "5b23ff3ffdb55a8d26a68e16"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "f86463f167bac53d6c5338b0e91130283392829fb6075d4e3bc87316c2b5b857",
+    "chosen_doi": "https://doi.org/10.1038/srep03776",
+    "chosen_pmid": "24441075",
+    "chosen_title": "Discovery of a Structural-Element Specific G-Quadruplex \u201cLight-Up\u201d Probe",
+    "entity_components": [
+      "27956241",
+      "24441075",
+      "25890703"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Discovery of a Structural-Element Specific G-Quadruplex \u201cLight-Up\u201d Probe\",\"paper_titles\":[\"Discovery of a Structural-Element Specific G-Quadruplex \u201cLight-Up\u201d Probe\"],\"dois\":[\"https://doi.org/10.1038/srep03776\"]}",
+        "rejected": "{\"answer\":\"Organelle specific imaging in live cells and immuno-labeling using resonance Raman probe\",\"paper_titles\":[\"Organelle specific imaging in live cells and immuno-labeling using resonance Raman probe\"],\"dois\":[\"https://doi.org/10.1016/j.biomaterials.2015.02.056\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Discovery of a Structural-Element Specific G-Quadruplex \u201cLight-Up\u201d Probe (https://doi.org/10.1038/srep03776)",
+        "rejected": "Related paper: Organelle specific imaging in live cells and immuno-labeling using resonance Raman probe (https://doi.org/10.1016/j.biomaterials.2015.02.056)"
+      },
+      "title": {
+        "chosen": "Discovery of a Structural-Element Specific G-Quadruplex \u201cLight-Up\u201d Probe",
+        "rejected": "Organelle specific imaging in live cells and immuno-labeling using resonance Raman probe"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Real-time and quantitative fluorescent live-cell imaging with quadruplex-specific red-edge probe (G4-REP)",
+    "query_title": "Real-time and quantitative fluorescent live-cell imaging with quadruplex-specific red-edge probe (G4-REP)",
+    "rejected_doi": "https://doi.org/10.1016/j.biomaterials.2015.02.056",
+    "rejected_pmid": "25890703",
+    "rejected_title": "Organelle specific imaging in live cells and immuno-labeling using resonance Raman probe",
+    "seed_pmid": "27956241",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0de857fdb55a16067576e2"
+      ],
+      "rejected": [
+        "5b0de857fdb55a16067576e2"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "bf0e7009dd075a7b48d713d3d2541fad7d9fb9f3b52615ffd651c32ebad403d1",
+    "chosen_doi": "https://doi.org/10.1016/j.jvoice.2008.09.006",
+    "chosen_pmid": "19487102",
+    "chosen_title": "Use of Lasers in Laryngeal Surgery",
+    "entity_components": [
+      "28714430",
+      "19487102",
+      "24934381"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Use of Lasers in Laryngeal Surgery\",\"paper_titles\":[\"Use of Lasers in Laryngeal Surgery\"],\"dois\":[\"https://doi.org/10.1016/j.jvoice.2008.09.006\"]}",
+        "rejected": "{\"answer\":\"Development of a standardized laparoscopic caecum resection model to simulate laparoscopic appendectomy in rats\",\"paper_titles\":[\"Development of a standardized laparoscopic caecum resection model to simulate laparoscopic appendectomy in rats\"],\"dois\":[\"https://doi.org/10.1186/2047-783x-19-33\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Use of Lasers in Laryngeal Surgery (https://doi.org/10.1016/j.jvoice.2008.09.006)",
+        "rejected": "Related paper: Development of a standardized laparoscopic caecum resection model to simulate laparoscopic appendectomy in rats (https://doi.org/10.1186/2047-783x-19-33)"
+      },
+      "title": {
+        "chosen": "Use of Lasers in Laryngeal Surgery",
+        "rejected": "Development of a standardized laparoscopic caecum resection model to simulate laparoscopic appendectomy in rats"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Laparoscopic instrument use in laryngeal surgery: transoral resection of a supraglottic haemangioma",
+    "query_title": "Laparoscopic instrument use in laryngeal surgery: transoral resection of a supraglottic haemangioma",
+    "rejected_doi": "https://doi.org/10.1186/2047-783x-19-33",
+    "rejected_pmid": "24934381",
+    "rejected_title": "Development of a standardized laparoscopic caecum resection model to simulate laparoscopic appendectomy in rats",
+    "seed_pmid": "28714430",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2c1479fdb55aa5ebf3c40e"
+      ],
+      "rejected": [
+        "5b2c1479fdb55aa5ebf3c40e"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "8fec3409722204a2060907d7cfac4f9e4667ffe36e2d888934c2ec091bb411ba",
+    "chosen_doi": "https://doi.org/10.1002/14651858.cd011472.pub2",
+    "chosen_pmid": "26758499",
+    "chosen_title": "Dietary fibre for the primary prevention of cardiovascular disease",
+    "entity_components": [
+      "28836672",
+      "26758499",
+      "21249663"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Dietary fibre for the primary prevention of cardiovascular disease\",\"paper_titles\":[\"Dietary fibre for the primary prevention of cardiovascular disease\"],\"dois\":[\"https://doi.org/10.1002/14651858.cd011472.pub2\"]}",
+        "rejected": "{\"answer\":\"Statins for the primary prevention of cardiovascular disease\",\"paper_titles\":[\"Statins for the primary prevention of cardiovascular disease\"],\"dois\":[\"https://doi.org/10.1002/14651858.cd004816.pub4\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Dietary fibre for the primary prevention of cardiovascular disease (https://doi.org/10.1002/14651858.cd011472.pub2)",
+        "rejected": "Related paper: Statins for the primary prevention of cardiovascular disease (https://doi.org/10.1002/14651858.cd004816.pub4)"
+      },
+      "title": {
+        "chosen": "Dietary fibre for the primary prevention of cardiovascular disease",
+        "rejected": "Statins for the primary prevention of cardiovascular disease"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Whole grain cereals for the primary or secondary prevention of cardiovascular disease",
+    "query_title": "Whole grain cereals for the primary or secondary prevention of cardiovascular disease",
+    "rejected_doi": "https://doi.org/10.1002/14651858.cd004816.pub4",
+    "rejected_pmid": "21249663",
+    "rejected_title": "Statins for the primary prevention of cardiovascular disease",
+    "seed_pmid": "28836672",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0e759bfdb55a160675773d"
+      ],
+      "rejected": [
+        "5b0e759bfdb55a160675773d"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "37dfa3b1d8da24ec25a47e67dbbd148afab9665c91ea6678a6bfcb9eaccd3b07",
+    "chosen_doi": "https://doi.org/10.1007/s13524-016-0464-z",
+    "chosen_pmid": "27001314",
+    "chosen_title": "Women\u2019s Work Pathways Across the Life Course",
+    "entity_components": [
+      "29276304",
+      "27001314",
+      "27450589"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Women\u2019s Work Pathways Across the Life Course\",\"paper_titles\":[\"Women\u2019s Work Pathways Across the Life Course\"],\"dois\":[\"https://doi.org/10.1007/s13524-016-0464-z\"]}",
+        "rejected": "{\"answer\":\"Women's preferences and knowledge about the legal competences of midwives in Brussels, Belgium. A descriptive observational study\",\"paper_titles\":[\"Women's preferences and knowledge about the legal competences of midwives in Brussels, Belgium. A descriptive observational study\"],\"dois\":[\"https://doi.org/10.1016/j.midw.2016.07.002\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Women\u2019s Work Pathways Across the Life Course (https://doi.org/10.1007/s13524-016-0464-z)",
+        "rejected": "Related paper: Women's preferences and knowledge about the legal competences of midwives in Brussels, Belgium. A descriptive observational study (https://doi.org/10.1016/j.midw.2016.07.002)"
+      },
+      "title": {
+        "chosen": "Women\u2019s Work Pathways Across the Life Course",
+        "rejected": "Women's preferences and knowledge about the legal competences of midwives in Brussels, Belgium. A descriptive observational study"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Women\u2019s employment patterns after childbirth and the perceived access to and use of flexitime and teleworking",
+    "query_title": "Women\u2019s employment patterns after childbirth and the perceived access to and use of flexitime and teleworking",
+    "rejected_doi": "https://doi.org/10.1016/j.midw.2016.07.002",
+    "rejected_pmid": "27450589",
+    "rejected_title": "Women's preferences and knowledge about the legal competences of midwives in Brussels, Belgium. A descriptive observational study",
+    "seed_pmid": "29276304",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1a4582fdb55a8d26a68afe"
+      ],
+      "rejected": [
+        "5b1a4582fdb55a8d26a68afe"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "6ffeb57159807f3ee7186e07f7b83c98c15470173269fc07adf4f402ce6b1820",
+    "chosen_doi": "https://doi.org/10.1016/j.virol.2016.03.019",
+    "chosen_pmid": "27043071",
+    "chosen_title": "Sensitivity of African swine fever virus to type I interferon is linked to genes within multigene families 360 and 505",
+    "entity_components": [
+      "27182007",
+      "27043071",
+      "18199647"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Sensitivity of African swine fever virus to type I interferon is linked to genes within multigene families 360 and 505\",\"paper_titles\":[\"Sensitivity of African swine fever virus to type I interferon is linked to genes within multigene families 360 and 505\"],\"dois\":[\"https://doi.org/10.1016/j.virol.2016.03.019\"]}",
+        "rejected": "{\"answer\":\"Rift Valley Fever Virus Lacking the NSs and NSm Genes Is Highly Attenuated, Confers Protective Immunity from Virulent Virus Challenge, and Allows for Differential Identification of Infected and Vaccinated Animals\",\"paper_titles\":[\"Rift Valley Fever Virus Lacking the NSs and NSm Genes Is Highly Attenuated, Confers Protective Immunity from Virulent Virus Challenge, and Allows for Differential Identification of Infected and Vaccinated Animals\"],\"dois\":[\"https://doi.org/10.1128/jvi.02501-07\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Sensitivity of African swine fever virus to type I interferon is linked to genes within multigene families 360 and 505 (https://doi.org/10.1016/j.virol.2016.03.019)",
+        "rejected": "Related paper: Rift Valley Fever Virus Lacking the NSs and NSm Genes Is Highly Attenuated, Confers Protective Immunity from Virulent Virus Challenge, and Allows for Differential Identification of Infected and Vaccinated Animals (https://doi.org/10.1128/jvi.02501-07)"
+      },
+      "title": {
+        "chosen": "Sensitivity of African swine fever virus to type I interferon is linked to genes within multigene families 360 and 505",
+        "rejected": "Rift Valley Fever Virus Lacking the NSs and NSm Genes Is Highly Attenuated, Confers Protective Immunity from Virulent Virus Challenge, and Allows for Differential Identification of Infected and Vaccinated Animals"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "African swine fever virus Georgia isolate harboring deletions of 9GL and MGF360/505 genes is highly attenuated in swine but does not confer protection against parental virus challenge",
+    "query_title": "African swine fever virus Georgia isolate harboring deletions of 9GL and MGF360/505 genes is highly attenuated in swine but does not confer protection against parental virus challenge",
+    "rejected_doi": "https://doi.org/10.1128/jvi.02501-07",
+    "rejected_pmid": "18199647",
+    "rejected_title": "Rift Valley Fever Virus Lacking the NSs and NSm Genes Is Highly Attenuated, Confers Protective Immunity from Virulent Virus Challenge, and Allows for Differential Identification of Infected and Vaccinated Animals",
+    "seed_pmid": "27182007",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b153df5fdb55a8d26a68719",
+        "5b154e60fdb55a8d26a68745"
+      ],
+      "rejected": [
+        "5b153df5fdb55a8d26a68719",
+        "5b154e60fdb55a8d26a68745"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "96f3a4027343cb01a5ce352768a43463f8cfa348ffca065d5edb0394d0aa6ea7",
+    "chosen_doi": "https://doi.org/10.1007/s11920-017-0775-9",
+    "chosen_pmid": "28349316",
+    "chosen_title": "Cannabis, Cannabinoids, and Sleep: a Review of the Literature",
+    "entity_components": [
+      "29419734",
+      "28349316",
+      "27706838"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Cannabis, Cannabinoids, and Sleep: a Review of the Literature\",\"paper_titles\":[\"Cannabis, Cannabinoids, and Sleep: a Review of the Literature\"],\"dois\":[\"https://doi.org/10.1007/s11920-017-0775-9\"]}",
+        "rejected": "{\"answer\":\"Alcohol Dependence and Its Relationship With Insomnia and Other Sleep Disorders\",\"paper_titles\":[\"Alcohol Dependence and Its Relationship With Insomnia and Other Sleep Disorders\"],\"dois\":[\"https://doi.org/10.1111/acer.13217\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Cannabis, Cannabinoids, and Sleep: a Review of the Literature (https://doi.org/10.1007/s11920-017-0775-9)",
+        "rejected": "Related paper: Alcohol Dependence and Its Relationship With Insomnia and Other Sleep Disorders (https://doi.org/10.1111/acer.13217)"
+      },
+      "title": {
+        "chosen": "Cannabis, Cannabinoids, and Sleep: a Review of the Literature",
+        "rejected": "Alcohol Dependence and Its Relationship With Insomnia and Other Sleep Disorders"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Exploring Interventions for Sleep Disorders in Adolescent Cannabis Users",
+    "query_title": "Exploring Interventions for Sleep Disorders in Adolescent Cannabis Users",
+    "rejected_doi": "https://doi.org/10.1111/acer.13217",
+    "rejected_pmid": "27706838",
+    "rejected_title": "Alcohol Dependence and Its Relationship With Insomnia and Other Sleep Disorders",
+    "seed_pmid": "29419734",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1570b7fdb55a8d26a6878c"
+      ],
+      "rejected": [
+        "5b1570b7fdb55a8d26a6878c"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "71b91b0d5d31fc1183938eb1ef080fcb3a15b29d4f73ea48c5001310d416f0c8",
+    "chosen_doi": "https://doi.org/10.3892/ol.2016.5191",
+    "chosen_pmid": "27895764",
+    "chosen_title": "Mitofusin-2 prevents skeletal muscle wasting in cancer cachexia",
+    "entity_components": [
+      "29682162",
+      "27895764",
+      "29155423"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Mitofusin-2 prevents skeletal muscle wasting in cancer cachexia\",\"paper_titles\":[\"Mitofusin-2 prevents skeletal muscle wasting in cancer cachexia\"],\"dois\":[\"https://doi.org/10.3892/ol.2016.5191\"]}",
+        "rejected": "{\"answer\":\"Experimental models of pancreatic cancer desmoplasia\",\"paper_titles\":[\"Experimental models of pancreatic cancer desmoplasia\"],\"dois\":[\"https://doi.org/10.1038/labinvest.2017.127\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Mitofusin-2 prevents skeletal muscle wasting in cancer cachexia (https://doi.org/10.3892/ol.2016.5191)",
+        "rejected": "Related paper: Experimental models of pancreatic cancer desmoplasia (https://doi.org/10.1038/labinvest.2017.127)"
+      },
+      "title": {
+        "chosen": "Mitofusin-2 prevents skeletal muscle wasting in cancer cachexia",
+        "rejected": "Experimental models of pancreatic cancer desmoplasia"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Metabolic Alterations in a Slow\u2010Paced Model of Pancreatic Cancer\u2010Induced Wasting",
+    "query_title": "Metabolic Alterations in a Slow\u2010Paced Model of Pancreatic Cancer\u2010Induced Wasting",
+    "rejected_doi": "https://doi.org/10.1038/labinvest.2017.127",
+    "rejected_pmid": "29155423",
+    "rejected_title": "Experimental models of pancreatic cancer desmoplasia",
+    "seed_pmid": "29682162",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b16a6a8fdb55a8d26a688f9"
+      ],
+      "rejected": [
+        "5b16a6a8fdb55a8d26a688f9"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "2ea4226124d8efc9b834c4a5b8679b39856c95a693175fdc65a3ba82419e9802",
+    "chosen_doi": "https://doi.org/10.1007/s12253-016-0105-2",
+    "chosen_pmid": "27595756",
+    "chosen_title": "Estrogen Receptors in Regulating Cell Proliferation of Esophageal Squamous Cell Carcinoma: Involvement of Intracellular Ca2+ Signaling",
+    "entity_components": [
+      "23163347",
+      "27595756",
+      "29434967"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Estrogen Receptors in Regulating Cell Proliferation of Esophageal Squamous Cell Carcinoma: Involvement of Intracellular Ca2+ Signaling\",\"paper_titles\":[\"Estrogen Receptors in Regulating Cell Proliferation of Esophageal Squamous Cell Carcinoma: Involvement of Intracellular Ca2+ Signaling\"],\"dois\":[\"https://doi.org/10.1007/s12253-016-0105-2\"]}",
+        "rejected": "{\"answer\":\"Celastrol suppresses the proliferation of lung adenocarcinoma cells by regulating microRNA-24 and microRNA-181b\",\"paper_titles\":[\"Celastrol suppresses the proliferation of lung adenocarcinoma cells by regulating microRNA-24 and microRNA-181b\"],\"dois\":[\"https://doi.org/10.3892/ol.2017.7593\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Estrogen Receptors in Regulating Cell Proliferation of Esophageal Squamous Cell Carcinoma: Involvement of Intracellular Ca2+ Signaling (https://doi.org/10.1007/s12253-016-0105-2)",
+        "rejected": "Related paper: Celastrol suppresses the proliferation of lung adenocarcinoma cells by regulating microRNA-24 and microRNA-181b (https://doi.org/10.3892/ol.2017.7593)"
+      },
+      "title": {
+        "chosen": "Estrogen Receptors in Regulating Cell Proliferation of Esophageal Squamous Cell Carcinoma: Involvement of Intracellular Ca2+ Signaling",
+        "rejected": "Celastrol suppresses the proliferation of lung adenocarcinoma cells by regulating microRNA-24 and microRNA-181b"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Effect of estrogen on growth and apoptosis in esophageal adenocarcinoma cells",
+    "query_title": "Effect of estrogen on growth and apoptosis in esophageal adenocarcinoma cells",
+    "rejected_doi": "https://doi.org/10.3892/ol.2017.7593",
+    "rejected_pmid": "29434967",
+    "rejected_title": "Celastrol suppresses the proliferation of lung adenocarcinoma cells by regulating microRNA-24 and microRNA-181b",
+    "seed_pmid": "23163347",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0ca083fdb55a48964ddad4"
+      ],
+      "rejected": [
+        "5b0ca083fdb55a48964ddad4"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "af07273454e0d8d62bf140246be0358820f01bbe944daabe8973e82807606917",
+    "chosen_doi": "https://doi.org/10.1021/ac503754k",
+    "chosen_pmid": "25594283",
+    "chosen_title": "Determining the Isomeric Heterogeneity of Neutral Oligosaccharide-Alditols of Bovine Submaxillary Mucin Using Negative Ion Traveling Wave Ion Mobility Mass Spectrometry",
+    "entity_components": [
+      "29508223",
+      "25594283",
+      "22971962"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Determining the Isomeric Heterogeneity of Neutral Oligosaccharide-Alditols of Bovine Submaxillary Mucin Using Negative Ion Traveling Wave Ion Mobility Mass Spectrometry\",\"paper_titles\":[\"Determining the Isomeric Heterogeneity of Neutral Oligosaccharide-Alditols of Bovine Submaxillary Mucin Using Negative Ion Traveling Wave Ion Mobility Mass Spectrometry\"],\"dois\":[\"https://doi.org/10.1021/ac503754k\"]}",
+        "rejected": "{\"answer\":\"Corrole isomers: intrinsic gas-phase shapes via traveling wave ion mobility mass spectrometry and dissociation chemistries via tandem mass spectrometry\",\"paper_titles\":[\"Corrole isomers: intrinsic gas-phase shapes via traveling wave ion mobility mass spectrometry and dissociation chemistries via tandem mass spectrometry\"],\"dois\":[\"https://doi.org/10.1039/c2ob26209f\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Determining the Isomeric Heterogeneity of Neutral Oligosaccharide-Alditols of Bovine Submaxillary Mucin Using Negative Ion Traveling Wave Ion Mobility Mass Spectrometry (https://doi.org/10.1021/ac503754k)",
+        "rejected": "Related paper: Corrole isomers: intrinsic gas-phase shapes via traveling wave ion mobility mass spectrometry and dissociation chemistries via tandem mass spectrometry (https://doi.org/10.1039/c2ob26209f)"
+      },
+      "title": {
+        "chosen": "Determining the Isomeric Heterogeneity of Neutral Oligosaccharide-Alditols of Bovine Submaxillary Mucin Using Negative Ion Traveling Wave Ion Mobility Mass Spectrometry",
+        "rejected": "Corrole isomers: intrinsic gas-phase shapes via traveling wave ion mobility mass spectrometry and dissociation chemistries via tandem mass spectrometry"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Isomer Information from Ion Mobility Separation of High-Mannose Glycan Fragments",
+    "query_title": "Isomer Information from Ion Mobility Separation of High-Mannose Glycan Fragments",
+    "rejected_doi": "https://doi.org/10.1039/c2ob26209f",
+    "rejected_pmid": "22971962",
+    "rejected_title": "Corrole isomers: intrinsic gas-phase shapes via traveling wave ion mobility mass spectrometry and dissociation chemistries via tandem mass spectrometry",
+    "seed_pmid": "29508223",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b16e41efdb55a8d26a68922"
+      ],
+      "rejected": [
+        "5b16e41efdb55a8d26a68922"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d3bf21049f125e84a09075a69e1d690cd2a9d1b84220b763d7d5bdcfe94a8142",
+    "chosen_doi": "https://doi.org/10.1364/boe.7.004364",
+    "chosen_pmid": "27895979",
+    "chosen_title": "Optical redox ratio identifies metastatic potential-dependent changes in breast cancer cell metabolism",
+    "entity_components": [
+      "28622395",
+      "27895979",
+      "25887043"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Optical redox ratio identifies metastatic potential-dependent changes in breast cancer cell metabolism\",\"paper_titles\":[\"Optical redox ratio identifies metastatic potential-dependent changes in breast cancer cell metabolism\"],\"dois\":[\"https://doi.org/10.1364/boe.7.004364\"]}",
+        "rejected": "{\"answer\":\"Radio-sensitization effect of an mTOR inhibitor, temsirolimus, on lung adenocarcinoma A549 cells under normoxic and hypoxic conditions\",\"paper_titles\":[\"Radio-sensitization effect of an mTOR inhibitor, temsirolimus, on lung adenocarcinoma A549 cells under normoxic and hypoxic conditions\"],\"dois\":[\"https://doi.org/10.1093/jrr/rrv021\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Optical redox ratio identifies metastatic potential-dependent changes in breast cancer cell metabolism (https://doi.org/10.1364/boe.7.004364)",
+        "rejected": "Related paper: Radio-sensitization effect of an mTOR inhibitor, temsirolimus, on lung adenocarcinoma A549 cells under normoxic and hypoxic conditions (https://doi.org/10.1093/jrr/rrv021)"
+      },
+      "title": {
+        "chosen": "Optical redox ratio identifies metastatic potential-dependent changes in breast cancer cell metabolism",
+        "rejected": "Radio-sensitization effect of an mTOR inhibitor, temsirolimus, on lung adenocarcinoma A549 cells under normoxic and hypoxic conditions"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Optical imaging of radiation-induced metabolic changes in radiation-sensitive and resistant cancer cells",
+    "query_title": "Optical imaging of radiation-induced metabolic changes in radiation-sensitive and resistant cancer cells",
+    "rejected_doi": "https://doi.org/10.1093/jrr/rrv021",
+    "rejected_pmid": "25887043",
+    "rejected_title": "Radio-sensitization effect of an mTOR inhibitor, temsirolimus, on lung adenocarcinoma A549 cells under normoxic and hypoxic conditions",
+    "seed_pmid": "28622395",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1951a7fdb55a8d26a68a96"
+      ],
+      "rejected": [
+        "5b1951a7fdb55a8d26a68a96"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "52a35d77d18e91ade673ae3a49aa74ccc56e40aef75ef366f17e8b5dca20413c",
+    "chosen_doi": "https://doi.org/10.1186/1471-2407-14-464",
+    "chosen_pmid": "24957478",
+    "chosen_title": "Outcomes after stereotactic body radiotherapy for lung tumors, with emphasis on comparison of primary lung cancer and metastatic lung tumors",
+    "entity_components": [
+      "26385265",
+      "24957478",
+      "28517305"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Outcomes after stereotactic body radiotherapy for lung tumors, with emphasis on comparison of primary lung cancer and metastatic lung tumors\",\"paper_titles\":[\"Outcomes after stereotactic body radiotherapy for lung tumors, with emphasis on comparison of primary lung cancer and metastatic lung tumors\"],\"dois\":[\"https://doi.org/10.1186/1471-2407-14-464\"]}",
+        "rejected": "{\"answer\":\"SU\u2010E\u2010T\u2010254: Quantitative Evaluation of Three Mathematical Models for Radiation\u2010Induced Secondary Cancer Risk for Lung in Stereotactic Body Radiotherapy\",\"paper_titles\":[\"SU\u2010E\u2010T\u2010254: Quantitative Evaluation of Three Mathematical Models for Radiation\u2010Induced Secondary Cancer Risk for Lung in Stereotactic Body Radiotherapy\"],\"dois\":[\"https://doi.org/10.1118/1.4735321\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Outcomes after stereotactic body radiotherapy for lung tumors, with emphasis on comparison of primary lung cancer and metastatic lung tumors (https://doi.org/10.1186/1471-2407-14-464)",
+        "rejected": "Related paper: SU\u2010E\u2010T\u2010254: Quantitative Evaluation of Three Mathematical Models for Radiation\u2010Induced Secondary Cancer Risk for Lung in Stereotactic Body Radiotherapy (https://doi.org/10.1118/1.4735321)"
+      },
+      "title": {
+        "chosen": "Outcomes after stereotactic body radiotherapy for lung tumors, with emphasis on comparison of primary lung cancer and metastatic lung tumors",
+        "rejected": "SU\u2010E\u2010T\u2010254: Quantitative Evaluation of Three Mathematical Models for Radiation\u2010Induced Secondary Cancer Risk for Lung in Stereotactic Body Radiotherapy"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Local tumor control probability modeling of primary and secondary lung tumors in stereotactic body radiotherapy",
+    "query_title": "Local tumor control probability modeling of primary and secondary lung tumors in stereotactic body radiotherapy",
+    "rejected_doi": "https://doi.org/10.1118/1.4735321",
+    "rejected_pmid": "28517305",
+    "rejected_title": "SU\u2010E\u2010T\u2010254: Quantitative Evaluation of Three Mathematical Models for Radiation\u2010Induced Secondary Cancer Risk for Lung in Stereotactic Body Radiotherapy",
+    "seed_pmid": "26385265",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b140b41fdb55a4a783f6394"
+      ],
+      "rejected": [
+        "5b140b41fdb55a4a783f6394"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "fa995066c285b1a6346c04836b1ad781be3b858f9a833983467e2f5697624356",
+    "chosen_doi": "https://doi.org/10.1093/cercor/bhx268",
+    "chosen_pmid": "29059288",
+    "chosen_title": "Neural Encoding and Decoding with Deep Learning for Dynamic Natural Vision",
+    "entity_components": [
+      "29513219",
+      "29059288",
+      "26138610"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Neural Encoding and Decoding with Deep Learning for Dynamic Natural Vision\",\"paper_titles\":[\"Neural Encoding and Decoding with Deep Learning for Dynamic Natural Vision\"],\"dois\":[\"https://doi.org/10.1093/cercor/bhx268\"]}",
+        "rejected": "{\"answer\":\"A topographical organization for action representation in the human brain\",\"paper_titles\":[\"A topographical organization for action representation in the human brain\"],\"dois\":[\"https://doi.org/10.1002/hbm.22881\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Neural Encoding and Decoding with Deep Learning for Dynamic Natural Vision (https://doi.org/10.1093/cercor/bhx268)",
+        "rejected": "Related paper: A topographical organization for action representation in the human brain (https://doi.org/10.1002/hbm.22881)"
+      },
+      "title": {
+        "chosen": "Neural Encoding and Decoding with Deep Learning for Dynamic Natural Vision",
+        "rejected": "A topographical organization for action representation in the human brain"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Distinct contributions of functional and deep neural network features to representational similarity of scenes in human brain and behavior",
+    "query_title": "Distinct contributions of functional and deep neural network features to representational similarity of scenes in human brain and behavior",
+    "rejected_doi": "https://doi.org/10.1002/hbm.22881",
+    "rejected_pmid": "26138610",
+    "rejected_title": "A topographical organization for action representation in the human brain",
+    "seed_pmid": "29513219",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b13e87efdb55a4a783f636e"
+      ],
+      "rejected": [
+        "5b13e87efdb55a4a783f636e"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "028676b13c9df75d47d256680da360e621190ebc5d200f12391ba43c60917b07",
+    "chosen_doi": "https://doi.org/10.7812/tpp/16-018",
+    "chosen_pmid": "28488990",
+    "chosen_title": "Patient and Practitioner Perspectives on Culturally Centered Integrated Care to Address Health Disparities in Primary Care",
+    "entity_components": [
+      "29548328",
+      "28488990",
+      "18237395"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Patient and Practitioner Perspectives on Culturally Centered Integrated Care to Address Health Disparities in Primary Care\",\"paper_titles\":[\"Patient and Practitioner Perspectives on Culturally Centered Integrated Care to Address Health Disparities in Primary Care\"],\"dois\":[\"https://doi.org/10.7812/tpp/16-018\"]}",
+        "rejected": "{\"answer\":\"A healthy mistrust: how worldview relates to attitudes about breast cancer screening in a cross-sectional survey of low-income women\",\"paper_titles\":[\"A healthy mistrust: how worldview relates to attitudes about breast cancer screening in a cross-sectional survey of low-income women\"],\"dois\":[\"https://doi.org/10.1186/1475-9276-7-5\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Patient and Practitioner Perspectives on Culturally Centered Integrated Care to Address Health Disparities in Primary Care (https://doi.org/10.7812/tpp/16-018)",
+        "rejected": "Related paper: A healthy mistrust: how worldview relates to attitudes about breast cancer screening in a cross-sectional survey of low-income women (https://doi.org/10.1186/1475-9276-7-5)"
+      },
+      "title": {
+        "chosen": "Patient and Practitioner Perspectives on Culturally Centered Integrated Care to Address Health Disparities in Primary Care",
+        "rejected": "A healthy mistrust: how worldview relates to attitudes about breast cancer screening in a cross-sectional survey of low-income women"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Racial and cultural minority experiences and perceptions of health care provision in a mid-western region",
+    "query_title": "Racial and cultural minority experiences and perceptions of health care provision in a mid-western region",
+    "rejected_doi": "https://doi.org/10.1186/1475-9276-7-5",
+    "rejected_pmid": "18237395",
+    "rejected_title": "A healthy mistrust: how worldview relates to attitudes about breast cancer screening in a cross-sectional survey of low-income women",
+    "seed_pmid": "29548328",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b131787fdb55a4a783f62cd"
+      ],
+      "rejected": [
+        "5b131787fdb55a4a783f62cd"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "eff4f89b0d0e2ff2b1c8655b7de411969fb2d94921a0a52bb71847467a7b0390",
+    "chosen_doi": "https://doi.org/10.1016/j.mimet.2010.10.020",
+    "chosen_pmid": "21047533",
+    "chosen_title": "Evaluation of different partial 16S rRNA gene sequence regions for phylogenetic analysis of microbiomes",
+    "entity_components": [
+      "20804791",
+      "21047533",
+      "19081723"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Evaluation of different partial 16S rRNA gene sequence regions for phylogenetic analysis of microbiomes\",\"paper_titles\":[\"Evaluation of different partial 16S rRNA gene sequence regions for phylogenetic analysis of microbiomes\"],\"dois\":[\"https://doi.org/10.1016/j.mimet.2010.10.020\"]}",
+        "rejected": "{\"answer\":\"The rpoB gene as a tool for clinical microbiologists\",\"paper_titles\":[\"The rpoB gene as a tool for clinical microbiologists\"],\"dois\":[\"https://doi.org/10.1016/j.tim.2008.09.008\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Evaluation of different partial 16S rRNA gene sequence regions for phylogenetic analysis of microbiomes (https://doi.org/10.1016/j.mimet.2010.10.020)",
+        "rejected": "Related paper: The rpoB gene as a tool for clinical microbiologists (https://doi.org/10.1016/j.tim.2008.09.008)"
+      },
+      "title": {
+        "chosen": "Evaluation of different partial 16S rRNA gene sequence regions for phylogenetic analysis of microbiomes",
+        "rejected": "The rpoB gene as a tool for clinical microbiologists"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "V-Xtractor: An open-source, high-throughput software tool to identify and extract hypervariable regions of small subunit (16 S/18 S) ribosomal RNA gene sequences",
+    "query_title": "V-Xtractor: An open-source, high-throughput software tool to identify and extract hypervariable regions of small subunit (16 S/18 S) ribosomal RNA gene sequences",
+    "rejected_doi": "https://doi.org/10.1016/j.tim.2008.09.008",
+    "rejected_pmid": "19081723",
+    "rejected_title": "The rpoB gene as a tool for clinical microbiologists",
+    "seed_pmid": "20804791",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b11e595fdb55a4a783f6247"
+      ],
+      "rejected": [
+        "5b11e595fdb55a4a783f6247"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a2c71f209e6f9d4a82bc38a50a53d234c4c23fcce00eac35af0455acee3d8663",
+    "chosen_doi": "https://doi.org/10.4238/2015.december.29.49",
+    "chosen_pmid": "26782592",
+    "chosen_title": "Direct preparation protocol to obtain mitotic chromosomes from canine mammary tumors",
+    "entity_components": [
+      "29482548",
+      "26782592",
+      "23056482"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Direct preparation protocol to obtain mitotic chromosomes from canine mammary tumors\",\"paper_titles\":[\"Direct preparation protocol to obtain mitotic chromosomes from canine mammary tumors\"],\"dois\":[\"https://doi.org/10.4238/2015.december.29.49\"]}",
+        "rejected": "{\"answer\":\"Characterization of Circadian Behavior in the Starlet Sea Anemone, Nematostella vectensis\",\"paper_titles\":[\"Characterization of Circadian Behavior in the Starlet Sea Anemone, Nematostella vectensis\"],\"dois\":[\"https://doi.org/10.1371/journal.pone.0046843\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Direct preparation protocol to obtain mitotic chromosomes from canine mammary tumors (https://doi.org/10.4238/2015.december.29.49)",
+        "rejected": "Related paper: Characterization of Circadian Behavior in the Starlet Sea Anemone, Nematostella vectensis (https://doi.org/10.1371/journal.pone.0046843)"
+      },
+      "title": {
+        "chosen": "Direct preparation protocol to obtain mitotic chromosomes from canine mammary tumors",
+        "rejected": "Characterization of Circadian Behavior in the Starlet Sea Anemone, Nematostella vectensis"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "An adaptable chromosome preparation methodology for use in invertebrate research organisms",
+    "query_title": "An adaptable chromosome preparation methodology for use in invertebrate research organisms",
+    "rejected_doi": "https://doi.org/10.1371/journal.pone.0046843",
+    "rejected_pmid": "23056482",
+    "rejected_title": "Characterization of Circadian Behavior in the Starlet Sea Anemone, Nematostella vectensis",
+    "seed_pmid": "29482548",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b115849fdb55a4a783f61fc"
+      ],
+      "rejected": [
+        "5b115849fdb55a4a783f61fc"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "db38bcc6771e106e0fc977c15d5c4f56eba5377e4f259ea0bd879237dda34d69",
+    "chosen_doi": "https://doi.org/10.1210/jc.2017-02287",
+    "chosen_pmid": "29474559",
+    "chosen_title": "Genomic Alterations and Complex Subclonal Architecture in Sporadic GH-Secreting Pituitary Adenomas",
+    "entity_components": [
+      "27707790",
+      "29474559",
+      "26857264"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Genomic Alterations and Complex Subclonal Architecture in Sporadic GH-Secreting Pituitary Adenomas\",\"paper_titles\":[\"Genomic Alterations and Complex Subclonal Architecture in Sporadic GH-Secreting Pituitary Adenomas\"],\"dois\":[\"https://doi.org/10.1210/jc.2017-02287\"]}",
+        "rejected": "{\"answer\":\"Genomic Landscape of Somatic Alterations in Esophageal Squamous Cell Carcinoma and Gastric Cancer\",\"paper_titles\":[\"Genomic Landscape of Somatic Alterations in Esophageal Squamous Cell Carcinoma and Gastric Cancer\"],\"dois\":[\"https://doi.org/10.1158/0008-5472.can-15-0338\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Genomic Alterations and Complex Subclonal Architecture in Sporadic GH-Secreting Pituitary Adenomas (https://doi.org/10.1210/jc.2017-02287)",
+        "rejected": "Related paper: Genomic Landscape of Somatic Alterations in Esophageal Squamous Cell Carcinoma and Gastric Cancer (https://doi.org/10.1158/0008-5472.can-15-0338)"
+      },
+      "title": {
+        "chosen": "Genomic Alterations and Complex Subclonal Architecture in Sporadic GH-Secreting Pituitary Adenomas",
+        "rejected": "Genomic Landscape of Somatic Alterations in Esophageal Squamous Cell Carcinoma and Gastric Cancer"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Landscape of Genomic Alterations in Pituitary Adenomas",
+    "query_title": "Landscape of Genomic Alterations in Pituitary Adenomas",
+    "rejected_doi": "https://doi.org/10.1158/0008-5472.can-15-0338",
+    "rejected_pmid": "26857264",
+    "rejected_title": "Genomic Landscape of Somatic Alterations in Esophageal Squamous Cell Carcinoma and Gastric Cancer",
+    "seed_pmid": "27707790",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5afa5ba4fdb55ab2ac8cdb49"
+      ],
+      "rejected": [
+        "5afa5ba4fdb55ab2ac8cdb49"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a78b4b4012d70471963335f4b3176202b54ce8a619ee8d86c9f6bcb7d4852368",
+    "chosen_doi": "https://doi.org/10.1161/circulationaha.116.022852",
+    "chosen_pmid": "27927712",
+    "chosen_title": "Nucleoside Diphosphate Kinase-C Suppresses cAMP Formation in Human Heart Failure",
+    "entity_components": [
+      "29360759",
+      "27927712",
+      "22634424"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Nucleoside Diphosphate Kinase-C Suppresses cAMP Formation in Human Heart Failure\",\"paper_titles\":[\"Nucleoside Diphosphate Kinase-C Suppresses cAMP Formation in Human Heart Failure\"],\"dois\":[\"https://doi.org/10.1161/circulationaha.116.022852\"]}",
+        "rejected": "{\"answer\":\"Aspergillus fumigatus calcineurin interacts with a nucleoside diphosphate kinase\",\"paper_titles\":[\"Aspergillus fumigatus calcineurin interacts with a nucleoside diphosphate kinase\"],\"dois\":[\"https://doi.org/10.1016/j.micinf.2012.05.003\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Nucleoside Diphosphate Kinase-C Suppresses cAMP Formation in Human Heart Failure (https://doi.org/10.1161/circulationaha.116.022852)",
+        "rejected": "Related paper: Aspergillus fumigatus calcineurin interacts with a nucleoside diphosphate kinase (https://doi.org/10.1016/j.micinf.2012.05.003)"
+      },
+      "title": {
+        "chosen": "Nucleoside Diphosphate Kinase-C Suppresses cAMP Formation in Human Heart Failure",
+        "rejected": "Aspergillus fumigatus calcineurin interacts with a nucleoside diphosphate kinase"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A Computational Approach for Understanding the Interactions between Graphene Oxide and Nucleoside Diphosphate Kinase with Implications for Heart Failure",
+    "query_title": "A Computational Approach for Understanding the Interactions between Graphene Oxide and Nucleoside Diphosphate Kinase with Implications for Heart Failure",
+    "rejected_doi": "https://doi.org/10.1016/j.micinf.2012.05.003",
+    "rejected_pmid": "22634424",
+    "rejected_title": "Aspergillus fumigatus calcineurin interacts with a nucleoside diphosphate kinase",
+    "seed_pmid": "29360759",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1564d6fdb55a8d26a6877a"
+      ],
+      "rejected": [
+        "5b1564d6fdb55a8d26a6877a"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "02ecf7e7301a8380d0e732dcb7d6120dab44e107ed2d0057ca393f7f9dfa049e",
+    "chosen_doi": "https://doi.org/10.1016/j.bbamcr.2015.11.030",
+    "chosen_pmid": "26643254",
+    "chosen_title": "The store-operated Ca 2+ entry-mediated signaling is important for cancer spread",
+    "entity_components": [
+      "29636894",
+      "26643254",
+      "24140083"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"The store-operated Ca 2+ entry-mediated signaling is important for cancer spread\",\"paper_titles\":[\"The store-operated Ca 2+ entry-mediated signaling is important for cancer spread\"],\"dois\":[\"https://doi.org/10.1016/j.bbamcr.2015.11.030\"]}",
+        "rejected": "{\"answer\":\"Targeting tumor\u2013stromal interactions in bone metastasis\",\"paper_titles\":[\"Targeting tumor\u2013stromal interactions in bone metastasis\"],\"dois\":[\"https://doi.org/10.1016/j.pharmthera.2013.10.006\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: The store-operated Ca 2+ entry-mediated signaling is important for cancer spread (https://doi.org/10.1016/j.bbamcr.2015.11.030)",
+        "rejected": "Related paper: Targeting tumor\u2013stromal interactions in bone metastasis (https://doi.org/10.1016/j.pharmthera.2013.10.006)"
+      },
+      "title": {
+        "chosen": "The store-operated Ca 2+ entry-mediated signaling is important for cancer spread",
+        "rejected": "Targeting tumor\u2013stromal interactions in bone metastasis"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A temporal examination of calcium signaling in cancer- from tumorigenesis, to immune evasion, and metastasis",
+    "query_title": "A temporal examination of calcium signaling in cancer- from tumorigenesis, to immune evasion, and metastasis",
+    "rejected_doi": "https://doi.org/10.1016/j.pharmthera.2013.10.006",
+    "rejected_pmid": "24140083",
+    "rejected_title": "Targeting tumor\u2013stromal interactions in bone metastasis",
+    "seed_pmid": "29636894",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1957b6fdb55a8d26a68aa0"
+      ],
+      "rejected": [
+        "5b1957b6fdb55a8d26a68aa0"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d853a2f12f7676bd6effef4d1e7382ac8371ef93b9f0fa4375f6bac29dda8e22",
+    "chosen_doi": "https://doi.org/10.1002/jbmr.70",
+    "chosen_pmid": "20200987",
+    "chosen_title": "Sclerostin and the regulation of bone formation: Effects in hip osteoarthritis and femoral neck fracture",
+    "entity_components": [
+      "28978523",
+      "20200987",
+      "21839072"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Sclerostin and the regulation of bone formation: Effects in hip osteoarthritis and femoral neck fracture\",\"paper_titles\":[\"Sclerostin and the regulation of bone formation: Effects in hip osteoarthritis and femoral neck fracture\"],\"dois\":[\"https://doi.org/10.1002/jbmr.70\"]}",
+        "rejected": "{\"answer\":\"Metformin prevents anti-osteogenic in vivo and ex vivo effects of rosiglitazone in rats\",\"paper_titles\":[\"Metformin prevents anti-osteogenic in vivo and ex vivo effects of rosiglitazone in rats\"],\"dois\":[\"https://doi.org/10.1016/j.ejphar.2011.07.033\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Sclerostin and the regulation of bone formation: Effects in hip osteoarthritis and femoral neck fracture (https://doi.org/10.1002/jbmr.70)",
+        "rejected": "Related paper: Metformin prevents anti-osteogenic in vivo and ex vivo effects of rosiglitazone in rats (https://doi.org/10.1016/j.ejphar.2011.07.033)"
+      },
+      "title": {
+        "chosen": "Sclerostin and the regulation of bone formation: Effects in hip osteoarthritis and femoral neck fracture",
+        "rejected": "Metformin prevents anti-osteogenic in vivo and ex vivo effects of rosiglitazone in rats"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Recombinant sclerostin antagonizes effects of ex vivo mechanical loading in trabecular bone and increases osteocyte lacunar size",
+    "query_title": "Recombinant sclerostin antagonizes effects of ex vivo mechanical loading in trabecular bone and increases osteocyte lacunar size",
+    "rejected_doi": "https://doi.org/10.1016/j.ejphar.2011.07.033",
+    "rejected_pmid": "21839072",
+    "rejected_title": "Metformin prevents anti-osteogenic in vivo and ex vivo effects of rosiglitazone in rats",
+    "seed_pmid": "28978523",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b161eabfdb55a8d26a68805"
+      ],
+      "rejected": [
+        "5b161eabfdb55a8d26a68805"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4da9cb71cd45071edb5aa0644bc41a91f4ca50d1fb44dc03721eac82c1c0b71f",
+    "chosen_doi": "https://doi.org/10.1093/bib/bbv114",
+    "chosen_pmid": "26839320",
+    "chosen_title": "Computational recognition for long non-coding RNA (lncRNA): Software and databases",
+    "entity_components": [
+      "28985416",
+      "26839320",
+      "22833525"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Computational recognition for long non-coding RNA (lncRNA): Software and databases\",\"paper_titles\":[\"Computational recognition for long non-coding RNA (lncRNA): Software and databases\"],\"dois\":[\"https://doi.org/10.1093/bib/bbv114\"]}",
+        "rejected": "{\"answer\":\"RedoxDB\u2014a curated database for experimentally verified protein oxidative modification\",\"paper_titles\":[\"RedoxDB\u2014a curated database for experimentally verified protein oxidative modification\"],\"dois\":[\"https://doi.org/10.1093/bioinformatics/bts468\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Computational recognition for long non-coding RNA (lncRNA): Software and databases (https://doi.org/10.1093/bib/bbv114)",
+        "rejected": "Related paper: RedoxDB\u2014a curated database for experimentally verified protein oxidative modification (https://doi.org/10.1093/bioinformatics/bts468)"
+      },
+      "title": {
+        "chosen": "Computational recognition for long non-coding RNA (lncRNA): Software and databases",
+        "rejected": "RedoxDB\u2014a curated database for experimentally verified protein oxidative modification"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "EVLncRNAs: a manually curated database for long non-coding RNAs validated by low-throughput experiments",
+    "query_title": "EVLncRNAs: a manually curated database for long non-coding RNAs validated by low-throughput experiments",
+    "rejected_doi": "https://doi.org/10.1093/bioinformatics/bts468",
+    "rejected_pmid": "22833525",
+    "rejected_title": "RedoxDB\u2014a curated database for experimentally verified protein oxidative modification",
+    "seed_pmid": "28985416",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5afb94befdb55ab2ac8cdb85"
+      ],
+      "rejected": [
+        "5afb94befdb55ab2ac8cdb85"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "db70c02f20f3dc184153e1c3cfc7b97d9de4fc58ce1474651321d70266310ee2",
+    "chosen_doi": "https://doi.org/10.1016/j.carbpol.2012.05.034",
+    "chosen_pmid": "24751040",
+    "chosen_title": "Study of antimicrobial activity and atomic force microscopy imaging of the action mechanism of cashew tree gum",
+    "entity_components": [
+      "18460145",
+      "24751040",
+      "20692572"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Study of antimicrobial activity and atomic force microscopy imaging of the action mechanism of cashew tree gum\",\"paper_titles\":[\"Study of antimicrobial activity and atomic force microscopy imaging of the action mechanism of cashew tree gum\"],\"dois\":[\"https://doi.org/10.1016/j.carbpol.2012.05.034\"]}",
+        "rejected": "{\"answer\":\"Surface roughness of intraocular lenses with different dioptric powers assessed by atomic force microscopy\",\"paper_titles\":[\"Surface roughness of intraocular lenses with different dioptric powers assessed by atomic force microscopy\"],\"dois\":[\"https://doi.org/10.1016/j.jcrs.2010.06.031\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Study of antimicrobial activity and atomic force microscopy imaging of the action mechanism of cashew tree gum (https://doi.org/10.1016/j.carbpol.2012.05.034)",
+        "rejected": "Related paper: Surface roughness of intraocular lenses with different dioptric powers assessed by atomic force microscopy (https://doi.org/10.1016/j.jcrs.2010.06.031)"
+      },
+      "title": {
+        "chosen": "Study of antimicrobial activity and atomic force microscopy imaging of the action mechanism of cashew tree gum",
+        "rejected": "Surface roughness of intraocular lenses with different dioptric powers assessed by atomic force microscopy"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Characterization of Bacteriocin\u2010Coated Antimicrobial Polyethylene Films by Atomic Force Microscopy",
+    "query_title": "Characterization of Bacteriocin\u2010Coated Antimicrobial Polyethylene Films by Atomic Force Microscopy",
+    "rejected_doi": "https://doi.org/10.1016/j.jcrs.2010.06.031",
+    "rejected_pmid": "20692572",
+    "rejected_title": "Surface roughness of intraocular lenses with different dioptric powers assessed by atomic force microscopy",
+    "seed_pmid": "18460145",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b13fb2afdb55a4a783f6384",
+        "5b2b9fd9fdb55aa5ebf3c407"
+      ],
+      "rejected": [
+        "5b13fb2afdb55a4a783f6384",
+        "5b2b9fd9fdb55aa5ebf3c407"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "35276648d877e71147054c007b278dec22a4805309cf2814b21825677dd9b5d0",
+    "chosen_doi": "https://doi.org/10.1002/pmic.201000448",
+    "chosen_pmid": "21204261",
+    "chosen_title": "PRIDEViewer: A novel user\u2010friendly interface to visualize PRIDE XML files",
+    "entity_components": [
+      "25422159",
+      "21204261",
+      "22769057"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"PRIDEViewer: A novel user\u2010friendly interface to visualize PRIDE XML files\",\"paper_titles\":[\"PRIDEViewer: A novel user\u2010friendly interface to visualize PRIDE XML files\"],\"dois\":[\"https://doi.org/10.1002/pmic.201000448\"]}",
+        "rejected": "{\"answer\":\"The Molecule Cloud - compact visualization of large collections of molecules\",\"paper_titles\":[\"The Molecule Cloud - compact visualization of large collections of molecules\"],\"dois\":[\"https://doi.org/10.1186/1758-2946-4-12\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: PRIDEViewer: A novel user\u2010friendly interface to visualize PRIDE XML files (https://doi.org/10.1002/pmic.201000448)",
+        "rejected": "Related paper: The Molecule Cloud - compact visualization of large collections of molecules (https://doi.org/10.1186/1758-2946-4-12)"
+      },
+      "title": {
+        "chosen": "PRIDEViewer: A novel user\u2010friendly interface to visualize PRIDE XML files",
+        "rejected": "The Molecule Cloud - compact visualization of large collections of molecules"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "JSparklines: Making tabular proteomics data come alive",
+    "query_title": "JSparklines: Making tabular proteomics data come alive",
+    "rejected_doi": "https://doi.org/10.1186/1758-2946-4-12",
+    "rejected_pmid": "22769057",
+    "rejected_title": "The Molecule Cloud - compact visualization of large collections of molecules",
+    "seed_pmid": "25422159",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b22d58cfdb55a8d26a68d60"
+      ],
+      "rejected": [
+        "5b22d58cfdb55a8d26a68d60"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "33e85ebe8b939f1ea3152c17462d7e5165b0cba719f7cfe1e8400828943e926e",
+    "chosen_doi": "https://doi.org/10.1159/000438718",
+    "chosen_pmid": "26398339",
+    "chosen_title": "Small Supernumerary Marker Chromosomes in Human Infertility",
+    "entity_components": [
+      "25306802",
+      "26398339",
+      "22342255"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Small Supernumerary Marker Chromosomes in Human Infertility\",\"paper_titles\":[\"Small Supernumerary Marker Chromosomes in Human Infertility\"],\"dois\":[\"https://doi.org/10.1159/000438718\"]}",
+        "rejected": "{\"answer\":\"De novo origin of multiple small supernumerary marker chromosomes (sSMCs) in a child with intellectual disability and dysmorphic features\",\"paper_titles\":[\"De novo origin of multiple small supernumerary marker chromosomes (sSMCs) in a child with intellectual disability and dysmorphic features\"],\"dois\":[\"https://doi.org/10.1016/j.gene.2012.01.066\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Small Supernumerary Marker Chromosomes in Human Infertility (https://doi.org/10.1159/000438718)",
+        "rejected": "Related paper: De novo origin of multiple small supernumerary marker chromosomes (sSMCs) in a child with intellectual disability and dysmorphic features (https://doi.org/10.1016/j.gene.2012.01.066)"
+      },
+      "title": {
+        "chosen": "Small Supernumerary Marker Chromosomes in Human Infertility",
+        "rejected": "De novo origin of multiple small supernumerary marker chromosomes (sSMCs) in a child with intellectual disability and dysmorphic features"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Small supernumerary marker chromosomes detected in connection with infertility.",
+    "query_title": "Small supernumerary marker chromosomes detected in connection with infertility.",
+    "rejected_doi": "https://doi.org/10.1016/j.gene.2012.01.066",
+    "rejected_pmid": "22342255",
+    "rejected_title": "De novo origin of multiple small supernumerary marker chromosomes (sSMCs) in a child with intellectual disability and dysmorphic features",
+    "seed_pmid": "25306802",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b180c3afdb55a8d26a689f2"
+      ],
+      "rejected": [
+        "5b180c3afdb55a8d26a689f2"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d0bf06ef9550bbf4349f52eaadb5dfab10ca922bf00dd4032d8083dd692c3a15",
+    "chosen_doi": "https://doi.org/10.1016/j.bbamem.2010.08.014",
+    "chosen_pmid": "20800571",
+    "chosen_title": "Inserting membrane proteins: The YidC/Oxa1/Alb3 machinery in bacteria, mitochondria, and chloroplasts",
+    "entity_components": [
+      "20018841",
+      "20800571",
+      "25084381"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Inserting membrane proteins: The YidC/Oxa1/Alb3 machinery in bacteria, mitochondria, and chloroplasts\",\"paper_titles\":[\"Inserting membrane proteins: The YidC/Oxa1/Alb3 machinery in bacteria, mitochondria, and chloroplasts\"],\"dois\":[\"https://doi.org/10.1016/j.bbamem.2010.08.014\"]}",
+        "rejected": "{\"answer\":\"Crystallization and preliminary X-ray diffraction analysis of YidC, a membrane-protein chaperone and insertase fromBacillus halodurans\",\"paper_titles\":[\"Crystallization and preliminary X-ray diffraction analysis of YidC, a membrane-protein chaperone and insertase fromBacillus halodurans\"],\"dois\":[\"https://doi.org/10.1107/s2053230x14012540\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Inserting membrane proteins: The YidC/Oxa1/Alb3 machinery in bacteria, mitochondria, and chloroplasts (https://doi.org/10.1016/j.bbamem.2010.08.014)",
+        "rejected": "Related paper: Crystallization and preliminary X-ray diffraction analysis of YidC, a membrane-protein chaperone and insertase fromBacillus halodurans (https://doi.org/10.1107/s2053230x14012540)"
+      },
+      "title": {
+        "chosen": "Inserting membrane proteins: The YidC/Oxa1/Alb3 machinery in bacteria, mitochondria, and chloroplasts",
+        "rejected": "Crystallization and preliminary X-ray diffraction analysis of YidC, a membrane-protein chaperone and insertase fromBacillus halodurans"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "The C Terminus of the Alb3 Membrane Insertase Recruits cpSRP43 to the Thylakoid Membrane",
+    "query_title": "The C Terminus of the Alb3 Membrane Insertase Recruits cpSRP43 to the Thylakoid Membrane",
+    "rejected_doi": "https://doi.org/10.1107/s2053230x14012540",
+    "rejected_pmid": "25084381",
+    "rejected_title": "Crystallization and preliminary X-ray diffraction analysis of YidC, a membrane-protein chaperone and insertase fromBacillus halodurans",
+    "seed_pmid": "20018841",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5afaf289fdb55ab2ac8cdb65"
+      ],
+      "rejected": [
+        "5afaf289fdb55ab2ac8cdb65"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a0c78a0f0ec278974ec5516b18b9800ae5757d7a9865fbf7870ff4972ca022ce",
+    "chosen_doi": "https://doi.org/10.1016/j.micinf.2007.11.005",
+    "chosen_pmid": "18248758",
+    "chosen_title": "Brazilian Vaccinia virus strains are genetically divergent and differ from the Lister vaccine strain",
+    "entity_components": [
+      "25785515",
+      "18248758",
+      "27638777"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Brazilian Vaccinia virus strains are genetically divergent and differ from the Lister vaccine strain\",\"paper_titles\":[\"Brazilian Vaccinia virus strains are genetically divergent and differ from the Lister vaccine strain\"],\"dois\":[\"https://doi.org/10.1016/j.micinf.2007.11.005\"]}",
+        "rejected": "{\"answer\":\"Avian nephritis virus (ANV) on Brazilian chickens farms: circulating genotypes and intra-genotypic diversity\",\"paper_titles\":[\"Avian nephritis virus (ANV) on Brazilian chickens farms: circulating genotypes and intra-genotypic diversity\"],\"dois\":[\"https://doi.org/10.1007/s00705-016-3057-7\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Brazilian Vaccinia virus strains are genetically divergent and differ from the Lister vaccine strain (https://doi.org/10.1016/j.micinf.2007.11.005)",
+        "rejected": "Related paper: Avian nephritis virus (ANV) on Brazilian chickens farms: circulating genotypes and intra-genotypic diversity (https://doi.org/10.1007/s00705-016-3057-7)"
+      },
+      "title": {
+        "chosen": "Brazilian Vaccinia virus strains are genetically divergent and differ from the Lister vaccine strain",
+        "rejected": "Avian nephritis virus (ANV) on Brazilian chickens farms: circulating genotypes and intra-genotypic diversity"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "From Lesions to Viral Clones: Biological and Molecular Diversity amongst Autochthonous Brazilian Vaccinia Virus",
+    "query_title": "From Lesions to Viral Clones: Biological and Molecular Diversity amongst Autochthonous Brazilian Vaccinia Virus",
+    "rejected_doi": "https://doi.org/10.1007/s00705-016-3057-7",
+    "rejected_pmid": "27638777",
+    "rejected_title": "Avian nephritis virus (ANV) on Brazilian chickens farms: circulating genotypes and intra-genotypic diversity",
+    "seed_pmid": "25785515",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1a1425fdb55a8d26a68ad6"
+      ],
+      "rejected": [
+        "5b1a1425fdb55a8d26a68ad6"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "29fed4a00448767e63512450b02b33221ca2f1ab58223ff9355aaf1934484bd1",
+    "chosen_doi": "https://doi.org/10.1523/jneurosci.5333-07.2008",
+    "chosen_pmid": "18354013",
+    "chosen_title": "Rapid Consolidation to aradishand Protein Synthesis-Dependent Long-Term Memory after Single-Session Appetitive Olfactory Conditioning inDrosophila",
+    "entity_components": [
+      "19158309",
+      "18354013",
+      "20071510"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Rapid Consolidation to aradishand Protein Synthesis-Dependent Long-Term Memory after Single-Session Appetitive Olfactory Conditioning inDrosophila\",\"paper_titles\":[\"Rapid Consolidation to aradishand Protein Synthesis-Dependent Long-Term Memory after Single-Session Appetitive Olfactory Conditioning inDrosophila\"],\"dois\":[\"https://doi.org/10.1523/jneurosci.5333-07.2008\"]}",
+        "rejected": "{\"answer\":\"Differential Effects of Tau on the Integrity and Function of Neurons Essential for Learning in Drosophila\",\"paper_titles\":[\"Differential Effects of Tau on the Integrity and Function of Neurons Essential for Learning in Drosophila\"],\"dois\":[\"https://doi.org/10.1523/jneurosci.1490-09.2010\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Rapid Consolidation to aradishand Protein Synthesis-Dependent Long-Term Memory after Single-Session Appetitive Olfactory Conditioning inDrosophila (https://doi.org/10.1523/jneurosci.5333-07.2008)",
+        "rejected": "Related paper: Differential Effects of Tau on the Integrity and Function of Neurons Essential for Learning in Drosophila (https://doi.org/10.1523/jneurosci.1490-09.2010)"
+      },
+      "title": {
+        "chosen": "Rapid Consolidation to aradishand Protein Synthesis-Dependent Long-Term Memory after Single-Session Appetitive Olfactory Conditioning inDrosophila",
+        "rejected": "Differential Effects of Tau on the Integrity and Function of Neurons Essential for Learning in Drosophila"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Distinctive Neuronal Networks and Biochemical Pathways for Appetitive and Aversive Memory inDrosophilaLarvae",
+    "query_title": "Distinctive Neuronal Networks and Biochemical Pathways for Appetitive and Aversive Memory inDrosophilaLarvae",
+    "rejected_doi": "https://doi.org/10.1523/jneurosci.1490-09.2010",
+    "rejected_pmid": "20071510",
+    "rejected_title": "Differential Effects of Tau on the Integrity and Function of Neurons Essential for Learning in Drosophila",
+    "seed_pmid": "19158309",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b20735cfdb55a8d26a68caa"
+      ],
+      "rejected": [
+        "5b20735cfdb55a8d26a68caa"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "e8e1c943c98e3cf9491b4cd33dc66ca9f52ae851846008e2ac415fb8cc73e90e",
+    "chosen_doi": "https://doi.org/10.1111/j.1365-2958.2009.06603.x",
+    "chosen_pmid": "19183279",
+    "chosen_title": "Structural insights into the molecular organization of the S\u2010layer from Clostridium difficile",
+    "entity_components": [
+      "28677344",
+      "19183279",
+      "20624955"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Structural insights into the molecular organization of the S\u2010layer from Clostridium difficile\",\"paper_titles\":[\"Structural insights into the molecular organization of the S\u2010layer from Clostridium difficile\"],\"dois\":[\"https://doi.org/10.1111/j.1365-2958.2009.06603.x\"]}",
+        "rejected": "{\"answer\":\"Structural organization of the functional domains of Clostridium difficile toxins A and B\",\"paper_titles\":[\"Structural organization of the functional domains of Clostridium difficile toxins A and B\"],\"dois\":[\"https://doi.org/10.1073/pnas.1002199107\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Structural insights into the molecular organization of the S\u2010layer from Clostridium difficile (https://doi.org/10.1111/j.1365-2958.2009.06603.x)",
+        "rejected": "Related paper: Structural organization of the functional domains of Clostridium difficile toxins A and B (https://doi.org/10.1073/pnas.1002199107)"
+      },
+      "title": {
+        "chosen": "Structural insights into the molecular organization of the S\u2010layer from Clostridium difficile",
+        "rejected": "Structural organization of the functional domains of Clostridium difficile toxins A and B"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Cwp2 from Clostridium difficile exhibits an extended three domain fold and cell adhesion in vitro",
+    "query_title": "Cwp2 from Clostridium difficile exhibits an extended three domain fold and cell adhesion in vitro",
+    "rejected_doi": "https://doi.org/10.1073/pnas.1002199107",
+    "rejected_pmid": "20624955",
+    "rejected_title": "Structural organization of the functional domains of Clostridium difficile toxins A and B",
+    "seed_pmid": "28677344",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b019410fdb55aa7f94c33e6"
+      ],
+      "rejected": [
+        "5b019410fdb55aa7f94c33e6"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "231d5aded46c516b512b3fe1c95aee552c0b4165204c726ce60ced32ad625c27",
+    "chosen_doi": "https://doi.org/10.1039/c3cc46450d",
+    "chosen_pmid": "24175317",
+    "chosen_title": "2-(Aryl-sulfonyl)oxetanes as designer 3-dimensional fragments for fragment screening: synthesis and strategies for functionalisation",
+    "entity_components": [
+      "29181870",
+      "24175317",
+      "28553529"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"2-(Aryl-sulfonyl)oxetanes as designer 3-dimensional fragments for fragment screening: synthesis and strategies for functionalisation\",\"paper_titles\":[\"2-(Aryl-sulfonyl)oxetanes as designer 3-dimensional fragments for fragment screening: synthesis and strategies for functionalisation\"],\"dois\":[\"https://doi.org/10.1039/c3cc46450d\"]}",
+        "rejected": "{\"answer\":\"Catalytic asymmetric synthesis of CF 3 -substituted tertiary propargylic alcohols via direct aldol reaction of \u03b1-N 3 amide\",\"paper_titles\":[\"Catalytic asymmetric synthesis of CF 3 -substituted tertiary propargylic alcohols via direct aldol reaction of \u03b1-N 3 amide\"],\"dois\":[\"https://doi.org/10.1039/c7sc00330g\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: 2-(Aryl-sulfonyl)oxetanes as designer 3-dimensional fragments for fragment screening: synthesis and strategies for functionalisation (https://doi.org/10.1039/c3cc46450d)",
+        "rejected": "Related paper: Catalytic asymmetric synthesis of CF 3 -substituted tertiary propargylic alcohols via direct aldol reaction of \u03b1-N 3 amide (https://doi.org/10.1039/c7sc00330g)"
+      },
+      "title": {
+        "chosen": "2-(Aryl-sulfonyl)oxetanes as designer 3-dimensional fragments for fragment screening: synthesis and strategies for functionalisation",
+        "rejected": "Catalytic asymmetric synthesis of CF 3 -substituted tertiary propargylic alcohols via direct aldol reaction of \u03b1-N 3 amide"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Lithium\u2010Catalyzed Thiol Alkylation with Tertiary and Secondary Alcohols: Synthesis of 3\u2010Sulfanyl\u2010Oxetanes as Bioisosteres",
+    "query_title": "Lithium\u2010Catalyzed Thiol Alkylation with Tertiary and Secondary Alcohols: Synthesis of 3\u2010Sulfanyl\u2010Oxetanes as Bioisosteres",
+    "rejected_doi": "https://doi.org/10.1039/c7sc00330g",
+    "rejected_pmid": "28553529",
+    "rejected_title": "Catalytic asymmetric synthesis of CF 3 -substituted tertiary propargylic alcohols via direct aldol reaction of \u03b1-N 3 amide",
+    "seed_pmid": "29181870",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2a3cf7fdb55aa5ebf3c3f7"
+      ],
+      "rejected": [
+        "5b2a3cf7fdb55aa5ebf3c3f7"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "7cb2798026f1d02c4911327e7aaa2508998b549fb992d150acf855667e7b62f5",
+    "chosen_doi": "https://doi.org/10.1007/s00059-014-4078-1",
+    "chosen_pmid": "24609800",
+    "chosen_title": "Cardiac rhabdomyomas associated with tuberous sclerosis complex in children: From presentation to outcome",
+    "entity_components": [
+      "29296069",
+      "24609800",
+      "28544057"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Cardiac rhabdomyomas associated with tuberous sclerosis complex in children: From presentation to outcome\",\"paper_titles\":[\"Cardiac rhabdomyomas associated with tuberous sclerosis complex in children: From presentation to outcome\"],\"dois\":[\"https://doi.org/10.1007/s00059-014-4078-1\"]}",
+        "rejected": "{\"answer\":\"Interventional Closure of a Patent Ductus Arteriosus Using an Amplatz Canine Duct Occluder in an Alpaca Cria\",\"paper_titles\":[\"Interventional Closure of a Patent Ductus Arteriosus Using an Amplatz Canine Duct Occluder in an Alpaca Cria\"],\"dois\":[\"https://doi.org/10.1111/jvim.14736\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Cardiac rhabdomyomas associated with tuberous sclerosis complex in children: From presentation to outcome (https://doi.org/10.1007/s00059-014-4078-1)",
+        "rejected": "Related paper: Interventional Closure of a Patent Ductus Arteriosus Using an Amplatz Canine Duct Occluder in an Alpaca Cria (https://doi.org/10.1111/jvim.14736)"
+      },
+      "title": {
+        "chosen": "Cardiac rhabdomyomas associated with tuberous sclerosis complex in children: From presentation to outcome",
+        "rejected": "Interventional Closure of a Patent Ductus Arteriosus Using an Amplatz Canine Duct Occluder in an Alpaca Cria"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Tuberous sclerosis presenting as neonatal cyanosis because of rhabdomyoma causing tricuspid valve obstruction needing a Blalock-Taussig shunt",
+    "query_title": "Tuberous sclerosis presenting as neonatal cyanosis because of rhabdomyoma causing tricuspid valve obstruction needing a Blalock-Taussig shunt",
+    "rejected_doi": "https://doi.org/10.1111/jvim.14736",
+    "rejected_pmid": "28544057",
+    "rejected_title": "Interventional Closure of a Patent Ductus Arteriosus Using an Amplatz Canine Duct Occluder in an Alpaca Cria",
+    "seed_pmid": "29296069",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0955fffdb55a48964ddaa4"
+      ],
+      "rejected": [
+        "5b0955fffdb55a48964ddaa4"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "5d155682386dd1a54cdc0317aff1497e45f9f2c9f142647e9144b909c16bf276",
+    "chosen_doi": "https://doi.org/10.1371/journal.pone.0062317",
+    "chosen_pmid": "23638037",
+    "chosen_title": "Extensive Microsatellite Variation in Rice Induced by Introgression from Wild Rice (Zizania latifolia Griseb.)",
+    "entity_components": [
+      "21652483",
+      "23638037",
+      "28169454"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Extensive Microsatellite Variation in Rice Induced by Introgression from Wild Rice (Zizania latifolia Griseb.)\",\"paper_titles\":[\"Extensive Microsatellite Variation in Rice Induced by Introgression from Wild Rice (Zizania latifolia Griseb.)\"],\"dois\":[\"https://doi.org/10.1371/journal.pone.0062317\"]}",
+        "rejected": "{\"answer\":\"Toxicity of sulfide to early life stages of wild rice (Zizania palustris)\",\"paper_titles\":[\"Toxicity of sulfide to early life stages of wild rice (Zizania palustris)\"],\"dois\":[\"https://doi.org/10.1002/etc.3759\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Extensive Microsatellite Variation in Rice Induced by Introgression from Wild Rice (Zizania latifolia Griseb.) (https://doi.org/10.1371/journal.pone.0062317)",
+        "rejected": "Related paper: Toxicity of sulfide to early life stages of wild rice (Zizania palustris) (https://doi.org/10.1002/etc.3759)"
+      },
+      "title": {
+        "chosen": "Extensive Microsatellite Variation in Rice Induced by Introgression from Wild Rice (Zizania latifolia Griseb.)",
+        "rejected": "Toxicity of sulfide to early life stages of wild rice (Zizania palustris)"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Genetic variability is correlated with population size and reproduction in American wild\u2010rice (Zizania palustris var. palustris, Poaceae) populations",
+    "query_title": "Genetic variability is correlated with population size and reproduction in American wild\u2010rice (Zizania palustris var. palustris, Poaceae) populations",
+    "rejected_doi": "https://doi.org/10.1002/etc.3759",
+    "rejected_pmid": "28169454",
+    "rejected_title": "Toxicity of sulfide to early life stages of wild rice (Zizania palustris)",
+    "seed_pmid": "21652483",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b174d98fdb55a8d26a68953"
+      ],
+      "rejected": [
+        "5b174d98fdb55a8d26a68953"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "2b7340da2d19f7c4f795688e04ee5e0aae80ba1eb7c6e0a74eaaaa1bc1f2c639",
+    "chosen_doi": "https://doi.org/10.1016/j.vetmic.2009.12.014",
+    "chosen_pmid": "20053506",
+    "chosen_title": "Effects of storage methods on the recovery of Mycoplasma species from milk samples",
+    "entity_components": [
+      "29609634",
+      "20053506",
+      "28712869"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Effects of storage methods on the recovery of Mycoplasma species from milk samples\",\"paper_titles\":[\"Effects of storage methods on the recovery of Mycoplasma species from milk samples\"],\"dois\":[\"https://doi.org/10.1016/j.vetmic.2009.12.014\"]}",
+        "rejected": "{\"answer\":\"Evaluation of human platelet lysate and dimethyl sulfoxide as cryoprotectants for the cryopreservation of human adipose-derived stem cells\",\"paper_titles\":[\"Evaluation of human platelet lysate and dimethyl sulfoxide as cryoprotectants for the cryopreservation of human adipose-derived stem cells\"],\"dois\":[\"https://doi.org/10.1016/j.bbrc.2017.07.076\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Effects of storage methods on the recovery of Mycoplasma species from milk samples (https://doi.org/10.1016/j.vetmic.2009.12.014)",
+        "rejected": "Related paper: Evaluation of human platelet lysate and dimethyl sulfoxide as cryoprotectants for the cryopreservation of human adipose-derived stem cells (https://doi.org/10.1016/j.bbrc.2017.07.076)"
+      },
+      "title": {
+        "chosen": "Effects of storage methods on the recovery of Mycoplasma species from milk samples",
+        "rejected": "Evaluation of human platelet lysate and dimethyl sulfoxide as cryoprotectants for the cryopreservation of human adipose-derived stem cells"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Evaluation of three cryoprotectants used with bovine milk affected with Mycoplasma bovis in different freezing conditions",
+    "query_title": "Evaluation of three cryoprotectants used with bovine milk affected with Mycoplasma bovis in different freezing conditions",
+    "rejected_doi": "https://doi.org/10.1016/j.bbrc.2017.07.076",
+    "rejected_pmid": "28712869",
+    "rejected_title": "Evaluation of human platelet lysate and dimethyl sulfoxide as cryoprotectants for the cryopreservation of human adipose-derived stem cells",
+    "seed_pmid": "29609634",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1fe3b6fdb55a8d26a68c95"
+      ],
+      "rejected": [
+        "5b1fe3b6fdb55a8d26a68c95"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4391f3cb0fb2b89f58bdcdffc5176d62f3a680671f60350fc9e485309a78ea34",
+    "chosen_doi": "https://doi.org/10.1037/0033-2909.134.4.504",
+    "chosen_pmid": "18605818",
+    "chosen_title": "Toward an integrative social identity model of collective action: A quantitative research synthesis of three socio-psychological perspectives.",
+    "entity_components": [
+      "29636720",
+      "18605818",
+      "27913987"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Toward an integrative social identity model of collective action: A quantitative research synthesis of three socio-psychological perspectives.\",\"paper_titles\":[\"Toward an integrative social identity model of collective action: A quantitative research synthesis of three socio-psychological perspectives.\"],\"dois\":[\"https://doi.org/10.1037/0033-2909.134.4.504\"]}",
+        "rejected": "{\"answer\":\"A Moral (Normative) Framework for the Judgment of Actions and Decisions in the Construction Industry and Engineering: Part II\",\"paper_titles\":[\"A Moral (Normative) Framework for the Judgment of Actions and Decisions in the Construction Industry and Engineering: Part II\"],\"dois\":[\"https://doi.org/10.1007/s11948-016-9851-5\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Toward an integrative social identity model of collective action: A quantitative research synthesis of three socio-psychological perspectives. (https://doi.org/10.1037/0033-2909.134.4.504)",
+        "rejected": "Related paper: A Moral (Normative) Framework for the Judgment of Actions and Decisions in the Construction Industry and Engineering: Part II (https://doi.org/10.1007/s11948-016-9851-5)"
+      },
+      "title": {
+        "chosen": "Toward an integrative social identity model of collective action: A quantitative research synthesis of three socio-psychological perspectives.",
+        "rejected": "A Moral (Normative) Framework for the Judgment of Actions and Decisions in the Construction Industry and Engineering: Part II"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "The Importance of Protesters\u2019 Morals: Moral Obligation as a Key Variable to Understand Collective Action",
+    "query_title": "The Importance of Protesters\u2019 Morals: Moral Obligation as a Key Variable to Understand Collective Action",
+    "rejected_doi": "https://doi.org/10.1007/s11948-016-9851-5",
+    "rejected_pmid": "27913987",
+    "rejected_title": "A Moral (Normative) Framework for the Judgment of Actions and Decisions in the Construction Industry and Engineering: Part II",
+    "seed_pmid": "29636720",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b14f675fdb55a8d26a6867e"
+      ],
+      "rejected": [
+        "5b14f675fdb55a8d26a6867e"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d1b7be21a27714ba84311cad8ac58cf212c8d46cd3337579eb4e21e895dda6a4",
+    "chosen_doi": "https://doi.org/10.1038/leu.2011.275",
+    "chosen_pmid": "21986841",
+    "chosen_title": "Inhibition of Myb-dependent gene expression by the sesquiterpene lactone mexicanin-I",
+    "entity_components": [
+      "26631113",
+      "21986841",
+      "24641679"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Inhibition of Myb-dependent gene expression by the sesquiterpene lactone mexicanin-I\",\"paper_titles\":[\"Inhibition of Myb-dependent gene expression by the sesquiterpene lactone mexicanin-I\"],\"dois\":[\"https://doi.org/10.1038/leu.2011.275\"]}",
+        "rejected": "{\"answer\":\"Aldehyde dehydrogenases in acute myeloid leukemia\",\"paper_titles\":[\"Aldehyde dehydrogenases in acute myeloid leukemia\"],\"dois\":[\"https://doi.org/10.1111/nyas.12414\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Inhibition of Myb-dependent gene expression by the sesquiterpene lactone mexicanin-I (https://doi.org/10.1038/leu.2011.275)",
+        "rejected": "Related paper: Aldehyde dehydrogenases in acute myeloid leukemia (https://doi.org/10.1111/nyas.12414)"
+      },
+      "title": {
+        "chosen": "Inhibition of Myb-dependent gene expression by the sesquiterpene lactone mexicanin-I",
+        "rejected": "Aldehyde dehydrogenases in acute myeloid leukemia"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Targeting acute myeloid leukemia with a small molecule inhibitor of the Myb/p300 interaction",
+    "query_title": "Targeting acute myeloid leukemia with a small molecule inhibitor of the Myb/p300 interaction",
+    "rejected_doi": "https://doi.org/10.1111/nyas.12414",
+    "rejected_pmid": "24641679",
+    "rejected_title": "Aldehyde dehydrogenases in acute myeloid leukemia",
+    "seed_pmid": "26631113",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0fd64dfdb55a16067577bb"
+      ],
+      "rejected": [
+        "5b0fd64dfdb55a16067577bb"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "69e4485a71eb6efc8af0a2ff8c1998ffdf966609bc93cbfebd7d0b567ec9d26d",
+    "chosen_doi": "https://doi.org/10.1021/ac401715k",
+    "chosen_pmid": "23855808",
+    "chosen_title": "High Specific and Ultrasensitive Isothermal Detection of MicroRNA by Padlock Probe-Based Exponential Rolling Circle Amplification",
+    "entity_components": [
+      "29190363",
+      "23855808",
+      "27980066"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"High Specific and Ultrasensitive Isothermal Detection of MicroRNA by Padlock Probe-Based Exponential Rolling Circle Amplification\",\"paper_titles\":[\"High Specific and Ultrasensitive Isothermal Detection of MicroRNA by Padlock Probe-Based Exponential Rolling Circle Amplification\"],\"dois\":[\"https://doi.org/10.1021/ac401715k\"]}",
+        "rejected": "{\"answer\":\"pBACode: a random-barcode-based high-throughput approach for BAC paired-end sequencing and physical clone mapping\",\"paper_titles\":[\"pBACode: a random-barcode-based high-throughput approach for BAC paired-end sequencing and physical clone mapping\"],\"dois\":[\"https://doi.org/10.1093/nar/gkw1261\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: High Specific and Ultrasensitive Isothermal Detection of MicroRNA by Padlock Probe-Based Exponential Rolling Circle Amplification (https://doi.org/10.1021/ac401715k)",
+        "rejected": "Related paper: pBACode: a random-barcode-based high-throughput approach for BAC paired-end sequencing and physical clone mapping (https://doi.org/10.1093/nar/gkw1261)"
+      },
+      "title": {
+        "chosen": "High Specific and Ultrasensitive Isothermal Detection of MicroRNA by Padlock Probe-Based Exponential Rolling Circle Amplification",
+        "rejected": "pBACode: a random-barcode-based high-throughput approach for BAC paired-end sequencing and physical clone mapping"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Efficient in situ barcode sequencing using padlock probe-based BaristaSeq",
+    "query_title": "Efficient in situ barcode sequencing using padlock probe-based BaristaSeq",
+    "rejected_doi": "https://doi.org/10.1093/nar/gkw1261",
+    "rejected_pmid": "27980066",
+    "rejected_title": "pBACode: a random-barcode-based high-throughput approach for BAC paired-end sequencing and physical clone mapping",
+    "seed_pmid": "29190363",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b12a0fafdb55a4a783f629e"
+      ],
+      "rejected": [
+        "5b12a0fafdb55a4a783f629e"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "ee975bb7259bb4296e400cd6f6d1e7ef96e9d181e984535f404e3ad39355fbd8",
+    "chosen_doi": "https://doi.org/10.1080/10495398.2013.763815",
+    "chosen_pmid": "23534960",
+    "chosen_title": "Genetic Structuring of Nine Indian Domestic Goat Breeds Based on SNPs Identified in IGF-1 Gene",
+    "entity_components": [
+      "29344947",
+      "23534960",
+      "25709615"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Genetic Structuring of Nine Indian Domestic Goat Breeds Based on SNPs Identified in IGF-1 Gene\",\"paper_titles\":[\"Genetic Structuring of Nine Indian Domestic Goat Breeds Based on SNPs Identified in IGF-1 Gene\"],\"dois\":[\"https://doi.org/10.1080/10495398.2013.763815\"]}",
+        "rejected": "{\"answer\":\"Genetic differentiation of Mexican Holstein cattle and its relationship with Canadian and U.S. Holsteins\",\"paper_titles\":[\"Genetic differentiation of Mexican Holstein cattle and its relationship with Canadian and U.S. Holsteins\"],\"dois\":[\"https://doi.org/10.3389/fgene.2015.00007\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Genetic Structuring of Nine Indian Domestic Goat Breeds Based on SNPs Identified in IGF-1 Gene (https://doi.org/10.1080/10495398.2013.763815)",
+        "rejected": "Related paper: Genetic differentiation of Mexican Holstein cattle and its relationship with Canadian and U.S. Holsteins (https://doi.org/10.3389/fgene.2015.00007)"
+      },
+      "title": {
+        "chosen": "Genetic Structuring of Nine Indian Domestic Goat Breeds Based on SNPs Identified in IGF-1 Gene",
+        "rejected": "Genetic differentiation of Mexican Holstein cattle and its relationship with Canadian and U.S. Holsteins"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Genome\u2010wide population structure and admixture analysis reveals weak differentiation among Ugandan goat breeds",
+    "query_title": "Genome\u2010wide population structure and admixture analysis reveals weak differentiation among Ugandan goat breeds",
+    "rejected_doi": "https://doi.org/10.3389/fgene.2015.00007",
+    "rejected_pmid": "25709615",
+    "rejected_title": "Genetic differentiation of Mexican Holstein cattle and its relationship with Canadian and U.S. Holsteins",
+    "seed_pmid": "29344947",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b11ec15fdb55a4a783f624a"
+      ],
+      "rejected": [
+        "5b11ec15fdb55a4a783f624a"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "931c37042a39fd0375e224ac3cfca27c51371b10dcabb321e09e5018859f32c1",
+    "chosen_doi": "https://doi.org/10.1016/j.ydbio.2008.02.045",
+    "chosen_pmid": "18405892",
+    "chosen_title": "Flatworm stem cells and the germ line: Developmental and evolutionary implications of macvasa expression in Macrostomum lignano",
+    "entity_components": [
+      "29453392",
+      "18405892",
+      "19604404"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Flatworm stem cells and the germ line: Developmental and evolutionary implications of macvasa expression in Macrostomum lignano\",\"paper_titles\":[\"Flatworm stem cells and the germ line: Developmental and evolutionary implications of macvasa expression in Macrostomum lignano\"],\"dois\":[\"https://doi.org/10.1016/j.ydbio.2008.02.045\"]}",
+        "rejected": "{\"answer\":\"The caudal regeneration blastema is an accumulation of rapidly proliferating stem cells in the flatworm Macrostomum lignano\",\"paper_titles\":[\"The caudal regeneration blastema is an accumulation of rapidly proliferating stem cells in the flatworm Macrostomum lignano\"],\"dois\":[\"https://doi.org/10.1186/1471-213x-9-41\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Flatworm stem cells and the germ line: Developmental and evolutionary implications of macvasa expression in Macrostomum lignano (https://doi.org/10.1016/j.ydbio.2008.02.045)",
+        "rejected": "Related paper: The caudal regeneration blastema is an accumulation of rapidly proliferating stem cells in the flatworm Macrostomum lignano (https://doi.org/10.1186/1471-213x-9-41)"
+      },
+      "title": {
+        "chosen": "Flatworm stem cells and the germ line: Developmental and evolutionary implications of macvasa expression in Macrostomum lignano",
+        "rejected": "The caudal regeneration blastema is an accumulation of rapidly proliferating stem cells in the flatworm Macrostomum lignano"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A novel flatworm-specific gene implicated in reproduction in Macrostomum lignano",
+    "query_title": "A novel flatworm-specific gene implicated in reproduction in Macrostomum lignano",
+    "rejected_doi": "https://doi.org/10.1186/1471-213x-9-41",
+    "rejected_pmid": "19604404",
+    "rejected_title": "The caudal regeneration blastema is an accumulation of rapidly proliferating stem cells in the flatworm Macrostomum lignano",
+    "seed_pmid": "29453392",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b113337fdb55a4a783f61d0"
+      ],
+      "rejected": [
+        "5b113337fdb55a4a783f61d0"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "27e0a5049d872aed29641baff496bab6f1b007d7dcdc563eafcfa26d12cf06a5",
+    "chosen_doi": "https://doi.org/10.1002/gcc.20885",
+    "chosen_pmid": "21563234",
+    "chosen_title": "13q14 Deletion size and number of deleted cells both influence prognosis in chronic lymphocytic leukemia",
+    "entity_components": [
+      "29468538",
+      "21563234",
+      "26697230"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"13q14 Deletion size and number of deleted cells both influence prognosis in chronic lymphocytic leukemia\",\"paper_titles\":[\"13q14 Deletion size and number of deleted cells both influence prognosis in chronic lymphocytic leukemia\"],\"dois\":[\"https://doi.org/10.1002/gcc.20885\"]}",
+        "rejected": "{\"answer\":\"Isochromosome 17q in Chronic Lymphocytic Leukemia\",\"paper_titles\":[\"Isochromosome 17q in Chronic Lymphocytic Leukemia\"],\"dois\":[\"https://doi.org/10.1155/2015/489592\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: 13q14 Deletion size and number of deleted cells both influence prognosis in chronic lymphocytic leukemia (https://doi.org/10.1002/gcc.20885)",
+        "rejected": "Related paper: Isochromosome 17q in Chronic Lymphocytic Leukemia (https://doi.org/10.1155/2015/489592)"
+      },
+      "title": {
+        "chosen": "13q14 Deletion size and number of deleted cells both influence prognosis in chronic lymphocytic leukemia",
+        "rejected": "Isochromosome 17q in Chronic Lymphocytic Leukemia"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Characterization of RB1 Deletions in Interphase and Metaphase by Molecular Cytogenetics Exemplified in Chronic Lymphatic Leukemia",
+    "query_title": "Characterization of RB1 Deletions in Interphase and Metaphase by Molecular Cytogenetics Exemplified in Chronic Lymphatic Leukemia",
+    "rejected_doi": "https://doi.org/10.1155/2015/489592",
+    "rejected_pmid": "26697230",
+    "rejected_title": "Isochromosome 17q in Chronic Lymphocytic Leukemia",
+    "seed_pmid": "29468538",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b17f6d9fdb55a8d26a689bc"
+      ],
+      "rejected": [
+        "5b17f6d9fdb55a8d26a689bc"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "35c62ef6a21dcadb342ec7f0d4bd7cbf59d68326484a655840afef5e972c50fc",
+    "chosen_doi": "https://doi.org/10.3390/ijms18081702",
+    "chosen_pmid": "28777303",
+    "chosen_title": "Novel Biomarkers in the Diagnosis of Chronic Kidney Disease and the Prediction of Its Outcome",
+    "entity_components": [
+      "25540021",
+      "28777303",
+      "25525857"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Novel Biomarkers in the Diagnosis of Chronic Kidney Disease and the Prediction of Its Outcome\",\"paper_titles\":[\"Novel Biomarkers in the Diagnosis of Chronic Kidney Disease and the Prediction of Its Outcome\"],\"dois\":[\"https://doi.org/10.3390/ijms18081702\"]}",
+        "rejected": "{\"answer\":\"Clinical and Molecular Prognostic and Predictive Biomarkers in Clear Cell Renal Cell Cancer\",\"paper_titles\":[\"Clinical and Molecular Prognostic and Predictive Biomarkers in Clear Cell Renal Cell Cancer\"],\"dois\":[\"https://doi.org/10.2217/fon.14.162\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Novel Biomarkers in the Diagnosis of Chronic Kidney Disease and the Prediction of Its Outcome (https://doi.org/10.3390/ijms18081702)",
+        "rejected": "Related paper: Clinical and Molecular Prognostic and Predictive Biomarkers in Clear Cell Renal Cell Cancer (https://doi.org/10.2217/fon.14.162)"
+      },
+      "title": {
+        "chosen": "Novel Biomarkers in the Diagnosis of Chronic Kidney Disease and the Prediction of Its Outcome",
+        "rejected": "Clinical and Molecular Prognostic and Predictive Biomarkers in Clear Cell Renal Cell Cancer"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A 3-biomarker-panel predicts renal outcome in patients with proteinuric renal diseases",
+    "query_title": "A 3-biomarker-panel predicts renal outcome in patients with proteinuric renal diseases",
+    "rejected_doi": "https://doi.org/10.2217/fon.14.162",
+    "rejected_pmid": "25525857",
+    "rejected_title": "Clinical and Molecular Prognostic and Predictive Biomarkers in Clear Cell Renal Cell Cancer",
+    "seed_pmid": "25540021",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1926fefdb55a8d26a68a7b"
+      ],
+      "rejected": [
+        "5b1926fefdb55a8d26a68a7b"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "01fe269411951b76b8f682a57a811164263044576554aeca40477dd60d5438bc",
+    "chosen_doi": "https://doi.org/10.1007/s11626-010-9377-0",
+    "chosen_pmid": "21136191",
+    "chosen_title": "Mesenchymal stem cells require integrin \u03b21 for directed migration induced by osteopontin in vitro",
+    "entity_components": [
+      "29699560",
+      "21136191",
+      "24135056"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Mesenchymal stem cells require integrin \u03b21 for directed migration induced by osteopontin in vitro\",\"paper_titles\":[\"Mesenchymal stem cells require integrin \u03b21 for directed migration induced by osteopontin in vitro\"],\"dois\":[\"https://doi.org/10.1007/s11626-010-9377-0\"]}",
+        "rejected": "{\"answer\":\"MiR-134-mediated \u03b21 integrin expression and function in mesenchymal stem cells\",\"paper_titles\":[\"MiR-134-mediated \u03b21 integrin expression and function in mesenchymal stem cells\"],\"dois\":[\"https://doi.org/10.1016/j.bbamcr.2013.10.003\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Mesenchymal stem cells require integrin \u03b21 for directed migration induced by osteopontin in vitro (https://doi.org/10.1007/s11626-010-9377-0)",
+        "rejected": "Related paper: MiR-134-mediated \u03b21 integrin expression and function in mesenchymal stem cells (https://doi.org/10.1016/j.bbamcr.2013.10.003)"
+      },
+      "title": {
+        "chosen": "Mesenchymal stem cells require integrin \u03b21 for directed migration induced by osteopontin in vitro",
+        "rejected": "MiR-134-mediated \u03b21 integrin expression and function in mesenchymal stem cells"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Alcohol exposure decreases osteopontin expression during fracture healing and osteopontin-mediated mesenchymal stem cell migration in vitro",
+    "query_title": "Alcohol exposure decreases osteopontin expression during fracture healing and osteopontin-mediated mesenchymal stem cell migration in vitro",
+    "rejected_doi": "https://doi.org/10.1016/j.bbamcr.2013.10.003",
+    "rejected_pmid": "24135056",
+    "rejected_title": "MiR-134-mediated \u03b21 integrin expression and function in mesenchymal stem cells",
+    "seed_pmid": "29699560",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b26e44efdb55a8d26a68e44"
+      ],
+      "rejected": [
+        "5b26e44efdb55a8d26a68e44"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "6114099f09e504c17ed865592f027e7404cab0562b8425f6e2f99c50655d565f",
+    "chosen_doi": "https://doi.org/10.1155/2017/6482567",
+    "chosen_pmid": "29312997",
+    "chosen_title": "A Survey of the Use of Iterative Reconstruction Algorithms in Electron Microscopy",
+    "entity_components": [
+      "26094203",
+      "29312997",
+      "19651555"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"A Survey of the Use of Iterative Reconstruction Algorithms in Electron Microscopy\",\"paper_titles\":[\"A Survey of the Use of Iterative Reconstruction Algorithms in Electron Microscopy\"],\"dois\":[\"https://doi.org/10.1155/2017/6482567\"]}",
+        "rejected": "{\"answer\":\"Fast Parallel Approach for 2-D DHT-Based Real-Valued Discrete Gabor Transform\",\"paper_titles\":[\"Fast Parallel Approach for 2-D DHT-Based Real-Valued Discrete Gabor Transform\"],\"dois\":[\"https://doi.org/10.1109/tip.2009.2028923\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: A Survey of the Use of Iterative Reconstruction Algorithms in Electron Microscopy (https://doi.org/10.1155/2017/6482567)",
+        "rejected": "Related paper: Fast Parallel Approach for 2-D DHT-Based Real-Valued Discrete Gabor Transform (https://doi.org/10.1109/tip.2009.2028923)"
+      },
+      "title": {
+        "chosen": "A Survey of the Use of Iterative Reconstruction Algorithms in Electron Microscopy",
+        "rejected": "Fast Parallel Approach for 2-D DHT-Based Real-Valued Discrete Gabor Transform"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "A fast iterative convolution weighting approach for gridding-based direct Fourier three-dimensional reconstruction with correction for the contrast transfer function",
+    "query_title": "A fast iterative convolution weighting approach for gridding-based direct Fourier three-dimensional reconstruction with correction for the contrast transfer function",
+    "rejected_doi": "https://doi.org/10.1109/tip.2009.2028923",
+    "rejected_pmid": "19651555",
+    "rejected_title": "Fast Parallel Approach for 2-D DHT-Based Real-Valued Discrete Gabor Transform",
+    "seed_pmid": "26094203",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5afddd88fdb55aa7f94c33c9"
+      ],
+      "rejected": [
+        "5afddd88fdb55aa7f94c33c9"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "c6bede9fd67a040ff1c48229665461389393c283e02e502d08a03c8417b97c1a",
+    "chosen_doi": "https://doi.org/10.1021/ct900027h",
+    "chosen_pmid": "26610017",
+    "chosen_title": "Large Protein Dynamics Described by Hierarchical-Component Mode Synthesis",
+    "entity_components": [
+      "24508340",
+      "26610017",
+      "23169645"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Large Protein Dynamics Described by Hierarchical-Component Mode Synthesis\",\"paper_titles\":[\"Large Protein Dynamics Described by Hierarchical-Component Mode Synthesis\"],\"dois\":[\"https://doi.org/10.1021/ct900027h\"]}",
+        "rejected": "{\"answer\":\"Cryo-EM structure of a 3D DNA-origami object\",\"paper_titles\":[\"Cryo-EM structure of a 3D DNA-origami object\"],\"dois\":[\"https://doi.org/10.1073/pnas.1215713109\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Large Protein Dynamics Described by Hierarchical-Component Mode Synthesis (https://doi.org/10.1021/ct900027h)",
+        "rejected": "Related paper: Cryo-EM structure of a 3D DNA-origami object (https://doi.org/10.1073/pnas.1215713109)"
+      },
+      "title": {
+        "chosen": "Large Protein Dynamics Described by Hierarchical-Component Mode Synthesis",
+        "rejected": "Cryo-EM structure of a 3D DNA-origami object"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Iterative Elastic 3D-to-2D Alignment Method Using Normal Modes for Studying Structural Dynamics of Large Macromolecular Complexes",
+    "query_title": "Iterative Elastic 3D-to-2D Alignment Method Using Normal Modes for Studying Structural Dynamics of Large Macromolecular Complexes",
+    "rejected_doi": "https://doi.org/10.1073/pnas.1215713109",
+    "rejected_pmid": "23169645",
+    "rejected_title": "Cryo-EM structure of a 3D DNA-origami object",
+    "seed_pmid": "24508340",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b0a616cfdb55a48964ddaaa"
+      ],
+      "rejected": [
+        "5b0a616cfdb55a48964ddaaa"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "85f99802f7dd174cb87472e774da997f6817457dd91890138d55e50af51d5ed2",
+    "chosen_doi": "https://doi.org/10.1370/afm.2220",
+    "chosen_pmid": "29760024",
+    "chosen_title": "An Updated Analysis of Direct-to-Consumer Television Advertisements for Prescription Drugs",
+    "entity_components": [
+      "29724205",
+      "29760024",
+      "27579830"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"An Updated Analysis of Direct-to-Consumer Television Advertisements for Prescription Drugs\",\"paper_titles\":[\"An Updated Analysis of Direct-to-Consumer Television Advertisements for Prescription Drugs\"],\"dois\":[\"https://doi.org/10.1370/afm.2220\"]}",
+        "rejected": "{\"answer\":\"Estimated Budget Impact of Increased Use of Mirabegron, A Novel Treatment for Overactive Bladder\",\"paper_titles\":[\"Estimated Budget Impact of Increased Use of Mirabegron, A Novel Treatment for Overactive Bladder\"],\"dois\":[\"https://doi.org/10.18553/jmcp.2016.22.9.1072\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: An Updated Analysis of Direct-to-Consumer Television Advertisements for Prescription Drugs (https://doi.org/10.1370/afm.2220)",
+        "rejected": "Related paper: Estimated Budget Impact of Increased Use of Mirabegron, A Novel Treatment for Overactive Bladder (https://doi.org/10.18553/jmcp.2016.22.9.1072)"
+      },
+      "title": {
+        "chosen": "An Updated Analysis of Direct-to-Consumer Television Advertisements for Prescription Drugs",
+        "rejected": "Estimated Budget Impact of Increased Use of Mirabegron, A Novel Treatment for Overactive Bladder"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Impact of a direct-to-consumer information campaign on prescription patterns for overactive bladder",
+    "query_title": "Impact of a direct-to-consumer information campaign on prescription patterns for overactive bladder",
+    "rejected_doi": "https://doi.org/10.18553/jmcp.2016.22.9.1072",
+    "rejected_pmid": "27579830",
+    "rejected_title": "Estimated Budget Impact of Increased Use of Mirabegron, A Novel Treatment for Overactive Bladder",
+    "seed_pmid": "29724205",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1b4e3cfdb55a8d26a68b42"
+      ],
+      "rejected": [
+        "5b1b4e3cfdb55a8d26a68b42"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4ae6b0daeadabf587a607904a469003e43d12501169e836c67a1a86e49086465",
+    "chosen_doi": "https://doi.org/10.1097/wnr.0b013e3283267953",
+    "chosen_pmid": "19223792",
+    "chosen_title": "Handedness: dependent asymmetrical location of the human primary gustatory area, area G",
+    "entity_components": [
+      "10094124",
+      "19223792",
+      "23813686"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Handedness: dependent asymmetrical location of the human primary gustatory area, area G\",\"paper_titles\":[\"Handedness: dependent asymmetrical location of the human primary gustatory area, area G\"],\"dois\":[\"https://doi.org/10.1097/wnr.0b013e3283267953\"]}",
+        "rejected": "{\"answer\":\"Cortical surface complexity in frontal and temporal areas varies across subgroups of schizophrenia\",\"paper_titles\":[\"Cortical surface complexity in frontal and temporal areas varies across subgroups of schizophrenia\"],\"dois\":[\"https://doi.org/10.1002/hbm.22283\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Handedness: dependent asymmetrical location of the human primary gustatory area, area G (https://doi.org/10.1097/wnr.0b013e3283267953)",
+        "rejected": "Related paper: Cortical surface complexity in frontal and temporal areas varies across subgroups of schizophrenia (https://doi.org/10.1002/hbm.22283)"
+      },
+      "title": {
+        "chosen": "Handedness: dependent asymmetrical location of the human primary gustatory area, area G",
+        "rejected": "Cortical surface complexity in frontal and temporal areas varies across subgroups of schizophrenia"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Human cortical gustatory areas: A review of functional neuroimaging data",
+    "query_title": "Human cortical gustatory areas: A review of functional neuroimaging data",
+    "rejected_doi": "https://doi.org/10.1002/hbm.22283",
+    "rejected_pmid": "23813686",
+    "rejected_title": "Cortical surface complexity in frontal and temporal areas varies across subgroups of schizophrenia",
+    "seed_pmid": "10094124",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b12a103fdb55a4a783f629f"
+      ],
+      "rejected": [
+        "5b12a103fdb55a4a783f629f"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a851fe412573388cdf2be4e20703b7aab5597e03f98e27b021d042acc3f66b1a",
+    "chosen_doi": "https://doi.org/10.1186/1471-2180-11-221",
+    "chosen_pmid": "21970369",
+    "chosen_title": "A metagenomic study of methanotrophic microorganisms in Coal Oil Point seep sediments",
+    "entity_components": [
+      "29291746",
+      "21970369",
+      "27671809"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"A metagenomic study of methanotrophic microorganisms in Coal Oil Point seep sediments\",\"paper_titles\":[\"A metagenomic study of methanotrophic microorganisms in Coal Oil Point seep sediments\"],\"dois\":[\"https://doi.org/10.1186/1471-2180-11-221\"]}",
+        "rejected": "{\"answer\":\"Groundwater shapes sediment biogeochemistry and microbial diversity in a submerged Great Lake sinkhole\",\"paper_titles\":[\"Groundwater shapes sediment biogeochemistry and microbial diversity in a submerged Great Lake sinkhole\"],\"dois\":[\"https://doi.org/10.1111/gbi.12215\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: A metagenomic study of methanotrophic microorganisms in Coal Oil Point seep sediments (https://doi.org/10.1186/1471-2180-11-221)",
+        "rejected": "Related paper: Groundwater shapes sediment biogeochemistry and microbial diversity in a submerged Great Lake sinkhole (https://doi.org/10.1111/gbi.12215)"
+      },
+      "title": {
+        "chosen": "A metagenomic study of methanotrophic microorganisms in Coal Oil Point seep sediments",
+        "rejected": "Groundwater shapes sediment biogeochemistry and microbial diversity in a submerged Great Lake sinkhole"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Aerobic proteobacterial methylotrophs in Movile Cave: genomic and metagenomic analyses",
+    "query_title": "Aerobic proteobacterial methylotrophs in Movile Cave: genomic and metagenomic analyses",
+    "rejected_doi": "https://doi.org/10.1111/gbi.12215",
+    "rejected_pmid": "27671809",
+    "rejected_title": "Groundwater shapes sediment biogeochemistry and microbial diversity in a submerged Great Lake sinkhole",
+    "seed_pmid": "29291746",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b06d765fdb55a48964dda88"
+      ],
+      "rejected": [
+        "5b06d765fdb55a48964dda88"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4aace558f17c47ca1a70bbd8b2f8287a22514cb6eee3cc96c8ae373b114ed1b2",
+    "chosen_doi": "https://doi.org/10.1097/sla.0b013e31815b9cae",
+    "chosen_pmid": "18376195",
+    "chosen_title": "Prognostic Score Predicting Survival After Resection of Pancreatic Neuroendocrine Tumors: Analysis of 3851 Patients",
+    "entity_components": [
+      "26198970",
+      "18376195",
+      "26376994"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Prognostic Score Predicting Survival After Resection of Pancreatic Neuroendocrine Tumors: Analysis of 3851 Patients\",\"paper_titles\":[\"Prognostic Score Predicting Survival After Resection of Pancreatic Neuroendocrine Tumors: Analysis of 3851 Patients\"],\"dois\":[\"https://doi.org/10.1097/sla.0b013e31815b9cae\"]}",
+        "rejected": "{\"answer\":\"Role of Adjuvant Radiotherapy in Left-Sided Pancreatic Cancer\u2014Population-Based Analysis with Propensity Score Matching\",\"paper_titles\":[\"Role of Adjuvant Radiotherapy in Left-Sided Pancreatic Cancer\u2014Population-Based Analysis with Propensity Score Matching\"],\"dois\":[\"https://doi.org/10.1007/s11605-015-2941-x\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Prognostic Score Predicting Survival After Resection of Pancreatic Neuroendocrine Tumors: Analysis of 3851 Patients (https://doi.org/10.1097/sla.0b013e31815b9cae)",
+        "rejected": "Related paper: Role of Adjuvant Radiotherapy in Left-Sided Pancreatic Cancer\u2014Population-Based Analysis with Propensity Score Matching (https://doi.org/10.1007/s11605-015-2941-x)"
+      },
+      "title": {
+        "chosen": "Prognostic Score Predicting Survival After Resection of Pancreatic Neuroendocrine Tumors: Analysis of 3851 Patients",
+        "rejected": "Role of Adjuvant Radiotherapy in Left-Sided Pancreatic Cancer\u2014Population-Based Analysis with Propensity Score Matching"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Palliative resection of the primary tumor in 442 metastasized neuroendocrine tumors of the pancreas: a population-based, propensity score-matched survival analysis",
+    "query_title": "Palliative resection of the primary tumor in 442 metastasized neuroendocrine tumors of the pancreas: a population-based, propensity score-matched survival analysis",
+    "rejected_doi": "https://doi.org/10.1007/s11605-015-2941-x",
+    "rejected_pmid": "26376994",
+    "rejected_title": "Role of Adjuvant Radiotherapy in Left-Sided Pancreatic Cancer\u2014Population-Based Analysis with Propensity Score Matching",
+    "seed_pmid": "26198970",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b21023ffdb55a8d26a68cbe"
+      ],
+      "rejected": [
+        "5b21023ffdb55a8d26a68cbe"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "2e377b80ad8ea2a2885837c1ee58e765f94fd1cc5f090d74f9aa4c3a5a7b11e7",
+    "chosen_doi": "https://doi.org/10.1007/s00402-011-1366-6",
+    "chosen_pmid": "21814772",
+    "chosen_title": "Rate of avascular necrosis following proximal humerus fractures treated with a lateral locking plate and endosteal implant",
+    "entity_components": [
+      "29576637",
+      "21814772",
+      "27144821"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Rate of avascular necrosis following proximal humerus fractures treated with a lateral locking plate and endosteal implant\",\"paper_titles\":[\"Rate of avascular necrosis following proximal humerus fractures treated with a lateral locking plate and endosteal implant\"],\"dois\":[\"https://doi.org/10.1007/s00402-011-1366-6\"]}",
+        "rejected": "{\"answer\":\"Unstable Proximal Femur Fractures Treated With Proximal Femoral Locking Plates: A Retrospective, Multicenter Study of 111 Cases\",\"paper_titles\":[\"Unstable Proximal Femur Fractures Treated With Proximal Femoral Locking Plates: A Retrospective, Multicenter Study of 111 Cases\"],\"dois\":[\"https://doi.org/10.1097/bot.0000000000000602\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Rate of avascular necrosis following proximal humerus fractures treated with a lateral locking plate and endosteal implant (https://doi.org/10.1007/s00402-011-1366-6)",
+        "rejected": "Related paper: Unstable Proximal Femur Fractures Treated With Proximal Femoral Locking Plates: A Retrospective, Multicenter Study of 111 Cases (https://doi.org/10.1097/bot.0000000000000602)"
+      },
+      "title": {
+        "chosen": "Rate of avascular necrosis following proximal humerus fractures treated with a lateral locking plate and endosteal implant",
+        "rejected": "Unstable Proximal Femur Fractures Treated With Proximal Femoral Locking Plates: A Retrospective, Multicenter Study of 111 Cases"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Complications Associated with Locking Plate of Proximal Humerus Fractures",
+    "query_title": "Complications Associated with Locking Plate of Proximal Humerus Fractures",
+    "rejected_doi": "https://doi.org/10.1097/bot.0000000000000602",
+    "rejected_pmid": "27144821",
+    "rejected_title": "Unstable Proximal Femur Fractures Treated With Proximal Femoral Locking Plates: A Retrospective, Multicenter Study of 111 Cases",
+    "seed_pmid": "29576637",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b281f9afdb55aa5ebf3c3d7"
+      ],
+      "rejected": [
+        "5b281f9afdb55aa5ebf3c3d7"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "e2c22a5e7649e4fcd2a17568575104f9f4a601b45fd613aee29da9b868349240",
+    "chosen_doi": "https://doi.org/10.1155/2011/790871",
+    "chosen_pmid": "21541194",
+    "chosen_title": "Extranodal NK/T\u2010Cell Lymphoma: Toward the Identification of Clinical Molecular Targets",
+    "entity_components": [
+      "29291352",
+      "21541194",
+      "24531446"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Extranodal NK/T\u2010Cell Lymphoma: Toward the Identification of Clinical Molecular Targets\",\"paper_titles\":[\"Extranodal NK/T\u2010Cell Lymphoma: Toward the Identification of Clinical Molecular Targets\"],\"dois\":[\"https://doi.org/10.1155/2011/790871\"]}",
+        "rejected": "{\"answer\":\"Activation of TAK1 by MYD88 L265P drives malignant B-cell Growth in non-Hodgkin lymphoma\",\"paper_titles\":[\"Activation of TAK1 by MYD88 L265P drives malignant B-cell Growth in non-Hodgkin lymphoma\"],\"dois\":[\"https://doi.org/10.1038/bcj.2014.4\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Extranodal NK/T\u2010Cell Lymphoma: Toward the Identification of Clinical Molecular Targets (https://doi.org/10.1155/2011/790871)",
+        "rejected": "Related paper: Activation of TAK1 by MYD88 L265P drives malignant B-cell Growth in non-Hodgkin lymphoma (https://doi.org/10.1038/bcj.2014.4)"
+      },
+      "title": {
+        "chosen": "Extranodal NK/T\u2010Cell Lymphoma: Toward the Identification of Clinical Molecular Targets",
+        "rejected": "Activation of TAK1 by MYD88 L265P drives malignant B-cell Growth in non-Hodgkin lymphoma"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Recurrent ECSIT mutation encoding V140A triggers hyperinflammation and promotes hemophagocytic syndrome in extranodal NK/T cell lymphoma",
+    "query_title": "Recurrent ECSIT mutation encoding V140A triggers hyperinflammation and promotes hemophagocytic syndrome in extranodal NK/T cell lymphoma",
+    "rejected_doi": "https://doi.org/10.1038/bcj.2014.4",
+    "rejected_pmid": "24531446",
+    "rejected_title": "Activation of TAK1 by MYD88 L265P drives malignant B-cell Growth in non-Hodgkin lymphoma",
+    "seed_pmid": "29291352",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1fbed6fdb55a8d26a68c7f"
+      ],
+      "rejected": [
+        "5b1fbed6fdb55a8d26a68c7f"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "4b43adaa2a0dd72b15f46f5ea855c95844f9f540b2d7563bf1d00d7cd98f221a",
+    "chosen_doi": "https://doi.org/10.1038/nature09998",
+    "chosen_pmid": "21525929",
+    "chosen_title": "Superconductor\u2013insulator transition in La2 \u2212 xSr x CuO4 at the pair quantum resistance",
+    "entity_components": [
+      "29438349",
+      "21525929",
+      "25463322"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Superconductor\u2013insulator transition in La2 \u2212 xSr x CuO4 at the pair quantum resistance\",\"paper_titles\":[\"Superconductor\u2013insulator transition in La2 \u2212 xSr x CuO4 at the pair quantum resistance\"],\"dois\":[\"https://doi.org/10.1038/nature09998\"]}",
+        "rejected": "{\"answer\":\"Ion transport and softening in a polymerized ionic liquid\",\"paper_titles\":[\"Ion transport and softening in a polymerized ionic liquid\"],\"dois\":[\"https://doi.org/10.1039/c4nr05491a\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Superconductor\u2013insulator transition in La2 \u2212 xSr x CuO4 at the pair quantum resistance (https://doi.org/10.1038/nature09998)",
+        "rejected": "Related paper: Ion transport and softening in a polymerized ionic liquid (https://doi.org/10.1039/c4nr05491a)"
+      },
+      "title": {
+        "chosen": "Superconductor\u2013insulator transition in La2 \u2212 xSr x CuO4 at the pair quantum resistance",
+        "rejected": "Ion transport and softening in a polymerized ionic liquid"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "ON the Nature of Ionic Liquid Gating of La2\u2212xSrxCuO4",
+    "query_title": "ON the Nature of Ionic Liquid Gating of La2\u2212xSrxCuO4",
+    "rejected_doi": "https://doi.org/10.1039/c4nr05491a",
+    "rejected_pmid": "25463322",
+    "rejected_title": "Ion transport and softening in a polymerized ionic liquid",
+    "seed_pmid": "29438349",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b168e49fdb55a8d26a688d5"
+      ],
+      "rejected": [
+        "5b168e49fdb55a8d26a688d5"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "44398301fb660a57796cba6e2e3e128429910e2209c49b28c4b5ba81ad250c69",
+    "chosen_doi": "https://doi.org/10.1080/10401334.2016.1153475",
+    "chosen_pmid": "27092397",
+    "chosen_title": "A Peer-Support and Mindfulness Program to Improve the Mental Health of Medical Students",
+    "entity_components": [
+      "29409497",
+      "27092397",
+      "25758156"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"A Peer-Support and Mindfulness Program to Improve the Mental Health of Medical Students\",\"paper_titles\":[\"A Peer-Support and Mindfulness Program to Improve the Mental Health of Medical Students\"],\"dois\":[\"https://doi.org/10.1080/10401334.2016.1153475\"]}",
+        "rejected": "{\"answer\":\"The Brief Negative Symptom Scale (BNSS): Independent validation in a large sample of Italian patients with schizophrenia\",\"paper_titles\":[\"The Brief Negative Symptom Scale (BNSS): Independent validation in a large sample of Italian patients with schizophrenia\"],\"dois\":[\"https://doi.org/10.1016/j.eurpsy.2015.01.014\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: A Peer-Support and Mindfulness Program to Improve the Mental Health of Medical Students (https://doi.org/10.1080/10401334.2016.1153475)",
+        "rejected": "Related paper: The Brief Negative Symptom Scale (BNSS): Independent validation in a large sample of Italian patients with schizophrenia (https://doi.org/10.1016/j.eurpsy.2015.01.014)"
+      },
+      "title": {
+        "chosen": "A Peer-Support and Mindfulness Program to Improve the Mental Health of Medical Students",
+        "rejected": "The Brief Negative Symptom Scale (BNSS): Independent validation in a large sample of Italian patients with schizophrenia"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Langerian mindfulness, quality of life and psychological symptoms in a sample of Italian students",
+    "query_title": "Langerian mindfulness, quality of life and psychological symptoms in a sample of Italian students",
+    "rejected_doi": "https://doi.org/10.1016/j.eurpsy.2015.01.014",
+    "rejected_pmid": "25758156",
+    "rejected_title": "The Brief Negative Symptom Scale (BNSS): Independent validation in a large sample of Italian patients with schizophrenia",
+    "seed_pmid": "29409497",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b101369fdb55a16067577f4"
+      ],
+      "rejected": [
+        "5b101369fdb55a16067577f4"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "72496339bcf92ebb943ea46baf22a7f3c91a8f4d0c377f8142e2c71ef7b7e881",
+    "chosen_doi": "https://doi.org/10.1073/pnas.1016180108",
+    "chosen_pmid": "21300870",
+    "chosen_title": "An adhesion protein of Salmonella enterica serovar Typhi is required for pathogenesis and potential target for vaccine development",
+    "entity_components": [
+      "29473020",
+      "21300870",
+      "26121266"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"An adhesion protein of Salmonella enterica serovar Typhi is required for pathogenesis and potential target for vaccine development\",\"paper_titles\":[\"An adhesion protein of Salmonella enterica serovar Typhi is required for pathogenesis and potential target for vaccine development\"],\"dois\":[\"https://doi.org/10.1073/pnas.1016180108\"]}",
+        "rejected": "{\"answer\":\"Emergence of Ciprofloxacin-Resistant Salmonella enterica Serovar Typhi in Italy\",\"paper_titles\":[\"Emergence of Ciprofloxacin-Resistant Salmonella enterica Serovar Typhi in Italy\"],\"dois\":[\"https://doi.org/10.1371/journal.pone.0132065\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: An adhesion protein of Salmonella enterica serovar Typhi is required for pathogenesis and potential target for vaccine development (https://doi.org/10.1073/pnas.1016180108)",
+        "rejected": "Related paper: Emergence of Ciprofloxacin-Resistant Salmonella enterica Serovar Typhi in Italy (https://doi.org/10.1371/journal.pone.0132065)"
+      },
+      "title": {
+        "chosen": "An adhesion protein of Salmonella enterica serovar Typhi is required for pathogenesis and potential target for vaccine development",
+        "rejected": "Emergence of Ciprofloxacin-Resistant Salmonella enterica Serovar Typhi in Italy"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Functional Analysis of the Chaperone-Usher Fimbrial Gene Clusters of Salmonella enterica serovar Typhi",
+    "query_title": "Functional Analysis of the Chaperone-Usher Fimbrial Gene Clusters of Salmonella enterica serovar Typhi",
+    "rejected_doi": "https://doi.org/10.1371/journal.pone.0132065",
+    "rejected_pmid": "26121266",
+    "rejected_title": "Emergence of Ciprofloxacin-Resistant Salmonella enterica Serovar Typhi in Italy",
+    "seed_pmid": "29473020",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1050bcfdb55a1606757821"
+      ],
+      "rejected": [
+        "5b1050bcfdb55a1606757821"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d96ea9f48a6fc7f5a80b8859865f28196f5d1fa39ca80adce344cb22f10c7b43",
+    "chosen_doi": "https://doi.org/10.1111/cas.13320",
+    "chosen_pmid": "28699300",
+    "chosen_title": "Angiogenic, inflammatory and immunologic markers in predicting response to sunitinib in metastatic renal cell carcinoma",
+    "entity_components": [
+      "29721091",
+      "28699300",
+      "27599260"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Angiogenic, inflammatory and immunologic markers in predicting response to sunitinib in metastatic renal cell carcinoma\",\"paper_titles\":[\"Angiogenic, inflammatory and immunologic markers in predicting response to sunitinib in metastatic renal cell carcinoma\"],\"dois\":[\"https://doi.org/10.1111/cas.13320\"]}",
+        "rejected": "{\"answer\":\"Long-term response to sunitinib: everolimus treatment in metastatic clear cell renal cell carcinoma\",\"paper_titles\":[\"Long-term response to sunitinib: everolimus treatment in metastatic clear cell renal cell carcinoma\"],\"dois\":[\"https://doi.org/10.2217/fon-2016-0355\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Angiogenic, inflammatory and immunologic markers in predicting response to sunitinib in metastatic renal cell carcinoma (https://doi.org/10.1111/cas.13320)",
+        "rejected": "Related paper: Long-term response to sunitinib: everolimus treatment in metastatic clear cell renal cell carcinoma (https://doi.org/10.2217/fon-2016-0355)"
+      },
+      "title": {
+        "chosen": "Angiogenic, inflammatory and immunologic markers in predicting response to sunitinib in metastatic renal cell carcinoma",
+        "rejected": "Long-term response to sunitinib: everolimus treatment in metastatic clear cell renal cell carcinoma"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Soluble CD146 is a predictive marker of pejorative evolution and of sunitinib efficacy in clear cell renal cell carcinoma",
+    "query_title": "Soluble CD146 is a predictive marker of pejorative evolution and of sunitinib efficacy in clear cell renal cell carcinoma",
+    "rejected_doi": "https://doi.org/10.2217/fon-2016-0355",
+    "rejected_pmid": "27599260",
+    "rejected_title": "Long-term response to sunitinib: everolimus treatment in metastatic clear cell renal cell carcinoma",
+    "seed_pmid": "29721091",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b165657fdb55a8d26a68865"
+      ],
+      "rejected": [
+        "5b165657fdb55a8d26a68865"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "75d3b35141aafd402fef54eadea1617be31a7b48c09e363e747f2c1a660f0a32",
+    "chosen_doi": "https://doi.org/10.1038/labinvest.2011.105",
+    "chosen_pmid": "21709671",
+    "chosen_title": "Development and characterization of xenograft model systems for adenoid cystic carcinoma",
+    "entity_components": [
+      "29555661",
+      "21709671",
+      "29627827"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Development and characterization of xenograft model systems for adenoid cystic carcinoma\",\"paper_titles\":[\"Development and characterization of xenograft model systems for adenoid cystic carcinoma\"],\"dois\":[\"https://doi.org/10.1038/labinvest.2011.105\"]}",
+        "rejected": "{\"answer\":\"Lgr5+CD44+EpCAM+ Strictly Defines Cancer Stem Cells in Human Colorectal Cancer\",\"paper_titles\":[\"Lgr5+CD44+EpCAM+ Strictly Defines Cancer Stem Cells in Human Colorectal Cancer\"],\"dois\":[\"https://doi.org/10.1159/000488743\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Development and characterization of xenograft model systems for adenoid cystic carcinoma (https://doi.org/10.1038/labinvest.2011.105)",
+        "rejected": "Related paper: Lgr5+CD44+EpCAM+ Strictly Defines Cancer Stem Cells in Human Colorectal Cancer (https://doi.org/10.1159/000488743)"
+      },
+      "title": {
+        "chosen": "Development and characterization of xenograft model systems for adenoid cystic carcinoma",
+        "rejected": "Lgr5+CD44+EpCAM+ Strictly Defines Cancer Stem Cells in Human Colorectal Cancer"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Salivary Gland Cancer Patient-Derived Xenografts Enable Characterization of Cancer Stem Cells and New Gene Events Associated with Tumor Progression",
+    "query_title": "Salivary Gland Cancer Patient-Derived Xenografts Enable Characterization of Cancer Stem Cells and New Gene Events Associated with Tumor Progression",
+    "rejected_doi": "https://doi.org/10.1159/000488743",
+    "rejected_pmid": "29627827",
+    "rejected_title": "Lgr5+CD44+EpCAM+ Strictly Defines Cancer Stem Cells in Human Colorectal Cancer",
+    "seed_pmid": "29555661",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1c9d05fdb55a8d26a68ba7"
+      ],
+      "rejected": [
+        "5b1c9d05fdb55a8d26a68ba7"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "d570c14e72fda4ea2f0c804b9393d4e92d96fa507db9fddf3b3bc1cf066ae2fb",
+    "chosen_doi": "https://doi.org/10.3785/j.issn.1008-9292.2015.01.013",
+    "chosen_pmid": "25851980",
+    "chosen_title": "[Single-incision laparoscopic surgery with self-made port for totally extraperitoneal hernioplasty: a report of 7 cases].",
+    "entity_components": [
+      "28695883",
+      "25851980",
+      "28402744"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"[Single-incision laparoscopic surgery with self-made port for totally extraperitoneal hernioplasty: a report of 7 cases].\",\"paper_titles\":[\"[Single-incision laparoscopic surgery with self-made port for totally extraperitoneal hernioplasty: a report of 7 cases].\"],\"dois\":[\"https://doi.org/10.3785/j.issn.1008-9292.2015.01.013\"]}",
+        "rejected": "{\"answer\":\"Single-Incision Versus Three-Port Laparoscopic Appendectomy: Short- and Long-Term Outcomes\",\"paper_titles\":[\"Single-Incision Versus Three-Port Laparoscopic Appendectomy: Short- and Long-Term Outcomes\"],\"dois\":[\"https://doi.org/10.1089/lap.2016.0406\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: [Single-incision laparoscopic surgery with self-made port for totally extraperitoneal hernioplasty: a report of 7 cases]. (https://doi.org/10.3785/j.issn.1008-9292.2015.01.013)",
+        "rejected": "Related paper: Single-Incision Versus Three-Port Laparoscopic Appendectomy: Short- and Long-Term Outcomes (https://doi.org/10.1089/lap.2016.0406)"
+      },
+      "title": {
+        "chosen": "[Single-incision laparoscopic surgery with self-made port for totally extraperitoneal hernioplasty: a report of 7 cases].",
+        "rejected": "Single-Incision Versus Three-Port Laparoscopic Appendectomy: Short- and Long-Term Outcomes"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Single incision multiport versus conventional laparoscopic inguinal hernia repair: A matched comparison",
+    "query_title": "Single incision multiport versus conventional laparoscopic inguinal hernia repair: A matched comparison",
+    "rejected_doi": "https://doi.org/10.1089/lap.2016.0406",
+    "rejected_pmid": "28402744",
+    "rejected_title": "Single-Incision Versus Three-Port Laparoscopic Appendectomy: Short- and Long-Term Outcomes",
+    "seed_pmid": "28695883",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b23958bfdb55a8d26a68df6"
+      ],
+      "rejected": [
+        "5b23958bfdb55a8d26a68df6"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "c85bbfcd043fa39353c071448c6a4c78df04b53be90358a4ccd449c9e41a0713",
+    "chosen_doi": "https://doi.org/10.1186/1471-2458-10-368",
+    "chosen_pmid": "20576115",
+    "chosen_title": "Coverage of Jade Goody's cervical cancer in UK newspapers: a missed opportunity for health promotion?",
+    "entity_components": [
+      "29695238",
+      "20576115",
+      "28197003"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Coverage of Jade Goody's cervical cancer in UK newspapers: a missed opportunity for health promotion?\",\"paper_titles\":[\"Coverage of Jade Goody's cervical cancer in UK newspapers: a missed opportunity for health promotion?\"],\"dois\":[\"https://doi.org/10.1186/1471-2458-10-368\"]}",
+        "rejected": "{\"answer\":\"Celebrity suicide and its effect on further media reporting and portrayal of suicide: An exploratory study\",\"paper_titles\":[\"Celebrity suicide and its effect on further media reporting and portrayal of suicide: An exploratory study\"],\"dois\":[\"https://doi.org/10.4103/0019-5545.196704\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Coverage of Jade Goody's cervical cancer in UK newspapers: a missed opportunity for health promotion? (https://doi.org/10.1186/1471-2458-10-368)",
+        "rejected": "Related paper: Celebrity suicide and its effect on further media reporting and portrayal of suicide: An exploratory study (https://doi.org/10.4103/0019-5545.196704)"
+      },
+      "title": {
+        "chosen": "Coverage of Jade Goody's cervical cancer in UK newspapers: a missed opportunity for health promotion?",
+        "rejected": "Celebrity suicide and its effect on further media reporting and portrayal of suicide: An exploratory study"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Mass media and risk factors for cancer: the under-representation of age",
+    "query_title": "Mass media and risk factors for cancer: the under-representation of age",
+    "rejected_doi": "https://doi.org/10.4103/0019-5545.196704",
+    "rejected_pmid": "28197003",
+    "rejected_title": "Celebrity suicide and its effect on further media reporting and portrayal of suicide: An exploratory study",
+    "seed_pmid": "29695238",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b28d262fdb55aa5ebf3c3df"
+      ],
+      "rejected": [
+        "5b28d262fdb55aa5ebf3c3df"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "01ca8529da7a6c1a51c8f9bb57fee8c7d3800c23b8594e7b606c1ae37d619310",
+    "chosen_doi": "https://doi.org/10.1002/gcc.22139",
+    "chosen_pmid": "24347044",
+    "chosen_title": "Distinct patterns of global promoter methylation in early stage chronic lymphocytic leukemia",
+    "entity_components": [
+      "27777635",
+      "24347044",
+      "24441198"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Distinct patterns of global promoter methylation in early stage chronic lymphocytic leukemia\",\"paper_titles\":[\"Distinct patterns of global promoter methylation in early stage chronic lymphocytic leukemia\"],\"dois\":[\"https://doi.org/10.1002/gcc.22139\"]}",
+        "rejected": "{\"answer\":\"DNA methylome profiling identifies novel methylated genes in African American patients with colorectal neoplasia\",\"paper_titles\":[\"DNA methylome profiling identifies novel methylated genes in African American patients with colorectal neoplasia\"],\"dois\":[\"https://doi.org/10.4161/epi.27644\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Distinct patterns of global promoter methylation in early stage chronic lymphocytic leukemia (https://doi.org/10.1002/gcc.22139)",
+        "rejected": "Related paper: DNA methylome profiling identifies novel methylated genes in African American patients with colorectal neoplasia (https://doi.org/10.4161/epi.27644)"
+      },
+      "title": {
+        "chosen": "Distinct patterns of global promoter methylation in early stage chronic lymphocytic leukemia",
+        "rejected": "DNA methylome profiling identifies novel methylated genes in African American patients with colorectal neoplasia"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Global DNA methylation profiling reveals new insights into epigenetically deregulated protein coding and long noncoding RNAs in CLL",
+    "query_title": "Global DNA methylation profiling reveals new insights into epigenetically deregulated protein coding and long noncoding RNAs in CLL",
+    "rejected_doi": "https://doi.org/10.4161/epi.27644",
+    "rejected_pmid": "24441198",
+    "rejected_title": "DNA methylome profiling identifies novel methylated genes in African American patients with colorectal neoplasia",
+    "seed_pmid": "27777635",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2108fbfdb55a8d26a68cc1"
+      ],
+      "rejected": [
+        "5b2108fbfdb55a8d26a68cc1"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "daa58755ceb73b7af836e3b865798be951705541f3c36af6d3894c4e70345b9f",
+    "chosen_doi": "https://doi.org/10.1007/s10646-015-1452-6",
+    "chosen_pmid": "25822201",
+    "chosen_title": "Distribution, diversity and abundance of bacterial laccase-like genes in different particle size fractions of sediments in a subtropical mangrove ecosystem",
+    "entity_components": [
+      "29527192",
+      "25822201",
+      "21622786"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Distribution, diversity and abundance of bacterial laccase-like genes in different particle size fractions of sediments in a subtropical mangrove ecosystem\",\"paper_titles\":[\"Distribution, diversity and abundance of bacterial laccase-like genes in different particle size fractions of sediments in a subtropical mangrove ecosystem\"],\"dois\":[\"https://doi.org/10.1007/s10646-015-1452-6\"]}",
+        "rejected": "{\"answer\":\"Impact of Biochar Application to Soil on the Root-Associated Bacterial Community Structure of Fully Developed Greenhouse Pepper Plants\",\"paper_titles\":[\"Impact of Biochar Application to Soil on the Root-Associated Bacterial Community Structure of Fully Developed Greenhouse Pepper Plants\"],\"dois\":[\"https://doi.org/10.1128/aem.00148-11\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Distribution, diversity and abundance of bacterial laccase-like genes in different particle size fractions of sediments in a subtropical mangrove ecosystem (https://doi.org/10.1007/s10646-015-1452-6)",
+        "rejected": "Related paper: Impact of Biochar Application to Soil on the Root-Associated Bacterial Community Structure of Fully Developed Greenhouse Pepper Plants (https://doi.org/10.1128/aem.00148-11)"
+      },
+      "title": {
+        "chosen": "Distribution, diversity and abundance of bacterial laccase-like genes in different particle size fractions of sediments in a subtropical mangrove ecosystem",
+        "rejected": "Impact of Biochar Application to Soil on the Root-Associated Bacterial Community Structure of Fully Developed Greenhouse Pepper Plants"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Bacterial Preferences for Specific Soil Particle Size Fractions Revealed by Community Analyses",
+    "query_title": "Bacterial Preferences for Specific Soil Particle Size Fractions Revealed by Community Analyses",
+    "rejected_doi": "https://doi.org/10.1128/aem.00148-11",
+    "rejected_pmid": "21622786",
+    "rejected_title": "Impact of Biochar Application to Soil on the Root-Associated Bacterial Community Structure of Fully Developed Greenhouse Pepper Plants",
+    "seed_pmid": "29527192",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b114965fdb55a4a783f61e4"
+      ],
+      "rejected": [
+        "5b114965fdb55a4a783f61e4"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "81cbc7ccb3e3e05e72305947e9f3e5560d70d464e1ca4cc4ebfe8bb6af6f52e8",
+    "chosen_doi": "https://doi.org/10.1242/jcs.031070",
+    "chosen_pmid": "18713835",
+    "chosen_title": "Efficient coupling of Sec23-Sec24 to Sec13-Sec31 drives COPII-dependent collagen secretion and is essential for normal craniofacial development",
+    "entity_components": [
+      "27476655",
+      "18713835",
+      "27118846"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Efficient coupling of Sec23-Sec24 to Sec13-Sec31 drives COPII-dependent collagen secretion and is essential for normal craniofacial development\",\"paper_titles\":[\"Efficient coupling of Sec23-Sec24 to Sec13-Sec31 drives COPII-dependent collagen secretion and is essential for normal craniofacial development\"],\"dois\":[\"https://doi.org/10.1242/jcs.031070\"]}",
+        "rejected": "{\"answer\":\"Canonical and noncanonical intraflagellar transport regulates craniofacial skeletal development\",\"paper_titles\":[\"Canonical and noncanonical intraflagellar transport regulates craniofacial skeletal development\"],\"dois\":[\"https://doi.org/10.1073/pnas.1519458113\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Efficient coupling of Sec23-Sec24 to Sec13-Sec31 drives COPII-dependent collagen secretion and is essential for normal craniofacial development (https://doi.org/10.1242/jcs.031070)",
+        "rejected": "Related paper: Canonical and noncanonical intraflagellar transport regulates craniofacial skeletal development (https://doi.org/10.1073/pnas.1519458113)"
+      },
+      "title": {
+        "chosen": "Efficient coupling of Sec23-Sec24 to Sec13-Sec31 drives COPII-dependent collagen secretion and is essential for normal craniofacial development",
+        "rejected": "Canonical and noncanonical intraflagellar transport regulates craniofacial skeletal development"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "ARCN1 Mutations Cause a Recognizable Craniofacial Syndrome Due to COPI-Mediated Transport Defects",
+    "query_title": "ARCN1 Mutations Cause a Recognizable Craniofacial Syndrome Due to COPI-Mediated Transport Defects",
+    "rejected_doi": "https://doi.org/10.1073/pnas.1519458113",
+    "rejected_pmid": "27118846",
+    "rejected_title": "Canonical and noncanonical intraflagellar transport regulates craniofacial skeletal development",
+    "seed_pmid": "27476655",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b1768e1fdb55a8d26a68963"
+      ],
+      "rejected": [
+        "5b1768e1fdb55a8d26a68963"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "8f3e0de742814c6165a0aed9d582b64bc112a7aecb93d850f62af2a0327ae811",
+    "chosen_doi": "https://doi.org/10.3390/s150717048",
+    "chosen_pmid": "26184223",
+    "chosen_title": "Integrating Paper Chromatography with Electrochemical Detection for the Trace Analysis of TNT in Soil",
+    "entity_components": [
+      "29364153",
+      "26184223",
+      "27598214"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Integrating Paper Chromatography with Electrochemical Detection for the Trace Analysis of TNT in Soil\",\"paper_titles\":[\"Integrating Paper Chromatography with Electrochemical Detection for the Trace Analysis of TNT in Soil\"],\"dois\":[\"https://doi.org/10.3390/s150717048\"]}",
+        "rejected": "{\"answer\":\"Electrochemical Sensors Based on Screen-Printed Electrodes: The Use of Phthalocyanine Derivatives for Application in VFA Detection\",\"paper_titles\":[\"Electrochemical Sensors Based on Screen-Printed Electrodes: The Use of Phthalocyanine Derivatives for Application in VFA Detection\"],\"dois\":[\"https://doi.org/10.3390/bios6030046\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Integrating Paper Chromatography with Electrochemical Detection for the Trace Analysis of TNT in Soil (https://doi.org/10.3390/s150717048)",
+        "rejected": "Related paper: Electrochemical Sensors Based on Screen-Printed Electrodes: The Use of Phthalocyanine Derivatives for Application in VFA Detection (https://doi.org/10.3390/bios6030046)"
+      },
+      "title": {
+        "chosen": "Integrating Paper Chromatography with Electrochemical Detection for the Trace Analysis of TNT in Soil",
+        "rejected": "Electrochemical Sensors Based on Screen-Printed Electrodes: The Use of Phthalocyanine Derivatives for Application in VFA Detection"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Paper-Based Electrochemical Detection of Chlorate",
+    "query_title": "Paper-Based Electrochemical Detection of Chlorate",
+    "rejected_doi": "https://doi.org/10.3390/bios6030046",
+    "rejected_pmid": "27598214",
+    "rejected_title": "Electrochemical Sensors Based on Screen-Printed Electrodes: The Use of Phthalocyanine Derivatives for Application in VFA Detection",
+    "seed_pmid": "29364153",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b16a411fdb55a8d26a688f1"
+      ],
+      "rejected": [
+        "5b16a411fdb55a8d26a688f1"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "358f97c235a512472a957a5ec03a61ae619d484cba098207c73b5c98595b747b",
+    "chosen_doi": "https://doi.org/10.1507/endocrj.k08e-099",
+    "chosen_pmid": "18497452",
+    "chosen_title": "Estrogen-Related Cancer Microenvironment of Breast Carcinoma",
+    "entity_components": [
+      "29463044",
+      "18497452",
+      "23339845"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Estrogen-Related Cancer Microenvironment of Breast Carcinoma\",\"paper_titles\":[\"Estrogen-Related Cancer Microenvironment of Breast Carcinoma\"],\"dois\":[\"https://doi.org/10.1507/endocrj.k08e-099\"]}",
+        "rejected": "{\"answer\":\"Lymphotoxin network pathways shape the tumor microenvironment\",\"paper_titles\":[\"Lymphotoxin network pathways shape the tumor microenvironment\"],\"dois\":[\"https://doi.org/10.1016/j.coi.2013.01.001\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Estrogen-Related Cancer Microenvironment of Breast Carcinoma (https://doi.org/10.1507/endocrj.k08e-099)",
+        "rejected": "Related paper: Lymphotoxin network pathways shape the tumor microenvironment (https://doi.org/10.1016/j.coi.2013.01.001)"
+      },
+      "title": {
+        "chosen": "Estrogen-Related Cancer Microenvironment of Breast Carcinoma",
+        "rejected": "Lymphotoxin network pathways shape the tumor microenvironment"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "The Role of the Estrogen Pathway in the Tumor Microenvironment",
+    "query_title": "The Role of the Estrogen Pathway in the Tumor Microenvironment",
+    "rejected_doi": "https://doi.org/10.1016/j.coi.2013.01.001",
+    "rejected_pmid": "23339845",
+    "rejected_title": "Lymphotoxin network pathways shape the tumor microenvironment",
+    "seed_pmid": "29463044",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b15827afdb55a8d26a6879b"
+      ],
+      "rejected": [
+        "5b15827afdb55a8d26a6879b"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "a1a59871330c9023ec9984b76a77d44603a3d18300572cbb4e6cd813e5b386cd",
+    "chosen_doi": "https://doi.org/10.1371/journal.pone.0103431",
+    "chosen_pmid": "25072281",
+    "chosen_title": "Prophylactic Cranial Irradiation May Impose a Detrimental Effect on Overall Survival of Patients with Nonsmall Cell Lung Cancer: A Systematic Review and Meta-Analysis",
+    "entity_components": [
+      "29732317",
+      "25072281",
+      "26673747"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Prophylactic Cranial Irradiation May Impose a Detrimental Effect on Overall Survival of Patients with Nonsmall Cell Lung Cancer: A Systematic Review and Meta-Analysis\",\"paper_titles\":[\"Prophylactic Cranial Irradiation May Impose a Detrimental Effect on Overall Survival of Patients with Nonsmall Cell Lung Cancer: A Systematic Review and Meta-Analysis\"],\"dois\":[\"https://doi.org/10.1371/journal.pone.0103431\"]}",
+        "rejected": "{\"answer\":\"Comparison of first-line chemotherapy based on irinotecan or other drugs to treat non-small cell lung cancer in stage IIIB/IV: a systematic review and meta-analysis\",\"paper_titles\":[\"Comparison of first-line chemotherapy based on irinotecan or other drugs to treat non-small cell lung cancer in stage IIIB/IV: a systematic review and meta-analysis\"],\"dois\":[\"https://doi.org/10.1186/s12885-015-1978-2\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Prophylactic Cranial Irradiation May Impose a Detrimental Effect on Overall Survival of Patients with Nonsmall Cell Lung Cancer: A Systematic Review and Meta-Analysis (https://doi.org/10.1371/journal.pone.0103431)",
+        "rejected": "Related paper: Comparison of first-line chemotherapy based on irinotecan or other drugs to treat non-small cell lung cancer in stage IIIB/IV: a systematic review and meta-analysis (https://doi.org/10.1186/s12885-015-1978-2)"
+      },
+      "title": {
+        "chosen": "Prophylactic Cranial Irradiation May Impose a Detrimental Effect on Overall Survival of Patients with Nonsmall Cell Lung Cancer: A Systematic Review and Meta-Analysis",
+        "rejected": "Comparison of first-line chemotherapy based on irinotecan or other drugs to treat non-small cell lung cancer in stage IIIB/IV: a systematic review and meta-analysis"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Prophylactic Cranial Irradiation in Patients With Non-Small-Cell Lung Cancer: A Systematic Review and Meta-Analysis of Randomized Controlled Trials",
+    "query_title": "Prophylactic Cranial Irradiation in Patients With Non-Small-Cell Lung Cancer: A Systematic Review and Meta-Analysis of Randomized Controlled Trials",
+    "rejected_doi": "https://doi.org/10.1186/s12885-015-1978-2",
+    "rejected_pmid": "26673747",
+    "rejected_title": "Comparison of first-line chemotherapy based on irinotecan or other drugs to treat non-small cell lung cancer in stage IIIB/IV: a systematic review and meta-analysis",
+    "seed_pmid": "29732317",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b15fd3afdb55a8d26a687ed"
+      ],
+      "rejected": [
+        "5b15fd3afdb55a8d26a687ed"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "3451bd4cb424726cf2391a778f20d7b3e3a9caf38d9dc9e25656b43fd71cb381",
+    "chosen_doi": "https://doi.org/10.1109/embc.2012.6346165",
+    "chosen_pmid": "23366126",
+    "chosen_title": "Multiview approach to spectral clustering",
+    "entity_components": [
+      "29432517",
+      "23366126",
+      "28334208"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Multiview approach to spectral clustering\",\"paper_titles\":[\"Multiview approach to spectral clustering\"],\"dois\":[\"https://doi.org/10.1109/embc.2012.6346165\"]}",
+        "rejected": "{\"answer\":\"Morphologically constrained spectral unmixing by dictionary learning for multiplex fluorescence microscopy\",\"paper_titles\":[\"Morphologically constrained spectral unmixing by dictionary learning for multiplex fluorescence microscopy\"],\"dois\":[\"https://doi.org/10.1093/bioinformatics/btx108\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Multiview approach to spectral clustering (https://doi.org/10.1109/embc.2012.6346165)",
+        "rejected": "Related paper: Morphologically constrained spectral unmixing by dictionary learning for multiplex fluorescence microscopy (https://doi.org/10.1093/bioinformatics/btx108)"
+      },
+      "title": {
+        "chosen": "Multiview approach to spectral clustering",
+        "rejected": "Morphologically constrained spectral unmixing by dictionary learning for multiplex fluorescence microscopy"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Spectral clustering based on learning similarity matrix",
+    "query_title": "Spectral clustering based on learning similarity matrix",
+    "rejected_doi": "https://doi.org/10.1093/bioinformatics/btx108",
+    "rejected_pmid": "28334208",
+    "rejected_title": "Morphologically constrained spectral unmixing by dictionary learning for multiplex fluorescence microscopy",
+    "seed_pmid": "29432517",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b030770fdb55aa7f94c340f"
+      ],
+      "rejected": [
+        "5b030770fdb55aa7f94c340f"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  },
+  {
+    "block_id": "0ebfb5bf88f8e02aa528ed137289ebf55a3b0ed5cff69980a1b70568f0904fb6",
+    "chosen_doi": "https://doi.org/10.3233/jad-160836",
+    "chosen_pmid": "27983553",
+    "chosen_title": "Down Syndrome, Partial Trisomy 21, and Absence of Alzheimer\u2019s Disease: The Role of APP",
+    "entity_components": [
+      "27106104",
+      "27983553",
+      "28403217"
+    ],
+    "formats": {
+      "json": {
+        "chosen": "{\"answer\":\"Down Syndrome, Partial Trisomy 21, and Absence of Alzheimer\u2019s Disease: The Role of APP\",\"paper_titles\":[\"Down Syndrome, Partial Trisomy 21, and Absence of Alzheimer\u2019s Disease: The Role of APP\"],\"dois\":[\"https://doi.org/10.3233/jad-160836\"]}",
+        "rejected": "{\"answer\":\"Embryonic loss of human females with partial trisomy 19 identifies region critical for the single active X\",\"paper_titles\":[\"Embryonic loss of human females with partial trisomy 19 identifies region critical for the single active X\"],\"dois\":[\"https://doi.org/10.1371/journal.pone.0170403\"]}"
+      },
+      "prose": {
+        "chosen": "Related paper: Down Syndrome, Partial Trisomy 21, and Absence of Alzheimer\u2019s Disease: The Role of APP (https://doi.org/10.3233/jad-160836)",
+        "rejected": "Related paper: Embryonic loss of human females with partial trisomy 19 identifies region critical for the single active X (https://doi.org/10.1371/journal.pone.0170403)"
+      },
+      "title": {
+        "chosen": "Down Syndrome, Partial Trisomy 21, and Absence of Alzheimer\u2019s Disease: The Role of APP",
+        "rejected": "Embryonic loss of human females with partial trisomy 19 identifies region critical for the single active X"
+      }
+    },
+    "human_pairwise_vote": false,
+    "pair_construction": "code pairing of uncontested original human article-relevance labels",
+    "prompt": "Systematic reanalysis of partial trisomy 21 cases with or without Down syndrome suggests a small region on 21q22.13 as critical to the phenotype",
+    "query_title": "Systematic reanalysis of partial trisomy 21 cases with or without Down syndrome suggests a small region on 21q22.13 as critical to the phenotype",
+    "rejected_doi": "https://doi.org/10.1371/journal.pone.0170403",
+    "rejected_pmid": "28403217",
+    "rejected_title": "Embryonic loss of human females with partial trisomy 19 identifies region critical for the single active X",
+    "seed_pmid": "27106104",
+    "source": "RELISH_v1+OpenAlex-CC0",
+    "source_human_annotations": {
+      "chosen": [
+        "5b2b9be2fdb55aa5ebf3c406"
+      ],
+      "rejected": [
+        "5b2b9be2fdb55aa5ebf3c406"
+      ]
+    },
+    "source_label": "relevant_vs_irrelevant",
+    "title_visibility_status": "AI-assisted source review before splitting"
+  }
+]

@@ -1,0 +1,27 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+
+New pipeline code and competitive additions: Copyright (c) 2026 zkasuran.
+Source-Available No-Derivatives Licence 1.0 applies to those additions only.
+
+RELISH annotation originals: Brown, Peter (2019). RELISH_v1. figshare. Dataset.
+https://doi.org/10.6084/m9.figshare.7722905.v1. CC0 1.0 Universal.
+Human article-relevance annotations are distinct from our constructed pairs and
+AI-assisted title-visibility review. No AI work is called human-reviewed.
+
+OpenAlex metadata: OpenAlex, https://openalex.org. CC0 1.0 Universal.
+Only bibliographic titles, DOI, year and identity fields are used. Linked papers
+and abstracts are excluded. Metadata lookup does not certify universal truth.
+
+Telegraph reference kit: Copyright (c) 2026 telegraphprotocol. MIT License.
+https://github.com/telegraphprotocol/telegraph-wasm-baseline
+Reference source revision 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd.
+Full MIT text is in KIT-LICENSE. No upstream grant is restricted.
+
+ModernBERT-base: Answer.AI and LightOn, Apache License 2.0.
+https://huggingface.co/answerdotai/ModernBERT-base
+Source revision 8949b909ec900327062f0ebf497f51aef5e6f0c8.
+Full Apache text is in UPSTREAM-APACHE-2.0.txt.
+Model work runs only on bounded standard public CPU GitHub workflows.
+
+Original source rights remain unchanged after preparation, failure and export.
+No pretrained weights or competitive delta is bundled by the source-only gate.

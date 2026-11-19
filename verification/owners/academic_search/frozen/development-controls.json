@@ -1,0 +1,66 @@
+{
+  "audit_scored": false,
+  "audit_used_for_selection": false,
+  "controls_refit": false,
+  "failures": [],
+  "frozen_baseline_sha256": "4bcac8dc59866c63d52ebdbc4a86d44163581f1ea627bb157d16823f359c7ff3",
+  "full_primary_dataset_gate_run": false,
+  "limits": [
+    "Integer source-control replay is not the full primary dataset gate or neural model quality.",
+    "No audit data bytes or metrics are opened by this command."
+  ],
+  "metrics": {
+    "train": {
+      "json": {
+        "answer_only": 0.984375,
+        "length": 0.53125,
+        "overlap": 0.65625,
+        "surface": 0.5234375
+      },
+      "prose": {
+        "answer_only": 0.984375,
+        "length": 0.53125,
+        "overlap": 0.65625,
+        "surface": 0.5
+      },
+      "title": {
+        "answer_only": 0.984375,
+        "length": 0.53515625,
+        "overlap": 0.65625,
+        "surface": 0.546875
+      }
+    },
+    "validation": {
+      "json": {
+        "answer_only": 0.515625,
+        "length": 0.578125,
+        "overlap": 0.453125,
+        "surface": 0.53125
+      },
+      "prose": {
+        "answer_only": 0.515625,
+        "length": 0.5625,
+        "overlap": 0.453125,
+        "surface": 0.5
+      },
+      "title": {
+        "answer_only": 0.515625,
+        "length": 0.5625,
+        "overlap": 0.453125,
+        "surface": 0.5625
+      }
+    }
+  },
+  "schema_version": 1,
+  "status": "DEVELOPMENT_SHORTCUT_PASS_REMOTE_GATE_PENDING",
+  "structural": {
+    "identical_fraction": 0.0,
+    "max_rejected_fraction": 0.0078125,
+    "normalized_overlap": 0,
+    "repeated_chosen": 0,
+    "train_originals": 128,
+    "unique_rejected_fraction": 1.0
+  },
+  "training_allowed": true,
+  "training_sha256": "b4c0657384ddb5d6da264b4e631467b01a9768a70bcfde390baef8696d6e05ab"
+}

@@ -1,0 +1,48 @@
+{
+  "audit_scored": false,
+  "audit_used_for_selection": false,
+  "failures": [],
+  "full_primary_dataset_gate_run": false,
+  "metrics": {
+    "train": {
+      "json": {
+        "literal_cosine_squared": 0.5859375,
+        "literal_jaccard": 0.59765625,
+        "literal_shared_words": 0.5703125
+      },
+      "prose": {
+        "literal_cosine_squared": 0.58984375,
+        "literal_jaccard": 0.59765625,
+        "literal_shared_words": 0.5703125
+      },
+      "title": {
+        "literal_cosine_squared": 0.56640625,
+        "literal_jaccard": 0.58984375,
+        "literal_shared_words": 0.5703125
+      }
+    },
+    "validation": {
+      "json": {
+        "literal_cosine_squared": 0.5625,
+        "literal_jaccard": 0.484375,
+        "literal_shared_words": 0.484375
+      },
+      "prose": {
+        "literal_cosine_squared": 0.546875,
+        "literal_jaccard": 0.484375,
+        "literal_shared_words": 0.484375
+      },
+      "title": {
+        "literal_cosine_squared": 0.546875,
+        "literal_jaccard": 0.5,
+        "literal_shared_words": 0.484375
+      }
+    }
+  },
+  "prior_controls_sha256": "d19c16d036676234baf921d95a22453494059b7498bd969dbadf83141120e70d",
+  "schema_version": 1,
+  "status": "DEVELOPMENT_SHORTCUT_PASS_REMOTE_GATE_PENDING",
+  "training_allowed": true,
+  "training_sha256": "b4c0657384ddb5d6da264b4e631467b01a9768a70bcfde390baef8696d6e05ab",
+  "unseen_term_controls_sha256": "8d353fd11868ff3bdaa3c2ef1551fdd28858413f1026710a1c010cbd176b6101"
+}

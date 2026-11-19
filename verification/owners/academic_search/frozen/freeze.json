@@ -1,0 +1,34 @@
+{
+  "audit_used_for_selection": false,
+  "family": "ACADEMIC_SEARCH",
+  "formats": [
+    "title",
+    "json",
+    "prose"
+  ],
+  "grants": "RELISH annotations and OpenAlex metadata CC0",
+  "independent_groups": {
+    "audit": 64,
+    "train": 128,
+    "validation": 32
+  },
+  "normalized_overlap": 0,
+  "review_pool_sha256": "9192324f328844d44db2dbf59f6fd8eddc59a3c0ee38cd4e334f98ef6e41e863",
+  "review_sha256": "5720db069913d74c8be821de358e896309c761ef7c80d8e9a2c753fdb8e72b88",
+  "schema_version": 1,
+  "source_manifest_sha256": "1cc25da258b700e80dc54b6afff9e526def6803367bb3cced312962aad625e0f",
+  "splits": {
+    "audit": {
+      "rows": 64,
+      "sha256": "75701820c853b3f1348ae930271779dfd253deff2b5a9f3230cb6fbae916eb5c"
+    },
+    "train": {
+      "rows": 128,
+      "sha256": "b4c0657384ddb5d6da264b4e631467b01a9768a70bcfde390baef8696d6e05ab"
+    },
+    "validation": {
+      "rows": 32,
+      "sha256": "ef57ab2d82c8ad5a7314a850cddb86e0224bdc18ef9bc2b0aaf2e250587617af"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "audit_used_for_fit": false,
+  "coefficient_arithmetic": "integer pair-direction counts; exact rational replay",
+  "fit_split": "train",
+  "orientations": {
+    "literal_cosine_squared": 1,
+    "literal_jaccard": 1,
+    "literal_shared_words": 1
+  },
+  "schema_version": 1,
+  "training_sha256": "b4c0657384ddb5d6da264b4e631467b01a9768a70bcfde390baef8696d6e05ab"
+}

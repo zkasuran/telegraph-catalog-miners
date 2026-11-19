@@ -1,0 +1,70 @@
+{
+  "annotation_projection": [
+    {
+      "irrelevant": [
+        "26376994"
+      ],
+      "partial": [],
+      "pmid": "26198970",
+      "relevant": [
+        "18376195"
+      ],
+      "uid": "5b21023ffdb55a8d26a68cbe"
+    }
+  ],
+  "ids": [
+    "26198970",
+    "18376195",
+    "26376994"
+  ],
+  "metadata": {
+    "18376195": {
+      "doi": "https://doi.org/10.1097/sla.0b013e31815b9cae",
+      "id": "https://openalex.org/W2024243895",
+      "ids": {
+        "doi": "https://doi.org/10.1097/sla.0b013e31815b9cae",
+        "mag": "2024243895",
+        "openalex": "https://openalex.org/W2024243895",
+        "pmid": "https://pubmed.ncbi.nlm.nih.gov/18376195"
+      },
+      "publication_year": 2008,
+      "title": "Prognostic Score Predicting Survival After Resection of Pancreatic Neuroendocrine Tumors: Analysis of 3851 Patients"
+    },
+    "26198970": {
+      "doi": "https://doi.org/10.1007/s00423-015-1323-x",
+      "id": "https://openalex.org/W1830192626",
+      "ids": {
+        "doi": "https://doi.org/10.1007/s00423-015-1323-x",
+        "mag": "1830192626",
+        "openalex": "https://openalex.org/W1830192626",
+        "pmid": "https://pubmed.ncbi.nlm.nih.gov/26198970"
+      },
+      "publication_year": 2015,
+      "title": "Palliative resection of the primary tumor in 442 metastasized neuroendocrine tumors of the pancreas: a population-based, propensity score-matched survival analysis"
+    },
+    "26376994": {
+      "doi": "https://doi.org/10.1007/s11605-015-2941-x",
+      "id": "https://openalex.org/W1617404316",
+      "ids": {
+        "doi": "https://doi.org/10.1007/s11605-015-2941-x",
+        "mag": "1617404316",
+        "openalex": "https://openalex.org/W1617404316",
+        "pmid": "https://pubmed.ncbi.nlm.nih.gov/26376994"
+      },
+      "publication_year": 2015,
+      "title": "Role of Adjuvant Radiotherapy in Left-Sided Pancreatic Cancer\u2014Population-Based Analysis with Propensity Score Matching"
+    }
+  },
+  "original_annotation_uids": {
+    "chosen": [
+      "5b21023ffdb55a8d26a68cbe"
+    ],
+    "rejected": [
+      "5b21023ffdb55a8d26a68cbe"
+    ]
+  },
+  "schema_version": 1,
+  "source": "RELISH_v1+OpenAlex-CC0",
+  "source_annotation_sha256": "1c592f487af7e0b5ca3113a1ea8f49662135efd90cbd3b28da5712f4b351986a",
+  "source_originals_not_training_data": true
+}
