@@ -30,7 +30,7 @@ HERE = Path(__file__).resolve().parent
 
 
 def remote_only():
-    if os.environ.get("GITHUB_ACTIONS") != "true" or os.environ.get("GITHUB_REPOSITORY") != "zkasuran/telegraph-catalog-miners":
+    if os.environ.get("OWNER_SOURCE_ONLY") == "1" or os.environ.get("GITHUB_ACTIONS") != "true" or os.environ.get("GITHUB_REPOSITORY") != "zkasuran/telegraph-catalog-miners":
         raise RuntimeError("Model training and scoring are restricted to the controller's bounded public GitHub CPU workflow")
 
 

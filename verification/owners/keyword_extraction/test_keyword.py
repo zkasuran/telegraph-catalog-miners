@@ -2,6 +2,7 @@
 """Source, lexical, group and literal wire failure controls. No model operations."""
 import copy
 import json
+import os
 import random
 import struct
 import sys
@@ -157,7 +158,7 @@ class KeywordTests(unittest.TestCase):
         self.assertEqual(render(p, a), "### Task:\n  α\nTask\n\n### Answer:\n{\"keywords\":[\"β\"]}  ")
 
     def test_remote_guard_refuses_laptop(self):
-        with self.assertRaisesRegex(RuntimeError, "restricted"):
+        with mock.patch.dict(os.environ, {}, clear=True), self.assertRaisesRegex(RuntimeError, "restricted"):
             remote_only()
 
     def test_config_validates(self):
@@ -245,8 +246,16 @@ class KeywordTests(unittest.TestCase):
         import native
         self.assertEqual(native.SOURCES["kit"]["revision"], "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd")
         self.assertFalse({"torch", "transformers", "peft", "onnxruntime"}.intersection(sys.modules))
-        with self.assertRaisesRegex(RuntimeError, "restricted"):
+        with mock.patch.dict(os.environ, {}, clear=True), self.assertRaisesRegex(RuntimeError, "restricted"):
             native.prepare(Path("unused-local-model-directory"))
+
+    def test_remote_guard_distinguishes_public_workflow_context(self):
+        with mock.patch.dict(os.environ, {"GITHUB_ACTIONS": "true", "GITHUB_REPOSITORY": "zkasuran/telegraph-catalog-miners"}, clear=True):
+            self.assertIsNone(remote_only())
+        with mock.patch.dict(os.environ, {"GITHUB_ACTIONS": "true", "GITHUB_REPOSITORY": "wrong/owner"}, clear=True), self.assertRaises(RuntimeError):
+            remote_only()
+        with mock.patch.dict(os.environ, {"GITHUB_ACTIONS": "true", "GITHUB_REPOSITORY": "zkasuran/telegraph-catalog-miners", "OWNER_SOURCE_ONLY": "1"}, clear=True), self.assertRaises(RuntimeError):
+            remote_only()
 
     def test_checkpoint_stamp_is_byte_preserving(self):
         header = json.dumps({"x": {"dtype": "F32", "shape": [1], "data_offsets": [0, 4]}}).encode()

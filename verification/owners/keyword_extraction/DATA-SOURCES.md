@@ -19,3 +19,5 @@ Author keywords are source annotations, not an exhaustive gold list. Unannotated
 The new independent-audit job references actions/download-artifact at d3f86a106a0bac45b974a628896c90dbdf5c8093. The primary tag binding and full MIT licence were read. Copyright (c) 2018 GitHub, Inc. and contributors. The grant permits "use, copy, modify, merge, publish, distribute, sublicense, and/or sell" with its copyright and permission notice retained. The action runs in the bounded workflow and is not embedded in model tensors.
 
 Primary action grant: https://raw.githubusercontent.com/actions/download-artifact/d3f86a106a0bac45b974a628896c90dbdf5c8093/LICENSE
+
+Source-only gate context: laptop-refusal controls run in an explicit empty environment, while a separate guard-only control verifies the public workflow context. Neither control downloads or prepares model assets. This preserves the same source grants and model quality gates when CI runs the package.
