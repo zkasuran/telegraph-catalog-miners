@@ -66,7 +66,7 @@ class ContractTests(unittest.TestCase):
 
     def test_warmstart_policy_retains_gates(self):
         policy = warmstart_policy()
-        self.assertEqual(policy["epochs"], 32)
+        self.assertEqual(policy["epochs"], 16)
         self.assertEqual(policy["train_formats"], ["json", "prose"])
         self.assertIn("retained licensed", policy["initialization"])
         self.assertIn("80%", policy["quality_gate"])
@@ -152,8 +152,9 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(chosen["verdict"], "Unclear")
         self.assertEqual(rejected["verdict"], "Unclear")
         self.assertNotEqual(chosen["summary"], rejected["summary"])
-        self.assertEqual(chosen["obligations"][0]["status"], "supports")
-        self.assertEqual(rejected["obligations"][0]["status"], "refutes")
+        self.assertEqual(chosen["obligations"][0]["status"], "source_supported")
+        self.assertEqual(rejected["obligations"][0]["status"], "source_supported")
+        self.assertTrue(rejected["obligations"][0]["claim"].startswith("It is not true that "))
         self.assertIn("not fresh human", row["authorship"])
 
     def test_unclaimed_bare_label_is_not_a_fabricated_audit(self):
@@ -197,8 +198,8 @@ class ContractTests(unittest.TestCase):
         row = fixture("Contradiction")
         frozen = fit([row])
         self.assertEqual(measure([row], frozen)["hypothesis_prior"], 1.0)
-        self.assertIn("refutes", json.loads(row["chosen"])["summary"])
-        self.assertIn("supports", json.loads(row["rejected"])["summary"])
+        self.assertTrue(json.loads(row["chosen"])["summary"].startswith("It is not true that "))
+        self.assertFalse(json.loads(row["rejected"])["summary"].startswith("It is not true that "))
 
     def test_live_schema_failure_controls(self):
         snapshot = {"family_raw": json.dumps({"resolve": {"intent": FAMILY, "class": "judgment"}}),

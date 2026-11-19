@@ -21,7 +21,7 @@ def require_validation(formats, original_pairs):
 
 def warmstart_policy():
     # Chosen from the failed training/development trace, not audit error rows.
-    return {"epochs": 32, "learning_rate": 0.0003, "patience": 6, "train_formats": list(FORMATS),
+    return {"epochs": 16, "learning_rate": 0.0002, "patience": 6, "train_formats": list(FORMATS),
             "initialization": "resume the retained licensed best checkpoint", "max_tokens": 384,
             "batch_size": 2, "grad_accum": 4, "rank": 8, "alpha": 32,
             "quality_gate": "unchanged 80% overall, 70% per label, +5 untrained and +10 strongest shortcut",

@@ -14,7 +14,7 @@ from contracts import FAMILY, FOUNDATION, HERE, check_config, file_sha, read_jso
 from data import pair
 from prepare_remote import compile_runtime, full_parser, prepare
 from validation_policy import require_validation
-from parent_checkpoint import FAILED_TENSOR_SHA, PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, restore
+from parent_checkpoint import FAILED_TENSOR_SHAS, PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, restore
 from source_cues import measure_source_cues
 
 
@@ -29,7 +29,7 @@ def main():
     for name in ("train", "validation", "audit"):
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("frozen source data identity changed")
-    validate_frozen(strict_json((HERE/"frozen-baselines-v3.json").read_bytes()), train)
+    validate_frozen(strict_json((HERE/"frozen-baselines-v4.json").read_bytes()), train)
     foundation, base, kit = prepare(root, weights=True)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -46,7 +46,7 @@ def main():
     torch.set_num_threads(min(4, os.cpu_count() or 1))
     hp = trainer.Hyperparams(max_length=config["max_tokens"], batch_size=2, grad_accum=4, epochs=config["epochs"],
                             eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"],
-                            lr=.0003, es_patience=6)
+                            lr=.0002, es_patience=6, es_metric="pairwise_accuracy")
     gate = trainer.gate_dataset(train, hp)
     write_json(root/"upstream-dataset-gate.json", gate)
     if gate["ok"] is not True:
@@ -98,8 +98,8 @@ def main():
     torch.manual_seed(hp.seed)
     initial, _ = trainer.build_model(str(base), hp)
     from baselines import measure
-    frozen_baseline = strict_json((HERE/"frozen-baselines-v3.json").read_bytes())
-    source_baseline = strict_json((HERE/"frozen-source-cues-v3.json").read_bytes())
+    frozen_baseline = strict_json((HERE/"frozen-baselines-v4.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v4.json").read_bytes())
     if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
         raise ValueError("source-aware baseline is not bound to this training data")
     def validation_metrics(model):
@@ -148,7 +148,7 @@ def main():
     candidate_bytes = candidate.read_bytes()
     header_bytes = struct.unpack("<Q", candidate_bytes[:8])[0]
     from contracts import sha
-    if sha(candidate_bytes[8+header_bytes:]) == FAILED_TENSOR_SHA:
+    if sha(candidate_bytes[8+header_bytes:]) in FAILED_TENSOR_SHAS:
         raise ValueError("unchanged failed tensor payload must not be audited or registered again")
     del model
     gc.collect()

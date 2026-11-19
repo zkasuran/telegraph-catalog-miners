@@ -3,21 +3,21 @@
     "audit": {
       "groups": 61,
       "pairs": 64,
-      "sha256": "91b1df75fd534facbc729cf6861b65a9a86324030df0144f60cfb0476f85a149"
+      "sha256": "c35eaa383ef6e4652f4c052044da63a707c9c366d5b500cd26337adcd70445aa"
     },
     "train": {
-      "groups": 52,
-      "pairs": 64,
-      "sha256": "af2ece62c6b5024dbe726cc05c6878a265e723e684cc2b65ce729f35e49f53e5"
+      "groups": 82,
+      "pairs": 128,
+      "sha256": "3eef3c370783be78621a1ba3743ed116513fdb428dbd5afd9b4ecd6079ee8222"
     },
     "validation": {
-      "groups": 15,
-      "pairs": 16,
-      "sha256": "345eccfbec02edf5cf89550d1077249205df69fbf3d38fef96098011af81a3b7"
+      "groups": 25,
+      "pairs": 30,
+      "sha256": "24ddc1a3fcb204803f494346f9cf932994242382f2f81ff4a25b24a4bcc46526"
     }
   },
-  "policy_sha256": "368f96d8ecd59a90c9da351306c3740a56ddf20b26d5e707a684cb7442992e10",
-  "generation": 3,
+  "policy_sha256": "f6291d06e320183d8dcb855262a63973bf957ab652880d58cf689b884df52ec5",
+  "generation": 4,
   "hypotheses": [
     "nda-1",
     "nda-7",

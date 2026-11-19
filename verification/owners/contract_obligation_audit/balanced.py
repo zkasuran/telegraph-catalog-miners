@@ -63,11 +63,14 @@ def construct(archive, config, policy):
     allowed = set(policy["allowed_source_records"])
     clean = {split: [row for row in rows if row["document_id"]+":"+row["hypothesis_id"]+":"+row["evidence_sha256"] in allowed]
              for split, rows in clean.items()}
-    train = allocate(clean["train"], hypotheses, config["limits"]["train"], 4, policy["prior_training_groups"],
+    reserved_groups = set(policy["reserved_audit_groups"])
+    development = {name: [row for row in rows if row["source_group"] not in reserved_groups] for name, rows in clean.items()}
+    train = allocate(development["train"], hypotheses, config["limits"]["train"], 4, policy["prior_training_groups"],
                      quotas=policy["training_pairs_per_hypothesis"])
     # Development coverage quotas were fixed from train/development inventory,
     # not from an audit result or a model score.
-    validation = allocate(clean["validation"], hypotheses, config["limits"]["validation"], 4,
+    validation_order = sorted(hypotheses, key=lambda h: min(sum(row["hypothesis_id"] == h and row["label"] == label for row in development["validation"]) for label in LABELS))
+    validation = allocate(development["validation"], validation_order, config["limits"]["validation"], 4,
                           quotas=policy["validation_pairs_per_hypothesis"])
     development_groups = {r["source_group"] for r in train + validation}
     development_evidence = {r["normalized_evidence_sha256"] for r in train + validation}
@@ -76,7 +79,11 @@ def construct(archive, config, policy):
                   and r["normalized_evidence_sha256"] not in prior_evidence | development_evidence]
     # A group is never moved into train after reserving the independent audit.
     # No audit metric is calculated here or used to select the candidate.
-    audit = allocate(audit_pool, hypotheses, config["limits"]["audit"], 2)
+    reservation = set(policy["reserved_audit_source_records"])
+    audit = [row for row in audit_pool if row["document_id"]+":"+row["hypothesis_id"]+":"+row["evidence_sha256"] in reservation]
+    audit.sort(key=lambda row: policy["reserved_audit_source_records"].index(row["document_id"]+":"+row["hypothesis_id"]+":"+row["evidence_sha256"]))
+    if len(audit) != 64:
+        raise ValueError("unconsumed audit reservation was altered or lost")
     splits = {}
     for split, rows in (("train", train), ("validation", validation), ("audit", audit)):
         splits[split] = [pair({**r, "original_source_split": r["split"], "split": split}) for r in rows]
@@ -88,7 +95,7 @@ def construct(archive, config, policy):
         raise ValueError("retired audit group entered a new split")
     if any(r["source_group"] in audit_forbidden for r in splits["audit"]):
         raise ValueError("development-exposed group entered a new audit")
-    return splits, {**source, "generation": 3, "selection_basis": "train/development coverage; audit source sampling only, no audit model or shortcut scores",
+    return splits, {**source, "generation": 4, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
                     "hypotheses": hypotheses, "retired_groups_excluded": len(forbidden),
                     "audit_forbidden_groups": sorted(audit_forbidden), "policy_sha256": sha((HERE / "source-policy.json").read_bytes()),
                     "independent_groups": len({r["source_group"] for r in splits["audit"]})}

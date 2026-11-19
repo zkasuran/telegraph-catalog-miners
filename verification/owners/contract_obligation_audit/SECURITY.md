@@ -10,6 +10,8 @@
 | Nonfinite score | uint32 and finite FP32 contract | NaN/Infinity and 500 random-bit controls |
 | Local model operations | Remote-only guard and source-only gate | Denial tests |
 | Fake quality pass | All format, label and improvement thresholds retained | Below-threshold failure controls |
+| Failed validation accidentally exposes audit | Mandatory complete per-format/per-label validation gate | Run 44612876956 refused before audit; original reservation is unconsumed |
+| Weak tag-only learning or loss-based selection | Direct source/complement claims, broader source groups and worst-format accuracy selection | Validation-only model selection; no audit gradient or threshold change |
 | Slow or oversized HTTP input | Body/header byte ceilings, total input deadline and four connections | Actual local HTTP controls and remote identity/token controls |
 | Wrong public model or report | Exact immutable URL/hash, full parser and reference vectors before serving | Serving preparation refuses mismatches |
 | Unrestricted forwarding key | Exact existing common.lease_for with public proof hashes and pinned host | Only public restricted lease uploaded; ephemeral key stays on runner |

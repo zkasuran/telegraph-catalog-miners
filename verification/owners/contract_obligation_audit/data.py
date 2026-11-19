@@ -46,19 +46,24 @@ def source_group(doc):
 
 
 def pair(row, style="json"):
-    def answer(relation):
+    # NLI contradiction licenses the logical complement, not a fabricated
+    # performance record. Direct statement contrasts teach semantic truth,
+    # rather than only learning the words "supports" and "refutes".
+    positive = row["hypothesis"]
+    negative = "It is not true that " + row["hypothesis"][0].lower() + row["hypothesis"][1:]
+    def answer(statement):
         if style == "json":
-            return json.dumps({"verdict": "Unclear", "obligations": [{"claim": row["hypothesis"], "status": relation}], "clauses": [row["evidence"]],
-                               "summary": "The clause " + relation + " this claim: " + row["hypothesis"] + " Performance is not established."},
+            return json.dumps({"verdict": "Unclear", "obligations": [{"claim": statement, "status": "source_supported"}], "clauses": [row["evidence"]],
+                               "summary": statement + " Actual performance is not established."},
                               ensure_ascii=False, separators=(",", ":"))
         if style == "prose":
-            return "Verdict: Unclear. The clause " + relation + " this claim: " + row["hypothesis"] + " Clause: " + row["evidence"] + " Performance is not established."
+            return "Verdict: Unclear. Source-supported statement: " + statement + " Clause: " + row["evidence"] + " Actual performance is not established."
         raise ValueError("unclaimed response format")
-    true = "supports" if row["label"] == "Entailment" else "refutes"
-    false = "refutes" if true == "supports" else "supports"
+    true = positive if row["label"] == "Entailment" else negative
+    false = negative if true == positive else positive
     return {**row, "prompt": row["evidence"], "chosen": answer(true), "rejected": answer(false),
             "label_kind": "preference_pair", "margin": 0.0,
-            "authorship": "Published document-level NLI/evidence labels, AI-assisted response templates; not fresh human preference reviews"}
+            "authorship": "Published document-level NLI/evidence labels; direct/complementary claim templates are AI-assisted constructions, not fresh human preference reviews"}
 
 
 def collect_source(archive_path, config):
