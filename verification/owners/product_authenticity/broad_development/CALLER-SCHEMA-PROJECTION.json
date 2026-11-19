@@ -1,0 +1,8 @@
+{
+  "family": "PRODUCT_AUTHENTICITY",
+  "child": "PRODUCT_AUTHENTICITY_GENERAL",
+  "description": "Product, serial number or listing",
+  "type": "string",
+  "product_max_bytes": 256,
+  "live_schema_sha256": "c382e928aeb42a95b43ab517b17c8042c38aa6100dd1662de1adfc693c697a61"
+}

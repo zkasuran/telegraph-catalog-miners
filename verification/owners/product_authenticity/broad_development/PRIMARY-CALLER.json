@@ -1,0 +1,12 @@
+{
+  "deployed_node_question_constructor_verified": false,
+  "model_operations": 0,
+  "negative_product_controls": 2,
+  "object_html_escaping_disabled": true,
+  "parser_installed": false,
+  "primary_inputs_question": "PRODUCT_AUTHENTICITY_GENERAL request. product (Product, serial number or listing): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.",
+  "product_bytes": 256,
+  "question_bytes": 340,
+  "raw_answer_bytes_preserved": true,
+  "utf8_256_bytes_accepted": true
+}

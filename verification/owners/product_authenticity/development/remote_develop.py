@@ -108,15 +108,17 @@ def frozen_answer_baseline(np, train, validation, root):
     return {"formats": by_format, "frozen_coefficients_sha256": digest((root / "frozen-answer-only-baseline.json").read_bytes()), "fit_source": "train_only"}
 
 
-def main():
+def main(data_builder=build, max_tokens=256, control_hook=None, development_mode="develop"):
     remote_only()
+    if max_tokens not in (256, 512) or development_mode not in ("develop", "develop_broad"):
+        raise ValueError("unsupported bounded development configuration")
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", required=True, type=Path)
     args = parser.parse_args()
     root = args.root
     root.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
-    source_report, splits = build(root / "data")
+    source_report, splits = data_builder(root / "data")
     write(root / "development-report.json", {"schema_version": 1, "status": "DEVELOPMENT_INCOMPLETE", "family": FAMILY,
           "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"], "data": source_report,
           "audit_pairs": 0, "registration_ready": False})
@@ -138,7 +140,7 @@ def main():
     import torch
     from float_runtime import train_adapter as trainer
     from licensing import preserve_artifact
-    hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=8, epochs=3, eval_batch=2,
+    hp = trainer.Hyperparams(max_length=max_tokens, batch_size=1, grad_accum=8, epochs=3, eval_batch=2,
                              lora_rank=8, lora_alpha=16, lora_dropout=0.0, grad_checkpointing=False,
                              gate_min_acc=.8, early_stopping=False, lr=4e-5)
     gate = trainer.gate_dataset(splits["train"], hp)
@@ -173,8 +175,9 @@ def main():
         for row in rows:
             for side in ("chosen", "rejected"):
                 value = render(row["prompt"], row[side])
-                if tok(value, truncation=False)["input_ids"] != node.encode(value).ids or len(node.encode(value).ids) > 256:
+                if tok(value, truncation=False)["input_ids"] != node.encode(value).ids or len(node.encode(value).ids) > max_tokens:
                     raise ValueError("literal tokenizer mismatch or truncated contrasting claim")
+    extra_controls = control_hook(splits, node, root) if control_hook else {}
     random.seed(hp.seed)
     np.random.seed(hp.seed)
     torch.manual_seed(hp.seed)
@@ -201,7 +204,7 @@ def main():
         return metrics(actual, rows)
     initial = {style: evaluate([r for r in splits["validation"] if r["format"] == style]) for style in FORMATS}
     from torch.utils.data import DataLoader
-    loader = DataLoader(splits["train"], batch_size=1, shuffle=True, collate_fn=trainer.PairCollator(tok, 256), num_workers=0,
+    loader = DataLoader(splits["train"], batch_size=1, shuffle=True, collate_fn=trainer.PairCollator(tok, max_tokens), num_workers=0,
                         generator=torch.Generator().manual_seed(hp.seed))
     if len(loader) % hp.grad_accum:
         raise ValueError("incomplete accumulation group")
@@ -255,7 +258,9 @@ def main():
         label_copy[style] = sum(1.0 if r["kind"] == "verdict" else .5 for r in rows) / len(rows)
     # These controls are observations, not candidate-selection data or an audit.
     controls = {style: {"byte_length": .5, "token_length": token_length[style], "prompt_only": .5,
-                        "source_label_copy": label_copy[style], "train_fitted_answer_only": baseline["formats"][style]["accuracy"]} for style in FORMATS}
+                         "source_label_copy": label_copy[style], "train_fitted_answer_only": baseline["formats"][style]["accuracy"]} for style in FORMATS}
+    if extra_controls:
+        controls = {style: {**extra_controls[style], "train_fitted_answer_only": baseline["formats"][style]["accuracy"]} for style in FORMATS}
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     cfg = AutoConfig.from_pretrained(base, local_files_only=True)
@@ -266,7 +271,7 @@ def main():
                 "development_only": True, "independent_audit": False}
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=sources["foundation"]["foundation_lora_fp32.onnx"],
                     foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
-                    target_modules=params["target_modules"], max_tokens=256, training=training)
+                     target_modules=params["target_modules"], max_tokens=max_tokens, training=training)
     meta.update({"x-licence": (HERE / "LICENSE").read_text(), "x-upstream-apache-2.0": (HERE / "UPSTREAM-APACHE-2.0.txt").read_text(),
                  "x-upstream-mit": (HERE / "KIT-LICENSE").read_text(), "x-source-notice": (HERE / "NOTICE").read_text()})
     package = root / (FAMILY + ".safetensors")
@@ -298,7 +303,7 @@ def main():
     bare = keccak[2:] if keccak.startswith("0x") else keccak
     identity = {"foundation_hash": sources["foundation"]["foundation_lora_fp32.onnx"], "engine_hash": sources["foundation"]["foundation_engine.wasm"],
                 "tokenizer_hash": sources["foundation"]["tokenizer.json"], "adapter_hash": bare}
-    runtime = execute(root, package, identity, fixed)
+    runtime = execute(root, package, identity, fixed, max_tokens=max_tokens)
     from runtime_contract import score_value
     reference_fixed = [score_value(vector["score_bits"]) for vector in runtime["vectors"]]
     errors = [abs(a - b) for a, b in zip(native_fixed, reference_fixed)]
@@ -307,11 +312,15 @@ def main():
     if any((native_fixed[i] > native_fixed[i + 1]) != (reference_fixed[i] > reference_fixed[i + 1]) for i in range(0, len(fixed), 2)):
         raise ValueError("native and real reference ordering disagree")
     runtime["native_reference_fixed_agreement"] = {"max_absolute_error": max(errors), "count": len(errors), "exact_bits_claimed_for_native": False}
+    quality = {style: validation[style]["accuracy"] >= .8 and min(validation[style]["per_label"].values()) >= .7
+               and validation[style]["accuracy"] + 1e-9 >= initial[style]["accuracy"] + .05
+               and validation[style]["accuracy"] + 1e-9 >= max(controls[style].values()) + .10 for style in FORMATS}
     write(root / "development-report.json", {"schema_version": 1, "status": "DEVELOPMENT_CHECKPOINT", "family": FAMILY,
           "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"], "data": source_report,
           "dataset_gate": gate, "validation": validation, "untrained_validation": initial, "answer_only_baseline": baseline, "shortcuts": controls,
           "selection": history, "audit_used_for_selection": False, "audit_pairs": 0, "registration_ready": False,
           "package_sha256": digest(package.read_bytes()), "package_keccak": bare, "runtime": runtime, "foundation": identity,
+          "development_mode": development_mode, "max_tokens": max_tokens, "development_quality_passed": all(quality.values()), "development_quality_by_format": quality,
           "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "numpy", "safetensors")},
           "limits": ["Validation is development evidence, not an independent audit. No registration is allowed.", source_report["scope"]]})
 

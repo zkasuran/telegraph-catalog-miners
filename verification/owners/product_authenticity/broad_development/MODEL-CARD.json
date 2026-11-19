@@ -1,0 +1,19 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0; upstream portions retain their original grants",
+  "schema_version": 1,
+  "family": "PRODUCT_AUTHENTICITY",
+  "status": "SOURCE_PREPARATION",
+  "base_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+  "existing_candidate_preserved": true,
+  "new_model_exists": false,
+  "local_model_operations": 0,
+  "registration_ready": false,
+  "purpose": "Improve coverage of raw JSON/prose source-grounded reports with held-out formulations and literal typed request framing.",
+  "source_labels": "Original Newton/Metformin training facts and Sanada validation facts, not previously exposed independent audits.",
+  "preferences": "New AI-assisted constructed comparisons. No human review or new physical-item truth is claimed.",
+  "limits": [
+    "The old snapshot grammar control matches the old candidate's templated validation.",
+    "This is a new development candidate, not an independent audit or canonical win.",
+    "The deployed judgment question construction remains unverified."
+  ]
+}

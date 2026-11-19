@@ -29,3 +29,7 @@ Neural entrypoints require the exact owned workflow_dispatch standard public Git
 ## Independent audit admission
 
 The additive source gate tests complete specimen inventory, original QMN identity, split-batch suffixes, column-bound batch extraction, attribution, compatible grants and refusal of quality/lookup-to-authenticity promotion. Its full-workbook inventory prevents treating an analytical-method attachment as a specimen corpus. See audit_admission/SECURITY.md. No model scoring occurs in this gate and no independent groups are fabricated from sample counts.
+
+## Broader response and framing controls
+
+The new source gate rejects normalized/source/entity/time/formulation overlap, incorrect literal request framing, oversize product bytes and unknown-to-counterfeit promotion. Remote mode alone may train or run the model. It retains the primary dataset gate and immutable train-fitted baselines. Validation loss may choose one candidate; no audit exists. A 256-byte product and its 340-byte typed question were executed against the actual primary decoder/request helper without a model. This is library evidence, not a deployed caller trace.

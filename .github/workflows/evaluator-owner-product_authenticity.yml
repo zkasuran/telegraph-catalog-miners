@@ -6,7 +6,7 @@ on:
       mode:
         description: Source-only gate or real remote CPU development, not registration.
         type: choice
-        options: [source, develop]
+        options: [source, develop, develop_broad]
         default: source
         required: true
 permissions:
@@ -58,3 +58,34 @@ jobs:
             ${{ runner.temp }}/product-authenticity-development/PRODUCT_AUTHENTICITY.safetensors
             ${{ runner.temp }}/product-authenticity-development/checkpoint/*.safetensors
             ${{ runner.temp }}/product-authenticity-development/checkpoint/*.pt
+  broad:
+    if: ${{ inputs.mode == 'develop_broad' }}
+    needs: source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install pinned free CPU dependencies
+        run: python3 -m pip install --disable-pip-version-check --require-hashes --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/product_authenticity/development/requirements.lock
+      - name: Real broader source-grounded CPU development
+        run: python3 verification/owners/product_authenticity/broad_development/remote_broad.py --root "${{ runner.temp }}/product-authenticity-broad"
+      - name: Preserve bounded actual broad results and licensed checkpoints
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: product-authenticity-broad-development
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/product-authenticity-broad/development-report.json
+            ${{ runner.temp }}/product-authenticity-broad/dataset-gate.json
+            ${{ runner.temp }}/product-authenticity-broad/data/data-report.json
+            ${{ runner.temp }}/product-authenticity-broad/selection.json
+            ${{ runner.temp }}/product-authenticity-broad/parser-result.json
+            ${{ runner.temp }}/product-authenticity-broad/frozen-answer-only-baseline.json
+            ${{ runner.temp }}/product-authenticity-broad/frozen-token-length-baseline.json
+            ${{ runner.temp }}/product-authenticity-broad/source-shortcut-report.json
+            ${{ runner.temp }}/product-authenticity-broad/reference-runtime.log
+            ${{ runner.temp }}/product-authenticity-broad/PRODUCT_AUTHENTICITY.safetensors
+            ${{ runner.temp }}/product-authenticity-broad/checkpoint/*.safetensors
+            ${{ runner.temp }}/product-authenticity-broad/checkpoint/*.pt

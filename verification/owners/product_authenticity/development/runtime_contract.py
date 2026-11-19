@@ -47,10 +47,10 @@ def check_reply(reply, count, foundation, tokenizer, adapter):
     return bits
 
 
-def execute(root, package, identity, vectors):
+def execute(root, package, identity, vectors, max_tokens=256):
     remote_only()
     root = Path(root)
-    if not 8 <= len(vectors) <= 100 or any(not v or len(v) > 256 for v in vectors):
+    if max_tokens not in (256, 512) or not 8 <= len(vectors) <= 100 or any(not v or len(v) > max_tokens for v in vectors):
         raise ValueError("8-100 bounded real fixed vectors required")
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))

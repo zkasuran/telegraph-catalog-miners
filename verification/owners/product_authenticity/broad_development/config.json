@@ -1,0 +1,16 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "PRODUCT_AUTHENTICITY",
+  "mode": "develop_broad",
+  "max_tokens": 512,
+  "max_product_bytes": 256,
+  "epochs": 3,
+  "max_training_minutes": 270,
+  "runner": "ubuntu-24.04",
+  "timeout_minutes": 350,
+  "independent_audit_available": false,
+  "registration_ready": false,
+  "selection": "validation_loss_only",
+  "scope": "Broader source-grounded report interpretation, not physical product certification"
+}

@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "family": "PRODUCT_AUTHENTICITY",
-  "run_id": "62afb80808ea496caec5a89fbc0ba5c5",
-  "scope": "Preserved model development plus full source audit admission refusal, not registration readiness",
+  "run_id": "5048c54b226d4e489c53c1ade4f52a33",
+  "scope": "Preserved source gates and real remote-only broader development, no independent audit or registration readiness",
   "files": [
     {
       "path": "DATA-SOURCES.md",
-      "sha256": "4d5357bcacd993441190ec1b9ea4390337a75560d2794d1b0b76e9bda27714ec",
-      "bytes": 4775
+      "sha256": "dd214dd3465f6c984e9f97dc332d65f72d7a9c6fb18a8102d424ad654256d754",
+      "bytes": 5495
     },
     {
       "path": "KIT-LICENSE",
@@ -16,23 +16,23 @@
     },
     {
       "path": "LICENSE",
-      "sha256": "e08e95c8d2693451b249c400050ccba0723b5c3c402969e5fe2b4b13ae791931",
-      "bytes": 7038
+      "sha256": "52375870bd075ce9d23beeddb6083a29aabaa6b4f278db26c347b05a418b05dd",
+      "bytes": 7269
     },
     {
       "path": "NOTICE",
-      "sha256": "aaa2a42dd50d1d791e6c4597ecb861f0fe69a9695ddeb047782c5306f3f2b110",
-      "bytes": 2345
+      "sha256": "acda42f5590f8003c93fefca8eb931add03261689d7a0a98de336c9ca794e5cb",
+      "bytes": 2618
     },
     {
       "path": "README.md",
-      "sha256": "1de925c95cdbf5f5d1b294d5d7c55e9c19b4b810d2d7e8d9f0accb2ef75a298d",
-      "bytes": 4295
+      "sha256": "883a56968877b153de9b55c281d0fa69810ed79edb6a411aa3d939ba1d297151",
+      "bytes": 5020
     },
     {
       "path": "SECURITY.md",
-      "sha256": "7612a2092e92fab63d15347c32ecad76ff7d20c25031b6647137e49bc882f8eb",
-      "bytes": 3106
+      "sha256": "c38991c610c775e1a26da580847de6a0d9cd48d8d4b5e8c074d346a5d1748d31",
+      "bytes": 3690
     },
     {
       "path": "SOURCE-INVENTORY.json",
@@ -105,6 +105,46 @@
       "bytes": 571
     },
     {
+      "path": "broad_development/CALLER-SCHEMA-PROJECTION.json",
+      "sha256": "3caf9aef837950fcb303d8cdf99db8b38bfe1a122bd9fd38ca0b615b31ab6562",
+      "bytes": 276
+    },
+    {
+      "path": "broad_development/MODEL-CARD.json",
+      "sha256": "323e20f0911d5cbdf7e75a85ad6d5deab58549bde830105a3348472cef37a70f",
+      "bytes": 1053
+    },
+    {
+      "path": "broad_development/PRIMARY-CALLER.json",
+      "sha256": "246800ad268a0c48059868facac078dfa5081134cda58da2dd8559ff64189203",
+      "bytes": 683
+    },
+    {
+      "path": "broad_development/README.md",
+      "sha256": "70ea8c922f65e783a0150026ecdee6b588bdc86f420a40acb63cfdc7d7f49a70",
+      "bytes": 2068
+    },
+    {
+      "path": "broad_development/broad_data.py",
+      "sha256": "ca22231fec81d812257d080790e55dcc99ef5e224478c5b5668e10b01872b7f1",
+      "bytes": 13607
+    },
+    {
+      "path": "broad_development/config.json",
+      "sha256": "77ad67b66fb17dfeb9469bcb915839255144e2bace7b0afcd0b338e685ddb7c2",
+      "bytes": 505
+    },
+    {
+      "path": "broad_development/remote_broad.py",
+      "sha256": "a896182eb6cbcbe3bcdf9d8e906b901e356b83235b83ff75a61b19cc61c3aa8d",
+      "bytes": 2165
+    },
+    {
+      "path": "broad_development/test_broad.py",
+      "sha256": "3d67dfd9f6149b57de1ba478fddb66fa2ab6be95693a95fb25ea327db0b57efc",
+      "bytes": 5637
+    },
+    {
       "path": "development/KIT-LICENSE",
       "sha256": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
       "bytes": 1074
@@ -156,8 +196,8 @@
     },
     {
       "path": "development/remote_develop.py",
-      "sha256": "eb9a2ab8d747cc94237d89b36252f4f65c7909bc25d98e53ad0daedb89c48653",
-      "bytes": 19893
+      "sha256": "855c27d2982082dd557370219b1181f310fb3f92f0284254bd606fa72d8dff75",
+      "bytes": 20936
     },
     {
       "path": "development/requirements.in",
@@ -171,8 +211,8 @@
     },
     {
       "path": "development/runtime_contract.py",
-      "sha256": "e81dd85734277f6d1bab44b845c196678c0080cd97a20b9945e2fe8c1c0d6a27",
-      "bytes": 6078
+      "sha256": "6ae899172548be8dda7e0565d6a65c9e0321741a34306077f468ae7b6520c4a6",
+      "bytes": 6133
     },
     {
       "path": "development/source_admission.py",
@@ -291,8 +331,8 @@
     },
     {
       "path": "verify.sh",
-      "sha256": "f6bec30017942029c64bcc353578ac1a6250f50f6124d5dc97b0932695ae8cfb",
-      "bytes": 1024
+      "sha256": "88dec7dbb6fae55df246ab17d279d83b1def46bcde553d73016ffdd0d00b1f1e",
+      "bytes": 1264
     }
   ]
 }

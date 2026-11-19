@@ -69,3 +69,7 @@ ModernBERT-base by Answer.AI and LightOn is public and ungated at revision 8949b
 ## Complete audit-source inventory correction
 
 Nigeria DOI 10.4269/ajtmh.23-0837 releases 260 S2 rows but not the 62 vendor identities. Four rows are source-falsified and five are probably falsified. Every other physical-authenticity state remains unresolved in our projection, including 194 quality passes. Bangladesh DOI 10.1038/s41598-021-04309-1 releases a workbook with three analytical-method sheets and no specimen-code cells. Forty aggregate genuine confirmations came from four manufacturers. These sources are not yet an independent model audit. Original granting clauses and all creator names are attached to the new source-only module.
+
+## Broader source-grounded development
+
+New comparisons use the original 74 Newton/Metformin training records and 76 Sanada validation records. Whole sources/entities/acquisition groups and response-formulation templates are held apart. Each source annotation remains separate from its constructed response preference. No previous model audit or evaluation-pool capture is used. The typed product stays within 256 bytes; its verified primary request-helper framing is allowed to produce a longer question. The new remote candidate uses at most 512 tokens with actual tokenizer conformance and no truncation of distinguishing claims. This is not proof of the deployed judgment caller or independent model qualification.
