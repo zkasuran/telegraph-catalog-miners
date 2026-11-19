@@ -17,6 +17,7 @@ from datetime import datetime, timezone
 from common import (COUNTS, FAMILY, HERE, MAX_TOKENS, SCOPE, baseline_report, dump,
                     fetch, fit_baselines, lines, pair, remote_only, render, sha, validation_gate, FORMATS)
 from checkpoint_contract import check_checkpoint
+from development_contract import training_pairs, repetition_gate, validate_locked
 
 FOUNDATION = {
     "foundation_lora_fp32.onnx": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
@@ -63,20 +64,22 @@ def main():
             generation_report["run_id"] != int(os.environ["GITHUB_RUN_ID"])):
         raise ValueError("development generation provenance hash mismatch")
     original = lines((root / "development-generation.jsonl").read_bytes())
+    original_producer = json.loads((HERE / "recovery/locked-development-producer.json").read_text())
+    locked_lineage = json.loads((HERE / "recovery/locked-development-lineage.json").read_text())
+    source = json.loads((HERE / "sources.json").read_text())
+    validate_locked((root / "development-generation.jsonl").read_bytes(), source, original_producer, locked_lineage)
     recipe = json.loads((HERE / "recipe.json").read_text())
     if recipe["source_manifest_sha256"] != sha((HERE / "sources.json").read_bytes()):
         raise ValueError("continuation recipe source manifest mismatch")
     if sha((root / "development-generation.jsonl").read_bytes()) != recipe["development_generation_sha256"]:
         raise ValueError("original source-fitted development bytes changed during continuation")
-    # Four whole article groups expose both origins in the literal bare format.
-    # Eight bare answers keep each repeated opposite label below the unchanged
-    # upstream 2% repetition ceiling. Other groups retain JSON/prose templates.
-    bare_groups = set(sorted({r["group_id"] for r in original if r["split"] == "train"})[:4])
     splits = {s: [pair(r, "json" if int(r["group_id"][:2], 16) % 2 == 0 else "prose")
                   for r in original if r["split"] == s] for s in ("train", "validation")}
-    splits["train"] = [pair(r, "bare_label" if r["group_id"] in bare_groups else
-                            "json" if int(r["group_id"][:2], 16) % 2 == 0 else "prose")
-                       for r in original if r["split"] == "train"]
+    splits["train"] = training_pairs(original)
+    counted_gate = repetition_gate(splits["train"])
+    dump(root / "literal-repetition-gate.json", counted_gate)
+    if not counted_gate["passed"]:
+        raise ValueError("literal repeated-negative data gate failed before model preparation")
     validation_formats = {style: [pair(r, style) for r in original if r["split"] == "validation"] for style in FORMATS}
     validation_rows = [r for rows in validation_formats.values() for r in rows]
     if any(len(splits[s]) != 2 * COUNTS[s] for s in splits) or any(r["split"] == "test" for r in original):

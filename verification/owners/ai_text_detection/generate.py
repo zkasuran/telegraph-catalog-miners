@@ -10,6 +10,7 @@ from pathlib import Path
 
 from common import HERE, audit_excerpts, dump, fetch, identity, remote_only, sha
 from source import parse_article
+from development_contract import validate_locked
 
 
 def main():
@@ -21,6 +22,27 @@ def main():
     root = args.root.resolve()
     root.mkdir(parents=True, exist_ok=True)
     spec = json.loads((HERE / "sources.json").read_text())
+    if args.partition == "development":
+        # Restore already source-generated data with exact producer/run/hash
+        # lineage. This job prepares those same bytes, it does not claim a new
+        # generator invocation. Original train and validation roles are checked.
+        raw = (HERE / "recovery/locked-development.jsonl").read_bytes()
+        producer = json.loads((HERE / "recovery/locked-development-producer.json").read_text())
+        lineage = json.loads((HERE / "recovery/locked-development-lineage.json").read_text())
+        if sha((HERE / "sources.json").read_bytes()) != lineage["source_manifest_sha256"]:
+            raise ValueError("locked development source manifest bytes changed")
+        records = validate_locked(raw, spec, producer, lineage)
+        target = root / "development-generation.jsonl"
+        if target.exists():
+            raise ValueError("locked preparation already exists; never replace it")
+        target.write_bytes(raw)
+        dump(root / "development-generation-report.json", {**producer, "producer_run_id": producer["run_id"],
+             "producer_commit": producer["commit"], "generation_performed_here": False,
+             "preparation": "Byte-identical reuse of existing source-generated train and validation data.",
+             "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"]})
+        print(json.dumps({"prepared_records": len(records), "data_sha256": sha(raw), "original_producer_run_id": producer["run_id"],
+                          "new_generation_performed": False}), flush=True)
+        return
     wanted = ("train", "validation") if args.partition == "development" else ("test",)
     if args.partition == "audit":
         if not (root / "frozen-candidate.json").exists():

@@ -15,6 +15,7 @@ from unittest.mock import patch
 from common import (COUNTS, FORMATS, HERE, baseline_report, check_splits, fit_baselines,
                     identity, pair, quality, remote_only, render, sha, audit_excerpts, validation_gate)
 from checkpoint_contract import check_checkpoint
+from development_contract import validate_locked, training_pairs, repetition_gate
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -38,6 +39,42 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_locked_development_primary_path_and_roles(self):
+        raw = (HERE / "recovery/locked-development.jsonl").read_bytes()
+        producer = json.loads((HERE / "recovery/locked-development-producer.json").read_text())
+        lineage = json.loads((HERE / "recovery/locked-development-lineage.json").read_text())
+        source = json.loads((HERE / "sources.json").read_text())
+        self.assertEqual(sha((HERE / "sources.json").read_bytes()), lineage["source_manifest_sha256"])
+        records = validate_locked(raw, source, producer, lineage)
+        self.assertEqual(len(records), 320)
+        self.assertEqual(sum(r["split"] == "train" for r in records), 256)
+        self.assertEqual(sum(r["split"] == "validation" for r in records), 64)
+        self.assertTrue(all(r["split"] != "test" for r in records))
+        with self.assertRaisesRegex(ValueError, "byte binding"):
+            validate_locked(raw + b"x", source, producer, lineage)
+        bad = copy.deepcopy(records)
+        bad[-1]["split"] = "train"
+        changed_raw = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in bad).encode()
+        changed_lineage = {**lineage, "data_sha256": sha(changed_raw)}
+        changed_producer = {**producer, "output_sha256": sha(changed_raw)}
+        with self.assertRaisesRegex(ValueError, "source or split role"):
+            validate_locked(changed_raw, source, changed_producer, changed_lineage)
+
+    def test_exact_repeated_negative_failure_and_unique_bare_repair(self):
+        records = [json.loads(line) for line in (HERE / "recovery/locked-development.jsonl").read_text().split("\n") if line]
+        failed = repetition_gate(training_pairs(records, bare_group_count=4))
+        self.assertFalse(failed["passed"])
+        self.assertEqual(failed["internal_holdout"], 38)
+        self.assertAlmostEqual(failed["eval_negative_leak"], 4 / 38)
+        fixed_rows = training_pairs(records)
+        self.assertEqual(sum(r["style"] == "bare_label" for r in fixed_rows), 2)
+        for seed in (42, 0, 1, 7, 123):
+            repaired = repetition_gate(fixed_rows, seed=seed)
+            self.assertTrue(repaired["passed"])
+            self.assertEqual(repaired["unique_rejected_frac"], 1.0)
+            self.assertEqual(repaired["eval_negative_leak"], 0.0)
+            self.assertEqual(repaired["pairs"], 256)
+
     def test_fresh_audit_quarantines_old_articles_and_named_authors(self):
         spec = json.loads((HERE / "sources.json").read_text())
         refreshed = spec["audit_refresh"]

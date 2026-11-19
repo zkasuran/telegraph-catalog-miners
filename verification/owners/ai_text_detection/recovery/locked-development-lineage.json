@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "role": "Existing source-generated train and validation inputs, never a new pool capture.",
+  "data_sha256": "032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3",
+  "producer_report_sha256": "81bd579ee2afd1bbb8c03e4d03f8181309365c31580916177e5932897b77350a",
+  "producer_run_id": 44573838929,
+  "producer_commit": "e4de1397e40134095883e81ad80e78f5d91c2b32",
+  "same_bytes_as_original_run": 44565365361,
+  "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+  "grants": "Per-article CC BY attribution and full generator notices remain in sources.json and NOTICE.",
+  "synthetic_authorship": "Actual remote GPT-2 generation; constructed preferences are not human-reviewed."
+}

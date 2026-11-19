@@ -98,7 +98,7 @@
           "run": "python3 -m venv \"$RUNNER_TEMP/ai-owner-venv\"\n\"$RUNNER_TEMP/ai-owner-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/ai_text_detection/requirements.lock\n\"$RUNNER_TEMP/ai-owner-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/dependency_audit.py --lock verification/owners/ai_text_detection/requirements.lock --out \"$RUNNER_TEMP/audit-requirements.txt\" --report \"$RUNNER_TEMP/ai-owner/dependency-audit.json\""
         },
         {
-          "name": "Source-verified development generation",
+          "name": "Restore exact licensed development input and source roles",
           "timeout-minutes": 20,
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate.py --root \"$RUNNER_TEMP/ai-owner\" --partition development"
         },

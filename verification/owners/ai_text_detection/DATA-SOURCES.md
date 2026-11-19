@@ -90,3 +90,20 @@ checks all learned keys, shapes, finiteness and exact tensor equality after
 loading, before any continuation fitting. It does not claim to restore an
 optimizer that the original trainer never exported.
 https://github.com/huggingface/peft/blob/v0.21.2/src/peft/utils/save_and_load.py
+
+## Locked development reuse and repeated-negative repair
+
+Run 44573838929 preserved the actual generated training and validation data.
+Its SHA-256 is `032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3`,
+identical to the original run's data. The new job restores these exact existing
+bytes, checks every source ID and original split role then records the actual
+producer separately from the current preparation run. It does not claim that
+restoring a file is a new generator operation.
+
+The prior four bare-format article groups passed repetition share checks but
+leaked four repeated stock negatives into 38 internal holdout rows: 10.53%, above
+the unchanged 10% gate. The repair uses one whole training article group, giving
+one distinct opposite bare string per origin. All 256 train pairs and 64
+validation records remain. The primary split expression is retained verbatim.
+This deterministic construction removes reuse for every internal split, not by
+selecting a favourable seed. The full upstream surface probe still runs remotely.

@@ -7,6 +7,8 @@
 | Weak validation consumes an audit | All claimed validation formats must pass first | Validation refusal keeps audit sealed |
 | Old audit tunes a later model | Retired articles and named authors quarantined | Fresh-audit source/entity exclusion test |
 | Checkpoint state is swapped | Opaque SHA/grant checks locally, exact learned-state checks remotely | Wrong byte/source identity refusals |
+| Repeated bare negatives leak | Each opposite bare label appears once in training | Actual four-of-38 defect reproduction and unique-negative repair |
+| Restored validation data becomes training | Exact byte, producer and original source-role bindings | Locked-data role-swap refusal |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |

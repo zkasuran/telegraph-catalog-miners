@@ -39,6 +39,8 @@ def main():
         source = root / name
         if source.is_file() and source.stat().st_size <= 256 << 10:
             (out / name).write_bytes(source.read_bytes())
+    if (root / "literal-repetition-gate.json").is_file():
+        (out / "literal-repetition-gate.json").write_bytes((root / "literal-repetition-gate.json").read_bytes())
     source_manifest = (HERE / "sources.json").read_bytes()
     (out / "source-manifest.json").write_bytes(source_manifest)
     for name in ("development-generation.jsonl", "audit-generation.jsonl"):

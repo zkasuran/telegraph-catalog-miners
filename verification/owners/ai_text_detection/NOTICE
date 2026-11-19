@@ -24,3 +24,9 @@ Continuation v2 retains the exact licensed checkpoint from public GitHub run
 article identities remain unchanged. A new audit source block keeps its own
 article grants and attribution. Source control and checkpoint retention are not
 model-quality or canonical-registration claims.
+
+Locked development data is the existing source-generated output of run
+44573838929, byte-identical to the original run 44565365361 input. Its producer
+record and source roles are retained. It is not new evaluation-pool data.
+One training article group supplies each bare-label opposite string once;
+this removes repeated-negative leakage without changing upstream thresholds.

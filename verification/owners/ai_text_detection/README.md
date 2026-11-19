@@ -57,6 +57,12 @@ quarantined original block. Every supported validation format must pass before
 that audit can be generated or measured. More updates are a testable improvement
 path, not a claim that the next model passes.
 
+The first continuation attempt stopped at the unchanged repeated-negative data
+gate before loading a checkpoint. Its bare labels leaked into the internal
+holdout. Each bare opposite now occurs once and the actual source-generated
+development bytes are restored with their producer and split roles unchanged.
+The independent audit remains sealed. This fixes construction, not a model score.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to
