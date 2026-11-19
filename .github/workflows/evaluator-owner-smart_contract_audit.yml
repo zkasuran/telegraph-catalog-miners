@@ -5,7 +5,7 @@ on:
     inputs:
       mode:
         type: choice
-        options: [train, serve]
+        options: [train, serve, parser_diagnostic]
         required: true
       owner_run_id:
         type: string
@@ -26,6 +26,7 @@ on:
         type: string
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: owner-smart-contract-audit-${{ inputs.mode }}
   cancel-in-progress: false
@@ -36,6 +37,43 @@ env:
   OMP_NUM_THREADS: '4'
   MKL_NUM_THREADS: '4'
 jobs:
+  parser_diagnostic:
+    if: inputs.mode == 'parser_diagnostic'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /verification/owners/smart_contract_audit/
+            /.github/workflows/evaluator-owner-smart_contract_audit.yml
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Verify actual hosted public repository context
+        run: python3 verification/owners/smart_contract_audit/policy.py --event "$GITHUB_EVENT_PATH"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: smart-audit-frozen
+          run-id: 44577682115
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/parser-diagnostic
+      - name: Actual pinned parser on original frozen bytes, no retraining or audit
+        timeout-minutes: 15
+        run: python3 verification/owners/smart_contract_audit/diagnose_parser_remote.py --root "$RUNNER_TEMP/parser-diagnostic"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: smart-audit-parser-diagnostic
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/parser-diagnostic/parser-diagnostic.json
+            ${{ runner.temp }}/parser-diagnostic/*.parser.stderr.log
+            ${{ runner.temp }}/parser-diagnostic/*.parser.stdout.json
   train:
     if: inputs.mode == 'train'
     runs-on: ubuntu-24.04

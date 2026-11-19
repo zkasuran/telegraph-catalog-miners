@@ -2,6 +2,8 @@
 
 ## Original corpus
 
+Parser diagnosis reuses only the exact owned frozen artifact from training run 44577682115 at source commit 0077ea0fab7c15cc0a026016fbf0e07591aec71c. Candidate, untrained and checkpoint bytes keep their existing terms and provenance. This is not new training or test data. Validation was measured at 50%; no independent audit score was exposed. Real parser stdout/stderr will be retained rather than replacing a failure with an expected result.
+
 All Solidity source and reports in this experiment are newly authored AI-assisted work for zkasuran. There is no imported contract dataset and no human-review claim. Our original additions use LicenseRef-zkasuran-SAND-1.0. The full owned inventory is 152 sources across 38 grouped implementations. Vulnerable/fixed siblings and all identifier variants stay together. Training and validation bytes are unchanged. The 32 fresh audit groups cover distinct storage/authorization and arithmetic execution paths, not 32 people or additional renamed entities. Previous exposed audit designs 6 and 7 are not used in any split.
 
 SmartBugs Curated was reviewed at `230e649123477eff332742a59a1c7cc6dc286cab`. Its README states: "All the contracts were obtained from public websites or using Etherscan and they retain their original licenses." No imported contract is cleared or included. Metadata Apache terms are not applied to Solidity files.

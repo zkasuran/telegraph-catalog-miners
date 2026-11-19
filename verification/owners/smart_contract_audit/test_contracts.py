@@ -2,6 +2,8 @@
 import copy
 import json
 import unittest
+import os
+from unittest.mock import patch
 
 from contracts import finite_bits, response_bits, training_pairs
 from registration_common import strict_json
@@ -9,6 +11,12 @@ from policy import public_repository
 
 
 class ContractChecks(unittest.TestCase):
+    def test_parser_diagnostic_entry_refuses_local_execution_before_inputs(self):
+        import diagnose_parser_remote
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "Model loading"):
+                diagnose_parser_remote.main()
+
     def test_hosted_public_repository_contract_refuses_private_and_wrong_identity(self):
         repo = "zkasuran/telegraph-catalog-miners"
         self.assertTrue(public_repository({"repository": {"full_name": repo, "private": False}}, repo))

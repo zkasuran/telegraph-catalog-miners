@@ -129,7 +129,10 @@ def main():
     for name in packages:
         parsed = subprocess.run([str(checker), "lora", "--intent", FAMILY, "--package", str(root / (name + ".safetensors")),
                                  "--class", "judgment", "--foundation", str(root / "foundation.json"), "--out", str(root / name)],
-                                check=True, capture_output=True, text=True, timeout=60)
+                                capture_output=True, text=True, timeout=60)
+        (root / (name + "-parser.stdout.json")).write_text(parsed.stdout)
+        (root / (name + "-parser.stderr.log")).write_text(parsed.stderr)
+        parsed.check_returncode()
         manifest = json.loads(parsed.stdout)
         if manifest["sha256"] != packages[name]["sha256"]:
             raise ValueError("counterparty parser hash mismatch")
