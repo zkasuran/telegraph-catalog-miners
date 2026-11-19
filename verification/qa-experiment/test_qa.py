@@ -3,6 +3,7 @@
 """Artificial schema fixtures test gates only. They never become training data."""
 import copy
 import json
+import os
 import random
 import struct
 import tempfile
@@ -12,6 +13,7 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from data import (
     Components,
@@ -110,7 +112,7 @@ class SourceGates(unittest.TestCase):
             select(defaultdict(list), {"train": 128, "validation": 32, "audit": 64})
 
     def test_remote_guard_and_quality_control(self):
-        with self.assertRaises(RuntimeError):
+        with patch.dict(os.environ, {}, clear=True), self.assertRaises(RuntimeError):
             remote_only()
         trained = {"pairwise_accuracy": .9, "subsets": {"shorter": .8, "longer": .9}}
         self.assertTrue(quality(trained, {"pairwise_accuracy": .6}, {"length": .5})["passed"])
