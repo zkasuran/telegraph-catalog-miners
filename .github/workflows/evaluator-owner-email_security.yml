@@ -1,0 +1,123 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: evaluator-owner-email_security
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [train, serve]
+        default: train
+        required: true
+      package_url:
+        type: string
+        default: ''
+      report_url:
+        type: string
+        default: ''
+      report_sha256:
+        type: string
+        default: ''
+      slot:
+        type: string
+        default: ''
+      forward_port:
+        type: string
+        default: ''
+      runnable_url:
+        type: string
+        default: ''
+      registration_id:
+        type: string
+        default: '0'
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-owner-email_security-${{ inputs.mode }}-${{ inputs.report_sha256 }}
+  cancel-in-progress: false
+jobs:
+  train:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && inputs.mode == 'train'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.8'
+      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5
+        with:
+          go-version: '1.25.7'
+      - name: Verify standalone source then install pinned CPU dependencies
+        run: |
+          bash verification/owners/email_security/verify.sh
+          python3 -m pip install --require-hashes -r verification/owners/email_security/requirements-remote.lock
+      - name: Frozen training validation and independent audit
+        env:
+          OMP_NUM_THREADS: '4'
+          MKL_NUM_THREADS: '4'
+          OPENBLAS_NUM_THREADS: '4'
+          CUDA_VISIBLE_DEVICES: ''
+          HF_HUB_OFFLINE: '1'
+        run: timeout --signal=TERM --kill-after=30s 140m python3 -W error verification/owners/email_security/remote.py --root "$RUNNER_TEMP/email-security-run"
+      - name: Publish the bounded complete audit/runtime report artifact
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: email-security-ready-${{ github.run_id }}
+          path: ${{ runner.temp }}/email-security-run/registration-ready.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Retain actual reports and licensed checkpoints on every outcome
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: email-security-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/email-security-run/*.json
+            ${{ runner.temp }}/email-security-run/*.log
+            ${{ runner.temp }}/email-security-run/EMAIL_SECURITY.safetensors
+            ${{ runner.temp }}/email-security-run/adapter/**
+            ${{ runner.temp }}/email-security-run/checkpoint/**
+            verification/owners/email_security/LICENSE
+            verification/owners/email_security/NOTICE
+            verification/owners/email_security/KIT-LICENSE
+            verification/owners/email_security/UPSTREAM-APACHE-2.0.txt
+          retention-days: 7
+          if-no-files-found: error
+  serve:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && inputs.mode == 'serve'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.8'
+      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5
+        with:
+          go-version: '1.25.7'
+      - name: Verify standalone source
+        run: bash verification/owners/email_security/verify.sh
+      - name: Verify exact serving bytes and prepare only a restricted public lease
+        env:
+          PACKAGE_URL: ${{ inputs.package_url }}
+          REPORT_URL: ${{ inputs.report_url }}
+          REPORT_SHA: ${{ inputs.report_sha256 }}
+          SLOT: ${{ inputs.slot }}
+          FORWARD_PORT: ${{ inputs.forward_port }}
+          RUNNABLE_URL: ${{ inputs.runnable_url }}
+          REGISTRATION_ID: ${{ inputs.registration_id }}
+        run: python3 -W error verification/owners/email_security/serve.py prepare --root "$RUNNER_TEMP/email-security-serving" --package-url "$PACKAGE_URL" --report-url "$REPORT_URL" --report-sha256 "$REPORT_SHA" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL" --registration-id "$REGISTRATION_ID"
+      - name: Upload only the restricted public forwarding lease
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: email-security-lease-${{ github.run_id }}
+          path: ${{ runner.temp }}/email-security-serving/lease.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Keep the identical reference executor available during its bounded lease
+        run: timeout --signal=TERM --kill-after=30s 305m python3 -W error verification/owners/email_security/serve.py run --root "$RUNNER_TEMP/email-security-serving"

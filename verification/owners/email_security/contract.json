@@ -1,0 +1,60 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "canonical_claim": false,
+  "family": "EMAIL_SECURITY",
+  "files": {
+    "audit": {
+      "groups": 64,
+      "rows": 128,
+      "sha256": "c62a76c6d60286c891b799a163fcc70b65d646fe06007b5346a458e43290c827"
+    },
+    "train": {
+      "groups": 128,
+      "rows": 256,
+      "sha256": "be9ec3ae6086eb525d4caf13dcf6fd744e474b1299ec8b2baa9e28d9195e7b6c"
+    },
+    "validation": {
+      "groups": 32,
+      "rows": 64,
+      "sha256": "36161ef2a567523bd3a368e3ff08e9823042972e8fc377efefec6d75a6e493f3"
+    }
+  },
+  "frozen_sha256": "ca031b1b40b5ce6b2bff678b2d313bfaf5319cc4ecd825cad48386f601010bb2",
+  "preference_authorship": "constructed AI-assisted",
+  "run_id": "de3cddafc7504b8383141d0fc78055e4",
+  "schema_version": 1,
+  "source_observations": 0,
+  "source_sha256": {
+    "DATA-SOURCES.md": "e519fc57be7eefd456d09c34e6aaaa9a9e7c14b6c208779008e60df0fcf6bed4",
+    "KIT-LICENSE": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+    "LICENSE": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+    "NOTICE": "d4e6a992db099977db6da1cb9b92414cfeef578fc49f4584c20facb203c72dfb",
+    "README.md": "9647a2f3f60291b0802bc338d90e7e0b030dedec33f91d807bd79bf83a465c26",
+    "SECURITY.md": "228e15250aa937976af890820db2bad044afa74078f92300074217735e20a550",
+    "UPSTREAM-APACHE-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "data.py": "52170d6c983cc2cf8f869c884dad5104c2dac806b914351addc223944143fabc",
+    "frozen-controls.json": "ca031b1b40b5ce6b2bff678b2d313bfaf5319cc4ecd825cad48386f601010bb2",
+    "licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552",
+    "packagecheck.go": "6bb4ed2ff8a5434dccd84a4e2b0a883dd45dc0abd5cffed6fed694d72a980ed1",
+    "packagecheck_test.go": "699604047cbebbc43dbb83e33c4a050369a6a7a0645eef0bdb65e5073dda219d",
+    "ready.py": "abe14140dded72d05cb9a162c79e0f8c6078087a7b53501b6056130844dabc5c",
+    "recipe.json": "7f2ba8da4ac23d667ab66e17d7d09cde334a361cc7a92c166b7ab0388d5b61f8",
+    "reference.py": "aad7f18400e6a78eaecaa5f5932ec59131ce647d8f7a3089d93a2d46c9fd5fcc",
+    "remote.py": "23af7c44087873354f3ab023d9c6b2b1e1297005811902363656f2cee71ed616",
+    "requirements-remote.lock": "4c2b80fd53899579cccb949ef49760b5f53d32cb00e2e3c85bdc857345c832ac",
+    "requirements-verify.lock": "9e15d3d374533c6f3d2d0ab0d1bad08709149694cc5d0ca6812916de7aeeca9c",
+    "runtime.py": "9dcb327036025c92afe651a5d3a3b207741e76cd160cba929990599f1b23c340",
+    "scorer.py": "fee567db9aa9b97badbf4376747852ebce061d275e2a67cc58303ee2554fea39",
+    "serve.py": "93ad7e72e9940614e3342aaa39c9c4ec437c48aa8d8c016f3f510a443179d946",
+    "source-manifest.json": "c43c4051ae0b0e9633a66c68cbe18438c8caae9ec8ca0bd00a3fa0f1ecacf920",
+    "static_check.py": "f386dfe22e9f7668431d6652534b7f23f4b335c9a3e19b5be95b4c5dc4e0b1b3",
+    "test_email.py": "00aa3b28e35854874763f6678cb775eb3479d07233c90e4a0054323c0e0c16a3",
+    "test_ready.py": "2bca760fb947de6cfdbcda92534e272b0e40da60bc9572fd01ac1bb9cdc7b46d",
+    "verify.sh": "f8aa0f99cd193ee8abc6b626fe9127ceeee417bd64b092b225b30b9b8176e890",
+    "wire_common.py": "3e0889805d9036b9777900f8a3dc78216f2cedf1d23c30eba7c49fc79bf9b01e",
+    "wire_proxy.py": "0b03d07e4d1f76955a50002df64667220252d7ce06e58cd06ba903360894c5b3",
+    "wire_session.py": "d9b28801a0b934c422fac1b60ac950f723751572a466facc40e6ded7894bf931",
+    "wire_test.go": "abd65c0a0e28bb1a2055e35d32eae753c991c9fe6cb476120566b11fdf4e8629",
+    "workflow.yml": "79a3b29caa955ec07059d1dc49e87eca04f8ce95df240c5110817a3667e0ae13"
+  }
+}

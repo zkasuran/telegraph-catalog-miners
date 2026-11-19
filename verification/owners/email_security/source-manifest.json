@@ -1,0 +1,329 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "audit_policy": "validation-only candidate freeze before one original native and exported audit",
+  "authorship": "AI-assisted constructed protocol fixtures",
+  "data": {
+    "audit": {
+      "groups": 64,
+      "rows": 128,
+      "sha256": "c62a76c6d60286c891b799a163fcc70b65d646fe06007b5346a458e43290c827"
+    },
+    "train": {
+      "groups": 128,
+      "rows": 256,
+      "sha256": "be9ec3ae6086eb525d4caf13dcf6fd744e474b1299ec8b2baa9e28d9195e7b6c"
+    },
+    "validation": {
+      "groups": 32,
+      "rows": 64,
+      "sha256": "36161ef2a567523bd3a368e3ff08e9823042972e8fc377efefec6d75a6e493f3"
+    }
+  },
+  "external_dns_truth": false,
+  "family": "EMAIL_SECURITY",
+  "licences": {
+    "KIT-LICENSE": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+    "LICENSE": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+    "UPSTREAM-APACHE-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "normalized_overlap": 0,
+  "prior_preparation_source_sha256": "5b2ba64a11ff141ac96a20c491fc282f917e722183b2ab67c17e6a12c8ff519b",
+  "reference_inventory": {
+    "complete_tree_paths": 100,
+    "kit_commit": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+    "relevant_source_files": [
+      {
+        "matches_checkout": true,
+        "path": "cmd/adapterexec/main.go",
+        "sha256": "fc0c3c4b89ae28486baf68d614b1d137ce161a91477fce281eb0571bcee0bf2f"
+      },
+      {
+        "matches_checkout": true,
+        "path": "cmd/adapterexec/main_test.go",
+        "sha256": "d6ab63be68e325c926a0dd40db463aadc53415457378dc1f778e9a4603f3f0f3"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/README.md",
+        "sha256": "3108c9b5ed8fbff2c3ae548af88cbf93e4586fb48e3abff349c47448ed7ed000"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/__init__.py",
+        "sha256": "0c0717bbe38aa020070a58fadbdd004871d45c26e594d2bba3b5d239e35e65c7"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/export_adapter.py",
+        "sha256": "489486b06eca762f435120f12162d2662568015ac71f4303eb76b3ae250e8a48"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/export_foundation.py",
+        "sha256": "5b4b35eec1da7fba3392d143bbf7a64414f2cc967a7454b71dc4e44a58ce81fa"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/lora_format.py",
+        "sha256": "7b0d143ffcfe04a9aabaaf623d7aad1c20ceb541a56c1cdbc57cfc9c82a3674a"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/testdata/make_tiny_foundation.py",
+        "sha256": "c4a044539462f58dd28ebd94233a832630a128c44b4d7c1b71d1560e5ac9a77d"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/testdata/tiny_foundation.json",
+        "sha256": "94bdefe34ac790891f22958c71821534d4f3614a0b1671fdd3abb1bfa5c977f3"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/testdata/tokenizer_vectors.json",
+        "sha256": "784069e1b7e77143544de3372de9492377e7e91b0f543a07caa8c58ac4b4721d"
+      },
+      {
+        "matches_checkout": true,
+        "path": "float_runtime/train_adapter.py",
+        "sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/class.go",
+        "sha256": "072fe39e54036e0da58056f7c73be9360a4b6d98003337f0696d55de178ce976"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/class_test.go",
+        "sha256": "050adeeb23d04d4a94c9e188ea81f242813553984df0c7d84766f8a92b67fcca"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/common.go",
+        "sha256": "06ef0cab1e3641e402ef649ffb9c5d0901cb2a1a5a1918501d42014b3b63c3d5"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/lora.go",
+        "sha256": "23ec373d7f65c7127e8647173502a5290cdd50339c7d0bd4f602958d3b9b4338"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/lora_test.go",
+        "sha256": "6cd0e7ff96cece3e7fe85ca514679b07c5cb931837d3abccce36bd0ede71f4ef"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/training.go",
+        "sha256": "db195d641d0e1a1b4403ae51d64424dc807e46b7add0295ffdaf06f12714577e"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/adapterbuild/training_test.go",
+        "sha256": "618e23e2220f900a5b0843729b40b4ee8f05a2fd61321826dfb58b934297d8b9"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/asset_reserve_attestation.go",
+        "sha256": "23b11d68c2a7c3a5cd3f732bd6c53fa1058c9c351fc7afeaede60ce55832efe6"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/comparator.go",
+        "sha256": "5051082875626d841127b5d912ce94fb95681d227bcee7c8a9ca6a8bc0b42efd"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/grid_power_price.go",
+        "sha256": "ea50a5b93ade4f89a4d80c2a9fecbcd820d86d8fcfb1a9470fe8b40585e723b1"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/liquidity_depth_verify.go",
+        "sha256": "42967611af195ebde395bdbfff87b406c266f9aac5316700f8b3c3e56556514d"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/live_shelf_price.go",
+        "sha256": "f5de5ce4baa34c1bda7f8558926c98274bb0b1108294dfc11eed638879ca785d"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/macro_economic_indicator.go",
+        "sha256": "c8e59211b3df92589ea9a7cf4518d26a18fee678ef95504aa808de41e30c18a8"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/mining_hashprice_verify.go",
+        "sha256": "66f4f55c66ac8a28207cc508ffb53d6d0f94dc0d6f19d1f6c678067e200fe2fc"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/onchain_metric_verify.go",
+        "sha256": "128c5d49ae29530653355ad9cd7605ebdb8e6fa1796c0b57845605fb1e2e8577"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/reference.go",
+        "sha256": "26e9e139e690398ee751361a5bfde7c48f6d4465f83f8f6a488c2743511af017"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/response_format.go",
+        "sha256": "de73bc0b02c176a9de6415e63779de77bee3c4f19015bf9b6bd51706a9534b3d"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/route_eta.go",
+        "sha256": "fa7a6abf18e128d5b573fff943c79a7f10d1b68437c41902cbd05e018ac3f7e1"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/specs_db.go",
+        "sha256": "826c9f6fd0fe0e522af4cfb8f389c6f7047545cb6a1729fe8226af2f69acf37c"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/truth.go",
+        "sha256": "a3fdfe295c031c55b4edbe7a526cc8b0f36fac3a21025a04245d58465d8aba56"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/comparator/truth_material.go",
+        "sha256": "43959db3d6f5a485036fa469653f6b6dbaab80f45680982354f851a5e634bd2e"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/convert.go",
+        "sha256": "7c9d9728f188d2ab1886b09cb80d810468108940de01c8f5eaec6b2b149ba501"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/format.go",
+        "sha256": "a88b9b4397f3f15ad9c4c78f11d1971e4c832bf70b45f3a406813b4dd9f4dc0c"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/guard.go",
+        "sha256": "d2e165adce1142b8caf1f32ad16988812c03889a5e134df42ee33d11135f049d"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/onchain.go",
+        "sha256": "93ce816faf09a7cb1759e96ea1ec36df937e989412ac6b36e70cb024c5950be3"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/onchain_layout.go",
+        "sha256": "373cf5a2264870349c9c9bde53fc44c404e2cf0886935e08efc55c0c4e0012ed"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/parser.go",
+        "sha256": "c097ab12123b7465bcca8a55e6d35c09c335af5461ac8bcc56116b8a04328061"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/prompt.go",
+        "sha256": "6c738da893d4990243e19cac02dcb8554674e20035de5e2e5ca603922aa1d982"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/reply.go",
+        "sha256": "a948b4a87653570ba54d606ee9719bc3211b89e258380225f872b187f6c91022"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/scoring/responseparser/shape.go",
+        "sha256": "d3abf6297f5dce66a588b26cdbc4e8e522436e28bb1e557230bb4fba65f0b260"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/remote/remote.go",
+        "sha256": "9d8939b86181449d2c92a5c7f1a720ca34aee27b5ae491c84246c4e2eb2c871f"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/adaptermeta.go",
+        "sha256": "cdbfe583c6a81778e145853afb84caa7e18916e00431407002a52ae166902257"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/compile_cache.go",
+        "sha256": "dfa16c2320177e5a9f761eb94f2e91f238bdfca4b50e9e1101c86740a7df25be"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/deterministic.go",
+        "sha256": "905d7856a10c8bd101e664936c01fc6445fc3a23fffdc27ec321bafb9d18d12f"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/float_module.go",
+        "sha256": "5ec2f35c7f0f4aedd98f9e20af2366de793f6f13238d9d56cc374e8fd8bc3bd0"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/foundation.go",
+        "sha256": "1729ed2cd201286f53550221aeda4ba834565856dbb438fd02c55fe2393bae05"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/host.go",
+        "sha256": "2500c26f9f0e23b19c0900d85c057b21dd5791f6f1a913cea8e25429162a0789"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/kind.go",
+        "sha256": "ffe703b3242b98528b5685a80e0558ea506a2117b1d690bab1114947bb8f8378"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/lora_adapter.go",
+        "sha256": "3e77c1cf78dd395b2123277834498ae169f657a033bb5f1f47e7ad9f3ab6b929"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/lora_runtime.go",
+        "sha256": "59a3958cbbe2c9df84488e4e98cb3c598003833abdbc666b29b6466999529517"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/memory.go",
+        "sha256": "3f8375b56f39e4a3e75969b5b7e9aa8680883b9c74437787e28fbdf284bf9dd1"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/model_loader.go",
+        "sha256": "d3c93127feedc59a49936fed9471753edee940fab1f0797320622fc5f048a274"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/model_score.go",
+        "sha256": "42de40bb764baea33b654782a4c69cd830f5265aea107c592cce51dac7c73f01"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/pool.go",
+        "sha256": "d151a219ecc90345ec2cd35186f9877da2be8f700a83976fc696198af161d99e"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/runtime/runtime.go",
+        "sha256": "d03a6ea2e76034de841ff7d15e9ce247f47fbafe55002ef5b9f529df00a61e50"
+      },
+      {
+        "matches_checkout": true,
+        "path": "pkg/wasm/wasmbin/wasmbin.go",
+        "sha256": "9b43f0af194758879f1bb83271ba24c2275735a3a656caab456bba31ec30e4a5"
+      }
+    ],
+    "unread_private_or_evaluation_sources": true
+  },
+  "registration_wire_sources": {
+    "common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784",
+    "proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51",
+    "session.py": "b50305e15532d7efd0c1cc42371d52a4ebe44b9ea7b264674792d47d24ce51ca"
+  },
+  "schema_version": 1
+}
