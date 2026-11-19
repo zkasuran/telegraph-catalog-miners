@@ -1,0 +1,162 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: LLM output evaluation owner pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [evaluate, serve]
+        default: evaluate
+      owner_attempt:
+        type: string
+        required: true
+      package_url:
+        type: string
+      package_sha256:
+        type: string
+      package_keccak:
+        type: string
+      report_url:
+        type: string
+      report_sha256:
+        type: string
+      endpoint_slot:
+        type: string
+      forward_port:
+        type: string
+      runnable_url:
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-owner-llm-output-${{ inputs.mode }}
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  OWNER_ATTEMPT: ${{ inputs.owner_attempt }}
+  TOKENIZERS_PARALLELISM: 'false'
+  OMP_NUM_THREADS: '4'
+  MKL_NUM_THREADS: '4'
+  CUDA_VISIBLE_DEVICES: ''
+jobs:
+  train:
+    if: inputs.mode == 'evaluate'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Source-only release gate
+        run: bash verification/owners/llm_output_evaluation/verify.sh
+      - name: Initialize retained grants then install unchanged hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 verification/owners/llm_output_evaluation/remote.py --root "$RUNNER_TEMP/llm-output" --phase preserve
+          python3 -m venv "$RUNNER_TEMP/llm-venv"
+          "$RUNNER_TEMP/llm-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/llm_output_evaluation/requirements.lock
+          "$RUNNER_TEMP/llm-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/llm-venv/bin/python" verification/owners/llm_output_evaluation/audit_dependencies.py --lock verification/owners/llm_output_evaluation/requirements.lock --out "$RUNNER_TEMP/llm-audit.txt" --report "$RUNNER_TEMP/llm-output/dependency-audit.json"
+      - name: Frozen fit and validation, never audit selection
+        timeout-minutes: 180
+        run: timeout --signal=TERM --kill-after=20s 10500 "$RUNNER_TEMP/llm-venv/bin/python" verification/owners/llm_output_evaluation/remote.py --root "$RUNNER_TEMP/llm-output" --phase train
+      - name: Preserve successful or failed checkpoints with full grants
+        if: always()
+        run: python3 verification/owners/llm_output_evaluation/remote.py --root "$RUNNER_TEMP/llm-output" --phase preserve
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: llm-output-trained-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/llm-output/*.json
+            ${{ runner.temp }}/llm-output/*.safetensors
+            ${{ runner.temp }}/llm-output/LICENSE
+            ${{ runner.temp }}/llm-output/NOTICE
+            ${{ runner.temp }}/llm-output/KIT-LICENSE
+            ${{ runner.temp }}/llm-output/UPSTREAM-APACHE-2.0.txt
+            ${{ runner.temp }}/llm-output/CC-BY-4.0.html
+            ${{ runner.temp }}/llm-output/adapter/
+            ${{ runner.temp }}/llm-output/data/
+            ${{ runner.temp }}/llm-output/source/live-schema.json
+            ${{ runner.temp }}/llm-output/source/CC-BY-4.0.html
+  audit:
+    needs: train
+    runs-on: ubuntu-24.04
+    timeout-minutes: 130
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: llm-output-trained-${{ github.run_id }}
+          path: ${{ runner.temp }}/llm-output
+      - name: Install identical hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/llm-venv"
+          "$RUNNER_TEMP/llm-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/llm_output_evaluation/requirements.lock
+          "$RUNNER_TEMP/llm-venv/bin/python" -m pip check
+      - name: Independent complete native and actual reference-engine audit
+        timeout-minutes: 110
+        run: timeout --signal=TERM --kill-after=20s 6500 "$RUNNER_TEMP/llm-venv/bin/python" verification/owners/llm_output_evaluation/remote.py --root "$RUNNER_TEMP/llm-output" --phase audit
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: llm-output-audit-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/llm-output/*.json
+            ${{ runner.temp }}/llm-output/*.safetensors
+            ${{ runner.temp }}/llm-output/*.log
+            ${{ runner.temp }}/llm-output/LICENSE
+            ${{ runner.temp }}/llm-output/NOTICE
+            ${{ runner.temp }}/llm-output/KIT-LICENSE
+            ${{ runner.temp }}/llm-output/UPSTREAM-APACHE-2.0.txt
+            ${{ runner.temp }}/llm-output/CC-BY-4.0.html
+  serve:
+    if: inputs.mode == 'serve'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    env:
+      PACKAGE_URL: ${{ inputs.package_url }}
+      PACKAGE_SHA256: ${{ inputs.package_sha256 }}
+      PACKAGE_KECCAK: ${{ inputs.package_keccak }}
+      REPORT_URL: ${{ inputs.report_url }}
+      REPORT_SHA256: ${{ inputs.report_sha256 }}
+      ENDPOINT_SLOT: ${{ inputs.endpoint_slot }}
+      FORWARD_PORT: ${{ inputs.forward_port }}
+      RUNNABLE_URL: ${{ inputs.runnable_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Exact runtime preparation and public reference vectors
+        timeout-minutes: 35
+        run: python3 verification/owners/llm_output_evaluation/remote.py --root "$RUNNER_TEMP/llm-serving" --phase serve
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: llm-output-lease-${{ github.run_id }}
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/llm-serving/lease.json
+      - name: Keep the exact endpoint on its restricted existing proxy lease
+        timeout-minutes: 295
+        env:
+          SERVING_STAGE: hold
+        run: python3 verification/owners/llm_output_evaluation/remote.py --root "$RUNNER_TEMP/llm-serving" --phase serve

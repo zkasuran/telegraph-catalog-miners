@@ -1,0 +1,19 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "LLM_OUTPUT_EVALUATION",
+  "run_id": "cb75684e3cf745a3b0eff3b64d0849a6",
+  "provider": "NVIDIA with Scale AI, Zhilin Wang et al.",
+  "dataset": "nvidia/HelpSteer2",
+  "revision": "990b2711a36180dd19d9c94b8627844866f8982a",
+  "license": "CC-BY-4.0",
+  "grant": "reproduce and Share the Licensed Material, in whole or in part",
+  "grant_url": "https://creativecommons.org/licenses/by/4.0/legalcode.en",
+  "files": {
+    "train.jsonl.gz": "c0d7e91d738d42e8a08070db26c4c09a9c7631308e1f0fd380ff43d130c9f713",
+    "validation.jsonl.gz": "610eeb5289494d613c4c0f70aade2df8df0b499f3a24e76d232f74e6909d010a",
+    "preference/preference.jsonl.gz": "a5cd48600fb7a330cf0ccc8f59051e24e8f236907c379f42eff1ba18da55204b",
+    "disagreements/disagreements.jsonl.gz": "53435e0e2926620bf08ce91f278d7368ee6903f416a47764fe8839f3b71b3ab4"
+  },
+  "boundary": "Original text and original annotations retain CC BY 4.0. New code uses SAND. Proposed Telegraph rating mappings and preference conversions are constructed, not human-reviewed. No original output may be truncated while retaining its annotation.",
+  "citation": "wang2024helpsteer2preferencecomplementingratingspreferences; wang2024helpsteer2opensource"
+}

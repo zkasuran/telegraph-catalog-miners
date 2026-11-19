@@ -1,0 +1,17 @@
+{
+  "annotation_kind": "constructed-rating-proxy-from-human-attribute",
+  "chosen": "{\n  \"rating\": \"Excellent\",\n  \"score\": 10,\n  \"assessment\": \"Overall helpfulness of this complete output: \\\"Happy Birthday to my partner in sass, the queen of wit, and the epitome of beauty! \ud83c\udf89\ud83d\udc51 You're not getting older, you're just increasing in value. Here's to another year of bestie goals and unforgettable memories! #BirthdayQueen #BestieGoals\\\"\"\n}",
+  "chosen_format": "json_pretty",
+  "group_id": "004a11504d97b3c4afed3d440d956d6fecd5ade0683cdf3147d3c8bed3f30fb8",
+  "human_review_of_conversion": false,
+  "label": "Excellent",
+  "label_kind": "preference_pair",
+  "margin": 0.0,
+  "prompt": "{\"task\":\"Write a funny, clever happy birthday message for my beautiful, smart, sassy best friend to post on my Instagram story\",\"output\":\"\\\"Happy Birthday to my partner in sass, the queen of wit, and the epitome of beauty! \ud83c\udf89\ud83d\udc51 You're not getting older, you're just increasing in value. Here's to another year of bestie goals and unforgettable memories! #BirthdayQueen #BestieGoals\\\"\"}",
+  "rejected": "{\"rating\":\"Poor\",\"score\":2.5,\"assessment\":\"Overall helpfulness of this complete output: \\\"Happy Birthday to my partner in sass, the queen of wit, and the epitome of beauty! \ud83c\udf89\ud83d\udc51 You're not getting older, you're just increasing in value. Here's to another year of bestie goals and unforgettable memories! #BirthdayQueen #BestieGoals\\\"\"}",
+  "source_file": "train.jsonl.gz",
+  "source_helpfulness": 4,
+  "source_row": 12312,
+  "upstream_license": "CC-BY-4.0",
+  "wrong_label": "Poor"
+}

@@ -1,0 +1,16 @@
+HelpSteer2 by NVIDIA with Scale AI, Zhilin Wang et al.
+Revision 990b2711a36180dd19d9c94b8627844866f8982a.
+https://huggingface.co/datasets/nvidia/HelpSteer2
+Source text and human attribute annotations retain CC BY 4.0.
+Changes: intact byte filtering, normalized connected component splits and
+constructed evaluator rating preferences. This conversion is AI-assisted.
+No new human review is claimed. Helpfulness ratings are not factual proof.
+No provider endorsement is implied. CC BY terms are retained in CC-BY-4.0.html.
+ModernBERT by Answer.AI and LightOn, Apache-2.0.
+Revision 8949b909ec900327062f0ebf497f51aef5e6f0c8.
+Telegraph training/export/runtime kit, Copyright (c) 2026 telegraphprotocol, MIT.
+Revision 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd.
+New source code and own trained additions, Copyright (c) 2026 zkasuran,
+LicenseRef-zkasuran-SAND-1.0, subject to all retained upstream grants.
+SAND never restricts the CC BY source text or its original annotations.
+AI-assisted implementation: agentrouter/gpt-6.1-sol via OpenCode.

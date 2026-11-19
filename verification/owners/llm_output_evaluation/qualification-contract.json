@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "family": "LLM_OUTPUT_EVALUATION",
+  "class": "judgment",
+  "docs_commit": "96cc3ded9c8c6ae5208d5452a2dfec5008ee5290",
+  "docs_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-docs/96cc3ded9c8c6ae5208d5452a2dfec5008ee5290/scoring/train-a-scoring-adapter.md",
+  "docs_sha256": "24f4fac800096dfa47cd13f944a322fbb22fc2d13aa274ec819f5c8e8256062f",
+  "primary_trainer_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+  "primary_trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "input_contract": "literal ### Task section plus public preference prompt, then ### Answer section plus evaluated miner answer",
+  "scope": "evaluation of model-output ratings; no universal facts or miner application body-selection claim"
+}
