@@ -329,6 +329,12 @@ class ContractTests(unittest.TestCase):
 
 
 class WireTests(unittest.TestCase):
+    def test_identity_matches_primary_node_bare_hash_contract_exactly(self):
+        row = candidate()
+        actual = identity(row)
+        self.assertEqual(actual["adapter_hash"], row["keccak"])
+        self.assertFalse(actual["adapter_hash"].startswith("0x"))
+
     def setUp(self):
         self.row = candidate()
         self.request = session.fixed_request(self.row)

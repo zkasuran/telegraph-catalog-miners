@@ -28,7 +28,7 @@ from common import (
 
 def identity(row):
     return {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"],
-            "adapter_hash": "0x" + row["keccak"], "tokenizer_hash": FOUNDATION["tokenizer.json"]}
+            "adapter_hash": row["keccak"], "tokenizer_hash": FOUNDATION["tokenizer.json"]}
 
 
 def input_root(batch):
