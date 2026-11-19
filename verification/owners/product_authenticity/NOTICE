@@ -26,3 +26,5 @@ Copyright 2026 zkasuran. LicenseRef-zkasuran-SAND-1.0, full terms in LICENSE.
 Only our new code and constructed controls use these terms. Upstream source
 annotations retain their original rights. AI assisted extraction and diagnostic
 code. No human review of our additions is claimed.
+
+ModernBERT development portions: Answer.AI and LightOn, Apache-2.0, pinned revision 8949b909ec900327062f0ebf497f51aef5e6f0c8. Original terms are in development/UPSTREAM-APACHE-2.0.txt. New source-derived preference comparisons are AI-assisted, not human-reviewed. Trained deltas and all successful/failed checkpoints retain our SAND and upstream grants.

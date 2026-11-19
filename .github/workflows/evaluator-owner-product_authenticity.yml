@@ -1,13 +1,12 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
-name: PRODUCT_AUTHENTICITY source diagnostic
+name: PRODUCT_AUTHENTICITY source and model development
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Source-only diagnostic. No neural candidate exists yet.
+        description: Source-only gate or real remote CPU development, not registration.
         type: choice
-        options:
-          - source
+        options: [source, develop]
         default: source
         required: true
 permissions:
@@ -18,13 +17,33 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - name: Verify the exact archived-source pipeline
-        env:
-          PRODUCT_REPORT_DIR: ${{ runner.temp }}/product-authenticity-report
+      - name: Actual source-only release gate
         run: bash verification/owners/product_authenticity/verify.sh
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+  develop:
+    if: ${{ inputs.mode == 'develop' }}
+    needs: source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install pinned free CPU dependencies
+        run: python3 -m pip install --disable-pip-version-check --require-hashes --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/product_authenticity/development/requirements.lock
+      - name: Real training, validation, full parser and reference engine development
+        run: python3 verification/owners/product_authenticity/development/remote_develop.py --root "${{ runner.temp }}/product-authenticity-development"
+      - name: Preserve actual bounded development assets, including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: product-authenticity-source-report
-          path: ${{ runner.temp }}/product-authenticity-report/source-report.json
+          name: product-authenticity-development
           retention-days: 14
           if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/product-authenticity-development/development-report.json
+            ${{ runner.temp }}/product-authenticity-development/dataset-gate.json
+            ${{ runner.temp }}/product-authenticity-development/selection.json
+            ${{ runner.temp }}/product-authenticity-development/parser-result.json
+            ${{ runner.temp }}/product-authenticity-development/frozen-answer-only-baseline.json
+            ${{ runner.temp }}/product-authenticity-development/reference-runtime.log
+            ${{ runner.temp }}/product-authenticity-development/PRODUCT_AUTHENTICITY.safetensors
+            ${{ runner.temp }}/product-authenticity-development/checkpoint/*.safetensors
+            ${{ runner.temp }}/product-authenticity-development/checkpoint/*.pt

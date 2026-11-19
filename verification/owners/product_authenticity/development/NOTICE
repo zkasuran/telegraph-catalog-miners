@@ -1,0 +1,15 @@
+Original grants first:
+ModernBERT by Answer.AI and LightOn, pinned revision 8949b909ec900327062f0ebf497f51aef5e6f0c8, Apache-2.0.
+The original full grant is in UPSTREAM-APACHE-2.0.txt. Telegraph reference kit, copyright 2026 telegraphprotocol,
+MIT, commit 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd; original grant in KIT-LICENSE.
+Newton PN et al. (2008), doi:10.1371/journal.pmed.0050032: original Creative Commons Public Domain declaration.
+Sanada T, Yoshida N, Kimura K and Tsuboi H (2020), doi:10.3390/pharmacy9010003, copyright 2020 the authors, CC BY 4.0.
+Zhu S, Yoshida N, Tsuboi H, Matsushita R and Kimura K (2021), doi:10.1007/s43441-021-00262-3,
+copyright 2021 the authors, CC BY 4.0. Source/derived annotations retain these original grants without SAND restrictions.
+Original source attribution and licence text stay in the supplied source files. Technical tags are not real serials.
+No author, manufacturer, regulator or model licensor endorsement is claimed.
+
+Our code and trained delta additions: copyright 2026 zkasuran, LicenseRef-zkasuran-SAND-1.0, full terms in LICENSE.
+New preference comparisons are AI-assisted constructed report comparisons, not human-reviewed annotations.
+The model development scope is source-grounded report faithfulness, not universal physical-item proof.
+Every saved successful or failed checkpoint retains the original Apache/MIT grants and these SAND additions.

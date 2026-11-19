@@ -21,3 +21,7 @@ diagnostic claims exact JSON archive coverage only. Its lookup and G/F identifie
 shortcuts prevent treating successful control scores as semantic model quality.
 No registration-ready artifact is emitted. Source reports explicitly state that
 model qualification, independent audit and reference-engine execution are absent.
+
+## Development model boundary
+
+Neural entrypoints require the exact owned workflow_dispatch standard public GitHub runner. Local source gates refuse neural imports. Byte-bounded source snapshots, fixed source hashes, grouped source/entity/time separation and exact raw renderer bytes are checked before training. Remote source gates run unchanged shortcut controls. Model selection uses validation loss only; no audit exists. Runtime reports come from the pinned full parser and reference engine, with literal bare adapter-hash echoes, repeated bits and three negative identity controls. No registration-ready file is emitted by development mode. All saved successful or failed checkpoint containers carry original upstream and SAND notices without changing tensor payloads.

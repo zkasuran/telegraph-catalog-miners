@@ -38,3 +38,9 @@ Our code uses SAND. Newton's original public-domain grant, Sanada's CC BY 4.0
 annotations and the kit/Pyflakes MIT portions retain their original grants. AI
 assisted code and constructed response controls. No human review of our additions
 is claimed. Original source-author annotations remain distinct.
+
+## Source-grounded neural development
+
+The `develop` workflow mode trains a real ModernBERT LoRA response-quality scorer only on the standard public CPU runner. It handles verdict consistency, fact attribution and reference-versus-new-object limits in JSON and prose. It does not universally authenticate physical products or retrieve missing issuer evidence. New preferences are constructed from original source facts and are not human-reviewed. Source identifiers with G/F label prefixes are masked as technical fixture tags.
+
+Development contains 592 train comparisons from 74 original records and 608 validation comparisons from 76 source-held-out records. These comparisons are constructed report preferences, not independent physical specimens. Validation may select a frozen checkpoint. The independent 32-group audit remains unavailable and this mode cannot emit registration-ready.json or trigger registration. Its artifact binds actual model, parser and reference-runtime execution if those operations succeed.

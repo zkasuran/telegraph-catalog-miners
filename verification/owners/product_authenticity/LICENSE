@@ -144,3 +144,10 @@ The structure and much of the plain-language wording of this licence is adapted 
 standardised source-available licence template, with its noncommercial restriction
 replaced by the "any purpose" grant above and its identifying references removed, as
 that template's own terms require of an adaptation.
+
+## Owner model-artifact scope notice
+
+These terms cover our owner-authored code and trained delta additions only.
+They do not replace the original MIT reference-kit grant, Apache-2.0 ModernBERT
+grant or the public-domain and CC BY source-data grants retained in NOTICE.
+Original source copies retain their original rights. No prior grant is revoked.

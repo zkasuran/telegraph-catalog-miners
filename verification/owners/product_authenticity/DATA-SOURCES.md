@@ -61,3 +61,7 @@ Our code and constructed controls use LicenseRef-zkasuran-SAND-1.0 subject to
 the retained original grants. No AI-assisted answer is human-reviewed. WHO NC
 materials, ACS simulated-counterfeit/NC supplements, hidden pool rows and
 development-exposed audits are not training inputs or exported data here.
+
+## Remote-only model development
+
+ModernBERT-base by Answer.AI and LightOn is public and ungated at revision 8949b909ec900327062f0ebf497f51aef5e6f0c8 with Apache-2.0 declared in the primary model metadata. Section 2 grants a perpetual, worldwide, no-charge copyright licence to reproduce and prepare derivative works. Full original terms are retained. The development data use original Newton, Metformin and Sanada source facts, not prior generated diagnostic responses or exposed model audit captures. Technical fixture tags are not real serials. Train sources and validation sources/entities/acquisition groups are disjoint. No independent audit is claimed.

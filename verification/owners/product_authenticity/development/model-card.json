@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "family": "PRODUCT_AUTHENTICITY",
+  "child": "PRODUCT_AUTHENTICITY_GENERAL",
+  "class": "judgment",
+  "phase": "development_build",
+  "model_exists": false,
+  "purpose": "Score source-grounded authenticity reports, including faithful fact attribution and the distinction between an archived reference and a new physical item.",
+  "source_annotation_boundary": "Original scientific annotations are retained. Preference answers are newly AI-assisted constructed report comparisons, not human-reviewed material and not newly invented physical-item ground truth.",
+  "model_input": "Literal task string describing an explicit archived reference snapshot. JSON and prose answers preserve raw text in the pinned Task/Answer renderer. Technical fixture tags are not real serial numbers.",
+  "development_only": true,
+  "audit_available": false,
+  "registration_ready": false,
+  "hyperparameters": {"rank": 8, "alpha": 16, "max_tokens": 256, "epochs": 3, "gradient_accumulation": 8, "seed": 42},
+  "limits": [
+    "This is not universal factual proof or physical product authentication. The model cannot retrieve or validate an issuer observation omitted from its input.",
+    "No clean independent 32-group audit is available yet. Validation can select a frozen development candidate; it cannot establish registration readiness.",
+    "Actual deployed question construction and raw/shaped observation delivery are not yet verified. The pinned reference renderer and exact runtime wire must be separately checked.",
+    "No local model loading, training or inference is allowed. Actual neural work may run only in the bounded standard public CPU workflow through the automatic adapter."
+  ]
+}
