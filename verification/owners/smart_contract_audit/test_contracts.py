@@ -11,6 +11,20 @@ from policy import public_repository
 
 
 class ContractChecks(unittest.TestCase):
+    def test_development_response_views_preserve_sources_and_refuse_audit(self):
+        from data import response_views, source_for, answers
+        source, facts = source_for(0, 1000, True)
+        chosen, rejected = answers(facts, True)
+        rows = [{"split": "train", "source": source, "facts": facts, "vulnerable": True, "chosen": chosen, "rejected": rejected}]
+        before = copy.deepcopy(rows)
+        views = response_views(rows, "train")
+        self.assertEqual(len(views), 3)
+        self.assertEqual({r["response_view"] for r in views}, {"prose", "json", "report"})
+        self.assertTrue(all(r["source"] == source for r in views))
+        self.assertEqual(rows, before)
+        with self.assertRaises(ValueError):
+            response_views([{**rows[0], "split": "audit"}], "audit")
+
     def test_validation_cannot_claim_or_select_on_independent_audit(self):
         rows = [{"split": "train", "id": "fit"}, {"split": "validation", "id": "develop"}, {"split": "audit", "id": "closed"}]
         selected, ready_allowed = heldout_pairs(rows, "validation")

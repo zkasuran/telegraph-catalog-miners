@@ -102,6 +102,22 @@ def answers(facts, vulnerable, style=0):
     return (yes, no) if vulnerable else (no, yes)
 
 
+def response_views(rows, split):
+    """Construct balanced supported-format views only inside train/validation.
+
+    These repeated views are not new source groups or human annotations.
+    The independent audit is never passed into this development constructor.
+    """
+    if split not in ("train", "validation") or any(row["split"] != split for row in rows):
+        raise ValueError("development views may use only their own train/validation split")
+    views = []
+    for row in rows:
+        for style, name in enumerate(("prose", "json", "report")):
+            chosen, rejected = answers(row["facts"], row["vulnerable"], style)
+            views.append({**row, "chosen": chosen, "rejected": rejected, "response_view": name})
+    return views
+
+
 def check(rows):
     if not 0 < len(rows) <= MAX_ROWS:
         raise ValueError("row ceiling")

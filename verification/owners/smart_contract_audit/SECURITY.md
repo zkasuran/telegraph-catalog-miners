@@ -6,6 +6,7 @@
 | Fake compiler pass | Zero compiler diagnostics, exact returned values and stored effects | `execute.mjs` positive plus legitimate controls |
 | Invalid or substituted source | SHA-256 binding and compiler rejection | Unit tamper check plus invalid-source runtime control |
 | Training leakage | Whole designs and vulnerable/fixed siblings remain grouped | Normalized clone and group-leak negative tests |
+| Repeated formats counted as independent sources or audit leaks | Development views retain original source groups and accept train/validation only | View preservation, three-format coverage and audit refusal controls |
 | Annotation shortcut | No vulnerability annotation in source, both reports share finding words | Length, answer-only and overlap checks |
 | Candidate trained on audit | Separate audit job receives already frozen package hashes; training bytes are unchanged | Run/commit/package bindings and automatic adapter recheck |
 | Weak candidate consumes the audit during tuning | Saved-best exported bytes must pass all unchanged validation format/subgroup/baseline gates first; validation cannot emit registration-ready | Pure split-boundary refusal/control test and actual reference-engine validation before audit job |

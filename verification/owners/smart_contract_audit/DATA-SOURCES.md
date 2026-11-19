@@ -2,6 +2,8 @@
 
 ## Original corpus
 
+The next development candidate uses three supported response-format views of each existing training/validation source. This creates 192 training and 72 validation views, not additional source groups or independent human annotations. No audit row enters this view constructor. Source files, source hashes and immutable train-fitted baseline coefficients are retained. This change responds only to actual validation failure in run 44612636062 and its confidence-biased saved-best selection, not independent audit scores.
+
 After the actual frozen-package parser passed in run 44598067975, the 50%-validation candidate was kept unqualified. Development uses the same original training and validation rows with more optimizer updates, selected only on validation. Real exported-package validation cannot emit REGISTRATION_READY and a failure leaves the separate 64-pair audit unused. This is a genuine training/validation improvement attempt, not a retry of the unchanged binary or reuse of audit scores for tuning.
 
 Parser diagnosis reuses only the exact owned frozen artifact from training run 44577682115 at source commit 0077ea0fab7c15cc0a026016fbf0e07591aec71c. Candidate, untrained and checkpoint bytes keep their existing terms and provenance. This is not new training or test data. Validation was measured at 50%; no independent audit score was exposed. Real parser stdout/stderr will be retained rather than replacing a failure with an expected result.

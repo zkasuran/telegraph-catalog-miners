@@ -10,7 +10,7 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from data import FAMILY, ATTEMPT, answers, render, sha, write
+from data import FAMILY, ATTEMPT, answers, render, sha, write, response_views
 from policy import execution_gate, remote_only
 from remote_prepare import HERE, bound_data, prepare
 from contracts import training_pairs
@@ -38,13 +38,18 @@ def main():
     from float_runtime.lora_format import metadata, tensor_names, write_package, target_dims
 
     torch.set_num_threads(min(4, os.cpu_count() or 1))
-    # The previous twelve-update recipe stayed at 50% validation. More actual
-    # optimizer updates are selected from that development evidence only.
-    hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=1, epochs=12,
-                            lr=3e-4, es_patience=4, es_min_delta=0.0,
+    # Prior single-format training memorized and failed held-out format gates.
+    # Balanced views and less noisy updates use development evidence only.
+    hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=4, epochs=12,
+                            lr=1e-4, es_metric="pairwise_accuracy", es_patience=4, es_min_delta=0.0,
                             eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False)
-    train = training_pairs([r for r in rows if r["split"] == "train"])
-    validation = training_pairs([r for r in rows if r["split"] == "validation"])
+    train_sources = [r for r in rows if r["split"] == "train"]
+    validation_sources = [r for r in rows if r["split"] == "validation"]
+    train = training_pairs(response_views(train_sources, "train"))
+    validation = training_pairs(response_views(validation_sources, "validation"))
+    write(root / "development-views.json", {"training_originals": len(train_sources), "training_views": len(train),
+          "validation_originals": len(validation_sources), "validation_views": len(validation), "independent_audit_views_used": 0,
+          "selection": "validation pair accuracy across supported formats, not confidence/loss alone"})
     gate = trainer.gate_dataset(train, hp)
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:
@@ -54,7 +59,7 @@ def main():
     node_tok.no_padding()
     node_tok.enable_truncation(max_length=384)
     maximum, count = 0, 0
-    for row in train + validation:
+    for row in train_sources + validation_sources:
         for style in range(3):
             for answer in answers(row["facts"], row["vulnerable"], style):
                 literal = render(row["prompt"], answer)
