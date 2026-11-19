@@ -21,3 +21,7 @@ The eight source cards cover six /24 source/entity groups from one publisher and
 The complete source and card hashes are fixed trust anchors for the inspected bytes, not publisher signatures. A local adversary able to replace both code and its trusted hashes is outside this artifact's trust boundary.
 
 The source-only workflow runs on standard public CPU runners with one job, an explicit ten-minute timeout and read-only repository permissions. It uses no signer, provider credential, forwarding lease or deployed service. No neural package is loaded by the release gate.
+
+## Remote learning boundary
+
+learn/remote.py refuses local execution before neural imports, downloads or engine startup. The source gate exercises that real refusal. Frozen train/validation hashes and whole source groups are checked before fitting. Only training fits the immutable shortcut coefficients; future audits must reuse their exported bytes. Every claimed format must pass 80% overall, 70% per label, five points over untrained and ten points over the strongest tested shortcut. Validation selects the frozen candidate. A separate fresh audit is still required. The training stage cannot emit REGISTRATION_READY. The actual reference executor must echo literal bare identities, reject three wrong identities and return repeated identical finite score bits. These runtime checks run remotely, never in the local release gate. No signer, provider credential or forwarding key is part of this stage.

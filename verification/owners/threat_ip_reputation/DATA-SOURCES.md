@@ -37,3 +37,13 @@ Fixture prompt/answer preferences are our AI-assisted mechanical constructions. 
 Source-only checks report six /24 source/entity groups. That is below the unchanged qualification minimum of 32. Non-listed remains not observed in a named source, never benign. No current-positive observation feed with approved commercial training and address-reuse semantics is included. abuse.ch, Spamhaus and other excluded feed data were not relabelled through ET source wrappers.
 
 Our additions use SAND, subject to the retained original grants above.
+
+## Licensed observation learning source
+
+Jacob Durham's original source notice explicitly waives copyright and related rights to the blocklist and generator under CC0. The website terms preserve CC0 rights. Source commit 22a75ad48e34b524998ca99d890f576e8e8485ff has 446 raw rows. One empty-ASN scanner row remains a raw source-gate failure and is quarantined without editing its facts or weakening thresholds. The remaining 445 unchanged observations form 210 /24+ASN components. Frozen development uses 256 training pairs in 64 components and 64 validation pairs in 16 components. Normalized development overlap is zero. The source is one publisher/vantage point, not proof of independent campaigns or universal current maliciousness.
+
+Original grant: https://raw.githubusercontent.com/jacobyoby/honeypot-blocklist/22a75ad48e34b524998ca99d890f576e8e8485ff/LICENSE
+
+ModernBERT's pinned model card states: 'We release the ModernBERT model architectures, model weights, training codebase under the Apache 2.0 license.' Primary card: https://huggingface.co/answerdotai/ModernBERT-base/raw/8949b909ec900327062f0ebf497f51aef5e6f0c8/README.md
+
+Training runs only in the bounded public CPU workflow. No protected pool rows or prior exposed audits enter this dataset. Audit last_seen must exceed the actual frozen candidate timestamp and audit components must not share development IP, /24 or ASN. No audit is currently collected.

@@ -1,14 +1,24 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 {
-  "name": "THREAT_IP_REPUTATION source reference",
-  "run-name": "THREAT_IP_REPUTATION source check ${{ inputs.owner_attempt }}",
+  "name": "THREAT_IP_REPUTATION owner learning",
+  "run-name": "THREAT_IP_REPUTATION ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
   "on": {
     "workflow_dispatch": {
       "inputs": {
         "owner_attempt": {
-          "description": "Exact owner attempt identity",
-          "required": true,
-          "type": "string"
+          "description": "Exact owner attempt",
+          "type": "string",
+          "required": true
+        },
+        "mode": {
+          "description": "Source check or validation-frozen development training",
+          "type": "choice",
+          "options": [
+            "source-check",
+            "train-development"
+          ],
+          "default": "source-check",
+          "required": true
         }
       }
     }
@@ -17,17 +27,17 @@
     "contents": "read"
   },
   "concurrency": {
-    "group": "owner-threat-ip-source",
+    "group": "owner-threat-ip-learning",
     "cancel-in-progress": false
   },
   "jobs": {
-    "source": {
+    "learn": {
       "if": "github.repository == 'zkasuran/telegraph-catalog-miners'",
       "runs-on": "ubuntu-24.04",
-      "timeout-minutes": 10,
+      "timeout-minutes": 330,
       "env": {
         "PYTHONDONTWRITEBYTECODE": "1",
-        "OWNER_SOURCE_ONLY": "1"
+        "OMP_NUM_THREADS": "4"
       },
       "steps": [
         {
@@ -38,17 +48,39 @@
           }
         },
         {
-          "name": "Actual standalone source and literal CLI gate",
+          "name": "Actual source-only packaged gate",
           "timeout-minutes": 3,
-          "run": "bash verification/owners/threat_ip_reputation/verify.sh --report \"$RUNNER_TEMP/threat-ip-source-verification.json\""
+          "run": "bash verification/owners/threat_ip_reputation/verify.sh"
         },
         {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "if": "inputs.mode == 'train-development'",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Install exact audited CPU dependencies",
+          "if": "inputs.mode == 'train-development'",
+          "timeout-minutes": 20,
+          "run": "python3 -m venv \"$RUNNER_TEMP/threat-ip-venv\" && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/threat_ip_reputation/learn/requirements.lock && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -m pip check && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" verification/owners/threat_ip_reputation/learn/audit.py --lock verification/owners/threat_ip_reputation/learn/requirements.lock --out \"$RUNNER_TEMP/threat-ip-audit-requirements.txt\" --report \"$RUNNER_TEMP/threat-ip-audit.json\""
+        },
+        {
+          "name": "Actual bounded training, parser and reference engine",
+          "if": "inputs.mode == 'train-development'",
+          "timeout-minutes": 295,
+          "run": "timeout --signal=TERM --kill-after=15s 17400 \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -W error verification/owners/threat_ip_reputation/learn/remote.py --root \"$RUNNER_TEMP/threat-ip-learner\""
+        },
+        {
+          "name": "Retain exact licensed candidate and failure evidence",
+          "if": "always() && inputs.mode == 'train-development'",
           "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
           "with": {
-            "name": "threat-ip-source-verification",
-            "path": "${{ runner.temp }}/threat-ip-source-verification.json",
+            "name": "threat-ip-development",
+            "retention-days": 7,
             "if-no-files-found": "error",
-            "retention-days": 3
+            "path": "${{ runner.temp }}/threat-ip-learner/candidate-report.json\n${{ runner.temp }}/threat-ip-learner/training-data-gate.json\n${{ runner.temp }}/threat-ip-learner/tokenizer-check.json\n${{ runner.temp }}/threat-ip-learner/frozen-controls.json\n${{ runner.temp }}/threat-ip-learner/package-manifest.json\n${{ runner.temp }}/threat-ip-learner/runtime-proof.json\n${{ runner.temp }}/threat-ip-learner/reference-engine.log\n${{ runner.temp }}/threat-ip-learner/THREAT_IP_REPUTATION.safetensors\n${{ runner.temp }}/threat-ip-learner/untrained.safetensors"
           }
         }
       ]

@@ -1,0 +1,16 @@
+{
+  "status": "AUDIT_NOT_COLLECTED",
+  "source_commit": "22a75ad48e34b524998ca99d890f576e8e8485ff",
+  "reserved_network_asn_groups": 34,
+  "minimum_fresh_groups": 32,
+  "minimum_pairs_per_claimed_format": 64,
+  "formats": [
+    "json",
+    "prose"
+  ],
+  "freeze_rule": "Select the candidate using validation only, before obtaining the audit observations.",
+  "time_rule": "Audit last_seen must be after the actual remote candidate freeze timestamp; an edit/update date is insufficient.",
+  "entity_rule": "Global /24+ASN closure over all snapshots; audit components must share no train/validation IP, ASN or /24.",
+  "audit_used_for_selection": false,
+  "source_only_current_stage": true
+}
