@@ -1,0 +1,17 @@
+Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
+specified per article in sources.json. Their authors, DOI, original source,
+version, licence URI and changes are retained. No source grant is replaced.
+
+GPT-2 software, Copyright (c) 2019 OpenAI, Modified MIT License. Generated text
+is disclosed as created using GPT-2. DistilGPT2 by Hugging Face, Apache-2.0.
+ModernBERT by Answer.AI and LightOn, Apache-2.0. The original software grants,
+notices and conditions are retained in sources.json.
+
+Telegraph reference kit, Copyright (c) 2026 telegraphprotocol, MIT, revision
+1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd. Full MIT notice is in sources.json.
+Other dependency licences remain applicable to their own packages.
+
+Our code, constructed preferences and learned additions, Copyright (c) 2026
+zkasuran, LicenseRef-zkasuran-SAND-1.0. Only these additions use SAND. All original
+source rights survive. AI-assisted implementation and constructed comparisons
+are not human-reviewed annotations. No licensor endorsement is implied.

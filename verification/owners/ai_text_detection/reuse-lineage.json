@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "binary_wrap": 0,
+  "inputs": [
+    {
+      "source": "Telegraph reference trainer",
+      "revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+      "licence": "MIT"
+    },
+    {
+      "source": "Own public registration helpers and pinned training lock",
+      "licence": "LicenseRef-zkasuran-SAND-1.0"
+    }
+  ],
+  "source_rights": "Per-article CC BY rights and generator notices remain attached."
+}

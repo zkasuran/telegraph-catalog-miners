@@ -1,0 +1,60 @@
+# Scientific text-origin reward pilot
+
+This pipeline learns to rank an origin verdict for a short scientific passage.
+It compares named-author journal controls with disclosed GPT-2 continuations.
+Its independent audit uses DistilGPT2, a related held-out checkpoint, on separate
+articles and a later publication-time block. It is not a general authorship oracle.
+
+## Run the source-only gate
+
+Run `bash verification/owners/ai_text_detection/verify.sh` from a public checkout.
+The gate uses Python's standard library. It checks the complete source manifest,
+individual grants, source groups, literal answer formats, finite score bits and
+failure controls. It never loads a model or downloads weights locally.
+
+## What is real
+
+The pinned inventory contains 32,141 versioned XML files and 19,701 article IDs.
+A fixed bounded scan of 960 candidates selected 224 article groups: 128 training,
+32 validation and 64 audit. Their individual CC BY clauses and citations remain
+in `sources.json`. These are sample counts, not corpus-wide quality measurements.
+
+The answers and preference pairs are constructed by AI-assisted code, not human
+preference votes. Human controls are pre-2019 journal text attributed to named
+authors. The production history of each passage was not independently certified.
+Synthetic origin is recorded from an actual remote generation, never inferred
+from a model's output label.
+
+## Remote pipeline
+
+Only the controller-owned public CPU workflow runs the generators and reward
+model. Development generation precedes clean rank-8 LoRA training. Validation
+selects the saved epoch. A byte-hashed candidate and integer train-fitted baseline
+counts freeze before audit generation. No audit score chooses the candidate.
+
+The audit scores all JSON, prose and bare-label responses in the pinned Telegraph
+reference engine. It also measures a seed-matched untrained package in that engine.
+Passing requires 80% overall, 70% per origin, five points over untrained and ten
+points over the strongest length, overlap or answer-only shortcut. Strict token
+identity, three wrong identity hashes, a prefixed-hash control, invalid-token
+refusal and fresh-process identical score bits are required.
+
+Only real passes emit `registration-ready.json`. Publication, endpoint activation
+and testnet registration use the automatic action adapter. No signer is present
+in this pipeline. The serving runner uploads only a restricted public lease.
+
+## Limits
+
+GPT-2 and its distilled student are related. Passing cannot establish transfer to
+modern models, adversarial rewriting, mixed authorship, non-English text or a
+particular person's writing. Pretraining overlap with journal text is unknown.
+The same visible text can have different production histories. Reward logits are
+not calibrated `ai_likelihood` values. Hidden node qualification is a separate
+decision and may reject a source-audit pass.
+
+## Licence
+
+Original journal text keeps CC BY 3.0 or CC BY 4.0. GPT-2 retains its Modified MIT
+notice. DistilGPT2 and ModernBERT retain Apache-2.0. Telegraph code retains MIT.
+Our additions use `LicenseRef-zkasuran-SAND-1.0`. See LICENSE, NOTICE and
+DATA-SOURCES.md. No upstream endorsement or human review is claimed.
