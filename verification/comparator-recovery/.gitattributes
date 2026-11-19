@@ -1,0 +1,5 @@
+# Preserve the exact CRLF licence bytes in binary-safe Git patches.
+/LICENSE -diff
+/NOTICE -diff
+/source/*/LICENSE -diff
+/licenses/specialized-LICENSE-MIT -diff

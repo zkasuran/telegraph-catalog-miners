@@ -1,0 +1,7 @@
+Pinned validation subset from telegraphprotocol/telegraph-wasm-baseline, commit 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd.
+Copyright (c) 2026 telegraphprotocol. Full MIT terms in LICENSE.
+The reference gate and independent verification tests are zkasuran verification additions.
+Supporting source files are exact copies or explicitly recorded unchanged excerpts.
+wazero v1.12.0 uses Apache-2.0. Copyright 2020-2023 wazero authors.
+golang.org/x/sys v0.44.0 uses BSD-3-Clause. Copyright 2009 The Go Authors.
+Full licences accompany the vendored source and licenses/.

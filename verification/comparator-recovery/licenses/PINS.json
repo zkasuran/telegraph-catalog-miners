@@ -1,0 +1,30 @@
+[
+  {
+    "name": "rust-MIT.txt",
+    "sha256": "b71bd43a069ca0641a9ecfe585ca7b3c53b5cc1608f8b68321168698e28b5ea1",
+    "status": 200,
+    "url": "https://raw.githubusercontent.com/rust-lang/rust/8bab26f4f68e0e26f0bb7960be334d5b520ea452/LICENSE-MIT"
+  },
+  {
+    "name": "builtins-LICENSE.txt",
+    "sha256": "ab6eec6caf0fa5775e411c7a8bc6a45c4ef2956b0980b157ab74fc5cd62a928b",
+    "status": 200,
+    "url": "https://raw.githubusercontent.com/rust-lang/rust/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/compiler-builtins/LICENSE.txt"
+  },
+  {
+    "name": "libm-LICENSE.txt",
+    "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7",
+    "status": 200,
+    "url": "https://raw.githubusercontent.com/rust-lang/rust/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/compiler-builtins/libm/LICENSE.txt"
+  },
+  {
+    "name": "specialized-LICENSE-MIT",
+    "sha256": "d7e72b6086a884fcec0905aa957dc6c6c18aeccaab8a3ce5b91b91454f308d15"
+  },
+  {
+    "name": "llvm-CREDITS.txt",
+    "sha256": "a9901f47a089da41e4690682d00ce4cedaa2baf41fedbe79beee366d43ac2461",
+    "status": 200,
+    "url": "https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-22.1.6/compiler-rt/CREDITS.TXT"
+  }
+]

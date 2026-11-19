@@ -1,0 +1,26 @@
+{
+  "cargo": {
+    "sha256": "828980723df339d62434390e9fb8ef8831036583343ae2316b7ab5646b5c1953",
+    "version_marker": "cargo 1.97.1 "
+  },
+  "cast": {
+    "sha256": "ccd95a4607ca3ebfcb88bb90e7235cdb7f0564f5f1afa17478d5fccabbb222cb",
+    "version_marker": "cast Version: 1.7.1\n"
+  },
+  "go": {
+    "sha256": "76ac600b41ad2eceee5d39d02af78009516f8b2a29f30bcc80f765c3e4b4f5a8",
+    "version_marker": "go version go1.25.7 "
+  },
+  "node": {
+    "sha256": "81925c0995b5c1427b5d538e6a90ca2fdc4daffb786b09af749beaf7369d4e90",
+    "version_marker": "v22.22.2\n"
+  },
+  "ruff": {
+    "sha256": "9c62593d7e8c0575efb904821011b91989f69e4e884c854cf60f5ac445b2f3e6",
+    "version_marker": "ruff 0.15.14\n"
+  },
+  "rustc": {
+    "sha256": "d3a664c970a9fd8361b64194861bebc1ae37b9054e5ee3400dc1c9e691797eea",
+    "version_marker": "release: 1.97.1\n"
+  }
+}

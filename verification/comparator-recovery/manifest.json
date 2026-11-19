@@ -1,0 +1,349 @@
+{
+  "compiler": {
+    "archives": {
+      "libcompiler_builtins-0f081996ed7c8abe.rlib": {
+        "bytes": 4093316,
+        "sha256": "29ae493076037b12c6f4e10fb52ee1e836ef5cd0422f4c50867604af1c46b179"
+      },
+      "libcore-01b7d99809a6084b.rlib": {
+        "bytes": 2424096,
+        "sha256": "f65e247727c462608cd37864e9227977fd34ef1debc6cb91f2250fd9fba7a642"
+      }
+    },
+    "commit": "8bab26f4f68e0e26f0bb7960be334d5b520ea452",
+    "flags": [
+      "--locked",
+      "--offline",
+      "--release",
+      "--target",
+      "wasm32-unknown-unknown",
+      "-Dwarnings"
+    ],
+    "release": "1.97.1",
+    "rustc_sha256": "d3a664c970a9fd8361b64194861bebc1ae37b9054e5ee3400dc1c9e691797eea"
+  },
+  "families": {
+    "CRYPTO_PRICE": {
+      "active_sections": [
+        {
+          "id": 1,
+          "sha256": "a490e055f35e997645a298b70c625d5cabe73128f511f7a0bcf0e9aa8c06904f"
+        },
+        {
+          "id": 3,
+          "sha256": "3934f8f688388369ff2433b8d3e2d0f9c6bebefbcbecf7c1496128083f9dd23d"
+        },
+        {
+          "id": 5,
+          "sha256": "f0b84402ff5181a6f998d07e5832d16de5bd3ea4e32e542da814690a734e0950"
+        },
+        {
+          "id": 6,
+          "sha256": "da3c74f89a28b8e9a570d349d0f0a216ef8e69818c7226007164845feaceaf63"
+        },
+        {
+          "id": 7,
+          "sha256": "580ee1c6bd12a45ba67cc00292ff7e232cce08c6e4ccd1ff13e9e51096e1fd4d"
+        },
+        {
+          "id": 10,
+          "sha256": "c3fea7a0ff92b735083e8017b2688c18719dec9f849e94243ac7cd3cc2dabc79"
+        },
+        {
+          "id": 11,
+          "sha256": "6f68d5aacce0486825485223125e2ffcc97a58f39c3307236baa94d4ba038457"
+        }
+      ],
+      "base_sha256": "d2efa74f57a8ef0a753f325f665344971be4bb55cc94599051080f7b0b8c4d9b",
+      "binary_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/binary/CRYPTO_PRICE/a3b19701548d2bb4e5954cdba4d4feb859f692dfef1239d098448d0d90717512.wasm",
+      "bytes": 46805,
+      "file": "binaries/CRYPTO_PRICE-a3b19701548d2bb4e5954cdba4d4feb859f692dfef1239d098448d0d90717512.wasm",
+      "keccak": "0xa3b19701548d2bb4e5954cdba4d4feb859f692dfef1239d098448d0d90717512",
+      "module_name": "CRYPTO_PRICE-a3b19701548d2bb4e5954cdba4d4feb859f692dfef1239d098448d0d90717512.wasm",
+      "runnable_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/runnable/CRYPTO_PRICE",
+      "sha256": "873f33e8e38a2d2c5998b5d350e0c3a4c79407b3c6b743f779dc8bc54476aa44",
+      "source_sha256": {
+        "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+        "Cargo.toml": "e2225000c2780bc3692d4f0264c3a9bfb149b882d1db2393a519f520ed9132e7",
+        "LICENSE": "e3bc188b1bdf4b5f50f6d4090bcef607c62c7d04471807523e0c5e3eabe43b62",
+        "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+        "src/tag.rs": "10287f77c1cb93fdff94b40a74d9d771b02923f05698cf47873e9a9e14beb78a"
+      }
+    },
+    "CURRENCY_EXCHANGE": {
+      "active_sections": [
+        {
+          "id": 1,
+          "sha256": "a490e055f35e997645a298b70c625d5cabe73128f511f7a0bcf0e9aa8c06904f"
+        },
+        {
+          "id": 3,
+          "sha256": "3934f8f688388369ff2433b8d3e2d0f9c6bebefbcbecf7c1496128083f9dd23d"
+        },
+        {
+          "id": 5,
+          "sha256": "f0b84402ff5181a6f998d07e5832d16de5bd3ea4e32e542da814690a734e0950"
+        },
+        {
+          "id": 6,
+          "sha256": "da3c74f89a28b8e9a570d349d0f0a216ef8e69818c7226007164845feaceaf63"
+        },
+        {
+          "id": 7,
+          "sha256": "580ee1c6bd12a45ba67cc00292ff7e232cce08c6e4ccd1ff13e9e51096e1fd4d"
+        },
+        {
+          "id": 10,
+          "sha256": "c3fea7a0ff92b735083e8017b2688c18719dec9f849e94243ac7cd3cc2dabc79"
+        },
+        {
+          "id": 11,
+          "sha256": "aaee370602b4bad032a772979bc048082f10fbc8b1aca4e6fabec8749acb4684"
+        }
+      ],
+      "base_sha256": "c98101688629bf5eee83868d48c930453277f8d66ddf5ee86c6de91af8fb7cdd",
+      "binary_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/binary/CURRENCY_EXCHANGE/d695fd8be30f14215c1bab6e431e274d8320fcb20631191a2a7468164a53625c.wasm",
+      "bytes": 46810,
+      "file": "binaries/CURRENCY_EXCHANGE-d695fd8be30f14215c1bab6e431e274d8320fcb20631191a2a7468164a53625c.wasm",
+      "keccak": "0xd695fd8be30f14215c1bab6e431e274d8320fcb20631191a2a7468164a53625c",
+      "module_name": "CURRENCY_EXCHANGE-d695fd8be30f14215c1bab6e431e274d8320fcb20631191a2a7468164a53625c.wasm",
+      "runnable_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/runnable/CURRENCY_EXCHANGE",
+      "sha256": "dcbbbbda0c9057bb7985ddf959dfdf599a5be4297e51698a8e31f3a25a4601a0",
+      "source_sha256": {
+        "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+        "Cargo.toml": "e2225000c2780bc3692d4f0264c3a9bfb149b882d1db2393a519f520ed9132e7",
+        "LICENSE": "e3bc188b1bdf4b5f50f6d4090bcef607c62c7d04471807523e0c5e3eabe43b62",
+        "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+        "src/tag.rs": "117ce937ad1e2509f1328945ed2cc9f6f345f6f2d7f0e6c12623a6807e37eea4"
+      }
+    },
+    "FX_NOW": {
+      "active_sections": [
+        {
+          "id": 1,
+          "sha256": "a490e055f35e997645a298b70c625d5cabe73128f511f7a0bcf0e9aa8c06904f"
+        },
+        {
+          "id": 3,
+          "sha256": "3934f8f688388369ff2433b8d3e2d0f9c6bebefbcbecf7c1496128083f9dd23d"
+        },
+        {
+          "id": 5,
+          "sha256": "f0b84402ff5181a6f998d07e5832d16de5bd3ea4e32e542da814690a734e0950"
+        },
+        {
+          "id": 6,
+          "sha256": "da3c74f89a28b8e9a570d349d0f0a216ef8e69818c7226007164845feaceaf63"
+        },
+        {
+          "id": 7,
+          "sha256": "580ee1c6bd12a45ba67cc00292ff7e232cce08c6e4ccd1ff13e9e51096e1fd4d"
+        },
+        {
+          "id": 10,
+          "sha256": "c3fea7a0ff92b735083e8017b2688c18719dec9f849e94243ac7cd3cc2dabc79"
+        },
+        {
+          "id": 11,
+          "sha256": "39ff3ec6ba5237e1cbaae2918167d479e340f660e07bdebde2519666bfc26595"
+        }
+      ],
+      "base_sha256": "50ff82452c37b52d2437ff3cd92ec99667c86b2aeb2ebdfcc5f207a1e81741db",
+      "binary_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/binary/FX_NOW/506624feaf6b18e8cdc52e3b82b07537848e26b0403a8a3251115d927127860b.wasm",
+      "bytes": 46799,
+      "file": "binaries/FX_NOW-506624feaf6b18e8cdc52e3b82b07537848e26b0403a8a3251115d927127860b.wasm",
+      "keccak": "0x506624feaf6b18e8cdc52e3b82b07537848e26b0403a8a3251115d927127860b",
+      "module_name": "FX_NOW-506624feaf6b18e8cdc52e3b82b07537848e26b0403a8a3251115d927127860b.wasm",
+      "runnable_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/runnable/FX_NOW",
+      "sha256": "f0bec87caf605aeb27590dd4d49474a2dbb191653fdace9273e51e30a33e5b3f",
+      "source_sha256": {
+        "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+        "Cargo.toml": "e2225000c2780bc3692d4f0264c3a9bfb149b882d1db2393a519f520ed9132e7",
+        "LICENSE": "e3bc188b1bdf4b5f50f6d4090bcef607c62c7d04471807523e0c5e3eabe43b62",
+        "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+        "src/tag.rs": "a011d31c8ac1f2cf650b6dae368ee390f21c5804da57f32e4a868e3a23d1ca4b"
+      }
+    },
+    "SSL_VERIFICATION": {
+      "active_sections": [
+        {
+          "id": 1,
+          "sha256": "a490e055f35e997645a298b70c625d5cabe73128f511f7a0bcf0e9aa8c06904f"
+        },
+        {
+          "id": 3,
+          "sha256": "3934f8f688388369ff2433b8d3e2d0f9c6bebefbcbecf7c1496128083f9dd23d"
+        },
+        {
+          "id": 5,
+          "sha256": "f0b84402ff5181a6f998d07e5832d16de5bd3ea4e32e542da814690a734e0950"
+        },
+        {
+          "id": 6,
+          "sha256": "da3c74f89a28b8e9a570d349d0f0a216ef8e69818c7226007164845feaceaf63"
+        },
+        {
+          "id": 7,
+          "sha256": "580ee1c6bd12a45ba67cc00292ff7e232cce08c6e4ccd1ff13e9e51096e1fd4d"
+        },
+        {
+          "id": 10,
+          "sha256": "c3fea7a0ff92b735083e8017b2688c18719dec9f849e94243ac7cd3cc2dabc79"
+        },
+        {
+          "id": 11,
+          "sha256": "5eabb6d7d025e7e4959042239d3e73c57bb688895f885947671cc22c014988e0"
+        }
+      ],
+      "base_sha256": "c12992cf1a6b989ddc212dd9ad84495cea8ce80bda3894369b758e26289fa9f2",
+      "binary_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/binary/SSL_VERIFICATION/551a252dcf5fa04d21c26b8e9da58ced07246712bd8dd9f04254ff6f1b137105.wasm",
+      "bytes": 46809,
+      "file": "binaries/SSL_VERIFICATION-551a252dcf5fa04d21c26b8e9da58ced07246712bd8dd9f04254ff6f1b137105.wasm",
+      "keccak": "0x551a252dcf5fa04d21c26b8e9da58ced07246712bd8dd9f04254ff6f1b137105",
+      "module_name": "SSL_VERIFICATION-551a252dcf5fa04d21c26b8e9da58ced07246712bd8dd9f04254ff6f1b137105.wasm",
+      "runnable_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/runnable/SSL_VERIFICATION",
+      "sha256": "48fd7a35a9fcff9adea77e0fdae9c36136e6c7ec7dfb79431e87396a2535a3fd",
+      "source_sha256": {
+        "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+        "Cargo.toml": "e2225000c2780bc3692d4f0264c3a9bfb149b882d1db2393a519f520ed9132e7",
+        "LICENSE": "e3bc188b1bdf4b5f50f6d4090bcef607c62c7d04471807523e0c5e3eabe43b62",
+        "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+        "src/tag.rs": "e26a5eebd387dba07acca63515e6348066b978acfa8d1e103048612e30a945f4"
+      }
+    },
+    "STOCK_PRICE": {
+      "active_sections": [
+        {
+          "id": 1,
+          "sha256": "a490e055f35e997645a298b70c625d5cabe73128f511f7a0bcf0e9aa8c06904f"
+        },
+        {
+          "id": 3,
+          "sha256": "3934f8f688388369ff2433b8d3e2d0f9c6bebefbcbecf7c1496128083f9dd23d"
+        },
+        {
+          "id": 5,
+          "sha256": "f0b84402ff5181a6f998d07e5832d16de5bd3ea4e32e542da814690a734e0950"
+        },
+        {
+          "id": 6,
+          "sha256": "da3c74f89a28b8e9a570d349d0f0a216ef8e69818c7226007164845feaceaf63"
+        },
+        {
+          "id": 7,
+          "sha256": "580ee1c6bd12a45ba67cc00292ff7e232cce08c6e4ccd1ff13e9e51096e1fd4d"
+        },
+        {
+          "id": 10,
+          "sha256": "c3fea7a0ff92b735083e8017b2688c18719dec9f849e94243ac7cd3cc2dabc79"
+        },
+        {
+          "id": 11,
+          "sha256": "d9d6c9d368ab43917c0304a5a3217ee68691dc5f91ced9e91a066bfd5288ea3b"
+        }
+      ],
+      "base_sha256": "de1588da95eaaa719659546caf60655d5167595c22b5098d5fcca27d4b68cd6b",
+      "binary_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/binary/STOCK_PRICE/eb8a115ecdfe864de404b8dcc0d3443470d10dd35d808b037d2753b2ea107311.wasm",
+      "bytes": 46804,
+      "file": "binaries/STOCK_PRICE-eb8a115ecdfe864de404b8dcc0d3443470d10dd35d808b037d2753b2ea107311.wasm",
+      "keccak": "0xeb8a115ecdfe864de404b8dcc0d3443470d10dd35d808b037d2753b2ea107311",
+      "module_name": "STOCK_PRICE-eb8a115ecdfe864de404b8dcc0d3443470d10dd35d808b037d2753b2ea107311.wasm",
+      "runnable_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/runnable/STOCK_PRICE",
+      "sha256": "045f6d2e188170ff055dc4282b8d377791f7c8a2e5332724c382a6b545d58332",
+      "source_sha256": {
+        "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+        "Cargo.toml": "e2225000c2780bc3692d4f0264c3a9bfb149b882d1db2393a519f520ed9132e7",
+        "LICENSE": "e3bc188b1bdf4b5f50f6d4090bcef607c62c7d04471807523e0c5e3eabe43b62",
+        "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+        "src/tag.rs": "858dacd320a59f4618a7fc7cd22611b893749731f67c6e6b921431cef60e9870"
+      }
+    },
+    "WEATHER_CHECK": {
+      "active_sections": [
+        {
+          "id": 1,
+          "sha256": "a490e055f35e997645a298b70c625d5cabe73128f511f7a0bcf0e9aa8c06904f"
+        },
+        {
+          "id": 3,
+          "sha256": "3934f8f688388369ff2433b8d3e2d0f9c6bebefbcbecf7c1496128083f9dd23d"
+        },
+        {
+          "id": 5,
+          "sha256": "f0b84402ff5181a6f998d07e5832d16de5bd3ea4e32e542da814690a734e0950"
+        },
+        {
+          "id": 6,
+          "sha256": "da3c74f89a28b8e9a570d349d0f0a216ef8e69818c7226007164845feaceaf63"
+        },
+        {
+          "id": 7,
+          "sha256": "580ee1c6bd12a45ba67cc00292ff7e232cce08c6e4ccd1ff13e9e51096e1fd4d"
+        },
+        {
+          "id": 10,
+          "sha256": "c3fea7a0ff92b735083e8017b2688c18719dec9f849e94243ac7cd3cc2dabc79"
+        },
+        {
+          "id": 11,
+          "sha256": "d78fc9badcfb0657afeb0306737d998b19c4daab0c2a974bc8f541de6ffa634f"
+        }
+      ],
+      "base_sha256": "86df23ac3a47d14a6e75f595b52631090897128d162188284da11680b1b84196",
+      "binary_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/binary/WEATHER_CHECK/84a88250ef25a27116bab01993056f5e9eb539cacb163f118757ee2774bc0336.wasm",
+      "bytes": 46806,
+      "file": "binaries/WEATHER_CHECK-84a88250ef25a27116bab01993056f5e9eb539cacb163f118757ee2774bc0336.wasm",
+      "keccak": "0x84a88250ef25a27116bab01993056f5e9eb539cacb163f118757ee2774bc0336",
+      "module_name": "WEATHER_CHECK-84a88250ef25a27116bab01993056f5e9eb539cacb163f118757ee2774bc0336.wasm",
+      "runnable_url": "https://telegraph-fin.margyn.workers.dev/_zkcmp_s2_20261118/runnable/WEATHER_CHECK",
+      "sha256": "dfcdc6f3302d0708859b66ce33e59c0b3c8fd2a89112e6016a234351435cacaf",
+      "source_sha256": {
+        "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+        "Cargo.toml": "e2225000c2780bc3692d4f0264c3a9bfb149b882d1db2393a519f520ed9132e7",
+        "LICENSE": "e3bc188b1bdf4b5f50f6d4090bcef607c62c7d04471807523e0c5e3eabe43b62",
+        "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+        "src/tag.rs": "49a7520595179130fd124586d94062762d9074f19b2e6c3c0bb6f587fada8946"
+      }
+    }
+  },
+  "handler_sha256": "b1a5e7b8792fdce3507b5529627949a307c62a48a14b041ef3706907376118f3",
+  "kit_commit": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "origin": "https://telegraph-fin.margyn.workers.dev",
+  "original_artifacts": {
+    "CRYPTO_PRICE": {
+      "bytes": 9629,
+      "sha256": "a215c960c107f4803cd338d9fcca3b75fe10f99ff99c29e2b3c7c6add65e24fd"
+    },
+    "CURRENCY_EXCHANGE": {
+      "bytes": 9634,
+      "sha256": "843376c42d7aa728082b586a4fd833be6e55bd58508328f39b1092b7d84a16ec"
+    },
+    "FX_NOW": {
+      "bytes": 9623,
+      "sha256": "e51d150dc5f1401682767116220b8112b3ead113680199c420b9d7f27f3ff297"
+    },
+    "SSL_VERIFICATION": {
+      "bytes": 9633,
+      "sha256": "febdef4e9696d25dc67a690d2c8efcbef655720585965b47e89b9aa3d6e61b4d"
+    },
+    "STOCK_PRICE": {
+      "bytes": 9628,
+      "sha256": "c5420dec012d49442441d0b63c3f66ab95db6b1243e83d1e825daa5ab603fd53"
+    },
+    "WEATHER_CHECK": {
+      "bytes": 9630,
+      "sha256": "8ef9d50af7a48da8675de57a9d161f164eb57a393dc8c52938104c0ea35e7565"
+    }
+  },
+  "original_source_sha256": {
+    "Cargo.lock": "a8c30c5d1810f2f9371d744b281ebdb785cc125d9521e7737ce7c369c0325cce",
+    "Cargo.toml": "4bfe189364308cae4baaba5e2731cc9209a8834a7f4a43bebea0636c344ec39f",
+    "src/lib.rs": "647b79404f8ec05cf5a470495ae8583efd8150132b9e1a700fc3d682af9a23ed",
+    "src/tag.rs": "b7796173dd78af0e6321899aac272b0c6287a2714336c7afb88a5c2a43d5e809"
+  },
+  "prefix": "/_zkcmp_s2_20261118/",
+  "publication_commit": null,
+  "publication_state": "prospective",
+  "spdx_license": "LicenseRef-zkasuran-SAND-1.0",
+  "version": "zkcmp-s2-20261118-1"
+}
