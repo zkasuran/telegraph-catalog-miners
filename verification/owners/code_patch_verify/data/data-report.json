@@ -1,0 +1,94 @@
+{
+  "blocker": "Controller must verify trusted CI observation presence in literal live scorer prompt",
+  "control_metrics": {
+    "audit": {
+      "answer_only": {
+        "accuracy": 0.5,
+        "pairs": 64,
+        "wins_twice": 64
+      },
+      "length": {
+        "accuracy": 0.5,
+        "pairs": 64,
+        "wins_twice": 64
+      }
+    },
+    "train": {
+      "answer_only": {
+        "accuracy": 0.5,
+        "pairs": 128,
+        "wins_twice": 128
+      },
+      "length": {
+        "accuracy": 0.5,
+        "pairs": 128,
+        "wins_twice": 128
+      }
+    },
+    "validation": {
+      "answer_only": {
+        "accuracy": 0.5,
+        "pairs": 32,
+        "wins_twice": 32
+      },
+      "length": {
+        "accuracy": 0.5,
+        "pairs": 32,
+        "wins_twice": 32
+      }
+    }
+  },
+  "controls_sha256": "4183509e5cb1449eb9ab0d3e1d3f917649de0f05056bc773fc75918ecf7e38b9",
+  "files": {
+    "audit": {
+      "rows": 64,
+      "sha256": "58f9fcda182bfc9c19b1f6878359e7308a2d21e55483a6b212a8b74da6918b94"
+    },
+    "train": {
+      "rows": 128,
+      "sha256": "a44a585eeb8ce2581731095bae2047b13375e48577fbf9937d23d762c18816a1"
+    },
+    "validation": {
+      "rows": 32,
+      "sha256": "9efc4694a55d381f1b051aa73f6711b48950fa161c54fdd52b97c7649b4e5e76"
+    }
+  },
+  "generator_sha256": "dc8796b4d97ab64022e5602b7f327c169857b4090203c102859842ca95d685d7",
+  "normalized_overlap": {
+    "answers": 0,
+    "commit": 0,
+    "original_id": 0,
+    "prompt": 0,
+    "repository": 0,
+    "run_id": 0
+  },
+  "scope": "Source-visible consistency, not opaque-URL live retrieval",
+  "splits": {
+    "audit": {
+      "chosen_longer": 32,
+      "chosen_shorter": 32,
+      "length_ties": 0,
+      "maximum_rendered_utf8_bytes": 700,
+      "original_run_groups": 64,
+      "rows": 64
+    },
+    "train": {
+      "chosen_longer": 64,
+      "chosen_shorter": 64,
+      "length_ties": 0,
+      "maximum_rendered_utf8_bytes": 618,
+      "original_run_groups": 128,
+      "rows": 128
+    },
+    "validation": {
+      "chosen_longer": 16,
+      "chosen_shorter": 16,
+      "length_ties": 0,
+      "maximum_rendered_utf8_bytes": 667,
+      "original_run_groups": 32,
+      "rows": 32
+    }
+  },
+  "template_limit": "Different serialization layouts are held out, but all fictional observations share one semantic generator. This is not independently collected source-held-out factual evidence.",
+  "training_allowed": false
+}

@@ -1,0 +1,21 @@
+{
+  "answer": "{\"passed\":false,\"conclusion\":\"failure\",\"commit\":\"84d9ab885713bf95ccdd003bc4b8c5d8ff963cc3\",\"pipeline\":\"https://github.com/cpv-fixture/train-00000/actions/runs/900000\"}",
+  "evidence": {
+    "observed_at": "2026-11-01T12:00:00Z",
+    "run": {
+      "conclusion": "success",
+      "head_sha": "84d9ab885713bf95ccdd003bc4b8c5d8ff963cc3",
+      "html_url": "https://github.com/cpv-fixture/train-00000/actions/runs/900000",
+      "id": 900000,
+      "repository": {
+        "full_name": "cpv-fixture/train-00000"
+      },
+      "run_attempt": 1,
+      "status": "completed"
+    },
+    "transport_status": 200
+  },
+  "request": {
+    "patch": "https://github.com/cpv-fixture/train-00000/actions/runs/900000/attempts/1"
+  }
+}

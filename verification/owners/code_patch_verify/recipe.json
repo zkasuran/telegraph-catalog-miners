@@ -1,0 +1,37 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "class": "judgment",
+  "family": "CODE_PATCH_VERIFY",
+  "hyperparameters": {
+    "batch_size": 1,
+    "early_stopping": false,
+    "epochs": 2,
+    "eval_batch": 1,
+    "grad_accum": 16,
+    "grad_checkpointing": false,
+    "lora_alpha": 32,
+    "lora_rank": 8,
+    "max_length": 384,
+    "seed": 42
+  },
+  "limitation": "Original fictional CI diagnostics. Trusted literal caller evidence must be verified before neural work. Native results are not registration-ready runtime proof.",
+  "live_evidence_channel_verified": false,
+  "max_minutes": 180,
+  "quality": {
+    "maximum_ablated_accuracy": 0.65,
+    "minimum_accuracy": 0.8,
+    "minimum_subset_accuracy": 0.7,
+    "minimum_untrained_gain": 0.05
+  },
+  "repository": "zkasuran/telegraph-catalog-miners",
+  "run_id": "3ea8f464dd5e49a2b434249d75387dcc",
+  "runner": "ubuntu-24.04",
+  "schema_version": 1,
+  "selection": {
+    "audit_after_freeze": true,
+    "direction": "min",
+    "metric": "val_loss",
+    "split": "validation",
+    "tie": "earlier_epoch"
+  }
+}

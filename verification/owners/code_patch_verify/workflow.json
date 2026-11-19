@@ -1,0 +1,104 @@
+{
+  "name": "CODE_PATCH_VERIFY bounded owned source pipeline",
+  "on": {
+    "workflow_dispatch": {
+      "inputs": {
+        "mode": {
+          "type": "choice",
+          "options": [
+            "source_audit",
+            "train"
+          ],
+          "default": "source_audit",
+          "description": "Train requires genuine trusted caller evidence"
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "owner-code_patch_verify",
+    "cancel-in-progress": false
+  },
+  "jobs": {
+    "owner": {
+      "if": "github.repository == 'zkasuran/telegraph-catalog-miners' && github.event.repository.private == false",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 180,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "CUDA_VISIBLE_DEVICES": "",
+        "TOKENIZERS_PARALLELISM": "false",
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "HF_HUB_OFFLINE": "1"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Standalone source-only gate",
+          "run": "bash verification/owners/code_patch_verify/verify.sh"
+        },
+        {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "if": "inputs.mode == 'source_audit'",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Measured public CPU source controls",
+          "if": "inputs.mode == 'source_audit'",
+          "run": "python3 verification/owners/code_patch_verify/remote_source.py --out \"$RUNNER_TEMP/cpv-output\""
+        },
+        {
+          "name": "Trusted caller gate before any neural dependency",
+          "if": "inputs.mode == 'train'",
+          "run": "python3 verification/owners/code_patch_verify/remote.py --preflight --attestation verification/owners/code_patch_verify/caller-contract.json"
+        },
+        {
+          "name": "Source lint tooling",
+          "timeout-minutes": 10,
+          "run": "python3 -m venv \"$RUNNER_TEMP/cpv-tools\"\n\"$RUNNER_TEMP/cpv-tools/bin/python\" -m pip --isolated install --require-hashes --only-binary=:all: -r verification/owners/code_patch_verify/dev-requirements.lock\n\"$RUNNER_TEMP/cpv-tools/bin/ruff\" check --select E4,E7,E9,F verification/owners/code_patch_verify/"
+        },
+        {
+          "name": "Locked CPU neural dependencies",
+          "if": "inputs.mode == 'train'",
+          "timeout-minutes": 15,
+          "run": "python3 -m venv \"$RUNNER_TEMP/cpv-venv\"\n\"$RUNNER_TEMP/cpv-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/code_patch_verify/runtime_assets/requirements.lock\n\"$RUNNER_TEMP/cpv-venv/bin/python\" -m pip check"
+        },
+        {
+          "name": "Frozen native candidate",
+          "if": "inputs.mode == 'train'",
+          "timeout-minutes": 150,
+          "run": "\"$RUNNER_TEMP/cpv-venv/bin/python\" verification/owners/code_patch_verify/remote_prepare.py --root \"$RUNNER_TEMP/cpv-preparation\" --shared verification/owners/code_patch_verify/runtime_assets --attestation verification/owners/code_patch_verify/caller-contract.json\ntimeout --signal=TERM --kill-after=20s 7800 \"$RUNNER_TEMP/cpv-venv/bin/python\" verification/owners/code_patch_verify/remote.py --root \"$RUNNER_TEMP/cpv-output\" --base \"$RUNNER_TEMP/cpv-preparation/base\" --kit \"$RUNNER_TEMP/cpv-preparation/telegraph-wasm-baseline-1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd\" --shared verification/owners/code_patch_verify/runtime_assets --attestation verification/owners/code_patch_verify/caller-contract.json"
+        },
+        {
+          "name": "Preserve full terms on every native export",
+          "id": "preserve",
+          "if": "always()",
+          "run": "python3 verification/owners/code_patch_verify/preserve.py --root \"$RUNNER_TEMP/cpv-output\" --shared verification/owners/code_patch_verify/runtime_assets"
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always() && steps.preserve.outcome == 'success'",
+          "with": {
+            "name": "code-patch-source-${{ github.run_id }}",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/cpv-output/"
+          }
+        }
+      ]
+    }
+  }
+}

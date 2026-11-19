@@ -1,0 +1,17 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+New code and original fictional CI observations are covered by the reviewed
+repository SAND terms. Preferences are constructed by AI-assisted code using
+agentrouter/gpt-6.1-sol. No human review or real CI event is claimed for fixtures.
+
+Telegraph reference kit, Copyright (c) 2026 telegraphprotocol, MIT:
+https://github.com/telegraphprotocol/telegraph-wasm-baseline/tree/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd
+Its copyright and permission notice must remain with any copied upstream code.
+The literal render contract is verified against its published training source.
+
+ModernBERT, Answer.AI and LightOn, Apache-2.0:
+https://huggingface.co/answerdotai/ModernBERT-base/tree/8949b909ec900327062f0ebf497f51aef5e6f0c8
+No model weights are in this source-only package. Future remote exports must
+retain the original Apache-2.0 grant before the SAND notice for our additions.
+Failed neural checkpoints must retain the same boundary.
