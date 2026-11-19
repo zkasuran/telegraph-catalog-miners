@@ -1,0 +1,4 @@
+{
+  "prompt": "{\"ip\": \"196.251.107.61\", \"as_of\": \"2026-11-19T11:52:04.418529+00:00\", \"captured_at\": \"2026-11-19T11:52:04.418529+00:00\", \"source_sha256\": \"fc57c0dba06af58ba6a4274fe26b2a187ff378afb7037f6a9102aac56bcfb891\"}",
+  "answer": "{\"ip\": \"196.251.107.61\", \"rule_ids\": [2066932, 2069054], \"evidence_state\": \"rule_address_match\", \"current_abuse\": \"unknown\", \"basis\": \"conditional_detection_rule_not_live_observation\"}"
+}

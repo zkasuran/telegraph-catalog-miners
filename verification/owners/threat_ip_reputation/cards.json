@@ -1,0 +1,101 @@
+{
+  "upstream_notice": "#*************************************************************\n#  Copyright (c) 2003-2026, Emerging Threats\n#  All rights reserved.\n#  \n#  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the \n#  following conditions are met:\n#  \n#  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following \n#    disclaimer.\n#  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the \n#    following disclaimer in the documentation and/or other materials provided with the distribution.\n#  * Neither the name of the nor the names of its contributors may be used to endorse or promote products derived \n#    from this software without specific prior written permission.\n#  \n#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, \n#  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE \n#  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, \n#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR \n#  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, \n#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE \n#  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. \n#\n#*************************************************************\n\n",
+  "addition_spdx": "LicenseRef-zkasuran-SAND-1.0",
+  "source_sha256": "e1d7a3bc20a8344d845d1d4cdad8b88ad4d189efb68bb0e9055ee2a9bb48d0f7",
+  "captured_at": "2026-11-19T11:52:04.418529+00:00",
+  "cards_sha256": "fc57c0dba06af58ba6a4274fe26b2a187ff378afb7037f6a9102aac56bcfb891",
+  "records": [
+    {
+      "file": "emerging-malware.rules",
+      "line": 48497,
+      "sid": 2066440,
+      "bsd_range": true,
+      "updated_at": "2025-12-22",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 62.60.226.0/24 any (msg:\"ET MALWARE Executable Downloaded From Common Payload Delivery Host (GET)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:dll|exe)$/\"; http.header_names; content:!\"|0d 0a|referer|0d 0a|\"; nocase; http.host; bsize:<16; content:\"62.60.226.\"; startswith; fast_pattern; classtype:trojan-activity; sid:2066440; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2025_12_22, deployment Perimeter, deployment SSLDecrypt, confidence High, signature_severity Major, updated_at 2025_12_22, mitre_tactic_id TA0011, mitre_tactic_name Command_And_Control, mitre_technique_id T1105, mitre_technique_name Ingress_Tool_Transfer; target:src_ip;)",
+      "rule_sha256": "e4cabc192e871585e7f4d8fc1d60d986c3cbd58b4696fbbd8a463987b3eb368e",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 48839,
+      "sid": 2066932,
+      "bsd_range": true,
+      "updated_at": "2026-01-22",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 196.251.107.61/32 any (msg:\"ET MALWARE HTTP Request to Known Stealer Payload Delivery Host\"; flow:established,to_server; http.host; bsize:14; content:\"196.251.107.61\"; classtype:trojan-activity; sid:2066932; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2026_01_22, deployment Perimeter, deployment SSLDecrypt, malware_family Stealc, confidence High, signature_severity Major, tag Description_Generated_By_Proofpoint_Nexus, updated_at 2026_01_22, mitre_tactic_id TA0011, mitre_tactic_name Command_And_Control, mitre_technique_id T1105, mitre_technique_name Ingress_Tool_Transfer; target:src_ip;)",
+      "rule_sha256": "398ab632703c3b077542e64351db59d146ff69ef8deda6b79344d1dbbeb8fa94",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 48911,
+      "sid": 2067151,
+      "bsd_range": true,
+      "updated_at": "2026-01-28",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 45.93.20.0/24 any (msg:\"ET MALWARE GET Request to Known Payload Delivery Host (Multiple Stealers)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:exe|dll)$/\"; http.host; bsize:<13; content:\"45.93.20.\"; fast_pattern; pcre:\"/^\\d{1,3}$/R\"; classtype:trojan-activity; sid:2067151; rev:2; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2026_01_27, deployment Perimeter, deployment SSLDecrypt, confidence Medium, signature_severity Major, updated_at 2026_01_28; target:src_ip;)",
+      "rule_sha256": "9ff24ac7b5dab8f48e01a66bbc6f510d1a83c0667ec96a43f2be4559d2b7d9fd",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 50615,
+      "sid": 2069054,
+      "bsd_range": true,
+      "updated_at": "2026-04-29",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 196.251.107.0/24 any (msg:\"ET MALWARE Executable Downloaded From Common Payload Delivery Host (GET)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:dll|exe)$/\"; http.header_names; content:!\"|0d 0a|referer|0d 0a|\"; nocase; http.host; bsize:<16; content:\"196.251.107.\"; startswith; fast_pattern; classtype:trojan-activity; sid:2069054; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2026_04_28, deployment Perimeter, deployment SSLDecrypt, confidence High, signature_severity Major, updated_at 2026_04_29; target:src_ip;)",
+      "rule_sha256": "b960a0174db9f9c21325b60ee1ef52f7a5f028b48ebcd5fc294781ae8bf366c9",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 50617,
+      "sid": 2069055,
+      "bsd_range": true,
+      "updated_at": "2026-04-29",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 178.16.53.7 any (msg:\"ET MALWARE Executable Downloaded From Common Payload Delivery Host (GET)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:dll|exe)$/\"; http.header_names; content:!\"|0d 0a|referer|0d 0a|\"; nocase; http.host; bsize:11; content:\"178.16.53.7\"; startswith; fast_pattern; classtype:trojan-activity; sid:2069055; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2026_04_28, deployment Perimeter, deployment SSLDecrypt, confidence High, signature_severity Major, updated_at 2026_04_29; target:src_ip;)",
+      "rule_sha256": "ecf51ada30c95d07b7b9961064d2b02d009c969503e7687ab73f0d3d94ddc44c",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 50619,
+      "sid": 2069056,
+      "bsd_range": true,
+      "updated_at": "2026-04-29",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 45.93.20.0/24 any (msg:\"ET MALWARE Executable Downloaded From Common Payload Delivery Host (GET)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:dll|exe)$/\"; http.header_names; content:!\"|0d 0a|referer|0d 0a|\"; nocase; http.host; bsize:<16; content:\"45.93.20.\"; startswith; fast_pattern; classtype:trojan-activity; sid:2069056; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, created_at 2026_04_28, deployment Perimeter, deployment SSLDecrypt, confidence High, signature_severity Major, updated_at 2026_04_29; target:src_ip;)",
+      "rule_sha256": "edb62484bed8b498e03477ba55e42a2c8410af9500e15c064cf2c854619467be",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 50621,
+      "sid": 2069057,
+      "bsd_range": true,
+      "updated_at": "2026-04-29",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 158.94.208.102 any (msg:\"ET MALWARE Executable Downloaded From Common Payload Delivery Host (GET)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:dll|exe)$/\"; http.header_names; content:!\"|0d 0a|referer|0d 0a|\"; nocase; http.host; bsize:14; content:\"158.94.208.102\"; startswith; fast_pattern; classtype:trojan-activity; sid:2069057; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2026_04_28, deployment Perimeter, deployment SSLDecrypt, confidence High, signature_severity Major, updated_at 2026_04_29; target:src_ip;)",
+      "rule_sha256": "32045c660c2dfeb61b0fbb3559677d5e5e6411d5f88f79fd1de9dfcc71be7c1f",
+      "blocked_reference": false
+    },
+    {
+      "file": "emerging-malware.rules",
+      "line": 50623,
+      "sid": 2069058,
+      "bsd_range": true,
+      "updated_at": "2026-04-28",
+      "references": [],
+      "rule": "alert http $HOME_NET any -> 176.65.132.98 any (msg:\"ET MALWARE Executable Downloaded From Common Payload Delivery Host (GET)\"; flow:established,to_server; http.method; content:\"GET\"; http.uri; pcre:\"/\\x2e(?:dll|exe)$/\"; http.header_names; content:!\"|0d 0a|referer|0d 0a|\"; nocase; http.host; bsize:13; content:\"176.65.132.98\"; startswith; fast_pattern; classtype:trojan-activity; sid:2069058; rev:1; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, tls_state TLSDecrypt, created_at 2026_04_28, deployment Perimeter, deployment SSLDecrypt, confidence High, signature_severity Major, updated_at 2026_04_28; target:src_ip;)",
+      "rule_sha256": "3a1a69bb252c7121b7a2c169b098d8c6034ddec94fe36174e16d3cab22b6adc0",
+      "blocked_reference": false
+    }
+  ],
+  "source_kind": "conditional IDS rule source",
+  "training_authorized": false,
+  "human_reviewed": false,
+  "mechanical_fixtures_not_audit": true
+}

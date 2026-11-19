@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "name": "THREAT_IP_REPUTATION source reference",
+  "run-name": "THREAT_IP_REPUTATION source check ${{ inputs.owner_attempt }}",
+  "on": {
+    "workflow_dispatch": {
+      "inputs": {
+        "owner_attempt": {
+          "description": "Exact owner attempt identity",
+          "required": true,
+          "type": "string"
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "owner-threat-ip-source",
+    "cancel-in-progress": false
+  },
+  "jobs": {
+    "source": {
+      "if": "github.repository == 'zkasuran/telegraph-catalog-miners'",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 10,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OWNER_SOURCE_ONLY": "1"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "persist-credentials": false,
+            "sparse-checkout": "verification/owners/threat_ip_reputation"
+          }
+        },
+        {
+          "name": "Actual standalone source and literal CLI gate",
+          "timeout-minutes": 3,
+          "run": "bash verification/owners/threat_ip_reputation/verify.sh --report \"$RUNNER_TEMP/threat-ip-source-verification.json\""
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "threat-ip-source-verification",
+            "path": "${{ runner.temp }}/threat-ip-source-verification.json",
+            "if-no-files-found": "error",
+            "retention-days": 3
+          }
+        }
+      ]
+    }
+  }
+}
