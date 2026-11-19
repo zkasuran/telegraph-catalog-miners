@@ -31,12 +31,12 @@
   "owned_source_sha256": {
     "verify.py": "4de06b1336d596bef9d22d1326a84550c65d6102a9393231e8e8db8c24b48d0f",
     "report.py": "d448abc3405c106695444351f0315598fb03ca84431325696af9bfb18616d14f",
-    "verify.sh": "789ac9bc5d49a773d040f54b905f24f2905c60d0349a3c3a09b12594846bbef5",
+    "verify.sh": "37c1f28590e3c06dab80a2921fb29efe79e52e8bd3ace380486e5c89b28bbad0",
     "train_core.py": "049ea4f66ed58e2622c21789c17fcf22e31d28a7fe63cdbc256d670793952ef8",
     "test_research.py": "14924ea6b2139fbea6f276a8b0e99836670e70270f66e64920a3ccb37594d369",
     "terms.py": "bb4606410ad6276ca4793af25d2b0ffb48f24b6841f9c466c34d370e0e6496f7",
     "scorer.py": "3102b207c1c83c62b13709d2b22fd3ac180d0c7438bf89fea92b9346be69684b",
-    "workflow.yml": "5099515b69ca2a59fda1484eccfe159990965c68f6ad7fe8330d0a42a93847cc",
+    "workflow.yml": "3e49fc8d1215d8cea51b43c0359fa2bb3e209afc7490f38543ab04e808ca7d52",
     "source.py": "33f698b5c87d86e9fb125a5c0bf17003ceaa8e510c09e2403010e917df05eb05",
     "prepare.py": "46c4e2e2a272b308b60dc1ff2330c8a52d287a5010e296e0c4482c7f78459271",
     "remote.py": "1b6a6b73ff4e832db8460ee0627c2908c2bb0acc1a8ecbf8b5220f04060bb2d6",
@@ -44,7 +44,8 @@
     "development_gate.py": "99731046acb25d83be97fd8111fa2d5301dc96b13ad94a0dbdba074ab399f26a",
     "serve.py": "daab6b90281858ad83792e27b87e7688f2dfabba47ac1a237d12ea7bae514ff9",
     "common.py": "ad79a8251ebf3d67c06fd163805669138d2de9c84415bc156411c3bded64c4a7",
-    "test_owner.py": "7e990101a58962e16b42eaa054b6c79a5847a6516bbc1ce9ef08e8bece2f8b4b",
+    "test_owner.py": "4c9e5298c9aa3b3ddcf877f05f955ff8acd90866d214415641587fe5da93ccb2",
+    "candidate/check_assets.py": "d69be051db5c98bd1ef18b5402a92a5b8941e26be8f4086ef3ae3a0a1b884db1",
     "serving/proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51",
     "serving/common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784"
   },
@@ -120,5 +121,17 @@
     "prose",
     "json"
   ],
-  "source_manifest_sha256": "4146e036aec25c184bd378d42db1fb9efaf2f64b82a5081b282e1c61d5625346"
+  "source_manifest_sha256": "4146e036aec25c184bd378d42db1fb9efaf2f64b82a5081b282e1c61d5625346",
+  "released_candidate": {
+    "schema_version": 1,
+    "family": "RESEARCH_QUERY",
+    "package_sha256": "0f46388a12a259529ee8af6eb8a30a4318519517962f1b92918c4ee3f1b2c9e1",
+    "package_keccak": "f9e4b40586dcb1709da47f23912feb049b0c2ef027b298bec2724c57b160a5c1",
+    "package_bytes": 6925420,
+    "report_sha256": "7548817fc6389a2252b92686c42b4a1013d893526136f67ef3f42d4e45b80c9b",
+    "verified_run_id": 44568463104,
+    "verified_commit": "4eccf0f54dfbf42ac75dec0cb88a1fddfcb51f91",
+    "verified_report_artifact_id": 14557995786,
+    "neural_result_created_locally": false
+  }
 }

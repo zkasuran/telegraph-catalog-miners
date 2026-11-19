@@ -40,3 +40,7 @@ evidence ceiling. A successful model/runtime job therefore uploads the validated
 registration-ready.json alone as a separate artifact. The failed checkpoint
 archive remains preserved with original grants but is never represented as a
 passing registration report. No source-held-out report certifies global truth.
+
+## Released asset gate
+
+The release gate hashes the exact published delta and original registration-ready report, checks their actual run/commit binding and verifies retained in-byte terms and attribution. It reads only bounded static metadata and opaque binary bytes, never a local neural model. The live action adapter still checks fresh source classes, public reference vectors, token refusal and exact package identity before registering.

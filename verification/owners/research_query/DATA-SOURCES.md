@@ -93,3 +93,7 @@ text. This is not a new restriction on source material or a relicensing of old
 copies. Per-article grants, copyright notices, original authors and modification
 records remain in the data and checkpoint bytes. Constructed preferences do not
 become human annotations through publication or model training.
+
+## Frozen successful audit
+
+Run 44568463104 selected epoch 19 on validation and measured the frozen 32-group audit once. Both actual reference formats scored 100% over 64 mirrored pairs. These are supplied-excerpt agreement results, not universal scientific truth. The original report binds the source manifest, actual run and immutable source commit. No evaluated audit source enters a later training or selection set.

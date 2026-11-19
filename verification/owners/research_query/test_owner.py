@@ -15,6 +15,25 @@ HERE = Path(__file__).resolve().parent
 
 
 class OwnerControls(unittest.TestCase):
+    def test_actual_released_asset_bytes_and_report(self):
+        from candidate.check_assets import verify_assets
+        actual = verify_assets(HERE / "candidate")
+        self.assertEqual(actual["verified_run_id"], 44568463104)
+        self.assertFalse(actual["canonical_claim"])
+        self.assertEqual(actual["neural_operations"], 0)
+
+    def test_released_asset_tamper_control_can_fail(self):
+        from candidate.check_assets import verify_assets
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix="research-assets-") as directory:
+            target = Path(directory)
+            for name in ("RESEARCH_QUERY.safetensors", "registration-ready.json"):
+                os.link(HERE / "candidate" / name, target / name)
+            manifest = json.loads((HERE / "candidate/manifest.json").read_text())
+            manifest["package_sha256"] = "0" * 64
+            (target / "manifest.json").write_text(json.dumps(manifest))
+            with self.assertRaises(ValueError):
+                verify_assets(target)
     def test_source_gate_blocks_neural_import_before_loading(self):
         environment = {**os.environ, "OWNER_SOURCE_ONLY": "1", "PYTHONPATH": os.environ.get("PYTHONPATH", "") + os.pathsep + str(HERE)}
         result = subprocess.run([sys.executable, "-c", "import torch"], env=environment, capture_output=True, timeout=5)

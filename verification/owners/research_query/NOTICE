@@ -21,3 +21,5 @@ distinct from the preserved checkpoint archive. These notices clarify
 provenance and publication boundaries, not original authors' endorsement.
 All previously granted licences remain unchanged. Original source portions
 are governed by their own grants before the SAND terms for our additions.
+
+Released adapter: candidate/RESEARCH_QUERY.safetensors is the exact licensed delta from successful public CPU run 44568463104. It keeps its original package hash, source attribution and grant bytes. The source commit that serves it remains 4eccf0f54dfbf42ac75dec0cb88a1fddfcb51f91. No retraining or restamping follows the independent audit.

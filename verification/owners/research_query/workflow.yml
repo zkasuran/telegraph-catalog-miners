@@ -61,6 +61,8 @@ jobs:
           cache: false
       - name: Source-only release gate
         run: bash verification/owners/research_query/verify.sh
+      - name: Verify released candidate bytes without model loading
+        run: python3 -W error verification/owners/research_query/candidate/check_assets.py
       - name: Preserve upstream terms before remote work
         if: inputs.mode == 'train'
         run: python3 verification/owners/research_query/terms.py --root "$RUNNER_TEMP/research-owner"

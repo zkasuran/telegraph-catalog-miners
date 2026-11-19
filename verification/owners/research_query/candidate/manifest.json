@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "family": "RESEARCH_QUERY",
+  "package_sha256": "0f46388a12a259529ee8af6eb8a30a4318519517962f1b92918c4ee3f1b2c9e1",
+  "package_keccak": "f9e4b40586dcb1709da47f23912feb049b0c2ef027b298bec2724c57b160a5c1",
+  "package_bytes": 6925420,
+  "report_sha256": "7548817fc6389a2252b92686c42b4a1013d893526136f67ef3f42d4e45b80c9b",
+  "verified_run_id": 44568463104,
+  "verified_commit": "4eccf0f54dfbf42ac75dec0cb88a1fddfcb51f91",
+  "verified_report_artifact_id": 14557995786,
+  "neural_result_created_locally": false
+}

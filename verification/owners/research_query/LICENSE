@@ -13,6 +13,13 @@ The following reviewed SAND text is reproduced unchanged for our own
 additions. This notice clarifies scope, changes no existing grant and
 does not revoke rights in earlier copies.
 
+
+RELEASED ADAPTER ASSET
+
+The exact resulting delta and original remote report are identified in
+candidate/manifest.json. Their in-byte source grants remain unchanged.
+Publication does not create new source truth or a canonical node result.
+
 # Source-Available No-Derivatives Licence 1.0
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0

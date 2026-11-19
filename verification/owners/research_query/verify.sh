@@ -8,3 +8,4 @@ export OWNER_SOURCE_ONLY=1
 # the same barrier when it is run without the publication adapter.
 export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}$here"
 python3 -W error "$here/verify.py"
+python3 -W error "$here/candidate/check_assets.py"

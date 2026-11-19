@@ -86,3 +86,7 @@ All dependencies on the paid-for public harness are pinned under support/. The s
 ## Quality loss and revised candidate
 
 Run 44546276917 passed parser and reference execution but scored 46.875% in both literal formats. That delta is not registered. Its audit is quarantined. The replacement audit uses 32 new article groups, excluding all 6,144 previously captured XML files. Source collection read 2,048 new XML files from the same complete pinned inventory and found 35 eligible independent groups before frozen SHA selection. Training and validation source bytes are unchanged. The new recipe uses 24 epochs, accumulation 4, learning rate 0.0002 and no LoRA dropout. Both validation formats must reach the original 80% overall and 70% per-label gates before the fresh audit is scored. All independent-audit and baseline-improvement gates remain unchanged. No revised model result is claimed yet.
+
+## Exact released candidate
+
+The candidate directory contains the exact resulting delta and original remote report from run 44568463104. The real reference audit passed both prose and raw JSON formats. Local checks only verify these bytes and their retained grants. Try `python3 verification/owners/research_query/candidate/check_assets.py`. Endpoint activation and fresh canonical node verification are separate remaining gates.
