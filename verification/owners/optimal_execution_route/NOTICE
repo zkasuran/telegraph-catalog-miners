@@ -19,3 +19,9 @@ Their original MIT licences remain in their installed distributions. They are
 not copied into this publication. Source references are in DATA-SOURCES.md.
 
 AI assistance: agentrouter/gpt-6.1-sol. No human review is claimed.
+
+Source proof transport additions include an import-boundary guard and a closed
+report/log/licence stager. The artifact manifest names exact bytes and carries
+the same SAND notice on our report-format code. Original blockchain facts are
+not claimed as exclusive software property. Incomplete or failed checkpoints
+retain this boundary and the original upstream MIT notices.

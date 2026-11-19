@@ -11,6 +11,8 @@ Use Python 3.11 or 3.12 on Linux x86_64 and Go 1.25.7. Run `bash verification/ow
 
 The original 25 tests and 1000 seeded integer invariants are retained. The historical 18 router view quotes are regression fixtures, not new training or independent audit data. The primary Go question function and executor handler compile in source-only plumbing. The executor has an explicit mock scorer, not the foundation engine.
 
+The workflow stages only bounded source reports, logs and retained licence files into a non-hidden result directory. Its manifest binds exact file hashes. Tools, compiler binaries and private working files are excluded. Incomplete source checkpoints are labelled incomplete rather than presented as ready results.
+
 ## What the score means
 
 The oracle checks fee-inclusive gross USDC base units for exactly 1000000000000000000 wei ETH. Mainnet USDC has six decimals. Every pool has a fixed 3000 ppm fee in this bounded policy. Equal gross-output routes are ties. It does not rank transaction gas, split allocations, other venues or future proceeds.

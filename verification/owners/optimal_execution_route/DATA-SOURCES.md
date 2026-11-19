@@ -46,3 +46,11 @@ PyYAML 6.0.3: https://raw.githubusercontent.com/yaml/pyyaml/6.0.3/LICENSE, MIT, 
 ## Data boundaries
 
 Source code, observed state and constructed adversarial controls are distinct. Original exposed observations remain the same regression fixtures. Training, validation and independent audit allocations are all absent. No synthetic preference is called human-reviewed and no fixture count is an independence count. New additions use SAND with retained upstream grants.
+
+## [UPLOAD] GitHub artifact transport
+
+The pinned action's primary input contract is https://raw.githubusercontent.com/actions/upload-artifact/ea165f8d65b6e75b540449e92b4886f43607fa02/action.yml.
+
+> If false, hidden files will be excluded from the artifact.
+
+Its default is false. The source pipeline therefore stages only a closed list of report/log/licence assets into a normal directory. It does not enable broad hidden-file upload or copy tool/compiler caches. A source import guard independently rejects neural library imports in local and public source-only gates. That guard is our own source code and needs no model or provider credentials.

@@ -48,6 +48,12 @@ def workflow_check(path):
             raise ValueError("action pin absent")
     if data["on"]["workflow_dispatch"]["inputs"]["mode"]["options"] != ["source_verify"]:
         raise ValueError("source pipeline cannot dispatch neural work")
+    uploader = [s for s in job["steps"] if s.get("uses", "").startswith("actions/upload-artifact@")]
+    if (len(uploader) != 1 or uploader[0]["with"].get("path") != "verification/owners/optimal_execution_route/result/"
+            or uploader[0]["with"].get("include-hidden-files", "false") != "false"
+            or uploader[0]["with"].get("if-no-files-found") != "error"
+            or uploader[0].get("if") != "always() && steps.source_proofs.outcome == 'success'"):
+        raise ValueError("upload must use the closed non-hidden source-result staging directory")
     return {"jobs": 1, "runner": job["runs-on"], "timeout_minutes": int(job["timeout-minutes"])}
 
 
@@ -142,7 +148,7 @@ def verify():
     for path in HERE.glob("*.py"):
         compile(path.read_text(), str(path), "exec")
     for path in HERE.rglob("*.json"):
-        if ".gate-work" not in path.parts:
+        if ".gate-work" not in path.parts and "result" not in path.parts:
             json.loads(path.read_text())
     lock = source_lock_check((HERE / "requirements-source.lock").read_text(), (HERE / "verify.sh").read_text())
     run([sys.executable, "-m", "pyflakes", *map(str, sorted(HERE.glob("*.py")))], "lint.log")

@@ -47,14 +47,16 @@ jobs:
       - name: Bind the actual source run
         timeout-minutes: 2
         run: python3 verification/owners/optimal_execution_route/run_gate_remote.py
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - name: Stage only allowlisted public source proofs
+        id: source_proofs
         if: always()
+        timeout-minutes: 2
+        run: python3 verification/owners/optimal_execution_route/stage_source_result.py --preserve-partial
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.source_proofs.outcome == 'success'
         timeout-minutes: 2
         with:
           name: owner-optimal-execution-route-source-${{ github.run_id }}
           retention-days: 7
           if-no-files-found: error
-          path: |
-            verification/owners/optimal_execution_route/.gate-work/source-report.json
-            verification/owners/optimal_execution_route/.gate-work/remote-source-report.json
-            verification/owners/optimal_execution_route/.gate-work/*.log
+          path: verification/owners/optimal_execution_route/result/
