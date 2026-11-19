@@ -1,0 +1,137 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Bounded keyword centrality pilot
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Source-only packaged verification or frozen neural pilot
+        type: choice
+        required: true
+        default: source
+        options:
+          - source
+          - train_audit
+permissions:
+  contents: read
+concurrency:
+  group: keyword-centrality-pilot
+  cancel-in-progress: false
+jobs:
+  source:
+    if: ${{ inputs.mode == 'source' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Run the actual standalone source gate
+        run: bash verification/owners/keyword_extraction/verify.sh
+      - name: Bind source-only run identity
+        run: |
+          python3 -c 'import json,os,pathlib; p=pathlib.Path(os.environ["RUNNER_TEMP"])/"source-result.json"; p.write_text(json.dumps({"family":"KEYWORD_EXTRACTION","run_id":int(os.environ["GITHUB_RUN_ID"]),"commit":os.environ["GITHUB_SHA"],"status":"SOURCE_GATE_PASSED","model_operations":0})+"\n")'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: keyword-source-gate
+          if-no-files-found: error
+          retention-days: 7
+          path: ${{ runner.temp }}/source-result.json
+  train:
+    if: ${{ inputs.mode == 'train_audit' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Validate prepared data availability
+        run: |
+          bash verification/owners/keyword_extraction/verify.sh
+          test -s verification/owners/keyword_extraction/approved/approved-manifest.json
+          python3 -m json.tool verification/owners/keyword_extraction/config.json
+      - name: Install and audit locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/keyword-venv"
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/keyword_extraction/requirements.lock
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/dependency_audit.py --lock verification/owners/keyword_extraction/requirements.lock --out "$RUNNER_TEMP/keyword-requirements.txt" --report "$RUNNER_TEMP/keyword-dependency-audit.json"
+      - name: Run bounded source-gated pilot
+        timeout-minutes: 120
+        run: |
+          mkdir -p "$RUNNER_TEMP/keyword-pilot"
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --root "$RUNNER_TEMP/keyword-pilot" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/remote.py --root "$RUNNER_TEMP/keyword-pilot" --data verification/owners/keyword_extraction/approved
+      - name: Retain checkpoint terms on every outcome
+        if: always()
+        run: python3 verification/owners/keyword_extraction/preserve.py --root "$RUNNER_TEMP/keyword-pilot"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: keyword-centrality-pilot
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/keyword-pilot/*.json
+            ${{ runner.temp }}/keyword-pilot/*.safetensors
+            ${{ runner.temp }}/keyword-dependency-audit.json
+            verification/owners/keyword_extraction/licences.json
+  audit:
+    needs: train
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: keyword-centrality-pilot
+          path: ${{ runner.temp }}/keyword-bundle
+      - name: Install and audit locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/keyword-venv"
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/keyword_extraction/requirements.lock
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/dependency_audit.py --lock verification/owners/keyword_extraction/requirements.lock --out "$RUNNER_TEMP/keyword-audit-requirements.txt" --report "$RUNNER_TEMP/keyword-audit-dependencies.json"
+      - name: Audit the frozen candidate once
+        timeout-minutes: 120
+        run: |
+          mkdir -p "$RUNNER_TEMP/keyword-audit"
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --root "$RUNNER_TEMP/keyword-audit" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/audit_remote.py --root "$RUNNER_TEMP/keyword-audit" --bundle "$RUNNER_TEMP/keyword-bundle" --data verification/owners/keyword_extraction/approved
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: keyword-centrality-independent-audit
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/keyword-audit/*.json
+            ${{ runner.temp }}/keyword-audit/*.log
+            ${{ runner.temp }}/keyword-audit-dependencies.json
