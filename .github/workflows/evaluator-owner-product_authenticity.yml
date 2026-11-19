@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: PRODUCT_AUTHENTICITY source diagnostic
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Source-only diagnostic. No neural candidate exists yet.
+        type: choice
+        options:
+          - source
+        default: source
+        required: true
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify the exact archived-source pipeline
+        env:
+          PRODUCT_REPORT_DIR: ${{ runner.temp }}/product-authenticity-report
+        run: bash verification/owners/product_authenticity/verify.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: product-authenticity-source-report
+          path: ${{ runner.temp }}/product-authenticity-report/source-report.json
+          retention-days: 14
+          if-no-files-found: error

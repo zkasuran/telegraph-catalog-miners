@@ -1,0 +1,28 @@
+Upstream source annotations first:
+Newton PN et al. (2008), PLoS Med 5(2):e32, doi:10.1371/journal.pmed.0050032.
+Original article and supplements use their Creative Commons Public Domain
+declaration. Full grant and original attribution remain in SOURCE-INVENTORY.json.
+Blank-line XML whitespace is removed only in the public copy. Original and
+exported hashes are retained in SOURCE-MANIFEST.json. Source text is unchanged.
+
+Sanada T, Yoshida N, Kimura K and Tsuboi H (2020), Pharmacy 9(1):3,
+doi:10.3390/pharmacy9010003. Copyright 2020 by the authors.
+CC BY 4.0, https://creativecommons.org/licenses/by/4.0/.
+The technical extraction expands six explicitly published specimen identifier
+ranges. Its source data retain CC BY 4.0 without SAND restrictions. The original
+grant, attribution and disclaimers remain in sources/sanada2020.xml. No authors,
+manufacturers, MDPI or regulators endorse this diagnostic. No warranty of item
+authenticity is given. No withheld spectra are reconstructed.
+
+Code portions:
+telegraphprotocol/telegraph-wasm-baseline, commit
+1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd, MIT, copyright 2026 telegraphprotocol.
+Original notice retained in KIT-LICENSE. Only the pure render function is locally
+tested. Pyflakes 3.4.0 uses MIT, copyright 2005-2011 Divmod, Inc. and 2013-2014
+Florent Xicluna. Original notice retained in UPSTREAM-PYFLAKES-LICENSE.
+
+Our additions:
+Copyright 2026 zkasuran. LicenseRef-zkasuran-SAND-1.0, full terms in LICENSE.
+Only our new code and constructed controls use these terms. Upstream source
+annotations retain their original rights. AI assisted extraction and diagnostic
+code. No human review of our additions is claimed.

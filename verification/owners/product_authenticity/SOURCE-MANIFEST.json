@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "family": "PRODUCT_AUTHENTICITY",
+  "run_id": "5e3dd0083914421c97b17fd7ab193997",
+  "scope": "Source-only archived report diagnosis, not model qualification",
+  "source_transformations": [
+    {
+      "target": "verification/owners/product_authenticity/sources/newton2008.xml",
+      "original_sha256": "c06681c2ae227703f71e71d344f78720e20861d11f2789c72e6bbe5cff56b7fb",
+      "export_sha256": "8b9cb242d96d5f87a1fdc3ea3390248cbb32647f9a49a41026bb80e8b998238f",
+      "change": "removed whitespace from blank XML lines",
+      "blank_lines": 1
+    }
+  ],
+  "files": [
+    {
+      "path": "scorer.py",
+      "sha256": "b3aceda34526b7643e9a78e55977e1293edcd4510e135eb7214398d41b1927a6",
+      "bytes": 5112
+    },
+    {
+      "path": "inventory.py",
+      "sha256": "8688dfbfb8140375b7a9cec55fe52b2ff4ff8fe6b255a58e6c30fa7806502f7f",
+      "bytes": 7038
+    },
+    {
+      "path": "split_gate.py",
+      "sha256": "cb0ee6e25db2cf45e5baa5a22ba70e77e90bb8815f2907fd6d78eeff25e27879",
+      "bytes": 2508
+    },
+    {
+      "path": "test_product.py",
+      "sha256": "83549e76380c8dc4c804d777f77091a60f0e186960ad4d7b6dfd94497918328f",
+      "bytes": 6939
+    },
+    {
+      "path": "SOURCE-INVENTORY.json",
+      "sha256": "45f02de315d9a2757b67b0d215c9e9238bc216e2d713327b4f85deb0ed48ed18",
+      "bytes": 51202
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "bytes": 6450
+    },
+    {
+      "path": "KIT-LICENSE",
+      "sha256": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+      "bytes": 1074
+    },
+    {
+      "path": "source_inventory.py",
+      "sha256": "48e76bea7211946e0ce327380e75f604b244bdfbba05b168c71edebb19bb681e",
+      "bytes": 3689
+    },
+    {
+      "path": "product_evidence.py",
+      "sha256": "7e67e569e554b206bf07652d31e537fa97fb7a1b1e10be2ce82049b85d314f4d",
+      "bytes": 2378
+    },
+    {
+      "path": "test_expansion.py",
+      "sha256": "450cba812e0731f6f3b7f5afe22820faf0b1cb982bdb142a6d7e57dfa47b8936",
+      "bytes": 4447
+    },
+    {
+      "path": "verify.sh",
+      "sha256": "bbe417e8b3b4448d8405a464e10f03d885e6eaba33c881696cd451256433b1ff",
+      "bytes": 632
+    },
+    {
+      "path": "gate.py",
+      "sha256": "86d403b428f9cb5bf0a9eda8d7bc9188382eb3ec8aff828cc38dbecd8bf47eb7",
+      "bytes": 1668
+    },
+    {
+      "path": "README.md",
+      "sha256": "b8707ce4c4058f1f8d930875d3c4fd6330a7311cb7814a179f1fefc7a59b6266",
+      "bytes": 2440
+    },
+    {
+      "path": "DATA-SOURCES.md",
+      "sha256": "ea62378d9d9e9dc0ad7c26b276359903f1665bd8ba9dfc9e2c2c4a4d245fc088",
+      "bytes": 3465
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "205987a963799d92ef421bbf4040c285ce04534844afda99f0623e9f7a28a4c5",
+      "bytes": 1673
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "3499ae6d12f23e7241737330e1da33370b050babeb189ff7d3c8af74966f1449",
+      "bytes": 1842
+    },
+    {
+      "path": "sources/kit-train.py",
+      "sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+      "bytes": 39897
+    },
+    {
+      "path": "sources/newton2008.xml",
+      "sha256": "8b9cb242d96d5f87a1fdc3ea3390248cbb32647f9a49a41026bb80e8b998238f",
+      "bytes": 112911
+    },
+    {
+      "path": "sources/sanada2020.xml",
+      "sha256": "fccbe8928d93a261927661ff907483cbc420cdef1b3988efde3591131a4192e1",
+      "bytes": 118391
+    },
+    {
+      "path": "vendor/pyflakes/__init__.py",
+      "sha256": "2ad053c86f294eab442b18bfa4371de85aaecf2260cf2c588183f978cf648681",
+      "bytes": 22
+    },
+    {
+      "path": "vendor/pyflakes/__main__.py",
+      "sha256": "f619ad4eaa38a8043077bd5fd9e91630881be777ebc4657011a6c55861bf5a21",
+      "bytes": 105
+    },
+    {
+      "path": "vendor/pyflakes/api.py",
+      "sha256": "3070f542eb8fd36cd564b6f3a3d9409b63d327ff8fcb6835a9a1fd905171d6e7",
+      "bytes": 5550
+    },
+    {
+      "path": "vendor/pyflakes/checker.py",
+      "sha256": "41ae94414abfde69dba520490a3a678baa271852d94eb299439e0733709294eb",
+      "bytes": 76954
+    },
+    {
+      "path": "vendor/pyflakes/messages.py",
+      "sha256": "b86077a36ad64a4474430daa45cdcdf8fc8bfd1293de404d92bc5c90959863cf",
+      "bytes": 10666
+    },
+    {
+      "path": "vendor/pyflakes/reporter.py",
+      "sha256": "f4d69eb0b554d8426d39cf3058d45cae06f18d95509d102b6768d5a57a6dfeae",
+      "bytes": 3001
+    },
+    {
+      "path": "UPSTREAM-PYFLAKES-LICENSE",
+      "sha256": "22c47569cc0aae531b372361366818af01c6fc2e314770584a7866c92b3a0463",
+      "bytes": 1093
+    }
+  ]
+}

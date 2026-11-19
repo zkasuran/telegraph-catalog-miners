@@ -1,0 +1,1471 @@
+{
+  "schema_version": 1,
+  "source_grant": "This is an open-access article distributed under the terms of the Creative Commons Public Domain declaration which stipulates that, once placed in the public domain, this work may be freely reproduced, distributed, transmitted, modified, built upon, or otherwise used by anyone for any lawful purpose.",
+  "attribution": "Newton PN et al. (2008), PLoS Med 5(2): e32, doi:10.1371/journal.pmed.0050032",
+  "paper_population_not_released_records": 391,
+  "paper_detailed_samples": 49,
+  "released_record_units": 34,
+  "all_table_rows": 57,
+  "label_counts": {
+    "Authentic": 11,
+    "Counterfeit": 23,
+    "Inconclusive": 0
+  },
+  "specimen_count_warning": "Some row identities represent multiple specimens. Never equate record units with individual specimens.",
+  "custody_limit": "Ad hoc collection lacked a legal chain of evidence. Source labels only, not fresh-item certification.",
+  "records": [
+    {
+      "record_id": "newton2008-st001-row2",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 94,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "Genuine, Guilin Pharmaceutical Co. Ltd.",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "Genuine",
+      "hplc": "45 mg artesunate",
+      "mass_spectrometry": "Artesunate on and in sample",
+      "xrd": "Starch",
+      "botany": "Cellular plant material, broken tricolporate and Poaceae pollen with rare fungal & bryophyte spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row3",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 122,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "1/1, Genuine, Guilin Pharmaceutical Co. Ltd. Bought in Ho Chi Minh City, Viet Nam",
+      "batch_dates": "990302 03/99 03/02",
+      "packaging": "Genuine",
+      "hplc": "48 mg artesunate",
+      "mass_spectrometry": "Artesunate and artemisinin on and in sample",
+      "xrd": "Starch, sucrose",
+      "botany": "Charcoal, fungal material, very few pollen grains, Pinus (50% of pollen), Poaceae and Taxodiaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row4",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 151,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "S18, Genuine, Guilin Pharmaceutical Co. Ltd. Bought Myanmar/Thai border",
+      "batch_dates": "031102 11/03 11/2007",
+      "packaging": "Genuine, with gold foil and ‘Myanmar Reg No’",
+      "hplc": "48 mg of artesunate",
+      "mass_spectrometry": "Artesunate on and in sample",
+      "xrd": "Starch, sucrose, a little kaolinite",
+      "botany": "Charcoal, fungal hyphae, very few pollen grains, Pyrrosia spores, Pinus, Ulmus, Cyperaceae, Juglans, and Malvaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "",
+        ""
+      ],
+      "specific_limits": [
+        "HPLC and mass spectrometry were from a physically identical package in the same stock, not S18"
+      ],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row5",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 185,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "05/23, Genuine, Mekophar, Hanoi, Viet Nam. Direct from company",
+      "batch_dates": "10105 24/01/05 01/2008",
+      "packaging": "No hologram is used with the genuine product",
+      "hplc": "50 mg artesunate",
+      "mass_spectrometry": "Artesunate on and in sample",
+      "xrd": "Lactose, starch, magnesium phosphate",
+      "botany": "Charcoal, black and green synthetic fibres, fungal hyphae and spores, and cellular plant debris some with preserved cell contents. Pinus, Alnus, Artemisia, Betula, Corylus, Salix, Ulmus, Poaceae, Asteraceae, Chenopodiaceae or Amaranthaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "mekophar",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row7",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 231,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "05/22, Genuine, TRAPHACO, Hanoi, Viet Nam, Bought in Laos",
+      "batch_dates": "01 012008 --- 1/1/2008",
+      "packaging": "No hologram is used with the genuine product",
+      "hplc": "48 mg artesunate",
+      "mass_spectrometry": "Artesunate and traces of artemisinin on and in sample",
+      "xrd": "Lactose, starch",
+      "botany": "Large charcoal flakes (0.5 mm diameter), blue synthetic fibres, very sparse pollen – Pinus, Artemisia and Poaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "traphaco",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row9",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 302,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "S1 Myanmar/ Thai border",
+      "batch_dates": "04010 01/04 01/07",
+      "packaging": "9",
+      "hplc": "12 mg artesunate/tablet and 4.9% paracetamol",
+      "mass_spectrometry": "Paracetamol",
+      "xrd": "Starch, talc, chlorite, quartz",
+      "botany": "Fungal material, charcoal, hairs, invertebrate remains, very rare pollen and spores. Abies, Pinus, Cyatheaceae, Myrtaceae, Poaceae pollen and fern spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "2",
+        "3",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-9"
+    },
+    {
+      "record_id": "newton2008-st001-row11",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 342,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "S5 northern Myanmar",
+      "batch_dates": "040301 03/04 03/07",
+      "packaging": "10 blisterpack in Type 4 packet",
+      "hplc": "<1 mg artesunate/tablet",
+      "mass_spectrometry": "Metamizole & paracetamol in sample",
+      "xrd": "Starch, talc, chlorite, metamizole, decanoic acid",
+      "botany": "Charcoal, hairs, invertebrate remains, Very rare pollen and spores. Alsophila, Cyatheaceae and fungal spores, Pinus, Asteraceae, Chenopodiaceae or Amaranthaceae, Poaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "3",
+        "5",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    },
+    {
+      "record_id": "newton2008-st001-row13",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 382,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "1/2 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "980502 05/98 05/01",
+      "packaging": "2",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "No pharmaceuticals identified",
+      "xrd": "Calcite 100%, trace aragonite. δC -6.79, δO +13.8 ‰",
+      "botany": "Charcoal, cellular plant material, hairs, unidentified invertebrate remains, Polypodiaceae and bryophyte spores, Pinus, Curcubitaceae, Heliotropium, Myrtaceae, Plumbago, Poaceae, Restio or Centrolepis (rush) pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-2"
+    },
+    {
+      "record_id": "newton2008-st001-row15",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 426,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "1/13 northern Myanmar",
+      "batch_dates": "990308 03/99 03/02",
+      "packaging": "1",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "No pharmaceuticals detected",
+      "xrd": "Starch, talc, sucrose",
+      "botany": "Charcoal, rare cellular plant material and hairs, Ulmus and Poaceae pollen, bryophyte spores, fungal hyphae, tricolpate grains",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "4",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-1"
+    },
+    {
+      "record_id": "newton2008-st001-row17",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 469,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2221 southern Laos",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "5",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Paracetamol",
+      "xrd": "Calcite 20%, starch, sucrose, paracetamol. δC -9.60,δO +5.9 ‰",
+      "botany": "Charcoal, cellular plant material, no pollen or spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "3",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-5"
+    },
+    {
+      "record_id": "newton2008-st001-row19",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 508,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2226 southern Laos",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "8",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Paracetamol, dimethylfumarate, metamizole",
+      "xrd": "Calcite 82%, starch, talc. δC -9.62, δO + 7.9 ‰",
+      "botany": "Charcoal. Parenchymatous cells similar to 1/2, fungal material and hairs. No pollen or spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "3,6",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-8"
+    },
+    {
+      "record_id": "newton2008-st001-row21",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 547,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2242 southern Laos",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "8",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Sulphadoxine, chloroquine, chloramphenicol, metamizole",
+      "xrd": "Calcite 80%, starch, talc. δC -9.57, δO 8.7 ‰",
+      "botany": "Charcoal. Parenchymatous cells similar to 1/2, fungal hyphae, invertebrate remains and hairs. Alsophila spores and Pinus pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-8"
+    },
+    {
+      "record_id": "newton2008-st001-row23",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 588,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2267 southern Laos",
+      "batch_dates": "000902 09/00 09/03",
+      "packaging": "3",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Dimethylfumarate, 2-mercaptobenzothiazole and erucamide",
+      "xrd": "Starch, talc",
+      "botany": "Numerous fine structureless organic particles, fungal hyphae and charcoal. A 5 mm long woody strand. Artemisia, Ulmus and Casuarina or Carya pollen.",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "3,6 3,7 3,8",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-3"
+    },
+    {
+      "record_id": "newton2008-st001-row25",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 631,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/12012 Vientiane, Laos",
+      "batch_dates": "010101 01/01 01/04",
+      "packaging": "6",
+      "hplc": "Data not available",
+      "mass_spectrometry": "Artemisinin on and in tablet",
+      "xrd": "Acrylamide, starch",
+      "botany": "Blue synthetic fibres, charcoal, very few pollen grains – Pinus, Jasminum, Poaceae, Taxodiaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-6"
+    },
+    {
+      "record_id": "newton2008-st001-row27",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 669,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/12051 southern Laos",
+      "batch_dates": "990302 09/00 09/03",
+      "packaging": "3",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "2-mercaptobenzothiazole",
+      "xrd": "Starch & talc",
+      "botany": "Charcoal, cellular plant material, Artemisia, Alnus, Pinus, Salix, Poaceae and Taxodiaceae (?Cephalotaxus) pollen, Dryopteridaceae fern and fungal spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "3,7",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-3"
+    },
+    {
+      "record_id": "newton2008-st001-row29",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 718,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/15030 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "11",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Dimethylfumarate on and in sample",
+      "xrd": "Calcite 81%, aragonite trace, starch. δC -8.21, δO +9.9 ‰",
+      "botany": "Charcoal, fungal spores & hyphae, leaf cuticles, cellular plant material, almost complete Dermatophagoides mite nymph. Alsophila tree ferns, Hymenophyllaceae filmy ferns, Polypodiaceae spores & Abies, Taxodium, Acer, Artemisia, Asteraceae, Cyperaceae, Nymphoides, Poaceae, Plantago pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "6",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-11"
+    },
+    {
+      "record_id": "newton2008-st001-row31",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 768,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/15031 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "11",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Sulfadoxine, pyrimethamine & dimethylfumarate on sample. Sulfadoxine & dimethylfumarate in sample",
+      "xrd": "Calcite 81%, aragonite, starch, talc",
+      "botany": "Parenchymatous cells, Alsophila, Pinus, Alnus, Pterocarya, Polypodiaceae, Asteraceae, Cyperaceae, Moraceae, Poaceae, Sapotaceae pollen and fern spores. ~75% of spores and pollen represent grass, pine, ferns and daisies",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "6",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-11"
+    },
+    {
+      "record_id": "newton2008-st001-row33",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 809,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/15032 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "11",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Dimethylfumarate and paracetamol on and in sample",
+      "xrd": "Calcite 81%, aragonite, starch, talc",
+      "botany": "Parenchymatous cells, Pinus, Alsophila, Isoetes, Acacia, Lathyris, Taxodiaceae, Pteridaceae, Asteraceae, Chenopodiaceae or Amaranthaceae, Labiatae, Myrtaceae, Poaceae pollen and fern spores. ~75% of spores and pollen represent grass, pine, ferns and daisies",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "6",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-11"
+    },
+    {
+      "record_id": "newton2008-st001-row35",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 850,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/15033 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "11",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Sulphadoxine, pyrimethamine & dimethylfumarate on and in sample. Traces of erythromycin in sample Trace paracetamol on sample.",
+      "xrd": "Calcite 81%, aragonite, starch, talc",
+      "botany": "Pteris cadieri, Cyatheaceae and Bryophyta spores, Pinus, Alnus, Artemisia, Asteraceae, Chenopodiaceae or Amaranthaceae, Liliaceae, Moraceae, Myrtaceae, Poaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "6",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-11"
+    },
+    {
+      "record_id": "newton2008-st001-row37",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 895,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/15034 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "010401 04/01 04/04",
+      "packaging": "11",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Sulphadoxine, pyrimethamine on sample. Sulfadoxine, pyrimethamine, erucamide, erythromycin traces & dimethylfumarate in sample",
+      "xrd": "Calcite 81%, aragonite, starch, talc",
+      "botany": "Cyatheaceae spores, Pinus, Asteraceae, Chenopodiaceae or Amaranthaceae, Cyperaceae, Myrtaceae, Poaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "8 6",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-11"
+    },
+    {
+      "record_id": "newton2008-st001-row39",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 936,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "2/12056 southern Laos",
+      "batch_dates": "010901 09/01 09/04",
+      "packaging": "4",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "2-Mercaptobenzothiazole",
+      "xrd": "Talc, calcite 0.5%. δC -11.1, δO, +9.3‰",
+      "botany": "Charcoal, very sparse pollen grains – Pterocarya, Betulaceae, Rubiaceae pollen and fungal spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "3,7",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    },
+    {
+      "record_id": "newton2008-st001-row41",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 980,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "05/17 southern Laos",
+      "batch_dates": "040201 02/04 02/07",
+      "packaging": "12",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "Dimethylfumarate on surface",
+      "xrd": "Lactose, starch, calcite 8.5%. δC 1.9, δO +24.1 ‰",
+      "botany": "Charcoal, clumped thin walled cells with outer “perispore”, possibly of algal origin, very few pollen grains – Betulaceae, Poaceae, Sapindaceae pollen and fungal spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "6",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-12"
+    },
+    {
+      "record_id": "newton2008-st001-row43",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1020,
+      "section": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+      "acquisition_event": "jupiter2005_2006",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "1/29 Ho Chi Minh City, Viet Nam",
+      "batch_dates": "980502 05/98 05/01",
+      "packaging": "2",
+      "hplc": "Artesunate not detected",
+      "mass_spectrometry": "No pharmaceuticals detected",
+      "xrd": "Calcite 89.1%. δC -8.5, δO +11.2‰",
+      "botany": "Charcoal, blue synthetic fibres, fungal hyphae and spores, woody fragments, sparse pollen and spores- Pinus, Plantago, Ulmus, Acacia, Cyatheaceae, Taxodiaceae, Asteraceae, Poaceae",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "4",
+        "13 18",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "type-2"
+    },
+    {
+      "record_id": "newton2008-st001-row46",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1071,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/01",
+      "batch_dates": "021001 10/02 10/05",
+      "packaging": "Type 15",
+      "hplc": "0 artesunate 14.76 artemisinin",
+      "mass_spectrometry": "Artemisinin on and in sample.",
+      "xrd": "talc with minor chlorite",
+      "botany": "Alsophila spores, Asteraceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    },
+    {
+      "record_id": "newton2008-st001-row47",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1101,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/02",
+      "batch_dates": "021001 10/02 10/05",
+      "packaging": "Type 15",
+      "hplc": "0 artesunate 14.50 artemisinin",
+      "mass_spectrometry": "Artemisinin on and in sample.",
+      "xrd": "talc with minor chlorite",
+      "botany": "Alsophila spores, Rubiaceae, Poaceae, Asteraceae pollen and fungal spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    },
+    {
+      "record_id": "newton2008-st001-row48",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1130,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/03",
+      "batch_dates": "021001 10/02 10/05",
+      "packaging": "Type 15",
+      "hplc": "0 artesunate 14.62 artemisinin",
+      "mass_spectrometry": "Artemisinin on and in sample.",
+      "xrd": "talc with minor chlorite",
+      "botany": "Asteraceae, Lamiaceae pollen",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    },
+    {
+      "record_id": "newton2008-st001-row49",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1159,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/04",
+      "batch_dates": "050609 06/05 06/08",
+      "packaging": "Genuine",
+      "hplc": "48.55 artesunate",
+      "mass_spectrometry": "Artesunate on and in sample.",
+      "xrd": "Starch",
+      "botany": "Pinus pollen and fungal spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row50",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1187,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/05",
+      "batch_dates": "021001 10/02 10/05",
+      "packaging": "Type 15",
+      "hplc": "0 artesunate 14.07 artemisinin",
+      "mass_spectrometry": "Artemisinin on and in sample.",
+      "xrd": "talc with minor chlorite",
+      "botany": "Pinus, Asteraceae, Alangium pollen and monolete spores",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    },
+    {
+      "record_id": "newton2008-st001-row51",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1218,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/06",
+      "batch_dates": "050609 06/05 06/08",
+      "packaging": "Genuine",
+      "hplc": "47.96 artesunate",
+      "mass_spectrometry": "Artesunate on and in sample.",
+      "xrd": "Starch",
+      "botany": "Carya, Plantago pollen and fungal hyphae",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row52",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1246,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/07",
+      "batch_dates": "050609 06/05 06/08",
+      "packaging": "Genuine",
+      "hplc": "48.37 artesunate",
+      "mass_spectrometry": "Artesunate on and in sample.",
+      "xrd": "Starch",
+      "botany": "Fabaceae, ?Quercus, Carya, Poaceae pollen and monolete and fungal spores with hyphae",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row53",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1274,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/08",
+      "batch_dates": "050609 06/05 06/08",
+      "packaging": "Genuine",
+      "hplc": "47.99 artesunate",
+      "mass_spectrometry": "Artesunate on and in sample.",
+      "xrd": "Starch",
+      "botany": "?Tamarindus, ?Poaceae pollen and monolete spore (?Polypodiaceae), coloured (blue, green and red) and colourless artificial threads",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row54",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1302,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/09",
+      "batch_dates": "050609 06/05 06/08",
+      "packaging": "Genuine",
+      "hplc": "48.52 artesunate",
+      "mass_spectrometry": "Artesunate on and in sample.",
+      "xrd": "Starch",
+      "botany": "Labiatae pollen and monolete spores, coloured (blue, brown, green and red) and colourless artificial threads",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row55",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1330,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Authentic",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/10",
+      "batch_dates": "050609 06/05 06/08",
+      "packaging": "Genuine",
+      "hplc": "46.81 artesunate",
+      "mass_spectrometry": "Artesunate on and in sample.",
+      "xrd": "Starch",
+      "botany": "Pinus pollen and a few, isolated, large, brown fungal spores, coloured (red and blue) and colourless threads",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": null
+    },
+    {
+      "record_id": "newton2008-st001-row56",
+      "source_doi": "10.1371/journal.pmed.0050032.st001",
+      "html_line": 1358,
+      "section": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+      "acquisition_event": "china2007",
+      "source_label": "Counterfeit",
+      "label_basis": "bold specimen identity means counterfeit; genuine packaging cell means source-authored genuine",
+      "sample": "China 07/11",
+      "batch_dates": "021001 10/02 10/05",
+      "packaging": "Type 15",
+      "hplc": "0 artesunate 15.09 artemisinin",
+      "mass_spectrometry": "Artemisinin on and in sample.",
+      "xrd": "talc with minor chlorite",
+      "botany": "Alsophila & monolete spores, Pinus, Chenopodiaceae, Asteraceae pollen and short, blue threads",
+      "footnotes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "specific_limits": [],
+      "entity_group": "guilin-artesunate",
+      "counterfeit_family_group": "linked-types-4-10-15"
+    }
+  ],
+  "excluded_table_rows": [
+    {
+      "row": 0,
+      "line": 59,
+      "cells": [
+        {
+          "text": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+          "bold_text": "Samples assessed, with palynology and XRD in the Jupiter investigation 2005-2006",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "12",
+            "width": "100%",
+            "height": "14",
+            "valign": "top",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 1,
+      "line": 65,
+      "reason": "header",
+      "cells": [
+        {
+          "text": "Sample",
+          "bold_text": "Sample",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "2",
+            "width": "12%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "Batch No Mfg Date Exp Date",
+          "bold_text": "Batch NoMfg DateExp Date",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "2",
+            "width": "8%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "Hologram and type distribution",
+          "bold_text": "Hologramand type distribution",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "4",
+            "width": "10%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "HPLC mg/tablet",
+          "bold_text": "HPLC mg/tablet",
+          "footnotes": "",
+          "attrs": {
+            "width": "11%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "Mass spectrometry",
+          "bold_text": "Mass spectrometry",
+          "footnotes": "",
+          "attrs": {
+            "width": "18%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "XRD",
+          "bold_text": "XRD",
+          "footnotes": "",
+          "attrs": {
+            "width": "10%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "Botany",
+          "bold_text": "Botany",
+          "footnotes": "",
+          "attrs": {
+            "width": "32%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 6,
+      "line": 225,
+      "cells": [
+        {
+          "text": "Notable for absence of fern spores",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 8,
+      "line": 265,
+      "reason": "blank identity",
+      "cells": [
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "2",
+            "width": "12%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "3",
+            "width": "8%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "2",
+            "width": "8%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "2",
+            "width": "12%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "width": "18%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "width": "10%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "width": "32%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 10,
+      "line": 335,
+      "cells": [
+        {
+          "text": "Similar flora to 2/15030-34. Batch number on box and blisterpack 040101 and 04010, respectively. Fake insert",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 12,
+      "line": 376,
+      "cells": [
+        {
+          "text": "Similar flora to S1 and 2/150303-34",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 14,
+      "line": 419,
+      "cells": [
+        {
+          "text": "Seasonally dry, irrigated tropical SE Asia, Pinus suggests mountains of SE Asia but may drift long distances",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 16,
+      "line": 460,
+      "cells": [
+        {
+          "text": "Starch, talc & sucrose. Ulmus suggests mountains of tropical Asia, northern Myanmar-Thailand-Viet Nam and borders with China and northern China",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 18,
+      "line": 501,
+      "cells": [
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 20,
+      "line": 541,
+      "cells": [
+        {
+          "text": "Possibly same source as 1/2.",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 22,
+      "line": 582,
+      "cells": [
+        {
+          "text": "Possibly same source as 1/2.",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 24,
+      "line": 624,
+      "cells": [
+        {
+          "text": "Seasonally dry SE Asia from northern Thailand to northern Viet Nam. Possibly southern China if Carya.",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 26,
+      "line": 662,
+      "cells": [
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 28,
+      "line": 706,
+      "cells": [
+        {
+          "text": "",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "2",
+            "width": "12%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        },
+        {
+          "text": "Temperate Asia. Cephalotaxus occurs in southern China",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 30,
+      "line": 761,
+      "cells": [
+        {
+          "text": "Near or downwind from coniferous forest in inland mountainous area of at least moderate rainfall near rice fields",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 32,
+      "line": 803,
+      "cells": [
+        {
+          "text": "Same environment as 2/15030.",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 34,
+      "line": 844,
+      "cells": [
+        {
+          "text": "Same environment as 2/15030 and 2/15031. Chenopodiaceae common in China and not in SE Asia",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 36,
+      "line": 888,
+      "cells": [
+        {
+          "text": "Same environment as 2/15030, 2/15031 & 2/15032. Chenopodiaceae common in China and not in SE Asia",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 38,
+      "line": 929,
+      "cells": [
+        {
+          "text": "Same environment as 2/15030, 2/15031, 2/1503 & 2/15033. Chenopodiaceae common in China and not in SE Asia",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 40,
+      "line": 974,
+      "cells": [
+        {
+          "text": "Tablet spelt ‘Tablte’ on blisterpack",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 42,
+      "line": 1014,
+      "cells": [
+        {
+          "text": "‘MFP’ and ‘EXP’ on blisterpack in capitals. XRD suggests marine origin of calcite",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 44,
+      "line": 1056,
+      "cells": [
+        {
+          "text": "Pollen consistent with northern temperate rather than tropical source. Acacia suggests southern China and Ulmus the border of China with Myanmar, Thailand and Viet Nam and southern and central temperate China",
+          "bold_text": "",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "10",
+            "width": "88%",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    },
+    {
+      "row": 45,
+      "line": 1065,
+      "cells": [
+        {
+          "text": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+          "bold_text": "Samples, seized by the Chinese authorities, assessed with palynology and XRD in 2007",
+          "footnotes": "",
+          "attrs": {
+            "colspan": "12",
+            "width": "100%",
+            "height": "15",
+            "valign": "top",
+            "style": "border: 1px solid #000000; padding: 0in 0.08in"
+          }
+        }
+      ]
+    }
+  ]
+}
