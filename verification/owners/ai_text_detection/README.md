@@ -76,6 +76,12 @@ are unbuilt until the remote step runs. The original locked data stays intact,
 with validation and audit excluded from augmentation. A larger actual training
 corpus must pass every unchanged gate before any quality claim.
 
+That job generated 126 valid source-backed views and used 124, producing 504
+training pairs. The full data gate passed but the model still failed bare labels.
+Those exact inputs are retained. The next fitting experiment weights the rare
+bare training format symmetrically, without changing unweighted validation or
+audit metrics. This is a testable improvement path, not a claimed quality pass.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to

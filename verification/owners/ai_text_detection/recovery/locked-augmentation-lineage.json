@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "data_sha256": "b8021a5faeff9fc9f55aa9f7f4e34f7d01d52c8f6f2f7a2089dac01c1ff68c92",
+  "producer_report_sha256": "187241e1418c63ef1f8b9b190db9adc82e88b96cea420e140e13f19ca72cabb1",
+  "producer_run_id": 44622803647,
+  "producer_commit": "c5d90dc189c56c76c2dd2b7f452ff018ba5d4836",
+  "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+  "plan_sha256": "cdd310715ad590a3f421ffb9b7e36623540eb019d4c77c8d41a1b9e888a6b9e1",
+  "training_records": 252,
+  "validation_or_audit_records": 0,
+  "source_rights": "Original article CC BY, authors and source spans retained in the source manifest and plan.",
+  "synthetic_disclosure": "Actual prior public CPU GPT-2 output, reused byte-identically. Not new generation or human-reviewed preferences."
+}

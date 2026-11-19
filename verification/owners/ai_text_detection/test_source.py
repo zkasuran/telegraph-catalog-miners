@@ -17,6 +17,7 @@ from common import (COUNTS, FORMATS, HERE, baseline_report, check_splits, fit_ba
 from checkpoint_contract import check_checkpoint
 from development_contract import validate_locked, training_pairs, repetition_gate, layout_training_pairs
 from window_contract import validate_plan, validate_augmented, expanded_training_pairs
+from training_weights import weight_policy
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -40,6 +41,33 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_locked_actual_augmentation_and_symmetric_train_only_weight_policy(self):
+        source = json.loads((HERE / "sources.json").read_text())
+        plan = json.loads((HERE / "train-window-plan.json").read_text())
+        producer = json.loads((HERE / "recovery/locked-augmentation-producer.json").read_text())
+        raw = (HERE / "recovery/locked-augmentation.jsonl").read_bytes()
+        original = [json.loads(s) for s in (HERE / "recovery/locked-development.jsonl").read_text().split("\n") if s]
+        added = validate_augmented(raw, plan, source, producer)
+        rows, expansion = expanded_training_pairs(original, added)
+        weights, policy = weight_policy(rows, 16)
+        self.assertEqual(len(rows), 504)
+        self.assertEqual(len(weights), 504)
+        self.assertEqual(expansion["bare_pairs"], 8)
+        self.assertEqual(policy["total_training_weight"], 624)
+        self.assertEqual(policy["weight_by_origin"], {"Human": 312.0, "AI-generated": 312.0})
+        self.assertFalse(policy["acceptance_thresholds_changed"])
+        self.assertEqual({r["split"] for r in rows}, {"train"})
+        invalid = copy.deepcopy(rows)
+        invalid[0]["split"] = "validation"
+        with self.assertRaisesRegex(ValueError, "training pairs only"):
+            weight_policy(invalid, 16)
+        with self.assertRaises(ValueError):
+            weight_policy(rows, 100)
+        poisoned = copy.deepcopy(producer)
+        poisoned["output_sha256"] = "f" * 64
+        with self.assertRaises(ValueError):
+            validate_augmented(raw, plan, source, poisoned)
+
     def test_source_window_plan_is_train_only_attributed_and_disjoint(self):
         source_raw = (HERE / "sources.json").read_bytes()
         source = json.loads(source_raw)
@@ -85,6 +113,14 @@ class SourceTests(unittest.TestCase):
         check_splits(split_rows)
         with self.assertRaises(ValueError):
             expanded_training_pairs(original, validated[:100])
+
+    def test_weighting_cannot_introduce_origin_asymmetry(self):
+        rows = fixture_splits()["train"]
+        _, policy = weight_policy(rows, 16)
+        self.assertEqual(policy["mean_training_weight"], 1.0)
+        rows[0]["style"] = "bare_label"
+        with self.assertRaisesRegex(ValueError, "symmetric"):
+            weight_policy(rows, 16)
     def test_locked_development_primary_path_and_roles(self):
         raw = (HERE / "recovery/locked-development.jsonl").read_bytes()
         producer = json.loads((HERE / "recovery/locked-development-producer.json").read_text())

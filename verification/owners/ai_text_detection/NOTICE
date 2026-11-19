@@ -43,3 +43,8 @@ They are not new independent article groups or evaluation-pool rows. Source
 authors, original spans, SHA-256 and per-article grants stay attached. Any actual
 new machine text is disclosed as bounded GPT-2 output. No local synthetic text
 or human preference review is claimed. Validation and audit sources stay fixed.
+
+Actual training-window generation from run 44622803647 is retained with its
+producer, plan and source hashes. Reuse is not reported as new generation.
+Train-only format weights are symmetric across origins and pair sides. They
+alter fitting loss only, never validation/audit metrics or acceptance thresholds.

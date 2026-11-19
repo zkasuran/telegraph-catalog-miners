@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "source-origin-training-window-expansion-v5",
+  "name": "source-origin-rare-format-weighted-continuation-v6",
   "checkpoint_sha256": "481a2493f7de2e7f9d03305dbfcb37e259ab9539670a8dfca6849173a7f436ae",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -19,5 +19,9 @@
   "continuation_commit": "aeadb4590a4685dd2239bff585c7212a8c6b026c",
   "training_layout": "Symmetric verdict-first and verdict-last JSON/prose views, chosen by source hash. Bare training group remains unique.",
   "training_expansion": "At most 128 new non-overlapping windows from original training articles. Actual generator/byte/token/overlap refusals retained. Minimum 80 valid views.",
-  "bare_exposure": "Four original article groups, eight origin pairs. Larger actual corpus must pass unchanged repetition gates and a worst-case negative reuse bound <= 0.10."
+  "bare_exposure": "Four original article groups, eight origin pairs. Larger actual corpus must pass unchanged repetition gates and a worst-case negative reuse bound <= 0.10.",
+  "bare_loss_weight": 16,
+  "weighting": "Train-only format weights, equal across both origins and both pair sides. Normalize by actual mean training weight. Validation/audit remain unweighted.",
+  "locked_augmentation_sha256": "b8021a5faeff9fc9f55aa9f7f4e34f7d01d52c8f6f2f7a2089dac01c1ff68c92",
+  "locked_augmentation_producer_run_id": 44622803647
 }

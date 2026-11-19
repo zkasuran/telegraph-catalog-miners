@@ -12,6 +12,7 @@
 | Good average hides one failed format | Epoch selection prioritizes every actual gate and weakest format/label margin | Failed-bare/low-mean-loss selection refusal |
 | Augmentation leaks held-out sources | New windows bind only original training IDs, spans and roles | Validation-role and span-mismatch refusal controls |
 | More bare labels game the data gate | Larger actual corpus must pass primary gate and worst-case reuse bound | Expanded structural fixture under unchanged ceilings |
+| Format loss weights bias origins or hide metric failure | Fixed bounded symmetric train-only weights; unchanged unweighted gates | Origin-asymmetry, nontraining-role and weight-ceiling refusals |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -51,3 +52,7 @@ producer/run/commit identity, structural refusals and used view IDs. There is no
 model-score selection of new windows. Starting-checkpoint validation is actually
 measured and kept if later fitting worsens it. Source held-out audit data remains
 sealed and original quality thresholds cannot be reduced by this pipeline.
+
+Prior actual generated training data can be reused only with exact bytes,
+producer/run/commit, source and plan bindings. This is not new data from an exposed
+audit. Training loss weights never alter validation/audit scores or a pass gate.
