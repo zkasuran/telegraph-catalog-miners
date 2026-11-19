@@ -1,0 +1,150 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: SMART_CONTRACT_AUDIT owner pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [train, serve]
+        required: true
+      owner_run_id:
+        type: string
+        required: true
+      package_url:
+        type: string
+      package_sha256:
+        type: string
+      report_url:
+        type: string
+      report_sha256:
+        type: string
+      slot:
+        type: string
+      forward_port:
+        type: string
+      runnable_url:
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: owner-smart-contract-audit-${{ inputs.mode }}
+  cancel-in-progress: false
+env:
+  OWNER_RUN_ID: ${{ inputs.owner_run_id }}
+  PYTHONDONTWRITEBYTECODE: '1'
+  TOKENIZERS_PARALLELISM: 'false'
+  OMP_NUM_THREADS: '4'
+  MKL_NUM_THREADS: '4'
+jobs:
+  train:
+    if: inputs.mode == 'train'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 210
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.22.2'
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Run actual standalone source and failure gate
+        timeout-minutes: 10
+        run: |
+          python3 -c 'import json,urllib.request; r=json.load(urllib.request.urlopen("https://api.github.com/repos/zkasuran/telegraph-catalog-miners",timeout=30)); assert r["private"] is False'
+          bash verification/owners/smart_contract_audit/verify.sh "$RUNNER_TEMP/smart-audit"
+      - name: Install existing hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/smart_contract_audit/requirements.lock
+          "$RUNNER_TEMP/venv/bin/python" -m pip check
+          "$RUNNER_TEMP/venv/bin/python" verification/owners/smart_contract_audit/dependency_audit.py --lock verification/owners/smart_contract_audit/requirements.lock --out "$RUNNER_TEMP/audit-requirements.txt" --report "$RUNNER_TEMP/smart-audit/dependency-audit.json"
+      - name: Freeze one trained package before audit
+        timeout-minutes: 180
+        run: timeout --signal=TERM --kill-after=20s 10500 "$RUNNER_TEMP/venv/bin/python" verification/owners/smart_contract_audit/train_remote.py --root "$RUNNER_TEMP/smart-audit"
+      - name: Retain licensed checkpoint even on failure
+        if: always()
+        run: python3 verification/owners/smart_contract_audit/preserve_remote.py --root "$RUNNER_TEMP/smart-audit"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: smart-audit-frozen
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/smart-audit/*.json
+            ${{ runner.temp }}/smart-audit/*.log
+            ${{ runner.temp }}/smart-audit/*.safetensors
+            ${{ runner.temp }}/smart-audit/data/
+            ${{ runner.temp }}/smart-audit/adapterexec
+            ${{ runner.temp }}/smart-audit/wire-root
+  audit:
+    needs: train
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: smart-audit-frozen
+          path: ${{ runner.temp }}/smart-audit
+      - name: Install hash-locked audit environment
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/smart_contract_audit/requirements.lock
+          "$RUNNER_TEMP/venv/bin/python" -m pip check
+      - name: Independent full reference-engine audit, one measurement
+        timeout-minutes: 330
+        run: timeout --signal=TERM --kill-after=20s 19500 "$RUNNER_TEMP/venv/bin/python" verification/owners/smart_contract_audit/audit_remote.py --root "$RUNNER_TEMP/smart-audit"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: smart-audit-independent-evidence
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/smart-audit/registration-ready.json
+            ${{ runner.temp }}/smart-audit/audit-result.json
+            ${{ runner.temp }}/smart-audit/*-runtime.log
+            ${{ runner.temp }}/smart-audit/candidate-manifest.json
+            ${{ runner.temp }}/smart-audit/candidate.safetensors
+  serve:
+    if: inputs.mode == 'serve'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Prepare exact public bytes and restricted public lease
+        timeout-minutes: 20
+        env:
+          PACKAGE_URL: ${{ inputs.package_url }}
+          PACKAGE_SHA: ${{ inputs.package_sha256 }}
+          REPORT_URL: ${{ inputs.report_url }}
+          REPORT_SHA: ${{ inputs.report_sha256 }}
+          SLOT: ${{ inputs.slot }}
+          FORWARD_PORT: ${{ inputs.forward_port }}
+          RUNNABLE_URL: ${{ inputs.runnable_url }}
+        run: |
+          python3 verification/owners/smart_contract_audit/serve_remote.py prepare --root "$RUNNER_TEMP/serve" --package-url "$PACKAGE_URL" --package-sha256 "$PACKAGE_SHA" --report-url "$REPORT_URL" --report-sha256 "$REPORT_SHA" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: smart-audit-public-lease
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/serve/lease.json
+      - name: Bounded exact executor and restricted forwarding
+        timeout-minutes: 310
+        run: timeout --signal=TERM --kill-after=20s 18300 python3 verification/owners/smart_contract_audit/serve_remote.py run --root "$RUNNER_TEMP/serve"
