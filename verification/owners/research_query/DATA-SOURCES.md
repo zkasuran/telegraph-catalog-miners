@@ -97,3 +97,7 @@ become human annotations through publication or model training.
 ## Frozen successful audit
 
 Run 44568463104 selected epoch 19 on validation and measured the frozen 32-group audit once. Both actual reference formats scored 100% over 64 mirrored pairs. These are supplied-excerpt agreement results, not universal scientific truth. The original report binds the source manifest, actual run and immutable source commit. No evaluated audit source enters a later training or selection set.
+
+## Original natural research-answer coverage
+
+OpenAssistant/oasst1 at fdf72ae0827c1cda404aff25b6603abec9e3399b declares Apache-2.0. Its complete original inventories contain 84437 training and 4401 official validation messages, all parsed and hash-checked. Original reward source at f1e6ed9526f5817531f3ab85441a40b3671ddccb orders replies by ascending rank and keeps complete trees together. Our natural/ selection retains rank 0 against a lower-ranked sibling, original question/answer text and source annotation identities. It selects intact English knowledge/research requests, excluding synthetic/deleted/unreviewed or nonzero-PII-annotated messages. Official validation and previously exposed fixture components/text are excluded entirely. Components union normalized questions/answers before chronological 512/64/64 splits. Labels are original human source preferences, not constructed scientific truth or a claim that our work was human-reviewed. Original sources retain Apache-2.0 and modification notices.

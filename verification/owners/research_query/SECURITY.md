@@ -44,3 +44,7 @@ passing registration report. No source-held-out report certifies global truth.
 ## Released asset gate
 
 The release gate hashes the exact published delta and original registration-ready report, checks their actual run/commit binding and verifies retained in-byte terms and attribution. It reads only bounded static metadata and opaque binary bytes, never a local neural model. The live action adapter still checks fresh source classes, public reference vectors, token refusal and exact package identity before registering.
+
+## Public ordering alignment and complete input budget
+
+The earlier template-only source audit did not establish broader live research quality: the node ordered only 6/15 public pairs correctly. The new natural/ model uses original human-ranked research-answer preferences rather than those exposed public pairs or old scientific audits. Complete original questions and both response formats must fit the actual 512-token node ceiling; no source label is retained on a crop. The real primary parser, foundation/runtime hashes, literal bare echoes and repeated score-bit controls remain required. Both original preference-length slices must reach the same per-slice quality gate. Source annotations of PII=0 are not independent privacy review.

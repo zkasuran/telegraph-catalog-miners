@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "family": "RESEARCH_QUERY",
+  "max_tokens": 512,
+  "epochs": 8,
+  "grad_accum": 4,
+  "scope": "Original human research-answer preference relevance/usefulness, not factual proof",
+  "audit_used_for_selection": false,
+  "splits": {
+    "train": {
+      "rows": 512,
+      "groups": 512,
+      "sha256": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",
+      "date_range": [
+        "2023-01-29T16:25:00.292541+00:00",
+        "2023-02-09T19:06:04.143867+00:00"
+      ]
+    },
+    "validation": {
+      "rows": 64,
+      "groups": 64,
+      "sha256": "002531c88e52ab2f2b159662aa776a4d708de0031cbaf6a3e03f5a286d5e672f",
+      "date_range": [
+        "2023-02-09T19:12:36.235148+00:00",
+        "2023-02-14T13:16:57.650235+00:00"
+      ]
+    },
+    "audit": {
+      "rows": 64,
+      "groups": 64,
+      "sha256": "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143",
+      "date_range": [
+        "2023-02-14T16:25:00.018331+00:00",
+        "2023-02-25T09:19:38.227585+00:00"
+      ]
+    }
+  },
+  "frozen_controls_sha256": "364180ba1d5bb4439bde523e37d0b6a27a13f874aa92db37ec0c6c0cc7fc1e08",
+  "quality": {
+    "minimum_accuracy": 0.8,
+    "minimum_subset_accuracy": 0.7,
+    "minimum_untrained_gain": 0.05,
+    "minimum_shortcut_gain": 0.1,
+    "maximum_shortcut_accuracy": 0.65
+  },
+  "source_hashes": {
+    "data.py": "6d955436eaa19b703b5c327b60cfe13d472f119c4975438963bd9ac919f5ec67",
+    "licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552",
+    "runtime_check.py": "8da4ce53abca409907630c5d335e3132c266df343918c268cd0b1edec416a9f3",
+    "live_class.py": "9c54d9f9effef267d06181c7ee4707ac9b5540936763875ed75f64b22cbd019d",
+    "training_policy.py": "df89218bcd7e33ad6a226b953071844cb681911359ae9d9bb76981da32f16ba5",
+    "gates.py": "573e5b95a1c215612af7d1e3878c1d036c3af7fcb618fbaaad19eab6d843d55c",
+    "preserve.py": "8836d69aff6e7db0757b643a8a179b9f82af6b5776e163c6b1d32008e60cce08",
+    "static_check.py": "0880b2e87464512061ab5d11f5b3d2e45f084a99c68fbaf89946c4b9653dfa88",
+    "verify_source.py": "8eb2d4d3ccdfa9225aa62cf4764f023f9fb9dacdefd0e4107f1f18a01ac750e3",
+    "run.py": "61d09e37450ea3b4928e883efda1e4a9e06d1967836e9b6e5bc6b66bf57714d9",
+    "bridge.py": "8fb36a269f9bee600bf9cad746e220ebfac67312b969138a483205efa3149bec",
+    "run_base.py": "3bace1099093112effc9b4905de8ec3e2c0f00b5c64bba164716d13cc22ce259",
+    "test_natural.py": "899a2a531d30c2924cea14081b5ccd5964643e13df3d7434588ddbf0b478384d"
+  },
+  "fixture_hashes": {
+    "train.jsonl": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",
+    "audit.jsonl": "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143",
+    "data-report.json": "0b1b186d06a9f13615e4c0a85674ba285e2b1719fc7f8ab5a6948bd170d85864",
+    "validation.jsonl": "002531c88e52ab2f2b159662aa776a4d708de0031cbaf6a3e03f5a286d5e672f",
+    "source-reverification.json": "9f3a38052681626ba67a83405f22d51423a07542d8821a114b73a31097dfc26c",
+    "frozen-controls.json": "364180ba1d5bb4439bde523e37d0b6a27a13f874aa92db37ec0c6c0cc7fc1e08",
+    "dataset-gate.json": "a2ed3a1c858f3ca82331c1ec1d3123f638db0e5636b0b1dcd7fd342b9a0ac602"
+  }
+}

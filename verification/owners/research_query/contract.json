@@ -30,13 +30,13 @@
   },
   "owned_source_sha256": {
     "verify.py": "4de06b1336d596bef9d22d1326a84550c65d6102a9393231e8e8db8c24b48d0f",
-    "report.py": "d448abc3405c106695444351f0315598fb03ca84431325696af9bfb18616d14f",
-    "verify.sh": "37c1f28590e3c06dab80a2921fb29efe79e52e8bd3ace380486e5c89b28bbad0",
+    "report.py": "98a5a29187ad2c8ccf9aaad4073956510f02c43ab97967456b1a0874e24802c8",
+    "verify.sh": "74907522607db6c36743dfe703d80386dddb0cd2409ed181abe44a3782795e2b",
     "train_core.py": "049ea4f66ed58e2622c21789c17fcf22e31d28a7fe63cdbc256d670793952ef8",
     "test_research.py": "14924ea6b2139fbea6f276a8b0e99836670e70270f66e64920a3ccb37594d369",
     "terms.py": "bb4606410ad6276ca4793af25d2b0ffb48f24b6841f9c466c34d370e0e6496f7",
     "scorer.py": "3102b207c1c83c62b13709d2b22fd3ac180d0c7438bf89fea92b9346be69684b",
-    "workflow.yml": "3e49fc8d1215d8cea51b43c0359fa2bb3e209afc7490f38543ab04e808ca7d52",
+    "workflow.yml": "0b581c5092e028147c2ca8123621b3ba8af6906d38d68aa6742d05c65ae209b6",
     "source.py": "33f698b5c87d86e9fb125a5c0bf17003ceaa8e510c09e2403010e917df05eb05",
     "prepare.py": "46c4e2e2a272b308b60dc1ff2330c8a52d287a5010e296e0c4482c7f78459271",
     "remote.py": "1b6a6b73ff4e832db8460ee0627c2908c2bb0acc1a8ecbf8b5220f04060bb2d6",
@@ -46,12 +46,25 @@
     "common.py": "ad79a8251ebf3d67c06fd163805669138d2de9c84415bc156411c3bded64c4a7",
     "test_owner.py": "4c9e5298c9aa3b3ddcf877f05f955ff8acd90866d214415641587fe5da93ccb2",
     "candidate/check_assets.py": "d69be051db5c98bd1ef18b5402a92a5b8941e26be8f4086ef3ae3a0a1b884db1",
+    "natural/data.py": "6d955436eaa19b703b5c327b60cfe13d472f119c4975438963bd9ac919f5ec67",
+    "natural/licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552",
+    "natural/runtime_check.py": "8da4ce53abca409907630c5d335e3132c266df343918c268cd0b1edec416a9f3",
+    "natural/live_class.py": "9c54d9f9effef267d06181c7ee4707ac9b5540936763875ed75f64b22cbd019d",
+    "natural/training_policy.py": "df89218bcd7e33ad6a226b953071844cb681911359ae9d9bb76981da32f16ba5",
+    "natural/gates.py": "573e5b95a1c215612af7d1e3878c1d036c3af7fcb618fbaaad19eab6d843d55c",
+    "natural/preserve.py": "8836d69aff6e7db0757b643a8a179b9f82af6b5776e163c6b1d32008e60cce08",
+    "natural/static_check.py": "0880b2e87464512061ab5d11f5b3d2e45f084a99c68fbaf89946c4b9653dfa88",
+    "natural/verify_source.py": "8eb2d4d3ccdfa9225aa62cf4764f023f9fb9dacdefd0e4107f1f18a01ac750e3",
+    "natural/run.py": "61d09e37450ea3b4928e883efda1e4a9e06d1967836e9b6e5bc6b66bf57714d9",
+    "natural/bridge.py": "8fb36a269f9bee600bf9cad746e220ebfac67312b969138a483205efa3149bec",
+    "natural/run_base.py": "3bace1099093112effc9b4905de8ec3e2c0f00b5c64bba164716d13cc22ce259",
+    "natural/test_natural.py": "899a2a531d30c2924cea14081b5ccd5964643e13df3d7434588ddbf0b478384d",
     "serving/proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51",
     "serving/common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784"
   },
   "shared_source_sha256": {
     "prepare.py": "7d8e5ef2cf7f35ff5c339b04054d802fba2db5a34045f2d6761b554c4187ce03",
-    "qa-experiment/packagecheck.go": "2324813885a5e4dbaedc7a021c5a9569e8e5b01c7c0a96542e4f0d434bfdd4e1",
+    "qa-experiment/packagecheck.go": "6969870919388d6054a02b72019f4ef400d5d7d040194ed018cf0872539891c8",
     "qa-experiment/data.py": "5a1e426c814d0f02afaecce3963b56ccf025c98b61cc55e2bc36da0577c3a16d",
     "qa-experiment/licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552",
     "qa-experiment/runtime_check.py": "edd14813a0dd4234d3ee8f6198a514b416fe5d72c585ce48cd210094adbc1fce",
@@ -63,7 +76,7 @@
     "training/run.py": "5b2ba64a11ff141ac96a20c491fc282f917e722183b2ab67c17e6a12c8ff519b",
     "training/requirements.lock": "4c2b80fd53899579cccb949ef49760b5f53d32cb00e2e3c85bdc857345c832ac",
     "training/audit.py": "0b4a5ae82a3ed524390a7b47a6ad0314fb785010cda99cbd705b72f9fb0affee",
-    "packagecheck.go": "2324813885a5e4dbaedc7a021c5a9569e8e5b01c7c0a96542e4f0d434bfdd4e1",
+    "packagecheck.go": "6969870919388d6054a02b72019f4ef400d5d7d040194ed018cf0872539891c8",
     "packagecheck_test.go": "d8fd1e29fc3aa26b02a725a45a93fa36b921aad1d46b85f3bdef68bce77b4269",
     "licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552"
   },
@@ -133,5 +146,7 @@
     "verified_commit": "4eccf0f54dfbf42ac75dec0cb88a1fddfcb51f91",
     "verified_report_artifact_id": 14557995786,
     "neural_result_created_locally": false
-  }
+  },
+  "natural_source_manifest_sha256": "9b2b7e6011d87082221ed007dfe47a76283990dea55d8b286bdbcf84539442cc",
+  "natural_contract_sha256": "c7acb532334bd2c0c5d263b844b0b526e15739f33631df91cb0983836066d2a8"
 }

@@ -23,3 +23,5 @@ All previously granted licences remain unchanged. Original source portions
 are governed by their own grants before the SAND terms for our additions.
 
 Released adapter: candidate/RESEARCH_QUERY.safetensors is the exact licensed delta from successful public CPU run 44568463104. It keeps its original package hash, source attribution and grant bytes. The source commit that serves it remains 4eccf0f54dfbf42ac75dec0cb88a1fddfcb51f91. No retraining or restamping follows the independent audit.
+
+Live node alignment: the previous f9e4b405 scientific-template candidate failed the real public ordering floor at 6/15, so it is not retried unchanged. The replacement natural/ capability keeps original best-ranked OpenAssistant sibling preferences, source text, dates and tree/message identifiers. Synthetic, deleted, unreviewed and nonzero-PII-annotated source messages are excluded. Original annotation metadata is not universal factual truth. Both prior scientific audits and exposed source fixtures remain quarantined.

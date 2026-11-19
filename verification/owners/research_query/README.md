@@ -90,3 +90,7 @@ Run 44546276917 passed parser and reference execution but scored 46.875% in both
 ## Exact released candidate
 
 The candidate directory contains the exact resulting delta and original remote report from run 44568463104. The real reference audit passed both prose and raw JSON formats. Local checks only verify these bytes and their retained grants. Try `python3 verification/owners/research_query/candidate/check_assets.py`. Endpoint activation and fresh canonical node verification are separate remaining gates.
+
+## Broader research-answer preference candidate
+
+The live node rejected the earlier scientific-template candidate at 6/15 public pairs despite its narrow source score. That binary is preserved, not re-registered. The new natural/ candidate targets original research-answer relevance/usefulness with 512 training, 64 validation and 64 untouched audit tree/entity components from licensed original OpenAssistant ranks. Chronological splits and normalized overlap checks are preserved. The full source gate passes without neural imports. Complete original prose and raw JSON answer bodies fit the node's real 512-token budget. The fixed candidate trains for eight epochs on public CPU with accumulation four, selecting only on validation before one independent audit. No broader model result or canonical claim is made until actual remote and live public quality pass.

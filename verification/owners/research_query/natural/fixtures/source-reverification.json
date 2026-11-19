@@ -1,0 +1,12 @@
+{
+  "original_messages": {
+    "train": 84437,
+    "validation": 4401
+  },
+  "checked_preference_pairs": 640,
+  "grants_verified": true,
+  "normalized_overlap": 0,
+  "original_rank_and_text_unchanged": true,
+  "human_source_annotations_not_factual_certification": true,
+  "audit_scored": false
+}

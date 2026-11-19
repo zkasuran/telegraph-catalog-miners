@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "family": "RESEARCH_QUERY",
+  "status": "SOURCE_ONLY",
+  "files": {
+    "train": {
+      "rows": 512,
+      "groups": 512,
+      "sha256": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",
+      "date_range": [
+        "2023-01-29T16:25:00.292541+00:00",
+        "2023-02-09T19:06:04.143867+00:00"
+      ]
+    },
+    "validation": {
+      "rows": 64,
+      "groups": 64,
+      "sha256": "002531c88e52ab2f2b159662aa776a4d708de0031cbaf6a3e03f5a286d5e672f",
+      "date_range": [
+        "2023-02-09T19:12:36.235148+00:00",
+        "2023-02-14T13:16:57.650235+00:00"
+      ]
+    },
+    "audit": {
+      "rows": 64,
+      "groups": 64,
+      "sha256": "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143",
+      "date_range": [
+        "2023-02-14T16:25:00.018331+00:00",
+        "2023-02-25T09:19:38.227585+00:00"
+      ]
+    }
+  },
+  "scope": "Original human preference relevance/usefulness for intact research answers, not universal factual truth",
+  "source_messages": {
+    "train": 84437,
+    "validation": 4401
+  },
+  "candidate_components": 1379,
+  "counts": {
+    "train_ranked_pairs": 5375,
+    "train_not_complete_under_512": 308,
+    "validation_ranked_pairs": 245,
+    "validation_not_complete_under_512": 14
+  },
+  "source_pins": {
+    "oasst-train.parquet": "bbfadf5ed1278ba2208c837fdcad865adf65f5df55d80abadab2745db13fcb5e",
+    "oasst-validation.parquet": "24002597bb13a7edd42d92f773762f25e285f72c31a70449393d0ded1dc7b416",
+    "oasst-license.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "oasst-card.txt": "68483ac2fcc2f3f7779f453352363827678070ef35b6d746ccb2ca6958540fff",
+    "tokenizer.json": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+  },
+  "excluded_exposed_fixture_components": 224,
+  "official_validation_quarantined": true,
+  "normalized_cross_split_overlap": 0,
+  "grouping": "whole tree/entity components plus normalized prompt/answer unions, chronological cohorts",
+  "available": {
+    "train": {
+      "longer": 704,
+      "shorter": 259
+    },
+    "validation": {
+      "longer": 144,
+      "shorter": 63
+    },
+    "audit": {
+      "longer": 137,
+      "shorter": 70
+    }
+  },
+  "validation_controls": {
+    "length": 0.5,
+    "token_length": 0.5546875,
+    "overlap": 0.4765625,
+    "answer_only": 0.5390625,
+    "citation": 0.53125,
+    "hedging": 0.5
+  },
+  "audit_scores_measured": false,
+  "neural_operations": 0,
+  "training_allowed": true
+}

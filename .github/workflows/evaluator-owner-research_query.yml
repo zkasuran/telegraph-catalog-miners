@@ -65,7 +65,7 @@ jobs:
         run: python3 -W error verification/owners/research_query/candidate/check_assets.py
       - name: Preserve upstream terms before remote work
         if: inputs.mode == 'train'
-        run: python3 verification/owners/research_query/terms.py --root "$RUNNER_TEMP/research-owner"
+        run: python3 verification/owners/research_query/natural/preserve.py --root "$RUNNER_TEMP/research-owner"
       - name: Install pinned CPU training dependencies
         if: inputs.mode == 'train'
         timeout-minutes: 15
@@ -77,11 +77,11 @@ jobs:
       - name: Frozen training validation audit and reference runtime
         if: inputs.mode == 'train'
         timeout-minutes: 305
-        run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/research-venv/bin/python" -W error verification/owners/research_query/remote.py --root "$RUNNER_TEMP/research-owner"
+        run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/research-venv/bin/python" -W error verification/owners/research_query/natural/run.py --root "$RUNNER_TEMP/research-owner"
       - name: Preserve licensed completed or failed checkpoints
         if: always() && inputs.mode == 'train'
         id: preserve
-        run: python3 verification/owners/research_query/terms.py --root "$RUNNER_TEMP/research-owner"
+        run: python3 verification/owners/research_query/natural/preserve.py --root "$RUNNER_TEMP/research-owner"
       - name: Publish bounded registration-ready report only
         if: success() && inputs.mode == 'train'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

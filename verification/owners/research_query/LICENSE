@@ -20,6 +20,18 @@ The exact resulting delta and original remote report are identified in
 candidate/manifest.json. Their in-byte source grants remain unchanged.
 Publication does not create new source truth or a canonical node result.
 
+
+ORIGINAL RESEARCH-ANSWER PREFERENCES
+
+The natural/ source contains original OpenAssistant questions, replies and
+human sibling-rank annotations under Apache-2.0. Those source portions
+retain their original grant. Selection changes are identified in the
+source manifest. Source preferences are not factual certifications or
+an independent human review of our code/model. Earlier scientific
+source portions keep their original CC grants and all prior licences
+remain unchanged. Our added code and learned delta use the reviewed
+SAND terms below, subject to those retained upstream grants.
+
 # Source-Available No-Derivatives Licence 1.0
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0

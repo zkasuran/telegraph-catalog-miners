@@ -190,7 +190,7 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	if art.SHA256 != *packageSHA || man.Verification.Loaded || !man.Verification.Stage1 || man.Rank != 8 || man.MaxTokens != 256 {
+    if art.SHA256 != *packageSHA || man.Verification.Loaded || !man.Verification.Stage1 || man.Rank != 8 || man.MaxTokens != 512 {
 		return errors.New("package binding, Stage 1 or fixed experiment layout failed")
 	}
 	return json.NewEncoder(os.Stdout).Encode(map[string]any{"intent": *intent, "class": man.Class, "sha256": art.SHA256,

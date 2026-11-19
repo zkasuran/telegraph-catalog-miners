@@ -86,8 +86,8 @@ def validate_ready(report):
     if quality["passed"] is not True or quality["audit_pairs"] != 64 or quality["all_supported_formats_tested"] is not True or set(quality["formats"]) != {"prose", "json"}:
         raise ValueError("both literal supported formats must pass")
     for metrics in quality["formats"].values():
-        if set(metrics["per_label"]) != {"Yes", "No"}:
-            raise ValueError("both supported source labels required")
+        if set(metrics["per_label"]) not in ({"Yes", "No"}, {"chosen_longer", "chosen_shorter"}):
+            raise ValueError("all supported source labels or preference-length slices required")
         values = [metrics["accuracy"], metrics["untrained_accuracy"], metrics["shortcut_accuracy"], *metrics["per_label"].values()]
         if any(type(v) not in (int, float) or not math.isfinite(v) or not 0 <= v <= 1 for v in values):
             raise ValueError("finite measured format metrics required")
