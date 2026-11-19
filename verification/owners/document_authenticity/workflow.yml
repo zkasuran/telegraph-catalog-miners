@@ -1,0 +1,113 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Document authenticity owner qualification
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Bounded frozen model audit or exact public serving lease
+        type: choice
+        options:
+          - train
+          - preflight
+          - serve
+        default: train
+      serving_config:
+        description: Public immutable package/report and adapter reservation JSON
+        type: string
+        default: '{}'
+permissions:
+  contents: read
+concurrency:
+  group: document-authenticity-owner-${{ inputs.mode }}
+  cancel-in-progress: false
+jobs:
+  quality:
+    if: inputs.mode != 'serve'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Install and audit the hash-locked free CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/document-venv"
+          "$RUNNER_TEMP/document-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/document_authenticity/requirements.lock
+          "$RUNNER_TEMP/document-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/document-venv/bin/python" verification/owners/document_authenticity/audit.py --lock verification/owners/document_authenticity/requirements.lock --out "$RUNNER_TEMP/document-audit-requirements.txt" --report "$RUNNER_TEMP/document-audit.json"
+      - name: Standalone source release gate
+        run: PATH="$RUNNER_TEMP/document-venv/bin:$PATH" bash verification/owners/document_authenticity/verify.sh
+      - name: Train, freeze, independently audit and run the real parser/engine
+        timeout-minutes: 325
+        env:
+          MODE: ${{ inputs.mode }}
+        run: |
+          args=()
+          if [ "$MODE" = preflight ]; then args+=(--preflight); fi
+          timeout --signal=TERM --kill-after=20s 19200 "$RUNNER_TEMP/document-venv/bin/python" verification/owners/document_authenticity/remote_train.py --root "$RUNNER_TEMP/document-owner" "${args[@]}"
+      - name: Upload bounded actual proof and licensed checkpoints
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: document-authenticity-quality
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/document-owner/registration-ready.json
+            ${{ runner.temp }}/document-owner/training-report.json
+            ${{ runner.temp }}/document-owner/dataset-gate.json
+            ${{ runner.temp }}/document-owner/package-manifest.json
+            ${{ runner.temp }}/document-owner/parser.log
+            ${{ runner.temp }}/document-owner/reference.log
+            ${{ runner.temp }}/document-owner/failure.json
+            ${{ runner.temp }}/document-owner/audit-started.json
+            ${{ runner.temp }}/document-owner/DOCUMENT_AUTHENTICITY.safetensors
+            ${{ runner.temp }}/document-owner/checkpoint.safetensors
+            ${{ runner.temp }}/document-owner/checkpoint-config.json
+            ${{ runner.temp }}/document-audit.json
+  serving:
+    if: inputs.mode == 'serve'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      SERVING_CONFIG: ${{ inputs.serving_config }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Install hash-locked dependencies for the source gate
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/document-venv"
+          "$RUNNER_TEMP/document-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/document_authenticity/requirements.lock
+          "$RUNNER_TEMP/document-venv/bin/python" -m pip check
+      - name: Standalone source release gate
+        run: PATH="$RUNNER_TEMP/document-venv/bin:$PATH" bash verification/owners/document_authenticity/verify.sh
+      - name: Prepare exact public package and restricted ephemeral lease
+        timeout-minutes: 30
+        run: python3 verification/owners/document_authenticity/serve.py prepare --root "$RUNNER_TEMP/document-serving"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: document-authenticity-public-lease
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/document-serving/public-lease/lease.json
+      - name: Run the same reference executor within the free lease window
+        timeout-minutes: 300
+        run: timeout --signal=TERM --kill-after=20s 17700 python3 verification/owners/document_authenticity/serve.py run --root "$RUNNER_TEMP/document-serving"

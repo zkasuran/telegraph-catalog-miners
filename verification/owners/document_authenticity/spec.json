@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "family": "DOCUMENT_AUTHENTICITY",
+  "run_id": "8fe65ca5814e44f387cfbc9d4b0e3f50",
+  "scope": "Source-augmented consistency of PDF mathematical signature and whole-file coverage reports. Not a forgery classifier or completed neural adapter.",
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "inventory": {
+    "collection": "BILLS",
+    "sessions": {
+      "113": "train",
+      "115": "train",
+      "117": "validation",
+      "119": "audit"
+    },
+    "version": "enr",
+    "years": [
+      2013,
+      2014,
+      2017,
+      2018,
+      2021,
+      2022,
+      2025,
+      2026
+    ],
+    "selection": "sha256(document-owner-v1:package), complete selected session year maps before sampling",
+    "per_session": 8
+  },
+  "exclude": [
+    "BILLS-117s66enr"
+  ],
+  "limits": {
+    "get_seconds": 30,
+    "body_bytes": 12582912,
+    "pdf_bytes": 2097152,
+    "total_bytes": 167772160,
+    "get_count": 50,
+    "pdfsig_seconds": 15,
+    "source_originals": 32,
+    "render_bytes": 8192
+  },
+  "source_fields": [
+    "integrity",
+    "whole_document"
+  ],
+  "verdict": "Inconclusive",
+  "authentic_boolean": "omitted; signing-time trust and production uncertainty mapping not established",
+  "remote": {
+    "repository": "zkasuran/telegraph-catalog-miners",
+    "runner": "ubuntu-24.04",
+    "timeout_minutes": 350,
+    "max_epochs": 8,
+    "max_tokens": 512,
+    "threads": 2,
+    "train_only": true,
+    "audit_once_after_freeze": true,
+    "dispatch_owner": "automatic action adapter",
+    "precondition": "independent wire and upstream dataset gate review"
+  },
+  "licence": "LicenseRef-zkasuran-SAND-1.0"
+}

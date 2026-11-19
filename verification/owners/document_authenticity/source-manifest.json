@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "family": "DOCUMENT_AUTHENTICITY",
+  "run_id": "8fe65ca5814e44f387cfbc9d4b0e3f50",
+  "source_scope": "GovInfo mathematical signature/range report consistency. Source facts are measured; answer preferences are AI-assisted construction. No natural forgery labels or signing-time trust.",
+  "licence": "LicenseRef-zkasuran-SAND-1.0 for our additions, upstream grants retained",
+  "grants_file_sha256": "becdda68ad27460cf3530e87aa491e848719425bcca01a8c1a8fc268bc3e6e2a",
+  "inventory_sha256": "3f7299c9928c45d1be8463501031ef6b3238c99d635d7448ac7e7876c2e5e1a5",
+  "measurements_sha256": "62a209f6c925ec6b66584251e599291a84f2834eaa13e897215340036891d802",
+  "original_groups": 32,
+  "groups_by_split": {
+    "train": 16,
+    "validation": 8,
+    "audit": 8
+  },
+  "normalized_overlap": 0,
+  "audit_used_for_selection": false,
+  "files": {
+    "train.jsonl": "42cfe96ce83ef162697a4a15aeafd95251b16a140468bafd1914687324a78d3d",
+    "validation.jsonl": "bfcf75628c75965110a6e47beff438ddc5dc36247335d4e2dc418436ca4b6eb0",
+    "audit.jsonl": "b24317baf7484d167d502c560a12ae4a761828a1174d950730f99fc8fb5f5f56",
+    "baseline.json": "2333378f7dabd14e112f2784c71d4d0f23a5248c8adaee30155e3225bbd7091b"
+  },
+  "primary": {
+    "primary/LICENSE": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+    "primary/float_runtime/train_adapter.py": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+    "primary/pkg/scoring/comparator/response_format.go": "de73bc0b02c176a9de6415e63779de77bee3c4f19015bf9b6bd51706a9534b3d"
+  },
+  "limits": [
+    "one issuer",
+    "semantic clone and backbone-pretraining overlap unverified",
+    "source/session split, not prospective acquisition",
+    "report delivery authenticity unverified"
+  ]
+}

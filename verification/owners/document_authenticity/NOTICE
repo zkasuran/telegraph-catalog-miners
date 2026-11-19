@@ -1,0 +1,21 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+
+Copyright (c) 2026 zkasuran. Our evaluator additions and constructed preferences
+use the accompanying SAND terms. No human preference review is claimed.
+
+Primary Telegraph source: copyright (c) 2026 telegraphprotocol, MIT,
+revision 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd. Full original terms remain in
+KIT-LICENSE and licences.json. The primary source is retained unchanged.
+
+ModernBERT: Answer.AI and LightOn, Apache-2.0. Architectures and pretrained
+weights retain their grant. Full terms accompany every saved/exported checkpoint.
+Citation: Warner et al. (2024), arXiv:2412.13663.
+
+Source facts: US Government Publishing Office, GovInfo. The signature and range
+measurements are ours. Original government work is not made SAND by these terms.
+Third-party material incorporated in government documents is not cleared by the
+government-work grant. No PDF prose or image enters this published dataset.
+
+Original byte mutations and preferences are constructed controls, not natural
+forgery annotations. Mathematical verification does not establish full issuer,
+signing-time certificate, revocation or LTV trust. DATA-SOURCES.md states the scope.
