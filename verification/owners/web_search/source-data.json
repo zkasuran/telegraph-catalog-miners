@@ -1,0 +1,3209 @@
+{
+  "family": "WEB_SEARCH",
+  "run_id": "803e7c2595204a1ba05c3ea079eece73",
+  "sources": {
+    "python": {
+      "repo": "python/cpython",
+      "tag": "v3.14.0",
+      "revision": "ebf955df7a89ed0c7968f79faec1de49f61ed7cb",
+      "url": "https://codeload.github.com/python/cpython/tar.gz/ebf955df7a89ed0c7968f79faec1de49f61ed7cb",
+      "sha256": "57601e7fdcf7ce150e76e0af106768ec7491c39b246b45a1599c06d0c6f61bdc",
+      "bytes": 31174994,
+      "prefix": "Doc/library/",
+      "suffix": ".rst",
+      "licence": "PSF-2.0"
+    },
+    "node": {
+      "repo": "nodejs/node",
+      "tag": "v24.0.0",
+      "revision": "c5349f43cd66d2aa02d86414c9ed426f71d3ae48",
+      "url": "https://codeload.github.com/nodejs/node/tar.gz/c5349f43cd66d2aa02d86414c9ed426f71d3ae48",
+      "sha256": "0f8b8b6f63ca95c420f4c8beaeeaa5332ebc793f76d06236aacc96aa3495a767",
+      "bytes": 116234591,
+      "prefix": "doc/api/",
+      "suffix": ".md",
+      "licence": "MIT",
+      "scoped_snapshot": "b7d156beca42088e38bdca440acdf8772988e910d0898d4ecf8c582477a7e246",
+      "scoped_pages": 66
+    },
+    "trainer.py": {
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+      "sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+      "bytes": 39897
+    },
+    "tokenizer.json": {
+      "url": "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/tokenizer.json",
+      "sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+      "bytes": 3583486
+    }
+  },
+  "inventory": {
+    "python": {
+      "complete_inventory": true,
+      "pages": 325,
+      "metadata_facts": 1333,
+      "page_inventory": [
+        {
+          "path": "Doc/library/__future__.rst",
+          "sha256": "b14aa86a997d521a02724da92ebd1972f572e1867d33e5d3c0a6c659ac03ec30",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/__main__.rst",
+          "sha256": "8cf73e3f24845c62df45fd0e678cec8f93fa915b76581b77b691d071b92e18da",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/_thread.rst",
+          "sha256": "06db03dc4c591bea7696751cbe7ab793024a9d5fdf96d44f2b6aee098a45dd8c",
+          "facts": 2,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/abc.rst",
+          "sha256": "1d2b71aede63e9af8381da908c14225268fd70c677db51e10ff31a6c7faf7b31",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/aifc.rst",
+          "sha256": "f2e8f78435b8784052bc63b4193db554cf8c1a9d335a84276d52310d4f5fd803",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/allos.rst",
+          "sha256": "cc8454bf06947f6917b1b2928fb9946ee63cee3479cb3a122ba9746c30f8d965",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/annotationlib.rst",
+          "sha256": "50496c330fd445555bda305f8974001be0c389a1459f658dc1add83da6150d0c",
+          "facts": 8,
+          "unambiguous_unique_facts": 6,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/archiving.rst",
+          "sha256": "6e0c7ff4286ed0bb3014e6b45856281a20b4b7a7f0b289f601f53f43ab7a7cc1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/argparse.rst",
+          "sha256": "46c9dc41aa479d4f068b644149ca4cb12c4076ef25ddd2e547e50becb611c40a",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/array.rst",
+          "sha256": "956949a6d9ca1d534c6ad30584cd750c772d7ae8ba61f4f8e766774ad7326b8d",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ast.rst",
+          "sha256": "2f81c04b94c972cbe7d076ad60d825dca009f6cfb4d9dbb64179b722e1618079",
+          "facts": 27,
+          "unambiguous_unique_facts": 24,
+          "pairs": 16,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asynchat.rst",
+          "sha256": "bba1f5c2e72fe946b982c90dbdf2efaa630414e7c1220ccbefd179eda3ee88b3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-api-index.rst",
+          "sha256": "d1e486620655c1b7e302655392af21a5b6c70317baa423fd51c74a9a8f09712d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-dev.rst",
+          "sha256": "41975dccd5de917d9da288998a94de9e07a2a66f575ecaba07bde948541617e3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-eventloop.rst",
+          "sha256": "e4edea41836e788ebe6b4d6710238de86e9798ac115ec001526f1d2e411be70a",
+          "facts": 20,
+          "unambiguous_unique_facts": 18,
+          "pairs": 10,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/asyncio-exceptions.rst",
+          "sha256": "b8463e591b76956ba1c61ef3ffc6f4a09186386cec1457b86842113f4e00ca86",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-extending.rst",
+          "sha256": "f59ca0ddb13771f67c84fc58eeafd8005e4b3a809f354d5421b047c8366098c1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-future.rst",
+          "sha256": "059b1862e74ef62a62b0835a7f7f88afa5e986becb9a832a4ef682fd3ae71742",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-graph.rst",
+          "sha256": "58462d70dd8ac33842dcb445955a7e5dd364f92e91f167bb6b9e7e53023ee934",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-llapi-index.rst",
+          "sha256": "98b74066c8b6b08f7361c7e3590380bdb243dc03b62cebbab26e0b3a39b5e9aa",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-platforms.rst",
+          "sha256": "03eb659bf60018145159bfa5b7b4544cefc129a9cfa83e413ed1d6a16a335e5e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-policy.rst",
+          "sha256": "b498ceef7de4f0009ddd88366b2d22455ea78c3dc05316c530593a7ce0c56383",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-protocol.rst",
+          "sha256": "ec9e630d83539b25544d95c98aad7749a73b72474f89c28dc7df99cc3e4a0e93",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-queue.rst",
+          "sha256": "cade81d69e63d07657a5398f6dca26b5be1e4d872a11fc7a5e0af87f7593518e",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/asyncio-runner.rst",
+          "sha256": "13c69b853394c7eaf933473ffda41b6a5036981299befdecdb7295dfba6e3349",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-stream.rst",
+          "sha256": "aaf4176f86726a6d13677b2bbd6195df2080fc26aac03eb77c207eb108d2d759",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/asyncio-subprocess.rst",
+          "sha256": "1067a48a1ac952859674718cc30b3ddf0bbe6f8a3e08a59c58d72977f0c06bec",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-sync.rst",
+          "sha256": "ce9b6b4f31a3efaa71d58756696da49ec44b2c5547288c4009d4053273081f88",
+          "facts": 1,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio-task.rst",
+          "sha256": "01af79f446bff7cd18a466bf8abc1d6e0a6c6038c10b01a0ac5ce0cb96ce0959",
+          "facts": 13,
+          "unambiguous_unique_facts": 11,
+          "pairs": 6,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncio.rst",
+          "sha256": "890eb099e23297d3a049e6ad3f10a1cabbc9a034895a5026fd010cb696cecc52",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/asyncore.rst",
+          "sha256": "50d2a360e7e46c7e96efc4f3943775c2c55fb861fe686158ee90647cdd95d6ce",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/atexit.rst",
+          "sha256": "e927d28a2e3a4dbb954830c129e779bd697084f6e4687bc4e213c25674676ae0",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/audioop.rst",
+          "sha256": "0450d75b991bc7e0f24fee28fe284cf3ca0cbab1eadecb3486f00ef7014203fa",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/audit_events.rst",
+          "sha256": "a2347e15b88879209e71c03c865aedcbf852324065c28c64eb3f1527b173065e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/base64.rst",
+          "sha256": "dc42b6316121ae500f71b4c25326ce9929dd4e7a34e05151c762deb44524bfa7",
+          "facts": 10,
+          "unambiguous_unique_facts": 10,
+          "pairs": 8,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/bdb.rst",
+          "sha256": "1aeca9e6a12efd8c8daaebc3d65f6c9f1569549a244cd2069d15d1714201f4e3",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/binary.rst",
+          "sha256": "dbfdb3afe5e2d52945a996f6b725cdf9ff2f2c9e7e4e585a4d453591aab8401d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/binascii.rst",
+          "sha256": "425a243373c7f7c16b242f8a32ad25405a146dcb832abc9b00e60d958293e935",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/bisect.rst",
+          "sha256": "5fec029c9499806cabf8becb602e6b37ed9f28017b46f0330a11695b51f7ec37",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/builtins.rst",
+          "sha256": "951d14797a1a1105c6cf159f4ee334f317766bb3acb615879d0fc10b61bb6c76",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/bz2.rst",
+          "sha256": "bf31bfad910f4dc338a286174db692d2e9ff1403022287f945cacf6e73634348",
+          "facts": 12,
+          "unambiguous_unique_facts": 5,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/calendar.rst",
+          "sha256": "9566ff7945aad67709f485c7de8ca9ac5788cd1be8324e3b2f2cab052bdc0214",
+          "facts": 12,
+          "unambiguous_unique_facts": 12,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/cgi.rst",
+          "sha256": "ff3004584bc0583acee03ec1c36f4ac2487c8e1906302556eef70c280c0a812d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/cgitb.rst",
+          "sha256": "5c9060771dc706be09c902d42c955c3af08edea64e6c1f1e838cfe627a092f14",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/chunk.rst",
+          "sha256": "d48a1aacc0428fe33b2d9ffc4612ab5a8996eb6f5500613d652d45ec49cceb6e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/cmath.rst",
+          "sha256": "ea45136cc136612b8d3ed1fd41137e3a08cf8e6aca904b0094a1469de9d51237",
+          "facts": 7,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/cmd.rst",
+          "sha256": "17ec0be92564c3f997937ab738266b7e4e570d20bff44258226bee37e435aed4",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/cmdline.rst",
+          "sha256": "720400fc529947cd63049281cc5189d15b7bde3f359459e7484d31bb8574cb2a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/cmdlinelibs.rst",
+          "sha256": "0900bb1cfaa7107a06c0ce08ad3d6813507ac68d8331a1c63a97e4e76e2fcd4d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/code.rst",
+          "sha256": "5afc3f5015ee225c9058ac092e54293596d71ab5aa560d5f374c6c3919545a1c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/codecs.rst",
+          "sha256": "cb6aa551378b00eaa8235da1fdaff293e8513db599e222237a97fdfd423044f7",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/codeop.rst",
+          "sha256": "530312cb51dafeb93914acaab059f3f5f4102d2d5ef47c615a1c84b6658e949f",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/collections.abc.rst",
+          "sha256": "b4c89271dd812819d026ddf326275733190707132a8272c684b933c705983ac7",
+          "facts": 9,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/collections.rst",
+          "sha256": "bc9fc65ad959f756ad0a5ba72ab0f834deb201c3e8ea19e1a206f9bd4d05eb10",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/colorsys.rst",
+          "sha256": "79d2da918049cfc63ca956758ed68debe66e0bee104f7cb4221600da763437d9",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/compileall.rst",
+          "sha256": "cf67a7bddfc0dd277c091322af37ec66619ce03bd82e2acbd92ed3d8ba000188",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/compression.rst",
+          "sha256": "fc48103fa86e662560bd0324755dfbc3aefe3386ebaa53e4d3151923a514148e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/compression.zstd.rst",
+          "sha256": "b07bc4b1ec4754b64c04db5d832ff43fb767383bd0c6e7c7e8e8dc228c71b83c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/concurrency.rst",
+          "sha256": "d726036462f6f0665220ac0faa130f7ecba2eaf1bc29952808cc47d1b1b16b93",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/concurrent.futures.rst",
+          "sha256": "ec446948198e8376eb0d806296e2c055397f9fb3eac8c5ee4bf4a2566dfd5da4",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/concurrent.interpreters.rst",
+          "sha256": "82cf67b65c1fc18b7f337aa3588dbf5cc7062acc4a57ccfec87b4b92e86efef2",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/concurrent.rst",
+          "sha256": "7218180a37e6943940f1b238e690429d1c6dab3d2c780f0f56b9a6b20c1d18f4",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/configparser.rst",
+          "sha256": "2c9ab951b95a16e2c5fab96efec6ace4ec1b97dc3a2743a3673bfc5c614f12bc",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/constants.rst",
+          "sha256": "400e652deea115c5ebf5cfa72e380971ee50d14a988c8e4d8b1f9224c1cca5d5",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/contextlib.rst",
+          "sha256": "eaa300158d863abe7216dcfba6bb64641214b337f844a5e27a080b2054c41bc9",
+          "facts": 12,
+          "unambiguous_unique_facts": 12,
+          "pairs": 10,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/contextvars.rst",
+          "sha256": "5988d55d4beb1e8322da241825eb13f4f12d8e8a97b174f5784161a16502b34e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/copy.rst",
+          "sha256": "748391e1f7c7762e697af39002464514d0d49de5fa64958632e8acff05089955",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/copyreg.rst",
+          "sha256": "6b6f2253191b64801391910cad40b79b349ecba4f128f209078e295d20a5a9dc",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/crypt.rst",
+          "sha256": "9f4b22114e53b6e15cc35394ab3c7aefe04621b73b81fecc4e9c872ed53e0573",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/crypto.rst",
+          "sha256": "b7d45eb2b2214684202a0a4e8d7ed66c880d78c001e8eb7bbbe749fe7fe94614",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/csv.rst",
+          "sha256": "9e0b648823bbffc3d6112de905d5fcbb7ebe2d29a4a9e8fd0e16737b6e0d3359",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ctypes.rst",
+          "sha256": "dd912081ec3afdfd150d1f2fa46eec87325b91a3d036cba824990a0fd4409bd1",
+          "facts": 13,
+          "unambiguous_unique_facts": 13,
+          "pairs": 8,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/curses.ascii.rst",
+          "sha256": "edaa5f9af6544786e19f189a5519c98fae4d18ee0caa5c259c3eddbbebc074ea",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/curses.panel.rst",
+          "sha256": "db52c7b2346390bb5ffcd1e0b9c826c5f7054325341162c8565db8e4a31d4c78",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/curses.rst",
+          "sha256": "d97dfdbd277cb4df493c7f0fd0160e8a1cd2605ef292aaf6c2133ebf5fad952c",
+          "facts": 11,
+          "unambiguous_unique_facts": 11,
+          "pairs": 10,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/custominterp.rst",
+          "sha256": "78a4d38337a11a0842e1ccdc1959ed11fe27bfe417f7ab9a1826d18df77ecf42",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/dataclasses.rst",
+          "sha256": "5ceeed610ee2c7e21ddd3fdf98cd7752d94eb02040ec3b7e1b668196bdf8c16d",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/datatypes.rst",
+          "sha256": "637739e18b14be9aed90b0272d5e27fc9206dbeb3e406f131e51ed4b5503cc0c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/datetime.rst",
+          "sha256": "82c3f4f15529b4d9a44bc63dcca7d5e369a40832f98c7d3df9c62c7ebb8207be",
+          "facts": 13,
+          "unambiguous_unique_facts": 13,
+          "pairs": 12,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/dbm.rst",
+          "sha256": "e3fb625cf7f825bee3e97fa16efae44faa1f3f2b57c15606bb265ef95ddf5579",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/debug.rst",
+          "sha256": "37a1b8053e37232e117857e98b08705ad8d0dce3eab55aee644a656f08228c3c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/decimal.rst",
+          "sha256": "196268ea1cacb789e58cbe9c4f5168e555142042c1fb2c8a18f5b705e97b3e65",
+          "facts": 6,
+          "unambiguous_unique_facts": 5,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/development.rst",
+          "sha256": "ead241705b83d87a96fedb5837f37e67c068f14c6092a0a9a893d5e0e8005f63",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/devmode.rst",
+          "sha256": "0f84cfa3341e20805279f3c759136621031c3abdbf0a6ff7bdbaf1f462aeed3f",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/dialog.rst",
+          "sha256": "5d9d7da5bf0334346d5f2791eb4e925ba44e04038ba0103d2dedfb085a00cbf2",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/difflib.rst",
+          "sha256": "fd61b03ca02737a5f5fc4eae9da89c61e5aa256cd37a0716375ece7b7ef1d01a",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/dis.rst",
+          "sha256": "71cd66103e2ac6352a91242328d73962e3f0b40956c2997cc1253fb5a8bc5571",
+          "facts": 9,
+          "unambiguous_unique_facts": 9,
+          "pairs": 8,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/distribution.rst",
+          "sha256": "13f4015ee13fd7c5eaf6e6d8406cd9b4126d2f645cf53bd4ffe0dc3a57eab9fa",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/distutils.rst",
+          "sha256": "8c44b643a8a70ff7bd1c479b5b0b53088ece62f0c73e02bd6668af118a156076",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/doctest.rst",
+          "sha256": "6ba4d6117d241db6b69d35e0a0fb78d161ec13a148a78c8361afde50e3762127",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.charset.rst",
+          "sha256": "10bf72207a86701e309219b249114817f625caa0b8e1694afefcd736fee645bd",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.compat32-message.rst",
+          "sha256": "006bbb944b217a027741978efe05dab8b0047cd1333f3debe0c89d6999991c62",
+          "facts": 3,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.contentmanager.rst",
+          "sha256": "79fe1e41ad4cc2f7e4d3f823f3a79987e36f18fd3e794d5b12348a5b6c978ecd",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.encoders.rst",
+          "sha256": "3384fc50cebe53db5a96ec74218ab52e2a600e90e50b549b0c1e9723b15863d3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.errors.rst",
+          "sha256": "5c7dfab727aed7481588f3899ba2c0c65398df3af8100474279ce0c16fbff422",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.examples.rst",
+          "sha256": "47c55388c21f6fcbf4116349be2e5539033417310dc30b1fae02ac5779fb91a3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.generator.rst",
+          "sha256": "2b6a95c844f01e41b93c0da478b519f5a20997927e520d3c1594fdc253dabc95",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.header.rst",
+          "sha256": "73f8da737eef9fb45343d957492b8906ba93f365e426c83d8a797c7b603f19ee",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.headerregistry.rst",
+          "sha256": "5ce11cf6d73e9a13656acd1e03d11b1f6ad73aa6ee90fa0a45e7e705e69f390e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.iterators.rst",
+          "sha256": "e2cadb65d1106445a81e3b23a416cf13a831f05ceeb9c03dbd92686fcbe852ba",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.message.rst",
+          "sha256": "a6e04175e071d0fe077e4fe34720c4a89093dc72b2b0d810459d74f01c8e3218",
+          "facts": 1,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/email.mime.rst",
+          "sha256": "e71b7fdd679f858ccc43d012912fba0217b1006c7d3b77ef267aeb809bb7c74d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.parser.rst",
+          "sha256": "963ad878907dd35ee322c117e1e2cbe2cd67ec6f81db8983768402db8167e23b",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.policy.rst",
+          "sha256": "c55aa4084e9bb5d07f23231e0068765c88d2a658929324eb11be5d4575c9b505",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/email.rst",
+          "sha256": "b675ccef5e54324580c5b3d1562c5939c30fc80f8fe03689d047b2c32b3af006",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/email.utils.rst",
+          "sha256": "12ce79e6a20a9d85d2c9e96e4b9e2133979e650c529662b9d2f7d5bd89293ced",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ensurepip.rst",
+          "sha256": "e8a92a4dfcade187bb37eb476d2cf89e16e999db81ad8162f98baf8c51e66fc3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/enum.rst",
+          "sha256": "41ef335ad5c10382f748fc3dc55157537253a7ac294ed17d1fdfe9b8e5c73fad",
+          "facts": 10,
+          "unambiguous_unique_facts": 10,
+          "pairs": 6,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/errno.rst",
+          "sha256": "49134cf46b75fdd852d5dd9f0fc3821a20826263a3d291ca5a4cd5f3f48e5bac",
+          "facts": 23,
+          "unambiguous_unique_facts": 23,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/exceptions.rst",
+          "sha256": "9783472a740abf03b186d09c82359905cde06af09b56db90976003ae3315f882",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/faulthandler.rst",
+          "sha256": "129a30410d96184f1e51db2cfe08d708c65bc6c366c14fa87950d51f2e967dab",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/fcntl.rst",
+          "sha256": "2bfd9bcbadd53f08f65294e1b5032625b643df75f334f453dbb89e3f468f4649",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/filecmp.rst",
+          "sha256": "c5a82eca214777df45b8ce8e6021343b151d8cd401060e4e0b2b5fad1f48b554",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/fileformats.rst",
+          "sha256": "a619581fcb30c6a9e8a0ea1871144be9a638d57dacfcf0e1f6df6b582c733479",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/fileinput.rst",
+          "sha256": "0e871ad34ce7218c91deeffd09c2c054c79ebb0c3edc865016f1f23921da816a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/filesys.rst",
+          "sha256": "c2d43cb885158154c3d8c36764935d484b887d7f741b62288cbc0de639cf7f46",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/fnmatch.rst",
+          "sha256": "ef43e86ccd5745a41dba7f40537fd6c4ce8c2a528fa99324728ef4f44e145b71",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/fractions.rst",
+          "sha256": "5703ddbab6122520e383cfb4374fc0b35ee61337ba989db9a2bd059a8383aca4",
+          "facts": 3,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/frameworks.rst",
+          "sha256": "ebc36d599f4e76c75c7e843a00924d22c289f166cacfc663a8452bdf60dcca28",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ftplib.rst",
+          "sha256": "e31e229366b6c00a04d265497f212768089ce6ac3b4a706e549f2e39acb5e304",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/functional.rst",
+          "sha256": "4ab99304b526dcb08b837809efac51fc6a60f57de90f17470c26b80de37a1884",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/functions.rst",
+          "sha256": "5839d9afe80810af0950df1b4be0ae10b26e53d5b70b138cb7ee9cfcf982c757",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/functools.rst",
+          "sha256": "4dc7d9e24c1b1279c8995dbb905ce18d1b816efbb4c3574e2366a222b91adb47",
+          "facts": 4,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/gc.rst",
+          "sha256": "0217dbd49a4ab1bc0a1095037c7a237ab41ce13ac4213b0562d4050d7648f4b5",
+          "facts": 7,
+          "unambiguous_unique_facts": 7,
+          "pairs": 6,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/getopt.rst",
+          "sha256": "9d90904bff0a91cb3b18efd2db19312903b3a2068c4d7caa99a5a46d1460f268",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/getpass.rst",
+          "sha256": "d998e8e4617db7a0303fb86f4f251041fb2af0fc4d2e0c6511411e1df38026c1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/gettext.rst",
+          "sha256": "0183d0e093f3d47a8b7b6a261d6f9872be486b291de902d4924928e80cc9e194",
+          "facts": 5,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/glob.rst",
+          "sha256": "6c29d54b0a5d497f67a55e9204156d6a3fe7c302d9c4239788e2bf1c24504aa1",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/graphlib.rst",
+          "sha256": "a5834d34b881894869371d7137f9b5791befe61b3abaf3d50ef2e84cfd4bca9d",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/grp.rst",
+          "sha256": "d3f49476971c0f643419ff16fccc1ceee8f4d44dd73a021ead860e08df6cb428",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/gzip.rst",
+          "sha256": "925ded6f8215e1dbea90bfda9a7093724a657ef01d6b3407abc645bfa8e90a55",
+          "facts": 3,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/hashlib.rst",
+          "sha256": "5a530687bc828b8b60dd6f21b2bae215c4bd6917d386c610b55dd7b95de3f9af",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 4,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/heapq.rst",
+          "sha256": "676347c86a675a3f9071e92276e823c496e763176dccd563a5e051dd09044225",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/hmac.rst",
+          "sha256": "b030d801a377f60764a52d2450ee9d2397a5ef9c2e0c7fd3f6aabbc5541fb214",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 4,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/html.entities.rst",
+          "sha256": "f61479c7c54d379982355eba576652e6ce84c3defa19416f1ff72bce26e28c55",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/html.parser.rst",
+          "sha256": "a1946ce8efa6105f42d0781339db5df30851d6f044342b4611e52e02ab4af9ac",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/html.rst",
+          "sha256": "e35b779a30de9d5160cf945f0b5b41e6fa46f99b2ba63ec21f9934f4642cca12",
+          "facts": 2,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/http.client.rst",
+          "sha256": "8bd45541b038a81bacb2cf3f71ff277828351e6cd15377dddd91173d81a02216",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/http.cookiejar.rst",
+          "sha256": "923aedfd3df793fff8693fdf24f5996615d5d5edb59e99e49ceaa940d6746fe6",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/http.cookies.rst",
+          "sha256": "cef96f56c2bf17ce7b96d748a3bb3e5708833a278976f219daa1e27f11cdc066",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/http.rst",
+          "sha256": "ff926f738f2013b7c957aea0516bc1f1020893ba870ab44131ebecf7fd3c8994",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/http.server.rst",
+          "sha256": "e14256b50a24bc458b4917aa44fadfd05a682c434c87679a5dbebc78961b872c",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/i18n.rst",
+          "sha256": "69096e0e9a744f748b6cd7b6591437b7d94d93b1c363f1a2a328b6ccf684b014",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/idle.rst",
+          "sha256": "dfff5f223b8dd2586d55017dcfde59c5879d4dc1995c603566b70634d79139bc",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/imaplib.rst",
+          "sha256": "0daa0162a44b41c6b7d1df72a4bd7b7998f5537fe0a4fced5c6609793b99e871",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/imghdr.rst",
+          "sha256": "f5fffcfade05e8d7e38484bcb9038b3ae1f932bf8db0138faa0c92162d221bca",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/imp.rst",
+          "sha256": "f4f7d96ceb3b37e7cd39ed1be08fef7adfe2c6190d1505a93cb1a571e0fe8733",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/importlib.metadata.rst",
+          "sha256": "df5fbd5334ded3dd9ef8d90dddbca91eb0bd0f26e7067082df7ae4d84d1f42e1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/importlib.resources.abc.rst",
+          "sha256": "84120f7a9fe46f51f144c2c3b569cae2de9f26d141b02ede56131b9f0349383e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/importlib.resources.rst",
+          "sha256": "86f791d94756a82d45bf487549745d6e3c93e49eedb45918b8e5c5d494fa3e9c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/importlib.rst",
+          "sha256": "11331041e4a1cb0fd8782733756f5f974d67569cb07d2d6f055d086ad743f919",
+          "facts": 42,
+          "unambiguous_unique_facts": 28,
+          "pairs": 24,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/index.rst",
+          "sha256": "1bbf53b96220e3b82f897cd42ca1bb6a859a3fcbce074f1380e3584dddc80e97",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/inspect.rst",
+          "sha256": "19ccdb1809495452edb9c8ee38a1f33448da7066c602923f1e72f6a78db77d05",
+          "facts": 28,
+          "unambiguous_unique_facts": 25,
+          "pairs": 22,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/internet.rst",
+          "sha256": "de1286d4adf2e8b4e1dff1a28e7543944886a4ce5b1af102571392a22a42c129",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/intro.rst",
+          "sha256": "ae8e261808ea078178b11201ba95bf544807d1a8eecfbeaff4c0b5726fb9603b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/io.rst",
+          "sha256": "d6a742b5ede8faadb4f6cd3cfdd7ccf8874037a812ea44363884701e00689154",
+          "facts": 9,
+          "unambiguous_unique_facts": 5,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/ipaddress.rst",
+          "sha256": "fc7c45a11b7ce289291d4a0d9de738285b88d753bb3d0649f0526727bd57b011",
+          "facts": 8,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ipc.rst",
+          "sha256": "5c3ae81eebcce8c08ebcbf4f6607c7fdeb32b09057985c375cc3cef3bbb9b728",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/itertools.rst",
+          "sha256": "69582481938d49183664bd49769b336aa138f7ee8790a6a6089c99b229d62902",
+          "facts": 4,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/json.rst",
+          "sha256": "8d9226d893ae02caa7c326bbe4d56283f86f1062993665f473f04fb10065c45b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/keyword.rst",
+          "sha256": "096fa0f3c1e8f4f0038552f064de99c2bafd558db74d9eb7907c20103ccc8a61",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/language.rst",
+          "sha256": "906c6f165f4bf782b18565406d5ab4e4d9d474848b4b28714d6a034ae2d9fedc",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/linecache.rst",
+          "sha256": "07ad4c86b06a1e5a0b8e2671ca2c1354ae2d52fce3d1d7fce243fc32022787a7",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/locale.rst",
+          "sha256": "38db18f42a26946ba3de9af34a66f44c63e023658769932aaa6447c1cba6a25a",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/logging.config.rst",
+          "sha256": "1bd669f0e107dc6742de5b2a79c5a03126dca5be8dd29198f5722a568452e7ca",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/logging.handlers.rst",
+          "sha256": "8d64fc87fda16723e675d7dc15688bca281549b930630e6dbc2fc35f22b0bdf1",
+          "facts": 10,
+          "unambiguous_unique_facts": 10,
+          "pairs": 8,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/logging.rst",
+          "sha256": "88f1801de176b8ef96f8008e4321dedf07d2f24eeefc7901cc37869cfb0bf67b",
+          "facts": 7,
+          "unambiguous_unique_facts": 7,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/lzma.rst",
+          "sha256": "fd0001a09c76ef3f12ed3f3f98c093b7e42027ebd4e471e8cc1f47ae7d5a255d",
+          "facts": 3,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/mailbox.rst",
+          "sha256": "99bd75be3d90257af7feecc75161019a0cb87cca49dcf5e4a374fbe3b8b732d6",
+          "facts": 7,
+          "unambiguous_unique_facts": 7,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/mailcap.rst",
+          "sha256": "54552a059a052a06070a8db3581611a3f1dc7729ec0c3ab8fbea4ece696f2e21",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/markup.rst",
+          "sha256": "fd1fb5ab3ecaf7d5b2e913406bd5bb44ad62c53b97f96d5400b06d6d441b0f08",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/marshal.rst",
+          "sha256": "9b2c1760379931931f011b0a1bccad90dd8c83551376237a7937bb4ac6560a1d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/math.rst",
+          "sha256": "d34724651cd45e498d226570c95fb983cfd3ca7b18f608383a7310bec82c167b",
+          "facts": 25,
+          "unambiguous_unique_facts": 20,
+          "pairs": 20,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/mimetypes.rst",
+          "sha256": "889a855aa85663c5c2d577ed24c245b2e67c6c1379a6ddeabff1966b2faa0afd",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/mm.rst",
+          "sha256": "be3120ea2b46f614b9a7aa5b85b1644aa24bcce0dff48ac7058a48201e4e1788",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/mmap.rst",
+          "sha256": "0720258ebff65a07adf634915828f8d21a357c29b3f8f1ff6e2f103ded6c9df0",
+          "facts": 4,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/modulefinder.rst",
+          "sha256": "5ab2b3553b22d42d9824a01faa4abd4d5cdd541755756f9052b48e43fdae6a2b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/modules.rst",
+          "sha256": "f9f7bb697a335a9cad5034c22e940e1483ee9f349d8d91194c4066359696805c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/msilib.rst",
+          "sha256": "1b6cd889b3913280d767831f1fea880528ef13cbdf530ffc3edb5671b5664a11",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/msvcrt.rst",
+          "sha256": "e88f7580e9a151fc052acec731203b1607f4b8c1cd856d25dcd88069f7a58131",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/multiprocessing.rst",
+          "sha256": "a071ff2219887d41c480df9902663d2375e8b125a5453dfc93d894fbb08974ff",
+          "facts": 18,
+          "unambiguous_unique_facts": 11,
+          "pairs": 10,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/multiprocessing.shared_memory.rst",
+          "sha256": "10f04327f469db0cca9f84d735a5660fa03da5fa9363559bab22940385938f5c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/netdata.rst",
+          "sha256": "1077864d45c33565bf0e0c18d18e2ce94779d8b30faf8d787da7db0e0d139254",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/netrc.rst",
+          "sha256": "2f26c70a2960c659590c4eef397a47bd0f5941bc9001271e9d90b763a699e379",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/nis.rst",
+          "sha256": "e2fc46695a1527fb65940fc70998dce1dfd959ccd95093d132981de184ac6b06",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/nntplib.rst",
+          "sha256": "d5ee7401f8a70314e41e786285c9f12b01b9a8b86ba4727e8f408538e85841f9",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/numbers.rst",
+          "sha256": "1819dc637a5fd62a0bc5ee18f41a2d269f0625542b0d92fd10d17d422e9eeec2",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/numeric.rst",
+          "sha256": "561ed7f28344fef0888752322989f5ef07f74130af78a8d8fa5cb3e2d9046c80",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/operator.rst",
+          "sha256": "979c1d6acc8f5061e7bf72135b2860ef91d7bca1e5da3d3e042bd29d9ed471af",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/optparse.rst",
+          "sha256": "d9e2c2bb9f8dd951e5dca83ddec0c960d2a1435c26a59226a4e0949f62a8bd08",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/os.path.rst",
+          "sha256": "ebc95dba559c8d5bd310c693ae13ddfdf8b16fc01ff9b23b3d07f615322a8b06",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/os.rst",
+          "sha256": "7bab91c6d5dcc0f88e476567d190388e94ddb3940768e0713c70f0280130e964",
+          "facts": 106,
+          "unambiguous_unique_facts": 104,
+          "pairs": 100,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ossaudiodev.rst",
+          "sha256": "ab4af2f31a2110d2fe41f6abc3bd0f885d5d58fb400ef06983e524588194938d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pathlib.rst",
+          "sha256": "9b243c8ba9bf1d6af953550d228c4df4daec0af5584659d026111a4167a2534b",
+          "facts": 23,
+          "unambiguous_unique_facts": 23,
+          "pairs": 20,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pdb.rst",
+          "sha256": "a8a75a8b25ac82c44e68f670ce7bd823209a6ca12fb426c14d71ace6dade6fcf",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/persistence.rst",
+          "sha256": "41ff7a8bf895b77f42812c4c5fe4eb1f3d64ecbc7b6857aae51786bfeee2d361",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pickle.rst",
+          "sha256": "b4b5830a34b7d6286b6b7814a632d6a50175fef4f3ac7bbf443e7ea2b11c0aea",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pickletools.rst",
+          "sha256": "8df9d43537a6f00551601d6f13e6a7058abccdf58da7917679b0099bb5aded5a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/pipes.rst",
+          "sha256": "93dc6b7ba1fbb9d0b32009779487ac4d1c7e0c13741414281dfe9ff7388b7419",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pkgutil.rst",
+          "sha256": "37a580a859fe57002018ca71c3093fb089f3ca5d43206e4786257be3f98e40bf",
+          "facts": 1,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/platform.rst",
+          "sha256": "5bc815e6c992de1356da7fca161579a758604ad0b4cd5ab8fd33749a58c79826",
+          "facts": 5,
+          "unambiguous_unique_facts": 4,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/plistlib.rst",
+          "sha256": "710804ffd7cb57999ca310d9706755d38be145f787c4eb5a79193d8dfae2a4a1",
+          "facts": 7,
+          "unambiguous_unique_facts": 7,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/poplib.rst",
+          "sha256": "0b91969e6439731b255510f38e25a78e03c6fcb2680a6e362da395cc5c809621",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/posix.rst",
+          "sha256": "e5f608aa3b51b922e8bb90a5797f0e549c8628fec4dc2ccc0ba81b4e5d0e632c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/pprint.rst",
+          "sha256": "344c2a722714fee5dd415e8e5b3de024f118e554b122a8dea88e8ebf02e49fe2",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/profile.rst",
+          "sha256": "0e85be4bc555d8c4002b5af27446d0c5d94e9d246a7ca3d93f73b8e799b4192d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pty.rst",
+          "sha256": "94dc4ea284990ff0d75b3f2f256aff6df4fc1ed30305752fe3bf77dc01b7c78d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pwd.rst",
+          "sha256": "45cfa3b93331fb91a9631f53c1b37636b8eed409915422e7e3509ea409f3303c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/py_compile.rst",
+          "sha256": "3f54b29302d7b8684a4483964fe53190978c830219d13cbb7109ac5ea3e3481c",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pyclbr.rst",
+          "sha256": "03a52be500d1751514bcc8e2acc0c5e31e183aa5afd660e3d82d0f5a6dbe799e",
+          "facts": 5,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/pydoc.rst",
+          "sha256": "c84f9d1d42dc8a521f3ace0d263a57e5c550b89fca05d24df5c677c15c171f66",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/pyexpat.rst",
+          "sha256": "45ac1ca203d2fe87b7af735f61170636c88fe2d9904972522a57b03032307d14",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/python.rst",
+          "sha256": "e107ab9133e89885e8a1ae9f4328684119c542d0c4cfdd4103e70b21dda6fb8e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/queue.rst",
+          "sha256": "b5079e5d58c36582f7cce6154785a0c2e614b1b598e33e787d14bf2cc95138c0",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/quopri.rst",
+          "sha256": "6d3a3bb73e8cf5009f999c2f5825340c58ee60043e2ddb71c2278975dddf0115",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/random.rst",
+          "sha256": "8f5b4a1484557c1538ae9e6370593848bbf4e9623d16b713af661e74ddc53516",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/re.rst",
+          "sha256": "c7e0b2edf1b660d4690445f3ba41ddb4601df4dbaddcb999bc8df1e12bd507e0",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/readline.rst",
+          "sha256": "4d8b1cef2bfd1d801a6a32eb127930f839383278da0345b188e0fd1cf08f16a1",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/removed.rst",
+          "sha256": "76ac1e3d34f61c6fb4da6eb89b2ca618358bf87f7c17b93a49b72d76db625d4c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/reprlib.rst",
+          "sha256": "ae50f9473763edafb517f88eafdcc531a2f4488ddde1fb98087b49ae7a0c9b00",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/resource.rst",
+          "sha256": "4fcebb9c8ac45647e8ebc0b38c17d731f786e275ab0b5ab33f9641560cb384d0",
+          "facts": 11,
+          "unambiguous_unique_facts": 11,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/rlcompleter.rst",
+          "sha256": "3ae02ce77624409528637b8c3faaa840a98f2dccff828ea96d8d32addf85ceb9",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/runpy.rst",
+          "sha256": "e7ffa3a47eaf0534f45caf28507ae1a5d0af0bdaab498412ac64dfca42efddfd",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sched.rst",
+          "sha256": "b642e5d40163c27f824c09c503f0927ef89946cee79fe23bd83f1d1be45dec0b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/secrets.rst",
+          "sha256": "7ff635fec32608dd8de4b410d97fe94aae33e7b2cf6967349f4e835d413d6e77",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/security_warnings.rst",
+          "sha256": "49a2715f07ec5eed7318aa5d95fe957496f7a0df4c80e49f555cc1ea6cef175f",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/select.rst",
+          "sha256": "5352fc93373d11395605005cc79ebb8a48df058000a9553b42cb3289ef4e7db7",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 4,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/selectors.rst",
+          "sha256": "6c932ee314e3b908c50ae6da07ffc4ef269cdf7daab92c06a4a5d2c532c8172d",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/shelve.rst",
+          "sha256": "49f915373ae5a8a0383484b6ffd4880fa022b19768b53a2f2bccf6402306a6ff",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/shlex.rst",
+          "sha256": "410347ec8db377807cb66ae9467b7f7531b17373ad1693845191f80330f0ab40",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/shutil.rst",
+          "sha256": "1e6afb6fc657c5ec58c36f7dffd38bba8111a0a619689739c99ad946b5ae07db",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/signal.rst",
+          "sha256": "ecdcb7522d23e93991461fe0e755d2880cded5ceb875bbeedc3705e5fe17fd66",
+          "facts": 19,
+          "unambiguous_unique_facts": 19,
+          "pairs": 16,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/site.rst",
+          "sha256": "91317f2ab98e630366f4150ab4c1b508b495dc42b8699ec8056183f273344291",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/smtpd.rst",
+          "sha256": "be744989daa9c69399c8202d86ec19ca03243d93e8b81bc396d3e571167d74f2",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/smtplib.rst",
+          "sha256": "447813082cec62f182169a0da6ec4d08804116f00c9552a63b0381032f3f56d2",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sndhdr.rst",
+          "sha256": "950d4b7c53c08a43de6d6766d326bc6b7f5c965fa9e45ebeca2638af353d4b46",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/socket.rst",
+          "sha256": "df3260bb651959a76c6d296fcae18cb579a1fb5aa2778be0a409d4e176aa1460",
+          "facts": 41,
+          "unambiguous_unique_facts": 40,
+          "pairs": 38,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/socketserver.rst",
+          "sha256": "59a3f162e5b79ccb12dd5a47c9a9f14ff3b1480032399dfc1d8912967e6be58d",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/spwd.rst",
+          "sha256": "e733b19829775aa0ebfaa07646a38da9beba66cd0d3f6983d8400b635f60fede",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sqlite3.rst",
+          "sha256": "d16dc0094b557effa0ae52618da0f61f0cb50bf05ce21942f3a9b2e70af40163",
+          "facts": 18,
+          "unambiguous_unique_facts": 18,
+          "pairs": 12,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/ssl.rst",
+          "sha256": "2070ace390883426abddb1feb64d51d435156d2a54b528aeb47b6e6fb2a1bc8d",
+          "facts": 96,
+          "unambiguous_unique_facts": 96,
+          "pairs": 94,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/stat.rst",
+          "sha256": "d405432e4350af0340b62d6c4897f529c96230c41e6926b162d1544f92e6f0e0",
+          "facts": 18,
+          "unambiguous_unique_facts": 18,
+          "pairs": 6,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/statistics.rst",
+          "sha256": "97a7ce318597d6cb9a7f8bfc1f123cd70077249bef13e21e58e1334a72902bbb",
+          "facts": 10,
+          "unambiguous_unique_facts": 10,
+          "pairs": 6,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/stdtypes.rst",
+          "sha256": "98bf9fe448aed657067f78387e1248da6e503761e260ab38d737e14cccb2d1fe",
+          "facts": 31,
+          "unambiguous_unique_facts": 28,
+          "pairs": 24,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/string.rst",
+          "sha256": "1b54e5e64e1bc61c69f53b7c745026310fb3a338e52bb654375549b0ac6d0e36",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/string.templatelib.rst",
+          "sha256": "af223c1cc431adc829e7818ee49d6582ae8c47ab3abdac2f1f4551188993fa89",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/stringprep.rst",
+          "sha256": "ef239271794a15edc8d004d7a5167e5422e84b6b774a84d10721f3b0aeae8c9c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/struct.rst",
+          "sha256": "a7697a4e758ace0e219e52826c69a5fa84a5e23879f3bc6b518cd5e2708b37ed",
+          "facts": 2,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/subprocess.rst",
+          "sha256": "ee0a2d663f5e585f1ffe25ab8ca3cb9bca7e52efa6afad69ba34b2d094d5a0af",
+          "facts": 17,
+          "unambiguous_unique_facts": 16,
+          "pairs": 6,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sunau.rst",
+          "sha256": "3969583e07da282d7772a4da42d6245d49d09db9e0150bd46bfd461ae49d452a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/superseded.rst",
+          "sha256": "97fd6ee4a56b22264425dc1ac0ece1081262ef2dc0184aa0b9c698715125dad0",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/symtable.rst",
+          "sha256": "98d30e35da1459d840063ecc933714d30c8a8bfcd0c3a0a280bb7f14f4f4b76b",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sys.monitoring.rst",
+          "sha256": "b9f949d327bcb9ca6d851287b855c04822968bc319e3273f67291b352d04f9ef",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sys.rst",
+          "sha256": "d1f38d98a2a745998c94fc83595f118659cc1df8701f65bfbe8e3c5ef6b1e6ff",
+          "facts": 43,
+          "unambiguous_unique_facts": 43,
+          "pairs": 42,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sys_path_init.rst",
+          "sha256": "44938407dea2a55965f217a93fed5abb3b6179d2d94f8dc4637b6b04c53666db",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/sysconfig.rst",
+          "sha256": "85677baf857fd89cbd102870a19e0bcee15f40eb810cca7a241c964c983420a4",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/syslog.rst",
+          "sha256": "27219851fc0610aeff1c981939cd159002e45c6f94e5018a87c9f5ad396640e5",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tabnanny.rst",
+          "sha256": "f3edc97199ccc0f650f98f039df6448235e17b3a9d733bac54a4eb92d7bbfba0",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tarfile.rst",
+          "sha256": "901ab69790214a595355d7e29a4b11a68fdfa8c45032dd3bd84822de01280d9f",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/telnetlib.rst",
+          "sha256": "fe5253192ea9f7b4e2d6f5de542cc8e1d83a7abbbc899564f8fa44295800a05b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tempfile.rst",
+          "sha256": "487aeabf01be281fd1e2534b326c33cca4d9fab4db1c04d32e58439c9f6346bc",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/termios.rst",
+          "sha256": "3153dc2f41afb2666c300b65b23692d77155c7fe9adb7527577c9896893f0501",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/test.rst",
+          "sha256": "72d19cbc708c6ee70be28af0ede6404ed3b734ec669344caebd8a1f6af091832",
+          "facts": 16,
+          "unambiguous_unique_facts": 16,
+          "pairs": 14,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/text.rst",
+          "sha256": "b7cf234c0b88114c025657f017a40bdefa647e10b06f57840cd2066893795368",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/textwrap.rst",
+          "sha256": "142a4f6f32eb18030b42583e996fa878b681ece03b049845173d847708d0407d",
+          "facts": 5,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/threading.rst",
+          "sha256": "35bc2547d513b1ee02b9917391408068f6d8dde044ef2378042b8abc170e07d7",
+          "facts": 14,
+          "unambiguous_unique_facts": 10,
+          "pairs": 8,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/time.rst",
+          "sha256": "949d9e5b2fef70559990e41a9a1609ebc8ca21d3aaf8c83b37058de175a76813",
+          "facts": 29,
+          "unambiguous_unique_facts": 29,
+          "pairs": 26,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/timeit.rst",
+          "sha256": "6c0117bac69e37fc6b3fa659799f1544ef3a473ca892e9862ab398e8f69e9cc9",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tk.rst",
+          "sha256": "f9bd737bd8a1fe2dc773d669f58ab438cc8bdfed65a3d30c247b2576441404b5",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.colorchooser.rst",
+          "sha256": "3f20223f9bf3e5ec2143bb90c96b13c91822af48142c6572adee6a2aa009c65d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.dnd.rst",
+          "sha256": "50b4bd4f4011510c1e82d045fc0b8fb22c1049bfefb8f674cf2ac50d64f3d2ff",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.font.rst",
+          "sha256": "33c91f45d32fce0fcfcd7adf529b1504bf3d891e2b337e73e3ff02a58cdde0e1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.messagebox.rst",
+          "sha256": "eec0d90ce6ca067c858e579ff486504d3cc9c516fc2714579df10e16816e70c0",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.rst",
+          "sha256": "d78fe882ae10aea22715c216bed567c905e856751f8dcc9c52510b97e7aef5b6",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.scrolledtext.rst",
+          "sha256": "48d80c86bc9245067d97a9fe21b74c1cd08c789107778b737fcff267d7bfcfb8",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tkinter.ttk.rst",
+          "sha256": "75b826aff52c93da12aa0d4321eadbdbddd97bb5dc68e8c62cf940032203019a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/token.rst",
+          "sha256": "dd0178836e3a8bf489bbd5b797a6abab126b1c1241407c72a22f44767a12ee85",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tokenize.rst",
+          "sha256": "fabf6f2425c2cee2f6d78bd4635aae8581241108e940056c01ee70dd9e1cc951",
+          "facts": 1,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tomllib.rst",
+          "sha256": "25b9128e6b47c6d36f0f257fd260a5c48e19acff22f48fe4f8cb708f84e8da4d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/trace.rst",
+          "sha256": "341dde378cdf29dda5d8bc6dfb35b37d92daae2ef5182010298a7e80986861a2",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/traceback.rst",
+          "sha256": "4cab7b614837189ac986d1ee569fdd652bba5af3f027836b9938e670b6026c36",
+          "facts": 9,
+          "unambiguous_unique_facts": 8,
+          "pairs": 6,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tracemalloc.rst",
+          "sha256": "ca374192331c5977f78af1a28fe5f72fa879532201f20feab4137511a0f9389a",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/tty.rst",
+          "sha256": "a9e5ea520ced2198181c8698beda985a7dc0fa6a4b9816d55258b7d27ac111ae",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/turtle.rst",
+          "sha256": "4ad0ecfa9403a02177112c46bcf90224da45a1a26df9de8a6bbd9e7c10f3102e",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 2,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/types.rst",
+          "sha256": "94793e5903eda7c56cce72128622033c3c7818cf1fa6c4b7695262299577347b",
+          "facts": 20,
+          "unambiguous_unique_facts": 19,
+          "pairs": 16,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/typing.rst",
+          "sha256": "7fe89b15e1ab83d95fa4d2ef88e3f622fb15264262565c7548fe639c4e7758ba",
+          "facts": 48,
+          "unambiguous_unique_facts": 35,
+          "pairs": 32,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/unicodedata.rst",
+          "sha256": "c9ebe55b0f2d907d5420d17a2e08b01f14b3193acba145184f244546f894dd04",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/unittest.mock-examples.rst",
+          "sha256": "66fc8df7f12cfe624add6f853fa6e6457bf6e1ab95e3aa4df69415adbee93189",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/unittest.mock.rst",
+          "sha256": "aa5ff6d0db7e99724ac3edf11d752a9482b7dcb51b1f1b9f332b89a93501e472",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/unittest.rst",
+          "sha256": "a519ece70c6a9028b83560b8b1b05802e1f1cddb5dfe86232ce0b691f81a91d0",
+          "facts": 51,
+          "unambiguous_unique_facts": 49,
+          "pairs": 48,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/unix.rst",
+          "sha256": "fb83dfac6616ae64927e81600f07a70f1eff619aef8846651715740265b4a320",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/urllib.error.rst",
+          "sha256": "1df88f32db7635c6c9d9382fe7b7627e46de6de05e9f63fddd82a76798b7943a",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/urllib.parse.rst",
+          "sha256": "3df13a52f992f6bf2b65d789bb0e2b1c35eed32143ec1e543b58b2f5d20acc6a",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/urllib.request.rst",
+          "sha256": "8cb178ab9344efb0580ab178c6c323ee2af7f1e090a0ab98077611b3742a0b90",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/urllib.robotparser.rst",
+          "sha256": "f115b16a5cbf7b924c5b02f1fc40e3f50b42e8e965b3a861b6925c566d499a4d",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/urllib.rst",
+          "sha256": "48c69fa071d45f29fd8b1482ed8755c2b39099cb3843d8998facfd8e77b771e7",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/uu.rst",
+          "sha256": "df9c347c5279bacf87532de5318a48b929aa67bda94de84687b8d9db06410a91",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/uuid.rst",
+          "sha256": "f0436d9eb5a00325d0eeea35a194c4d011fe553d5f05a42df06e90134ce749c8",
+          "facts": 7,
+          "unambiguous_unique_facts": 7,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/venv.rst",
+          "sha256": "538ee348298ef9d09b2c2a39029a0d82f56b0a407929c196800593d545de0ea1",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/warnings.rst",
+          "sha256": "55d980da2373c65a6ac6faf269fc4b43156ae3b35f66dd84a2796e11d00c9b45",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/wave.rst",
+          "sha256": "a48b6b5659177c690d44d20d0c80cbb9dbf2fdda29556bba78129e024d396bc9",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/weakref.rst",
+          "sha256": "0ef492312caae331776ef5f24dca5cb8c23df5cb17b3847c562eed6046528c03",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/webbrowser.rst",
+          "sha256": "40eea1af66a196c1965a978e2cd9c1c3a3ad1f81d9fc2426467144da32ecfcaa",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/windows.rst",
+          "sha256": "ba812f21bfd994c221cc43750469c8ea164701cf5b5fcf58b76d48a2c880f77c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/winreg.rst",
+          "sha256": "63326c95d34fa21fd2440bce99806bd46b477abb962777a9ef6df54478f7a900",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 4,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/winsound.rst",
+          "sha256": "1cb3320b96d4c979d148f852f1f94147099934cedefbaec1005e62498df86342",
+          "facts": 7,
+          "unambiguous_unique_facts": 7,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/wsgiref.rst",
+          "sha256": "7d7c30f96da7cd1f58f7e2f60ed0599493d3e488beccd87e3c4d7aa2d739500c",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xdrlib.rst",
+          "sha256": "c064ae05d08371481140b9a0a32999cc2fb8d812c5c2b9906aeb70774efd59f5",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/xml.dom.minidom.rst",
+          "sha256": "2e9379268c2ce468ce1a44d30934a168587bed26b809498de3e011b6fcd724bf",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/xml.dom.pulldom.rst",
+          "sha256": "2086b904cef3991b601c9667b3d5f41bd423ff1d2183e72480eaae840bed6b2b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/xml.dom.rst",
+          "sha256": "354ba39088df52fe9e2c8b4d71b7ce7c9867863ec2670e2e3643c8b38c95c7e9",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xml.etree.elementtree.rst",
+          "sha256": "cdf379d0041f35159ba5f2eebe75608cc3fd4e795525156a267e29d1abca0fee",
+          "facts": 19,
+          "unambiguous_unique_facts": 14,
+          "pairs": 12,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xml.rst",
+          "sha256": "3fca67f60a07c873c3a86011c9f4c8f54dcfffcb2321f6458fc0dd5508f52c0d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xml.sax.handler.rst",
+          "sha256": "06e8b2fab18cddb75b88715f31b22c30794983246d012b055d7370bc94779ff7",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xml.sax.reader.rst",
+          "sha256": "5c42eb30722dada102ba224436d185306657891c8bb4da80f9663288477e166b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/xml.sax.rst",
+          "sha256": "de596bb9f265ed9d546e0bce9719961e3be26dbad1f24bb465b6e70862490ac5",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xml.sax.utils.rst",
+          "sha256": "fc2804d96d463022a48b73a577872246aed0076419d5992410851df3f50f034a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xmlrpc.client.rst",
+          "sha256": "630cb1bddf002640f6334f7eb2ed127b298a71e421484cd1926e181b89a70b15",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/xmlrpc.rst",
+          "sha256": "7c87fab2afc43d321807090c6cd61066454d2151fcb853722c548880ecfdc69e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/xmlrpc.server.rst",
+          "sha256": "9bc20f71273af64600131e33851f614eb84c04b2ac4ef2058c8c8a8efa0fa73e",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        },
+        {
+          "path": "Doc/library/zipapp.rst",
+          "sha256": "d8c49523a8dda18c5f46db58558e00d621ba4777a22efa3b1b58f3e7d58262b7",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/zipfile.rst",
+          "sha256": "2e7d6dd12bf4d28050f5aaef0e6f491ba17b137835164e1ec858912de80cc44e",
+          "facts": 9,
+          "unambiguous_unique_facts": 9,
+          "pairs": 8,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/zipimport.rst",
+          "sha256": "518521b0771448b2b77832d82cc8998a0ccf300c2ad64c22bbbc790571079795",
+          "facts": 5,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/zlib.rst",
+          "sha256": "1a6f1a2154eb1702e0ca89951ded99e9e208cb5ff0bb3a75453a157535c4e2a7",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "train"
+        },
+        {
+          "path": "Doc/library/zoneinfo.rst",
+          "sha256": "e15e8cf4bb9dfb54db9213b23af0f5f009c81cfda6721e59bc725dde21609a32",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "validation"
+        }
+      ]
+    },
+    "node": {
+      "complete_inventory": true,
+      "pages": 66,
+      "metadata_facts": 1074,
+      "page_inventory": [
+        {
+          "path": "doc/api/addons.md",
+          "sha256": "103ee255b419e453ee11863924880d276063ec6aa119780e4b215fdb5c0f57e6",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/assert.md",
+          "sha256": "7717b0c221dd732a9722cf9a81af5ac9f97813f60bc873722681ecb184c7f6a0",
+          "facts": 17,
+          "unambiguous_unique_facts": 15,
+          "pairs": 8,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/async_context.md",
+          "sha256": "221c671797621451844a511b52c319cc620f631b761762479e1397d3c3763387",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/async_hooks.md",
+          "sha256": "9dd651d27efc6fe26442ee4f007c9a1a81a10547246dbfc4e39ac7664d78dba2",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/buffer.md",
+          "sha256": "80b04b27266d5d6fe2d19c19cf6ad936080ddb6c2937bb9c71aa16d7ccd4f412",
+          "facts": 57,
+          "unambiguous_unique_facts": 57,
+          "pairs": 40,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/child_process.md",
+          "sha256": "8da71825e292478988b2acabbf6383469b80d44c4840ac5ed21b3e297f838873",
+          "facts": 14,
+          "unambiguous_unique_facts": 14,
+          "pairs": 10,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/cli.md",
+          "sha256": "284e037dc89f43bf16997f01e1a3280425fb3346d2289f183e2a85bab6753c36",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/cluster.md",
+          "sha256": "bb80ce4ea3e74cfe70d6e4af0b31adfa40ffc06f1e5d8d74a03911c7278d63f0",
+          "facts": 9,
+          "unambiguous_unique_facts": 9,
+          "pairs": 6,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/console.md",
+          "sha256": "b0b2e645f2e43b55b4ee8fcfb526da51911aa68c1ec25a47722167283f995605",
+          "facts": 21,
+          "unambiguous_unique_facts": 21,
+          "pairs": 20,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/corepack.md",
+          "sha256": "13e8ddb5e6734bc00184afff6738dc6ff55dfde328ab255ad41b825e3173d75c",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/crypto.md",
+          "sha256": "98b42296388f9b90d3e2c51a2b1714dff0b1767c0f75bcd6f68b79720798cdcb",
+          "facts": 91,
+          "unambiguous_unique_facts": 88,
+          "pairs": 80,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/debugger.md",
+          "sha256": "cd75abf69930f08757676193cf320672b5ccb39a52dc38c6745d9ca3c9a1e425",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/deprecations.md",
+          "sha256": "68c340ba812ef7136dbda04d8898911ca3d0eb1ff3a790b8af296b19d84b00e1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/dgram.md",
+          "sha256": "266dbbb785e5e05dc6c867b3f31e08b40f63a67654a3e27f647c9c9e1c489e31",
+          "facts": 23,
+          "unambiguous_unique_facts": 15,
+          "pairs": 14,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/diagnostics_channel.md",
+          "sha256": "e8b9d769ffdfc0392e572fba1335aaf6957da5a4b74d5db7f241d32779c5531a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/dns.md",
+          "sha256": "3084fbc885d4da3f924e8784639f3db7f5d9d5c47e63b248b2da8634e2d0bb21",
+          "facts": 35,
+          "unambiguous_unique_facts": 35,
+          "pairs": 30,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/documentation.md",
+          "sha256": "b4398390048813bba79b31676b302878a6175ab4b9651dbb63eebba6143b8b3f",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/domain.md",
+          "sha256": "ddfee2f734a5ba60dc0dedfbb2ea2efb5c14e64aef173afc0198e4b8281be28a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/embedding.md",
+          "sha256": "3359539f52745b465a2638204de8f3a8c80bc773bc3581f6c14ffa9ef952d9ef",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/errors.md",
+          "sha256": "f00f497798c959a7761f75c4698059ff4261531182be2a8a19b93d891ea6b598",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/esm.md",
+          "sha256": "74d0a0af8621516f7c4ec0accc777010f0104a2deb986ab8d52fc4ca6727d90b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/events.md",
+          "sha256": "6ea62e867380954ed2192cb1d86f8a179eb6a54be55fe38e5a6ffb5c714475ec",
+          "facts": 36,
+          "unambiguous_unique_facts": 36,
+          "pairs": 26,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/fs.md",
+          "sha256": "cebcd7360ed9ac833f80550d391c5616715bab2059e0495eeb741ef650df4e39",
+          "facts": 154,
+          "unambiguous_unique_facts": 144,
+          "pairs": 144,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/globals.md",
+          "sha256": "d07ca9118264228754a7c517b3752f2fb1d3dea7b708491558b265260513fe87",
+          "facts": 10,
+          "unambiguous_unique_facts": 4,
+          "pairs": 4,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/http.md",
+          "sha256": "e1731bea054a7902819d7b0432adcd971096b9b27d63e4f23d67834f8357ff2e",
+          "facts": 58,
+          "unambiguous_unique_facts": 39,
+          "pairs": 36,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/http2.md",
+          "sha256": "c982b5d5bc3a9baeb3a40fe90a34ac8fdfc9e47709a131f45711a6f2a8a925a8",
+          "facts": 46,
+          "unambiguous_unique_facts": 27,
+          "pairs": 12,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/https.md",
+          "sha256": "ce70bcfd6ed15b19720776a221a8119c85099ff7bfb909603d7c16f33255eeef",
+          "facts": 7,
+          "unambiguous_unique_facts": 3,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/index.md",
+          "sha256": "b9720edb07a0a006fde676e5a497b6eefa1d5b3a80c7fe086025f6fd9371d263",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/inspector.md",
+          "sha256": "4d34d78a9aeca4fa5e67a2138bcbe5399a090f6463a968a05008d498c9214ca0",
+          "facts": 10,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/intl.md",
+          "sha256": "3c3049df8a5cd626bbcabca5791936574ab4c6a0184273c197481d1758f773c1",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/module.md",
+          "sha256": "dbda644bf4cafca355f101680e4fe0d9e1aff81191fb7827ebfee095a65cb8c9",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/modules.md",
+          "sha256": "dd42face38f76212ab0d49ecc4a8fcdb3ff61e54e2cbf23fc10f6d50daa83ba4",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/n-api.md",
+          "sha256": "847359fc270be3a5f1f4f3cc830d263b81b883ae875eae158c1d98cc26450f35",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/net.md",
+          "sha256": "1462e1c85c3954ef3743cec2eb0489acb1be5e39df0e53ef50feb33b9f0beb31",
+          "facts": 34,
+          "unambiguous_unique_facts": 17,
+          "pairs": 12,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/os.md",
+          "sha256": "fd95cd5d737b04fa19040d94bb6885ec2ea0cc7bdd8aba0a7dbef30abf7c08e1",
+          "facts": 17,
+          "unambiguous_unique_facts": 17,
+          "pairs": 12,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/packages.md",
+          "sha256": "12b43501979b1f55f1c509fc69b18b3baa629992cc0a04b276a9ea383bd2fb1d",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/path.md",
+          "sha256": "43ed615def60e5027abb6efda913fbd8590dfe93b7aa6321fbaac6f55aca7fd8",
+          "facts": 11,
+          "unambiguous_unique_facts": 11,
+          "pairs": 8,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/perf_hooks.md",
+          "sha256": "5f40030d2b0a2b3ae421adf7e72240fcd74250fed70f6dc266078054977d0520",
+          "facts": 22,
+          "unambiguous_unique_facts": 22,
+          "pairs": 4,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/permissions.md",
+          "sha256": "c2f22999c271fcc37de0031ad5e2be23d0fa7a14c3106565335e335937273cd3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/process.md",
+          "sha256": "a875d1e0e0b70cadacc80890204cef0950dd8063f074ee8e45495c91205a20da",
+          "facts": 41,
+          "unambiguous_unique_facts": 37,
+          "pairs": 36,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/punycode.md",
+          "sha256": "cb3e716262569d800560b978ed6a8b92fba39d6534c1ad4732e07cfa7242abd3",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/querystring.md",
+          "sha256": "be244b22c9801710b1b5be4a79366a5c69e0d486a32d0cc7291892623f483382",
+          "facts": 6,
+          "unambiguous_unique_facts": 6,
+          "pairs": 4,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/quic.md",
+          "sha256": "c1e2c01e063f0a2b13fbda057632349cf5968f39068b67adb2e5af36a61e629f",
+          "facts": 11,
+          "unambiguous_unique_facts": 11,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/readline.md",
+          "sha256": "301ee313a1eb657883be25650feafd281bc4663db43cfcb4bafc8c116c3bcca1",
+          "facts": 21,
+          "unambiguous_unique_facts": 19,
+          "pairs": 14,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/repl.md",
+          "sha256": "2f9c7c92473ca7a54f9079127b3dc273fd5bc3030dbecccccd9340a5a4c7d1c6",
+          "facts": 5,
+          "unambiguous_unique_facts": 5,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/report.md",
+          "sha256": "0d6890cd53161104901ab8952d731242385181bb3df810f227b282a548674cba",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/single-executable-applications.md",
+          "sha256": "70c965db217ec06eec7a1b4540f2a48256998a9762330c52c95b42ba020605b3",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/sqlite.md",
+          "sha256": "6a2f90aac81800c173b0569d270656dc9e251bdef132d1e8170a7b5320231458",
+          "facts": 13,
+          "unambiguous_unique_facts": 13,
+          "pairs": 6,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/stream.md",
+          "sha256": "440055be0d72640fb8cd5d727f3b41204467b3e724d5310c33ed4abe996bb503",
+          "facts": 38,
+          "unambiguous_unique_facts": 34,
+          "pairs": 30,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/string_decoder.md",
+          "sha256": "16dc71931f8842da192d70c7bde34b6752c60eb83c7e87f8a333a285906ebe2f",
+          "facts": 2,
+          "unambiguous_unique_facts": 2,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/synopsis.md",
+          "sha256": "3eab2449061a633f773db6556e1cbc42a815b14f4cd100e641fd4121a46ba85a",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/test.md",
+          "sha256": "f6300c48346006fd5dce01a96a6442cdfa7afbf9206542326ada1ab407672114",
+          "facts": 3,
+          "unambiguous_unique_facts": 3,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/timers.md",
+          "sha256": "8052f8fcfcc0f6fcd92767c1104f8d571cb7b0feaf2e06ca531a97490dc96275",
+          "facts": 17,
+          "unambiguous_unique_facts": 11,
+          "pairs": 8,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/tls.md",
+          "sha256": "c010b157325db4aff62890a207111d2929275333943bd1f79e32621c0ae980d5",
+          "facts": 31,
+          "unambiguous_unique_facts": 26,
+          "pairs": 24,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/tracing.md",
+          "sha256": "056cb53b883370e599b545619e8b895fe974595180805609d3b34b931ba6f2ba",
+          "facts": 4,
+          "unambiguous_unique_facts": 4,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/tty.md",
+          "sha256": "ef36dbfce91b5963ae7450691d65882bba2c407d0118ccfda2676bafed968614",
+          "facts": 8,
+          "unambiguous_unique_facts": 8,
+          "pairs": 4,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/typescript.md",
+          "sha256": "5acdbf3fae9ab306e4cbe023d5bcc6ff5f12036fa9656ed7e987250689ff927b",
+          "facts": 0,
+          "unambiguous_unique_facts": 0,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/url.md",
+          "sha256": "053d0515cb0e5643b8168dd21893c3af0d29f6832aafad16506bc4f9930f1e05",
+          "facts": 9,
+          "unambiguous_unique_facts": 5,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/util.md",
+          "sha256": "cf7a9e2f08e7d752c31ff3505d52dd98638b5abd77ace9414f489351a9ec6d46",
+          "facts": 61,
+          "unambiguous_unique_facts": 61,
+          "pairs": 28,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/v8.md",
+          "sha256": "ba26b0342dfdc46aa9143f43db1b431f823f102e0c2100f677ed6b1f6fc473eb",
+          "facts": 9,
+          "unambiguous_unique_facts": 9,
+          "pairs": 6,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/vm.md",
+          "sha256": "fd4c966cd82e7a38e40728b42dd373b524862966a4718c916ef9433285f7530a",
+          "facts": 11,
+          "unambiguous_unique_facts": 11,
+          "pairs": 4,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/wasi.md",
+          "sha256": "815d4f1395bc7a3be4f267b83e497df2ee0a94b754236a8be9993ed13db8ab05",
+          "facts": 1,
+          "unambiguous_unique_facts": 1,
+          "pairs": 0,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/webcrypto.md",
+          "sha256": "e270225a75870e49733991168220cf2c4133be7fc5e644eaeeca179aaec54aef",
+          "facts": 14,
+          "unambiguous_unique_facts": 13,
+          "pairs": 2,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/webstreams.md",
+          "sha256": "1f949b34d4df63cd0f0c3f2b8d1ff7bcff468f64245b7e2f8d8cda0b8921a8fb",
+          "facts": 37,
+          "unambiguous_unique_facts": 37,
+          "pairs": 12,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/worker_threads.md",
+          "sha256": "2bc8c3a1fcfdebcf122313d87ddb43e1884bcbb51355effe7996d9b106523930",
+          "facts": 17,
+          "unambiguous_unique_facts": 17,
+          "pairs": 14,
+          "split": "audit"
+        },
+        {
+          "path": "doc/api/zlib.md",
+          "sha256": "acf5e4b9ba48e49ef09154d7ef6b1b7cca6b08f214f2c4ea6e3fa5179db774b8",
+          "facts": 25,
+          "unambiguous_unique_facts": 25,
+          "pairs": 16,
+          "split": "audit"
+        }
+      ]
+    }
+  },
+  "files": {
+    "train": {
+      "rows": 256,
+      "pages": 63,
+      "sha256": "4d30e1812243d2f8b6aee7e7a70e7323d5bb875dc8d98f8921045eee1d703601"
+    },
+    "validation": {
+      "rows": 64,
+      "pages": 15,
+      "sha256": "de760b77cc0f97f7fe738f3ee7e6447e27b3dd71fcfb93d88263d93f0c2e0d82"
+    },
+    "audit": {
+      "rows": 128,
+      "pages": 39,
+      "sha256": "ddadd72e68d68949325ab30a1f1a3c2a733d54e979d1c74b0dd94d809e1d76ba"
+    }
+  },
+  "normalized_cross_split_overlap": 0,
+  "max_checked_tokens": 149,
+  "request_byte_ceiling": 256,
+  "token_ceiling": 256,
+  "audit_metrics": "not measured",
+  "baseline_sha256": "352ea4aefbbf94a16abe98a238ed1bebc45475503d74ffd5643b0093b9fcc6bf",
+  "selection": "bounded source-order pilot after full inventory, not a population benchmark",
+  "scope": "supplied API introduction facts only, no browsing, no future-time claim"
+}

@@ -1,0 +1,40 @@
+{
+  "family": "WEB_SEARCH",
+  "run_id": "803e7c2595204a1ba05c3ea079eece73",
+  "sources": {
+    "python": {
+      "repo": "python/cpython",
+      "tag": "v3.14.0",
+      "revision": "ebf955df7a89ed0c7968f79faec1de49f61ed7cb",
+      "url": "https://codeload.github.com/python/cpython/tar.gz/ebf955df7a89ed0c7968f79faec1de49f61ed7cb",
+      "sha256": "57601e7fdcf7ce150e76e0af106768ec7491c39b246b45a1599c06d0c6f61bdc",
+      "bytes": 31174994,
+      "prefix": "Doc/library/",
+      "suffix": ".rst",
+      "licence": "PSF-2.0"
+    },
+    "node": {
+      "repo": "nodejs/node",
+      "tag": "v24.0.0",
+      "revision": "c5349f43cd66d2aa02d86414c9ed426f71d3ae48",
+      "url": "https://codeload.github.com/nodejs/node/tar.gz/c5349f43cd66d2aa02d86414c9ed426f71d3ae48",
+      "sha256": "0f8b8b6f63ca95c420f4c8beaeeaa5332ebc793f76d06236aacc96aa3495a767",
+      "bytes": 116234591,
+      "prefix": "doc/api/",
+      "suffix": ".md",
+      "licence": "MIT",
+      "scoped_snapshot": "b7d156beca42088e38bdca440acdf8772988e910d0898d4ecf8c582477a7e246",
+      "scoped_pages": 66
+    },
+    "trainer.py": {
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+      "sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+      "bytes": 39897
+    },
+    "tokenizer.json": {
+      "url": "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/tokenizer.json",
+      "sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+      "bytes": 3583486
+    }
+  }
+}

@@ -1,0 +1,126 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "name": "WEB_SEARCH owner qualification",
+  "on": {
+    "workflow_dispatch": {
+      "inputs": {
+        "mode": {
+          "type": "choice",
+          "options": [
+            "train",
+            "serve"
+          ],
+          "default": "train",
+          "required": true
+        },
+        "settings": {
+          "type": "string",
+          "default": "{}",
+          "required": false
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "owner-web_search-${{ inputs.mode }}",
+    "cancel-in-progress": false
+  },
+  "jobs": {
+    "owner": {
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 350,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TOKENIZERS_PARALLELISM": "false",
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "CUDA_VISIBLE_DEVICES": "",
+        "OWNER_SETTINGS_JSON": "${{ inputs.settings }}"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "persist-credentials": false,
+            "sparse-checkout": "/verification/owners/web_search/\n/.github/workflows/evaluator-owner-web_search.yml",
+            "sparse-checkout-cone-mode": false
+          }
+        },
+        {
+          "name": "Standalone source gate",
+          "run": "bash verification/owners/web_search/verify.sh"
+        },
+        {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Install hash-locked public CPU dependencies",
+          "timeout-minutes": 20,
+          "run": "python3 -m venv \"$RUNNER_TEMP/owner-venv\"\n\"$RUNNER_TEMP/owner-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/web_search/requirements.lock\n\"$RUNNER_TEMP/owner-venv/bin/python\" -m pip check"
+        },
+        {
+          "name": "Initialize licence boundary",
+          "run": "python3 verification/owners/web_search/preserve.py --root \"$RUNNER_TEMP/owner-web_search\""
+        },
+        {
+          "name": "Audit every locked release",
+          "timeout-minutes": 5,
+          "run": "\"$RUNNER_TEMP/owner-venv/bin/python\" verification/owners/web_search/dependency_audit.py --lock verification/owners/web_search/requirements.lock --out \"$RUNNER_TEMP/owner-audit.txt\" --report \"$RUNNER_TEMP/owner-web_search/dependency-audit.json\""
+        },
+        {
+          "name": "Frozen training, validation, audit and reference engine",
+          "if": "inputs.mode == 'train'",
+          "timeout-minutes": 310,
+          "run": "timeout --signal=TERM --kill-after=20s 18300 \"$RUNNER_TEMP/owner-venv/bin/python\" verification/owners/web_search/remote.py --root \"$RUNNER_TEMP/owner-web_search\""
+        },
+        {
+          "name": "Prepare audited serving lease",
+          "if": "inputs.mode == 'serve'",
+          "timeout-minutes": 15,
+          "run": "\"$RUNNER_TEMP/owner-venv/bin/python\" verification/owners/web_search/serve.py prepare --root \"$RUNNER_TEMP/owner-web_search\" --settings \"$OWNER_SETTINGS_JSON\""
+        },
+        {
+          "name": "Upload only restricted public serving lease",
+          "if": "inputs.mode == 'serve'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "web-search-lease-${{ github.run_id }}",
+            "path": "${{ runner.temp }}/owner-web_search/lease.json",
+            "if-no-files-found": "error",
+            "retention-days": 7
+          }
+        },
+        {
+          "name": "Bounded identical reference serving",
+          "if": "inputs.mode == 'serve'",
+          "timeout-minutes": 305,
+          "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/owner-venv/bin/python\" verification/owners/web_search/serve.py run --root \"$RUNNER_TEMP/owner-web_search\""
+        },
+        {
+          "name": "Preserve partial checkpoints and original grants",
+          "if": "always() && inputs.mode == 'train'",
+          "run": "python3 verification/owners/web_search/preserve.py --root \"$RUNNER_TEMP/owner-web_search\""
+        },
+        {
+          "name": "Upload exact audit and package evidence",
+          "if": "always() && inputs.mode == 'train'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "web-search-result-${{ github.run_id }}",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/owner-web_search/*.json\n${{ runner.temp }}/owner-web_search/*.safetensors\n${{ runner.temp }}/owner-web_search/reference-runtime.log\n${{ runner.temp }}/owner-web_search/initial/\n${{ runner.temp }}/owner-web_search/selected/\n${{ runner.temp }}/owner-web_search/checkpoint/"
+          }
+        }
+      ]
+    }
+  }
+}
