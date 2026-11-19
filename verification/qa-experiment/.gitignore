@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+__pycache__/
+/evidence/data/sources/
+/evidence/data/*.jsonl
+/evidence/data/LICENSE
+/evidence/data/NOTICE
+/evidence/data/frozen-controls.json
+/evidence/live-class/class-snapshot.json
+/evidence/tooling/

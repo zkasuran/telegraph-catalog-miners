@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """One guarded arm. Old test and audit reads are denied in this process."""
 import argparse
+import base64
 import json
 import math
-import struct
 from collections import Counter
 from dataclasses import asdict
 from pathlib import Path
@@ -18,6 +18,7 @@ from core import (
     sha,
     write,
 )
+from matched import boundary, initial_spec, require_match, restore_rng, validate_orders
 from model_ops import (
     read_development,
     reload_snapshot,
@@ -44,12 +45,28 @@ def fit(root, arm):
         raise RuntimeError("upstream dataset gate failed before model loading")
     tokenize(trainer, tok, node, [splits["train"], splits["validation"], *formats.values()], root / "evidence" / (arm + "-tokenizer-check.json"))
     planned = schedule(hp.epochs, len(splits["train"]))
+    initial, plan = initial_spec(root)
+    validate_orders(plan, splits["train"])
+    loader_rng = torch.Generator()
+    loader_rng.set_state(torch.tensor(list(base64.b64decode(initial["loader_rng"], validate=True)), dtype=torch.uint8))
+    class FrozenSampler:
+        epoch = 0
+        def __len__(self):
+            return len(splits["train"])
+        def __iter__(self):
+            if self.epoch >= hp.epochs:
+                raise ValueError("extra training loader iteration")
+            order = plan["epochs"][self.epoch]
+            self.epoch += 1
+            return iter(order)
     write(root / "evidence" / (arm + "-schedule.json"), {**planned, "hyperparameters": asdict(hp)})
     history, telemetry, epoch_state, window = [], [], {}, Counter()
+    observed_order, observed_epochs = [], []
     class ObservedCollator(trainer.PairCollator):
         def __call__(self, batch):
             for row in batch:
                 window[(row["label"], row["style"])] += 1
+                observed_order.append(row["group_id"])
             return super().__call__(batch)
     def step(optim, params, gstep):
         if gstep >= planned["optimizer_calls"]:
@@ -73,6 +90,13 @@ def fit(root, arm):
         if window or steps != (index + 1) * planned["steps_per_epoch"]:
             raise ValueError("discarded accumulation tail or step-count drift")
         epoch_state.update(epoch=index, train_loss=train_loss, optimizer_calls=steps)
+        expected = [plan["source_groups"][i] for i in plan["epochs"][index]]
+        actual = {"epoch": index, "groups": list(observed_order), "order_matches_plan": observed_order == expected}
+        observed_epochs.append(actual)
+        write(root / "evidence" / (arm + "-orders.json"), observed_epochs)
+        if not actual["order_matches_plan"]:
+            raise ValueError("actual training order differs from frozen plan")
+        observed_order.clear()
     original_evaluate = trainer.evaluate
     def traced(model, token, rows, hparams, train_negatives=None):
         # This original evaluation must consume exactly its usual RNG draws.
@@ -94,13 +118,30 @@ def fit(root, arm):
     original_build = trainer.build_model
     def observed_build(base, hparams):
         model, token = original_build(base, hparams)
+        frozen = json.loads((root / "evidence" / "untrained-validation.json").read_text())
+        directory = root / "adapters" / "untrained"
+        if sha((directory / "adapter_model.safetensors").read_bytes()) != frozen["adapter_sha256"] or sha((directory / "adapter_config.json").read_bytes()) != frozen["config_sha256"]:
+            raise ValueError("frozen initial adapter identity changed")
+        reload_snapshot(root, "untrained", model)
+        restore_rng(torch, np, initial["rng"])
         names = {name: p.numel() for name, p in model.named_parameters() if p.requires_grad}
         write(root / "evidence" / (arm + "-trainable.json"), {"parameters": names, "count": sum(names.values())})
         return model, token
+    def start(model, optim, sched):
+        actual = boundary(root, model, torch, np, plan, loader_rng)
+        actual["match"] = require_match(initial, actual)
+        actual["new_baseline"] = True
+        actual["fresh_optimizer"] = not optim.state
+        actual["initial_lr"] = optim.param_groups[0]["lr"]
+        actual["scheduler_epoch"] = sched.last_epoch
+        write(root / "evidence" / (arm + "-initial.json"), actual)
+        if not actual["fresh_optimizer"] or actual["initial_lr"] != 0 or sched.last_epoch != 0:
+            raise ValueError("new arm must start with a fresh zero-step optimizer/scheduler")
     private.update(evaluate=traced, diagnostic_step=step, diagnostic_epoch=epoch,
-                   PairCollator=ObservedCollator, build_model=observed_build)
+                   PairCollator=ObservedCollator, build_model=observed_build,
+                   diagnostic_sampler=FrozenSampler(), diagnostic_loader_rng=loader_rng, diagnostic_start=start)
     source = Path(trainer.__file__).read_text()
-    train, overlay_text = overlay(source, private)
+    train, overlay_text = overlay(source, private, matched=True)
     (root / "evidence" / (arm + "-trainer-overlay.py")).write_text(overlay_text + "\n")
     model, tok, _ = train(str(root / "base"), splits["train"], splits["validation"], root / "best" / arm, hp)
     # Verify the trainer's best-loss restoration against its disk snapshot.
@@ -120,19 +161,9 @@ def fit(root, arm):
         replay = score_views(trainer, model, tok, formats, hp)
     if replay != best["formats"]:
         raise ValueError("saved snapshot validation margin replay changed")
-    if arm == "C3":
-        reference = CONTRACT["c3_reproduction"]
-        raw = (root / "adapters" / best["snapshot"] / "adapter_model.safetensors").read_bytes()
-        size = struct.unpack("<Q", raw[:8])[0]
-        checks = {"epochs": len(history) == 3, "saved_epoch": best["epoch"] == reference["best_epoch"],
-                  "payload": sha(raw[8 + size:]) == reference["best_payload_sha256"],
-                  "train_loss": [round(r["train_loss"], 4) for r in history] == reference["training_loss_4dp"],
-                  "validation_accuracy": [r["original_mixed_validation"]["pairwise_accuracy"] for r in history] == reference["validation_accuracy"],
-                  "validation_loss": [round(r["original_mixed_validation"]["val_loss"], 4) for r in history] == reference["validation_loss_4dp"]}
-        write(root / "evidence" / "C3-reproduction.json", {"checks": checks, "valid_comparison": all(checks.values()),
-              "limit": reference["failure_policy"]})
-        if not all(checks.values()):
-            raise ValueError("C3 reproduction differs; comparison invalidated")
+    write(root / "evidence" / (arm + "-new-baseline.json"), {
+          "scope": "New within-job arm, not historical reproduction", "historical_comparison_valid": False,
+          "initial_state_sha256": initial["initial_state_sha256"], "plan_sha256": initial["plan_sha256"]})
     write(root / "evidence" / (arm + "-restoration.json"), {**reload_result, "best_epoch": best["epoch"],
           "validation_replay_equal": True, "optimizer_calls_executed": len(telemetry),
           "original_trainer_global_unchanged": trainer.evaluate is original_evaluate})

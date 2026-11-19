@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "upstream": {
+    "ok": true,
+    "n": 128,
+    "metrics": {
+      "unique_rejected_frac": 1.0,
+      "top_rejected_share": 0.0078,
+      "length_shortcut_acc": 0.5,
+      "eval_negative_leak": 0.0,
+      "surface_probe_acc": 0.4684,
+      "mean_len_chosen": 442.7,
+      "mean_len_rejected": 394.0
+    },
+    "failures": []
+  },
+  "validation_controls": {
+    "length": 0.5,
+    "token_length": 0.5,
+    "overlap": 0.46875,
+    "answer_only": 0.625,
+    "surface": 0.5
+  },
+  "token_visible": {
+    "pairs": 224,
+    "full_inputs_fit": true,
+    "identical_retained_pairs": 0,
+    "max_tokens": 256
+  },
+  "conformance_vectors": 88,
+  "failures": [],
+  "audit_metrics": "sealed until fixed training checkpoint exists",
+  "no_gate_bypass": true,
+  "fixed_split_contract": true
+}

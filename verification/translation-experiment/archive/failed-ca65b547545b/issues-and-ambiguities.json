@@ -1,0 +1,1744 @@
+{
+  "failed_links": [
+    {
+      "split": "train",
+      "block_index": 85,
+      "english_id": 9795147,
+      "french_id": 2564823,
+      "failure": "English present progressive becomes French imperfect past. The frozen link is not an intact tense-preserving reference.",
+      "english_evidence": "You are neglecting yourself.",
+      "french_evidence": "Vous vous n\u00e9gligiez."
+    },
+    {
+      "split": "train",
+      "block_index": 127,
+      "english_id": 11008290,
+      "french_id": 6212792,
+      "failure": "English asks whether to report inability to work. French asks whether to report why one cannot work, adding a request for reasons.",
+      "english_evidence": "Do I have to tell the employer that I'm unable to work?",
+      "french_evidence": "Est-ce que je dois dire \u00e0 l'employeur, pourquoi je suis incapable de travailler ?"
+    },
+    {
+      "split": "validation",
+      "block_index": 22,
+      "english_id": 10092686,
+      "french_id": 10971287,
+      "failure": "The French reference omits the requirement to book in advance.",
+      "english_evidence": "You have to book in advance.",
+      "french_evidence": "Il faut r\u00e9server."
+    },
+    {
+      "split": "test",
+      "block_index": 11,
+      "english_id": 12997332,
+      "french_id": 5251372,
+      "failure": "English their is plural-possessor ownership. French ses names a singular possessor. The ownership relation changes.",
+      "english_evidence": "They're washing their apples.",
+      "french_evidence": "Ils lavent ses pommes."
+    },
+    {
+      "split": "test",
+      "block_index": 16,
+      "english_id": 845613,
+      "french_id": 844653,
+      "failure": "English inability to act accordingly becomes French inability to agree. Understanding, action and agreement are different claims.",
+      "english_evidence": "While I understand what you are saying, I cannot do accordingly.",
+      "french_evidence": "Bien que je comprenne ce que vous dites, je ne peux pas \u00eatre d'accord avec vous."
+    }
+  ],
+  "unresolved_context_flags": [
+    {
+      "ids": [
+        64241,
+        465686
+      ],
+      "old_split": "train",
+      "english": "Your dog is very big.",
+      "french": "Votre chien est tr\u00e8s gros.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5938705,
+        8030708
+      ],
+      "old_split": "train",
+      "english": "I'd never let you do that.",
+      "french": "Je ne vous laisserais jamais faire cela.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2541981,
+        4875427
+      ],
+      "old_split": "train",
+      "english": "I'll answer all your questions.",
+      "french": "Je r\u00e9pondrai \u00e0 toutes tes questions.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        17567,
+        139513
+      ],
+      "old_split": "train",
+      "english": "Let me give you some advice.",
+      "french": "Laisse-moi te donner un conseil.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        6028582,
+        10963225
+      ],
+      "old_split": "train",
+      "english": "You can't give up like this.",
+      "french": "Tu ne peux pas abandonner comme \u00e7a.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9981357,
+        10051708
+      ],
+      "old_split": "train",
+      "english": "It's an hour away by bus.",
+      "french": "C'est \u00e0 une heure de bus.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        50875,
+        1056615
+      ],
+      "old_split": "train",
+      "english": "It'll take an hour to get there.",
+      "french": "Il faudra une heure pour y arriver.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10124331,
+        10205217
+      ],
+      "old_split": "train",
+      "english": "You have to respect the rules.",
+      "french": "Vous devez respecter les r\u00e8gles.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1388138,
+        5353285
+      ],
+      "old_split": "train",
+      "english": "I brought you red roses.",
+      "french": "Je vous ai amen\u00e9 des roses rouges.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9853791,
+        9890020
+      ],
+      "old_split": "train",
+      "english": "Do you have pain when urinating?",
+      "french": "Avez-vous des douleurs en urinant\u00a0?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        41543,
+        534236
+      ],
+      "old_split": "train",
+      "english": "You have given me so many.",
+      "french": "Tu m'en as donn\u00e9 tant.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        268414,
+        128522
+      ],
+      "old_split": "train",
+      "english": "All passengers are required to show their tickets.",
+      "french": "Tous les passagers sont pri\u00e9s de pr\u00e9senter leurs tickets.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2906376,
+        2906249
+      ],
+      "old_split": "train",
+      "english": "You brought some water.",
+      "french": "Tu as apport\u00e9 de l\u2019eau.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        241297,
+        430949
+      ],
+      "old_split": "train",
+      "english": "You'll have to modify the height of the table to make it fit.",
+      "french": "Vous allez devoir modifier la hauteur de la table pour la faire rentrer.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4834910,
+        10717642
+      ],
+      "old_split": "train",
+      "english": "You should take up golf.",
+      "french": "Tu devrais te mettre au golf.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3596776,
+        3596784
+      ],
+      "old_split": "train",
+      "english": "I'd like to thank you all for coming.",
+      "french": "J'aimerais toutes vous remercier d'\u00eatre venues.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        28433,
+        14193
+      ],
+      "old_split": "train",
+      "english": "Come home before it gets dark.",
+      "french": "Rentrez avant qu'il ne fasse nuit.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2542309,
+        11071151
+      ],
+      "old_split": "train",
+      "english": "I'm tired of being your slave.",
+      "french": "Je suis fatigu\u00e9 d'\u00eatre ton esclave.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3068241,
+        6479807
+      ],
+      "old_split": "train",
+      "english": "You should not have said that.",
+      "french": "Tu n'aurais pas d\u00fb dire \u00e7a.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2626621,
+        11517336
+      ],
+      "old_split": "train",
+      "english": "We'll leave when it stops raining.",
+      "french": "Nous partirons quand il arr\u00eatera de pleuvoir.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        13370315,
+        11939584
+      ],
+      "old_split": "train",
+      "english": "It leaves something to be desired.",
+      "french": "Cela laisse \u00e0 d\u00e9sirer.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        244299,
+        1538575
+      ],
+      "old_split": "train",
+      "english": "Was it difficult to make?",
+      "french": "Cela a-t-il \u00e9t\u00e9 difficile \u00e0 fabriquer ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10646593,
+        128398
+      ],
+      "old_split": "train",
+      "english": "I had just begun when it started to rain.",
+      "french": "J'avais \u00e0 peine commenc\u00e9 qu'il se mit \u00e0 pleuvoir.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4756778,
+        4758590
+      ],
+      "old_split": "train",
+      "english": "I know I'm a burden; you don't have to repeat it.",
+      "french": "Je sais que je suis un fardeau ; inutile de le r\u00e9p\u00e9ter.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        637209,
+        814254
+      ],
+      "old_split": "train",
+      "english": "Get a move on kids or you'll miss the school bus.",
+      "french": "Allons-y les enfants ou vous allez manquer le car scolaire.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        7521566,
+        7526022
+      ],
+      "old_split": "train",
+      "english": "We know that you're sick.",
+      "french": "Nous savons que tu es malade.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        11671521,
+        10647573
+      ],
+      "old_split": "train",
+      "english": "They repared them.",
+      "french": "Elles les ont r\u00e9par\u00e9s.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2631442,
+        1971372
+      ],
+      "old_split": "train",
+      "english": "I know that this doesn't interest you.",
+      "french": "Je sais que \u00e7a ne t'int\u00e9resse pas.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4449119,
+        12946641
+      ],
+      "old_split": "train",
+      "english": "Try to get along with your brother.",
+      "french": "Essaie de bien t'entendre avec ton fr\u00e8re.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        983937,
+        1039453
+      ],
+      "old_split": "train",
+      "english": "Do you know her father?",
+      "french": "Connaissez-vous son p\u00e8re\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4264746,
+        4470590
+      ],
+      "old_split": "train",
+      "english": "What do you think of your job?",
+      "french": "Que penses-tu de ton travail ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3730715,
+        4060785
+      ],
+      "old_split": "train",
+      "english": "Where do you get off telling me anything?",
+      "french": "Comment vous permettez-vous de me dire quoi que ce soit ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3669929,
+        3662337
+      ],
+      "old_split": "train",
+      "english": "Are you happy with your new sports car?",
+      "french": "Es-tu satisfait de ta nouvelle voiture de sport ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        66472,
+        1200906
+      ],
+      "old_split": "train",
+      "english": "It is not my intent to hurt you in any way.",
+      "french": "Il n'est pas dans mon intention de vous blesser le moins du monde.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2014741,
+        2015085
+      ],
+      "old_split": "train",
+      "english": "They just want someone to blame.",
+      "french": "Ils veulent juste quelqu'un \u00e0 qui faire endosser la responsabilit\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3372390,
+        4652573
+      ],
+      "old_split": "train",
+      "english": "You're making too much noise.",
+      "french": "Tu fais trop de bruit.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2645010,
+        5366475
+      ],
+      "old_split": "train",
+      "english": "They said you were fired.",
+      "french": "Ils ont dit que tu \u00e9tais vir\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3331110,
+        7045120
+      ],
+      "old_split": "train",
+      "english": "You know I'm older than you are.",
+      "french": "Vous savez que je suis plus vieille que vous.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5936850,
+        13398324
+      ],
+      "old_split": "train",
+      "english": "I have a bathrobe, but I seldom wear it.",
+      "french": "J'ai un peignoir, mais je le porte rarement.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4484508,
+        3630476
+      ],
+      "old_split": "train",
+      "english": "You are lucky because he didn't bite you.",
+      "french": "Tu as de la chance qu'il ne t'ait pas mordu.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2949964,
+        7763314
+      ],
+      "old_split": "train",
+      "english": "It's not something I'm proud of.",
+      "french": "Ce n'est pas quelque chose dont je suis fier.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        323027,
+        1157708
+      ],
+      "old_split": "train",
+      "english": "I'd like you to itemize the charges.",
+      "french": "J'aimerais que vous fassiez le d\u00e9tail des frais.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        953284,
+        1370755
+      ],
+      "old_split": "train",
+      "english": "Have you been told why we didn't hire you?",
+      "french": "Vous a-t-on dit pourquoi nous ne vous avons pas embauch\u00e9e ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        325562,
+        135592
+      ],
+      "old_split": "train",
+      "english": "Did the trip live up to your expectations?",
+      "french": "Ce voyage a-t-il \u00e9t\u00e9 \u00e0 la hauteur de vos attentes\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12888508,
+        12888552
+      ],
+      "old_split": "train",
+      "english": "Is it possible to live without a lover?",
+      "french": "Est-il possible de vivre sans amant\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9795369,
+        11670083
+      ],
+      "old_split": "train",
+      "english": "Will you come back here again next week?",
+      "french": "Vous allez revenir ici la semaine prochaine\u00a0?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3730728,
+        4060798
+      ],
+      "old_split": "train",
+      "english": "How do you think you're doing?",
+      "french": "Que penses-tu de la mani\u00e8re dont tu t'en sors ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2725708,
+        8549395
+      ],
+      "old_split": "train",
+      "english": "We are very happy to have received a message from you.",
+      "french": "Nous sommes heureuses d'avoir re\u00e7u un message de votre part.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        953697,
+        1047560
+      ],
+      "old_split": "train",
+      "english": "I was just wondering how it would feel to be punched in the stomach.",
+      "french": "Je me demandais justement comment \u00e7a ferait d'\u00eatre frapp\u00e9 \u00e0 l'estomac.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3385056,
+        7802627
+      ],
+      "old_split": "train",
+      "english": "You should throw this away.",
+      "french": "Vous devriez vous d\u00e9barrasser de ceci.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4198259,
+        4199967
+      ],
+      "old_split": "train",
+      "english": "It appears that the victim tried to write the murderer's name with his own blood.",
+      "french": "Il semble que la victime a tent\u00e9 d'\u00e9crire le nom de l'assassin de son propre sang.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2647292,
+        3628790
+      ],
+      "old_split": "train",
+      "english": "Where are your kids?",
+      "french": "O\u00f9 sont tes enfants ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        695123,
+        695204
+      ],
+      "old_split": "train",
+      "english": "You need the keys?",
+      "french": "T'as besoin des clefs\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3396731,
+        7553128
+      ],
+      "old_split": "train",
+      "english": "Where were you guys today?",
+      "french": "O\u00f9 \u00e9tiez-vous aujourd'hui\u00a0?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1890700,
+        1892175
+      ],
+      "old_split": "train",
+      "english": "Were you looking at him?",
+      "french": "Le regardais-tu ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2016818,
+        2018107
+      ],
+      "old_split": "train",
+      "english": "Are you sure you don't want coffee?",
+      "french": "Es-tu certaine de ne pas vouloir de caf\u00e9 ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        17381,
+        1608651
+      ],
+      "old_split": "train",
+      "english": "What's the weight of your suitcase?",
+      "french": "Quel est le poids de ta valise\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12391306,
+        12388961
+      ],
+      "old_split": "train",
+      "english": "I remember all of their names.",
+      "french": "Je me souviens de tous leurs noms.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2064782,
+        2426413
+      ],
+      "old_split": "train",
+      "english": "I got you a little something.",
+      "french": "Je t'ai ramen\u00e9 un petit quelque chose.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1970155,
+        1970726
+      ],
+      "old_split": "train",
+      "english": "I don't like your friends.",
+      "french": "Je n'appr\u00e9cie pas vos amis.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3734355,
+        5616326
+      ],
+      "old_split": "train",
+      "english": "You understand me very well.",
+      "french": "Vous me comprenez tr\u00e8s bien.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3152850,
+        12650276
+      ],
+      "old_split": "train",
+      "english": "I gave them all the information they requested.",
+      "french": "Je leur ai fourni toutes les informations qu'ils demandaient.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2540966,
+        5943553
+      ],
+      "old_split": "train",
+      "english": "I'm glad you asked that question.",
+      "french": "Je suis content que vous ayez pos\u00e9 cette question.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        13483617,
+        13483614
+      ],
+      "old_split": "train",
+      "english": "It's been a while since we last talked!",
+      "french": "\u00c7a fait un bail qu'on n'a pas discut\u00e9\u202f!",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3823642,
+        6587482
+      ],
+      "old_split": "train",
+      "english": "Is your left leg still hurting?",
+      "french": "Avez-vous encore mal \u00e0 la jambe gauche\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        11580056,
+        11547427
+      ],
+      "old_split": "train",
+      "english": "It was you who opened my eyes.",
+      "french": "C'est toi qui m'as ouvert les yeux.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        8928849,
+        11525604
+      ],
+      "old_split": "train",
+      "english": "That jacket must have cost you a fortune.",
+      "french": "Cette veste a d\u00fb vous co\u00fbter une fortune.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3355351,
+        7774644
+      ],
+      "old_split": "train",
+      "english": "You'd have done the same.",
+      "french": "Vous auriez fait la m\u00eame chose.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        54712,
+        1316837
+      ],
+      "old_split": "train",
+      "english": "This is how I made it.",
+      "french": "Voici comment je l'ai fait.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9794203,
+        13376226
+      ],
+      "old_split": "train",
+      "english": "Do your homework first.",
+      "french": "Fais d'abord tes devoirs.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        11919884,
+        8692673
+      ],
+      "old_split": "train",
+      "english": "Your boxers have a hole.",
+      "french": "Ton cale\u00e7on a un trou.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9795147,
+        2564823
+      ],
+      "old_split": "train",
+      "english": "You are neglecting yourself.",
+      "french": "Vous vous n\u00e9gligiez.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1065424,
+        1411874
+      ],
+      "old_split": "train",
+      "english": "If the phone rings again, I plan to ignore it.",
+      "french": "Si le t\u00e9l\u00e9phone sonne \u00e0 nouveau, j'ai l'intention de l'ignorer.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12223722,
+        7701615
+      ],
+      "old_split": "train",
+      "english": "He's very fond of the country and its people.",
+      "french": "Il aime vraiment le pays et les gens.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        306002,
+        1651605
+      ],
+      "old_split": "train",
+      "english": "They each received a present.",
+      "french": "Ils re\u00e7urent tous deux un pr\u00e9sent.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9025144,
+        9025316
+      ],
+      "old_split": "train",
+      "english": "How long has it been since you moved here?",
+      "french": "Il y a combien de temps que vous avez d\u00e9m\u00e9nag\u00e9 ici ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3500612,
+        3513987
+      ],
+      "old_split": "train",
+      "english": "You're not as smart as me.",
+      "french": "Vous n'\u00eates pas aussi malin que moi.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        11960207,
+        10467819
+      ],
+      "old_split": "train",
+      "english": "Do you have lunch together?",
+      "french": "D\u00e9jeunez-vous ensemble ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        16590,
+        480550
+      ],
+      "old_split": "train",
+      "english": "Did you watch the game?",
+      "french": "As-tu regard\u00e9 le match\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4529460,
+        5289572
+      ],
+      "old_split": "train",
+      "english": "I'm still waiting for your answer.",
+      "french": "J'attends toujours votre r\u00e9ponse.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2292322,
+        2292343
+      ],
+      "old_split": "train",
+      "english": "They did not keep their word.",
+      "french": "Ils n'ont pas tenu parole.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4130756,
+        4130765
+      ],
+      "old_split": "train",
+      "english": "It would never have occurred to me to say anything like that.",
+      "french": "Il ne me serait jamais venu \u00e0 l'esprit de dire quelque chose de la sorte.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12077583,
+        12077862
+      ],
+      "old_split": "train",
+      "english": "I didn't notice your reply, sorry.",
+      "french": "Je n'avais pas remarqu\u00e9 ta r\u00e9ponse, d\u00e9sol\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2406908,
+        2407108
+      ],
+      "old_split": "train",
+      "english": "I suppose you have a plan.",
+      "french": "Je suppose que tu as un plan.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        802347,
+        12624461
+      ],
+      "old_split": "train",
+      "english": "They became tired of losing money.",
+      "french": "Ils sont fatigu\u00e9s de perdre leur argent.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        8793879,
+        2559756
+      ],
+      "old_split": "train",
+      "english": "They were all right.",
+      "french": "Ils \u00e9taient bien.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1193982,
+        1194537
+      ],
+      "old_split": "train",
+      "english": "When was your first love?",
+      "french": "Quand ton premier amour a-t-il eu lieu ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1140037,
+        1140690
+      ],
+      "old_split": "train",
+      "english": "What makes you happy?",
+      "french": "Qu'est-ce qui te rend heureuse ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3248584,
+        3249096
+      ],
+      "old_split": "train",
+      "english": "Go back to your room.",
+      "french": "Retournez dans votre chambre !",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1293152,
+        1293409
+      ],
+      "old_split": "train",
+      "english": "Have you finished your preparations for the trip?",
+      "french": "Avez-vous termin\u00e9 vos pr\u00e9paratifs pour le voyage ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        59183,
+        11349
+      ],
+      "old_split": "train",
+      "english": "Did you know that some foxes lived on this mountain?",
+      "french": "Saviez-vous que quelques renards vivaient sur cette montagne\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        266981,
+        446535
+      ],
+      "old_split": "train",
+      "english": "Wait until your turn comes.",
+      "french": "Attendez que ce soit votre tour.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        954452,
+        6299344
+      ],
+      "old_split": "train",
+      "english": "Was that you on TV last night?",
+      "french": "C'\u00e9tait toi \u00e0 la t\u00e9l\u00e9 hier soir ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3683852,
+        3684135
+      ],
+      "old_split": "train",
+      "english": "What did he tell you about me?",
+      "french": "Qu'est-ce qu'il t'a dit sur moi ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2324076,
+        2326618
+      ],
+      "old_split": "train",
+      "english": "They basked in the sun.",
+      "french": "Elles ont pris un bain de soleil.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2276112,
+        2505030
+      ],
+      "old_split": "train",
+      "english": "I don't like your attitude.",
+      "french": "Je n'aime pas ton attitude.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2218184,
+        2310656
+      ],
+      "old_split": "train",
+      "english": "You're just tired.",
+      "french": "Tu es juste fatigu\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        11947732,
+        4594545
+      ],
+      "old_split": "train",
+      "english": "They should eat.",
+      "french": "Il faut qu'elles mangent.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1635852,
+        1638954
+      ],
+      "old_split": "train",
+      "english": "They agreed to give us an interview.",
+      "french": "Ils nous accord\u00e8rent une entrevue.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        328272,
+        492365
+      ],
+      "old_split": "train",
+      "english": "Don't dodge the issue, I want you to answer my question.",
+      "french": "Ne tourne pas autour du pot, je veux que tu r\u00e9pondes \u00e0 ma question.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1186759,
+        1186768
+      ],
+      "old_split": "train",
+      "english": "I think it won't rain this afternoon.",
+      "french": "Je pense qu'il ne pleuvra pas cette apr\u00e8s-midi.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1338431,
+        11276081
+      ],
+      "old_split": "train",
+      "english": "It's all very well in theory, but will it work in practice?",
+      "french": "Tout \u00e7a, c'est bien joli en th\u00e9orie, mais est-ce que \u00e7a fonctionnera en pratique\u00a0?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        6255917,
+        4235401
+      ],
+      "old_split": "validation",
+      "english": "Do you know how to keep a secret?",
+      "french": "Savez-vous garder un secret ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3731172,
+        3977755
+      ],
+      "old_split": "validation",
+      "english": "Would you like to see your room?",
+      "french": "Voudrais-tu voir ta chambre ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3392962,
+        10727517
+      ],
+      "old_split": "validation",
+      "english": "Have you read it?",
+      "french": "Est-ce que tu l\u2019as lu\u00a0?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3060584,
+        2025076
+      ],
+      "old_split": "validation",
+      "english": "Do you have a telephone?",
+      "french": "Avez-vous un t\u00e9l\u00e9phone ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5353765,
+        968128
+      ],
+      "old_split": "validation",
+      "english": "You can't miss seeing this wonderful film.",
+      "french": "Tu ne dois pas manquer ce film magnifique.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10903647,
+        430236
+      ],
+      "old_split": "validation",
+      "english": "It's rotten weather.",
+      "french": "Il fait un temps de chien.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3563954,
+        3564354
+      ],
+      "old_split": "validation",
+      "english": "It's a good choice.",
+      "french": "C'est un bon choix.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2959395,
+        9772205
+      ],
+      "old_split": "validation",
+      "english": "I didn't know you were related.",
+      "french": "Je ne savais pas que vous \u00e9tiez de la m\u00eame famille.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2300261,
+        11135758
+      ],
+      "old_split": "validation",
+      "english": "I came to see if you were OK.",
+      "french": "Je suis venu voir si tu allais bien.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3529376,
+        3532204
+      ],
+      "old_split": "validation",
+      "english": "I thought you liked her.",
+      "french": "Je pensais que vous l'appr\u00e9ciiez.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1887300,
+        2422874
+      ],
+      "old_split": "validation",
+      "english": "I forgot to tell you when to come.",
+      "french": "J'ai oubli\u00e9 de t'indiquer quand venir.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        954821,
+        13079263
+      ],
+      "old_split": "validation",
+      "english": "You'll be dead someday.",
+      "french": "Un jour, tu seras mort.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10570826,
+        2572517
+      ],
+      "old_split": "validation",
+      "english": "They often skive off school.",
+      "french": "Ils font souvent l'\u00e9cole buissonni\u00e8re.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        68935,
+        822278
+      ],
+      "old_split": "validation",
+      "english": "I wonder if you are truly happy.",
+      "french": "Je me demande si tu es vraiment heureux.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        259509,
+        127503
+      ],
+      "old_split": "validation",
+      "english": "I have not seen you for ages.",
+      "french": "Je ne suis pas venu vous voir depuis longtemps.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10092686,
+        10971287
+      ],
+      "old_split": "validation",
+      "english": "You have to book in advance.",
+      "french": "Il faut r\u00e9server.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2282436,
+        2283293
+      ],
+      "old_split": "validation",
+      "english": "They tried to cheer me up.",
+      "french": "Ils ont essay\u00e9 de me remonter.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1255527,
+        1066757
+      ],
+      "old_split": "validation",
+      "english": "I am as strong as you.",
+      "french": "Je suis aussi fort que toi.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5428539,
+        12355012
+      ],
+      "old_split": "validation",
+      "english": "I don't know whether it's going to work.",
+      "french": "Je ne sais pas si \u00e7a va marcher.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2026583,
+        2026735
+      ],
+      "old_split": "validation",
+      "english": "I want to know where they hid the money.",
+      "french": "Je veux savoir o\u00f9 elles ont cach\u00e9 l'argent.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        15925,
+        3639463
+      ],
+      "old_split": "validation",
+      "english": "You are too critical of others' shortcomings.",
+      "french": "Vous \u00eates trop critique des d\u00e9fauts des autres.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5771413,
+        5762368
+      ],
+      "old_split": "validation",
+      "english": "Do you want to share with me?",
+      "french": "Veux-tu partager avec moi ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        13813068,
+        1182386
+      ],
+      "old_split": "validation",
+      "english": "Paul, did you do your homework?",
+      "french": "Paul, tu as fait tes devoirs ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        8986495,
+        10993457
+      ],
+      "old_split": "validation",
+      "english": "How old is your friend\u2019s dog?",
+      "french": "Quel \u00e2ge a le chien de ton ami ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5771416,
+        5762369
+      ],
+      "old_split": "validation",
+      "english": "Look! I only bit this side, I'll give you the other.",
+      "french": "Mais, tiens ! je n\u2019ai mordu que de ce c\u00f4t\u00e9-ci, je vais te donner celui-l\u00e0.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        8234813,
+        8247705
+      ],
+      "old_split": "test",
+      "english": "It's an old computer.",
+      "french": "C'est un vieil ordinateur.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        11159977,
+        1462933
+      ],
+      "old_split": "test",
+      "english": "Did you get home all right yesterday?",
+      "french": "Es-tu bien rentr\u00e9 chez toi, hier ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2752911,
+        4096635
+      ],
+      "old_split": "test",
+      "english": "Do you want to go to the aquarium?",
+      "french": "Voulez-vous aller \u00e0 l'aquarium\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12287094,
+        3514546
+      ],
+      "old_split": "test",
+      "english": "Are they all your friends?",
+      "french": "Sont-elles toutes tes amies ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        13034666,
+        13034663
+      ],
+      "old_split": "test",
+      "english": "Are you going to miss me?",
+      "french": "Je vais te manquer ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2225432,
+        2226460
+      ],
+      "old_split": "test",
+      "english": "It made me very happy.",
+      "french": "\u00c7a m'a rendue tr\u00e8s heureuse.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12997332,
+        5251372
+      ],
+      "old_split": "test",
+      "english": "They're washing their apples.",
+      "french": "Ils lavent ses pommes.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4094882,
+        4095649
+      ],
+      "old_split": "test",
+      "english": "Though tears may flow down your face, I won't look back.",
+      "french": "Des larmes pourraient bien couler sur ton visage, je ne regarderai pas en arri\u00e8re.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1961653,
+        2127844
+      ],
+      "old_split": "test",
+      "english": "I thought you might want some breakfast.",
+      "french": "J'ai pens\u00e9 que tu pourrais vouloir un petit-d\u00e9jeuner.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        845613,
+        844653
+      ],
+      "old_split": "test",
+      "english": "While I understand what you are saying, I cannot do accordingly.",
+      "french": "Bien que je comprenne ce que vous dites, je ne peux pas \u00eatre d'accord avec vous.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10496608,
+        10496668
+      ],
+      "old_split": "test",
+      "english": "It was really nice of you to stop by.",
+      "french": "C'est vraiment sympa d'\u00eatre pass\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9161678,
+        9165773
+      ],
+      "old_split": "test",
+      "english": "You hurt me a lot.",
+      "french": "Vous m'avez fait beaucoup de mal.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5000868,
+        11914647
+      ],
+      "old_split": "test",
+      "english": "It's no fun to lose.",
+      "french": "Ce n'est pas dr\u00f4le de perdre.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        259977,
+        560570
+      ],
+      "old_split": "test",
+      "english": "I don't know if he knows it.",
+      "french": "J'ignore s'il le sait.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        266699,
+        128375
+      ],
+      "old_split": "test",
+      "english": "It took me three hours to finish my homework.",
+      "french": "\u00c7a m'a pris trois heures pour finir mes devoirs.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5797476,
+        5798141
+      ],
+      "old_split": "test",
+      "english": "I feel like you don't really care about me.",
+      "french": "J'ai l'impression que tu n'en as rien \u00e0 faire de moi.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        4404636,
+        6470341
+      ],
+      "old_split": "test",
+      "english": "Sad to see you go.",
+      "french": "Je suis triste de te voir partir.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        8230418,
+        10676463
+      ],
+      "old_split": "test",
+      "english": "It's a race against time.",
+      "french": "C\u2019est une course contre la montre.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        16827,
+        474953
+      ],
+      "old_split": "test",
+      "english": "I would rather you had a day off.",
+      "french": "Je pr\u00e9f\u00e9rerais que vous preniez un jour de cong\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        9849509,
+        9926039
+      ],
+      "old_split": "test",
+      "english": "I have to use a needle to inject this under your skin.",
+      "french": "Je dois utiliser une aiguille pour l'injecter sous ta peau.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2549808,
+        8701645
+      ],
+      "old_split": "test",
+      "english": "They're red.",
+      "french": "Ils sont rouges.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        8981936,
+        2230862
+      ],
+      "old_split": "test",
+      "english": "You were tying your shoelaces.",
+      "french": "Tu attachais tes lacets.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        7255547,
+        11230043
+      ],
+      "old_split": "test",
+      "english": "They are counterfeit.",
+      "french": "Ils sont faux.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        12140852,
+        12468742
+      ],
+      "old_split": "test",
+      "english": "You smell like garlic.",
+      "french": "Tu sens l'ail.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        245929,
+        8150
+      ],
+      "old_split": "test",
+      "english": "Children usually have faith in their parents.",
+      "french": "Les enfants ont d'habitude foi en leurs parents.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5204185,
+        8110905
+      ],
+      "old_split": "test",
+      "english": "I hope you brought an umbrella.",
+      "french": "J'esp\u00e8re que vous avez apport\u00e9 un parapluie.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2681851,
+        5912809
+      ],
+      "old_split": "test",
+      "english": "I know that you're very angry.",
+      "french": "Je sais que tu es tr\u00e8s en col\u00e8re.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        410297,
+        6738690
+      ],
+      "old_split": "test",
+      "english": "Angels can fly because they take themselves lightly.",
+      "french": "Les anges volent parce qu'ils se prennent eux-m\u00eames \u00e0 la l\u00e9g\u00e8re.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        16650,
+        474838
+      ],
+      "old_split": "test",
+      "english": "You will soon get accustomed to your new school.",
+      "french": "Vous allez bient\u00f4t vous accoutumer \u00e0 votre nouvelle \u00e9cole.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        324436,
+        1329185
+      ],
+      "old_split": "test",
+      "english": "Bring along your friend.",
+      "french": "Amenez votre ami.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        6626667,
+        6627097
+      ],
+      "old_split": "test",
+      "english": "Will you remember me?",
+      "french": "Vous souviendrez-vous de moi\u202f?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2013878,
+        2589832
+      ],
+      "old_split": "test",
+      "english": "Do you want to take that risk?",
+      "french": "Voulez-vous encourir ce risque ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3731663,
+        3922612
+      ],
+      "old_split": "test",
+      "english": "Can you crank up the heat?",
+      "french": "Pouvez-vous pousser le chauffage ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5206936,
+        5943517
+      ],
+      "old_split": "test",
+      "english": "I love the way you write.",
+      "french": "J'aime la fa\u00e7on dont tu \u00e9cris.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        13787245,
+        13787244
+      ],
+      "old_split": "test",
+      "english": "What are you always working on so hard?",
+      "french": "\u00c0 quoi travaillez-vous si dur ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10864486,
+        10864482
+      ],
+      "old_split": "test",
+      "english": "It was his day off.",
+      "french": "C'\u00e9tait son jour de cong\u00e9.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        5158815,
+        2043987
+      ],
+      "old_split": "test",
+      "english": "How come you're late?",
+      "french": "Pourquoi es-tu en retard ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        1890702,
+        1892168
+      ],
+      "old_split": "test",
+      "english": "Do you think he's pretty?",
+      "french": "Penses-tu qu'il soit mignon ?",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        10607356,
+        13275588
+      ],
+      "old_split": "test",
+      "english": "You have nothing to fear of this spider.",
+      "french": "Vous n\u2019avez rien \u00e0 craindre de cette araign\u00e9e.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        2240862,
+        2251721
+      ],
+      "old_split": "test",
+      "english": "This will help keep you warm.",
+      "french": "\u00c7a t'aidera \u00e0 te garder chaud.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        453901,
+        842769
+      ],
+      "old_split": "test",
+      "english": "They love that song.",
+      "french": "Ils adorent cette chanson.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    },
+    {
+      "ids": [
+        3199897,
+        11781612
+      ],
+      "old_split": "test",
+      "english": "You should've told me.",
+      "french": "Tu aurais d\u00fb me le dire.",
+      "reason": "English pronoun number, referent or possessive context must not be silently specialized in a bidirectional reference."
+    }
+  ],
+  "status": "FAILED_EXPOSED_ARCHIVE_NEVER_VALID",
+  "ai_review": true,
+  "policy": "All archived components are excluded from the next pool, including links without a listed error. Context flags are exclusions, not proof that every flagged translation is wrong."
+}

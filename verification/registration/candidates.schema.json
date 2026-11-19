@@ -1,0 +1,65 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zkasuran:telegraph:candidate-registration:1",
+  "title": "Controller-owned verified registration candidates",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "candidates"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/candidate"}
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "immutable_url": {
+      "type": "string",
+      "maxLength": 512,
+      "pattern": "^https://raw\\.githubusercontent\\.com/zkasuran/telegraph-catalog-miners/[0-9a-f]{40}/[A-Za-z0-9_/.-]+$"
+    },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "sha256"],
+      "properties": {
+        "url": {"$ref": "#/$defs/immutable_url"},
+        "sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "class", "file", "url", "sha256", "keccak", "slot", "forward_port", "runnable_url", "verified_run_id", "verified_commit", "candidate_proof", "runtime_proof", "source_proof"],
+      "properties": {
+        "family": {"const": "SENTIMENT_ANALYSIS"},
+        "child": {"const": "SENTIMENT_ANALYSIS_GENERAL"},
+        "class": {"const": "judgment"},
+        "file": {"const": "SENTIMENT_ANALYSIS.safetensors"},
+        "url": {"$ref": "#/$defs/immutable_url"},
+        "sha256": {"const": "f2eefcc7b7fd807bcbd260d97c8b3b0a6b50276199b475131df968a5b60d43d9"},
+        "keccak": {"const": "4fba5da30996be940825450ae3abc5a438b1c582e098346469b83be42168a125"},
+        "slot": {"const": 1},
+        "forward_port": {"const": 48601},
+        "runnable_url": {"const": "https://tga1.zkasuran.dev/_s2sent/runnable"},
+        "owner": {"const": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287"},
+        "existing_registration_id": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807, "default": 0},
+        "verified_run_id": {"const": "44441475723"},
+        "verified_commit": {"const": "a18b51ce4be30741a86e2432416b5b283a795b4d"},
+        "candidate_proof": {
+          "allOf": [{"$ref": "#/$defs/proof"}, {"properties": {"sha256": {"const": "32c0e285f6726b07ced06f07b53f33a94194d373973de56bfb74f94c55ecfa7d"}}}]
+        },
+        "runtime_proof": {
+          "allOf": [{"$ref": "#/$defs/proof"}, {"properties": {"sha256": {"const": "dd66981ce9936b2bf7f906a6be416ec4a3a6f3d4830bdfe5691b1778614b32a5"}}}]
+        },
+        "source_proof": {
+          "allOf": [{"$ref": "#/$defs/proof"}, {"properties": {"sha256": {"const": "4ee10138832d9958f6e06f6da8c19eecedd1f10936d100e95e74def299e6e119"}}}]
+        }
+      }
+    }
+  }
+}

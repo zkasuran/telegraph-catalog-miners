@@ -1,0 +1,7 @@
+{
+  "sha256": {
+    "packagecheck.go.txt": "0caaa5ee0159247efc3150d6333a4cc394aa79e8e20c57c8b2dfb1584c9af18e",
+    "runtime-check.py.txt": "6d17ad3cabbdcc5dadd42687291efbde4685f53a63027cc226f2b1014dd6b9e8"
+  },
+  "policy": "Controller source files are retained unchanged. Only a generated build copy specializes the Go family constant to LANGUAGE_TRANSLATION. Upstream Stage 1 parser and reference executor are unchanged."
+}

@@ -65,6 +65,9 @@ def freeze(root, extra):
     private.mkdir()
     (private / "audit.jsonl").write_bytes(raw)
     exclusion_raw = json.dumps(sorted(excluded), separators=(",", ":")).encode()
+    sealed = CONTRACT["sealed_audit"]
+    if sha(raw) != sealed["audit_sha256"] or sha(exclusion_raw) != sealed["exclusion_sha256"]:
+        raise ValueError("still-sealed audit or exclusions changed; no replacement allowed")
     manifest = {"contract_sha256": sha((Path(__file__).parent / "contract.json").read_bytes()),
                 "source": spec, "original_files": files, "original_removed_occurrences": removed,
                 "source_baselines": baselines, "audit_baselines": audit_baselines,

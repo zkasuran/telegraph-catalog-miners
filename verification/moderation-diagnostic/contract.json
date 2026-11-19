@@ -1,7 +1,7 @@
 {
   "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
-  "schema_version": 1,
-  "name": "moderation-c3-h6-validation-only",
+  "schema_version": 2,
+  "name": "moderation-new-c3-new-h6-within-job",
   "motivation": "Flat original validation trajectory after three completed epochs. No prior test errors choose settings.",
   "repository": "zkasuran/telegraph-catalog-miners",
   "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
@@ -19,13 +19,26 @@
     "validation": "66aa1dee115e7ee165502535e678ef2d6671739a1f0a44df6a88f5af5e5a90c1",
     "test": "df63197a46ac7ba72b4231eb4c7d2fca857576fa3a08cf623ef8dc1dc7b369a7"
   },
-  "c3_reproduction": {
+  "historical_reference_only": {
     "training_loss_4dp": [0.6952, 0.6902, 0.6861],
     "validation_accuracy": [0.5, 0.5, 0.4922],
     "validation_loss_4dp": [0.6956, 0.6930, 0.6926],
     "best_epoch": 1,
     "best_payload_sha256": "a3aba6f42f182877c9e89931748eccec9b81c7bbdfb63a51c7633bddcdb8d4f4",
-    "failure_policy": "Any mismatch invalidates causal comparison. No audit access. Cross-machine FP32 drift is possible."
+    "failure_policy": "Historical replay failed in run 44441475865. It remains invalidated and is not an eligibility gate for the new within-job trial."
+  },
+  "matched_trial": {
+    "initialization": "One saved initial adapter, exact named trainable tensors and post-build Python/NumPy/Torch CPU RNG restored in both arms.",
+    "order": "Six frozen seed-42 Torch permutations. An explicit sampler uses the same prefix in both arms with a separate DataLoader generator.",
+    "comparison": "NEW C3 BASELINE versus NEW H6 on one runner. Not historical replay or identical LR continuation.",
+    "historical_comparison_valid": false,
+    "matched_fields": ["trainable", "rng", "environment", "train_sha256", "validation_sha256", "plan_sha256", "loader_rng"]
+  },
+  "sealed_audit": {
+    "origin_run": "44441475865",
+    "audit_sha256": "c54a56490df527b761987425533e5987da2696d4bb1b5926fa7663763ab4c903",
+    "exclusion_sha256": "95c3b6bf44d503195a33157021b44f5e7df4539d489e8bfdd17dbaf08f7235c5",
+    "policy": "Retain the still-unopened audit. Any changed source or exclusions fail rather than replace it."
   },
   "arms": {"C3": 3, "H6": 6},
   "hyperparameters": {

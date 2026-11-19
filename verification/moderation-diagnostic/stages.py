@@ -18,6 +18,7 @@ from core import (
     sha,
     write,
 )
+from matched import freeze_initial, matched_report
 from model_ops import (
     read_development,
     reload_snapshot,
@@ -46,10 +47,12 @@ def initial(root):
     tokenize(trainer, tok, node, [splits["train"], splits["validation"], *formats.values()], root / "evidence" / "tokenizer-check.json")
     seed(torch, np, hp)
     model, tok = trainer.build_model(str(root / "base"), hp)
+    initial_state = freeze_initial(root, model, torch, np, splits["train"])
     with isolated_rng(torch, np):
         untrained = score_views(trainer, model, tok, formats, hp)
         snapshot = save_snapshot(root, "untrained", model, tok, trainer)
-    write(root / "evidence" / "untrained-validation.json", {"formats": untrained, **snapshot})
+    write(root / "evidence" / "untrained-validation.json", {"formats": untrained, **snapshot,
+          "initial_state_sha256": initial_state["initial_state_sha256"]})
 
 
 def select(root):
@@ -57,6 +60,8 @@ def select(root):
     evidence = root / "evidence"
     if (evidence / "candidate-freeze.json").exists() or (evidence / "audit-access.json").exists():
         raise ValueError("candidate selection is immutable")
+    matching = matched_report(root)
+    write(evidence / "within-job-match.json", matching)
     records = []
     for arm in CONTRACT["arms"]:
         # A missing completed arm or restoration control invalidates comparison.
@@ -76,9 +81,10 @@ def select(root):
     def cells(r):
         return [r["formats"][f]["by_label"][label]["accuracy"] for f in FORMATS for label in LABELS]
     c, h = cells(c3), cells(h6)
-    improvement = min(h) + 1e-12 >= min(c) + 0.05 and all(b >= a for a, b in zip(c, h))
+    improvement = min(h) + 1e-12 >= min(c) + 0.05 and all(b >= a for a, b in zip(c, h, strict=True))
     write(evidence / "selection.json", {"eligible": chosen is not None, "transcript": transcript,
-           "h6_all_label_improvement_over_c3": improvement, "selection_uses_audit": False})
+           "h6_all_label_improvement_over_c3": improvement, "selection_uses_audit": False,
+           "comparison": "NEW C3 BASELINE versus NEW H6", "historical_comparison_valid": False})
     if chosen is None:
         write(evidence / "result.json", {"verdict": "FAIL", "phase": "validation_selection",
               "audit_opened": False, "parser": "not attempted", "runtime": "not attempted", "node": "not attempted"})
@@ -88,6 +94,8 @@ def select(root):
         if sha((evidence / (name + ".safetensors")).read_bytes()) != expected:
             raise ValueError("candidate or untrained checkpoint changed before freeze")
     write(evidence / "candidate-freeze.json", {"candidate": chosen, "untrained": baseline,
+          "within_job_match_sha256": sha((evidence / "within-job-match.json").read_bytes()),
+          "initial_state_sha256": baseline["initial_state_sha256"],
           "audit_sha256": freeze["audit_sha256"], "audit_freeze_sha256": sha((evidence / "audit-freeze.json").read_bytes()),
           "selection_sha256": sha((evidence / "selection.json").read_bytes()),
           "contract_sha256": sha((Path(__file__).parent / "contract.json").read_bytes()),
@@ -104,6 +112,9 @@ def final(root):
         raise ValueError("audit freeze changed")
     if sha((evidence / "selection.json").read_bytes()) != frozen["selection_sha256"]:
         raise ValueError("selector transcript changed")
+    if sha((evidence / "within-job-match.json").read_bytes()) != frozen["within_job_match_sha256"]:
+        raise ValueError("within-job match changed")
+    matched_report(root)
     for row in (frozen["candidate"], frozen["untrained"]):
         name = row["snapshot"]
         for path, expected in ((evidence / (name + ".safetensors"), row["checkpoint_sha256"]),
@@ -153,6 +164,7 @@ def final(root):
     failures = quality(trained, untrained, gate["ok"])
     write(evidence / "result.json", {"verdict": "TRAINED_CANDIDATE" if not failures else "FAIL",
           "quality_verdict": "PASS" if not failures else "FAIL", "failures": failures,
+          "comparison": "NEW C3 BASELINE versus NEW H6", "historical_comparison_valid": False,
           "audit_originals": 256, "audit_formats_are_correlated_views": True,
           "formats": trained, "untrained": untrained, "dataset_gate": gate,
           "candidate": frozen["candidate"], "restoration": restored,

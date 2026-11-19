@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "license": "CC-BY-2.0-FR",
+  "files": {
+    "eng_sentences.tsv.bz2": {
+      "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2",
+      "bytes": 24947715,
+      "sha256": "3b5b3ecfcac5037b09f81ef048fa16fedc4d24838db5b6fbeedca1dfab374cbf",
+      "last_modified": "Sat, 14 Nov 2026 07:49:57 GMT",
+      "content_type": "application/octet-stream"
+    },
+    "eng_sentences_detailed.tsv.bz2": {
+      "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_detailed.tsv.bz2",
+      "bytes": 34995780,
+      "sha256": "f3a08a0af8deef3f50777cf0ccd7666f39e619f70fadae4327b7c29119468313",
+      "last_modified": "Sat, 14 Nov 2026 07:46:26 GMT",
+      "content_type": "application/octet-stream"
+    },
+    "fra_sentences.tsv.bz2": {
+      "url": "https://downloads.tatoeba.org/exports/per_language/fra/fra_sentences.tsv.bz2",
+      "bytes": 9805546,
+      "sha256": "102b245952878f647d101ce4b38fc60ffb9b289df22b0aeb59415c25e6341cc6",
+      "last_modified": "Sat, 14 Nov 2026 07:49:57 GMT",
+      "content_type": "application/octet-stream"
+    },
+    "fra_sentences_detailed.tsv.bz2": {
+      "url": "https://downloads.tatoeba.org/exports/per_language/fra/fra_sentences_detailed.tsv.bz2",
+      "bytes": 14908009,
+      "sha256": "5a243f84b19296ffbe37adf1ee75fd829e329e38eca0082eaf39e2a1598d63d1",
+      "last_modified": "Sat, 14 Nov 2026 07:46:26 GMT",
+      "content_type": "application/octet-stream"
+    }
+  },
+  "links_sha256": "08a802bfee9242fe2476836ec94e180588149f047451bce7519331b871b19e4f",
+  "snapshot_week": "2026-11-14",
+  "grant_url": "https://creativecommons.org/licenses/by/2.0/fr/legalcode",
+  "publisher_url": "https://tatoeba.org/en/downloads",
+  "publisher_clause": "These files are released under CC BY 2.0 FR.",
+  "grant_3_2": "cr\u00e9er et reproduire des Oeuvres dites D\u00e9riv\u00e9es",
+  "grant_3_5": "lorsque l'Oeuvre est une base de donn\u00e9es, extraire et r\u00e9utiliser des parties substantielles de l'Oeuvre.",
+  "attribution_4_b": "Il doit communiquer le nom de l'Auteur Original ou son \u00e9ventuel pseudonyme s'il est indiqu\u00e9",
+  "conditions": "Retain author or credited contributor, sentence/source URI, applicable licence, original notices and construction notice. No restriction on original source rights. No CC0 relabelling."
+}

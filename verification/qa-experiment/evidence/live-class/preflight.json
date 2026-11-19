@@ -1,0 +1,15 @@
+{
+  "child": "QUESTION_ANSWERING_GENERAL",
+  "class": "judgment",
+  "intent": "QUESTION_ANSWERING",
+  "loaded": false,
+  "preflight": true,
+  "snapshot_sha256": "4385594e10c41aa6c979daea4d00688f96c6c668a7ed30160dc84b20224d911e",
+  "fetched_at": "2026-11-19T02:51:43.458324+00:00",
+  "source_sha256": {
+    "family": "a6c7a48a39a4ac38f7b30ef6662816bb6c133792154c46321ec92bd790443c8b",
+    "child": "6f4eb85c46984911d2893e75756521563fbe6f60c05ed5569b179a9bd34063e9"
+  },
+  "historical_capture_only": true,
+  "remote_requires_fresh_capture": true
+}

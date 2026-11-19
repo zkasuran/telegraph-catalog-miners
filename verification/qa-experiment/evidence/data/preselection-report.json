@@ -1,0 +1,34 @@
+{
+  "counts": {
+    "train_messages": 84437,
+    "train_original_pairs": 10751,
+    "train_invisible_pairs": 5622,
+    "validation_messages": 4401,
+    "validation_original_pairs": 507,
+    "validation_invisible_pairs": 273,
+    "cross_official_components_removed": 3
+  },
+  "available_groups": {
+    "audit": {
+      "longer": 69,
+      "shorter": 34,
+      "tie": 0
+    },
+    "train": {
+      "longer": 1055,
+      "shorter": 457,
+      "tie": 3
+    },
+    "validation": {
+      "longer": 274,
+      "shorter": 114,
+      "tie": 1
+    }
+  },
+  "requested": {
+    "audit": 64,
+    "train": 128,
+    "validation": 32
+  },
+  "status": "SOURCE_ONLY"
+}

@@ -1,0 +1,23 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "QUESTION_ANSWERING",
+  "child": "QUESTION_ANSWERING_GENERAL",
+  "scope": "English single-turn root sibling preference relevance/usefulness, not factual certification or node equivalence",
+  "source": "OpenAssistant/oasst1",
+  "source_revision": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+  "splits": {
+    "train": {"rows": 128, "sha256": "3a52a8e99d13dc65a2eb8bf9f793435102908a0ceb13f26e190e75d0fde13d3d"},
+    "validation": {"rows": 32, "sha256": "40ce48c1e29a9cb27d4b3886c9e37df0018da16d1739cd1ea8562a34d076cd0d"},
+    "audit": {"rows": 64, "sha256": "0070bb3451d2fb9612d15381bf073a4bc2d363b3ee9342bfaa10b8668872b66c"}
+  },
+  "hyperparameters": {"max_length": 256, "lora_rank": 8, "lora_alpha": 32, "batch_size": 1, "grad_accum": 16, "epochs": 3, "eval_batch": 1, "seed": 42},
+  "selection": {"split": "validation", "metric": "val_loss", "direction": "min", "tie": "earlier_epoch", "epochs_completed": 3, "early_stopping": false, "audit_after_selection": true, "evaluation_rng": "fork CPU Torch and restore Python/NumPy", "training_sampler_rng": "dedicated CPU generator seed 42"},
+  "licensing": {"own_additions": "LicenseRef-zkasuran-SAND-1.0", "own_terms_sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447", "upstream_apache_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4", "upstream_grants_unchanged": true},
+  "freeze_sha256": {"sources.json": "dbcdb6e81bc6ae40c3a6c4a61902c3a30d94aa276cfd4c94469ca79da9bc775d", "frozen-controls.json": "4aa549339b120184258d6d3c17b5f407f6aa1562c2973e7e4b65bfee6ea8491b", "data-report.json": "5dacbf64c81199ca0bc3ff224bd0817bc690c3b47008bab20bedbf0532e46931", "token-visible-binding.json": "3c011a0565a7de091a015c4935dce9861becefb64569d03e3e5eae1301d7b03a"},
+  "quality": {"minimum_accuracy": 0.80, "minimum_subset_accuracy": 0.70, "minimum_untrained_gain": 0.05, "minimum_shortcut_gain": 0.10, "maximum_shortcut_accuracy": 0.65},
+  "runtime": {"batch": 4, "repeat_all_vectors": 128, "fresh_process_vectors": 8, "atol": 0.001, "rtol": 0.001},
+  "total_workflow_minutes": 330,
+  "controller_helper_revision_reviewed": "a18b51ce4be30741a86e2432416b5b283a795b4d",
+  "audit_policy": "Source-only structural gates may check hashes, grouping and complete token visibility. All three epochs run. Development loss alone chooses the best epoch with evaluation RNG isolated. Model and shortcut audit metrics stay sealed until that checkpoint is selected and restored. No audit-selected checkpoint."
+}

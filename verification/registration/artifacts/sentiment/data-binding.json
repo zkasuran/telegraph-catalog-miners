@@ -1,0 +1,30 @@
+{
+  "data_report_sha256": "417f9901e5bfc7ddbff1b3cf016f973649f9c50ebf0410f2391583e80d214451",
+  "files": {
+    "train": {
+      "sha256": "12a5bfc6844e3fd1d01b1bcd4a0e89914b71659f3cdea22e33e9df5248e7dba4",
+      "pairs": 768,
+      "labels": {
+        "Positive": 384,
+        "Negative": 384
+      }
+    },
+    "validation": {
+      "sha256": "fade676d4cf800c0c54dc80a6ecf700a8e6ffc07ff1906e15e842b3ca9c941c2",
+      "pairs": 128,
+      "labels": {
+        "Negative": 64,
+        "Positive": 64
+      }
+    },
+    "test": {
+      "sha256": "1b1af1d131f9013d8e184b4ecd5a80a970a3fae53d7b14b6722acfd1499d7764",
+      "pairs": 256,
+      "labels": {
+        "Negative": 128,
+        "Positive": 128
+      }
+    }
+  },
+  "normalized_source_overlap": 0
+}

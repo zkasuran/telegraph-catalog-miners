@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """Bound subprocess groups and preserve incremental diagnostics on failure."""
 import argparse
+import json
 import os
 import signal
 import subprocess
@@ -20,6 +21,7 @@ def phase(root, name, command, seconds, deadline):
     evidence = root / "evidence"
     write(evidence / "phase.json", {"phase": name, "state": "running", "cap_seconds": cap})
     with (evidence / (name + ".log")).open("wb") as log:
+        # Only fixed local workflow script argv reaches this runner.
         child = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
         try:
             code = child.wait(timeout=cap)
@@ -30,7 +32,7 @@ def phase(root, name, command, seconds, deadline):
             except subprocess.TimeoutExpired:
                 os.killpg(child.pid, signal.SIGKILL)
                 child.wait(timeout=10)
-            raise TimeoutError("bounded phase expired: " + name)
+            raise TimeoutError("bounded phase expired: " + name) from None
     write(evidence / "phase.json", {"phase": name, "state": "complete" if code == 0 else "failed", "exit_code": code})
     if code:
         raise RuntimeError("phase failed: " + name)
@@ -42,6 +44,10 @@ def main(root):
         raise ValueError("diagnostic output must be fresh; no audit rerun")
     root.mkdir()
     (root / "evidence").mkdir()
+    history = json.loads((HERE / "historical-replay.json").read_text())
+    if history["valid_comparison"] is not False or history["status"] != "FAILED_HISTORICAL_REPLAY":
+        raise ValueError("historical failure evidence was relabelled")
+    write(root / "evidence" / "historical-replay.json", history)
     deadline = time.monotonic() + 17400
     write(root / "evidence" / "run-binding.json", {"run_id": os.environ["GITHUB_RUN_ID"],
           "commit": os.environ["GITHUB_SHA"], "workflow": os.environ["GITHUB_WORKFLOW"],

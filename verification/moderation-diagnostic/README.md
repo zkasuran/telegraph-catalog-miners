@@ -2,7 +2,7 @@
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 
-One bounded remote C3 versus H6 schedule comparison. The hypothesis follows the
+One bounded remote NEW C3 BASELINE versus NEW H6 schedule comparison. The hypothesis follows the
 flat original validation trajectory, not prior test errors. Both arms start at
 seed 42 with the original rank 8, alpha 32, LR 0.0001 and dropout 0.1. The pinned
 trainer's loss, accumulation and best-loss early stopping remain unchanged.
@@ -10,10 +10,18 @@ trainer's loss, accumulation and best-loss early stopping remain unchanged.
 ## Controller contract
 
 `contract.json` freezes source hashes, original splits, settings and selection.
+The historical replay in run 44441475865 failed. Its payload and trajectory
+checks remain false in `historical-replay.json`, with original artifact hashes.
+The old run omitted exact initial state, hash seed, order and hardware/thread
+records. No concrete defect establishes how to recover that old numerical path.
+This is a fresh within-job experiment, not a repaired historical replay.
+
 Review additional campaign development-group exclusions before dispatch. The
 workflow input accepts only a JSON array of normalized SHA-256 groups, at most
 10000. An empty array means no additional groups beyond the original 1152.
-Completeness of that list is a controller responsibility.
+Completeness of that list is a controller responsibility. This revision pins the
+still-sealed audit and exclusions from the failed diagnostic. Changed exclusions
+or audit hashes stop the run rather than replace the confirmation set.
 
 `freeze_data.py` reproduces the original 768 train, 128 validation and 256 old-test
 originals byte-for-byte. The old test contributes exclusions only. It selects a
@@ -55,9 +63,21 @@ Real remote Torch controls require identical fixed-step parameters with guarded
 tracing. Deliberately unguarded DataLoader iterations must change both parameters
 and RNG state. Local controls are fake/static and do not load Torch or models.
 Saved snapshot reload must reproduce trainable tensors and validation margins.
-Missing and unexpected keys are recorded and checked. C3 also must reproduce the
-historical rounded validation/training trajectory, saved epoch and tensor payload
-hash. Cross-machine numerical drift can invalidate this strict comparison.
+Missing and unexpected keys are recorded and checked. Historical payload/loss
+identity is no longer a gate for the new experiment and is never relabelled PASS.
+
+`initial-state.json` captures exact named trainable bytes, Python/NumPy/Torch CPU
+RNG, source file hashes, runtime versions and hardware/thread configuration.
+One frozen untrained adapter initializes both arms. The build wrapper loads that
+exact state and restores the captured post-build RNG. A before-training callback
+requires identical boundaries and a fresh zero-step optimizer/scheduler.
+
+Six explicit seed-42 training permutations are frozen before fitting. Both arms
+use that same prefix with a separate DataLoader generator. Every epoch records
+and verifies actual source-group order. This declared sampler change makes the
+new baseline distinct from the old run. Added tracing remains RNG-neutral.
+The selector requires both arm boundary matches, complete observed order and
+restoration records before considering quality. No audit data reaches selection.
 
 ## Selection and quality
 

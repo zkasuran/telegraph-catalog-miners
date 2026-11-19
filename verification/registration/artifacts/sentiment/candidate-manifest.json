@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "status": "CANDIDATE_PENDING_CONTROLLER_REGISTRATION_TEST",
+  "family": "SENTIMENT_ANALYSIS",
+  "child": "SENTIMENT_ANALYSIS_GENERAL",
+  "package": {
+    "file": "SENTIMENT_ANALYSIS.safetensors",
+    "sha256": "f2eefcc7b7fd807bcbd260d97c8b3b0a6b50276199b475131df968a5b60d43d9",
+    "keccak256": "0x4fba5da30996be940825450ae3abc5a438b1c582e098346469b83be42168a125",
+    "bytes": 6798100
+  },
+  "training_identity": {
+    "repository": "zkasuran/telegraph-catalog-miners",
+    "run_id": 44266324976,
+    "commit": "a3a6f86c1bd831b41de8d99d12b0620c3a287f6a",
+    "artifact_id": 14413342566,
+    "quality_report_sha256": "4ffc26072a347b9af879afbd3c17fbecc1c1115bf6fe141943088577dff23422"
+  },
+  "recovery_identity": {
+    "run_id": "44441475723",
+    "commit": "a18b51ce4be30741a86e2432416b5b283a795b4d"
+  },
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "runtime_inputs": {
+    "foundation_lora_fp32.onnx": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "foundation_engine.wasm": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+    "tokenizer.json": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+  },
+  "formats": {
+    "json": {
+      "n_eval": 256,
+      "correct": 225,
+      "pairwise_accuracy": 0.87890625,
+      "accuracy_by_label": {
+        "Negative": 0.859375,
+        "Positive": 0.8984375
+      },
+      "counts_by_label": {
+        "Negative": {
+          "correct": 110,
+          "n": 128
+        },
+        "Positive": {
+          "correct": 115,
+          "n": 128
+        }
+      },
+      "length_baseline": 0.5,
+      "repeat_bit_vectors": 512,
+      "original_untrained_accuracy": 0.47265625,
+      "untrained_baseline_scope": "original PyTorch run, not replayed in recovery",
+      "beats_length_baseline": true
+    },
+    "prose": {
+      "n_eval": 256,
+      "correct": 227,
+      "pairwise_accuracy": 0.88671875,
+      "accuracy_by_label": {
+        "Negative": 0.859375,
+        "Positive": 0.9140625
+      },
+      "counts_by_label": {
+        "Negative": {
+          "correct": 110,
+          "n": 128
+        },
+        "Positive": {
+          "correct": 117,
+          "n": 128
+        }
+      },
+      "length_baseline": 0.5,
+      "repeat_bit_vectors": 512,
+      "original_untrained_accuracy": 0.4140625,
+      "untrained_baseline_scope": "original PyTorch run, not replayed in recovery",
+      "beats_length_baseline": true
+    },
+    "bare_label": {
+      "n_eval": 256,
+      "correct": 233,
+      "pairwise_accuracy": 0.91015625,
+      "accuracy_by_label": {
+        "Negative": 0.8984375,
+        "Positive": 0.921875
+      },
+      "counts_by_label": {
+        "Negative": {
+          "correct": 115,
+          "n": 128
+        },
+        "Positive": {
+          "correct": 118,
+          "n": 128
+        }
+      },
+      "length_baseline": 0.5,
+      "repeat_bit_vectors": 512,
+      "original_untrained_accuracy": 0.48828125,
+      "untrained_baseline_scope": "original PyTorch run, not replayed in recovery",
+      "beats_length_baseline": true
+    }
+  },
+  "originals": 256,
+  "source_scope": "Positive and Negative English reviews only. Neutral and Mixed are not validated. Test domain: Yelp.",
+  "retrained": false,
+  "registration": "not attempted",
+  "node_qualification": "not attempted",
+  "endpoint_lease": "not attempted",
+  "signing": "not attempted",
+  "evidence_sha256": {
+    "result.json": "4ffc26072a347b9af879afbd3c17fbecc1c1115bf6fe141943088577dff23422",
+    "runtime-result.json": "dd66981ce9936b2bf7f906a6be416ec4a3a6f3d4830bdfe5691b1778614b32a5",
+    "package-manifest.json": "3bf66424cfa73961ef7837d09ec8059279eaee5a662b761875e08bea35b7c620",
+    "artifact-binding.json": "34bb9fb59c2ff059615be3900bf76b6d20c369ef9e79d631261a7cf4a19e0fdb",
+    "data-binding.json": "4ee10138832d9958f6e06f6da8c19eecedd1f10936d100e95e74def299e6e119",
+    "class-snapshot.json": "72665b511cc9e6e1edf5d09391b536c0c2e087fdbc1f741a027c74feffc11d60",
+    "foundation.json": "91c2af61905bd9553da9bdba4582cd41085502931d012d9cd40067223abc0b29",
+    "package-check-status.json": "8d523106b3729a37109f7e3aa26543afe7babd387b20e6221204325a690b5df5",
+    "package-check.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime-score-bits.json": "590477989910e97e4fef1ac4d9be80bd07662f158aca772c57f7e942054b3a52"
+  }
+}

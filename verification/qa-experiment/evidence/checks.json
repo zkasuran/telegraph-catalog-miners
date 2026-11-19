@@ -1,0 +1,70 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "date": "2026-11-19",
+  "status": "SOURCE_GATES_PASS_REMOTE_UNEXECUTED",
+  "static": {
+    "unittest": {"passed": 15, "failed": 0, "skipped": 0},
+    "go_source_tests": {"passed": 3, "tensor_mutation_subtests": 6, "failed": 0, "model_loaded": false},
+    "gofmt": "PASS",
+    "compiled_live_qa_preflight": "PASS: matching exact primary family/child judgment class, loaded=false",
+    "ruff_check": "PASS",
+    "python_ast": "PASS",
+    "sources_json": "PASS",
+    "workflow_yaml_parse": "PASS",
+    "workflow_contract": "PASS: standard public CPU, 330 minutes, read-only permissions, pinned action SHAs, no secrets",
+    "bash_syntax": "PASS",
+    "git_diff_check": "PASS",
+    "actionlint": "NOT RUN: binary unavailable",
+    "local_model_guard": "PASS: refused before parsing output or importing model runtime",
+    "full_apache_and_mit_sidecars": "PASS"
+  },
+  "source": {
+    "messages": 88838,
+    "cross_official_components_removed": 3,
+    "fixed_pairs": {"train": 128, "validation": 32, "audit": 64},
+    "required_audit_pairs": 64,
+    "training_allowed": true,
+    "fixed_split_hash_contract": "PASS",
+    "visible_normalized_fields_cross_split_overlap": 0,
+    "visible_normalized_renders_cross_split_overlap": 0,
+    "whole_source_tree_cross_split_overlap": 0,
+    "kit_dataset_gate": "PASS on complete 128/32/64 source split contract, no bypass",
+    "upstream_surface_accuracy": 0.4684,
+    "tokenizer_vectors_checked": 88,
+    "tokenizer_vector_mismatches": 0,
+    "intact_visible_pairs": 224,
+    "validation_frozen_controls": {
+      "length": 0.5,
+      "released_token_length": 0.5,
+      "train_fitted_tfidf_overlap": 0.46875,
+      "train_fitted_answer_only": 0.625,
+      "train_fitted_surface": 0.5
+    },
+    "audit_metrics": "SEALED",
+    "semantic_and_independent_privacy_review": "UNVERIFIED"
+  },
+  "remote": {
+    "model_execution": "NOT RUN",
+    "export_execution": "NOT RUN",
+    "live_class_parser": "IMPLEMENTED: actual primary preflight and full source-only parser tests pass; trained package unexecuted",
+    "native_wasm_ordering": "IMPLEMENTED_REMOTE_UNEXECUTED",
+    "node_qualification": "NOT ATTEMPTED"
+  },
+  "revised_recipe": {
+    "epochs": 3,
+    "optimizer_steps": 24,
+    "selection": "minimum development val_loss only, earlier epoch on ties",
+    "audit_predictions": "NOT INSPECTED",
+    "evaluation_rng": "CPU Torch fork_rng plus restored Python/NumPy and dedicated training sampler",
+    "neural_recipe_execution": "NOT RUN"
+  },
+  "licensing": {
+    "own_code_and_trained_additions": "LicenseRef-zkasuran-SAND-1.0",
+    "own_terms_sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+    "original_source_text_and_annotations": "Apache-2.0, unchanged",
+    "upstream_apache_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "upstream_mit_sha256": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+    "checkpoint_byte_metadata": "PASS on synthetic safetensors/ZIP fixtures: full separate own/upstream terms, payload and original members unchanged, idempotent",
+    "actual_torch_checkpoint_roundtrip": "IMPLEMENTED_REMOTE_UNEXECUTED"
+  }
+}

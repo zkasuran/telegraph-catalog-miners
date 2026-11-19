@@ -1,0 +1,16 @@
+{
+  "status": "FAILED_EXPOSED_ARCHIVE",
+  "files": {
+    "pilot-manifest.json": "ca65b547545bee9858f69bc73a70c30695db947c5ba80c793ca9944e428212c0",
+    "pilot-checks.json": "5745139f5ae0c1cfd7a2c91cc57f9516a92c55553ececa8f66680ac9daccfd26",
+    "semantic-review.json": "1176069094886a2faecd106269176b73e54190252c06544a4cd96450fa51cb1c",
+    "rights.json": "174d68ffb284b2a2528b07afc8b20da07040ae7361350ebef17bd74efd146ba6",
+    "observations.json": "fa1616467e94ff97cb40be3e0b6f56586d4da2086e020e14e0566b54508bd94e",
+    "issues-and-ambiguities.json": "5774672f5b95d8dcbb6f8b69c62377cfed25d997bd14fb23a4e572693a2674a4"
+  },
+  "manifest_sha256": "ca65b547545bee9858f69bc73a70c30695db947c5ba80c793ca9944e428212c0",
+  "model_training_ever_started": false,
+  "known_link_errors": 5,
+  "unresolved_context_flags": 169,
+  "source_rights": "Original CC BY 2.0 FR text and per-sentence attribution unchanged; full source grants retained in rights.json."
+}

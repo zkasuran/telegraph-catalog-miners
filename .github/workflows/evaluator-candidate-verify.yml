@@ -1,0 +1,74 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Verified candidate registration endpoint
+run-name: Candidate endpoint ${{ inputs.family }} ${{ inputs.batch }}
+on:
+  workflow_dispatch:
+    inputs:
+      family:
+        description: Exact reviewed family from registration candidates.json
+        type: string
+        default: SENTIMENT_ANALYSIS
+        required: true
+      batch:
+        description: Coordinator lease batch identifier
+        type: string
+        required: true
+      existing:
+        description: Explicit existing registration id or zero for a new registration
+        type: string
+        default: '0'
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-candidate-${{ inputs.family }}
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      FAMILY: ${{ inputs.family }}
+      VERIFY_BATCH: ${{ inputs.batch }}
+      EXISTING: ${{ inputs.existing }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: verification/registration
+      - name: Source-only adversarial checks
+        timeout-minutes: 3
+        run: bash verification/registration/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Prepare exact verified candidate and static class binding
+        timeout-minutes: 40
+        run: python3 -W error verification/registration/prepare.py --family "$FAMILY" --batch "$VERIFY_BATCH" --existing "$EXISTING"
+      - name: Publish only restricted public forwarding lease
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lease-${{ inputs.family }}
+          path: ${{ runner.temp }}/candidate-registration/lease.json
+          if-no-files-found: error
+          retention-days: 1
+      - name: Real bounded executor and matching node decision
+        timeout-minutes: 305
+        run: timeout --signal=TERM --kill-after=20s 18120 python3 -W error verification/registration/session.py
+      - name: Clean up forwarding, executor and ephemeral key
+        if: always()
+        timeout-minutes: 2
+        run: python3 -W error verification/registration/session.py --cleanup
+      - name: Publish only fixed-vector proof and sanitized decision
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: candidate-decision-${{ inputs.family }}
+          retention-days: 1
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/candidate-registration/preflight.json
+            ${{ runner.temp }}/candidate-registration/verdict.json

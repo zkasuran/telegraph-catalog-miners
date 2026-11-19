@@ -1,0 +1,396 @@
+{
+  "source_probe": {
+    "family": "LANGUAGE_TRANSLATION",
+    "state": "PROBE_ONLY",
+    "model_execution": false,
+    "preference_rows": 0,
+    "sources": {
+      "eng": {
+        "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_CC0.tsv.bz2",
+        "sha256": "c2e2edd063a31cbbc8e416a4858225e934bbb0afff485031821e59f230ccf1ca",
+        "rows": 41515,
+        "license": "CC0-1.0",
+        "short_rows_8_256_bytes": 39809,
+        "normalized_duplicate_count": 3
+      },
+      "fra": {
+        "url": "https://downloads.tatoeba.org/exports/per_language/fra/fra_sentences_CC0.tsv.bz2",
+        "sha256": "cf4509f2f3fd542222be2cf085d0d814ce3f9405263c5746bcc965d7e83dfd08",
+        "rows": 14202,
+        "license": "CC0-1.0",
+        "short_rows_8_256_bytes": 14160,
+        "normalized_duplicate_count": 0
+      },
+      "downloads.html": {
+        "url": "https://tatoeba.org/en/downloads",
+        "bytes": 316939,
+        "sha256": "7182bddbe203ba3b2c1c4981f819f460d34cbaa84e716887ebdfa16471d66e93",
+        "last_modified": null,
+        "content_type": "text/html; charset=UTF-8"
+      },
+      "terms.html": {
+        "url": "https://tatoeba.org/en/terms_of_use",
+        "bytes": 88405,
+        "sha256": "8609cb91f5ef3f8c74afd46a90e0d443678fd10846f91d1104581ffbc16e2493",
+        "last_modified": null,
+        "content_type": "text/html; charset=UTF-8"
+      },
+      "faq.html": {
+        "url": "https://en.wiki.tatoeba.org/articles/show/faq",
+        "bytes": 15584,
+        "sha256": "bc54d8fe2de97614bf21c794e8706da3a637e03c3e4a20b2a1bcf16013a6c4fb",
+        "last_modified": null,
+        "content_type": "text/html; charset=utf-8"
+      },
+      "cc0.html": {
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+        "bytes": 33063,
+        "sha256": "55cbd521ac5e0de6a1d8c267b77a3be126743ef9595f3eb831c9f45d2d2ded30",
+        "last_modified": "Wed, 18 Nov 2026 16:02:13 GMT",
+        "content_type": "text/html"
+      },
+      "cc-by-2-fr.html": {
+        "url": "https://creativecommons.org/licenses/by/2.0/fr/legalcode",
+        "bytes": 40319,
+        "sha256": "af7aa6ed04132bce6a42a5636627e48daa8dce274c401463e99358d49413d60b",
+        "last_modified": "Wed, 18 Nov 2026 16:02:13 GMT",
+        "content_type": "text/html"
+      },
+      "links": {
+        "url": "https://downloads.tatoeba.org/exports/links.tar.bz2",
+        "sha256": "08a802bfee9242fe2476836ec94e180588149f047451bce7519331b871b19e4f",
+        "bytes": 150638663,
+        "last_modified": "Sat, 14 Nov 2026 06:56:19 GMT",
+        "content_type": "application/octet-stream",
+        "hash_verified_cached_capture": true
+      }
+    },
+    "blockers": [
+      "Only 68 independent English/French link components; the recorded 128/32/64 source-group pilot requires 224 before donor pairing",
+      "No bilingual-reviewed negative preferences or sealed final audit; no dataset or workflow enabled"
+    ],
+    "links": {
+      "all_directed_rows": 28651608,
+      "selected_directed_edges": 338,
+      "eng_fra_pairs": 77,
+      "missing_reciprocals": [],
+      "touching_directed_edges": 174912
+    },
+    "components": {
+      "graph_scope": "All directed export links, including every language and non-CC0 ID; only IDs read",
+      "maximum_sentence_id": 14117676,
+      "normalized_languages": [
+        "eng",
+        "fra"
+      ],
+      "independent_link_components": 68
+    },
+    "pilot_source_group_requirement": {
+      "train": 128,
+      "validation": 32,
+      "sealed_final": 64
+    },
+    "original_identity_digest": "6e2e6037be082c9c2325093132cbf96b96a8db89a3ec23f0d0139ac65f30ede0",
+    "language_counts": {
+      "eng": 41515,
+      "fra": 14202
+    },
+    "rights": {
+      "sentence_license": "CC0-1.0",
+      "link_license": "CC-BY-2.0-FR",
+      "blanket_sand": false,
+      "attribution": "Tatoeba and contributors, https://tatoeba.org",
+      "link_grant_source": "downloads.html general Creative Commons section",
+      "source_rights_survive_failed_checkpoints": true
+    }
+  },
+  "source_checks": {
+    "state": "SOURCE_CONTROLS_PASS_DATASET_BLOCKED",
+    "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+    "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+    "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+    "tokenizer_vectors": 88,
+    "vector_mismatches": 0,
+    "original_linked_renders": 462,
+    "render_sha256": "409bf1f712b86168475c20b1faeefa43a5374aaaeaf63db6ff06f11d06ab8b8a",
+    "primary_link_archive_sha256": "08a802bfee9242fe2476836ec94e180588149f047451bce7519331b871b19e4f",
+    "primary_identity_manifest_sha256": "bbcf61daff786fc4acf512e098848b74ed49989cd3c1da34a3747d66dc021c97",
+    "maximum_original_render_tokens": 272,
+    "renders_above_256_tokens": 6,
+    "bidirectional_requests_above_256_bytes": 12,
+    "long_prompt_collision_rejected": true,
+    "dataset_gate_controls": {
+      "synthetic_balanced": {
+        "ok": true,
+        "n": 200,
+        "metrics": {
+          "unique_rejected_frac": 1.0,
+          "top_rejected_share": 0.005,
+          "length_shortcut_acc": 0.5,
+          "eval_negative_leak": 0.0,
+          "surface_probe_acc": 0.5,
+          "mean_len_chosen": 47.0,
+          "mean_len_rejected": 47.0
+        },
+        "failures": []
+      },
+      "empty_actual_preferences": {
+        "ok": false,
+        "n": 0,
+        "metrics": {},
+        "failures": [
+          "dataset has 0 usable pairs"
+        ]
+      },
+      "reused_negative": {
+        "ok": false,
+        "n": 200,
+        "metrics": {
+          "unique_rejected_frac": 0.005,
+          "top_rejected_share": 1.0,
+          "length_shortcut_acc": 1.0,
+          "eval_negative_leak": 1.0,
+          "surface_probe_acc": 1.0,
+          "mean_len_chosen": 47.0,
+          "mean_len_rejected": 5.0
+        },
+        "failures": [
+          "only 1 unique 'rejected' answers in 200 pairs (0.5% < 80%): the model can memorise them",
+          "one 'rejected' answer is reused in 200/200 pairs (100.0% > 2%): 'fixed'",
+          "'pick the longer answer' scores 100.0% (> 65%): match the length of the negatives to the positives",
+          "100.0% of held-out negatives also appear in training (> 10%): the evaluation would measure memory, not judgement",
+          "a bag-of-words probe tells chosen from rejected at 100.0% (> 65%) without seeing the prompt: the negatives share a surface style the model will learn instead of the task"
+        ]
+      },
+      "identical": {
+        "ok": false,
+        "n": 200,
+        "metrics": {
+          "unique_rejected_frac": 1.0,
+          "top_rejected_share": 0.005,
+          "length_shortcut_acc": 0.5,
+          "eval_negative_leak": 0.0,
+          "surface_probe_acc": 0.5,
+          "mean_len_chosen": 47.0,
+          "mean_len_rejected": 47.0
+        },
+        "failures": [
+          "200/200 pairs have 'rejected' identical to 'chosen': they carry no preference, drop them"
+        ]
+      },
+      "length": {
+        "ok": false,
+        "n": 200,
+        "metrics": {
+          "unique_rejected_frac": 1.0,
+          "top_rejected_share": 0.005,
+          "length_shortcut_acc": 1.0,
+          "eval_negative_leak": 0.0,
+          "surface_probe_acc": 0.5,
+          "mean_len_chosen": 188.0,
+          "mean_len_rejected": 47.0
+        },
+        "failures": [
+          "'pick the longer answer' scores 100.0% (> 65%): match the length of the negatives to the positives"
+        ]
+      }
+    },
+    "dataset_ready": false,
+    "model_execution": false,
+    "scope": "Original linked source render probes only. No preferences, scores or bilingual quality result."
+  },
+  "status": "BLOCKED_FROZEN_SEMANTIC_AUDIT",
+  "preference_rows": 896,
+  "workflow_added": false,
+  "trained_candidate": false,
+  "general_source_index": {
+    "source_spec_sha256": "a9628ce73c924c361e82811f6c8287d0535831c43210a95f2d3dc86daf33103f",
+    "rows": {
+      "eng_sentences.tsv.bz2": 2041097,
+      "eng_sentences_detailed.tsv.bz2": 2041097,
+      "fra_sentences.tsv.bz2": 730700,
+      "fra_sentences_detailed.tsv.bz2": 730700
+    },
+    "missing_detailed_identities": 0,
+    "missing_credited_owner": 44791,
+    "normalized_duplicate_originals": 2148,
+    "license": "CC-BY-2.0-FR",
+    "source_text_changed": false
+  },
+  "general_source_graph": {
+    "links_sha256": "08a802bfee9242fe2476836ec94e180588149f047451bce7519331b871b19e4f",
+    "general_spec_sha256": "a9628ce73c924c361e82811f6c8287d0535831c43210a95f2d3dc86daf33103f",
+    "all_directed_link_rows": 28651608,
+    "maximum_link_id": 14117676,
+    "reciprocal_english_french_pairs": 442871,
+    "missing_reciprocals": 0,
+    "normalized_alias_unions": 2148,
+    "english_french_link_components": 238427,
+    "graph_scope": "Every language in primary links plus normalized visible English/French text across both languages",
+    "source_text_modified": false
+  },
+  "active_pilot_checks": {
+    "family": "LANGUAGE_TRANSLATION",
+    "pilot_manifest_sha256": "ca65b547545bee9858f69bc73a70c30695db947c5ba80c793ca9944e428212c0",
+    "source_spec_sha256": "a9628ce73c924c361e82811f6c8287d0535831c43210a95f2d3dc86daf33103f",
+    "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+    "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+    "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+    "tokenizer_vectors": 88,
+    "source_checks": {
+      "train": {
+        "source_donor_blocks": 128,
+        "distinct_equivalence_components": 256,
+        "rows": 512,
+        "direction_counts": {
+          "eng-fra": 256,
+          "fra-eng": 256
+        },
+        "length_control_fractions": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "rendered_texts_all_formats": 3072,
+        "maximum_tokens": 71,
+        "cross_split_normalized_text_identity_component_overlap": 0,
+        "chosen_role_histogram_equals_rejected": true
+      },
+      "validation": {
+        "source_donor_blocks": 32,
+        "distinct_equivalence_components": 64,
+        "rows": 128,
+        "direction_counts": {
+          "eng-fra": 64,
+          "fra-eng": 64
+        },
+        "length_control_fractions": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "rendered_texts_all_formats": 768,
+        "maximum_tokens": 73,
+        "cross_split_normalized_text_identity_component_overlap": 0,
+        "chosen_role_histogram_equals_rejected": true
+      },
+      "test": {
+        "source_donor_blocks": 64,
+        "distinct_equivalence_components": 128,
+        "rows": 256,
+        "direction_counts": {
+          "eng-fra": 128,
+          "fra-eng": 128
+        },
+        "length_control_fractions": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "rendered_texts_all_formats": 1536,
+        "maximum_tokens": 68,
+        "cross_split_normalized_text_identity_component_overlap": 0,
+        "chosen_role_histogram_equals_rejected": true
+      }
+    },
+    "dataset_gates": {
+      "train": {
+        "ok": true,
+        "n": 512,
+        "metrics": {
+          "unique_rejected_frac": 1.0,
+          "top_rejected_share": 0.002,
+          "length_shortcut_acc": 0.5,
+          "eval_negative_leak": 0.0,
+          "surface_probe_acc": 0.1105,
+          "mean_len_chosen": 36.4,
+          "mean_len_rejected": 36.4
+        },
+        "failures": []
+      },
+      "validation": {
+        "ok": true,
+        "n": 128,
+        "metrics": {
+          "unique_rejected_frac": 1.0,
+          "top_rejected_share": 0.0078,
+          "length_shortcut_acc": 0.5,
+          "eval_negative_leak": 0.0,
+          "surface_probe_acc": 0.0737,
+          "mean_len_chosen": 34.7,
+          "mean_len_rejected": 34.7
+        },
+        "failures": []
+      },
+      "test": {
+        "ok": true,
+        "n": 256,
+        "metrics": {
+          "unique_rejected_frac": 1.0,
+          "top_rejected_share": 0.0039,
+          "length_shortcut_acc": 0.5,
+          "eval_negative_leak": 0.0,
+          "surface_probe_acc": 0.0868,
+          "mean_len_chosen": 34.4,
+          "mean_len_rejected": 34.4
+        },
+        "failures": []
+      }
+    },
+    "shortcut_baselines": {
+      "train_fitted_direction": {
+        "length": 1,
+        "tfidf_overlap": 1,
+        "alarm_keywords": 1
+      },
+      "by_split": {
+        "train": {
+          "length": 0.5,
+          "tfidf_overlap": 0.5742,
+          "alarm_keywords": 0.5
+        },
+        "validation": {
+          "length": 0.5,
+          "tfidf_overlap": 0.5352,
+          "alarm_keywords": 0.5
+        },
+        "test": {
+          "length": 0.5,
+          "tfidf_overlap": 0.5137,
+          "alarm_keywords": 0.5
+        }
+      }
+    },
+    "files": {
+      "train": {
+        "sha256": "f80520dabd02f3c8197e96ecb8d03a89b36622f1ca13c60e4c9eb3afa186b0cf",
+        "rows": 512
+      },
+      "validation": {
+        "sha256": "15f40c89d13cbd4eb5c52f88e7a8a52b0d23182d339f8f01519f979b06860d34",
+        "rows": 128
+      },
+      "test": {
+        "sha256": "583f7c1050af9e954ec183a5c04f4828206cd164e08d9654023e8d8be08b718c",
+        "rows": 256
+      }
+    },
+    "numeric_data_gates_pass": true,
+    "semantic_review": "FAIL",
+    "workflow_ready": false,
+    "model_execution": false,
+    "sealed_final_audit": "Single source-only audit after frozen groups; never used for model choice or reselection",
+    "semantic_review_sha256": "1176069094886a2faecd106269176b73e54190252c06544a4cd96450fa51cb1c",
+    "known_failed_source_links": 5,
+    "blocker": "Frozen bilingual audit found meaning/tense errors in original reciprocal links. No training workflow enabled.",
+    "answer_only_control": {
+      "original_target_role_histograms_balanced_in_every_split": true,
+      "reciprocal_pair_bound": 0.5,
+      "explanation": "For every target pair the group contains both preference directions. An answer-only ranking wins one and loses one, with half credit for ties. The kit's random row holdout separates those reversed roles, so its unusually low surface scores are not independent semantic evidence."
+    }
+  },
+  "historical_probe_scope": "The source_probe/source_checks entries are the retained first CC0-only probe, not the active general-export pilot."
+}

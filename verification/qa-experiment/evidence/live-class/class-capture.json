@@ -1,0 +1,16 @@
+{
+  "class": "judgment",
+  "family": "QUESTION_ANSWERING",
+  "child": "QUESTION_ANSWERING_GENERAL",
+  "snapshot_sha256": "ed7ed466a20d8d47bd3a07cccf9ecc19a91ec198b2ff000b5e8777611c5652d3",
+  "fetched_at": "2026-11-19T02:44:20.384410+00:00",
+  "source_sha256": {
+    "family": "a6c7a48a39a4ac38f7b30ef6662816bb6c133792154c46321ec92bd790443c8b",
+    "child": "e5327cce39822e8a6704f6f4eed9f0d11845adbedaae25a588cb65016e7f7aee"
+  },
+  "urls": {
+    "family": "https://devnode.telegraphprotocol.com/api/wasm?resolve=QUESTION_ANSWERING",
+    "child": "https://devnode.telegraphprotocol.com/engine/v1/intents/QUESTION_ANSWERING_GENERAL"
+  },
+  "pool_rows_read": false
+}

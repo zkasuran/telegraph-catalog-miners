@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "status": "PASS",
+  "review_kind": "AI-assisted reviewed source pool before new deterministic freeze; no human review",
+  "pilot_manifest_sha256": "099fa6f2c0f4eda56dd995ed5265e820b8c885bae58667e0e72f12db1f7e6f7b",
+  "reviewed_pool_sha256": "b548e4d8fc297e1f66732db7830c84d826cf9158bca50275ec8442d1b37d6e6a",
+  "source_pool_review_sha256": "cf8003696e8b5c77e73c08d9132641edd3725c910a2ab7c99347b83568369cb9",
+  "reviewed_source_links": 472,
+  "reviewed_donor_blocks": 236,
+  "known_failures": [],
+  "old_failures_retained": "archive/failed-ca65b547545b",
+  "new_final_material_not_repaired_after_freeze": true,
+  "workflow_ready": false,
+  "model_execution": false
+}

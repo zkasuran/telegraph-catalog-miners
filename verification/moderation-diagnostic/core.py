@@ -103,7 +103,7 @@ def summary(rows, margins):
     if {r["label"] for r in rows} != set(LABELS):
         raise ValueError("unsupported or missing source label")
     result = cell(margins)
-    result["by_label"] = {label: cell([m for r, m in zip(rows, margins) if r["label"] == label]) for label in LABELS}
+    result["by_label"] = {label: cell([m for r, m in zip(rows, margins, strict=True) if r["label"] == label]) for label in LABELS}
     wins = sum(len(r["chosen"]) > len(r["rejected"]) for r in rows)
     ties = sum(len(r["chosen"]) == len(r["rejected"]) for r in rows)
     baseline = (wins + 0.5 * ties) / len(rows)
@@ -117,7 +117,7 @@ def quality(formats, untrained, dataset_ok):
     if not dataset_ok:
         failures.append("upstream dataset gate failed")
     if set(formats) != set(FORMATS) or set(untrained) != set(FORMATS):
-        return failures + ["missing response format"]
+        return [*failures, "missing response format"]
     for name in FORMATS:
         row = formats[name]
         if set(row["by_label"]) != set(LABELS):
@@ -163,12 +163,12 @@ def deny_measurement_reads(root):
         if event != "open" or not args or not isinstance(args[0], (str, bytes, Path)):
             return
         path = Path(os.fsdecode(args[0])).resolve()
-        if path == old_test or path == forbidden or forbidden in path.parents:
+        if path in (old_test, forbidden) or forbidden in path.parents:
             raise PermissionError("trainer/selector cannot open old test or fresh audit")
     sys.addaudithook(guard)
 
 
-def overlay(source, namespace):
+def overlay(source, namespace, *, matched=False):
     """Reuse the original train body with two observation-only callbacks."""
     if sha(source.encode()) != CONTRACT["trainer_sha256"]:
         raise ValueError("pinned trainer source changed")
@@ -177,6 +177,8 @@ def overlay(source, namespace):
     class Insert(ast.NodeTransformer):
         steps = 0
         epochs = 0
+        loaders = 0
+        starts = 0
         def visit_Expr(self, node):
             text = ast.unparse(node)
             if text == "optim.step()":
@@ -184,6 +186,22 @@ def overlay(source, namespace):
                 return [ast.parse("diagnostic_step(optim, params, gstep)").body[0], node]
             return node
         def visit_Assign(self, node):
+            text = ast.unparse(node)
+            if matched and text.startswith("loader = DataLoader(train_pairs,"):
+                if not isinstance(node.value, ast.Call):
+                    raise ValueError("matched loader anchor changed")
+                keywords = {kw.arg: kw for kw in node.value.keywords}
+                if ast.unparse(keywords["shuffle"].value) != "True" or "sampler" in keywords or "generator" in keywords:
+                    raise ValueError("matched loader source changed")
+                keywords["shuffle"].value = ast.Constant(False)
+                node.value.keywords.extend([
+                    ast.keyword(arg="sampler", value=ast.Name(id="diagnostic_sampler", ctx=ast.Load())),
+                    ast.keyword(arg="generator", value=ast.Name(id="diagnostic_loader_rng", ctx=ast.Load())),
+                ])
+                self.loaders += 1
+            if matched and text.startswith("use_scaler = "):
+                self.starts += 1
+                return [ast.parse("diagnostic_start(model, optim, sched)").body[0], node]
             if ast.unparse(node).startswith("avg_loss = "):
                 self.epochs += 1
                 return [node, ast.parse("diagnostic_epoch(epoch, avg_loss, gstep)").body[0]]
@@ -192,6 +210,8 @@ def overlay(source, namespace):
     fn = insert.visit(fn)
     if (insert.steps, insert.epochs) != (1, 1):
         raise ValueError("trainer overlay anchors changed")
+    if matched and (insert.loaders, insert.starts) != (1, 1):
+        raise ValueError("matched trainer overlay anchors changed")
     unit = ast.fix_missing_locations(ast.Module(body=[fn], type_ignores=[]))
     private = dict(namespace)
     # Only the hash-verified pinned train function and two fixed callbacks enter this AST.

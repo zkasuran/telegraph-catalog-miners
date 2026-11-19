@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "status": "FAIL",
+  "review_kind": "AI-assisted bilingual source audit by the implementation agent, not human review or professional certification",
+  "pilot_manifest_sha256": "ca65b547545bee9858f69bc73a70c30695db947c5ba80c793ca9944e428212c0",
+  "reviewed_source_links": 448,
+  "reviewed_donor_blocks": 224,
+  "known_failures": [
+    {
+      "split": "train",
+      "block_index": 85,
+      "english_id": 9795147,
+      "french_id": 2564823,
+      "failure": "English present progressive becomes French imperfect past. The frozen link is not an intact tense-preserving reference.",
+      "english_evidence": "You are neglecting yourself.",
+      "french_evidence": "Vous vous négligiez."
+    },
+    {
+      "split": "train",
+      "block_index": 127,
+      "english_id": 11008290,
+      "french_id": 6212792,
+      "failure": "English asks whether to report inability to work. French asks whether to report why one cannot work, adding a request for reasons.",
+      "english_evidence": "Do I have to tell the employer that I'm unable to work?",
+      "french_evidence": "Est-ce que je dois dire à l'employeur, pourquoi je suis incapable de travailler ?"
+    },
+    {
+      "split": "validation",
+      "block_index": 22,
+      "english_id": 10092686,
+      "french_id": 10971287,
+      "failure": "The French reference omits the requirement to book in advance.",
+      "english_evidence": "You have to book in advance.",
+      "french_evidence": "Il faut réserver."
+    },
+    {
+      "split": "test",
+      "block_index": 11,
+      "english_id": 12997332,
+      "french_id": 5251372,
+      "failure": "English their is plural-possessor ownership. French ses names a singular possessor. The ownership relation changes.",
+      "english_evidence": "They're washing their apples.",
+      "french_evidence": "Ils lavent ses pommes."
+    },
+    {
+      "split": "test",
+      "block_index": 16,
+      "english_id": 845613,
+      "french_id": 844653,
+      "failure": "English inability to act accordingly becomes French inability to agree. Understanding, action and agreement are different claims.",
+      "english_evidence": "While I understand what you are saying, I cannot do accordingly.",
+      "french_evidence": "Bien que je comprenne ce que vous dites, je ne peux pas être d'accord avec vous."
+    }
+  ],
+  "known_failed_links": 5,
+  "affected_constructed_rows": 10,
+  "remaining_review_scope": "Other register, grammar, specificity and tense issues were observed. The five listed failures are sufficient to reject this frozen pilot. This list is not an exhaustive professional translation audit.",
+  "source_license": "CC-BY-2.0-FR",
+  "source_references": "Exact author or credited contributor, sentence URI, source lines and export hashes remain in pilot-manifest.json. Full original grants remain in rights.json.",
+  "final_boundary": "Original groups and texts were frozen before this review. No replacement, source-text correction, reselection or threshold change follows this final audit.",
+  "workflow_ready": false,
+  "model_execution": false,
+  "next_requirement": "An independently reviewed source-link corpus and a newly sealed pilot with a documented final-exposure boundary. These failed labels are not repaired by component separation or a numeric gate pass."
+}

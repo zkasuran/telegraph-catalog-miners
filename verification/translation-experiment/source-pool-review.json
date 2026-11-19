@@ -1,0 +1,2710 @@
+{
+  "schema_version": 2,
+  "proposal_sha256": "d459f28de37a984c0c84a373c9715047187d350fe47cd8e8684c6f585cb372df",
+  "review_kind": "AI-assisted source-grounded bilingual review before splitting",
+  "reviewed_blocks": 400,
+  "reviewed_links": 800,
+  "human_review_claimed": false,
+  "approved_indices": [
+    0,
+    2,
+    3,
+    8,
+    9,
+    10,
+    13,
+    14,
+    15,
+    17,
+    18,
+    29,
+    30,
+    31,
+    33,
+    34,
+    37,
+    38,
+    40,
+    41,
+    43,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    57,
+    58,
+    59,
+    61,
+    64,
+    66,
+    67,
+    69,
+    72,
+    74,
+    75,
+    76,
+    77,
+    79,
+    80,
+    81,
+    84,
+    87,
+    91,
+    92,
+    93,
+    95,
+    98,
+    99,
+    100,
+    102,
+    103,
+    105,
+    106,
+    107,
+    108,
+    109,
+    111,
+    115,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    126,
+    127,
+    128,
+    129,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    138,
+    139,
+    141,
+    142,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    152,
+    155,
+    158,
+    160,
+    161,
+    164,
+    165,
+    167,
+    169,
+    170,
+    171,
+    173,
+    174,
+    176,
+    177,
+    178,
+    180,
+    181,
+    182,
+    183,
+    185,
+    186,
+    188,
+    190,
+    191,
+    192,
+    195,
+    202,
+    203,
+    204,
+    206,
+    209,
+    211,
+    214,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    224,
+    225,
+    226,
+    228,
+    230,
+    232,
+    233,
+    234,
+    235,
+    236,
+    237,
+    241,
+    242,
+    243,
+    244,
+    245,
+    247,
+    248,
+    249,
+    251,
+    252,
+    254,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    267,
+    268,
+    269,
+    273,
+    274,
+    275,
+    276,
+    277,
+    282,
+    283,
+    287,
+    289,
+    294,
+    299,
+    301,
+    303,
+    304,
+    305,
+    306,
+    307,
+    313,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322,
+    324,
+    325,
+    326,
+    327,
+    329,
+    333,
+    335,
+    337,
+    338,
+    339,
+    342,
+    343,
+    344,
+    345,
+    346,
+    349,
+    352,
+    359,
+    360,
+    361,
+    362,
+    363,
+    364,
+    365,
+    366,
+    368,
+    369,
+    371,
+    376,
+    377,
+    379,
+    380,
+    381,
+    384,
+    385,
+    386,
+    388,
+    391,
+    393,
+    394,
+    395,
+    397,
+    399
+  ],
+  "rejected_blocks": [
+    {
+      "proposal_index": 1,
+      "block_id": "854afe2a8d4a76c34260a58e4d3b04ee9e2e6a2608156dee881fb605293ea64e",
+      "links": [
+        [
+          5205156,
+          5899363
+        ],
+        [
+          6263072,
+          8015956
+        ]
+      ],
+      "reason": "French seule introduces speaker gender absent from the English statement."
+    },
+    {
+      "proposal_index": 4,
+      "block_id": "3b7f1400f2a2f69c24e22652e619ac677cdcd6f8e92a09de2279e06f42ae151f",
+      "links": [
+        [
+          2314902,
+          5963212
+        ],
+        [
+          1723814,
+          1723006
+        ]
+      ],
+      "reason": "The even emphasis is omitted and the first reference's tense/aspect is not an intact match."
+    },
+    {
+      "proposal_index": 5,
+      "block_id": "6a9c063123d8f527c9dffdf9b88031bc42eb667aa048bf73dabaf80d770e0403",
+      "links": [
+        [
+          257813,
+          763206
+        ],
+        [
+          2780847,
+          3354032
+        ]
+      ],
+      "reason": "Last night is weakened to yesterday without the explicit nighttime constraint."
+    },
+    {
+      "proposal_index": 6,
+      "block_id": "6db2751334a6f2785d98b04e92b7e3274bd76a56adbfd1e93e9d62b60d90edc8",
+      "links": [
+        [
+          265436,
+          5055218
+        ],
+        [
+          2031544,
+          3880283
+        ]
+      ],
+      "reason": "First-person French arriv\u00e9 requires unresolved speaker gender."
+    },
+    {
+      "proposal_index": 7,
+      "block_id": "1f8f1937ad095cf79d06f644e9ce4f07a32b7569a2b9a9101081aea8e95cee33",
+      "links": [
+        [
+          5620501,
+          5620512
+        ],
+        [
+          5193400,
+          6285958
+        ]
+      ],
+      "reason": "French tout ceux is erroneous agreement; aided speaker gender is unresolved."
+    },
+    {
+      "proposal_index": 11,
+      "block_id": "62e8c887e1c948fe85f68dde31dcb72b9901d8863b4ad4d688169e079881aa9a",
+      "links": [
+        [
+          3633065,
+          3633071
+        ],
+        [
+          1021791,
+          1021787
+        ]
+      ],
+      "reason": "French on does not independently establish English plural we in the reverse direction."
+    },
+    {
+      "proposal_index": 12,
+      "block_id": "08efff496eff299e7bd16d041edaf4d3e0f52d32a6815586e299d472c1216931",
+      "links": [
+        [
+          1723929,
+          487138
+        ],
+        [
+          332329,
+          332330
+        ]
+      ],
+      "reason": "Collecting thoughts and finding ideas are not an unambiguous identical mental task."
+    },
+    {
+      "proposal_index": 16,
+      "block_id": "5f8eb25578ba48e1e3c0e648fe5b259eb46aba751b83f1c25e837abd16043baa",
+      "links": [
+        [
+          2012985,
+          2437926
+        ],
+        [
+          8993996,
+          12180190
+        ]
+      ],
+      "reason": "Pounds are replaced by kilos. Source measurement units must remain intact."
+    },
+    {
+      "proposal_index": 19,
+      "block_id": "ac91adb03a323a53c775d690cd4c964af0719dcdce81dbde5f59b8a33cb9edf8",
+      "links": [
+        [
+          1954846,
+          5927270
+        ],
+        [
+          2147098,
+          8447933
+        ]
+      ],
+      "reason": "Renting out a canoe and renting a canoe have opposite lessor/lessee readings."
+    },
+    {
+      "proposal_index": 20,
+      "block_id": "1c80acdadba476ff5c70cbd26c5144b7ab64dcb3f48e93dd290e99ed71499b99",
+      "links": [
+        [
+          5851173,
+          7787767
+        ],
+        [
+          11577642,
+          11577651
+        ]
+      ],
+      "reason": "English read is present/past ambiguous; French lis selects present without context."
+    },
+    {
+      "proposal_index": 21,
+      "block_id": "98993eed8c868a1abd2f6a6f26b093e0b917e2638a43122b77a9e2f0c7206aff",
+      "links": [
+        [
+          1637659,
+          1638536
+        ],
+        [
+          3396457,
+          12728906
+        ]
+      ],
+      "reason": "The mercy-of-the-court idiom is not sufficiently clear in the supplied French reference."
+    },
+    {
+      "proposal_index": 22,
+      "block_id": "da00e890e26e44f5dd1a22d6d443fe957ca76a9627f36c74fe51bb4ac93c9a10",
+      "links": [
+        [
+          2301934,
+          2302584
+        ],
+        [
+          8276145,
+          10750574
+        ]
+      ],
+      "reason": "French idiote specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 23,
+      "block_id": "23f5301591a2fe943ea8cc605e17e2cc5ec9b497b974cbefd15cc49bf17f6009",
+      "links": [
+        [
+          2042622,
+          2447928
+        ],
+        [
+          266877,
+          128403
+        ]
+      ],
+      "reason": "Supporting family is narrowed to feeding family; support need not be food."
+    },
+    {
+      "proposal_index": 24,
+      "block_id": "399871f13cd4431b25424d0470f1039b3ee0612eae77d9fa0b6b451cacc5f8e8",
+      "links": [
+        [
+          8398086,
+          13270559
+        ],
+        [
+          12002080,
+          1808979
+        ]
+      ],
+      "reason": "English him loses its stated gender in French lui, which cannot resolve male/female in reverse."
+    },
+    {
+      "proposal_index": 25,
+      "block_id": "78c6983b86576d401fa21afd4b1f22ccd15f4e253c500120b030789234ff6c77",
+      "links": [
+        [
+          4091330,
+          4093016
+        ],
+        [
+          5800307,
+          5804404
+        ]
+      ],
+      "reason": "French suivi specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 26,
+      "block_id": "ee0a81127857a5b3782b2f2835feac2a88acca89a45dd4fdcf08eb8fb1a173c5",
+      "links": [
+        [
+          6003697,
+          6874641
+        ],
+        [
+          3464925,
+          3466143
+        ]
+      ],
+      "reason": "The thick book becomes an indefinite book of that thickness."
+    },
+    {
+      "proposal_index": 27,
+      "block_id": "9d424ec36119bb7cac24de1e00a592041263d0a3370a19afbef692dd5458c829",
+      "links": [
+        [
+          1669941,
+          7785940
+        ],
+        [
+          5915995,
+          8185530
+        ]
+      ],
+      "reason": "French r\u00e9veill\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 28,
+      "block_id": "467170666668b38d5cfcb1a3584ea405daf263764be4c60ae282e3e4d06295d9",
+      "links": [
+        [
+          2245862,
+          2433101
+        ],
+        [
+          284576,
+          130069
+        ]
+      ],
+      "reason": "English him loses its stated gender in French lui, which cannot resolve male/female in reverse."
+    },
+    {
+      "proposal_index": 32,
+      "block_id": "4c3476236ec6b4fa43018370499dd4d7792ed0ddb0496054723a42b7208b0d9a",
+      "links": [
+        [
+          1003490,
+          11973479
+        ],
+        [
+          2427768,
+          10136769
+        ]
+      ],
+      "reason": "French all\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 35,
+      "block_id": "4d31f9cc1ce575e0852adcdfc4c4b75811431794cadfa55c35940736900dca86",
+      "links": [
+        [
+          6826985,
+          11124482
+        ],
+        [
+          38772,
+          12969402
+        ]
+      ],
+      "reason": "Literal singing and praising a benefactor require an unresolved proverbial reading."
+    },
+    {
+      "proposal_index": 36,
+      "block_id": "c7aabc561fa1274d9092bfe779033ce4a9c29ee364e40e12251bf53a76b94b21",
+      "links": [
+        [
+          2361543,
+          2556743
+        ],
+        [
+          1920698,
+          1921416
+        ]
+      ],
+      "reason": "French choisie specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 39,
+      "block_id": "430d115e0b8dcee4c80d128c14efae5d558a3bd00801477f3669228a51662bb3",
+      "links": [
+        [
+          5228474,
+          8419336
+        ],
+        [
+          3694569,
+          533529
+        ]
+      ],
+      "reason": "French affect\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 42,
+      "block_id": "99abbffd63194c1a930a2e34a79daf353637802d2d7ab07a67d32fad5d8b6818",
+      "links": [
+        [
+          2451870,
+          4681835
+        ],
+        [
+          2245790,
+          5063624
+        ]
+      ],
+      "reason": "French verbalis\u00e9e specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 44,
+      "block_id": "9752fe1c045fce517b0ca9cbb0312779a29eec3d5add43a2765989ec3b45d6ab",
+      "links": [
+        [
+          8120196,
+          14018200
+        ],
+        [
+          14027579,
+          14029382
+        ]
+      ],
+      "reason": "Simple past opened becomes French imperfect opening, without event/aspect context."
+    },
+    {
+      "proposal_index": 47,
+      "block_id": "b6b706094033d529becc2197cc199a667e1c4ef00b547800222b16ad5e965ecb",
+      "links": [
+        [
+          5858099,
+          1924505
+        ],
+        [
+          1110473,
+          1112060
+        ]
+      ],
+      "reason": "French senti idiot specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 56,
+      "block_id": "b93e1e8e9b66c5f5625b8b35181b8cfbe5023d434a0613999940bdd0ef2be5eb",
+      "links": [
+        [
+          2387707,
+          7773529
+        ],
+        [
+          2208567,
+          2443532
+        ]
+      ],
+      "reason": "French tout seul specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 60,
+      "block_id": "085ef48993b5e7d2a464694ea8a98457ed566ec708c4a9d686368b8bc4c0cdd8",
+      "links": [
+        [
+          2331648,
+          2429964
+        ],
+        [
+          2326020,
+          2416776
+        ]
+      ],
+      "reason": "A couple of months is replaced by quelques mois; exact two versus unspecified few is unresolved."
+    },
+    {
+      "proposal_index": 62,
+      "block_id": "12ee28c0d81c1ea84ea17725b2f11889243d61e5bb6d5bbb763709b3700bbc3b",
+      "links": [
+        [
+          3408652,
+          7108986
+        ],
+        [
+          1771641,
+          2136869
+        ]
+      ],
+      "reason": "The mother/avocat grammatical gender and profession wording are not clean enough for this pool."
+    },
+    {
+      "proposal_index": 63,
+      "block_id": "03cc82831285e478dcf2f94c4bdfd5dfbce546973e4d609a9c075b134d26528b",
+      "links": [
+        [
+          6809845,
+          6809980
+        ],
+        [
+          5852355,
+          6939920
+        ]
+      ],
+      "reason": "French \u00e9lu specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 65,
+      "block_id": "137cd9edff4b6455a16fa9c96d33555e804dfa75c8f87629523078595e9a09b9",
+      "links": [
+        [
+          8409802,
+          8409801
+        ],
+        [
+          1678925,
+          1678922
+        ]
+      ],
+      "reason": "Plural our goals become singular son but and the explicit collective subject is lost."
+    },
+    {
+      "proposal_index": 68,
+      "block_id": "de1f4cb35992a85bdd4f639ee94af38cbfa58497731067fab0ce8b954eaacfd3",
+      "links": [
+        [
+          252199,
+          1544738
+        ],
+        [
+          2407884,
+          10666643
+        ]
+      ],
+      "reason": "French celle-ci requires object gender absent from English this one."
+    },
+    {
+      "proposal_index": 70,
+      "block_id": "e854d98eb89c418a1b5977eef0b57ad9225cd0ce22e351cd283fc2e81b151594",
+      "links": [
+        [
+          953600,
+          1368075
+        ],
+        [
+          3976764,
+          3977064
+        ]
+      ],
+      "reason": "French seul specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 71,
+      "block_id": "57d8b4a8259e3c028c528098d193adb879fc900d4c407f629def00011aa2a0a9",
+      "links": [
+        [
+          5205144,
+          5895996
+        ],
+        [
+          5850847,
+          2231493
+        ]
+      ],
+      "reason": "French br\u00fbl\u00e9e specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 73,
+      "block_id": "1e7d81e2f2df713a2cf0e2eecab86888e62a62f4cefe6c38a1d0191745ddfae5",
+      "links": [
+        [
+          7236901,
+          6385374
+        ],
+        [
+          5800205,
+          5800411
+        ]
+      ],
+      "reason": "English him loses its stated gender in French lui, which cannot resolve male/female in reverse."
+    },
+    {
+      "proposal_index": 78,
+      "block_id": "683de2013480b7bd544c91a586dad6678ec83bc07e3cc2c4dd4f98ae805144e2",
+      "links": [
+        [
+          2245644,
+          4679101
+        ],
+        [
+          2064787,
+          2482582
+        ]
+      ],
+      "reason": "French remettre has no scheduling object/context; reschedule is not established."
+    },
+    {
+      "proposal_index": 82,
+      "block_id": "f1b3b804eef16b71ac4c53ed21ae4f0047b1c3c9f86b1adc44de189f0bde0b9a",
+      "links": [
+        [
+          6126238,
+          12457626
+        ],
+        [
+          12638659,
+          1369002
+        ]
+      ],
+      "reason": "Secondary school is narrowed to lyc\u00e9e, excluding other secondary stages."
+    },
+    {
+      "proposal_index": 83,
+      "block_id": "9b4309e016620d8bb22a41a8452501201cd2e42a4be68a44d8e2d096b831f4bc",
+      "links": [
+        [
+          2423581,
+          2488613
+        ],
+        [
+          13574768,
+          13574772
+        ]
+      ],
+      "reason": "English crackers is unresolved food/slur polysemy; French chooses a racial slur."
+    },
+    {
+      "proposal_index": 85,
+      "block_id": "e286c15a0740c8c8256135f65079c367ad2ef025c5809d9e88d83dedce07b846",
+      "links": [
+        [
+          436401,
+          1272206
+        ],
+        [
+          11855732,
+          12416769
+        ]
+      ],
+      "reason": "Waking up becomes getting up, different actions; first-person married gender is also unresolved."
+    },
+    {
+      "proposal_index": 86,
+      "block_id": "ee73e1e24209543b24ccf67f88872b1a99f012aee3ce685e87d5446174f83e3e",
+      "links": [
+        [
+          1745364,
+          3637011
+        ],
+        [
+          254323,
+          539769
+        ]
+      ],
+      "reason": "French impliqu\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 88,
+      "block_id": "14f394ad65da9c23c5fd35dd3d6cfe1803536f8831f87d211d15d4ba1085391f",
+      "links": [
+        [
+          7795946,
+          7162830
+        ],
+        [
+          10782390,
+          13435
+        ]
+      ],
+      "reason": "Plural sentences becomes singular quelle phrase."
+    },
+    {
+      "proposal_index": 89,
+      "block_id": "de5e710b51c7113c4270d9e87ecff3e0145fcc9244092e4345afc2ac02afa962",
+      "links": [
+        [
+          1970230,
+          1970322
+        ],
+        [
+          5913703,
+          8703255
+        ]
+      ],
+      "reason": "Plural lights becomes singular la lumi\u00e8re without a whole-lighting interpretation established."
+    },
+    {
+      "proposal_index": 90,
+      "block_id": "b5f32197e9a15d131f368f2e58d7d4001083ec1e066602469f2128a1cde0fcb1",
+      "links": [
+        [
+          8044970,
+          1149126
+        ],
+        [
+          26728,
+          9892
+        ]
+      ],
+      "reason": "French r\u00e9veill\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 94,
+      "block_id": "15001c75f77781e194f77ed09713d615d1c6eab9c0cd61294d9f6efefbcffbee",
+      "links": [
+        [
+          11075867,
+          6936889
+        ],
+        [
+          5858831,
+          4614222
+        ]
+      ],
+      "reason": "French sortie specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 96,
+      "block_id": "e53fce2256a0457c43022123310c82311161644cb712c5144bd75204ab6e02f7",
+      "links": [
+        [
+          2300215,
+          12722256
+        ],
+        [
+          6358415,
+          6597832
+        ]
+      ],
+      "reason": "French venu specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 97,
+      "block_id": "6f870c5dcad1e2749e7b5f16f7f40ea4167323f7a690611eb659ab25c4dfadf6",
+      "links": [
+        [
+          3919027,
+          5764333
+        ],
+        [
+          11967623,
+          11967622
+        ]
+      ],
+      "reason": "French l'appeler does not resolve the male object stated by English him."
+    },
+    {
+      "proposal_index": 101,
+      "block_id": "c7330ee1b40bae30db2449cdc2c60181f0c0df348e2024c18c0d3016f79384b2",
+      "links": [
+        [
+          3668458,
+          3664821
+        ],
+        [
+          33375,
+          5594140
+        ]
+      ],
+      "reason": "French l'un l'autre can require two participants; English we/one another is not limited to two."
+    },
+    {
+      "proposal_index": 104,
+      "block_id": "a88d64508fe957a825007d042c621090909766b14b4e8bd1aabd1ba1a287335b",
+      "links": [
+        [
+          2025836,
+          5359040
+        ],
+        [
+          2897090,
+          6365589
+        ]
+      ],
+      "reason": "French certain specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 110,
+      "block_id": "cc9a7d1de7035b641d12d5ed34507a846b1b8e85f011f35af86479add9010e53",
+      "links": [
+        [
+          2408438,
+          2412206
+        ],
+        [
+          13077347,
+          13079975
+        ]
+      ],
+      "reason": "Cannot read social cues becomes difficulty following social codes, changing ability and task."
+    },
+    {
+      "proposal_index": 112,
+      "block_id": "7e1464fa34c5c4f5df848a1152a433e3d8b15df0fb25137b35127bc855154091",
+      "links": [
+        [
+          12976124,
+          12976113
+        ],
+        [
+          13295237,
+          13295232
+        ]
+      ],
+      "reason": "French inform\u00e9e specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 113,
+      "block_id": "53fd8e286e93b453b0a3c417671f126530506d33b7abb68406c18ae77327fe91",
+      "links": [
+        [
+          13807335,
+          9962193
+        ],
+        [
+          2528478,
+          2528474
+        ]
+      ],
+      "reason": "French all\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 114,
+      "block_id": "df0a9bac65f32c92b2c45e921cd821577834f4808b8e19a71e26a09d88bc87e6",
+      "links": [
+        [
+          7522978,
+          7528819
+        ],
+        [
+          13913481,
+          13913482
+        ]
+      ],
+      "reason": "English these pants can be one garment; French ces pantalons requires plural garments."
+    },
+    {
+      "proposal_index": 116,
+      "block_id": "399db7fb7bb2a9cdc82298fc3296176a3598590897f9f025607f051d33ba2b4a",
+      "links": [
+        [
+          328753,
+          8252787
+        ],
+        [
+          5509266,
+          8823596
+        ]
+      ],
+      "reason": "French r\u00e9veill\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 124,
+      "block_id": "2af633ccb45a91f6eb7f6b8d91eee77f8d0577c64d585d7abe113dbea1e80344",
+      "links": [
+        [
+          5956006,
+          6468001
+        ],
+        [
+          1961298,
+          2159691
+        ]
+      ],
+      "reason": "French fou specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 125,
+      "block_id": "01e34a3cd23e380e8691ef4c346eef15b4bbf00641234ad36e1f2bf479c6000e",
+      "links": [
+        [
+          251898,
+          333375
+        ],
+        [
+          2198658,
+          2201128
+        ]
+      ],
+      "reason": "Nervous as hell becomes nervous like a stallion, replacing the supplied simile."
+    },
+    {
+      "proposal_index": 130,
+      "block_id": "3d3f672b1de44fda782bafe3875d512fbce4485fab5b1495886691d0c1976947",
+      "links": [
+        [
+          3970818,
+          5552364
+        ],
+        [
+          13253777,
+          13253798
+        ]
+      ],
+      "reason": "Dinner is replaced by d\u00e9jeuner, with unresolved meal/region context."
+    },
+    {
+      "proposal_index": 137,
+      "block_id": "51d07a98d7ae986fcb799ff328e864bd7ce462bb7a49c97328aaa35c97b074b1",
+      "links": [
+        [
+          255393,
+          6957
+        ],
+        [
+          6683576,
+          6683955
+        ]
+      ],
+      "reason": "Flew away becomes escaped, omitting the explicit flight action."
+    },
+    {
+      "proposal_index": 140,
+      "block_id": "0679fa3a92297cd0ee301bb7106f2581362919b4bdfd560898c1ed013d8ba07a",
+      "links": [
+        [
+          9086664,
+          10792658
+        ],
+        [
+          10682106,
+          10682105
+        ]
+      ],
+      "reason": "The first-person circumcision/sex context is not independently resolved by the sentence."
+    },
+    {
+      "proposal_index": 143,
+      "block_id": "cdae49f15ab9f0149bfc23ebcb523e7cd84c3c5fba29966fc0309d61b4a77b5a",
+      "links": [
+        [
+          3154850,
+          3798497
+        ],
+        [
+          6337665,
+          6949352
+        ]
+      ],
+      "reason": "French toute seule specializes speaker gender and the digestive-event aspect is unclear."
+    },
+    {
+      "proposal_index": 151,
+      "block_id": "93f79f92fa6bdf21932e143a6f72756e86ee32c055b76f53404b9410bcd9e5e3",
+      "links": [
+        [
+          3210806,
+          2231136
+        ],
+        [
+          252272,
+          4626104
+        ]
+      ],
+      "reason": "English beat is present/past ambiguous; French selects past without context."
+    },
+    {
+      "proposal_index": 153,
+      "block_id": "13e040580fa414a4edaacc70cccbd0f238833d26b88dd44f30b311ec35fcbde9",
+      "links": [
+        [
+          8909023,
+          7311447
+        ],
+        [
+          3733814,
+          8391240
+        ]
+      ],
+      "reason": "Plural we must act now is replaced by impersonal future necessity without clear timing/subject."
+    },
+    {
+      "proposal_index": 154,
+      "block_id": "d96cdffcdcf08f051446df5635d6eb6f1e15b181aed8e6e2625276dfdd6b97be",
+      "links": [
+        [
+          6671398,
+          6671690
+        ],
+        [
+          1182599,
+          845505
+        ]
+      ],
+      "reason": "Forest is narrowed to jungle."
+    },
+    {
+      "proposal_index": 156,
+      "block_id": "83b615ca1fb971efac80ccda7cb1b3b2ce86412b95f17690d517cd6235e442b3",
+      "links": [
+        [
+          2034057,
+          2460600
+        ],
+        [
+          249033,
+          135874
+        ]
+      ],
+      "reason": "Banking on weather and hoping for weather have unresolved reliance/expectation strength."
+    },
+    {
+      "proposal_index": 157,
+      "block_id": "491f39af7265f1def2e4273ad2d5b7052fd2f9da2ec5bb64cde727616f6b2402",
+      "links": [
+        [
+          258065,
+          445034
+        ],
+        [
+          1887237,
+          2093545
+        ]
+      ],
+      "reason": "Do not have to is optionality; ne dois pas can prohibit attendance."
+    },
+    {
+      "proposal_index": 159,
+      "block_id": "13aea6f4f48d1b7d74129377ce5e58bd6d68808d98a65e62dd4999cf7d029b76",
+      "links": [
+        [
+          5850752,
+          11971776
+        ],
+        [
+          5240370,
+          6286150
+        ]
+      ],
+      "reason": "French convivial specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 162,
+      "block_id": "dd8f0515790886b73cfc75ca920f02529e538a6a16fcfa98997ff52b92907ae1",
+      "links": [
+        [
+          253604,
+          10523990
+        ],
+        [
+          1629744,
+          1629806
+        ]
+      ],
+      "reason": "French amies requires all-female friends not stated in the English source."
+    },
+    {
+      "proposal_index": 163,
+      "block_id": "49c3f61aa7a190b50910d81ed513d4a69cd3573ed46aa4a5e5de599bbfbad49b",
+      "links": [
+        [
+          48651,
+          11377533
+        ],
+        [
+          12261038,
+          12261603
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 166,
+      "block_id": "e30a970a24c10945cfc8b362a2ef256b5236f1b2925dfd3c204afc50aa2f7dde",
+      "links": [
+        [
+          244132,
+          1337193
+        ],
+        [
+          6356703,
+          6447085
+        ]
+      ],
+      "reason": "Generic manager becomes an impresario, adding a specific profession."
+    },
+    {
+      "proposal_index": 168,
+      "block_id": "a6962e36c5d1bc6263915145afa3edb47b2be723259b0a0a7b2e429bffeb3c0d",
+      "links": [
+        [
+          961759,
+          971418
+        ],
+        [
+          2247639,
+          4681788
+        ]
+      ],
+      "reason": "Stuffy has unresolved congestion/stifling meanings and French \u00e9touff\u00e9 specializes speaker gender."
+    },
+    {
+      "proposal_index": 172,
+      "block_id": "e566bd08f8b782b29da525945c43ff8921d490a59d6864fc39546a90cea5c3d2",
+      "links": [
+        [
+          4998551,
+          10951959
+        ],
+        [
+          260187,
+          11275130
+        ]
+      ],
+      "reason": "The singular friend's gender is not resolved by the English source."
+    },
+    {
+      "proposal_index": 175,
+      "block_id": "a41d7a2e1145a46f1c9fd06469f90fc3a5172dfc1924bd81eeb6461a8a3ccfd4",
+      "links": [
+        [
+          10039897,
+          11450791
+        ],
+        [
+          388627,
+          1360586
+        ]
+      ],
+      "reason": "French \u00e9mue specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 179,
+      "block_id": "db647b77100258d820cfeb1e707a6ad9a8f03ff88e0c9109060a770160c3319e",
+      "links": [
+        [
+          3820593,
+          3642220
+        ],
+        [
+          1114170,
+          1114486
+        ]
+      ],
+      "reason": "French seul specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 184,
+      "block_id": "c60f1b45257ce8975f68414a4311b37ffd5b83423f071cc27f9db3ba99095985",
+      "links": [
+        [
+          6209948,
+          12021463
+        ],
+        [
+          251162,
+          7717
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 187,
+      "block_id": "c48887222a649b71362ab41351e8ae1c18c899bf77b8f103b7b854dc3d670292",
+      "links": [
+        [
+          2011291,
+          4692209
+        ],
+        [
+          12588499,
+          4612397
+        ]
+      ],
+      "reason": "Powerless has unresolved helplessness/authority meanings; d\u00e9pourvu also marks speaker gender."
+    },
+    {
+      "proposal_index": 189,
+      "block_id": "91d648082dbf457dca295223df5537bff55dbe1b3e95a7126144461f1733a24b",
+      "links": [
+        [
+          279842,
+          1873091
+        ],
+        [
+          2259763,
+          4961329
+        ]
+      ],
+      "reason": "French int\u00e9ress\u00e9e specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 193,
+      "block_id": "01dd06687746549b5be06c30757f4db0c8f7a65769d022441d834299fa14ac56",
+      "links": [
+        [
+          13036314,
+          13890117
+        ],
+        [
+          1326184,
+          1326778
+        ]
+      ],
+      "reason": "Finding biological parents is not the same as getting to know them."
+    },
+    {
+      "proposal_index": 194,
+      "block_id": "cef1a72210ca04ab879264b28548a7830ef73116b99afca0d342e34606391315",
+      "links": [
+        [
+          256668,
+          1340697
+        ],
+        [
+          6796478,
+          7206483
+        ]
+      ],
+      "reason": "Waking becomes getting up and French past-perfect timing differs; arrived gender is also unresolved."
+    },
+    {
+      "proposal_index": 196,
+      "block_id": "094ccc7dc4f262dc6b9b496aa8c66360a1ce1e3d45764d853d1dc6fa1099c584",
+      "links": [
+        [
+          5651972,
+          5652246
+        ],
+        [
+          1951528,
+          2070710
+        ]
+      ],
+      "reason": "French positif and tout seul specialize unspecified speaker gender."
+    },
+    {
+      "proposal_index": 197,
+      "block_id": "02f9e640786e06e5dda94b9097dc5e48b10a5b33117a4fc1a530feff80a9bc46",
+      "links": [
+        [
+          4815567,
+          1847547
+        ],
+        [
+          12506413,
+          12271028
+        ]
+      ],
+      "reason": "French gameuse explicitly specifies a female gamer not stated in English."
+    },
+    {
+      "proposal_index": 198,
+      "block_id": "410054da77dc437b0a478dcc3c5405f39b9c854a199254fe0a5bef9ec0ed7d6d",
+      "links": [
+        [
+          2952037,
+          6324651
+        ],
+        [
+          12996864,
+          12996865
+        ]
+      ],
+      "reason": "French encourag\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 199,
+      "block_id": "23e27f73aab56e31dc42f188525a3f53db40d71c300dc6c76c67322eee715702",
+      "links": [
+        [
+          38981,
+          1186141
+        ],
+        [
+          43589,
+          2050472
+        ]
+      ],
+      "reason": "French entr\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 200,
+      "block_id": "4cdfc8013a1fb3ba56764023140d3ac3e4e074956816e538fb1a274b1712536d",
+      "links": [
+        [
+          9020774,
+          10491640
+        ],
+        [
+          6266505,
+          3427774
+        ]
+      ],
+      "reason": "Not remembering much and not remembering well change quantity versus quality of recall."
+    },
+    {
+      "proposal_index": 201,
+      "block_id": "e771f78d467ca2d67ee4dd2d85a37bb4aa762237e4edcb194953aa331dd827bf",
+      "links": [
+        [
+          5938320,
+          6630952
+        ],
+        [
+          5958240,
+          11708377
+        ]
+      ],
+      "reason": "French sorti specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 205,
+      "block_id": "ab3838ad1279b289133ed7f2d297ff7e100d84d3486264a56bbca7d48cb4cd9a",
+      "links": [
+        [
+          2947247,
+          5658141
+        ],
+        [
+          1378,
+          3194
+        ]
+      ],
+      "reason": "French impatiente specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 207,
+      "block_id": "9f82c9d4faa635a025f98cfbbbcaf214b1308a630802a5605aebaf6983e2ccc6",
+      "links": [
+        [
+          250708,
+          592850
+        ],
+        [
+          2819165,
+          5606079
+        ]
+      ],
+      "reason": "Generic teacher becomes a primary-school teacher, instituteur."
+    },
+    {
+      "proposal_index": 208,
+      "block_id": "6e933ca657297f7b0bbcad4530e6fe2b6675f8fcd48cd1a7dd7f7c0367c3a59d",
+      "links": [
+        [
+          254148,
+          7177
+        ],
+        [
+          13002411,
+          13002404
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 210,
+      "block_id": "a565cda73d71affb093d1ddad80c151422d3f4c0db234531d5e6d18b57196144",
+      "links": [
+        [
+          11229781,
+          14072935
+        ],
+        [
+          1887929,
+          2058166
+        ]
+      ],
+      "reason": "Going to work can mean commuting; French selects being about to start working."
+    },
+    {
+      "proposal_index": 212,
+      "block_id": "c239ff706e0117233bb040b0c17c57603835fede06f621b227b5b90b105cbb16",
+      "links": [
+        [
+          5858642,
+          11784579
+        ],
+        [
+          1637151,
+          1638773
+        ]
+      ],
+      "reason": "French rentr\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 213,
+      "block_id": "9dd9b970a44386e4fa0ee8fdcc2103b73a113c748fc9efc121765d4178ad9943",
+      "links": [
+        [
+          2241160,
+          4777509
+        ],
+        [
+          2241158,
+          4777505
+        ]
+      ],
+      "reason": "French rencontr\u00e9es specifies an all-female group not stated in English."
+    },
+    {
+      "proposal_index": 215,
+      "block_id": "b05ba78f5460551dfcd10339dd56551a535660f58facf46307b3107e5265d4ba",
+      "links": [
+        [
+          4401059,
+          4403961
+        ],
+        [
+          3819050,
+          11171907
+        ]
+      ],
+      "reason": "Making a deal is narrowed to concluding a definite contract."
+    },
+    {
+      "proposal_index": 222,
+      "block_id": "2886fe08498c23310f1b0b3c8a2b0df528dd24f5903a66463d1384c317f14ef4",
+      "links": [
+        [
+          3209723,
+          1224435
+        ],
+        [
+          400949,
+          631213
+        ]
+      ],
+      "reason": "French fatigu\u00e9e specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 223,
+      "block_id": "34e270f7bf1869a677ea6ca68003980765178f7874c19a26bebd6615a472bf12",
+      "links": [
+        [
+          14020934,
+          14020933
+        ],
+        [
+          1740523,
+          781777
+        ]
+      ],
+      "reason": "French rassasi\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 227,
+      "block_id": "de3e0ae0fd9970895e2a86c0427b436d080992ac484cf57497f4262ec60faa11",
+      "links": [
+        [
+          3735750,
+          6402361
+        ],
+        [
+          320622,
+          127445
+        ]
+      ],
+      "reason": "French contente and amies add female speaker/friend context."
+    },
+    {
+      "proposal_index": 229,
+      "block_id": "07d176683b667bea2dd9439e4160aa7adbebda97f55b70ca9c62afe19a9d4fcf",
+      "links": [
+        [
+          2028358,
+          2509252
+        ],
+        [
+          5085193,
+          5920459
+        ]
+      ],
+      "reason": "French seul specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 231,
+      "block_id": "9180d7cb2c70174b76a9ccbde4ccd13a0ed65dc78a04e4f280ce4ee595519a9c",
+      "links": [
+        [
+          1354298,
+          407129
+        ],
+        [
+          258751,
+          1979176
+        ]
+      ],
+      "reason": "French first-person \u00e9tudiant specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 238,
+      "block_id": "f45d0fdaf3bf1bc9b2cc8a9f9aa256f00616856e71689e82b71becb42db55e94",
+      "links": [
+        [
+          953367,
+          1403261
+        ],
+        [
+          259914,
+          1737930
+        ]
+      ],
+      "reason": "French all\u00e9es specifies an all-female group not stated in English."
+    },
+    {
+      "proposal_index": 239,
+      "block_id": "6113d3564df43da2958abefcfe6cf37d68c65af9d55eea20b0b411427824049d",
+      "links": [
+        [
+          11027953,
+          691388
+        ],
+        [
+          325461,
+          7414848
+        ]
+      ],
+      "reason": "French rest\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 240,
+      "block_id": "495b20bc0b5f9fd5604d973577d5a3b470c0a2b1ac0344cfefe336e1c25f585d",
+      "links": [
+        [
+          3759394,
+          4594039
+        ],
+        [
+          13739315,
+          13739398
+        ]
+      ],
+      "reason": "Thirst quenched and thirst dried up are not cleanly identical supplied expressions."
+    },
+    {
+      "proposal_index": 246,
+      "block_id": "bf31a5f3e445581425926f550297749e1e0289a0f6945ab33eac4fa0f499068c",
+      "links": [
+        [
+          2258804,
+          7785954
+        ],
+        [
+          622803,
+          3669559
+        ]
+      ],
+      "reason": "French d\u00e9p\u00each\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 250,
+      "block_id": "cc9d72d153a5a2c10a67d11c8c51727114a1f15c97ea8f46ae54ee685de8a692",
+      "links": [
+        [
+          252528,
+          7415212
+        ],
+        [
+          7112285,
+          9193158
+        ]
+      ],
+      "reason": "Ongoing have been studying becomes completed past studied for two hours."
+    },
+    {
+      "proposal_index": 253,
+      "block_id": "a51b34617248b272adb1d8efd86649f5e6dfd4e9bb37fd98686720b63b4bd0a2",
+      "links": [
+        [
+          1310677,
+          1310967
+        ],
+        [
+          4914191,
+          4914195
+        ]
+      ],
+      "reason": "French d\u00e9\u00e7u specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 255,
+      "block_id": "c1249a29636cbed6f7c6a4bd68a3ae5cfcaa21fff842ab639b513b77a153ff4b",
+      "links": [
+        [
+          9501636,
+          180485
+        ],
+        [
+          3594751,
+          3598841
+        ]
+      ],
+      "reason": "French \u00e9cras\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 266,
+      "block_id": "20293fe3610652a8a7cd628eb5703bd208c257d54d6630f664dc6d89db963a44",
+      "links": [
+        [
+          1841557,
+          1844402
+        ],
+        [
+          10269145,
+          1976069
+        ]
+      ],
+      "reason": "Too late is narrowed to arriving too late without an arrival in the English source."
+    },
+    {
+      "proposal_index": 270,
+      "block_id": "56b51fda6d7a1c5d085555bd85418afabea4821a79eb68385ed26edef2224ca0",
+      "links": [
+        [
+          1970162,
+          1970622
+        ],
+        [
+          1951565,
+          5227116
+        ]
+      ],
+      "reason": "French amies specifies all-female friends not stated in English."
+    },
+    {
+      "proposal_index": 271,
+      "block_id": "a92e8236310ba3c16b43ae7ad22638338b011d12de8b493c6e11e2ea3f62105d",
+      "links": [
+        [
+          257181,
+          4550654
+        ],
+        [
+          13668302,
+          13844077
+        ]
+      ],
+      "reason": "French satisfait specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 272,
+      "block_id": "4c3e1faa5238d27fc4a1a70e7ef6cb399cbbcd3644157f7eb468402adfc086ed",
+      "links": [
+        [
+          2542664,
+          12275722
+        ],
+        [
+          13656618,
+          13653956
+        ]
+      ],
+      "reason": "English pass an exam means success; French passer un examen can mean taking it."
+    },
+    {
+      "proposal_index": 278,
+      "block_id": "07ef7537c97f636a37b7dbd9a9a83e6652844ce48d6588ec217e0a862a99d7ad",
+      "links": [
+        [
+          649796,
+          4550888
+        ],
+        [
+          10706466,
+          10706469
+        ]
+      ],
+      "reason": "French petit specializes the child's gender absent from English."
+    },
+    {
+      "proposal_index": 279,
+      "block_id": "6ac718a38fdcf84c6a43d59b1c9288c64147f231ceae3b01bec53807261a7cb2",
+      "links": [
+        [
+          5850556,
+          5927161
+        ],
+        [
+          6130551,
+          12773553
+        ]
+      ],
+      "reason": "French avocate explicitly specifies a female lawyer not stated in English."
+    },
+    {
+      "proposal_index": 280,
+      "block_id": "c103786021785268bfc07ecd01f5bb4746404d57a7dedd83d82743b126aad49f",
+      "links": [
+        [
+          2771740,
+          5372534
+        ],
+        [
+          10942559,
+          10956295
+        ]
+      ],
+      "reason": "French heureux specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 281,
+      "block_id": "c9ddc1beee685df8de9aed5c849eea9cf26f8cdf3cd76d5cabf950cca022a11b",
+      "links": [
+        [
+          2241420,
+          4775609
+        ],
+        [
+          12667525,
+          12669460
+        ]
+      ],
+      "reason": "Proof is mass/singular-ambiguous while preuves explicitly requires plural proofs."
+    },
+    {
+      "proposal_index": 284,
+      "block_id": "927e89cc87438b2267fb97de317ffbe28e4a1c75062ebf044136f96db86126e3",
+      "links": [
+        [
+          4543779,
+          4545279
+        ],
+        [
+          516199,
+          545735
+        ]
+      ],
+      "reason": "Mathematical calculus becomes dental tartar, tartre."
+    },
+    {
+      "proposal_index": 285,
+      "block_id": "4fe015eb69803e4d6d69c3e07fa92fcd88304d9654b67e2c0012e88421d6fcfa",
+      "links": [
+        [
+          262266,
+          728244
+        ],
+        [
+          41225,
+          1189496
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 286,
+      "block_id": "65b27ef7ce2600948ae0ab3c8a222836747f46bc8bbfb209134e9c0fc812dff4",
+      "links": [
+        [
+          3736481,
+          11152544
+        ],
+        [
+          60743,
+          400853
+        ]
+      ],
+      "reason": "French d\u00e9rang\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 288,
+      "block_id": "af5823105b7c02b03577230ae5f7b71265bb84ac460091c4212cecec2755b5f0",
+      "links": [
+        [
+          260502,
+          127681
+        ],
+        [
+          259383,
+          127476
+        ]
+      ],
+      "reason": "French assur\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 290,
+      "block_id": "c498921e0cc0fe0123626fb251ede56762d9408f7284060c5cbc1fe0bfd9dd74",
+      "links": [
+        [
+          5850472,
+          13390209
+        ],
+        [
+          3467771,
+          3473586
+        ]
+      ],
+      "reason": "Psychic powers are narrowed to prophecy, one specific power."
+    },
+    {
+      "proposal_index": 291,
+      "block_id": "8e6314570f80400614f79c0865341cb0758e1574d84c13dc4f61686ccf6ad17e",
+      "links": [
+        [
+          1661059,
+          1497556
+        ],
+        [
+          13112032,
+          12514460
+        ]
+      ],
+      "reason": "French venu specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 292,
+      "block_id": "d774093ba91bb2d2deb640adf86fa92e2d615de124edc7404009159a649747f7",
+      "links": [
+        [
+          11880940,
+          12183341
+        ],
+        [
+          3552258,
+          11770864
+        ]
+      ],
+      "reason": "French adds vous, an unresolved singular/formal/plural recipient absent from English."
+    },
+    {
+      "proposal_index": 293,
+      "block_id": "929c4640a9d56359ef1d29a33501e5680428cb4b45d897a45ca44a53f9b0815f",
+      "links": [
+        [
+          6531318,
+          11379272
+        ],
+        [
+          914072,
+          3660960
+        ]
+      ],
+      "reason": "Gentleman has unresolved well-mannered/aristocratic meaning; gentilhomme selects the latter."
+    },
+    {
+      "proposal_index": 295,
+      "block_id": "eaaea1ecf1f0f39c4e86ba8414bac91d07319c31114b1fd53ea25672ce4a9d07",
+      "links": [
+        [
+          1939395,
+          6373702
+        ],
+        [
+          11960423,
+          8758766
+        ]
+      ],
+      "reason": "Should go is strengthened to il faut, obligation, without supporting modal context."
+    },
+    {
+      "proposal_index": 296,
+      "block_id": "c2efaae0f11ed7cfb9c5685e0ca80fb1577aeaf6d1846d3ae0d0b4cd8a45a598",
+      "links": [
+        [
+          255240,
+          127852
+        ],
+        [
+          3822285,
+          11146279
+        ]
+      ],
+      "reason": "French press\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 297,
+      "block_id": "d7b4a78adebdd09d6d495e19cbee1eb48da90b1f02d5d8c4e0a1b5db8a1f9126",
+      "links": [
+        [
+          6312306,
+          12461231
+        ],
+        [
+          284461,
+          614493
+        ]
+      ],
+      "reason": "Marry him oneself becomes le marier, arranging/officiating his marriage."
+    },
+    {
+      "proposal_index": 298,
+      "block_id": "acbb913672ac22f15ad0544724346d03ac01126527f27451b236a33c3fd70fe5",
+      "links": [
+        [
+          11427001,
+          11427025
+        ],
+        [
+          1394258,
+          3669640
+        ]
+      ],
+      "reason": "Pillow/cushion scope is unresolved without bed/couch context."
+    },
+    {
+      "proposal_index": 300,
+      "block_id": "ee8cb6d4368ce04c63a9307908334f3154d308cf9bf59bd2ae911c0232340765",
+      "links": [
+        [
+          325689,
+          1340811
+        ],
+        [
+          3356192,
+          11974005
+        ]
+      ],
+      "reason": "French on does not establish plural we; contraint also adds unresolved speaker gender."
+    },
+    {
+      "proposal_index": 302,
+      "block_id": "65cf2bb666c720e22cac2b7b3e8471ac6123cbfedffc5ad3334f42e9397ac254",
+      "links": [
+        [
+          27848,
+          1359279
+        ],
+        [
+          3594704,
+          8411220
+        ]
+      ],
+      "reason": "Being made a fool of has ridicule/deception readings not independently resolved by French moque."
+    },
+    {
+      "proposal_index": 308,
+      "block_id": "81d37efe3cede399bbed1e3e94724d84fa59ec770ebbaabe24969c043c93ef2f",
+      "links": [
+        [
+          4756800,
+          7793338
+        ],
+        [
+          2544923,
+          2590482
+        ]
+      ],
+      "reason": "French fatigu\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 309,
+      "block_id": "31c3129c1cbc083176b66790d8072802bb25ed5f18fb4d9e70c8f743ea4e714a",
+      "links": [
+        [
+          39424,
+          909824
+        ],
+        [
+          18132,
+          1268094
+        ]
+      ],
+      "reason": "Coming up with a word is not discovering the term."
+    },
+    {
+      "proposal_index": 310,
+      "block_id": "f757aa89859846d53f9d4732bb178e1b4b395b7f99c5e7af388e57b694cad486",
+      "links": [
+        [
+          3676688,
+          11163885
+        ],
+        [
+          7806309,
+          8522
+        ]
+      ],
+      "reason": "Within a week and dans la semaine can differ as rolling duration versus calendar-week deadline."
+    },
+    {
+      "proposal_index": 311,
+      "block_id": "67d80377557d37f63c7d5f3d0d435af3052255f955231f21965244b9145c50ef",
+      "links": [
+        [
+          7733693,
+          9788217
+        ],
+        [
+          2245653,
+          4679111
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 312,
+      "block_id": "676530e4e680674ceacb48c8687eed3cc67744aac16e01514a835cab4c420d6d",
+      "links": [
+        [
+          11854737,
+          14037417
+        ],
+        [
+          6489617,
+          2296596
+        ]
+      ],
+      "reason": "French la derni\u00e8re specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 314,
+      "block_id": "05315245c9d64e4cbcfb94b53da6bb80a1abe97aaf63cdb1df9528548f98e80f",
+      "links": [
+        [
+          2376254,
+          11181299
+        ],
+        [
+          307926,
+          181543
+        ]
+      ],
+      "reason": "English spoke is replaced by French imperfect parlais without event/aspect context."
+    },
+    {
+      "proposal_index": 315,
+      "block_id": "d91718f7e09c89c07c3c9473ae2d6f8ece37947b5929efd5ca1673b2e31549ef",
+      "links": [
+        [
+          1075739,
+          6219162
+        ],
+        [
+          322286,
+          827223
+        ]
+      ],
+      "reason": "French surprise specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 323,
+      "block_id": "05e55391532cd83474522f3edcf89b89f10e56c531e96037099b739955087430",
+      "links": [
+        [
+          4494028,
+          7045299
+        ],
+        [
+          1190450,
+          1996119
+        ]
+      ],
+      "reason": "French chanceuses specifies an all-female group absent from English."
+    },
+    {
+      "proposal_index": 328,
+      "block_id": "704b664fbec0a37e58e299c252f6b679f9b8f701b922b375a55bd22f35dd71ee",
+      "links": [
+        [
+          6603853,
+          6603991
+        ],
+        [
+          1124128,
+          1124127
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 330,
+      "block_id": "0cb8a81042722add342f653a7fc595609dbdf7113260bdd68593417da172f631",
+      "links": [
+        [
+          10812662,
+          10812670
+        ],
+        [
+          2407929,
+          2474472
+        ]
+      ],
+      "reason": "French n\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 331,
+      "block_id": "43ae3addb19f58d058921f9017e683356f0beab6b271a79dabe5bd3a0bf53d82",
+      "links": [
+        [
+          390971,
+          391004
+        ],
+        [
+          2241100,
+          7581885
+        ]
+      ],
+      "reason": "French lui does not preserve the explicit male object supplied by English him in reverse."
+    },
+    {
+      "proposal_index": 332,
+      "block_id": "82f01ef6ce36f5abf9f596fc34020169977bbebdff28ebea9d85c893f9fd0d11",
+      "links": [
+        [
+          2490458,
+          2490607
+        ],
+        [
+          2648256,
+          5702619
+        ]
+      ],
+      "reason": "French toutes heureuses specifies an all-female group absent from English."
+    },
+    {
+      "proposal_index": 334,
+      "block_id": "3fac0e4ee65a043b15bd0d9f840c203741b442937a04d2c0ee68a32674df3fac",
+      "links": [
+        [
+          2494012,
+          1156636
+        ],
+        [
+          2396161,
+          10962820
+        ]
+      ],
+      "reason": "French all\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 336,
+      "block_id": "834cf075193579df936d43b9df7f7ccc890c2b82be502e93c530f325fd157416",
+      "links": [
+        [
+          2156271,
+          3587754
+        ],
+        [
+          7356911,
+          3430323
+        ]
+      ],
+      "reason": "French d\u00e9pourvu specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 340,
+      "block_id": "eeb7f5222c7ed46064d534ad076aeeef2f4b4ce2ea443dcebe4f86b94f4103b3",
+      "links": [
+        [
+          59156,
+          9165098
+        ],
+        [
+          1318901,
+          1322291
+        ]
+      ],
+      "reason": "French senti soulag\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 341,
+      "block_id": "9f59b9200f65581c860d4a1809551ea3fd0253c03c74d206f028c1393c3fcb99",
+      "links": [
+        [
+          2377489,
+          2383953
+        ],
+        [
+          26472,
+          2092072
+        ]
+      ],
+      "reason": "Neighborhood has unresolved district versus neighboring-residents readings under voisinage."
+    },
+    {
+      "proposal_index": 347,
+      "block_id": "8ae3d55d63d57835e93ab6e2ddcf18a7e2013d781ba901fa9e8a37d56f10998b",
+      "links": [
+        [
+          258394,
+          1842874
+        ],
+        [
+          5546009,
+          5546177
+        ]
+      ],
+      "reason": "Ensuring an action is performed becomes certainty about a present action, not the same obligation."
+    },
+    {
+      "proposal_index": 348,
+      "block_id": "41f61e1198067c7fc30aa201f22ed0c6f67af1195f1c70471a8260098c4568d3",
+      "links": [
+        [
+          2247548,
+          4693308
+        ],
+        [
+          3313018,
+          6083160
+        ]
+      ],
+      "reason": "Situation is narrowed to problem without contextual evidence for that euphemism."
+    },
+    {
+      "proposal_index": 350,
+      "block_id": "f0736e2f1c97c625724508e0159ecae2aca1c1659bc499c39c96ca23cb17ae09",
+      "links": [
+        [
+          245577,
+          1906678
+        ],
+        [
+          6603854,
+          6603988
+        ]
+      ],
+      "reason": "French grosse and toute seule specialize unspecified speaker gender."
+    },
+    {
+      "proposal_index": 351,
+      "block_id": "ac38e6d24516bad2fb52a28118beda9a643df062144f90e5d76ea203b1907e64",
+      "links": [
+        [
+          10327464,
+          11222887
+        ],
+        [
+          12416643,
+          12416641
+        ]
+      ],
+      "reason": "French n\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 353,
+      "block_id": "8b9d3f5dc867a90b99142e28127e3eacfb865e18c6024398eea25d5e2730014e",
+      "links": [
+        [
+          13707136,
+          13707129
+        ],
+        [
+          2952611,
+          12624598
+        ]
+      ],
+      "reason": "The French source has a known missing-accent spelling error in esperais; originals are not corrected."
+    },
+    {
+      "proposal_index": 354,
+      "block_id": "9106ae8bd366c269f92cd546d864c5d73157861cc78f4255bceadfee3c8344df",
+      "links": [
+        [
+          2013521,
+          937592
+        ],
+        [
+          7813539,
+          8418499
+        ]
+      ],
+      "reason": "French seul specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 355,
+      "block_id": "233c8c36da983825ddbe76711317f7adf0a9d3e1c38ece31c4ff940e33259663",
+      "links": [
+        [
+          261412,
+          127851
+        ],
+        [
+          3330478,
+          3446693
+        ]
+      ],
+      "reason": "French fatigu\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 356,
+      "block_id": "b6f83167fdc99460090122c732c646103d9dfb0d5dd5757aea0bb49bd1e7ea36",
+      "links": [
+        [
+          370544,
+          772981
+        ],
+        [
+          1956008,
+          1957741
+        ]
+      ],
+      "reason": "The particular writer's gender is not resolved by the English source."
+    },
+    {
+      "proposal_index": 357,
+      "block_id": "cf9201cf9dd3be51f1c6b9d79c8b2986b3e191cd1c54e814a7fbe36012818689",
+      "links": [
+        [
+          255598,
+          6919
+        ],
+        [
+          4462450,
+          4472071
+        ]
+      ],
+      "reason": "The particular stranger's gender is not resolved by the English source."
+    },
+    {
+      "proposal_index": 358,
+      "block_id": "0562113f0336ec74bd303e20ceb3cd85f93160267c7aee677d7798fc753cbdd9",
+      "links": [
+        [
+          7174079,
+          7091060
+        ],
+        [
+          387494,
+          334822
+        ]
+      ],
+      "reason": "Present judgment of a very difficult book becomes a past judgment without the explicit degree."
+    },
+    {
+      "proposal_index": 367,
+      "block_id": "67fcb9e6adb1e0e6b533e4bdb0c8963bb4d82bbbdf44d52e97f5d4183a95cf63",
+      "links": [
+        [
+          12198939,
+          12198944
+        ],
+        [
+          2548504,
+          6965862
+        ]
+      ],
+      "reason": "French chanteur specifies the particular singer's gender absent from English."
+    },
+    {
+      "proposal_index": 370,
+      "block_id": "c07fe870f2d8b0a7daa0d87b4f5f062281ee2a3a72d0cbf744ed1a13a59f2d72",
+      "links": [
+        [
+          33485,
+          339750
+        ],
+        [
+          1723821,
+          1722386
+        ]
+      ],
+      "reason": "French la noire requires object gender not established by English the black one."
+    },
+    {
+      "proposal_index": 372,
+      "block_id": "4136e65f3b8b0c9767dfa16ae99a7ee0a4a06054fc9633afac04becbbc25049b",
+      "links": [
+        [
+          2326236,
+          2417420
+        ],
+        [
+          68139,
+          2322111
+        ]
+      ],
+      "reason": "French imagin\u00e9e specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 373,
+      "block_id": "feb6bd8ec772d6530886b73be7cd836ae4a9dfeb67a248b8a6d68cb74014500b",
+      "links": [
+        [
+          2100111,
+          2105452
+        ],
+        [
+          5651656,
+          5653886
+        ]
+      ],
+      "reason": "Could stand no more has tolerance/physical-standing meanings; French chooses physical standing."
+    },
+    {
+      "proposal_index": 374,
+      "block_id": "bfbba0f4eeb1dbf17531df4957419ea7c8045645faa077b8f5f54b94440082e6",
+      "links": [
+        [
+          11357036,
+          12265464
+        ],
+        [
+          11256079,
+          1419163
+        ]
+      ],
+      "reason": "Came out from under does not clearly preserve the emergence event in French venait de sous."
+    },
+    {
+      "proposal_index": 375,
+      "block_id": "6c4701dfb05417e8ccc09dc180de4454746454275cc50348570bac6fad901d35",
+      "links": [
+        [
+          254117,
+          7184
+        ],
+        [
+          258647,
+          9776177
+        ]
+      ],
+      "reason": "An exciting game becomes an interesting game and the stated first-person assessment is dropped."
+    },
+    {
+      "proposal_index": 378,
+      "block_id": "a669514fbb4d9e0eb4b6241bc50c691891553837ea2ba00887e0d93227ce99e7",
+      "links": [
+        [
+          2546794,
+          6560468
+        ],
+        [
+          13712001,
+          3084012
+        ]
+      ],
+      "reason": "French n\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 382,
+      "block_id": "65a6398ea78dac183709ba9e3bc42bef70f1cc74274f35c8bd8e31782e0a913a",
+      "links": [
+        [
+          11473138,
+          339734
+        ],
+        [
+          73137,
+          1356591
+        ]
+      ],
+      "reason": "French autoris\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 383,
+      "block_id": "b59123a593fa1f25b64d285e4602b22cd78aa54397ce62132f3b774f093302f2",
+      "links": [
+        [
+          2376470,
+          8334217
+        ],
+        [
+          12728153,
+          12728149
+        ]
+      ],
+      "reason": "French on requires unresolved collective number in reverse translation."
+    },
+    {
+      "proposal_index": 387,
+      "block_id": "ee08f250162c0d19d05d1f30f43b78f5b1e2984803fec0ad795ce3c64e54f919",
+      "links": [
+        [
+          255247,
+          6988
+        ],
+        [
+          2670811,
+          5569210
+        ]
+      ],
+      "reason": "French l'arr\u00eater does not preserve the explicit male object supplied by English him in reverse."
+    },
+    {
+      "proposal_index": 389,
+      "block_id": "dc46482d54a8d8260d6f3fa1ea268fe0f7016782e9855b31e784060a4799fcc8",
+      "links": [
+        [
+          3178487,
+          7776423
+        ],
+        [
+          14054059,
+          14054056
+        ]
+      ],
+      "reason": "French toutes vir\u00e9es specifies an all-female group absent from English."
+    },
+    {
+      "proposal_index": 390,
+      "block_id": "4b9c71258be3088a58d79040bf8346f2a03bd432cc6e7aba051a901e65015a5f",
+      "links": [
+        [
+          1686821,
+          4191979
+        ],
+        [
+          407090,
+          407092
+        ]
+      ],
+      "reason": "Nice car can describe appearance whereas bonne voiture can assert functional quality; no context settles it."
+    },
+    {
+      "proposal_index": 392,
+      "block_id": "fc297cd37f5ad94a94777b742980c6930e304792f1c85121c0e62b3c9ae93e5c",
+      "links": [
+        [
+          2768929,
+          12461273
+        ],
+        [
+          2870156,
+          4642996
+        ]
+      ],
+      "reason": "French amoureuse specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 396,
+      "block_id": "63dfcc73efe94bba7c53b46dc74e157316625198aac7bf7771ecf0384f6a302c",
+      "links": [
+        [
+          1055125,
+          3794279
+        ],
+        [
+          1445396,
+          13733
+        ]
+      ],
+      "reason": "French d\u00e9prim\u00e9 specializes unspecified speaker gender."
+    },
+    {
+      "proposal_index": 398,
+      "block_id": "0835e6dd9c82cb76ce9782fd4ec5fd59ad5ff134c1579a7a87bbd3082c6e1875",
+      "links": [
+        [
+          3204504,
+          4097129
+        ],
+        [
+          2389526,
+          2390203
+        ]
+      ],
+      "reason": "Getting the task done does not require delegation, while faire faire introduces that actor distinction."
+    }
+  ],
+  "pending_indices": [],
+  "review_claim": "Both actual linked translations and both reciprocal donor directions were read for every reviewed block. Unlisted reviewed indices are explicitly approved. Exact originals and contributor/sentence references remain in the proposal. No split was assigned during review."
+}

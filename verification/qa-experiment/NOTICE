@@ -1,0 +1,29 @@
+OpenAssistant Conversations (OASST1), OpenAssistant and its contributors.
+Data revision fdf72ae0827c1cda404aff25b6603abec9e3399b, Apache-2.0.
+https://huggingface.co/datasets/OpenAssistant/oasst1
+ModernBERT architectures and pretrained weights by Answer.AI and LightOn,
+revision 8949b909ec900327062f0ebf497f51aef5e6f0c8, Apache-2.0.
+https://huggingface.co/answerdotai/ModernBERT-base
+Telegraph reference training and export kit, Copyright (c) 2026
+telegraphprotocol, MIT, revision 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd.
+New QA source preparation and experiment code, Copyright (c) 2026 zkasuran.
+Own code and trained additions: LicenseRef-zkasuran-SAND-1.0, full terms in LICENSE.
+Changes: source filtering, trainer-visible root component grouping, original preference
+selection, fixed three-epoch CPU experiment and held-out controls. Original text and ranks
+remain unchanged. New deltas and all failed checkpoints carry full upstream
+Apache/MIT source grants, full own SAND terms and these notices. No old adapter
+weights are reused. SAND applies only to our own code and trained additions.
+OASST1 source text and original annotations retain their full Apache-2.0 grant.
+ModernBERT portions retain Apache-2.0. Telegraph portions retain MIT.
+Those upstream grants are not restricted by our SAND terms. Full Apache terms
+are unchanged in UPSTREAM-APACHE-2.0.txt and full MIT terms in KIT-LICENSE.
+The byte-frozen source manifest and source-derived row/annotation artifacts keep
+their source licence. Frozen diagnostic coefficients are our own additions;
+SAND does not restrict any original source token or annotation within them.
+No source annotation certifies factual truth, privacy or node equivalence.
+AI-assisted implementation: OpenCode with agentrouter/gpt-6.1-sol.
+No human code review is asserted. No licensor endorsement is implied.
+The QA class-check wrapper binds the live primary family and child before using
+the unmodified Telegraph full parser. A null QA response schema is not relabelled
+as a sentiment schema. The inspected controller helper revision is
+a18b51ce4be30741a86e2432416b5b283a795b4d.

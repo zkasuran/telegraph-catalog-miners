@@ -1,0 +1,65 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Reviewed English French translation CPU experiment
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: reviewed-translation-cpu
+  cancel-in-progress: false
+jobs:
+  translation:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Static source and archive checks
+        run: |
+          python3 -W error -m unittest discover -s verification/translation-experiment -p 'test_*.py' -v
+          bash -n verification/translation-experiment/verify.sh
+      - name: Hash-locked public CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/train-venv"
+          "$RUNNER_TEMP/train-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/training/requirements.lock
+          "$RUNNER_TEMP/train-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/train-venv/bin/python" verification/training/audit.py --lock verification/training/requirements.lock --out "$RUNNER_TEMP/audit-requirements.txt" --report "$RUNNER_TEMP/audit-result.json"
+      - name: Bounded source, CPU training, full parser and reference runtime
+        timeout-minutes: 285
+        run: |
+          "$RUNNER_TEMP/train-venv/bin/python" verification/translation-experiment/supervise.py --root "$RUNNER_TEMP/translation"
+      - name: Preserve source rights on failed or successful checkpoints
+        if: always()
+        run: python3 verification/translation-experiment/remote_train.py --root "$RUNNER_TEMP/translation" --preserve-only
+      - name: Upload only stamped evidence and checkpoints
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: reviewed-translation-experiment
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/translation/public/*.safetensors
+            ${{ runner.temp }}/translation/public/*.pt
+            ${{ runner.temp }}/translation/public/*.json
+            ${{ runner.temp }}/translation/result.json
+            ${{ runner.temp }}/translation/runtime-result.json
+            ${{ runner.temp }}/translation/runtime-score-bits.json
+            ${{ runner.temp }}/translation/package-manifest.json
+            ${{ runner.temp }}/translation/source-check.json
+            ${{ runner.temp }}/translation/supervisor.json
+            ${{ runner.temp }}/translation/progress.json
+            ${{ runner.temp }}/audit-result.json

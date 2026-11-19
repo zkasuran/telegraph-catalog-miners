@@ -1,0 +1,74 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Bounded OASST1 QA CPU experiment
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-qa-source-experiment
+  cancel-in-progress: false
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '4'
+      CUDA_VISIBLE_DEVICES: ''
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: |
+            /verification/*
+            !/verification/packages/
+            /.github/workflows/evaluator-qa-train.yml
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Source syntax and adversarial checks
+        run: bash verification/qa-experiment/verify.sh
+      - name: Initialize failed-run licence evidence
+        run: python3 verification/qa-experiment/preserve.py --root "$RUNNER_TEMP/qa-experiment"
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Install existing hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/qa-venv"
+          "$RUNNER_TEMP/qa-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/training/requirements.lock
+          "$RUNNER_TEMP/qa-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/qa-venv/bin/python" verification/qa-experiment/static_check.py
+          "$RUNNER_TEMP/qa-venv/bin/python" verification/training/audit.py --lock verification/training/requirements.lock --out "$RUNNER_TEMP/qa-audit-requirements.txt" --report "$RUNNER_TEMP/qa-experiment/dependency-audit.json"
+      - name: Source gates then fixed three-epoch CPU experiment
+        timeout-minutes: 305
+        run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/qa-venv/bin/python" verification/qa-experiment/run.py --root "$RUNNER_TEMP/qa-experiment"
+      - name: Preserve partial results and full upstream terms
+        id: preserve
+        if: always()
+        run: python3 verification/qa-experiment/preserve.py --root "$RUNNER_TEMP/qa-experiment"
+      - name: Upload bounded experiment evidence including failed checkpoints
+        if: always() && steps.preserve.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: qa-source-experiment-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/qa-experiment/*.json
+            ${{ runner.temp }}/qa-experiment/*.safetensors
+            ${{ runner.temp }}/qa-experiment/LICENSE
+            ${{ runner.temp }}/qa-experiment/NOTICE
+            ${{ runner.temp }}/qa-experiment/KIT-LICENSE
+            ${{ runner.temp }}/qa-experiment/UPSTREAM-APACHE-2.0.txt
+            ${{ runner.temp }}/qa-experiment/adapter/
+            ${{ runner.temp }}/qa-experiment/initial/
+            ${{ runner.temp }}/qa-experiment/checkpoint/
+            ${{ runner.temp }}/qa-experiment/data/*.json
+            ${{ runner.temp }}/qa-experiment/data/LICENSE
+            ${{ runner.temp }}/qa-experiment/data/NOTICE
+            ${{ runner.temp }}/qa-experiment/data/OWN-ADDITIONS-LICENSE
+            ${{ runner.temp }}/qa-experiment/package-check.*.txt

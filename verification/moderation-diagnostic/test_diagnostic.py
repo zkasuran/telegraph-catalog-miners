@@ -78,6 +78,69 @@ def metrics(success=90):
 
 
 class ContractTests(unittest.TestCase):
+    def test_historical_replay_remains_failed(self):
+        history = json.loads((HERE / "historical-replay.json").read_text())
+        self.assertIs(history["valid_comparison"], False)
+        self.assertEqual(history["status"], "FAILED_HISTORICAL_REPLAY")
+        self.assertFalse(history["checks"]["payload"])
+        self.assertFalse(history["checks"]["train_loss"])
+        self.assertNotIn("c3_reproduction", CONTRACT)
+
+    def test_every_within_job_boundary_field_has_a_failure_control(self):
+        from matched import require_match
+        expected = {field: {"value": 1} for field in CONTRACT["matched_trial"]["matched_fields"]}
+        self.assertTrue(require_match(expected, copy.deepcopy(expected))["exact_match"])
+        for field in expected:
+            actual = copy.deepcopy(expected)
+            actual[field] = {"value": 2}
+            with self.assertRaisesRegex(ValueError, field):
+                require_match(expected, actual)
+        with self.assertRaises(ValueError):
+            require_match(expected, {})
+
+    def test_frozen_order_controls_reject_duplicates_and_source_drift(self):
+        from matched import validate_orders
+        source = [{"group_id": str(i)} for i in range(4)]
+        plan = {"source_groups": [str(i) for i in range(4)], "epochs": [[2, 0, 3, 1] for _ in range(6)]}
+        validate_orders(plan, source)
+        for bad in ({**plan, "source_groups": ["wrong"] * 4}, {**plan, "epochs": [[0, 0, 2, 3]] * 6},
+                    {**plan, "epochs": plan["epochs"][:3]}, {**plan, "epochs": [[False, 1, 2, 3]] * 6}):
+            with self.assertRaises(ValueError):
+                validate_orders(bad, source)
+
+    def test_matched_overlay_keeps_private_loader_and_start_hooks(self):
+        source = "def train():\n    loader = DataLoader(train_pairs, batch_size=hp.batch_size, shuffle=True, collate_fn=PairCollator(tok, hp.max_length))\n    use_scaler = False\n    optim.step()\n    avg_loss = 1.0\n"
+        with patch.dict(CONTRACT, {"trainer_sha256": sha(source.encode())}):
+            _, text = core.overlay(source, {}, matched=True)
+            self.assertIn("sampler=diagnostic_sampler", text)
+            self.assertIn("generator=diagnostic_loader_rng", text)
+            self.assertIn("shuffle=False", text)
+            self.assertIn("diagnostic_start(model, optim, sched)", text)
+        changed = source.replace("shuffle=True", "shuffle=False")
+        with patch.dict(CONTRACT, {"trainer_sha256": sha(changed.encode())}), self.assertRaises(ValueError):
+            core.overlay(changed, {}, matched=True)
+
+    def test_selector_rechecks_observed_order_not_a_pass_boolean(self):
+        from matched import canonical, matched_report
+        with tempfile.TemporaryDirectory(prefix=".matched-control-", dir=HERE) as directory:
+            root = Path(directory)
+            evidence = root / "evidence"
+            evidence.mkdir()
+            plan = {"source_groups": ["first", "second"], "epochs": [[0, 1]] * 6}
+            initial = {field: "fake-fixed" for field in CONTRACT["matched_trial"]["matched_fields"]}
+            initial["plan_sha256"] = sha(canonical(plan))
+            initial["initial_state_sha256"] = sha(canonical(initial))
+            core.write(evidence / "initial-state.json", initial)
+            core.write(evidence / "training-orders.json", plan)
+            for arm in ("C3", "H6"):
+                core.write(evidence / (arm + "-initial.json"), {**initial, "fresh_optimizer": True, "initial_lr": 0, "scheduler_epoch": 0})
+                core.write(evidence / (arm + "-orders.json"), [{"epoch": 0, "groups": ["first", "second"], "order_matches_plan": True}])
+                core.write(evidence / (arm + "-validation-history.json"), [{"epoch": 0}])
+            self.assertFalse(matched_report(root)["historical_comparison_valid"])
+            core.write(evidence / "H6-orders.json", [{"epoch": 0, "groups": ["second", "first"], "order_matches_plan": True}])
+            with self.assertRaisesRegex(ValueError, "exact plan"):
+                matched_report(root)
+
     def test_source_bindings(self):
         core.bindings()
 
@@ -110,7 +173,7 @@ class ContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "probe"), isolated_rng(torch, np):
             torch.state += 2  # Fake DataLoader iteration.
             np.state = (33, 9)
-            random.random()
+            random.random()  # Fake RNG restoration control.
             raise ValueError("probe")
         self.assertEqual(torch.state, 17)
         self.assertEqual(np.state, (11, 23))

@@ -1,0 +1,163 @@
+{
+  "family": "LANGUAGE_TRANSLATION",
+  "pilot_manifest_sha256": "099fa6f2c0f4eda56dd995ed5265e820b8c885bae58667e0e72f12db1f7e6f7b",
+  "source_spec_sha256": "a9628ce73c924c361e82811f6c8287d0535831c43210a95f2d3dc86daf33103f",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "tokenizer_vectors": 88,
+  "source_checks": {
+    "train": {
+      "source_donor_blocks": 128,
+      "distinct_equivalence_components": 256,
+      "rows": 512,
+      "direction_counts": {
+        "eng-fra": 256,
+        "fra-eng": 256
+      },
+      "length_control_fractions": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rendered_texts_all_formats": 3072,
+      "maximum_tokens": 71,
+      "cross_split_normalized_text_identity_component_overlap": 0,
+      "chosen_role_histogram_equals_rejected": true
+    },
+    "validation": {
+      "source_donor_blocks": 32,
+      "distinct_equivalence_components": 64,
+      "rows": 128,
+      "direction_counts": {
+        "eng-fra": 64,
+        "fra-eng": 64
+      },
+      "length_control_fractions": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rendered_texts_all_formats": 768,
+      "maximum_tokens": 72,
+      "cross_split_normalized_text_identity_component_overlap": 0,
+      "chosen_role_histogram_equals_rejected": true
+    },
+    "test": {
+      "source_donor_blocks": 64,
+      "distinct_equivalence_components": 128,
+      "rows": 256,
+      "direction_counts": {
+        "eng-fra": 128,
+        "fra-eng": 128
+      },
+      "length_control_fractions": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rendered_texts_all_formats": 1536,
+      "maximum_tokens": 61,
+      "cross_split_normalized_text_identity_component_overlap": 0,
+      "chosen_role_histogram_equals_rejected": true
+    }
+  },
+  "dataset_gates": {
+    "train": {
+      "ok": true,
+      "n": 512,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.002,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.1118,
+        "mean_len_chosen": 32.6,
+        "mean_len_rejected": 32.6
+      },
+      "failures": []
+    },
+    "validation": {
+      "ok": true,
+      "n": 128,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0078,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.0947,
+        "mean_len_chosen": 35.6,
+        "mean_len_rejected": 35.6
+      },
+      "failures": []
+    },
+    "test": {
+      "ok": true,
+      "n": 256,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0039,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.0895,
+        "mean_len_chosen": 31.9,
+        "mean_len_rejected": 31.9
+      },
+      "failures": []
+    }
+  },
+  "shortcut_baselines": {
+    "train_fitted_direction": {
+      "length": 1,
+      "tfidf_overlap": 1,
+      "alarm_keywords": 1
+    },
+    "by_split": {
+      "train": {
+        "length": 0.5,
+        "tfidf_overlap": 0.5303,
+        "alarm_keywords": 0.5
+      },
+      "validation": {
+        "length": 0.5,
+        "tfidf_overlap": 0.5156,
+        "alarm_keywords": 0.5
+      },
+      "test": {
+        "length": 0.5,
+        "tfidf_overlap": 0.5156,
+        "alarm_keywords": 0.5
+      }
+    }
+  },
+  "files": {
+    "train": {
+      "sha256": "2e7df836e798ce9992f725c13bb148d9b66e298d8359b7bb2a3c5aec841fd9df",
+      "rows": 512
+    },
+    "validation": {
+      "sha256": "4756bd136c450742d5d206a89e61b2893f6ed0632f384f70b84e5fa748176466",
+      "rows": 128
+    },
+    "test": {
+      "sha256": "8525eb167544d45d52c084da480bf9866b045e2110dbc28abb5c0dfa6e16056f",
+      "rows": 256
+    }
+  },
+  "numeric_data_gates_pass": true,
+  "semantic_review": "PASS",
+  "workflow_ready": true,
+  "model_execution": false,
+  "sealed_final_audit": "Single source-only audit after frozen groups; never used for model choice or reselection",
+  "semantic_review_sha256": "e9b0d00339f6fd29a2616da1b709f0d0a794a5526fdb8169e8df065e10838d6c",
+  "known_failed_source_links": 0,
+  "blocker": null,
+  "answer_only_control": {
+    "original_target_role_histograms_balanced_in_every_split": true,
+    "reciprocal_pair_bound": 0.5,
+    "explanation": "For every target pair the group contains both preference directions. An answer-only ranking wins one and loses one, with half credit for ties. The kit's random row holdout separates those reversed roles, so its unusually low surface scores are not independent semantic evidence."
+  }
+}

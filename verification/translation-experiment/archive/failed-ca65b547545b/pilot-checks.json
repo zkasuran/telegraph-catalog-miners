@@ -1,0 +1,163 @@
+{
+  "family": "LANGUAGE_TRANSLATION",
+  "pilot_manifest_sha256": "ca65b547545bee9858f69bc73a70c30695db947c5ba80c793ca9944e428212c0",
+  "source_spec_sha256": "a9628ce73c924c361e82811f6c8287d0535831c43210a95f2d3dc86daf33103f",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "tokenizer_vectors": 88,
+  "source_checks": {
+    "train": {
+      "source_donor_blocks": 128,
+      "distinct_equivalence_components": 256,
+      "rows": 512,
+      "direction_counts": {
+        "eng-fra": 256,
+        "fra-eng": 256
+      },
+      "length_control_fractions": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rendered_texts_all_formats": 3072,
+      "maximum_tokens": 71,
+      "cross_split_normalized_text_identity_component_overlap": 0,
+      "chosen_role_histogram_equals_rejected": true
+    },
+    "validation": {
+      "source_donor_blocks": 32,
+      "distinct_equivalence_components": 64,
+      "rows": 128,
+      "direction_counts": {
+        "eng-fra": 64,
+        "fra-eng": 64
+      },
+      "length_control_fractions": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rendered_texts_all_formats": 768,
+      "maximum_tokens": 73,
+      "cross_split_normalized_text_identity_component_overlap": 0,
+      "chosen_role_histogram_equals_rejected": true
+    },
+    "test": {
+      "source_donor_blocks": 64,
+      "distinct_equivalence_components": 128,
+      "rows": 256,
+      "direction_counts": {
+        "eng-fra": 128,
+        "fra-eng": 128
+      },
+      "length_control_fractions": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rendered_texts_all_formats": 1536,
+      "maximum_tokens": 68,
+      "cross_split_normalized_text_identity_component_overlap": 0,
+      "chosen_role_histogram_equals_rejected": true
+    }
+  },
+  "dataset_gates": {
+    "train": {
+      "ok": true,
+      "n": 512,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.002,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.1105,
+        "mean_len_chosen": 36.4,
+        "mean_len_rejected": 36.4
+      },
+      "failures": []
+    },
+    "validation": {
+      "ok": true,
+      "n": 128,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0078,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.0737,
+        "mean_len_chosen": 34.7,
+        "mean_len_rejected": 34.7
+      },
+      "failures": []
+    },
+    "test": {
+      "ok": true,
+      "n": 256,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0039,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.0868,
+        "mean_len_chosen": 34.4,
+        "mean_len_rejected": 34.4
+      },
+      "failures": []
+    }
+  },
+  "shortcut_baselines": {
+    "train_fitted_direction": {
+      "length": 1,
+      "tfidf_overlap": 1,
+      "alarm_keywords": 1
+    },
+    "by_split": {
+      "train": {
+        "length": 0.5,
+        "tfidf_overlap": 0.5742,
+        "alarm_keywords": 0.5
+      },
+      "validation": {
+        "length": 0.5,
+        "tfidf_overlap": 0.5352,
+        "alarm_keywords": 0.5
+      },
+      "test": {
+        "length": 0.5,
+        "tfidf_overlap": 0.5137,
+        "alarm_keywords": 0.5
+      }
+    }
+  },
+  "files": {
+    "train": {
+      "sha256": "f80520dabd02f3c8197e96ecb8d03a89b36622f1ca13c60e4c9eb3afa186b0cf",
+      "rows": 512
+    },
+    "validation": {
+      "sha256": "15f40c89d13cbd4eb5c52f88e7a8a52b0d23182d339f8f01519f979b06860d34",
+      "rows": 128
+    },
+    "test": {
+      "sha256": "583f7c1050af9e954ec183a5c04f4828206cd164e08d9654023e8d8be08b718c",
+      "rows": 256
+    }
+  },
+  "numeric_data_gates_pass": true,
+  "semantic_review": "FAIL",
+  "workflow_ready": false,
+  "model_execution": false,
+  "sealed_final_audit": "Single source-only audit after frozen groups; never used for model choice or reselection",
+  "semantic_review_sha256": "1176069094886a2faecd106269176b73e54190252c06544a4cd96450fa51cb1c",
+  "known_failed_source_links": 5,
+  "blocker": "Frozen bilingual audit found meaning/tense errors in original reciprocal links. No training workflow enabled.",
+  "answer_only_control": {
+    "original_target_role_histograms_balanced_in_every_split": true,
+    "reciprocal_pair_bound": 0.5,
+    "explanation": "For every target pair the group contains both preference directions. An answer-only ranking wins one and loses one, with half credit for ties. The kit's random row holdout separates those reversed roles, so its unusually low surface scores are not independent semantic evidence."
+  }
+}
