@@ -10,3 +10,14 @@ Telegraph WASM baseline code retains its MIT licence. ModernBERT-base retains
 Apache-2.0. Full terms are embedded in checkpoints and copied to the evidence.
 The symbolic scorer is an excerpt-agreement baseline for one literal grammar.
 It cannot judge arbitrary research answers, retrieve sources or certify facts.
+
+Revision lineage: run 44546276917 failed source-held-out model quality and its
+delta is not registered. Its audit remains quarantined. The replacement audit
+uses 32 new article groups outside all 6144 previously captured XML files.
+Training and validation originals retain their prior identities and grants.
+The standalone source gate now blocks neural imports in subprocesses. A
+passing remote run emits a separate bounded registration report artifact,
+distinct from the preserved checkpoint archive. These notices clarify
+provenance and publication boundaries, not original authors' endorsement.
+All previously granted licences remain unchanged. Original source portions
+are governed by their own grants before the SAND terms for our additions.

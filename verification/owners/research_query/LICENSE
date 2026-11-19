@@ -1,3 +1,18 @@
+UPSTREAM PORTIONS AND ORIGINAL GRANTS
+
+Original eLife article text and source-derived text portions keep each
+article's CC BY 3.0, CC BY 4.0 or CC0 grant. Attribution, copyright,
+licence URI and modifications are recorded per original in the data
+and source-attribution evidence. Those portions are not restricted by
+the terms below. Telegraph kit portions retain MIT and ModernBERT-base
+retains Apache-2.0, with complete upstream terms and notices attached.
+
+OUR ADDITIONS
+
+The following reviewed SAND text is reproduced unchanged for our own
+additions. This notice clarifies scope, changes no existing grant and
+does not revoke rights in earlier copies.
+
 # Source-Available No-Derivatives Licence 1.0
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0

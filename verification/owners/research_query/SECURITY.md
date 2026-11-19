@@ -27,3 +27,16 @@ No source-held-out model score certifies their live equivalence. Citation counts
 and hedging do not establish truth. This corpus has one publisher, 112 original
 groups and constructed labels. It does not measure publisher transfer or broad
 research-answer quality. The controller alone owns publication and qualification.
+
+## Release boundaries
+
+The standalone verify.sh exports OWNER_SOURCE_ONLY and supplies sitecustomize.py
+to its subprocesses. Neural imports are rejected before module loading. A guard
+installed by the action adapter remains first on PYTHONPATH. The source gate does
+not weaken the remote runner identity checks or permit local model operations.
+
+The full checkpoint artifact can exceed the registration adapter's 16 MiB
+evidence ceiling. A successful model/runtime job therefore uploads the validated
+registration-ready.json alone as a separate artifact. The failed checkpoint
+archive remains preserved with original grants but is never represented as a
+passing registration report. No source-held-out report certifies global truth.

@@ -111,8 +111,9 @@ def experiment(root):
     preserve(root)
     kit = source_kit(root)
     trainer = trainer_module(kit / "float_runtime/train_adapter.py")
-    hp = trainer.Hyperparams(max_length=256, lora_rank=8, lora_alpha=32, batch_size=1, grad_accum=16,
-                            epochs=3, eval_batch=1, early_stopping=False, grad_checkpointing=False, gate_min_acc=.8)
+    hp = trainer.Hyperparams(max_length=256, lora_rank=8, lora_alpha=32, batch_size=1, grad_accum=4,
+                            epochs=24, lr=0.0002, lora_dropout=0.0, eval_batch=1,
+                            early_stopping=False, grad_checkpointing=False, gate_min_acc=.8)
     upstream = trainer.gate_dataset(splits["train"], hp)
     if not upstream["ok"] or upstream["metrics"].get("surface_probe_acc") is None:
         write_json(root / "dataset-gate.json", upstream)
@@ -195,7 +196,10 @@ def experiment(root):
     loader = DataLoader(splits["train"], batch_size=1, shuffle=True, collate_fn=trainer.PairCollator(tokenizer, 256),
                         generator=sampler, num_workers=0)
     best, best_state, history, timings = None, None, [], []
-    for epoch in range(1, 4):
+    if len(loader) % hp.grad_accum:
+        raise ValueError("complete gradient accumulation groups required")
+    total_steps = hp.epochs * len(loader) // hp.grad_accum
+    for epoch in range(1, hp.epochs + 1):
         model.train()
         optimizer.zero_grad(set_to_none=True)
         step_start = time.monotonic()
@@ -205,8 +209,8 @@ def experiment(root):
             loss = trainer.bt_loss(c, r, batch["margin"])
             if not torch.isfinite(loss):
                 raise ValueError("nonfinite training loss")
-            (loss / 16).backward()
-            if (index + 1) % 16 == 0:
+            (loss / hp.grad_accum).backward()
+            if (index + 1) % hp.grad_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0, error_if_nonfinite=True)
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
@@ -214,7 +218,7 @@ def experiment(root):
                 save(root / "checkpoint")
                 write_json(root / "checkpoint.json", {"optimizer_steps": len(timings), "epoch": epoch, "step_seconds": timings,
                            "pending": "validation-only selection then one fixed audit", "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"]})
-                remaining = 24 - len(timings)
+                remaining = total_steps - len(timings)
                 if time.monotonic() - started + remaining * max(timings) > 220 * 60:
                     raise TimeoutError("measured CPU throughput exceeds training reserve")
                 step_start = time.monotonic()
@@ -226,8 +230,8 @@ def experiment(root):
             save(root / "adapter")
         history.append({"epoch": epoch, "validation": development, "selected": improved})
         write_json(root / "development.json", {"best": best, "history": history, "audit_scored": False})
-    if best_state is None or len(timings) != 24:
-        raise ValueError("fixed three-epoch recipe incomplete")
+    if best_state is None or len(timings) != total_steps or len(history) != hp.epochs:
+        raise ValueError("fixed development recipe incomplete")
     with torch.no_grad():
         for name, p in model.named_parameters():
             if p.requires_grad:
@@ -235,6 +239,16 @@ def experiment(root):
     if trainable_hash() != best_hash:
         raise ValueError("development checkpoint restoration failed")
     save(root / "adapter")
+    development_formats, development_passed = record_owner_development(model, tokenizer, trainer, raw_validation_rows)
+    write_json(root / "development-acceptance.json", {"formats": development_formats,
+               "passed": development_passed, "selected_epoch": best["epoch"], "audit_scored": False})
+    if not development_passed:
+        write_json(root / "result.json", {"status": "DEVELOPMENT_FAILED_AUDIT_SEALED", "family": FAMILY,
+                   "development_formats": development_formats, "audit_scored": False,
+                   "selected_epoch": best["epoch"], "selected_state_sha256": best_hash,
+                   "epochs_completed": hp.epochs, "optimizer_steps": len(timings),
+                   "run_id": os.environ["GITHUB_RUN_ID"], "commit": os.environ["GITHUB_SHA"]})
+        return 1
     trained = evaluate(splits["audit"])
     record_owner_audit(model, tokenizer, trainer, splits["audit"])
     ablated = [{**r, "prompt": "Claim: " + resolve_claim(r)} for r in splits["audit"]]

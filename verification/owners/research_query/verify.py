@@ -38,14 +38,21 @@ def verify():
             raise ValueError("unused-import lint: " + path.name)
     remote = ast.parse((HERE / "remote.py").read_bytes())
     for node in remote.body:
-        if isinstance(node, ast.FunctionDef) and node.name in ("main", "experiment", "runtime_check", "native_scores", "record_audit", "record_untrained"):
+        if isinstance(node, ast.FunctionDef) and node.name in ("main", "experiment", "runtime_check", "native_scores", "record_audit", "record_untrained", "record_development"):
             if ast.unparse(node.body[0]) != "remote_only()":
                 raise ValueError("neural operation missing first-statement runner guard")
     core = ast.parse((HERE / "train_core.py").read_bytes())
     experiment = next(n for n in core.body if isinstance(n, ast.FunctionDef) and n.name == "experiment")
     epoch = next(n for n in experiment.body if isinstance(n, ast.For) and ast.unparse(n.target) == "epoch")
-    if ast.unparse(epoch.iter) != "range(1, 4)" or any(isinstance(n, (ast.Break, ast.Return)) for n in ast.walk(epoch)):
+    if ast.unparse(epoch.iter) != "range(1, hp.epochs + 1)" or any(isinstance(n, (ast.Break, ast.Return)) for n in ast.walk(epoch)):
         raise ValueError("fixed training epochs changed")
+    if any(contract["remote"].get(key) != value for key, value in {"epochs": 24, "grad_accum": 4, "lr": 0.0002, "lora_dropout": 0.0, "optimizer_steps": 768}.items()):
+        raise ValueError("fixed train-fitted improvement recipe changed")
+    statements = [ast.unparse(n) for n in experiment.body]
+    acceptance = next(i for i, value in enumerate(statements) if "record_owner_development(" in value)
+    audit_score = next(i for i, value in enumerate(statements) if value.startswith("trained = evaluate(splits['audit'])"))
+    if acceptance >= audit_score:
+        raise ValueError("independent audit opened before validation acceptance")
     accesses = [n.slice.value for n in ast.walk(epoch) if isinstance(n, ast.Subscript) and isinstance(n.value, ast.Name) and n.value.id == "splits" and isinstance(n.slice, ast.Constant)]
     if "audit" in accesses or "validation" not in accesses:
         raise ValueError("audit used for checkpoint selection")
@@ -59,6 +66,12 @@ def verify():
             raise ValueError("original grouped counts or label provenance changed")
         splits[name] = rows
     check_splits(splits)
+    boundary = json.loads((HERE / "data/audit-boundary.json").read_text())
+    excluded = set(boundary["excluded_prior_xml_files"])
+    if boundary["old_audit_eligible_for_training_or_selection"] is not False or len(excluded) != 6144 or any(row["source_path"] in excluded for row in splits["audit"]):
+        raise ValueError("new audit reused exposed or previously captured source")
+    if any(row["group_id"] in boundary["exposed_audit_groups"] for rows in splits.values() for row in rows):
+        raise ValueError("quarantined audit group entered new candidate")
     source_manifest = (HERE / "data/source-manifest.json").read_bytes()
     if sha(source_manifest) != contract["source_manifest_sha256"]:
         raise ValueError("complete source manifest binding changed")
@@ -83,6 +96,9 @@ def verify():
             raise ValueError("exact action commit required")
         if "secrets." in str(step):
             raise ValueError("no provider or signer credentials in public jobs")
+    reports = [step for step in job["steps"] if step.get("name") == "Publish bounded registration-ready report only"]
+    if len(reports) != 1 or reports[0].get("if") != "success() && inputs.mode == 'train'" or reports[0].get("with", {}).get("path") != "${{ runner.temp }}/research-owner/registration-ready.json":
+        raise ValueError("one successful report-only artifact is required, not a checkpoint archive")
     command = [sys.executable, "-W", "error", "-m", "unittest", "discover", "-s", str(HERE), "-p", "test_*.py", "-v"]
     result = subprocess.run(command, capture_output=True, timeout=120, env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"})
     log = result.stdout + result.stderr

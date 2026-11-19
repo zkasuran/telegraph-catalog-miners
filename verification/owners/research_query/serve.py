@@ -146,7 +146,7 @@ def run(root):
             time.sleep(5)
         else:
             raise TimeoutError("restricted forwarding authorization did not arrive")
-        print("PUBLIC_EXECUTOR_READY RESEARCH_QUERY", flush=True)
+        print("RESTRICTED_FORWARD_RUNNING RESEARCH_QUERY", flush=True)
         while lease.now() < lease.utc(value["expires_at"]):
             if executor.poll() is not None or forward.poll() is not None or server.fatal.is_set():
                 raise ValueError("serving process or restricted forwarding failed")

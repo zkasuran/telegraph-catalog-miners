@@ -5,7 +5,7 @@ with a complete supplied excerpt. It does not certify scientific truth or
 retrieve papers. Source text comes from independently pinned eLife originals.
 Questions and preferences are AI-assisted constructed work, not human-reviewed.
 
-## Verified source build
+## Initial verified source build
 
 | Split | Article components | Mirrored preference pairs |
 |---|---:|---:|
@@ -57,7 +57,7 @@ missing. It never loads a neural model. `remote.py` refuses ordinary local use.
 The automatic action adapter owns the proof-bound dispatch of the `evaluator-owner-research_query.yml`
 workflow. It uses the standard Ubuntu 24.04 CPU runner, four CPU threads and a
 330-minute outer bound. Hash-locked dependencies and the unchanged data gate
-run before training. The job fits three epochs on training only and chooses
+run before training. The revised job fits 24 epochs on training only and chooses
 the lowest validation loss. It restores that checkpoint before one fixed audit.
 
 The audit measures 64 correlated queries from 32 independent original groups.
@@ -82,3 +82,7 @@ DATA-SOURCES.md. SAND does not restrict the original source grants.
 ## Standalone owner pipeline
 
 All dependencies on the paid-for public harness are pinned under support/. The source gate runs without Torch or model loading. The remote job trains on fixed grouped originals, selects on validation only and audits both literal prose and raw JSON answer bodies. REGISTRATION_READY is emitted only after actual parser, reference-engine, per-label and baseline gates pass. Serving mode uses the same source commit and exact immutable delta, then publishes only a restricted public forwarding lease.
+
+## Quality loss and revised candidate
+
+Run 44546276917 passed parser and reference execution but scored 46.875% in both literal formats. That delta is not registered. Its audit is quarantined. The replacement audit uses 32 new article groups, excluding all 6,144 previously captured XML files. Source collection read 2,048 new XML files from the same complete pinned inventory and found 35 eligible independent groups before frozen SHA selection. Training and validation source bytes are unchanged. The new recipe uses 24 epochs, accumulation 4, learning rate 0.0002 and no LoRA dropout. Both validation formats must reach the original 80% overall and 70% per-label gates before the fresh audit is scored. All independent-audit and baseline-improvement gates remain unchanged. No revised model result is claimed yet.

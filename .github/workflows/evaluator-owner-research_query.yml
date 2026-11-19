@@ -80,6 +80,14 @@ jobs:
         if: always() && inputs.mode == 'train'
         id: preserve
         run: python3 verification/owners/research_query/terms.py --root "$RUNNER_TEMP/research-owner"
+      - name: Publish bounded registration-ready report only
+        if: success() && inputs.mode == 'train'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: registration-ready-RESEARCH_QUERY-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: ${{ runner.temp }}/research-owner/registration-ready.json
       - name: Publish bounded training evidence
         if: always() && inputs.mode == 'train' && steps.preserve.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

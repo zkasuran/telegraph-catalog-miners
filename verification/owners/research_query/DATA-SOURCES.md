@@ -78,3 +78,18 @@ rows or miner captures enter this dataset.
 Our additions use the reviewed SAND terms. That does not claw back the original
 CC grants. Original excerpts and modified statements retain their source licence
 and attribution. The same boundary applies to failed checkpoints.
+
+## Replacement audit and grant scope
+
+The full pinned inventory contains 19699 v1 files. Source collection now covers
+8192 XML files, not the full XML population. The 2048 newly fetched files yielded
+35 eligible independent groups before fixed SHA selection of 32 audit groups.
+All prior XML captures and the exposed audit are excluded from the replacement.
+An immutable complete tree envelope was reused only after its recorded SHA-256,
+tree identity and truncated=false checks passed during a transient API failure.
+
+The root LICENSE identifies upstream grants before our unchanged reviewed SAND
+text. This is not a new restriction on source material or a relicensing of old
+copies. Per-article grants, copyright notices, original authors and modification
+records remain in the data and checkpoint bytes. Constructed preferences do not
+become human annotations through publication or model training.

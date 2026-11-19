@@ -15,6 +15,34 @@ HERE = Path(__file__).resolve().parent
 
 
 class OwnerControls(unittest.TestCase):
+    def test_source_gate_blocks_neural_import_before_loading(self):
+        environment = {**os.environ, "OWNER_SOURCE_ONLY": "1", "PYTHONPATH": os.environ.get("PYTHONPATH", "") + os.pathsep + str(HERE)}
+        result = subprocess.run([sys.executable, "-c", "import torch"], env=environment, capture_output=True, timeout=5)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(b"neural imports forbidden", result.stderr)
+
+    def test_upstream_notice_keeps_reviewed_own_terms_unchanged(self):
+        original = (HERE / "support/qa-experiment/LICENSE").read_bytes()
+        public = (HERE / "LICENSE").read_bytes()
+        self.assertTrue(public.endswith(original))
+        self.assertTrue(public.startswith(b"UPSTREAM PORTIONS AND ORIGINAL GRANTS"))
+        self.assertEqual(__import__("hashlib").sha256(original).hexdigest(), "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447")
+    def test_validation_acceptance_keeps_audit_closed_on_failure(self):
+        from development_gate import accepted
+        good = {"accuracy": .9, "per_label": {"Yes": .9, "No": .9}}
+        self.assertTrue(accepted({"prose": good, "json": good}))
+        self.assertFalse(accepted({"prose": good, "json": {"accuracy": .79, "per_label": {"Yes": .9, "No": .7}}}))
+        self.assertFalse(accepted({"prose": good, "json": {"accuracy": .85, "per_label": {"Yes": .6, "No": .95}}}))
+        with self.assertRaises(ValueError):
+            accepted({"prose": good})
+
+    def test_fresh_audit_excludes_all_previous_captures(self):
+        boundary = json.loads((HERE / "data/audit-boundary.json").read_text())
+        rows = [json.loads(line) for line in (HERE / "data/audit.jsonl").read_bytes().splitlines()]
+        self.assertEqual(len({row["group_id"] for row in rows}), 32)
+        self.assertEqual(len(boundary["excluded_prior_xml_files"]), 6144)
+        self.assertFalse({row["source_path"] for row in rows} & set(boundary["excluded_prior_xml_files"]))
+        self.assertFalse({row["group_id"] for row in rows} & set(boundary["exposed_audit_groups"]))
     def test_literal_bare_echo_not_normalized_standin(self):
         manifest = {"keccak256": "0x" + "a" * 64}
         value = {"foundation_hash": FOUNDATION, "tokenizer_hash": TOKENIZER, "adapter_hash": "a" * 64, "results": [{"score": 0}]}

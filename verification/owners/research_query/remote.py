@@ -13,6 +13,7 @@ from prepare import render, replay, check_splits
 from report import ENGINE, FOUNDATION, TOKENIZER, accuracy, assemble, bits_float, formatted, literal_reply
 from source import sha, write_json
 from terms import preserve
+from development_gate import accepted as development_accepted, metrics as development_metrics
 
 AUDIT = {}
 UNTRAINED = {}
@@ -44,6 +45,13 @@ def record_untrained(model, tokenizer, trainer, rows, measured_prose):
     remote_only()
     UNTRAINED["prose"] = {"accuracy": measured_prose["pairwise_accuracy"]}
     UNTRAINED["json"] = accuracy(rows, native_scores(model, tokenizer, trainer, formatted(rows, "json")))
+
+
+def record_development(model, tokenizer, trainer, rows):
+    remote_only()
+    values = {name: development_metrics(rows, native_scores(model, tokenizer, trainer, formatted(rows, name)))
+              for name in ("prose", "json")}
+    return values, development_accepted(values)
 
 
 def runtime_check(root, kit, rows, native):
@@ -125,6 +133,7 @@ def experiment(root):
         contract, splits = original_reader()
         overlap = check_splits(splits)
         core.source_observed = max(overlap.values())
+        core.raw_validation_rows = splits["validation"]
         training = []
         for row in splits["train"]:
             name = "prose" if int(sha(row["group_id"].encode()), 16) % 2 == 0 else "json"
@@ -135,13 +144,14 @@ def experiment(root):
     core.read_data = frozen_reader
     core.record_owner_audit = record_audit
     core.record_owner_untrained = record_untrained
+    core.record_owner_development = record_development
     core.runtime_check = runtime_check
     code = core.experiment(root)
     contract = json.loads((HERE / "contract.json").read_text())
     original = json.loads((root / "result.json").read_text())
-    manifest = json.loads((root / "package-manifest.json").read_text())
     if code:
         return code
+    manifest = json.loads((root / "package-manifest.json").read_text())
     ready = assemble(root, contract, manifest, RUNTIME, UNTRAINED, SHORTCUTS, original)
     write_json(root / "registration-ready.json", ready)
     return 0
