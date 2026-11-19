@@ -7,6 +7,7 @@ mkdir -p "$OUT"
 export PYTHONDONTWRITEBYTECODE=1
 python3 -W error -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); compile(p.read_text(),str(p),"exec"); print("Parser diagnostic source compiled without neural imports")' "$HERE/diagnose_parser_remote.py"
 python3 -W error "$HERE/policy.py" --check-public-contract
+python3 -W error -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); compile(p.read_text(),str(p),"exec"); print("Live class source adapter syntax compiled without model imports")' "$HERE/class_source.py"
 python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -v
 node --check "$HERE/execute.mjs"
 if ! test -d "$HERE/node_modules"; then

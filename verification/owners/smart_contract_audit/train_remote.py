@@ -117,6 +117,10 @@ def main():
     executable, checker = root / "adapterexec", root / "adapterbuild"
     for name, output in (("adapterexec", executable), ("adapterbuild", checker)):
         subprocess.run(["go", "build", "-trimpath", "-o", str(output), "./cmd/" + name], cwd=kit, check=True, timeout=600)
+    check_dir = kit / "cmd/owner-classcheck"
+    check_dir.mkdir(exist_ok=True)
+    (check_dir / "main.go").write_bytes((HERE / "classcheck.go").read_bytes())
+    subprocess.run(["go", "build", "-trimpath", "-o", str(checker), "./cmd/owner-classcheck"], cwd=kit, check=True, timeout=600)
     wire_dir = kit / "cmd" / "owner-wire"
     wire_dir.mkdir(exist_ok=True)
     (wire_dir / "main.go").write_bytes((HERE / "wire_root.go").read_bytes())
@@ -126,9 +130,13 @@ def main():
                       "num_layers": cfg.num_hidden_layers, "hidden_size": cfg.hidden_size,
                       "targets": {k: list(v) for k, v in target_dims(cfg).items()}}
     write(root / "foundation.json", foundation_spec)
+    from class_source import capture
+    actual_classes = capture(root / "class-snapshot.json")
+    foundation_sha = sha((root / "foundation.json").read_bytes())
     for name in packages:
-        parsed = subprocess.run([str(checker), "lora", "--intent", FAMILY, "--package", str(root / (name + ".safetensors")),
-                                 "--class", "judgment", "--foundation", str(root / "foundation.json"), "--out", str(root / name)],
+        parsed = subprocess.run([str(checker), "--package", str(root / (name + ".safetensors")), "--sha256", packages[name]["sha256"],
+                                 "--class-snapshot", actual_classes["path"], "--snapshot-sha256", actual_classes["sha256"],
+                                 "--foundation", str(root / "foundation.json"), "--foundation-sha256", foundation_sha, "--out", str(root / name)],
                                 capture_output=True, text=True, timeout=60)
         (root / (name + "-parser.stdout.json")).write_text(parsed.stdout)
         (root / (name + "-parser.stderr.log")).write_text(parsed.stderr)

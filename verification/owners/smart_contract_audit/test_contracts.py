@@ -11,6 +11,26 @@ from policy import public_repository
 
 
 class ContractChecks(unittest.TestCase):
+    def test_live_class_source_requires_exact_identity_and_freshness(self):
+        from class_source import validate
+        from datetime import datetime, timezone
+        family = "SMART_CONTRACT_AUDIT"
+        child = family + "_GENERAL"
+        source = {"schema": 1, "fetched_at": datetime.now(timezone.utc).isoformat(),
+                  "family": {"url": "https://devnode.telegraphprotocol.com/api/wasm?resolve=" + family, "raw": json.dumps({"resolve": {"intent": family, "class": "judgment"}})},
+                  "child": {"url": "https://devnode.telegraphprotocol.com/engine/v1/intents/" + child, "raw": json.dumps({"intent_id": child, "intent_name": child, "class": "judgment", "evaluation": {"kind": "judgment"}, "request": None, "response": None})}}
+        self.assertEqual(validate(source)[0]["class"], "judgment")
+        for change in ("class", "identity", "freshness"):
+            bad = copy.deepcopy(source)
+            if change == "freshness":
+                bad["fetched_at"] = "2020-01-01T00:00:00+00:00"
+            elif change == "class":
+                bad["family"]["raw"] = json.dumps({"resolve": {"intent": family, "class": "deterministic"}})
+            else:
+                bad["child"]["url"] += "-wrong"
+            with self.assertRaises(ValueError):
+                validate(bad)
+
     def test_parser_diagnostic_entry_refuses_local_execution_before_inputs(self):
         import diagnose_parser_remote
         with patch.dict(os.environ, {}, clear=True):

@@ -61,7 +61,7 @@ jobs:
           run-id: 44577682115
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/parser-diagnostic
-      - name: Actual pinned parser on original frozen bytes, no retraining or audit
+      - name: Actual live-class-bound full parser on original frozen bytes, no retraining or audit
         timeout-minutes: 15
         run: python3 verification/owners/smart_contract_audit/diagnose_parser_remote.py --root "$RUNNER_TEMP/parser-diagnostic"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -72,6 +72,7 @@ jobs:
           if-no-files-found: error
           path: |
             ${{ runner.temp }}/parser-diagnostic/parser-diagnostic.json
+            ${{ runner.temp }}/parser-diagnostic/class-snapshot.json
             ${{ runner.temp }}/parser-diagnostic/*.parser.stderr.log
             ${{ runner.temp }}/parser-diagnostic/*.parser.stdout.json
   train:

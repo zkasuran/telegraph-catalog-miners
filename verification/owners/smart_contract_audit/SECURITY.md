@@ -13,6 +13,7 @@
 | Floating baseline refit drift | Fixed integer coefficients, no fresh floating-point fit | Training identity and frozen-file SHA-256 |
 | Local neural operation | Guard before any neural import or download | Local authority refusal test |
 | Parser failure hidden by a wrapper | Persist actual stdout/stderr before checking exit status; a dedicated remote mode checks frozen packages without retraining | Diagnostic entry refuses local execution; remote real-parser result is still pending |
+| Stale or guessed model classification | Exact live family/child URLs, source hashes, freshness and matching model classes before private loaded-class parser call | Wrong class, wrong identity and stale-source refusal controls; no compiled/shared catalog edit |
 | Private or unrelated job repository | Exact owned identity and boolean public flag from the hosted dispatch payload; protected default environment context | Positive public control plus private, ambiguous and wrong-repository refusal controls |
 | Missing or malformed collator input | Default only omitted margin to 0.0 at the training boundary; reject nonfinite/nonnumeric values without mutating source | `test_contracts.py` literal-text preservation and invalid-margin controls; primary CLI smoke |
 | Resource exhaustion | 256 rows, 2048 source bytes, 8192 bytecode bytes, 1 million interpreter gas, bounded subprocess/HTTP timeouts and eight serving connections | Wrong source and control tests; serving refuses malformed tokens before inference |

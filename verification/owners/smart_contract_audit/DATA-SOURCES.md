@@ -10,6 +10,8 @@ SmartBugs Curated was reviewed at `230e649123477eff332742a59a1c7cc6dc286cab`. It
 
 ## Telegraph reference and wire
 
+Actual diagnostic run 44584836017 showed the kit's compiled-in catalog lacks SMART_CONTRACT_AUDIT and refuses it before tensor parsing. Fresh parent and selected-child HTTPS sources both report judgment. The namespaced checker validates their identity, class, hashes and freshness before using `catalog.UseClasses` in a private checker process and unmodified `adapterbuild.CheckLoRA`. No shared catalog, model tensor or parser test is changed. Null miner schemas remain a task-scope limit, not a guessed model class.
+
 The pinned trainer's `_pair` supplies a default margin of 0.0. Its actual `PairCollator` indexes `p["margin"]`. Source inventories are not loader outputs, so the owned adapter supplies this field at the training boundary. It preserves source bytes, literal prompt/answer strings and provenance. The failure was observed before the first batch in GitHub run 44549236051, not inferred from a model-quality result. No audit score was exposed or used to select this correction.
 
 Source revision: `1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd` at https://github.com/telegraphprotocol/telegraph-wasm-baseline.
