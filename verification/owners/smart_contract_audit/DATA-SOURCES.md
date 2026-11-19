@@ -8,6 +8,8 @@ SmartBugs Curated was reviewed at `230e649123477eff332742a59a1c7cc6dc286cab`. It
 
 ## Telegraph reference and wire
 
+The pinned trainer's `_pair` supplies a default margin of 0.0. Its actual `PairCollator` indexes `p["margin"]`. Source inventories are not loader outputs, so the owned adapter supplies this field at the training boundary. It preserves source bytes, literal prompt/answer strings and provenance. The failure was observed before the first batch in GitHub run 44549236051, not inferred from a model-quality result. No audit score was exposed or used to select this correction.
+
 Source revision: `1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd` at https://github.com/telegraphprotocol/telegraph-wasm-baseline.
 
 Copyright (c) 2026 telegraphprotocol. MIT grant: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files" with rights to "use, copy, modify, merge, publish, distribute, sublicense" subject to retaining the copyright and permission notice. Full notice is in `licences.json` and all scorer/checkpoint exports.

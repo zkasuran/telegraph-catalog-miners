@@ -3,11 +3,28 @@ import copy
 import json
 import unittest
 
-from contracts import finite_bits, response_bits
+from contracts import finite_bits, response_bits, training_pairs
 from registration_common import strict_json
 
 
 class ContractChecks(unittest.TestCase):
+    def test_source_pairs_receive_actual_collator_margin_without_mutation(self):
+        rows = [{"prompt": " p\n", "chosen": "yes\r\n", "rejected": " no ", "source_sha256": "source-marker"}]
+        before = copy.deepcopy(rows)
+        prepared = training_pairs(rows)
+        self.assertEqual(prepared[0]["margin"], 0.0)
+        for field in ("prompt", "chosen", "rejected", "source_sha256"):
+            self.assertEqual(prepared[0][field], rows[0][field])
+        self.assertEqual(rows, before)
+        self.assertNotIn("margin", rows[0])
+        rows[0]["margin"] = 0.25
+        self.assertEqual(training_pairs(rows)[0]["margin"], 0.25)
+
+    def test_bad_margin_is_refused_before_model_work(self):
+        for value in (True, float("nan"), float("inf"), "0.0"):
+            with self.assertRaisesRegex(ValueError, "margin"):
+                training_pairs([{"prompt": "p", "chosen": "yes", "rejected": "no", "margin": value}])
+
     def test_actual_literal_fields_and_finite_bits(self):
         request = {"batch": [{"tokens": [1, 2]}], "foundation_hash": "aa", "adapter_hash": "bb", "tokenizer_hash": "cc", "input_root": "dd"}
         body = {**request, "results": [{"score": 0x3f800000}]}

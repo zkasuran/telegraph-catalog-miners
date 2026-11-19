@@ -12,6 +12,7 @@
 | Endpoint returns another model | Exact foundation, tokenizer, adapter and token-root echo | Pinned literal client test plus real remote audit |
 | Floating baseline refit drift | Fixed integer coefficients, no fresh floating-point fit | Training identity and frozen-file SHA-256 |
 | Local neural operation | Guard before any neural import or download | Local authority refusal test |
+| Missing or malformed collator input | Default only omitted margin to 0.0 at the training boundary; reject nonfinite/nonnumeric values without mutating source | `test_contracts.py` literal-text preservation and invalid-margin controls; primary CLI smoke |
 | Resource exhaustion | 256 rows, 2048 source bytes, 8192 bytecode bytes, 1 million interpreter gas, bounded subprocess/HTTP timeouts and eight serving connections | Wrong source and control tests; serving refuses malformed tokens before inference |
 
 ## Known limits

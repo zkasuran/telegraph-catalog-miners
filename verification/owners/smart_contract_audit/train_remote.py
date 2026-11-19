@@ -13,6 +13,7 @@ from pathlib import Path
 from data import FAMILY, ATTEMPT, answers, render, sha, write
 from policy import execution_gate, remote_only
 from remote_prepare import HERE, bound_data, prepare
+from contracts import training_pairs
 
 
 def main():
@@ -39,8 +40,8 @@ def main():
     torch.set_num_threads(min(4, os.cpu_count() or 1))
     hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=8, epochs=3,
                             eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False)
-    train = [r for r in rows if r["split"] == "train"]
-    validation = [r for r in rows if r["split"] == "validation"]
+    train = training_pairs([r for r in rows if r["split"] == "train"])
+    validation = training_pairs([r for r in rows if r["split"] == "validation"])
     gate = trainer.gate_dataset(train, hp)
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:
