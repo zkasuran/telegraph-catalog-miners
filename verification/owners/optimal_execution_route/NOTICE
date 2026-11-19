@@ -1,0 +1,21 @@
+SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+Copyright (c) 2026 zkasuran
+
+Retained upstream portions are licensed first under their original grants.
+Unchanged Telegraph primary source and isolated source fragments use MIT,
+Copyright (c) 2026 telegraphprotocol. Full notice: upstream/TELEGRAPH-MIT.txt.
+The arithmetic diagnostic fixture uses the Uniswap v2-sdk source grant,
+MIT, Copyright (c) 2021 Uniswap Labs. Full notice: upstream/UNISWAP-MIT.txt.
+Their source grants are not withdrawn by our terms.
+
+New competitive code and additions use the reviewed root SAND terms reproduced
+in LICENSE. Previously exposed primary state observations are retained only as
+regression fixtures. They are never a new training or independent audit corpus.
+PublicNode terms permit application use of returned blockchain data but not
+standalone RPC/data API resale. No exclusive right over blockchain facts is claimed.
+
+Pyflakes 3.4.0 and PyYAML 6.0.3 are hash-locked passive source-checking tools.
+Their original MIT licences remain in their installed distributions. They are
+not copied into this publication. Source references are in DATA-SOURCES.md.
+
+AI assistance: agentrouter/gpt-6.1-sol. No human review is claimed.

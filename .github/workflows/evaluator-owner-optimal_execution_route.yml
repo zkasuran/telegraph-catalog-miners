@@ -1,0 +1,60 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Optimal execution route source verification
+run-name: Optimal execution route source gate ${{ inputs.owner_run_id }}
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Source verification only. No model, endpoint or registration.
+        type: choice
+        required: true
+        default: source_verify
+        options: [source_verify]
+      owner_run_id:
+        description: Exact owner attempt identifier
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: evaluator-owner-optimal_execution_route
+  cancel-in-progress: false
+jobs:
+  source:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OWNER_RUN_ID: ${{ inputs.owner_run_id }}
+      OWNER_MODE: ${{ inputs.mode }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        timeout-minutes: 3
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            verification/owners/optimal_execution_route
+            .github/workflows/evaluator-owner-optimal_execution_route.yml
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        timeout-minutes: 5
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Verify the standalone source package
+        timeout-minutes: 8
+        run: bash verification/owners/optimal_execution_route/verify.sh
+      - name: Bind the actual source run
+        timeout-minutes: 2
+        run: python3 verification/owners/optimal_execution_route/run_gate_remote.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        timeout-minutes: 2
+        with:
+          name: owner-optimal-execution-route-source-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            verification/owners/optimal_execution_route/.gate-work/source-report.json
+            verification/owners/optimal_execution_route/.gate-work/remote-source-report.json
+            verification/owners/optimal_execution_route/.gate-work/*.log

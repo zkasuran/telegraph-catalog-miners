@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "spdx": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "OPTIMAL_EXECUTION_ROUTE",
+  "objective": "max_gross_exact_input_unsplit_v2",
+  "chain_id": 1,
+  "pair": "ETH/USDC",
+  "amount_in_wei": "1000000000000000000",
+  "usdc": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+  "usdc_decimals": 6,
+  "dai": "0x6b175474e89094c44da98b954eedeac495271d0f",
+  "factory": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+  "router": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
+  "fee_ppm": 3000,
+  "slippage_bps": 50,
+  "slippage_rule": "floor(quote*10000/(10000+bps)), following the pinned SDK minimumAmountOut convention",
+  "routes": ["WETH/USDC", "WETH/DAI/USDC"],
+  "excluded": ["all other venues", "all other intermediary tokens", "split allocations", "gas-adjusted ranking", "future execution guarantees"],
+  "rpc": "https://ethereum-rpc.publicnode.com",
+  "state_windows": [1, 33],
+  "purpose": "New primary observations for source/build diagnostics only. Not a training corpus or independent audit."
+}

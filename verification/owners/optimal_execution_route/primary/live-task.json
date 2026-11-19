@@ -1,0 +1,76 @@
+{
+  "class": "judgment",
+  "intent_id": "OPTIMAL_EXECUTION_ROUTE_GENERAL",
+  "request": {
+    "params": [
+      {
+        "name": "pair",
+        "type": "enum",
+        "required": true,
+        "description": "Swap to route: sell exactly 1 ETH for USDC on Ethereum",
+        "allowed": [
+          "ETH/USDC"
+        ]
+      }
+    ],
+    "schema_version": 4,
+    "served_by": "OPTIMAL_EXECUTION_ROUTE"
+  },
+  "response": {
+    "fields": [
+      {
+        "name": "amount_out",
+        "description": "Amount of USDC received for selling exactly 1 ETH (1000000000000000000 wei) on Ethereum mainnet, in USDC base units (1 USDC = 1000000)",
+        "type": "number",
+        "unit": "USDC base units (6 decimals)",
+        "unit_aliases": {
+          "USDC": 1000000
+        },
+        "range": [
+          100000000,
+          100000000000
+        ],
+        "scored": true,
+        "decimals": 0
+      }
+    ],
+    "format_version": 4,
+    "served_by": "OPTIMAL_EXECUTION_ROUTE"
+  },
+  "onchain": {
+    "format_version": 4,
+    "ready": true,
+    "request": [
+      {
+        "name": "pair",
+        "type": "enum",
+        "slot": "strings",
+        "index": 0,
+        "allowed": [
+          "ETH/USDC"
+        ],
+        "max_bytes": 256
+      }
+    ],
+    "response": [
+      {
+        "name": "amount_out",
+        "type": "number",
+        "slot": "integers",
+        "index": 0,
+        "decimals": 0,
+        "unit": "USDC base units (6 decimals)",
+        "range": [
+          100000000,
+          100000000000
+        ]
+      }
+    ],
+    "served_by": "OPTIMAL_EXECUTION_ROUTE"
+  },
+  "evaluation": {
+    "kind": "judgment",
+    "via": "generic",
+    "bootstrap_evaluator": false
+  }
+}

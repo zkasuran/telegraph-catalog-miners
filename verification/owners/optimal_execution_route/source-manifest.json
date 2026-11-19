@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "family": "OPTIMAL_EXECUTION_ROUTE",
+  "kit_pin": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "sdk_pin": "5174518d5b50d21e6e920fe57e2db914550eddf9",
+  "records": [
+    {
+      "key": "sdk-license",
+      "url": "https://raw.githubusercontent.com/Uniswap/v2-sdk/5174518d5b50d21e6e920fe57e2db914550eddf9/LICENSE",
+      "sha256": "610ab47634715eb91e1ac6fe4b69fce3952ee978f294270e5cee367dd88b6b71",
+      "bytes": 1069,
+      "path": "upstream/UNISWAP-MIT.txt"
+    },
+    {
+      "key": "kit-license",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/LICENSE",
+      "sha256": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+      "bytes": 1074,
+      "path": "upstream/TELEGRAPH-MIT.txt"
+    },
+    {
+      "key": "kit-question",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/onchain.go",
+      "sha256": "93ce816faf09a7cb1759e96ea1ec36df937e989412ac6b36e70cb024c5950be3",
+      "bytes": 8794,
+      "path": "primary/onchain.go.txt"
+    },
+    {
+      "key": "kit-input",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/comparator/response_format.go",
+      "sha256": "de73bc0b02c176a9de6415e63779de77bee3c4f19015bf9b6bd51706a9534b3d",
+      "bytes": 14756,
+      "path": "primary/response_format.go.txt"
+    },
+    {
+      "key": "kit-remote",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/remote/remote.go",
+      "sha256": "9d8939b86181449d2c92a5c7f1a720ca34aee27b5ae491c84246c4e2eb2c871f",
+      "bytes": 18503,
+      "path": "primary/remote.go.txt"
+    },
+    {
+      "key": "executor",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/cmd/adapterexec/main.go",
+      "sha256": "fc0c3c4b89ae28486baf68d614b1d137ce161a91477fce281eb0571bcee0bf2f",
+      "bytes": 7161,
+      "path": "primary/adapterexec.go.txt"
+    },
+    {
+      "key": "host",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/runtime/host.go",
+      "sha256": "2500c26f9f0e23b19c0900d85c057b21dd5791f6f1a913cea8e25429162a0789",
+      "bytes": 5758,
+      "path": "primary/host.go.txt"
+    }
+  ],
+  "current_definition_sha256": "b31756d67cb6954ab952086b7608e49eb986b51b6526db46e91046c4a3789608",
+  "definition_observed_at": "2026-11-19T13:22:40.066279+00:00",
+  "current_kit_head": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "kit_inventory_entries": 128,
+  "kit_inventory_blobs": 100,
+  "kit_inventory_truncated": false,
+  "relevant_kit_inventory": [
+    "cmd/adapterexec/main.go",
+    "cmd/adapterexec/main_test.go",
+    "pkg/scoring/catalog/catalog.go",
+    "pkg/scoring/catalog/classes_db.go",
+    "pkg/scoring/catalog/compiled_class.go",
+    "pkg/scoring/comparator/asset_reserve_attestation.go",
+    "pkg/scoring/comparator/comparator.go",
+    "pkg/scoring/comparator/grid_power_price.go",
+    "pkg/scoring/comparator/liquidity_depth_verify.go",
+    "pkg/scoring/comparator/live_shelf_price.go",
+    "pkg/scoring/comparator/macro_economic_indicator.go",
+    "pkg/scoring/comparator/mining_hashprice_verify.go",
+    "pkg/scoring/comparator/onchain_metric_verify.go",
+    "pkg/scoring/comparator/reference.go",
+    "pkg/scoring/comparator/response_format.go",
+    "pkg/scoring/comparator/route_eta.go",
+    "pkg/scoring/comparator/specs_db.go",
+    "pkg/scoring/comparator/truth.go",
+    "pkg/scoring/comparator/truth_material.go",
+    "pkg/scoring/family/family.go",
+    "pkg/scoring/fetchspec/extract.go",
+    "pkg/scoring/fetchspec/spec.go",
+    "pkg/scoring/intentformat/intentformat.go",
+    "pkg/scoring/responseparser/convert.go",
+    "pkg/scoring/responseparser/format.go",
+    "pkg/scoring/responseparser/guard.go",
+    "pkg/scoring/responseparser/onchain.go",
+    "pkg/scoring/responseparser/onchain_layout.go",
+    "pkg/scoring/responseparser/parser.go",
+    "pkg/scoring/responseparser/prompt.go",
+    "pkg/scoring/responseparser/reply.go",
+    "pkg/scoring/responseparser/shape.go",
+    "pkg/wasm/remote/remote.go",
+    "pkg/wasm/runtime/adaptermeta.go",
+    "pkg/wasm/runtime/compile_cache.go",
+    "pkg/wasm/runtime/deterministic.go",
+    "pkg/wasm/runtime/float_module.go",
+    "pkg/wasm/runtime/foundation.go",
+    "pkg/wasm/runtime/host.go",
+    "pkg/wasm/runtime/kind.go",
+    "pkg/wasm/runtime/lora_adapter.go",
+    "pkg/wasm/runtime/lora_runtime.go",
+    "pkg/wasm/runtime/memory.go",
+    "pkg/wasm/runtime/model_loader.go",
+    "pkg/wasm/runtime/model_score.go",
+    "pkg/wasm/runtime/pool.go",
+    "pkg/wasm/runtime/runtime.go"
+  ],
+  "sdk_inventory_entries": 30,
+  "sdk_inventory_blobs": 26,
+  "sdk_inventory_truncated": false,
+  "sdk_inventory_paths": [
+    ".babelrc",
+    ".github/stale.yml",
+    ".github/workflows/lint.yml",
+    ".github/workflows/unit-tests.yml",
+    ".gitignore",
+    ".prettierignore",
+    ".yarnrc",
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "src/constants.test.ts",
+    "src/constants.ts",
+    "src/entities/entities.test.ts",
+    "src/entities/index.ts",
+    "src/entities/pair.test.ts",
+    "src/entities/pair.ts",
+    "src/entities/route.test.ts",
+    "src/entities/route.ts",
+    "src/entities/trade.test.ts",
+    "src/entities/trade.ts",
+    "src/errors.ts",
+    "src/index.ts",
+    "src/router.test.ts",
+    "src/router.ts",
+    "tsconfig.json",
+    "yarn.lock"
+  ],
+  "fixture_kind": "previously exposed source regression only, never new training or audit data",
+  "training_rows": 0,
+  "audit_rows": 0,
+  "fixtures": [
+    {
+      "path": "policy.json",
+      "sha256": "f813e43d65309bae1c0eca948ae410687e4909e4d9571004d053d9250576cdf3"
+    },
+    {
+      "path": "evidence/STATE.json",
+      "sha256": "398c9e8496d456df34fd8999e4cfa67af4daf081c540552c00035d6f22965b2f"
+    },
+    {
+      "path": "evidence/STATE-OLDER.json",
+      "sha256": "c15ccd9f2891d033140b6d95d1d1b3efc5ed5581466d80d240af603b40f91fea"
+    }
+  ]
+}
