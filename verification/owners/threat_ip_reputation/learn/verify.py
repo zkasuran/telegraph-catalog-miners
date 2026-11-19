@@ -22,6 +22,7 @@ import test_training_record
 import test_replay
 import test_class_binding
 import test_wire
+import test_variant2
 
 HERE = Path(__file__).resolve().parent
 
@@ -40,7 +41,8 @@ def main():
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_training_record.TrainingRecordTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_replay.ReplayTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_class_binding.LiveClassTests),
-                                unittest.defaultTestLoader.loadTestsFromTestCase(test_wire.WireTests)])
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_wire.WireTests),
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_variant2.Variant2Tests)])
     result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
     if not result.wasSuccessful():
         print(stream.getvalue())

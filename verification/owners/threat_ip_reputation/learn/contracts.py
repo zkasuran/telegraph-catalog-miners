@@ -11,6 +11,8 @@ FAMILY = "THREAT_IP_REPUTATION"
 REPO = "zkasuran/telegraph-catalog-miners"
 TRAIN_SHA = "8546f4a520965eba5a5feda407aaedadd8eda5b7670e5d6bfa21b38be1e5b6bd"
 VALIDATION_SHA = "1606218fb15deb0f8b6ffe70bf5360f1530fa51cd35c8cda7b2781a1cdfe4819"
+V2_TRAIN_SHA = "8a074d8b374ac02117a84d6708fcf739b130831a116fe40186717a98e725143d"
+V2_VALIDATION_SHA = "b537d108aa76a3e06f46822419cfb319ceb0fd49c547cb8e72c3d46473a2e686"
 KIT = "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd"
 KIT_SHA = "18d7dbe7425e977b576a70146f901a006b8e4abddbfd351276205faa7f287243"
 BASE_REVISION = "8949b909ec900327062f0ebf497f51aef5e6f0c8"
@@ -52,9 +54,14 @@ def words(text):
     return re.findall(r"[a-z0-9']+", text.casefold())
 
 
-def read_development(root):
+def read_development(root, variant="original"):
     result = {}
-    for name, digest, count, groups in (("train", TRAIN_SHA, 256, 64), ("validation", VALIDATION_SHA, 64, 16)):
+    specs = (("train", TRAIN_SHA, 256, 64), ("validation", VALIDATION_SHA, 64, 16))
+    if variant == "compact-elapsed-v2":
+        specs = (("train", V2_TRAIN_SHA, 512, 64), ("validation", V2_VALIDATION_SHA, 128, 16))
+    elif variant != "original":
+        raise ValueError("unknown frozen development variant")
+    for name, digest, count, groups in specs:
         raw = (root / (name + ".jsonl")).read_bytes()
         if len(raw) > 2 << 20 or sha(raw) != digest:
             raise ValueError("frozen development identity changed")

@@ -25,11 +25,11 @@ def validate_record(value):
             raise ValueError("training record: spearman is invalid")
 
 
-def development_record(metrics, pairs=64):
+def development_record(metrics, pairs=64, dataset_version=VALIDATION_SHA):
     if set(metrics) != FORMATS:
         raise ValueError("actual validation metrics for every format required")
     accuracy = sum(metrics[fmt]["accuracy"] for fmt in FORMATS) / len(FORMATS)
-    record = {"family": FAMILY, "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": VALIDATION_SHA,
+    record = {"family": FAMILY, "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": dataset_version,
                                                "pairs": pairs, "accuracy": accuracy, "held_out": False}],
               "trainer": "pinned ModernBERT LoRA Bradley-Terry", "backbone": "ModernBERT-base"}
     validate_record(record)

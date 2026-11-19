@@ -69,7 +69,7 @@ def prepare(root):
     return foundation, base, kit
 
 
-def fit_controls(rows, root):
+def fit_controls(rows, root, data_root=None):
     remote_only()
     # This function runs remotely only. Save fitted bytes once; audit must read
     # these coefficients, never refit them on another machine or split.
@@ -86,7 +86,7 @@ def fit_controls(rows, root):
         z = np.clip(x @ weights, -30, 30)
         p = 1 / (1 + np.exp(-z))
         weights -= 0.2 * ((x.T @ (p - 1)) / len(rows) + 0.001 * weights)
-    controls = {"train_sha256": sha((HERE / "data/train.jsonl").read_bytes()), "vocabulary": vocabulary,
+    controls = {"train_sha256": sha(((data_root or HERE / "data") / "train.jsonl").read_bytes()), "vocabulary": vocabulary,
                 "answer_only_coefficients": weights.tolist(), "basic_coefficients": {"length": 1, "overlap": 1, "prefer_current": 1},
                 "fit_split": "train", "fit_method": "80 fixed full-batch logistic steps, float64, no audit data"}
     write_json(root / "frozen-controls.json", controls)
@@ -197,12 +197,14 @@ def main():
     remote_only()  # Must precede every neural import, fetch or model operation.
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--variant", choices=("original", "compact-elapsed-v2"), default="original")
     args = parser.parse_args()
     root = args.root.resolve()
     root.mkdir(parents=True, exist_ok=True)
-    splits = read_development(HERE / "data")
+    data_root = HERE / ("data-v2" if args.variant == "compact-elapsed-v2" else "data")
+    splits = read_development(data_root, args.variant)
     report = {"schema_version": 1, "family": FAMILY, "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
-              "status": "TRAINING_IN_PROGRESS", "source_manifest_sha256": sha((HERE / "data/development-report.json").read_bytes()),
+              "status": "TRAINING_IN_PROGRESS", "variant": args.variant, "source_manifest_sha256": sha((data_root / "development-report.json").read_bytes()),
               "audit_used_for_selection": False, "audit_pairs": 0, "qualification_ready": False}
     write_json(root / "candidate-report.json", report)
     foundation, base, kit = prepare(root)
@@ -216,7 +218,10 @@ def main():
     if torch.cuda.is_available():
         raise RuntimeError("this pipeline is CPU-only")
     torch.set_num_threads(min(4, os.cpu_count() or 1))
-    hp = trainer.Hyperparams(max_length=512, batch_size=1, grad_accum=16, epochs=3, eval_batch=2, gate_min_acc=0.8,
+    compact = args.variant == "compact-elapsed-v2"
+    hp = trainer.Hyperparams(max_length=256 if compact else 512, lora_rank=16 if compact else 8,
+                            lr=0.0002 if compact else 0.0001, batch_size=1, grad_accum=8 if compact else 16,
+                            epochs=3, eval_batch=2, gate_min_acc=0.8,
                             gate_min_margin_over_baseline=0.1, grad_checkpointing=True)
     gate = trainer.gate_dataset(splits["train"], hp)
     write_json(root / "training-data-gate.json", gate)
@@ -227,7 +232,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(base, local_files_only=True)
     node_tok = Tokenizer.from_file(str(foundation / "tokenizer.json"))
     node_tok.no_padding()
-    node_tok.enable_truncation(max_length=512)
+    node_tok.enable_truncation(max_length=hp.max_length)
     checked = 0
     for rows in splits.values():
         for row in rows:
@@ -235,15 +240,15 @@ def main():
             for side in ("chosen", "rejected"):
                 text = render(row["prompt"], row[side])
                 ids = tok(text, truncation=False)["input_ids"]
-                if len(ids) > 512 or ids != node_tok.encode(text).ids or text != trainer.render(row["prompt"], row[side]):
+                if len(ids) > hp.max_length or ids != node_tok.encode(text).ids or text != trainer.render(row["prompt"], row[side]):
                     raise ValueError("actual tokenizer/render/token ceiling conformance failed")
                 pair_ids.append(ids)
                 checked += 1
             if pair_ids[0] == pair_ids[1]:
                 raise ValueError("different source claims became identical token vectors")
     trainer.check_tokenizer(tok)
-    write_json(root / "tokenizer-check.json", {"rendered_texts": checked, "tokenizer_sha256": FOUNDATION["tokenizer.json"], "max_tokens": 512, "passed": True})
-    controls = fit_controls(splits["train"], root)
+    write_json(root / "tokenizer-check.json", {"rendered_texts": checked, "tokenizer_sha256": FOUNDATION["tokenizer.json"], "max_tokens": hp.max_length, "passed": True})
+    controls = fit_controls(splits["train"], root, data_root)
     shortcut_values = {fmt: shortcuts([row for row in splits["validation"] if row["format"] == fmt], controls) for fmt in FORMATS}
     strongest = {fmt: max(values.values()) for fmt, values in shortcut_values.items()}
     def evaluate(model):
@@ -258,11 +263,11 @@ def main():
     def export(directory, output, trained, measured):
         tensors, params = read_peft(directory, cfg)
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"], foundation_version="modernbert-base-lora16-v1",
-                        rank=params["rank"], alpha=params["alpha"], target_modules=params["target_modules"], max_tokens=512,
-                        training=development_record(measured, len(splits["validation"])))
+                        rank=params["rank"], alpha=params["alpha"], target_modules=params["target_modules"], max_tokens=hp.max_length,
+                        training=development_record(measured, len(splits["validation"]), sha((data_root / "validation.jsonl").read_bytes())))
         meta["x-development-provenance"] = json.dumps({"trained": trained, "audit_required": True,
-                                                       "train_sha256": sha((HERE / "data/train.jsonl").read_bytes()),
-                                                       "validation_sha256": sha((HERE / "data/validation.jsonl").read_bytes()),
+                                                       "train_sha256": sha((data_root / "train.jsonl").read_bytes()),
+                                                       "validation_sha256": sha((data_root / "validation.jsonl").read_bytes()),
                                                        "scope": "source-specific observation expiry fidelity, not universal IP truth; development is not independent audit"})
         for key in ("notice", "apache_2_0", "kit_mit", "sand", "cc0", "source_notice"):
             meta["x-" + key.replace("_", "-")] = licences[key]
