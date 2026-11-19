@@ -33,3 +33,8 @@ ModernBERT architecture and weights retain Apache-2.0. The pinned licence grant 
 
 Parser/runtime recovery
 The prior checkpoint contains an invalid standard TrainingRecord without children. Metadata recovery preserves the original record in an x-extension, original grant values, tensor descriptors and all tensor payload bytes. Native development accuracy was 50% in every training epoch. Metadata repair is not a quality improvement, independent audit or canonical win.
+
+Parser/runtime recovery
+The prior checkpoint contains an invalid standard TrainingRecord without children. Metadata recovery preserves the original record in an x-extension, original grant values, tensor descriptors and all tensor payload bytes. Native development accuracy was 50% in every training epoch. Metadata repair is not a quality improvement, independent audit or canonical win.
+
+Live-class integration: the exact prior parser refusal was the obsolete compiled-in catalog, not a guessed runtime failure. The public node's family/child classification is checked fresh and bound to the isolated reference tool through the upstream supported catalog.UseClasses API. No controller/shared/node catalogue is modified. The full upstream CheckLoRA parser and all original checks remain unchanged. The new Go tool has been compiled and its valid-proof required-input path plus wrong-class refusal exercised without any local model/package loading.

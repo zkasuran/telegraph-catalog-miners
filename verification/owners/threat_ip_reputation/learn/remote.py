@@ -8,6 +8,7 @@ import json
 import os
 import random
 import socket
+import shutil
 import struct
 import subprocess
 import sys
@@ -22,6 +23,7 @@ from contracts import (BASE_FILES, BASE_REVISION, FAMILY, FORMATS, FOUNDATION, K
                        LABELS, basic_margins, margin_accuracy, read_development, remote_only,
                        render, sha, validation_gate, words, write_json)
 from training_record import development_record
+from class_binding import collect_classes
 
 HERE = Path(__file__).resolve().parent
 RELEASE = "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/"
@@ -288,10 +290,15 @@ def main():
     write_json(root / "candidate-report.json", report)  # Preserve actual metrics even if parser/runtime fails.
     for name in ("adapterexec", "adapterbuild"):
         subprocess.run(["go", "build", "-trimpath", "-o", str(root / name), "./cmd/" + name], cwd=kit, check=True, timeout=600)
+    live_dir = kit / "cmd/threat-owner-livecheck"
+    live_dir.mkdir(exist_ok=True)
+    shutil.copyfile(HERE / "livecheck.go", live_dir / "main.go")
+    subprocess.run(["go", "build", "-trimpath", "-o", str(root / "livecheck"), "./cmd/threat-owner-livecheck"], cwd=kit, check=True, timeout=600)
+    collect_classes(root / "live-class-proof.json")
     spec = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"], "foundation_version": "modernbert-base-lora16-v1", "tokenizer_hash": FOUNDATION["tokenizer.json"],
             "base_model": str(base), "r_max": 16, "num_layers": cfg.num_hidden_layers, "hidden_size": cfg.hidden_size, "targets": {key: list(value) for key, value in target_dims(cfg).items()}}
     write_json(root / "foundation.json", spec)
-    parse = subprocess.run([str(root / "adapterbuild"), "lora", "--intent", FAMILY, "--package", str(package), "--class", "judgment",
+    parse = subprocess.run([str(root / "livecheck"), "--package", str(package), "--classes", str(root / "live-class-proof.json"),
                             "--foundation", str(root / "foundation.json"), "--out", str(root)], capture_output=True, text=True, timeout=60)
     write_json(root / "parser-result.json", {"exit": parse.returncode, "stdout": parse.stdout, "stderr": parse.stderr})
     if parse.returncode:

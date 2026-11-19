@@ -20,6 +20,7 @@ import contracts
 import test_learner
 import test_training_record
 import test_replay
+import test_class_binding
 
 HERE = Path(__file__).resolve().parent
 
@@ -36,7 +37,8 @@ def main():
     stream = io.StringIO()
     suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(test_learner.LearnerTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_training_record.TrainingRecordTests),
-                                unittest.defaultTestLoader.loadTestsFromTestCase(test_replay.ReplayTests)])
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_replay.ReplayTests),
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_class_binding.LiveClassTests)])
     result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
     if not result.wasSuccessful():
         print(stream.getvalue())

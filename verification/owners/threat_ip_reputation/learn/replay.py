@@ -18,6 +18,8 @@ from pathlib import Path
 from contracts import BASE_REVISION, FAMILY, FOUNDATION, KIT, KIT_SHA, VALIDATION_SHA, read_development, remote_only, sha, validation_gate, write_json
 from remote import BASE_FILES, RELEASE, engine_vectors, fetch, shortcuts
 from training_record import validate_record
+from class_binding import collect_classes
+import shutil
 
 HERE = Path(__file__).resolve().parent
 INPUTS = {"THREAT_IP_REPUTATION.safetensors": "223f3c997d44b4fba51ca07e325b2ef15b0e7b9d520eb318101b311c4cea8994",
@@ -101,20 +103,33 @@ def main():
     kit = root / ("telegraph-wasm-baseline-" + KIT)
     for name in ("adapterexec", "adapterbuild"):
         subprocess.run(["go", "build", "-trimpath", "-o", str(root / name), "./cmd/" + name], cwd=kit, check=True, timeout=600)
+    live_dir = kit / "cmd/threat-owner-livecheck"
+    live_dir.mkdir(exist_ok=True)
+    shutil.copyfile(HERE / "livecheck.go", live_dir / "main.go")
+    subprocess.run(["go", "build", "-trimpath", "-o", str(root / "livecheck"), "./cmd/threat-owner-livecheck"], cwd=kit, check=True, timeout=600)
     h, i = cfg["hidden_size"], cfg["intermediate_size"]
     spec = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"], "foundation_version": "modernbert-base-lora16-v1",
             "tokenizer_hash": FOUNDATION["tokenizer.json"], "r_max": 16, "num_layers": cfg["num_hidden_layers"], "hidden_size": h,
             "targets": {"attn.Wqkv": [h, 3*h], "attn.Wo": [h, h], "mlp.Wi": [h, 2*i], "mlp.Wo": [i, h]}}
     write_json(root / "foundation.json", spec)
-    def parse(package):
-        command = [str(root / "adapterbuild"), "lora", "--intent", FAMILY, "--package", str(package), "--class", "judgment",
-                   "--foundation", str(root / "foundation.json"), "--out", str(root)]
+    def parse(package, live=False):
+        if live:
+            collect_classes(root / "live-class-proof.json")
+            command = [str(root / "livecheck"), "--package", str(package), "--classes", str(root / "live-class-proof.json"),
+                       "--foundation", str(root / "foundation.json"), "--out", str(root)]
+        else:
+            command = [str(root / "adapterbuild"), "lora", "--intent", FAMILY, "--package", str(package), "--class", "judgment",
+                       "--foundation", str(root / "foundation.json"), "--out", str(root)]
         result = subprocess.run(command, capture_output=True, text=True, timeout=60)
         return {"exit": result.returncode, "stdout": result.stdout, "stderr": result.stderr}
     raw_result = parse(args.input / (FAMILY + ".safetensors"))
     write_json(root / "original-parser-result.json", raw_result)
-    if raw_result["exit"] == 0 or "children is empty" not in raw_result["stderr"]:
+    if raw_result["exit"] == 0 or "compiled-in catalog" not in raw_result["stderr"]:
         raise ValueError("actual original parser failure differs; preserve its exact stderr before another repair")
+    live_original = parse(args.input / (FAMILY + ".safetensors"), live=True)
+    write_json(root / "live-class-original-parser-result.json", live_original)
+    if live_original["exit"] == 0 or "children is empty" not in live_original["stderr"]:
+        raise ValueError("live-bound original package failure differs; preserve exact stderr before metadata repair")
     from tokenizers import Tokenizer
     tokenizer = Tokenizer.from_file(str(foundation / "tokenizer.json"))
     tokenizer.no_padding()
@@ -123,7 +138,7 @@ def main():
     for key, name, trained in (("trained", FAMILY + ".safetensors", True), ("untrained", "untrained.safetensors", False)):
         output = root / name
         recovery[key] = repack(args.input / name, output, trained)
-        parsed = parse(output)
+        parsed = parse(output, live=True)
         write_json(root / (key + "-parser-result.json"), parsed)
         if parsed["exit"]:
             raise ValueError("corrected checkpoint still fails full parser")

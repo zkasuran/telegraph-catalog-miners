@@ -29,3 +29,9 @@ learn/remote.py refuses local execution before neural imports, downloads or engi
 ## Failure recovery controls
 
 The actual TrainingRecord defect is tested without neural imports. Repacking changes metadata only and streams tensor bytes verbatim, checking their digest and unchanged descriptors. Original licence strings and provenance remain in the header. Original parser failure and every recovery parser result retain exact stdout/stderr before another stage runs. Runtime evaluation is public CPU only. A corrected container cannot authorize registration of a weak model. No audit is used for selection.
+
+## Failure recovery controls
+
+The actual TrainingRecord defect is tested without neural imports. Repacking changes metadata only and streams tensor bytes verbatim, checking their digest and unchanged descriptors. Original licence strings and provenance remain in the header. Original parser failure and every recovery parser result retain exact stdout/stderr before another stage runs. Runtime evaluation is public CPU only. A corrected container cannot authorize registration of a weak model. No audit is used for selection.
+
+Live-class integration: the exact prior parser refusal was the obsolete compiled-in catalog, not a guessed runtime failure. The public node's family/child classification is checked fresh and bound to the isolated reference tool through the upstream supported catalog.UseClasses API. No controller/shared/node catalogue is modified. The full upstream CheckLoRA parser and all original checks remain unchanged. The new Go tool has been compiled and its valid-proof required-input path plus wrong-class refusal exercised without any local model/package loading.

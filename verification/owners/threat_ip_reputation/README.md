@@ -44,3 +44,9 @@ The workflow now also offers train-development. It uses the pinned ModernBERT/Te
 ## Recover the actual failed integration
 
 The replay-runtime workflow mode downloads the exact result artifact of run 44586142914 using read-only GitHub runner permissions. It does not train. It verifies the exact original package hashes, reproduces the original parser refusal, fixes only the malformed training metadata then checks full parsing and actual reference-engine scores. Every tensor byte and original grant remains unchanged. The original model reached only 50% development accuracy. A runtime recovery remains unqualified without genuine quality improvement and a clean independent audit.
+
+## Recover the actual failed integration
+
+The replay-runtime workflow mode downloads the exact result artifact of run 44586142914 using read-only GitHub runner permissions. It does not train. It verifies the exact original package hashes, reproduces the original parser refusal, fixes only the malformed training metadata then checks full parsing and actual reference-engine scores. Every tensor byte and original grant remains unchanged. The original model reached only 50% development accuracy. A runtime recovery remains unqualified without genuine quality improvement and a clean independent audit.
+
+Live-class integration: the exact prior parser refusal was the obsolete compiled-in catalog, not a guessed runtime failure. The public node's family/child classification is checked fresh and bound to the isolated reference tool through the upstream supported catalog.UseClasses API. No controller/shared/node catalogue is modified. The full upstream CheckLoRA parser and all original checks remain unchanged. The new Go tool has been compiled and its valid-proof required-input path plus wrong-class refusal exercised without any local model/package loading.

@@ -51,3 +51,9 @@ Training runs only in the bounded public CPU workflow. No protected pool rows or
 ## Actual failed development run
 
 Run 44586142914 at f2d2c59fc410d23b9434de11341c944328972804 passed its frozen training-data gate and 640 tokenizer/render checks. All three epoch development aggregates were 50%; epoch 0 was restored. No per-format or independent audit result was retained in its stale report. The source/parser contract requires nonempty training children. Replay uses only those exact licensed checkpoints and records actual full-parser stderr plus reference-engine development metrics. No retraining or new training data is introduced.
+
+## Actual failed development run
+
+Run 44586142914 at f2d2c59fc410d23b9434de11341c944328972804 passed its frozen training-data gate and 640 tokenizer/render checks. All three epoch development aggregates were 50%; epoch 0 was restored. No per-format or independent audit result was retained in its stale report. The source/parser contract requires nonempty training children. Replay uses only those exact licensed checkpoints and records actual full-parser stderr plus reference-engine development metrics. No retraining or new training data is introduced.
+
+Live-class integration: the exact prior parser refusal was the obsolete compiled-in catalog, not a guessed runtime failure. The public node's family/child classification is checked fresh and bound to the isolated reference tool through the upstream supported catalog.UseClasses API. No controller/shared/node catalogue is modified. The full upstream CheckLoRA parser and all original checks remain unchanged. The new Go tool has been compiled and its valid-proof required-input path plus wrong-class refusal exercised without any local model/package loading.
