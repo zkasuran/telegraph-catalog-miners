@@ -5,6 +5,7 @@ import gc
 import importlib.metadata
 import os
 import random
+import struct
 from dataclasses import asdict
 from pathlib import Path
 
@@ -12,6 +13,9 @@ from baselines import validate_frozen
 from contracts import FAMILY, FOUNDATION, HERE, check_config, file_sha, read_jsonl, remote_only, render, strict_json, write_json
 from data import pair
 from prepare_remote import compile_runtime, full_parser, prepare
+from validation_policy import require_validation
+from parent_checkpoint import FAILED_TENSOR_SHA, PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, restore
+from source_cues import measure_source_cues
 
 
 def main():
@@ -25,7 +29,7 @@ def main():
     for name in ("train", "validation", "audit"):
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("frozen source data identity changed")
-    validate_frozen(strict_json((HERE/"frozen-baselines-v2.json").read_bytes()), train)
+    validate_frozen(strict_json((HERE/"frozen-baselines-v3.json").read_bytes()), train)
     foundation, base, kit = prepare(root, weights=True)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -41,11 +45,17 @@ def main():
         raise RuntimeError("this pipeline permits CPU only")
     torch.set_num_threads(min(4, os.cpu_count() or 1))
     hp = trainer.Hyperparams(max_length=config["max_tokens"], batch_size=2, grad_accum=4, epochs=config["epochs"],
-                            eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"])
+                            eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"],
+                            lr=.0003, es_patience=6)
     gate = trainer.gate_dataset(train, hp)
     write_json(root/"upstream-dataset-gate.json", gate)
     if gate["ok"] is not True:
         raise ValueError("unmodified upstream dataset gate failed before model loading")
+    training_views = [pair(row, style) for row in train for style in ("json", "prose")]
+    view_gate = trainer.gate_dataset(training_views, hp)
+    write_json(root/"upstream-training-view-gate.json", view_gate)
+    if view_gate["ok"] is not True:
+        raise ValueError("unmodified upstream multi-format view gate failed before model loading")
     tok = AutoTokenizer.from_pretrained(base, local_files_only=True)
     node_tok = Tokenizer.from_file(str(foundation/"tokenizer.json"))
     node_tok.no_padding()
@@ -87,6 +97,22 @@ def main():
     np.random.seed(hp.seed)
     torch.manual_seed(hp.seed)
     initial, _ = trainer.build_model(str(base), hp)
+    from baselines import measure
+    frozen_baseline = strict_json((HERE/"frozen-baselines-v3.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v3.json").read_bytes())
+    if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
+        raise ValueError("source-aware baseline is not bound to this training data")
+    def validation_metrics(model):
+        formats = {}
+        for style in ("json", "prose"):
+            rows = [pair(row, style) for row in validation]
+            measured = trainer.evaluate(model, tok, rows, hp)
+            formats[style] = {"accuracy": measured["pairwise_accuracy"], "per_label": {
+                label: trainer.evaluate(model, tok, [row for row in rows if row["label"] == label], hp)["pairwise_accuracy"]
+                for label in ("Entailment", "Contradiction")}, "original_pairs": len(validation), "fit_split": "validation",
+                "shortcut_accuracy": max([*measure(rows, frozen_baseline).values(), *measure_source_cues(rows, source_baseline).values()])}
+        return formats
+    initial_validation = validation_metrics(initial)
     initial_path = root/"untrained-adapter"
     initial.save_pretrained(initial_path)
     trainer.save_reward_head(initial, initial_path)
@@ -94,9 +120,36 @@ def main():
     del initial
     gc.collect()
     trained_path = root/"trained-adapter"
-    model, tok, _ = trainer.train(str(base), train, validation, trained_path, hp)
-    validation_report = trainer.evaluate(model, tok, validation, hp)
+    parent = restore(root)
+    original_build, original_evaluate = trainer.build_model, trainer.evaluate
+    def resumed_build(base_model, hyperparams):
+        model, tokenizer = original_build(base_model, hyperparams)
+        model.load_adapter(str(parent), adapter_name="default", is_trainable=True)
+        return model, tokenizer
+    validation_views = [{**pair(row, style), "view_style": style} for row in validation for style in ("json", "prose")]
+    def worst_format_evaluate(model, tokenizer, rows, hyperparams, negatives=None):
+        measured = original_evaluate(model, tokenizer, rows, hyperparams, negatives)
+        if rows and {row.get("view_style") for row in rows} == {"json", "prose"}:
+            views = [original_evaluate(model, tokenizer, [row for row in rows if row["view_style"] == style], hyperparams, negatives)
+                     for style in ("json", "prose")]
+            measured["val_loss"] = max(view["val_loss"] for view in views)
+            measured["pairwise_accuracy"] = min(view["pairwise_accuracy"] for view in views)
+        return measured
+    # Best epoch selection sees validation only and protects the worse format.
+    trainer.build_model, trainer.evaluate = resumed_build, worst_format_evaluate
+    try:
+        model, tok, _ = trainer.train(str(base), training_views, validation_views, trained_path, hp)
+    finally:
+        trainer.build_model, trainer.evaluate = original_build, original_evaluate
+    validation_report = validation_metrics(model)
+    for style, measured in validation_report.items():
+        measured["untrained_accuracy"] = initial_validation[style]["accuracy"]
     candidate = export(trained_path, FAMILY)
+    candidate_bytes = candidate.read_bytes()
+    header_bytes = struct.unpack("<Q", candidate_bytes[:8])[0]
+    from contracts import sha
+    if sha(candidate_bytes[8+header_bytes:]) == FAILED_TENSOR_SHA:
+        raise ValueError("unchanged failed tensor payload must not be audited or registered again")
     del model
     gc.collect()
     foundation_spec = root/"foundation.json"
@@ -111,8 +164,13 @@ def main():
         "commit": os.environ["GITHUB_SHA"], "source_manifest_sha256": file_sha(root/"data/source-manifest.json"),
         "candidate_sha256": file_sha(candidate), "untrained_sha256": file_sha(root/"untrained.safetensors"),
         "validation": validation_report, "hyperparameters": asdict(hp), "audit_used_for_selection": False,
+        "parent_run_id": PARENT_RUN, "parent_commit": PARENT_COMMIT, "parent_checkpoint_sha256": PARENT_CHECKPOINT_SHA,
+        "training_originals": len(train), "training_views": len(training_views),
         "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors", "numpy")}})
     print("Frozen licensed candidate and seed-matched untrained package. Independent audit was not scored.")
+    # Preserve bytes and failure evidence first, then refuse to expose the audit.
+    checked_validation = require_validation(validation_report, len(validation))
+    write_json(root/"validation-ready.json", checked_validation)
 
 
 if __name__ == "__main__":

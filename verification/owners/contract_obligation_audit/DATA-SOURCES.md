@@ -30,4 +30,16 @@ Apache 2.0 grants reproduction, derivative works and distribution subject to ret
 
 ## Our additions
 
-New code uses the reviewed LicenseRef-zkasuran-SAND-1.0 terms. Those terms do not restrict the upstream text or annotations. Current source-gate failure evidence retains the same licence boundary as a successful export. No trained model is exported yet.
+New code uses the reviewed LicenseRef-zkasuran-SAND-1.0 terms. Those terms do not restrict the upstream text or annotations. Failed checkpoint/source-gate evidence retains the same licence boundary as a successful export. An exported failed model is not a qualified candidate.
+
+The first owned model was trained in public CPU run 44564516958 and retains all full upstream grants in its package. It failed quality and is not registered. Its newly exposed 56 audit groups join the earlier 43-group retirement. Neither group set may enter later training, development or independent audit.
+
+MAUD is being inspected as an alternative source under the publisher's CC BY 4.0 grant. The complete 158-member archive and all CSV rows were read. Main contexts, abridged contexts and rare-answer constructions are distinct. Annotation-added page locators are metadata, not contract wording. No MAUD preference is called freshly human-reviewed. No MAUD model or audit score has been produced yet.
+
+## Generation-three raw judgment context
+
+The primary training standard specifies raw prompt/answer strings and up to 512 tokens. Evaluation-material documentation permits raw prompt lengths up to 16000 characters. These are scoring-string contracts, not the typed miner's separate 256-byte slot.
+https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py
+The pinned reference engine already executed a 512-token fixed vector in the first actual run. Generation three retains complete original annotation evidence up to 768 bytes and filters actual rendered strings through the pinned tokenizer. All 980 permitted original records fit within 426 tokens. No source words, conditions or annotated spans are dropped. Typed long-contract miner delivery and URL dereference remain unverified.
+
+The source selection continues the same four claims and excludes all 99 retired groups plus 227 prior exposed groups from its fresh audit. Its semantic cue coefficients are fitted only on training and frozen as integers. Their measured scores strengthen the model-quality comparison. No audit label or score selects the new candidate.

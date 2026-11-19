@@ -18,5 +18,9 @@ Full retained grants are in licences.json and embedded in every exported delta.
 The reference engine and foundation are pinned, not binary-wrapped or altered.
 
 New source/contract code and trained deltas: Copyright (c) 2026 zkasuran.
+Generation-three training resumes the licensed best checkpoint of public run
+44564516958, then learns on fresh complete-evidence source partitions. Its
+failed audit groups are never reused. Original source labels and full grants
+remain unchanged. A changed or registered package is not a canonical win.
 LicenseRef-zkasuran-SAND-1.0. These terms do not restrict original CC BY text,
 annotations or source-derived data. No licensor endorsement is implied.

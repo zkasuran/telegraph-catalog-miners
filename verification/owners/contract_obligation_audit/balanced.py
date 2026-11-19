@@ -60,6 +60,9 @@ def construct(archive, config, policy):
     prior_evidence = set(policy["audit_forbidden_evidence"])
     hypotheses = policy["hypotheses"]
     clean = {split: [r for r in rows if r["source_group"] not in forbidden] for split, rows in eligible.items()}
+    allowed = set(policy["allowed_source_records"])
+    clean = {split: [row for row in rows if row["document_id"]+":"+row["hypothesis_id"]+":"+row["evidence_sha256"] in allowed]
+             for split, rows in clean.items()}
     train = allocate(clean["train"], hypotheses, config["limits"]["train"], 4, policy["prior_training_groups"],
                      quotas=policy["training_pairs_per_hypothesis"])
     # Development coverage quotas were fixed from train/development inventory,
@@ -85,7 +88,7 @@ def construct(archive, config, policy):
         raise ValueError("retired audit group entered a new split")
     if any(r["source_group"] in audit_forbidden for r in splits["audit"]):
         raise ValueError("development-exposed group entered a new audit")
-    return splits, {**source, "generation": 2, "selection_basis": "train/development coverage; audit source sampling only, no audit model or shortcut scores",
+    return splits, {**source, "generation": 3, "selection_basis": "train/development coverage; audit source sampling only, no audit model or shortcut scores",
                     "hypotheses": hypotheses, "retired_groups_excluded": len(forbidden),
                     "audit_forbidden_groups": sorted(audit_forbidden), "policy_sha256": sha((HERE / "source-policy.json").read_bytes()),
                     "independent_groups": len({r["source_group"] for r in splits["audit"]})}

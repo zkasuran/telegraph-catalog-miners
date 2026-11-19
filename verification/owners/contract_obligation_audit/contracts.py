@@ -111,6 +111,6 @@ def check_config(value):
         raise ValueError("source identity must be pinned")
     if value["limits"] != {"train": 64, "validation": 16, "audit": 64}:
         raise ValueError("frozen split ceilings changed")
-    if value["max_evidence_bytes"] != 256 or value["max_tokens"] != 384 or value["epochs"] != 3 or value["seed"] != 42:
+    if value["max_evidence_bytes"] != 768 or value["max_tokens"] != 512 or value["epochs"] != 32 or value["seed"] != 42:
         raise ValueError("frozen pipeline bounds changed")
     return value

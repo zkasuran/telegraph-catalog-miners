@@ -14,6 +14,8 @@ from contracts import FAMILY, FORMATS, FOUNDATION, HERE, LABELS, check_config, d
 from data import check_splits, pair
 from executor import ReferenceExecutor, Server
 from prepare_remote import compile_runtime, full_parser, prepare
+from validation_policy import require_validation
+from source_cues import measure_source_cues
 
 
 def request(tokens, package_keccak):
@@ -25,6 +27,7 @@ def audit(root):
     remote_only()
     config = check_config(strict_json((HERE/"config.json").read_bytes()))
     freeze = strict_json((root/"training-freeze.json").read_bytes())
+    require_validation(freeze["validation"], config["limits"]["validation"])
     if freeze["commit"] != os.environ["GITHUB_SHA"] or freeze["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or freeze["audit_used_for_selection"] is not False:
         raise ValueError("training freeze is not from this exact immutable run")
     source_path = root/"data/source-manifest.json"
@@ -37,9 +40,17 @@ def audit(root):
             raise ValueError("audit data changed after candidate freeze")
     check_splits(splits, config)
     policy = strict_json((HERE/"source-policy.json").read_bytes())
+    retirement = HERE/"retired-source-groups.json"
+    if retirement.exists():
+        retired = strict_json(retirement.read_bytes())
+        if any(row["source_group"] in retired["groups"] for row in splits["audit"]):
+            raise ValueError("previously exposed audit group is permanently retired")
     if any(r["source_group"] in policy["audit_forbidden_groups"] for r in splits["audit"]):
         raise ValueError("exposed source entered independent audit")
-    frozen = strict_json((HERE/"frozen-baselines-v2.json").read_bytes())
+    frozen = strict_json((HERE/"frozen-baselines-v3.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v3.json").read_bytes())
+    if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
+        raise ValueError("audit semantic baseline is not from the frozen training data")
     validate_frozen(frozen, splits["train"])
     foundation, _, kit = prepare(root)
     compile_runtime(root, kit)
@@ -120,6 +131,7 @@ def audit(root):
         before = [initial[2*i] > initial[2*i+1] for i in range(len(views[style]))]
         labels = Counter(row["label"] for row in views[style])
         shortcuts = measure(views[style], frozen)
+        shortcuts.update(measure_source_cues(views[style], source_baseline))
         formats[style] = {"accuracy": sum(wins)/len(wins), "untrained_accuracy": sum(before)/len(before),
             "per_label": {label: sum(w for row, w in zip(views[style], wins) if row["label"] == label)/labels[label] for label in LABELS},
             "shortcut_accuracy": max(shortcuts.values()), "shortcuts": shortcuts, "audit_pairs": len(wins)}

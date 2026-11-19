@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """Local source/contract verification. No model loading, training or inference."""
 import ast
+import argparse
 import json
 import os
 import subprocess
@@ -16,6 +17,11 @@ from source_gate import verdict
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source-generation", type=int, required=True)
+    args = parser.parse_args()
+    if args.source_generation != 3:
+        raise ValueError("retired source generations are not eligible releases")
     for path in HERE.glob("*.py"):
         raw = path.read_bytes()
         compile(raw, path.name, "exec")
@@ -46,11 +52,16 @@ def main():
         if file_sha(archive) != config["archive_sha256"]:
             raise ValueError("source gate archive mismatch")
         splits, _ = construct(archive, config, policy)
+        retirement = HERE/"retired-source-groups.json"
+        if retirement.exists():
+            retired = strict_json(retirement.read_bytes())
+            if any(row["source_group"] in retired["groups"] for rows in splits.values() for row in rows):
+                raise ValueError("archival source generation includes permanently retired audit groups; a fresh dataset is required")
         for name, rows in splits.items():
             raw = b"".join(json.dumps(row, sort_keys=True, ensure_ascii=False).encode()+b"\n" for row in rows)
             if sha(raw) != fingerprints["files"][name]["sha256"]:
                 raise ValueError("constructed source split differs from frozen source bytes")
-        frozen = strict_json((HERE/"frozen-baselines-v2.json").read_bytes())
+        frozen = strict_json((HERE/"frozen-baselines-v3.json").read_bytes())
         validate_frozen(frozen, splits["train"])
         checked = verdict(splits, frozen, config)
         if not checked["passed"]:

@@ -1,0 +1,15 @@
+{
+  "fit_split": "train",
+  "integer_coefficients": {
+    "negation": {
+      "threshold": 2,
+      "direction": -1
+    },
+    "exception": {
+      "threshold": 1,
+      "direction": 1
+    }
+  },
+  "training_data_sha256": "af2ece62c6b5024dbe726cc05c6878a265e723e684cc2b65ce729f35e49f53e5",
+  "scope": "Source-aware semantic classification baselines, not target leakage. They strengthen the model quality comparison, never replace source-integrity gates."
+}

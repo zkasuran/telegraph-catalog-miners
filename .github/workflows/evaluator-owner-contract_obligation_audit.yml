@@ -66,7 +66,8 @@
     }
   },
   "permissions": {
-    "contents": "read"
+    "contents": "read",
+    "actions": "read"
   },
   "concurrency": {
     "group": "contract-owner-${{ inputs.mode }}",
@@ -76,7 +77,7 @@
     "train": {
       "if": "inputs.mode == 'train'",
       "runs-on": "ubuntu-24.04",
-      "timeout-minutes": 240,
+      "timeout-minutes": 340,
       "env": {
         "PYTHONDONTWRITEBYTECODE": "1",
         "TOKENIZERS_PARALLELISM": "false",
@@ -110,14 +111,24 @@
           "run": "python3 -m venv \"$RUNNER_TEMP/contract-venv\"\n\"$RUNNER_TEMP/contract-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/contract_obligation_audit/requirements.lock\n\"$RUNNER_TEMP/contract-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/audit_dependencies.py --lock verification/owners/contract_obligation_audit/requirements.lock --out \"$RUNNER_TEMP/dependency-releases.txt\" --report \"$RUNNER_TEMP/dependency-audit.json\""
         },
         {
+          "name": "Read retained licensed best checkpoint",
+          "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "with": {
+            "name": "contract-licensed-checkpoint",
+            "run-id": 44564516958,
+            "github-token": "${{ github.token }}",
+            "path": "${{ runner.temp }}/contract-run/parent-checkpoint"
+          }
+        },
+        {
           "name": "Construct frozen clean source splits",
           "timeout-minutes": 10,
           "run": "python3 verification/owners/contract_obligation_audit/balanced.py --out \"$RUNNER_TEMP/contract-run/data\"\npython3 verification/owners/contract_obligation_audit/source_gate.py --data \"$RUNNER_TEMP/contract-run/data\" --report \"$RUNNER_TEMP/contract-run/source-gate.json\""
         },
         {
-          "name": "Train and freeze, no audit selection",
-          "timeout-minutes": 195,
-          "run": "timeout --signal=TERM --kill-after=20s 11400 \"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/train_remote.py --root \"$RUNNER_TEMP/contract-run\""
+          "name": "Resume both-format training and freeze, no audit selection",
+          "timeout-minutes": 285,
+          "run": "timeout --signal=TERM --kill-after=20s 16800 \"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/train_remote.py --root \"$RUNNER_TEMP/contract-run\""
         },
         {
           "name": "Retain licensed success or failure checkpoint",

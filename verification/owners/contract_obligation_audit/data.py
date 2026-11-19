@@ -189,7 +189,7 @@ def check_splits(splits, config):
             raise ValueError("audit requires at least 32 independent source groups")
         for row in rows:
             if (row["prompt"] != row["evidence"] or sha(row["evidence"].encode()) != row["evidence_sha256"]
-                    or len(row["evidence"].encode()) > 256 or row["chosen"] == row["rejected"]):
+                    or len(row["evidence"].encode()) > config["max_evidence_bytes"] or row["chosen"] == row["rejected"]):
                 raise ValueError("source/pair identity or input bounds mismatch")
 
 

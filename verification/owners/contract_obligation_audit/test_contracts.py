@@ -17,6 +17,9 @@ from live import validate
 from reference_render import render as actual_reference_render
 from executor import Server, validate_request
 from serve_remote import immutable_url
+from validation_policy import require_validation, warmstart_policy
+from parent_checkpoint import restore
+from source_cues import measure_source_cues
 
 
 def fixture(label="Entailment", hypothesis_id="control"):
@@ -27,6 +30,46 @@ def fixture(label="Entailment", hypothesis_id="control"):
 
 
 class ContractTests(unittest.TestCase):
+    def test_parent_restore_never_loads_locally(self):
+        with patch.dict(os.environ, {"GITHUB_ACTIONS": "false", "OWNER_SOURCE_ONLY": "1"}, clear=True):
+            with self.assertRaises(RuntimeError):
+                restore(HERE)
+
+    def test_source_aware_baseline_is_separate_and_frozen(self):
+        row = fixture("Contradiction")
+        row["evidence"] = "No recipient shall act without written consent except as required by law."
+        frozen = {"fit_split": "train", "integer_coefficients": {"negation": {"threshold": 2, "direction": -1},
+                   "exception": {"threshold": 1, "direction": 1}}}
+        measured = measure_source_cues([row], frozen)
+        self.assertEqual(measured["negation"], 1.0)
+        self.assertEqual(measured["exception"], 0.0)
+        frozen["fit_split"] = "audit"
+        with self.assertRaises(ValueError):
+            measure_source_cues([row], frozen)
+    def test_validation_failure_keeps_audit_locked(self):
+        # Actual failed run produced only this incomplete single-format summary.
+        observed = {"pairwise_accuracy": 0.5, "n_eval": 16, "verdict": "FAIL", "val_loss": 0.692055}
+        with self.assertRaises(ValueError):
+            require_validation(observed, 16)
+        cases = {name: {"accuracy": .5, "per_label": {"Entailment": .5, "Contradiction": .5},
+                        "untrained_accuracy": .5, "shortcut_accuracy": .5, "original_pairs": 16,
+                        "fit_split": "validation"} for name in ("json", "prose")}
+        with self.assertRaises(ValueError):
+            require_validation(cases, 16)
+        for metrics in cases.values():
+            metrics["accuracy"] = .875
+            metrics["per_label"] = {"Entailment": .875, "Contradiction": .875}
+        self.assertEqual(require_validation(cases, 16)["status"], "VALIDATION_READY")
+        cases["prose"]["per_label"]["Contradiction"] = .625
+        with self.assertRaises(ValueError):
+            require_validation(cases, 16)
+
+    def test_warmstart_policy_retains_gates(self):
+        policy = warmstart_policy()
+        self.assertEqual(policy["epochs"], 32)
+        self.assertEqual(policy["train_formats"], ["json", "prose"])
+        self.assertIn("retained licensed", policy["initialization"])
+        self.assertIn("80%", policy["quality_gate"])
     def test_exact_render(self):
         self.assertEqual(render(" Café\u2028\n", " Unclear "), "### Task:\n Café\u2028\n\n\n### Answer:\n Unclear ")
         self.assertNotEqual(render(" q ", "a"), render("q", "a"))
@@ -87,7 +130,7 @@ class ContractTests(unittest.TestCase):
     def test_config_parses_and_validates(self):
         config = strict_json((HERE / "config.json").read_bytes())
         check_config(config)
-        for field, value in (("family", "OTHER_FAMILY"), ("max_tokens", 512), ("epochs", 999)):
+        for field, value in (("family", "OTHER_FAMILY"), ("max_tokens", 513), ("epochs", 999)):
             wrong = copy.deepcopy(config)
             wrong[field] = value
             with self.assertRaises(ValueError):
