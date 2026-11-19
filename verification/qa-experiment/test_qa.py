@@ -3,6 +3,7 @@
 """Artificial schema fixtures test gates only. They never become training data."""
 import copy
 import json
+import math
 import os
 import random
 import struct
@@ -23,6 +24,13 @@ from data import (
     norm,
     preferences,
     select,
+)
+from frozen_baseline import (
+    decode_frozen,
+    load_frozen_controls,
+    replay_controls,
+    train_vocabulary,
+    validate_frozen,
 )
 from licensing import (
     OWN_ID,
@@ -45,6 +53,52 @@ def message(ident, tree, text, parent=None, rank=None):
 
 
 class SourceGates(unittest.TestCase):
+    def baseline_fixture(self):
+        # Artificial validator fixture only, never production training data.
+        train = [{"prompt": "question " + str(i), "chosen": "long preferred answer", "rejected": "short"} for i in range(128)]
+        df, vocab = train_vocabulary(train)
+        frozen = {"vocabulary": vocab, "idf": [math.log(385 / (1 + df[word])) + 1 for word in vocab],
+                  "bow": [0.0] * len(vocab), "scale": [1.0] * 8, "style": [1.0] + [0.0] * 7,
+                  "orientations": {"length": 1, "token_length": 1, "overlap": 1}, "fit_split": "train"}
+        return train, frozen
+
+    def test_frozen_baseline_dimensions_finite_vocabulary_and_train_identity(self):
+        train, frozen = self.baseline_fixture()
+        validate_frozen(frozen, train)
+        mutations = []
+        for field, value in (("bow", [0.0]), ("style", [float("nan")] * 8), ("scale", [0.0] * 8), ("fit_split", "validation")):
+            mutations.append({**frozen, field: value})
+        changed = copy.deepcopy(frozen)
+        changed["vocabulary"]["unknown"] = 0
+        mutations.append(changed)
+        for bad in mutations:
+            with self.assertRaises(ValueError):
+                validate_frozen(bad, train)
+        with self.assertRaises(ValueError):
+            validate_frozen(frozen, train[:32])
+        with self.assertRaises(ValueError):
+            decode_frozen(b'{"fit_split":"train","fit_split":"audit"}')
+
+    def test_frozen_replay_does_not_mutate_or_refit_and_owns_immutable_copy(self):
+        train, frozen = self.baseline_fixture()
+        validate_frozen(frozen, train)
+        tokenizer = SimpleNamespace(encode=lambda text: SimpleNamespace(ids=list(range(len(text.split())))))
+        scorer = replay_controls(frozen, tokenizer)
+        before = copy.deepcopy(frozen)
+        result = scorer(train[:2])
+        self.assertEqual(frozen, before)
+        frozen["style"][0] = -1000.0
+        self.assertEqual(scorer(train[:2]), result)
+
+    def test_baseline_loader_rejects_wrong_training_bytes(self):
+        base = Path(__file__).resolve().parent / "evidence/tooling"
+        base.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=base) as temp:
+            root = Path(temp)
+            (root / "train.jsonl").write_text("[]\n")
+            with self.assertRaises(ValueError):
+                load_frozen_controls(root, [], None)
+
     def test_explicit_source_flags(self):
         row = message("r", "t", "root")
         self.assertTrue(eligible(row))

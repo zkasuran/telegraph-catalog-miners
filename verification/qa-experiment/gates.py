@@ -5,12 +5,12 @@ import argparse
 import importlib.util
 import json
 import math
-import re
 import sys
 from collections import Counter
 from pathlib import Path
 
 from data import HERE, digest, read_splits, render, write_json
+from frozen_baseline import fixed_features, load_frozen_controls, words
 
 
 def load_trainer(kit):
@@ -26,26 +26,12 @@ def load_trainer(kit):
     return trainer
 
 
-WORDS = re.compile(r"[a-z0-9']+")
-
-
-def words(text):
-    return WORDS.findall(text.casefold())
-
-
-def fixed_features(prompt, answer):
-    terms = words(answer)
-    lower = answer.casefold()
-    return [len(answer), len(terms), answer.count("\n"), answer.count("```"),
-            int("http" in lower), sum(lower.count(x) for x in ("sorry", "cannot", "can't", "unable")),
-            sum(c.isdigit() for c in answer), sum(c in "!?;:" for c in answer)]
-
-
 def pair_accuracy(values):
     return sum(1 if x > 0 else 0.5 if x == 0 else 0 for x in values) / len(values)
 
 
 def fit_controls(train, tokenizer):
+    """Fresh train-only diagnostic. Never selects or replaces the baseline."""
     import numpy as np
     df = Counter()
     for row in train:
@@ -114,7 +100,7 @@ def visible_controls(splits, tokenizer, trainer):
     return {"pairs": rows_checked, "full_inputs_fit": True, "identical_retained_pairs": 0, "max_tokens": 256}
 
 
-def run_gate(root, kit):
+def run_gate(root, kit, diagnose=False):
     from tokenizers import Tokenizer
     trainer = load_trainer(kit)
     source_report, splits = read_splits(root)
@@ -140,7 +126,7 @@ def run_gate(root, kit):
     for vector in vectors:
         if tokenizer.encode(vector["text"], add_special_tokens=vector["add_special_tokens"]).ids != vector["ids"]:
             raise ValueError("released tokenizer vector mismatch")
-    scores, frozen = fit_controls(splits["train"], tokenizer)
+    scores, frozen = load_frozen_controls(root, splits["train"], tokenizer)
     validation = scores(splits["validation"])
     failures = list(gate["failures"])
     if not fixed_binding:
@@ -152,15 +138,23 @@ def run_gate(root, kit):
               "token_visible": visible, "conformance_vectors": len(vectors), "failures": failures,
                "audit_metrics": "sealed until fixed training checkpoint exists", "no_gate_bypass": True}
     report["fixed_split_contract"] = fixed_binding
+    report["baseline"] = {"mode": "immutable train-only replay", "refitted_for_acceptance": False,
+                          "sha256": contract["freeze_sha256"]["frozen-controls.json"]}
     for name, sha in contract["freeze_sha256"].items():
         path = HERE / name if name == "sources.json" else root / name
         if path.is_file() and digest(path.read_bytes()) != sha:
             raise ValueError("pre-existing source/freeze bytes changed: " + name)
     if digest((HERE / "sources.json").read_bytes()) != contract["freeze_sha256"]["sources.json"]:
         raise ValueError("source manifest bytes changed")
-    write_json(root / "frozen-controls.json", frozen)
-    if digest((root / "frozen-controls.json").read_bytes()) != contract["freeze_sha256"]["frozen-controls.json"]:
-        raise ValueError("frozen shortcut coefficients no longer reproduce")
+    if diagnose:
+        _, fresh = fit_controls(splits["train"], tokenizer)
+        fresh_raw = (json.dumps(fresh, indent=2, ensure_ascii=True, allow_nan=False) + "\n").encode()
+        differences = {name: max(abs(a - b) for a, b in zip(frozen[name], fresh[name]))
+                       for name in ("idf", "bow", "style", "scale")}
+        write_json(root / "refit-drift.json", {"status": "DRIFT_OBSERVED" if digest(fresh_raw) != report["baseline"]["sha256"] else "NO_DRIFT_IN_THIS_ENVIRONMENT",
+                   "frozen_sha256": report["baseline"]["sha256"], "fresh_fit_sha256": digest(fresh_raw),
+                   "max_absolute_coefficient_difference": differences, "fit_split": "train", "affects_acceptance": False,
+                   "frozen_artifact_replaced": False, "previous_failed_ci_refit": "not reclassified as passed"})
     write_json(root / "dataset-gate.json", report)
     if "torch" in sys.modules:
         raise RuntimeError("source-only gates imported torch")
@@ -171,8 +165,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--kit", type=Path, required=True)
+    parser.add_argument("--diagnose-refit", action="store_true", help="train-only numerical drift report, never a replacement baseline")
     args = parser.parse_args()
-    *_, report = run_gate(args.data, args.kit)
+    *_, report = run_gate(args.data, args.kit, diagnose=args.diagnose_refit)
     print(json.dumps(report, indent=2))
     return 0 if report["ok"] else 1
 

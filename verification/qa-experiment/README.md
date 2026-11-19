@@ -84,6 +84,22 @@ overlap 46.875%, answer-only 62.5% and surface style 50%. Every control is
 below the unchanged 65% ceiling. `contract.json` fixes counts, exact split
 hashes and quality thresholds before any model phase.
 
+The original train-only controls are bundled byte-exact in
+`baselines/frozen-controls.json`, SHA-256
+`4aa549339b120184258d6d3c17b5f407f6aa1562c2973e7e4b65bfee6ea8491b`.
+Its manifest binds 128 training originals, their exact source split hash,
+source revision and released tokenizer. Validation checks dimensions, finite
+coefficients, vocabulary indices and vocabulary/IDF correspondence to that
+training source. Production scoring replays immutable copied coefficients with
+scalar `math.fsum` reductions. It never refits on development or audit.
+
+The reported run 44463468482 failed while requiring byte-identical NumPy/BLAS
+refitting. That failed refit is not relabelled as passed. Fitting the same recipe
+again is not a portable byte identity guarantee. An optional `--diagnose-refit`
+reports fresh train-only coefficient drift separately; it never replaces the
+baseline or changes acceptance thresholds. Audit control results remain sealed
+until the development-selected neural checkpoint exists.
+
 ## Entry points
 
 Source-only prep can run locally using an exact verified source cache:

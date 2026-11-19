@@ -65,6 +65,12 @@ def main():
         raise ValueError("full Apache source terms mismatch")
     if __import__("hashlib").sha256((here / "sources.json").read_bytes()).hexdigest() != contract["freeze_sha256"]["sources.json"]:
         raise ValueError("source pin manifest changed")
+    baseline = here / "baselines/frozen-controls.json"
+    if __import__("hashlib").sha256(baseline.read_bytes()).hexdigest() != contract["freeze_sha256"]["frozen-controls.json"]:
+        raise ValueError("bundled immutable control baseline changed")
+    identity = json.loads((here / "baselines/manifest.json").read_text())
+    if identity["fit_split"] != "train" or identity["training_rows"] != 128 or identity["training_sha256"] != contract["splits"]["train"]["sha256"]:
+        raise ValueError("bundled baseline training identity changed")
     print("QA AST, workflow YAML, three epochs, development selection, own SAND and unchanged upstream terms: PASS")
 
 

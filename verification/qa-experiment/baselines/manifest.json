@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "artifact": "frozen-controls.json",
+  "artifact_sha256": "4aa549339b120184258d6d3c17b5f407f6aa1562c2973e7e4b65bfee6ea8491b",
+  "fit_split": "train",
+  "training_rows": 128,
+  "training_sha256": "3a52a8e99d13dc65a2eb8bf9f793435102908a0ceb13f26e190e75d0fde13d3d",
+  "source": "OpenAssistant/oasst1",
+  "source_revision": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+  "source_manifest_sha256": "dbcdb6e81bc6ae40c3a6c4a61902c3a30d94aa276cfd4c94469ca79da9bc775d",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "origin": "original verified source-only QA control fit",
+  "licence": "LicenseRef-zkasuran-SAND-1.0 on own coefficients; original source tokens/annotations retain Apache-2.0",
+  "terms": "../LICENSE, ../UPSTREAM-APACHE-2.0.txt, ../KIT-LICENSE and ../NOTICE"
+}
