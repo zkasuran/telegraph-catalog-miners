@@ -63,6 +63,12 @@ holdout. Each bare opposite now occurs once and the actual source-generated
 development bytes are restored with their producer and split roles unchanged.
 The independent audit remains sealed. This fixes construction, not a model score.
 
+The repaired continuation passed the real data gate and reached 82.81% JSON and
+89.06% prose validation. Bare labels reached 71.88%, so it was not registered and
+the audit stayed sealed. The next continuation adds train-only terminal-verdict
+layouts and selects measured epochs by the weakest format/label margin, not just
+average loss. It keeps the same sources and strict validation/audit thresholds.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to

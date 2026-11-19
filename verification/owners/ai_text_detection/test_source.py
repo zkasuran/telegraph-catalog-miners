@@ -13,9 +13,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 from common import (COUNTS, FORMATS, HERE, baseline_report, check_splits, fit_baselines,
-                    identity, pair, quality, remote_only, render, sha, audit_excerpts, validation_gate)
+                    identity, pair, quality, remote_only, render, sha, audit_excerpts, validation_gate, validation_selection_key)
 from checkpoint_contract import check_checkpoint
-from development_contract import validate_locked, training_pairs, repetition_gate
+from development_contract import validate_locked, training_pairs, repetition_gate, layout_training_pairs
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -85,14 +85,38 @@ class SourceTests(unittest.TestCase):
         self.assertFalse({a for r in current for a in r["author_ids"]}.intersection(refreshed["retired_author_ids"]))
 
     def test_exact_original_checkpoint_and_failure_controls(self):
-        recipe = json.loads((HERE / "recipe.json").read_text())
         raw = (HERE / "recovery/original-checkpoint.safetensors").read_bytes()
-        binding = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
+        original_sha = "6c34c23e77582cbb14ff2daf579c11fc4bcf9674541e9553ab2df810bbf06636"
+        original_source = "a38863c8d1d0643b250bc19c84c0d7c1dfb6fe008b56ab8670f271a90630c567"
+        binding = check_checkpoint(raw, original_sha, original_source)
         self.assertFalse(binding["tensor_payload_interpreted"])
         with self.assertRaisesRegex(ValueError, "byte identity"):
-            check_checkpoint(raw + b"x", recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
+            check_checkpoint(raw + b"x", original_sha, original_source)
         with self.assertRaisesRegex(ValueError, "source lineage"):
-            check_checkpoint(raw, recipe["checkpoint_sha256"], "f" * 64)
+            check_checkpoint(raw, original_sha, "f" * 64)
+
+    def test_selected_improved_checkpoint_is_exact_and_licensed(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        raw = (HERE / recipe["checkpoint_file"]).read_bytes()
+        checked = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
+        self.assertFalse(checked["tensor_payload_interpreted"])
+        self.assertEqual(recipe["continuation_run_id"], 44588237548)
+
+    def test_train_only_layout_diversity_preserves_pairs_and_byte_contract(self):
+        records = [json.loads(line) for line in (HERE / "recovery/locked-development.jsonl").read_text().split("\n") if line]
+        old, changed = training_pairs(records), layout_training_pairs(records)
+        self.assertEqual(len(old), len(changed))
+        self.assertEqual({r["layout"] for r in changed if r["style"] != "bare_label"}, {"verdict_first", "verdict_last"})
+        for before, after in zip(old, changed):
+            for key in ("prompt", "source_id", "group_id", "label", "origin", "split"):
+                self.assertEqual(before[key], after[key])
+            self.assertEqual(after["split"], "train")
+            self.assertNotEqual(after["chosen"], after["rejected"])
+            if after["style"] == "json":
+                self.assertEqual(json.loads(before["chosen"]), json.loads(after["chosen"]))
+                self.assertEqual(json.loads(before["rejected"]), json.loads(after["rejected"]))
+        self.assertTrue(repetition_gate(changed)["passed"])
+        self.assertEqual(repetition_gate(changed)["unique_rejected_frac"], 1.0)
 
     def test_symmetric_byte_fit_does_not_relax_limits_or_identity(self):
         human = " ".join("humanword" + str(i) for i in range(24))
@@ -228,6 +252,9 @@ class SourceTests(unittest.TestCase):
             for main in (generate.main, run.main, audit_runtime.main):
                 with self.assertRaises(RuntimeError):
                     main()
+            from train_formats import fit
+            with self.assertRaises(RuntimeError):
+                fit(*([None] * 8))
 
     def test_xml_tamper_and_missing_grant_refused(self):
         raw = b"<article><front><article-meta/></front></article>"
@@ -305,6 +332,21 @@ class WireAndQualityTests(unittest.TestCase):
         metrics["bare_label"]["pairwise_accuracy"] = 0.85
         metrics["prose"]["accuracy_by_label"]["Human"] = 0.69
         self.assertFalse(validation_gate(metrics, baseline)["passed"])
+
+    def test_epoch_selection_cannot_hide_a_failed_format_with_good_mean_loss(self):
+        base = {f: {"n_eval": 64, "pairwise_accuracy": 0.85, "val_loss": 0.8,
+                    "accuracy_by_label": {"Human": 0.8, "AI-generated": 0.9}} for f in FORMATS}
+        baseline = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5} for f in FORMATS}
+        failed = copy.deepcopy(base)
+        for m in failed.values():
+            m["val_loss"] = 0.01
+        failed["bare_label"]["pairwise_accuracy"] = 0.7188
+        failed["bare_label"]["accuracy_by_label"]["Human"] = 0.6875
+        self.assertGreater(validation_selection_key(base, baseline), validation_selection_key(failed, baseline))
+        broken = copy.deepcopy(base)
+        broken["json"]["n_eval"] = 63
+        with self.assertRaises(ValueError):
+            validation_selection_key(broken, baseline)
 
 
 if __name__ == "__main__":

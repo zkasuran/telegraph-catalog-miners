@@ -1,17 +1,21 @@
 {
   "schema_version": 1,
-  "name": "source-origin-continuation-v2",
-  "checkpoint_sha256": "6c34c23e77582cbb14ff2daf579c11fc4bcf9674541e9553ab2df810bbf06636",
+  "name": "source-origin-layout-continuation-v4",
+  "checkpoint_sha256": "481a2493f7de2e7f9d03305dbfcb37e259ab9539670a8dfca6849173a7f436ae",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
-  "parent_source_manifest_sha256": "a38863c8d1d0643b250bc19c84c0d7c1dfb6fe008b56ab8670f271a90630c567",
+  "parent_source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
   "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
   "development_generation_sha256": "032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3",
-  "epochs": 8,
+  "epochs": 4,
   "grad_accum": 8,
-  "lr": 0.0003,
+  "lr": 0.0001,
   "lora_rank": 8,
   "lora_alpha": 32,
-  "selection": "All validation formats only. A fresh independent audit is measured only if validation passes.",
-  "optimizer_state": "Not exported by original trainer. Fresh bounded AdamW continues the exact saved adapter, not a claimed optimizer resume."
+  "selection": "All validation formats only. Prefer unchanged gate pass, then weakest format and label margin, then observed mean loss.",
+  "optimizer_state": "Not exported by original trainer. Fresh bounded AdamW continues the exact saved adapter, not a claimed optimizer resume.",
+  "checkpoint_file": "recovery/continuation-checkpoint.safetensors",
+  "continuation_run_id": 44588237548,
+  "continuation_commit": "aeadb4590a4685dd2239bff585c7212a8c6b026c",
+  "training_layout": "Symmetric verdict-first and verdict-last JSON/prose views, chosen by source hash. Bare training group remains unique."
 }

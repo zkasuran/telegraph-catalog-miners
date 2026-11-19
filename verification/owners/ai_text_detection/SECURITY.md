@@ -9,6 +9,7 @@
 | Checkpoint state is swapped | Opaque SHA/grant checks locally, exact learned-state checks remotely | Wrong byte/source identity refusals |
 | Repeated bare negatives leak | Each opposite bare label appears once in training | Actual four-of-38 defect reproduction and unique-negative repair |
 | Restored validation data becomes training | Exact byte, producer and original source-role bindings | Locked-data role-swap refusal |
+| Good average hides one failed format | Epoch selection prioritizes every actual gate and weakest format/label margin | Failed-bare/low-mean-loss selection refusal |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -37,3 +38,7 @@ the original optimizer state was not exported. This is disclosed, not presented
 as an exact training-process resume. Generator byte-fit diagnostics preserve
 failures without retrying seeds for favourable outputs. Local checkpoint checks
 interpret metadata and hash opaque bytes only, never load a neural model.
+
+Layout augmentation is symmetric within each source pair and train-only. Literal
+validation and audit strings stay unchanged. The training helper guards before
+neural imports and emits actual epoch metrics without overwriting loss fields.

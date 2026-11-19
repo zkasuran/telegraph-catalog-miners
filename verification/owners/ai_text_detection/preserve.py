@@ -34,7 +34,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     for name in ("dataset-gate.json", "frozen-candidate.json", "package-manifest.json", "class-snapshot.json",
                  "frozen-baselines.json", "audit-runtime-result.json", "registration-ready.json", "dependency-audit.json",
-                 "validation-result.json", "checkpoint-continuation.json", "development-generation-report.json",
+                 "validation-result.json", "checkpoint-continuation.json", "checkpoint-loaded.json", "format-training-report.json", "development-generation-report.json",
                  "audit-generation-report.json", "development-generation-progress.json", "audit-generation-progress.json"):
         source = root / name
         if source.is_file() and source.stat().st_size <= 256 << 10:

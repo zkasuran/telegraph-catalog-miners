@@ -58,6 +58,9 @@ def main():
     if (recipe["schema_version"] != 1 or recipe["epochs"] > 8 or recipe["grad_accum"] != 8 or
             recipe["lora_rank"] != 8 or recipe["lora_alpha"] != 32 or recipe["original_run_id"] != 44565365361):
         raise ValueError("unbounded or unbound continuation recipe")
+    checkpoint = Path(recipe.get("checkpoint_file", "recovery/original-checkpoint.safetensors"))
+    if checkpoint.is_absolute() or ".." in checkpoint.parts or checkpoint.parts[0] != "recovery" or checkpoint.suffix != ".safetensors":
+        raise ValueError("continuation checkpoint must stay in the exact owned recovery namespace")
     print("PASS: compiled Python syntax, JSON configs, bounded pinned public workflow and local import boundary")
 
 

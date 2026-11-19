@@ -111,6 +111,25 @@ def validation_gate(formats, baselines):
     return {"passed": not failures, "failures": failures}
 
 
+def validation_selection_key(formats, baselines):
+    """Train-independent selection on validation only, with no metric overwrite."""
+    gate = validation_gate(formats, baselines)
+    if set(formats) != set(FORMATS):
+        raise ValueError("selection requires every claimed validation format")
+    for metrics in formats.values():
+        labels = metrics.get("accuracy_by_label", {})
+        if (metrics.get("n_eval") != 2 * COUNTS["validation"] or set(labels) != {"Human", "AI-generated"} or
+                any(not math.isfinite(v) or not 0 <= v <= 1 for v in [metrics["pairwise_accuracy"], *labels.values()]) or
+                not math.isfinite(metrics["val_loss"]) or metrics["val_loss"] < 0):
+            raise ValueError("selection requires complete finite actual validation metrics")
+    margin = min(min(m["pairwise_accuracy"] - 0.80,
+                     min(m["accuracy_by_label"].values()) - 0.70,
+                     m["pairwise_accuracy"] - max(baselines[s].values()) - 0.10)
+                 for s, m in formats.items())
+    loss = sum(m["val_loss"] for m in formats.values()) / len(formats)
+    return (int(gate["passed"]), margin, -loss)
+
+
 def pair(row, style="json"):
     if style not in FORMATS or row["origin"] not in ("human_control", "synthetic"):
         raise ValueError("unsupported origin or answer format")

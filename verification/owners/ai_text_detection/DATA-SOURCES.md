@@ -107,3 +107,23 @@ one distinct opposite bare string per origin. All 256 train pairs and 64
 validation records remain. The primary split expression is retained verbatim.
 This deterministic construction removes reuse for every internal split, not by
 selecting a favourable seed. The full upstream surface probe still runs remotely.
+
+## Format-resilience continuation
+
+Run 44588237548 passed its full data and parser gates. Selected validation was
+82.81% JSON, 89.06% prose and 71.88% bare labels. Bare Human accuracy was 68.75%,
+so the unchanged all-format/per-label gate refused it. Its exact licensed
+checkpoint is retained for the next continuation. No audit result selected it.
+
+The next training view mixes symmetric verdict-first and verdict-last JSON/prose
+responses by fixed source hash. Source text, preference labels and both sides'
+format are unchanged. The terminal verdict layout teaches the relation used by
+bare responses without introducing repeated bare negatives. Validation and audit
+keep their original literal formats. No validation row is used for fitting.
+
+[TRAINER-1ed063] The guarded training loop retains the primary Bradley-Terry loss,
+collator, AdamW, clipped updates and bounded scheduler. Epoch selection uses actual
+validation gate pass and the weakest format/label margin before measured mean loss.
+It never substitutes a synthetic loss or reads audit data. Full primary MIT terms
+remain in sources.json and checkpoint metadata.
+https://github.com/telegraphprotocol/telegraph-wasm-baseline/blob/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py

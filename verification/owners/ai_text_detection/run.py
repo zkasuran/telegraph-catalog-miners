@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from common import (COUNTS, FAMILY, HERE, MAX_TOKENS, SCOPE, baseline_report, dump,
                     fetch, fit_baselines, lines, pair, remote_only, render, sha, validation_gate, FORMATS)
 from checkpoint_contract import check_checkpoint
-from development_contract import training_pairs, repetition_gate, validate_locked
+from development_contract import layout_training_pairs, repetition_gate, validate_locked
 
 FOUNDATION = {
     "foundation_lora_fp32.onnx": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
@@ -75,7 +75,7 @@ def main():
         raise ValueError("original source-fitted development bytes changed during continuation")
     splits = {s: [pair(r, "json" if int(r["group_id"][:2], 16) % 2 == 0 else "prose")
                   for r in original if r["split"] == s] for s in ("train", "validation")}
-    splits["train"] = training_pairs(original)
+    splits["train"] = layout_training_pairs(original)
     counted_gate = repetition_gate(splits["train"])
     dump(root / "literal-repetition-gate.json", counted_gate)
     if not counted_gate["passed"]:
@@ -89,6 +89,7 @@ def main():
     baselines = {s: baseline_report(rows, fitted) for s, rows in splits.items()}
     if any(v > 0.65 for values in baselines.values() for v in values.values()):
         raise ValueError("development shortcut exceeds 65%")
+    validation_baselines = {style: baseline_report(rows, fitted) for style, rows in validation_formats.items()}
     foundation, base, kit = prepare(root)
     subprocess.run(["go", "test", "-v", str(HERE / "stagecheck.go"), str(HERE / "stagecheck_test.go")],
                    cwd=kit, check=True, timeout=600)
@@ -133,7 +134,7 @@ def main():
     # Continue exactly the previously licensed LoRA/head. The original optimizer
     # was not exported, so this is explicitly a fresh bounded optimizer, not an
     # invented optimizer-state resume. Backbone weights stay frozen.
-    checkpoint = HERE / "recovery/original-checkpoint.safetensors"
+    checkpoint = HERE / recipe.get("checkpoint_file", "recovery/original-checkpoint.safetensors")
     checkpoint_binding = check_checkpoint(checkpoint.read_bytes(), recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
     dump(root / "checkpoint-continuation.json", checkpoint_binding)
     build = trainer.build_model
@@ -149,12 +150,16 @@ def main():
         actual = get_peft_model_state_dict(continued, save_embedding_layers=False)
         if any(not torch.equal(saved[k], actual[k]) for k in saved):
             raise ValueError("warm-started learned tensor differs from exact saved checkpoint")
+        dump(root / "checkpoint-loaded.json", {"checkpoint_sha256": recipe["checkpoint_sha256"],
+             "verified_learned_tensors": len(saved), "post_load_bits_identical_before_fitting": True,
+             "parent_source_manifest_sha256": recipe["parent_source_manifest_sha256"]})
         return continued, tokenizer
     trainer.build_model = continuation_builder
     adapter = root / "adapter"
     started = time.monotonic()
     try:
-        model, _, _ = trainer.train(str(base), splits["train"], validation_rows, adapter, hp)
+        from train_formats import fit
+        model, _ = fit(str(base), splits["train"], validation_formats, validation_baselines, adapter, hp, trainer, root)
     finally:
         trainer.build_model = build
     (adapter / "tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())

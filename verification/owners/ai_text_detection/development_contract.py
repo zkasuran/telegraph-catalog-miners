@@ -48,6 +48,28 @@ def training_pairs(original, bare_group_count=1):
             for r in original if r["split"] == "train"]
 
 
+def layout_training_pairs(original):
+    """Symmetric train-only layout diversity. No new rows, labels or sources."""
+    rows = training_pairs(original)
+    for row in rows:
+        row["layout"] = "verdict_first"
+        if row["style"] == "bare_label" or int(row["group_id"][2:4], 16) % 2 == 0:
+            continue
+        text = json.loads(row["prompt"])["text"]
+        if row["style"] == "json":
+            for side in ("chosen", "rejected"):
+                parsed = json.loads(row[side])
+                row[side] = json.dumps({"cues": parsed["cues"], "verdict": parsed["verdict"]},
+                                       ensure_ascii=False, separators=(",", ":"))
+        else:
+            good = row["label"]
+            bad = "AI-generated" if good == "Human" else "Human"
+            row["chosen"] = f"Text assessed: {text}. Verdict: {good}"
+            row["rejected"] = f"Text assessed: {text}. Verdict: {bad}"
+        row["layout"] = "verdict_last"
+    return rows
+
+
 def repetition_gate(rows, seed=42, eval_fraction=0.15):
     """Actual primary split function and literal stripped-negative expressions.
 
