@@ -1,0 +1,57 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "WEATHER_FORECAST_VERIFY",
+  "run_id": "cb65961105934a849aceec6d66add0db",
+  "source_attempt": "3be350c1430e49ff91df13b61bb5d0a0",
+  "child": "WEATHER_FORECAST_VERIFY_GENERAL",
+  "class": "judgment",
+  "scope": "station-specific archived NWS CF6 TMAX, not forecast skill or universal factual proof",
+  "hyperparameters": {
+    "max_length": 256,
+    "batch_size": 1,
+    "grad_accum": 8,
+    "epochs": 2,
+    "eval_batch": 1,
+    "seed": 42,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "grad_checkpointing": false,
+    "early_stopping": false,
+    "es_metric": "val_loss"
+  },
+  "selection": "train only; validation loss selects best of two completed epochs; audit never selects",
+  "audit": "separate controller-owned standard public CPU workflow job after immutable package export",
+  "quality": {
+    "minimum_pair_accuracy_each_view": 0.80,
+    "minimum_offset_direction_accuracy": 0.70,
+    "minimum_untrained_gain": 0.05,
+    "minimum_frozen_shortcut_gain": 0.10,
+    "maximum_frozen_shortcut_accuracy": 0.65
+  },
+  "views": ["json", "celsius", "bare"],
+  "source_evidence_in_prompt": false,
+  "training_minutes": 120,
+  "train_job_minutes": 160,
+  "audit_job_minutes": 80,
+  "node_qualification": "not attempted",
+  "shared_source_hashes": {
+    "run.py": "5b2ba64a11ff141ac96a20c491fc282f917e722183b2ab67c17e6a12c8ff519b",
+    "data.py": "82709147c3d628c258e871c414195396097af8c228370c53e10c110018ddf9ce",
+    "preserve.py": "5d69c863798bf1a3d804079a20fc844291c2f6c1382946e8369018884947e6f6",
+    "licences.json": "99ced81fe4590ace72b41e69f55464694d1306fbecc69388108c08a2670b2b1f"
+  },
+  "foundation": {
+    "foundation_lora_fp32.onnx": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "foundation_engine.wasm": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+    "tokenizer.json": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+  },
+  "limits": [
+    "place/date does not identify a universal true observation; unsupported cities cannot be certified",
+    "no prior forecast or issue-time exists in the source",
+    "training has no negative-C TMAX; eight audit originals are negative-C",
+    "fixed two-degree constructed errors are not natural miner mistakes",
+    "a model may learn climatology without learning actual station-day weather",
+    "trainer template checked; deployed node render source and tokenizer equivalence still need controller proof"
+  ]
+}

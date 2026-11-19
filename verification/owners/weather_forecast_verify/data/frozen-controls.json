@@ -1,0 +1,62 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "answer_only_token_weights": {
+    "13": -1,
+    "17": 1,
+    "19": -4,
+    "20": -2,
+    "21": 1,
+    "22": -1,
+    "23": 7,
+    "24": 1,
+    "25": -6,
+    "26": 2,
+    "27": 5,
+    "28": -5,
+    "29": -12,
+    "30": 7,
+    "31": 16,
+    "32": 4,
+    "33": -1,
+    "34": -4,
+    "35": -5,
+    "36": -1,
+    "37": -1,
+    "38": -1
+  },
+  "fit_split": "train",
+  "integer_coefficients": {
+    "answer_only_digits": 1,
+    "answer_only_numeric": 1,
+    "length": 1,
+    "overlap": 1
+  },
+  "selection": "greater train accuracy; ties choose +1",
+  "validation": {
+    "answer_only_bag_of_words": {
+      "accuracy": 0.484375,
+      "pairs": 32,
+      "wins_half_units": 31
+    },
+    "answer_only_digits": {
+      "accuracy": 0.546875,
+      "pairs": 32,
+      "wins_half_units": 35
+    },
+    "answer_only_numeric": {
+      "accuracy": 0.5,
+      "pairs": 32,
+      "wins_half_units": 32
+    },
+    "length": {
+      "accuracy": 0.546875,
+      "pairs": 32,
+      "wins_half_units": 35
+    },
+    "overlap": {
+      "accuracy": 0.5,
+      "pairs": 32,
+      "wins_half_units": 32
+    }
+  }
+}

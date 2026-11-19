@@ -1,0 +1,17 @@
+NWS CF6 climate summaries via NOAA/NCEI GHCN-Daily, source flag 1.
+Admitted NWS facts are public-domain government material, not copyrighted by us.
+Measurement flags, source lines and official station IDs are retained. No endorsement
+or official final climate certification is implied. Other source flags are excluded.
+
+Telegraph reference kit, copyright 2026 telegraphprotocol, MIT, revision
+1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd. Complete terms in KIT-LICENSE.
+
+ModernBERT by Answer.AI and LightOn, Apache-2.0, revision
+8949b909ec900327062f0ebf497f51aef5e6f0c8. Complete terms in UPSTREAM-APACHE-2.0.txt.
+
+Our code, reward head and trained deltas, copyright 2026 zkasuran,
+LicenseRef-zkasuran-SAND-1.0. Complete terms in LICENSE. These terms apply only to
+our additions and do not replace or restrict the retained upstream grants.
+
+Candidate preferences are deterministic AI-assisted construction from unchanged
+source facts. They are not human-reviewed votes or natural miner responses.

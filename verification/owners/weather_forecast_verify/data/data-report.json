@@ -1,0 +1,84 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "audit": "prepared, no learned model or shortcut audit metric evaluated",
+  "family": "WEATHER_FORECAST_VERIFY",
+  "forecast_issue_time": "absent and not needed for recorded TMAX; forecast skill is not claimed",
+  "normalized_cross_split_overlap": 0,
+  "observation_sha256": "3a683dea5eb98dce13885040fc9386d264dbf2f42c30e5025726badc4ce8d3db",
+  "precipitation": {
+    "measurable_positive": 758,
+    "observed_zero": 1405,
+    "trace": 265
+  },
+  "preference_authorship": "constructed by AI-assisted code from unchanged source facts, not human-reviewed",
+  "scope": "NWS CF6 station-specific archived TMAX; lookup is not universal factual proof",
+  "source_fact_terms": "NWS public-domain facts, not subject to our SAND copyright",
+  "source_observations": 7289,
+  "source_station_days": 2432,
+  "splits": {
+    "audit": {
+      "eligible_originals": 118,
+      "originals": 64,
+      "sha256": "3320293406b0d1b7c2269b5fdb1c0278ee7e07db8b75531fd219881b779b000a",
+      "stations": [
+        "USW00094728",
+        "USW00094846"
+      ],
+      "time_policy": {
+        "count": 64,
+        "end": "2026-03-31",
+        "start": "2026-02-01",
+        "stations": [
+          "USW00094728",
+          "USW00094846"
+        ]
+      },
+      "tmax_negative_c": 8
+    },
+    "train": {
+      "eligible_originals": 183,
+      "originals": 128,
+      "sha256": "f76b97a54bf5b6c3a1a75c3add2e4a58594395989e4ea0235d41df2c004cbf3d",
+      "stations": [
+        "USW00012839",
+        "USW00013876",
+        "USW00023050"
+      ],
+      "time_policy": {
+        "count": 128,
+        "end": "2025-10-31",
+        "start": "2025-09-01",
+        "stations": [
+          "USW00012839",
+          "USW00023050",
+          "USW00013876"
+        ]
+      },
+      "tmax_negative_c": 0
+    },
+    "validation": {
+      "eligible_originals": 61,
+      "originals": 32,
+      "sha256": "4e7ddc623543280d05ef6645ad342fb87ba305fc7386089769c9a362b1f0d6d9",
+      "stations": [
+        "USW00024233"
+      ],
+      "time_policy": {
+        "count": 32,
+        "end": "2025-12-31",
+        "start": "2025-11-01",
+        "stations": [
+          "USW00024233"
+        ]
+      },
+      "tmax_negative_c": 0
+    }
+  },
+  "station_binding": "official station name or exact ID only; ambiguous bare city is unsupported",
+  "views": [
+    "json",
+    "celsius",
+    "bare"
+  ],
+  "views_are_not_independent_originals": true
+}

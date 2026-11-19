@@ -1,0 +1,24 @@
+{
+  "bad": {
+    "absolute_error_c": "2.0",
+    "reference_c": "34.4",
+    "scope": "archive TMAX only; not forecast accuracy or arbitrary city weather",
+    "score": "-2.0",
+    "source": "NOAA/NWS CF6 via NCEI GHCN-Daily",
+    "source_flag": "1",
+    "source_line": 15806,
+    "status": "supported"
+  },
+  "day": "2025-09-11",
+  "good": {
+    "absolute_error_c": "0.0",
+    "reference_c": "34.4",
+    "scope": "archive TMAX only; not forecast accuracy or arbitrary city weather",
+    "score": "0.0",
+    "source": "NOAA/NWS CF6 via NCEI GHCN-Daily",
+    "source_flag": "1",
+    "source_line": 15806,
+    "status": "supported"
+  },
+  "station": "USW00012839"
+}

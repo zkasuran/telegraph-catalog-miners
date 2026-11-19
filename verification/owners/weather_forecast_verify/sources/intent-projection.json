@@ -1,0 +1,166 @@
+{
+  "class": "judgment",
+  "evaluation": {
+    "kind": "judgment",
+    "via": "adapter",
+    "adapter": {
+      "registration_id": 120,
+      "hash": "002f6d8669b6f26811eb63a960b3318c4b0d6b926c80d0858f0356df48c6fd0b",
+      "author": "0xd38e50591f6c2a23ce1b34c8149cfc345bea3190",
+      "url": "https://34-9-78-236.sslip.io/files/WEATHER_FORECAST_VERIFY-v2.safetensors",
+      "family": "WEATHER_FORECAST_VERIFY"
+    },
+    "bootstrap_evaluator": false
+  },
+  "intent_id": "WEATHER_FORECAST_VERIFY_GENERAL",
+  "intent_name": "WEATHER_FORECAST_VERIFY_GENERAL",
+  "lifecycle": {
+    "reasons": [],
+    "since": "2026-11-17T14:17:24.874668Z",
+    "state": "active"
+  },
+  "miner_count": 26,
+  "onchain": {
+    "format_version": 3,
+    "off_chain": [
+      "location",
+      "date",
+      "condition"
+    ],
+    "ready": true,
+    "request": [
+      {
+        "name": "location",
+        "type": "string",
+        "slot": "strings",
+        "index": 0,
+        "max_bytes": 256
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "slot": "strings",
+        "index": 1,
+        "max_bytes": 256
+      }
+    ],
+    "response": [
+      {
+        "name": "temp_max_c",
+        "type": "number",
+        "slot": "integers",
+        "index": 0,
+        "decimals": 6,
+        "unit": "degrees Celsius",
+        "range": [
+          -90,
+          60
+        ]
+      },
+      {
+        "name": "temp_min_c",
+        "type": "number",
+        "slot": "integers",
+        "index": 1,
+        "decimals": 6,
+        "unit": "degrees Celsius",
+        "range": [
+          -90,
+          60
+        ]
+      },
+      {
+        "name": "precipitation_mm",
+        "type": "number",
+        "slot": "integers",
+        "index": 2,
+        "decimals": 6,
+        "unit": "mm",
+        "range": [
+          0,
+          2000
+        ]
+      }
+    ],
+    "served_by": "WEATHER_FORECAST_VERIFY"
+  },
+  "request": {
+    "params": [
+      {
+        "name": "location",
+        "type": "string",
+        "required": true,
+        "description": "City or place name"
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "required": true,
+        "description": "Past date to verify"
+      }
+    ],
+    "schema_version": 3,
+    "served_by": "WEATHER_FORECAST_VERIFY"
+  },
+  "response": {
+    "fields": [
+      {
+        "name": "location",
+        "description": "The place the recorded weather is for",
+        "type": "string",
+        "off_chain": true
+      },
+      {
+        "name": "date",
+        "description": "The past date verified",
+        "type": "date",
+        "off_chain": true
+      },
+      {
+        "name": "temp_max_c",
+        "description": "Recorded high temperature on that date, degrees Celsius",
+        "type": "number",
+        "unit": "degrees Celsius",
+        "range": [
+          -90,
+          60
+        ],
+        "scored": true,
+        "decimals": 6
+      },
+      {
+        "name": "temp_min_c",
+        "description": "Recorded low temperature on that date, degrees Celsius",
+        "type": "number",
+        "unit": "degrees Celsius",
+        "range": [
+          -90,
+          60
+        ],
+        "decimals": 6
+      },
+      {
+        "name": "precipitation_mm",
+        "description": "Recorded precipitation on that date, millimetres",
+        "type": "number",
+        "unit": "mm",
+        "range": [
+          0,
+          2000
+        ],
+        "decimals": 6
+      },
+      {
+        "name": "condition",
+        "description": "Recorded weather condition",
+        "type": "string",
+        "off_chain": true
+      }
+    ],
+    "format_version": 3,
+    "served_by": "WEATHER_FORECAST_VERIFY"
+  },
+  "version": 1,
+  "wasm": null,
+  "wasm_count": 0
+}

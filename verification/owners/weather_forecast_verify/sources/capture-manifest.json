@@ -1,0 +1,100 @@
+{
+  "intent": {
+    "url": "https://devnode.telegraphprotocol.com/engine/v1/intents/WEATHER_FORECAST_VERIFY_GENERAL",
+    "final_url": "https://devnode.telegraphprotocol.com/engine/v1/intents/WEATHER_FORECAST_VERIFY_GENERAL",
+    "bytes": 30222,
+    "sha256": "6b7d45ac4481de56e11736a9319c00f2b354d1e64f223e0d79fe01a00ec903b5",
+    "captured_at": "2026-11-19T11:50:45.884621+00:00"
+  },
+  "nws-disclaimer": {
+    "url": "https://www.weather.gov/disclaimer",
+    "final_url": "https://www.weather.gov/disclaimer",
+    "bytes": 41679,
+    "sha256": "c08c1597ebd52b31e3ba749f76d2217c290dcd16dc894cb4c109655566ecbbd1",
+    "captured_at": "2026-11-19T11:50:45.885455+00:00"
+  },
+  "ghcn-readme": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt",
+    "final_url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt",
+    "bytes": 29587,
+    "sha256": "0e4e6f0e6947cf1add884c328a01760f31c56ef5fb86b85ed57dd5dc4c4aeaa6",
+    "captured_at": "2026-11-19T11:50:45.885727+00:00"
+  },
+  "adapter-input.go": {
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/comparator/response_format.go",
+    "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/comparator/response_format.go",
+    "bytes": 14756,
+    "sha256": "de73bc0b02c176a9de6415e63779de77bee3c4f19015bf9b6bd51706a9534b3d",
+    "captured_at": "2026-11-19T11:50:45.885939+00:00"
+  },
+  "onchain.go": {
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/onchain.go",
+    "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/scoring/responseparser/onchain.go",
+    "bytes": 8794,
+    "sha256": "93ce816faf09a7cb1759e96ea1ec36df937e989412ac6b36e70cb024c5950be3",
+    "captured_at": "2026-11-19T11:50:45.886140+00:00"
+  },
+  "remote.go": {
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/remote/remote.go",
+    "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/remote/remote.go",
+    "bytes": 18503,
+    "sha256": "9d8939b86181449d2c92a5c7f1a720ca34aee27b5ae491c84246c4e2eb2c871f",
+    "captured_at": "2026-11-19T11:50:45.886347+00:00"
+  },
+  "train_adapter.py": {
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+    "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+    "bytes": 39897,
+    "sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+    "captured_at": "2026-11-19T11:50:46.011681+00:00"
+  },
+  "kit-license": {
+    "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/LICENSE",
+    "final_url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/LICENSE",
+    "bytes": 1074,
+    "sha256": "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1",
+    "captured_at": "2026-11-19T11:50:46.070894+00:00"
+  },
+  "ghcnd-stations.txt": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt",
+    "bytes": 11441526,
+    "sha256": "437ee87f0343bcad408a492cf7a02163fb69255364c541b4006d5d76055d0dc3",
+    "captured_at": "2026-11-19T11:50:50.471200+00:00"
+  },
+  "all-USW00094728.dly": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/all/USW00094728.dly",
+    "bytes": 4810320,
+    "sha256": "7fb0dc46b5a1222b8b3066e191decea93a2f993f783654ec7b6a4787e506d2ca",
+    "captured_at": "2026-11-19T11:50:53.627186+00:00"
+  },
+  "all-USW00012839.dly": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/all/USW00012839.dly",
+    "bytes": 4321080,
+    "sha256": "fca900d81de4e4f4fddcfd35696a3e413a0672ea87476a22ad690183fd19b82f",
+    "captured_at": "2026-11-19T11:50:56.830130+00:00"
+  },
+  "all-USW00094846.dly": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/all/USW00094846.dly",
+    "bytes": 4516830,
+    "sha256": "709523acad487042828ef1988338bed98cb39db368b8e1cbe02eb0f7b6706e25",
+    "captured_at": "2026-11-19T11:51:00.055169+00:00"
+  },
+  "all-USW00024233.dly": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/all/USW00024233.dly",
+    "bytes": 4413420,
+    "sha256": "47bc00a221ee28f1bc06f341ba06afd96e1bd5c42ac0010e52061a80cd6c021b",
+    "captured_at": "2026-11-19T11:51:07.570162+00:00"
+  },
+  "all-USW00023050.dly": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/all/USW00023050.dly",
+    "bytes": 4601610,
+    "sha256": "c9c258e992363f1bd56b5a14cece4c433d6038a0182d341ffa4dd7f2ede43984",
+    "captured_at": "2026-11-19T11:51:11.075368+00:00"
+  },
+  "all-USW00013876.dly": {
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/all/USW00013876.dly",
+    "bytes": 4555170,
+    "sha256": "4af4124ee99f53ee2f169fd023e2dde47339fa19820836054ca3a4f7e9605893",
+    "captured_at": "2026-11-19T11:51:14.462902+00:00"
+  }
+}

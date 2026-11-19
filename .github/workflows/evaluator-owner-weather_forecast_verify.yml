@@ -1,0 +1,51 @@
+{
+  "name": "Weather archive evaluator experiment",
+  "run-name": "Weather owner ${{ inputs.mode }} cb65961105934a849aceec6d66add0db",
+  "on": {"workflow_dispatch": {"inputs": {
+    "mode": {"type": "choice", "options": ["experiment", "serve"], "default": "experiment", "required": true},
+    "package_url": {"type": "string", "default": "", "required": false},
+    "report_url": {"type": "string", "default": "", "required": false},
+    "report_sha256": {"type": "string", "default": "", "required": false},
+    "slot": {"type": "string", "default": "", "required": false},
+    "forward_port": {"type": "string", "default": "", "required": false},
+    "runnable_url": {"type": "string", "default": "", "required": false}
+  }}},
+  "permissions": {"contents": "read"},
+  "concurrency": {"group": "weather-owner-${{ inputs.mode }}", "cancel-in-progress": false},
+  "env": {"PYTHONDONTWRITEBYTECODE": "1", "TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "4", "MKL_NUM_THREADS": "4"},
+  "jobs": {
+    "train": {
+      "if": "${{ inputs.mode == 'experiment' }}", "runs-on": "ubuntu-24.04", "timeout-minutes": 160,
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+        {"name": "Same source-only release gate", "timeout-minutes": 4, "run": "bash verification/owners/weather_forecast_verify/verify.sh && python3 verification/owners/weather_forecast_verify/live_class.py"},
+        {"name": "Hash-locked CPU dependencies", "timeout-minutes": 15, "run": "python3 -m venv \"$RUNNER_TEMP/weather-venv\" && \"$RUNNER_TEMP/weather-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/weather_forecast_verify/requirements.lock && \"$RUNNER_TEMP/weather-venv/bin/python\" -m pip check && \"$RUNNER_TEMP/weather-venv/bin/python\" verification/owners/weather_forecast_verify/dependency-audit.py --lock verification/owners/weather_forecast_verify/requirements.lock --out \"$RUNNER_TEMP/weather-dependencies.txt\" --report \"$RUNNER_TEMP/weather-dependency-audit.json\""},
+        {"name": "Train only on frozen training then export selected validation candidate", "timeout-minutes": 130, "run": "timeout --signal=TERM --kill-after=20s 7700 \"$RUNNER_TEMP/weather-venv/bin/python\" verification/owners/weather_forecast_verify/remote.py --root \"$RUNNER_TEMP/weather-result\""},
+        {"name": "Retain licensed failed or successful checkpoint", "if": "always()", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "weather-frozen-candidate", "retention-days": 7, "if-no-files-found": "warn", "path": "${{ runner.temp }}/weather-result/adapter/*\n${{ runner.temp }}/weather-result/initial/*\n${{ runner.temp }}/weather-result/*.json\n${{ runner.temp }}/weather-result/*.safetensors"}}
+      ]
+    },
+    "audit": {
+      "needs": "train", "if": "${{ inputs.mode == 'experiment' }}", "runs-on": "ubuntu-24.04", "timeout-minutes": 110,
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+        {"uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093", "with": {"name": "weather-frozen-candidate", "path": "${{ runner.temp }}/weather-result"}},
+        {"name": "Hash-locked CPU tokenizer dependencies", "timeout-minutes": 15, "run": "python3 -m venv \"$RUNNER_TEMP/weather-venv\" && \"$RUNNER_TEMP/weather-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/weather_forecast_verify/requirements.lock && \"$RUNNER_TEMP/weather-venv/bin/python\" -m pip check"},
+        {"name": "One-shot actual reference-engine audit", "timeout-minutes": 90, "run": "timeout --signal=TERM --kill-after=20s 5300 \"$RUNNER_TEMP/weather-venv/bin/python\" verification/owners/weather_forecast_verify/audit_remote.py --root \"$RUNNER_TEMP/weather-result\""},
+        {"name": "Only actual audit and runtime evidence", "if": "always()", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "weather-independent-audit", "retention-days": 7, "if-no-files-found": "warn", "path": "${{ runner.temp }}/weather-result/*.json\n${{ runner.temp }}/weather-result/*-runtime.log"}}
+      ]
+    },
+    "serve": {
+      "if": "${{ inputs.mode == 'serve' }}", "runs-on": "ubuntu-24.04", "timeout-minutes": 330,
+      "env": {"PACKAGE_URL": "${{ inputs.package_url }}", "REPORT_URL": "${{ inputs.report_url }}", "REPORT_SHA256": "${{ inputs.report_sha256 }}", "SLOT": "${{ inputs.slot }}", "FORWARD_PORT": "${{ inputs.forward_port }}", "RUNNABLE_URL": "${{ inputs.runnable_url }}"},
+      "steps": [
+        {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
+        {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+        {"name": "Prepare live identical executor and its public restricted lease", "timeout-minutes": 25, "run": "mkdir -p \"$RUNNER_TEMP/weather-serving\"; python3 verification/owners/weather_forecast_verify/serving.py --root \"$RUNNER_TEMP/weather-serving\" --package-url \"$PACKAGE_URL\" --report-url \"$REPORT_URL\" --report-sha256 \"$REPORT_SHA256\" --slot \"$SLOT\" --forward-port \"$FORWARD_PORT\" --runnable-url \"$RUNNABLE_URL\" >\"$RUNNER_TEMP/weather-serving/serving.log\" 2>&1 & pid=$!; printf '%s\\n' \"$pid\" >\"$RUNNER_TEMP/weather-serving/process.pid\"; deadline=$((SECONDS+1400)); while [ ! -f \"$RUNNER_TEMP/weather-serving/lease.json\" ]; do kill -0 \"$pid\" || exit 1; [ \"$SECONDS\" -lt \"$deadline\" ] || exit 1; sleep 2; done"},
+        {"name": "Upload only restricted public lease while the executor is alive", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "weather-serving-public-lease", "retention-days": 1, "if-no-files-found": "error", "path": "${{ runner.temp }}/weather-serving/lease.json"}},
+        {"name": "Keep the exact serving run active for the bounded lease", "timeout-minutes": 302, "run": "python3 verification/owners/weather_forecast_verify/serving_monitor.py --root \"$RUNNER_TEMP/weather-serving\""}
+      ]
+    }
+  }
+}
