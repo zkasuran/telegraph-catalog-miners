@@ -26,7 +26,7 @@ from runtime_check import (
     validate_package,
 )
 from static_check import main as check_static
-from training_policy import EPOCHS, development_selection, isolated_evaluation
+from training_policy import EPOCHS, confidence_weight, development_selection, isolated_evaluation, training_stage
 
 PREPARATION_SOURCE_SHA256 = "5b2ba64a11ff141ac96a20c491fc282f917e722183b2ab67c17e6a12c8ff519b"
 
@@ -214,29 +214,39 @@ def experiment(root):
     model, tok = trainer.build_model(str(base), hp)
     initial_hash = state_hash(model)
     save_checkpoint(model, root / "initial")
-    # Complete all eight fixed epochs. Only development loss selects the
+    # Complete the fixed supervised warm-up and research epochs. Only loss on
     # checkpoint. Its extra evaluation consumes no training RNG.
     if hp.epochs != EPOCHS:
-        raise ValueError("fixed eight-epoch training contract changed")
+        raise ValueError("fixed four-epoch curriculum contract changed")
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.AdamW(params, lr=hp.lr, weight_decay=hp.weight_decay)
     sampler = torch.Generator(device="cpu").manual_seed(hp.seed)
-    loader = DataLoader(splits["train"], batch_size=1, shuffle=True,
-                        collate_fn=trainer.PairCollator(tok, 512), num_workers=0, generator=sampler)
-    if len(loader) % hp.grad_accum:
+    epoch_sizes = [len(splits[training_stage(epoch)]) for epoch in range(1, EPOCHS + 1)]
+    if any(size % hp.grad_accum for size in epoch_sizes):
         raise ValueError("fixed CPU batch requires complete accumulation groups")
+    total_steps = sum(epoch_sizes) // hp.grad_accum
+    primary_collator = trainer.PairCollator(tok, 512)
+    def weighted_collator(rows):
+        batch = primary_collator(rows)
+        batch["source_confidence"] = torch.tensor([confidence_weight(row) for row in rows], dtype=torch.float32)
+        return batch
     timings, losses = [], []
     best, best_state, best_hash = None, None, None
     development_history = []
     for epoch in range(1, EPOCHS + 1):
         epoch_loss_start = len(losses)
+        stage = training_stage(epoch)
+        loader = DataLoader(splits[stage], batch_size=1, shuffle=True, collate_fn=weighted_collator, num_workers=0, generator=sampler)
+        learning_rate = .0001 if stage == "warmup" else hp.lr
+        for group in optimizer.param_groups:
+            group["lr"] = learning_rate
         model.train()
         optimizer.zero_grad(set_to_none=True)
         step_started = time.monotonic()
         for i, batch in enumerate(loader):
             rc = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rr = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
-            loss = trainer.bt_loss(rc, rr, batch["margin"])
+            loss = trainer.bt_loss(rc, rr, batch["margin"]) * batch["source_confidence"].mean()
             if not torch.isfinite(loss):
                 raise ValueError("nonfinite training loss")
             (loss / hp.grad_accum).backward()
@@ -251,7 +261,7 @@ def experiment(root):
                            "step_seconds": timings, "hyperparameters": asdict(hp), "initial_sha256": initial_hash,
                            "runtime_integration": "INCOMPLETE", "epoch": epoch, "max_epochs": EPOCHS,
                            "selected_development": best, "licence_metadata": licence_metadata()})
-                remaining = EPOCHS * len(loader) / hp.grad_accum - len(timings)
+                remaining = total_steps - len(timings)
                 if time.monotonic() - started + remaining * max(timings) > 300 * 60:
                     raise TimeoutError("measured throughput exceeds fixed training reserve")
                 step_started = time.monotonic()
@@ -272,12 +282,13 @@ def experiment(root):
             save_checkpoint(model, root / "adapter")
         development_history.append({"epoch": epoch, "metrics": development, "selected": improved,
                                     "rng_restored": True, "split": "validation",
+                                    "training_stage": stage, "learning_rate": learning_rate,
                                     "training_loss_mean": sum(losses[epoch_loss_start:]) / (len(losses) - epoch_loss_start)})
         write_json(root / "development-selection.json", {"history": development_history, "best": best,
                    "best_trainable_sha256": best_hash, "selection_split": "validation", "selection_metric": "val_loss",
                    "audit_scored": False, "epochs_required": EPOCHS, "epochs_completed": epoch})
     if best_state is None or len(development_history) != EPOCHS:
-        raise ValueError("eight-epoch development selection did not complete")
+        raise ValueError("four-epoch supervised curriculum did not complete")
     with torch.no_grad():
         for name, parameter in model.named_parameters():
             if parameter.requires_grad:

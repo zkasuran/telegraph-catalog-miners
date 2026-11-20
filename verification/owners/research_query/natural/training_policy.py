@@ -5,12 +5,26 @@ import math
 import random
 from contextlib import contextmanager
 
-EPOCHS = 8
+EPOCHS = 4
+STAGES = ("warmup", "train", "train", "train")
+
+
+def training_stage(epoch):
+    if type(epoch) is not int or not 1 <= epoch <= EPOCHS:
+        raise ValueError("epoch outside the frozen supervised curriculum")
+    return STAGES[epoch - 1]
+
+
+def confidence_weight(row):
+    units, size, normalizer = (row[key] for key in ("confidence_units", "confidence_bucket_size", "confidence_normalizer"))
+    if type(units) is not int or units not in (1, 3, 5, 10) or type(size) is not int or size < 1 or type(normalizer) is not int or normalizer < 1:
+        raise ValueError("invalid frozen source confidence fields")
+    return units * size / normalizer
 
 
 def development_selection(best, epoch, metrics):
     if type(epoch) is not int or not 1 <= epoch <= EPOCHS:
-        raise ValueError("epoch outside the fixed eight-epoch recipe")
+        raise ValueError("epoch outside the fixed four-epoch curriculum")
     loss = metrics.get("val_loss")
     if type(loss) not in (int, float) or not math.isfinite(loss) or loss < 0:
         raise ValueError("development loss must be finite and nonnegative")

@@ -78,8 +78,8 @@ jobs:
           "$RUNNER_TEMP/research-venv/bin/python" -m pip check
           "$RUNNER_TEMP/research-venv/bin/python" verification/owners/research_query/support/training/audit.py --lock verification/owners/research_query/support/training/requirements.lock --out "$RUNNER_TEMP/research-requirements.txt" --report "$RUNNER_TEMP/research-owner/dependency-audit.json"
       - name: Frozen training validation audit and reference runtime
-        # Training-only regularization update. Actual acceptance diagnostics
-        # remain in the licensed evidence artifact when the audit stays sealed.
+        # Original instruction warm-up then confidence-weighted research fitting.
+        # Both dataset gates and untouched held cohorts remain required.
         if: inputs.mode == 'train'
         timeout-minutes: 305
         run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/research-venv/bin/python" -W error verification/owners/research_query/natural/run.py --root "$RUNNER_TEMP/research-owner"

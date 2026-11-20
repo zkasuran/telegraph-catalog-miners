@@ -4,9 +4,9 @@
   "status": "SOURCE_ONLY",
   "files": {
     "train": {
-      "rows": 768,
-      "groups": 768,
-      "sha256": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
+      "rows": 760,
+      "groups": 760,
+      "sha256": "a1902200617ba5b1d12ad78c6d49dac8083f5fb70c7e56ff58a4a1434c144b10",
       "date_range": [
         "2023-01-29T16:25:00.292541+00:00",
         "2023-02-09T19:06:04.143867+00:00"
@@ -29,9 +29,18 @@
         "2023-02-14T16:25:00.018331+00:00",
         "2023-02-25T09:19:38.227585+00:00"
       ]
+    },
+    "warmup": {
+      "rows": 332,
+      "groups": 332,
+      "sha256": "969dafd8a6b601cc72cce57b412da66538b45f1233cd348d835b8d1779f929d5",
+      "date_range": [
+        "2023-01-28T21:21:33.555268+00:00",
+        "2023-02-09T18:26:50.316513+00:00"
+      ]
     }
   },
-  "scope": "Original human preference relevance/usefulness for intact research answers, not universal factual truth",
+  "scope": "Original source human ranks for research quality with broader instruction warm-up; quality annotations affect training confidence, not factual certification",
   "source_messages": {
     "train": 84437,
     "validation": 4401
@@ -72,15 +81,9 @@
     "length": 0.5,
     "token_length": 0.5546875,
     "overlap": 0.4765625,
-    "answer_only": 0.5859375,
+    "answer_only": 0.5078125,
     "citation": 0.53125,
-    "hedging": 0.5,
-    "previous_length": 0.5,
-    "previous_token_length": 0.5546875,
-    "previous_overlap": 0.4765625,
-    "previous_answer_only": 0.5390625,
-    "previous_citation": 0.53125,
-    "previous_hedging": 0.5
+    "hedging": 0.5
   },
   "audit_scores_measured": false,
   "neural_operations": 0,
@@ -110,5 +113,46 @@
     "fit_split": "train",
     "audit_scored": false,
     "neural_operations": 0
+  },
+  "curriculum_source": {
+    "schema_version": 1,
+    "family": "RESEARCH_QUERY",
+    "complete_source_messages": {
+      "train": 84437,
+      "validation": 4401
+    },
+    "training_only_quality_diagnostic": {
+      "pairs": 768,
+      "quality_available": 768,
+      "rank_quality_agree": 408,
+      "rank_quality_conflict": 264,
+      "rank_quality_tie": 96
+    },
+    "inventory": {
+      "older_original_rank_contrasts": 2133,
+      "rank_and_quality_agreement_contrasts": 939
+    },
+    "eligible_independent_groups": 849,
+    "current_component_counts_after_complete_normalized_union": {
+      "train": 764,
+      "validation": 64,
+      "audit": 64
+    },
+    "available_length_groups": {
+      "longer": 682,
+      "shorter": 167
+    },
+    "warmup_groups": 332,
+    "warmup_sha256": "969dafd8a6b601cc72cce57b412da66538b45f1233cd348d835b8d1779f929d5",
+    "latest_allowed_source_date": "2023-02-09T19:06:04.143867+00:00",
+    "normalized_overlap": 0,
+    "main_training_groups": 760,
+    "main_training_sha256": "a1902200617ba5b1d12ad78c6d49dac8083f5fb70c7e56ff58a4a1434c144b10",
+    "confidence_weighting": "rank target unchanged; original quality agreement gives 10/5/3/1 units, normalized by preferred-length bucket using training only",
+    "source_quality_is_annotation_not_truth": true,
+    "audit_scored": false,
+    "neural_operations": 0,
+    "training_target": "original source sibling rank; quality agreement controls training confidence, not new truth labels",
+    "status": "SOURCE_WARMUP_AVAILABLE"
   }
 }

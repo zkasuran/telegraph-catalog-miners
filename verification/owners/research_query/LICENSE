@@ -48,6 +48,14 @@ and rank-16 learned additions use the unchanged reviewed terms below,
 subject to those upstream grants. Earlier fitted checkpoints keep their
 original terms. An unconsumed audit is not newly created human review.
 
+SOURCE-CONFIDENCE CURRICULUM
+
+Original rank and quality annotations in both training phases retain
+Apache-2.0. Confidence weighting, curriculum scheduling and normalized
+component corrections are our additions under the reviewed SAND text
+below. Neither annotation signal is presented as scientific truth or
+human review of this model. Prior source and fitted grants are unchanged.
+
 # Source-Available No-Derivatives Licence 1.0
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0

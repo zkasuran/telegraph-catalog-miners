@@ -2,15 +2,15 @@
   "schema_version": 1,
   "family": "RESEARCH_QUERY",
   "max_tokens": 512,
-  "epochs": 8,
+  "epochs": 4,
   "grad_accum": 4,
-  "scope": "Original human research-answer preference relevance/usefulness, not factual proof",
+  "scope": "Original source human ranks for research quality with broader instruction warm-up; quality annotations affect training confidence, not factual certification",
   "audit_used_for_selection": false,
   "splits": {
     "train": {
-      "rows": 768,
-      "groups": 768,
-      "sha256": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
+      "rows": 760,
+      "groups": 760,
+      "sha256": "a1902200617ba5b1d12ad78c6d49dac8083f5fb70c7e56ff58a4a1434c144b10",
       "date_range": [
         "2023-01-29T16:25:00.292541+00:00",
         "2023-02-09T19:06:04.143867+00:00"
@@ -33,9 +33,18 @@
         "2023-02-14T16:25:00.018331+00:00",
         "2023-02-25T09:19:38.227585+00:00"
       ]
+    },
+    "warmup": {
+      "rows": 332,
+      "groups": 332,
+      "sha256": "969dafd8a6b601cc72cce57b412da66538b45f1233cd348d835b8d1779f929d5",
+      "date_range": [
+        "2023-01-28T21:21:33.555268+00:00",
+        "2023-02-09T18:26:50.316513+00:00"
+      ]
     }
   },
-  "frozen_controls_sha256": "effa6edd157a271770796c73e18f4ab022050d1ac6df3557ae90de759431e8be",
+  "frozen_controls_sha256": "95d9fffbbf161720bd55f7d4d7bacef3ae98f4fbe0fb4503a17fe9b05cf93418",
   "quality": {
     "minimum_accuracy": 0.8,
     "minimum_subset_accuracy": 0.7,
@@ -44,28 +53,29 @@
     "maximum_shortcut_accuracy": 0.65
   },
   "source_hashes": {
-    "data.py": "6d955436eaa19b703b5c327b60cfe13d472f119c4975438963bd9ac919f5ec67",
+    "data.py": "0143981684f6a388f37502a920a8b276979ffa944e1b0ca3c4c3aa26605a2026",
     "licensing.py": "9eac6bca973e4a82f2394196c78b18529beaad97d85e3d8c953c159237f28552",
     "runtime_check.py": "8da4ce53abca409907630c5d335e3132c266df343918c268cd0b1edec416a9f3",
     "live_class.py": "9c54d9f9effef267d06181c7ee4707ac9b5540936763875ed75f64b22cbd019d",
-    "training_policy.py": "df89218bcd7e33ad6a226b953071844cb681911359ae9d9bb76981da32f16ba5",
-    "gates.py": "6752e0e56f01a2c4690e166cc8f12cade528a9bd07561ea5118fa5b4822d163a",
+    "training_policy.py": "f384761ab5a320baa163a3bf13bc1074382a14068b8b4fb6c7ecdc25b6adc999",
+    "gates.py": "f96b5e97a82426696e8d8b4c52dcbf1826c78edb98a8f5cbe58886c4ffe69e9f",
     "preserve.py": "8836d69aff6e7db0757b643a8a179b9f82af6b5776e163c6b1d32008e60cce08",
-    "static_check.py": "ecda82d5ebb7998257c354d87927fcd12e6f7f302a65b9ce13388fe5e64e61a6",
-    "verify_source.py": "f06ad066d5913d6deece78edd7e14d506cf3a224aadc408b15615998b8974d64",
-    "run.py": "12196f71f22f400e4494497949a58c0bcca7287b9d3d12ef2d382c68a14765b0",
+    "static_check.py": "d59d7d4ec7822bf7f0f4328c07e2dbe4e582aab796bbfd3e73faa6fbc253ec77",
+    "verify_source.py": "afca6d7843117abd9430227b6ce6faae224981366173ccd681388227664043d0",
+    "run.py": "27fe338108ea72c708c6754aa75286c5df19bab6ff98e5b0e77b3c36c6f5d51c",
     "bridge.py": "87d1077ef34e489df6deedcb8e6538350707b40c2c402660ca23795d9b47b24d",
-    "run_base.py": "b001ca6abac00ec6bfb9b6d2cd3e232e4e415a3159f4052366f0125b07d7e52a",
-    "test_natural.py": "359bcd8af99a1c015ab75f3615a2074901205f361ddbd0a85fd8530a0758dbb0"
+    "run_base.py": "fce9b3cecd6c9fc5ad74d76ae24a620b2add1eba602125d5e3b963377f9aaeb7",
+    "test_natural.py": "c034d846c9dfa6c836b301ce4e4e9f6f80e5c7497638724c5028487305bfa692"
   },
   "fixture_hashes": {
-    "train.jsonl": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
+    "train.jsonl": "a1902200617ba5b1d12ad78c6d49dac8083f5fb70c7e56ff58a4a1434c144b10",
     "audit.jsonl": "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143",
-    "data-report.json": "33c85e0c6d601f6c3dd1c7b6892f0270da275523c90e32d7c27a46062413cd46",
+    "data-report.json": "20f229f0bf19b4d75a3c23399426b912cef73bd072c6a69ccdfa19a9a15591b7",
     "validation.jsonl": "002531c88e52ab2f2b159662aa776a4d708de0031cbaf6a3e03f5a286d5e672f",
-    "source-reverification.json": "ac07286b775898008c85695cd342e4bc13967c77a4501857567ca7302dab4bc7",
-    "frozen-controls.json": "effa6edd157a271770796c73e18f4ab022050d1ac6df3557ae90de759431e8be",
-    "dataset-gate.json": "e1652b1360da5f06cb88d0c48331537c31881f43d4e2a95092fa4478c1f4c0f7"
+    "warmup.jsonl": "969dafd8a6b601cc72cce57b412da66538b45f1233cd348d835b8d1779f929d5",
+    "source-reverification.json": "9153a96421487ca3211374019af280fa9ed4e3868bcb17b1957143448b2d3a94",
+    "frozen-controls.json": "95d9fffbbf161720bd55f7d4d7bacef3ae98f4fbe0fb4503a17fe9b05cf93418",
+    "dataset-gate.json": "588f783bcf780da070d95eff5d0ade3f323bc7da8a946294ff91e3e71d59bda2"
   },
   "model_recipe": {
     "lr": 2e-05,
@@ -73,5 +83,21 @@
     "lora_rank": 16,
     "lora_alpha": 32,
     "weight_decay": 0.1
+  },
+  "curriculum": {
+    "stages": [
+      "warmup",
+      "train",
+      "train",
+      "train"
+    ],
+    "warmup_lr": 0.0001,
+    "confidence_units": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "fit_split": "training_only"
   }
 }

@@ -52,17 +52,24 @@ def run_gate(directory, kit):
     frozen = json.loads(frozen_raw)
     if frozen["fit_split"] != "train" or frozen["training_sha256"] != report["files"]["train"]["sha256"]:
         raise ValueError("baseline is not bound to original training")
+    if frozen.get("warmup_sha256") != report["files"]["warmup"]["sha256"] or frozen.get("training_phases") != ["train", "warmup"]:
+        raise ValueError("baseline is not bound to both training phases")
     previous = frozen.get("previous_baseline", {})
-    if previous.get("fit_split") != "train" or previous.get("training_sha256") != "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff" or previous.get("training_rows") != 512:
+    if previous.get("fit_split") != "train" or previous.get("training_sha256") != "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd" or previous.get("training_rows") != 768:
         raise ValueError("retained previous train-only baseline identity changed")
     tokenizer = Tokenizer.from_file(str(directory / "sources/tokenizer.json"))
     tokenizer.no_padding()
     tokenizer.no_truncation()
     split = {**raw, "train": [r for row in raw["train"] for r in formatted([row], "prose" if int(digest(row["group_id"].encode()), 16) % 2 == 0 else "json")],
+             "warmup": [r for row in raw["warmup"] for r in formatted([row], "prose" if int(digest(row["group_id"].encode()), 16) % 2 == 0 else "json")],
              "validation": formatted(raw["validation"], "prose") + formatted(raw["validation"], "json")}
-    hp = trainer.Hyperparams(max_length=512, batch_size=1, grad_accum=4, epochs=8, lr=.00002, lora_dropout=.1,
+    hp = trainer.Hyperparams(max_length=512, batch_size=1, grad_accum=4, epochs=4, lr=.00002, lora_dropout=.1,
                             lora_rank=16, lora_alpha=32, weight_decay=.1, eval_batch=1, early_stopping=False, grad_checkpointing=False, gate_min_acc=.8)
     gate = trainer.gate_dataset(split["train"], hp)
+    warmup_gate = trainer.gate_dataset(split["warmup"], hp)
+    if not warmup_gate["ok"]:
+        gate["ok"] = False
+        gate["failures"].extend("warmup: " + failure for failure in warmup_gate["failures"])
     if gate["metrics"].get("surface_probe_acc") is None:
         raise ValueError("actual source surface probe did not run")
     for name in ("prose", "json"):
@@ -75,6 +82,7 @@ def run_gate(directory, kit):
         gate["ok"] = False
         gate["failures"].append("frozen validation shortcut exceeds unchanged 65 percent gate")
     write_json(directory / "dataset-gate.json", {**gate, "validation_controls": validation, "audit_scored": False,
+                "warmup_gate": warmup_gate,
                "immutable_coefficients": contract["frozen_controls_sha256"]})
     report["training_allowed"] = gate["ok"]
     write_json(directory / "data-report.json", report)

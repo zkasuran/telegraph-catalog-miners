@@ -137,7 +137,7 @@ def main():
             return code
         manifest = json.loads((root / "package-manifest.json").read_text())
         source = json.loads((root / "data/source-reverification.json").read_text())
-        if source["grants_verified"] is not True or source["checked_preference_pairs"] != 896:
+        if source["grants_verified"] is not True or source["checked_preference_pairs"] != 1220:
             raise ValueError("full source/rank verification not completed")
         from runtime_check import RELEASE_HASHES
         report = {"schema_version": 1, "status": "REGISTRATION_READY", "family": "RESEARCH_QUERY", "run_id": int(os.environ["GITHUB_RUN_ID"]),
