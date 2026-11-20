@@ -110,3 +110,13 @@ training pool. M2 scans the complete inventory before source selection and remov
 normalized cross-split/conflicting groups. Counts are measured remotely, not filled
 from the TFDS population figures. The same quoted CC0 grant governs these files.
 No parent text, hidden evaluation pool or exposed audit row is used for fitting.
+
+## Exact qualified release
+
+candidate/ contains only exact package and safe public evidence bytes from
+successful M2 run 44787260374. The trained package retains the full original
+Apache-2.0, MIT and SAND terms in its inert metadata. registration-ready.json is
+not rewritten after qualification. Original audit rows and local working files
+are not in the release. Coefficients are the immutable train-fitted bytes bound
+by the source manifest, not a new fit. Validation selected the candidate and a
+fresh independent 256-group reference-engine audit measured it once.

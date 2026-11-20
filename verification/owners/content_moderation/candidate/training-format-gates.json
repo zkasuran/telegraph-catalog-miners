@@ -1,0 +1,49 @@
+{
+  "gates": {
+    "json": {
+      "ok": true,
+      "n": 1536,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0007,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.5,
+        "mean_len_chosen": 232.3,
+        "mean_len_rejected": 232.3
+      },
+      "failures": []
+    },
+    "prose": {
+      "ok": true,
+      "n": 1536,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0007,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.5,
+        "mean_len_chosen": 178.6,
+        "mean_len_rejected": 178.6
+      },
+      "failures": []
+    },
+    "label_led_source": {
+      "ok": true,
+      "n": 1536,
+      "metrics": {
+        "unique_rejected_frac": 1.0,
+        "top_rejected_share": 0.0007,
+        "length_shortcut_acc": 0.5,
+        "eval_negative_leak": 0.0,
+        "surface_probe_acc": 0.5,
+        "mean_len_chosen": 163.6,
+        "mean_len_rejected": 163.6
+      },
+      "failures": []
+    }
+  },
+  "groups": 1536,
+  "per_label_format": 256,
+  "policy": "source-anchored JSON/prose/label-led views, stable per-label position plus epoch modulo 3; no exact bare-label training"
+}

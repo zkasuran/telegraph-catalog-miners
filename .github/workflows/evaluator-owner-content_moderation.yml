@@ -1,6 +1,6 @@
 {
   "name": "Bounded moderation schedule diagnostic",
-  "run-name": "Complete-inventory M2 moderation trial or exact serving",
+  "run-name": "Qualified M2 candidate release or exact serving",
   "on": {"workflow_dispatch": {"inputs": {
     "mode": {"type": "choice", "options": ["expanded", "serve"], "default": "expanded", "required": true},
     "campaign_exclusions_json": {"type": "string", "default": "[]", "required": true},

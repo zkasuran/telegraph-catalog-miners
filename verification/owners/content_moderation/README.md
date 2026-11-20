@@ -116,6 +116,20 @@ expanded.py holds M2 source grouping and admission contracts. expanded_remote.py
 uses a separate source-bound harness so previous B3 checks remain preserved.
 The current workflow offers only expanded training and exact serving modes.
 
+## Qualified M2 candidate
+
+M2 run 44787260374 passed the actual full parser and reference-engine audit.
+On 256 independent groups, JSON accuracy was 84.765625%, prose 85.546875% and
+bare label 84.375%. Every label cleared 70%; the weakest cell was bare-label
+Flagged at 78.90625%. All shortcut scores were 50%. The genuine untrained scores
+were 51.5625%, 46.484375% and 50% respectively.
+
+The complete scan measured 1,999,514 source rows across all four pinned files.
+All 512 exposed earlier audit groups were excluded. The release retains the
+exact package and immutable source/parser/runtime evidence under candidate/.
+This is a qualified source-held-out scorer, not a canonical node win. Endpoint
+activation and registration remain separate gated operations.
+
 See DATA-SOURCES.md for exact grants and coverage limits. SECURITY.md describes
 failure controls. Competitive additions use LicenseRef-zkasuran-SAND-1.0 with
 retained upstream grants. No canonical win is implied by a source gate or report.

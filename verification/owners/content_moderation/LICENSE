@@ -163,3 +163,6 @@ all gate thresholds. Accepted/excluded verdict roles remove surface tells.
 M2 is a separate broader-source training trial after a genuine B3 audit
 loss. Both complete training shards are covered and all exposed audits
 are excluded. The validation-selected B3 checkpoint is fitted work.
+This distribution also includes the exact licensed M2 candidate and
+unaltered public evidence from passing run 44787260374. Source-held-out
+qualification is not a canonical registration or a claim of human review.

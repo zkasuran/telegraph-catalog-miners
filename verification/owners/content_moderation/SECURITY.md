@@ -55,6 +55,15 @@ insufficient clean groups and changed prepared split bytes. Every model quality
 gate remains unchanged. Temporal/publication grouping is not available in these
 pinned Parquet fields and is not claimed.
 
+The candidate release binds exact emitted bytes to its actual successful GitHub
+run, full Go parser, reference logs and combined registration report. Local
+checks hash the package/source proof and inspect inert grants without loading a
+model. Failure tests mutate actual tensor bytes, source proof, literal hash form,
+runtime identity and per-label quality. The automatic adapter independently
+recomputes Keccak and checks live vectors before signing. The served executor
+remains at the audit report's original source commit; publishing proof bytes does
+not replace the runtime or authorize another audit draw.
+
 No hidden-pool or development-exposed audit input is permitted. No neural model
 is loaded locally. Source publication alone is not qualification. The runtime
 bridge returns the identical engine's score bits, not a Torch substitute.

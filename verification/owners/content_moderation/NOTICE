@@ -49,3 +49,8 @@ B3 checkpoint under the original grants and keeps untrained initialization
 separate. Source inventory now covers both complete official training shards,
 validation and test. All 512 exposed audit groups are excluded. New constructed
 preferences remain AI-assisted source-label transformations, not human review.
+
+Qualified candidate release: exact package and unaltered public evidence from
+run 44787260374. Full parser and real reference-engine audit passed for the frozen
+M2 candidate. All source grants are retained inside its package. No canonical
+registration, human review or universal moderation capability is implied.

@@ -1,0 +1,8 @@
+{
+  "matches_node": true,
+  "rendered_texts": 1536,
+  "max_tokens": 196,
+  "min_tokens": 21,
+  "mean_tokens": 80.69791666666667,
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+}
