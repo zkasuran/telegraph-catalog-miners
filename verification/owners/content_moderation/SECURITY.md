@@ -15,12 +15,19 @@ SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 | Untrusted remote time/size | Phase/process-group ceilings, body limits and source hash ceilings | Source gate plus remote phase logs |
 | Credential or endpoint takeover | Only existing proxy, ephemeral restricted runner key, public lease only | Lease contract validation by automatic adapter |
 | Fitted checkpoint presented as untrained | Separate immutable warm-start and genuine untrained asset hashes | Explicit source gate and distinction failure controls |
+| Recovery substitutes model or sample | Original ZIP/member/package hashes, full repeated-stream comparison, identical 256 audit groups | Recovery archive and mutation controls |
 
 F3 uses a fresh low-LR optimizer from a validation-selected H9 snapshot. It is
 not exact optimizer/RNG continuation. The H9 failure is not relabelled passing.
 Source-only checkpoint term checks verify original grants in both containers
 before publication. Successful registration evidence is separate from large
 epoch diagnostics; the adapter's archive ceiling is not weakened.
+
+The original F3 audit was opened only after epoch 1 was frozen. Qualification
+timed out after the trained streams completed. Runtime-only recovery may complete
+the missing untrained measurement, but cannot fit, select another candidate or
+reduce the audit. Original run/commit identities remain attached to the complete
+result alongside the actual recovery job. ZIP expansion and members are bounded.
 
 No hidden-pool or development-exposed audit input is permitted. No neural model
 is loaded locally. Source publication alone is not qualification. The runtime

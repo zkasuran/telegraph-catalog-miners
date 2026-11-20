@@ -60,3 +60,12 @@ MIT copyright and full terms travel in the bundle and checkpoint metadata.
 Our competition additions use the reviewed SAND terms in LICENSE. Support source
 is fingerprinted in SUPPORT.json. No upstream compiled adapter is wrapped or
 re-registered. No protected pool, provider account or signer credential is used.
+
+## Qualification recovery
+
+Public GitHub artifact 14621277811 from F3 run 44703787106 is an immutable
+development/model evidence input, not new training data. Its whole archive and
+23 required members are SHA-256-bound in recovery.json. Exact package bytes keep
+the original Apache-2.0, MIT and SAND grants above. Civil Comments remains CC0.
+The audit is the same 256 groups selected before training, not a fresh draw.
+Completed trained reference streams are retained. Recovery performs no fitting.

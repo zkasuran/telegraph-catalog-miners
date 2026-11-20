@@ -7,3 +7,4 @@ bash -n "$ROOT/verify.sh"
 python3 -W error "$ROOT/verify_source.py"
 python3 -W error "$ROOT/check_checkpoint_terms.py"
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_owner.py' -v
+python3 -W error -m unittest discover -s "$ROOT" -p 'test_recovery.py' -v

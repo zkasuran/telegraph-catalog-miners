@@ -1,0 +1,162 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "CONTENT_MODERATION",
+  "origin_run_id": 44703787106,
+  "origin_commit": "77bc762572b786f79b50e5652d1aeb3df19613e1",
+  "artifact_id": 14621277811,
+  "archive_sha256": "af300054bcbf5659ab58caf80bb17720954d5769d75325770e60e687558eb117",
+  "archive_bytes": 42738840,
+  "url": "https://nightly.link/zkasuran/telegraph-catalog-miners/actions/artifacts/14621277811.zip",
+  "candidate_checkpoint_sha256": "fb255d4901ee8af4cb51948e0fe1227754b47ccb31621e2d3c517065998354f7",
+  "source_manifest_sha256": "e9455450cc6a78973dd15a4c8d456bf89696d1ff473c62b9bb106f66814f1705",
+  "experiment_sha256": "0b33e0b17c27b7bd88063e5d840bee2171114d178cf348f20079fd01f07a6f0a",
+  "audit_sha256": "c54a56490df527b761987425533e5987da2696d4bb1b5926fa7663763ab4c903",
+  "trained_score_streams": {
+    "bare_label": 512,
+    "json": 512,
+    "prose": 512
+  },
+  "files": [
+    {
+      "member": "cm-training/evidence/run-binding.json",
+      "name": "run-binding.json",
+      "sha256": "20f3f11993d7c650c6da80465651ffee183f26a8d3b4666cddd5392656b8716b",
+      "bytes": 7250
+    },
+    {
+      "member": "cm-training/evidence/candidate-freeze.json",
+      "name": "candidate-freeze.json",
+      "sha256": "fa55e90d42ce9bf0a6ac68852f6d1c573176524b02197e0bc9c3c13cb281fe55",
+      "bytes": 5651
+    },
+    {
+      "member": "cm-training/evidence/selection.json",
+      "name": "selection.json",
+      "sha256": "48788e5b932389aef82af4dd12095357a56fabf720d231552d7473e358c269d0",
+      "bytes": 730
+    },
+    {
+      "member": "cm-training/evidence/source-manifest.json",
+      "name": "source-manifest.json",
+      "sha256": "e9455450cc6a78973dd15a4c8d456bf89696d1ff473c62b9bb106f66814f1705",
+      "bytes": 27175
+    },
+    {
+      "member": "cm-training/evidence/F3-validation-history.json",
+      "name": "F3-validation-history.json",
+      "sha256": "07299cb6795e872e38c7e5b9c10b2c05bc3afc65be46b79842ca5313f5225ff7",
+      "bytes": 12460
+    },
+    {
+      "member": "cm-training/evidence/F3-restoration.json",
+      "name": "F3-restoration.json",
+      "sha256": "fac407435047d7cbcf778cce92c36570bcd5c0516fb735f2a7ed5b112a10bc4c",
+      "bytes": 8848
+    },
+    {
+      "member": "cm-training/evidence/dataset-gate.json",
+      "name": "dataset-gate.json",
+      "sha256": "0e41fe87168e11b201f1186e042560cb33693a0ef2ac7bc979828b1ccce2d8b1",
+      "bytes": 229
+    },
+    {
+      "member": "cm-training/evidence/F3-dataset-gate.json",
+      "name": "F3-dataset-gate.json",
+      "sha256": "3d42c0a556cc8c8e5d627df497764ccb10da58354988e1abf4c1a9522e889837",
+      "bytes": 291
+    },
+    {
+      "member": "cm-training/evidence/untrained-validation.json",
+      "name": "untrained-validation.json",
+      "sha256": "04469aec2c6b90617985b22f02b5126da9c725ac14bfc8d28f273c79b890a031",
+      "bytes": 2576
+    },
+    {
+      "member": "cm-training/evidence/baseline-coefficients.json",
+      "name": "baseline-coefficients.json",
+      "sha256": "e3d7d624a876cdd5c1d1939a2ce948f6c7f2e7d1854e38a6e7b489f09739a90e",
+      "bytes": 231328
+    },
+    {
+      "member": "cm-training/evidence/audit-freeze.json",
+      "name": "audit-freeze.json",
+      "sha256": "4128038928e91728a5e036292f43c5e116c4de2ed50eb5b514ac00fa24b458e1",
+      "bytes": 21681
+    },
+    {
+      "member": "cm-training/evidence/exclusions.json",
+      "name": "exclusions.json",
+      "sha256": "c69f13286292514dc0a0596aa54ee7544ad0cedb12fa90cb6656e90fbcaa55ed",
+      "bytes": 80643
+    },
+    {
+      "member": "cm-training/evidence/audit-access.json",
+      "name": "audit-access.json",
+      "sha256": "97f13d1afdb9974e3c04562b1f9e8b9a551f2c020726c198df13b43650b6728d",
+      "bytes": 180
+    },
+    {
+      "member": "cm-training/evidence/audit-tokenizer-check.json",
+      "name": "audit-tokenizer-check.json",
+      "sha256": "e3cf607f0e1826a4791a66fb131e97f09492c487530d5d2a023900cea9e908ab",
+      "bytes": 213
+    },
+    {
+      "member": "cm-training/evidence/tokenizer-check.json",
+      "name": "tokenizer-check.json",
+      "sha256": "7cb9a122a0f5b1e60e0c097e9a27114402fe3323b99bc7fd9e54bbd299158fda",
+      "bytes": 214
+    },
+    {
+      "member": "cm-training/evidence/licences.json",
+      "name": "licences.json",
+      "sha256": "99ced81fe4590ace72b41e69f55464694d1306fbecc69388108c08a2670b2b1f",
+      "bytes": 20206
+    },
+    {
+      "member": "cm-training/evidence/foundation.json",
+      "name": "foundation.json",
+      "sha256": "7bc26ebc01f9deafd86e85d41244ec6c32b76e0fff45581d4b634ba43667922a",
+      "bytes": 416
+    },
+    {
+      "member": "cm-training/evidence/CONTENT_MODERATION.safetensors",
+      "name": "CONTENT_MODERATION.safetensors",
+      "sha256": "a7d53da8e268e9c877e4926668d91747a15914934495b40eab60c1028ae63298",
+      "bytes": 6797828
+    },
+    {
+      "member": "cm-training/evidence/UNTRAINED.safetensors",
+      "name": "UNTRAINED.safetensors",
+      "sha256": "b0b2dd2a2da090b1f5352670c8635a47868cc671064adca6a72369fb403c065b",
+      "bytes": 6797828
+    },
+    {
+      "member": "cm-training/evidence/CONTENT_MODERATION.safetensors.parser.json",
+      "name": "CONTENT_MODERATION.safetensors.parser.json",
+      "sha256": "52451a4c81c011deef94fac794c0641ea6aac43779249e2b4a7282a6ec76bfa5",
+      "bytes": 1433
+    },
+    {
+      "member": "cm-training/evidence/UNTRAINED.safetensors.parser.json",
+      "name": "UNTRAINED.safetensors.parser.json",
+      "sha256": "3fb2ccb4f761239cf910a78c04cb2d6d55dd54f79609813104bc474bce4dfb4e",
+      "bytes": 1424
+    },
+    {
+      "member": "cm-training/evidence/CONTENT_MODERATION.safetensors.score-bits.json",
+      "name": "CONTENT_MODERATION.safetensors.score-bits.json",
+      "sha256": "2700b26d839c7e231532ec706106547e529a1f1d158a44b828073d4852d2c0c3",
+      "bytes": 16932
+    },
+    {
+      "member": "cm-training/evidence/CONTENT_MODERATION.safetensors.runtime.log",
+      "name": "CONTENT_MODERATION.safetensors.runtime.log",
+      "sha256": "5839cb7508eb07cc488b4385f0232c38c212d3c0bbd1a8d6ec3408ee4834adf6",
+      "bytes": 251423
+    }
+  ],
+  "phase_cap_seconds": 12600,
+  "scope": "Byte-preserving continuation of interrupted qualification. No fitting, candidate selection, new audit draw or change to thresholds. Original trained measurement is retained; genuine untrained measurement is completed on the identical 256 groups."
+}

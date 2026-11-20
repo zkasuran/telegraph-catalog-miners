@@ -1,7 +1,7 @@
-# Train source-bound moderation scorers
+# Run source-bound moderation scorers
 
-Use one frozen low-LR refinement recipe to fit a moderation preference scorer, select it on
-validation and audit the exact exported package in the node's reference engine.
+Fit a moderation preference scorer on licensed public training material, freeze it
+on validation and audit the exact exported package in the node's reference engine.
 The pipeline accepts only licensed public source material and runs neural work
 on a bounded free public CPU runner.
 
@@ -18,11 +18,18 @@ of the learned interaction without changing source, rank, dropout, renderer or
 quality gates. It is a warm start, not exact optimizer/RNG continuation or a
 proven repair. The genuine untrained control remains a separate frozen asset.
 
+F3 run 44703787106 selected epoch 1: JSON 103/128, prose 105/128 and bare label
+104/128 on validation. Both labels pass the 70% gate in every view. Its exported
+package passed the full parser, but qualification timed out after completing the
+trained reference streams and while scoring the genuine untrained control.
+This is not a passing audit. Recovery completes that interrupted measurement on
+the same 256 groups with the same package bytes. It does not fit or reselect.
+
 | Boundary | Frozen contract |
 |---|---|
 | Training | Original 768 public originals |
 | Validation | Original 128 originals, both labels and all formats |
-| Audit | Same sealed independent 256 originals |
+| Audit | Same frozen independent 256 originals, exposed only after candidate freeze |
 | Recipe | Fitted H9 epoch 8 warm start, seed 42, rank 8, alpha 32, LR 0.00001, dropout 0.1, maximum 3 epochs |
 | Quality | Every format 80%, each label 70%, five points over untrained, ten over strongest shortcut |
 | Runtime | Full parser, real engine, repeat bits, literal wire and negative identity controls |
@@ -55,7 +62,7 @@ flowchart LR
   Ready --> Lease[Exact public restricted lease]
 ```
 
-The trainer retains the original loss, model projections, renderer and early
+The original trainer retains the loss, model projections, renderer and early
 stopping. Added traces isolate RNG. Every observed training-order prefix is
 checked. An ineligible validation candidate leaves the audit sealed.
 
@@ -72,7 +79,10 @@ the automatic action adapter, never a new signer or local provider credentials.
 contracts.py holds source, quality and literal wire rules. remote.py fits and
 qualifies. transport.py connects the exact engine to the public wire. serve.py
 leases that executor. baselines.py fits only on train and reuses frozen
-coefficients. SUPPORT.json fingerprints the preserved public harness sources.
+coefficients. recover.py completes interrupted qualification without fitting.
+recovery.json binds the original job, archive and exact inputs. The workflow now
+offers only recovery and serving modes. SUPPORT.json fingerprints the preserved
+public harness sources.
 
 See DATA-SOURCES.md for exact grants and coverage limits. SECURITY.md describes
 failure controls. Competitive additions use LicenseRef-zkasuran-SAND-1.0 with

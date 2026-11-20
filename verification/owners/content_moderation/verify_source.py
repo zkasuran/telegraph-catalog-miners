@@ -10,6 +10,8 @@ from contracts import HERE, WORKFLOW, sha, validate_experiment
 def main():
     experiment = json.loads((HERE / "experiment.json").read_bytes())
     validate_experiment(experiment)
+    from recover import validate_plan
+    validate_plan(json.loads((HERE / "recovery.json").read_bytes()))
     warm = experiment["warm_start"]
     for name, expected in ((warm["checkpoint"], warm["checkpoint_sha256"]), (warm["config"], warm["config_sha256"]),
                            (warm["untrained"], warm["untrained_sha256"]), (warm["untrained_config"], warm["config_sha256"]),
@@ -45,6 +47,12 @@ def main():
         raise ValueError("workflow is not the bounded free CPU contract")
     if workflow["concurrency"]["cancel-in-progress"] is not False:
         raise ValueError("workflow may cancel a preserved job")
+    mode = workflow["on"]["workflow_dispatch"]["inputs"]["mode"]
+    if mode["options"] != ["recover", "serve"] or mode["default"] != "recover":
+        raise ValueError("exposed original audit must not dispatch another training run")
+    recovery_steps = [step for step in job["steps"] if "recover.py run" in step.get("run", "")]
+    if len(recovery_steps) != 1 or recovery_steps[0]["timeout-minutes"] != 255 or any("remote.py run" in step.get("run", "") for step in job["steps"]):
+        raise ValueError("byte-preserving recovery must not refit the frozen model")
     result_steps = [step for step in job["steps"] if step.get("with", {}).get("name", "").startswith("owner-registration-")]
     if len(result_steps) != 1 or "success()" not in result_steps[0].get("if", "") or "registration-ready.json" not in result_steps[0]["with"]["path"] or "/evidence/\n" in result_steps[0]["with"]["path"]:
         raise ValueError("bounded registration evidence must be separate from epoch diagnostics")

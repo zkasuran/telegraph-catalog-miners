@@ -328,6 +328,12 @@ def qualify(root):
     token_vectors = {name: [node.encode(trainer.render(r["prompt"], r[side])).ids for r in rows for side in ("chosen", "rejected")] for name, rows in views.items()}
     trained_bits, vectors, negative = engine_audit(root, trained_package, trained_manifest, token_vectors)
     untrained_bits, _, _ = engine_audit(root, untrained_package, untrained_manifest, token_vectors)
+    finish_report(root, frozen, trained_package, trained_manifest, originals, views, trained_bits, untrained_bits, shortcuts, vectors, negative)
+
+
+def finish_report(root, frozen, trained_package, trained_manifest, originals, views, trained_bits, untrained_bits, shortcuts, vectors, negative, recovery=None):
+    """Combine actual complete engine measurements. No fitting or selection here."""
+    m = support()
     def metrics(streams):
         return {name: m["core"].summary(rows, [bits(streams[name][2*i]) - bits(streams[name][2*i+1]) for i in range(len(rows))]) for name, rows in views.items()}
     trained, initial = metrics(trained_bits), metrics(untrained_bits)
@@ -345,6 +351,8 @@ def qualify(root):
               "runtime": {"full_parser_passed": True, "reference_engine_passed": True, "repeat_bits_identical": True,
                           "negative_identity_controls": negative, "vectors": vectors}, "failures": failures,
               "evidence": {"selected_checkpoint": frozen["candidate"], "historical_comparison_valid": False}}
+    if recovery is not None:
+        report["evidence"]["qualification_recovery"] = recovery
     write(root / "evidence/registration-ready.json", report)
     if failures:
         raise ValueError("frozen actual-reference audit failed; no audit tuning permitted")

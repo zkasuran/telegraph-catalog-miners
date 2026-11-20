@@ -154,3 +154,5 @@ the reviewed SAND terms above. Original ModernBERT Apache-2.0, Telegraph
 MIT and public Civil Comments CC0 grants remain in force for their portions.
 Full original checkpoint terms are verified by check_checkpoint_terms.py.
 Fitted public training is not an independent audit or human review.
+Qualification recovery retains exact F3 packages from run 44703787106.
+No fitting, candidate change or audit redraw is part of that recovery.
