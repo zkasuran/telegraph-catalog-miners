@@ -95,6 +95,14 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+The source-verdict run44754728791 passed both data gates and actual reward-head
+gradients but still failed strict quality. The current candidate retains its
+rank8 checkpoint and expands only the supported trainable LoRA capacity to rank16.
+Alpha/rank remains4, old slices/head are copied exactly and new B columns start
+at zero. This is a remote training hypothesis, not a score map or a quality pass.
+The same880 rows and all acceptance gates remain. See DATA-SOURCES.md for primary
+capacity sources and the difference between retained slices and container bytes.
+
 Compact run 44746932574 passed source, tensor and parser controls but still failed
 strict verdict validation. The starting model was retained and the audit sealed.
 The next job reuses the exact 128 supplementary provenance rows as constructed

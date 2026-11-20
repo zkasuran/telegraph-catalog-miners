@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "independent-source-verdict-preferences-v15",
+  "name": "retained-rank16-capacity-continuation-v16",
   "checkpoint_sha256": "e426a298d84b73c0b3a853e51695d8a8d6f77a7d5f65eb24a1b222e2f70d85ef",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -10,8 +10,8 @@
   "epochs": 4,
   "grad_accum": 8,
   "lr": 3e-05,
-  "lora_rank": 8,
-  "lora_alpha": 32,
+  "lora_rank": 16,
+  "lora_alpha": 64,
   "selection": "Measure the source-fitted starting checkpoint and each actual epoch. Validation gate/weakest margin before mean loss. Audit unused for selection.",
   "optimizer_state": "Not exported by original trainer. Fresh bounded AdamW continues the exact saved adapter, not a claimed optimizer resume.",
   "checkpoint_file": "recovery/breadth-model-checkpoint.safetensors",
@@ -73,6 +73,18 @@
     "runtime_transform": false
   },
   "supplement_reuse": "Exact actual output of run 44687535825, retained producer/byte/source identity.",
+  "capacity_expansion": {
+    "old_rank": 8,
+    "new_rank": 16,
+    "old_alpha": 32,
+    "new_alpha": 64,
+    "new_a": "seeded_primary_initialization",
+    "new_b": "zero",
+    "old_slices_retained": true,
+    "head_retained": true,
+    "runtime_transform": false,
+    "audit_used": false
+  },
   "supplement_preferences": {
     "scope": "training_only",
     "independent_groups": 64,

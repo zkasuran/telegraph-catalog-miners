@@ -112,6 +112,10 @@ def main():
     coupled_smoke(root)
     from train_margin import smoke as margin_smoke
     margin_smoke(root)
+    from capacity_contract import capacity_policy
+    from train_capacity import smoke as capacity_smoke
+    expanded_capacity = capacity_policy(recipe)
+    capacity_smoke(expanded_capacity, root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     from tokenizers import Tokenizer
@@ -167,7 +171,7 @@ def main():
         raise ValueError("expanded development shortcut exceeds unchanged 65% gate")
     validation_baselines = {style: baseline_report(rows, fitted) for style, rows in validation_formats.items()}
     hp = trainer.Hyperparams(max_length=MAX_TOKENS, batch_size=1, grad_accum=recipe["grad_accum"], epochs=recipe["epochs"], lr=recipe["lr"],
-                            eval_batch=1, lora_rank=8, lora_alpha=32, gate_min_acc=0.80,
+                             eval_batch=1, lora_rank=recipe["lora_rank"], lora_alpha=recipe["lora_alpha"], gate_min_acc=0.80,
                             grad_checkpointing=False)
     original_gate = trainer.gate_dataset(splits["train"], hp)
     dump(root / "original-dataset-gate.json", original_gate)
@@ -213,6 +217,11 @@ def main():
         continued, tokenizer = build(base_path, parameters)
         saved = load_file(str(checkpoint), device="cpu")
         expected = get_peft_model_state_dict(continued, save_embedding_layers=False)
+        from train_capacity import expand
+        saved, capacity_binding = expand(saved, expected, expanded_capacity)
+        dump(root / "capacity-continuation.json", {**capacity_binding, "checkpoint_sha256": recipe["checkpoint_sha256"],
+            "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
+            "policy": expanded_capacity, "audit_used": False})
         if set(saved) != set(expected) or any(saved[k].shape != expected[k].shape or not torch.isfinite(saved[k]).all() for k in saved):
             raise ValueError("checkpoint learned tensor keys/shapes/finiteness mismatch")
         set_peft_model_state_dict(continued, saved, adapter_name="default")
@@ -220,7 +229,8 @@ def main():
         if any(not torch.equal(saved[k], actual[k]) for k in saved):
             raise ValueError("warm-started learned tensor differs from exact saved checkpoint")
         dump(root / "checkpoint-loaded.json", {"checkpoint_sha256": recipe["checkpoint_sha256"],
-             "verified_learned_tensors": len(saved), "post_load_bits_identical_before_fitting": True,
+             "verified_learned_tensors": len(saved), "post_load_bits_identical_before_fitting": False,
+             "expanded_state_loaded_bits_identical": True, "retained_rank_slices_bits_identical": True,
              "parent_source_manifest_sha256": recipe["parent_source_manifest_sha256"]})
         return continued, tokenizer
     trainer.build_model = continuation_builder

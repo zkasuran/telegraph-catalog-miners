@@ -90,7 +90,16 @@ class OriginAuxiliary:
         dump(root / "origin-gradient-control.json", {**self.binding, "passed": True, "nonzero_lora_gradient_tensors": len(touched),
              "training_only_head_gradient_nonzero": True, "optimizer_updates": 0,
              "head_excluded_from_model": True, "actual_training_text_id": view["original_text_id"],
-             "source_only_input": True, "audit_used": False})
+              "source_only_input": True, "audit_used": False})
+        from capacity_contract import capacity_policy
+        capacity_policy(recipe)
+        additional_b = [name for name, p in model.named_parameters() if "lora_B" in name and
+            p.grad is not None and p.grad.ndim == 2 and p.grad.shape[1] == 16 and torch.count_nonzero(p.grad[:, 8:]).item()]
+        if not additional_b:
+            raise ValueError("actual additional rank16 B columns did not receive encoder gradients")
+        dump(root / "capacity-gradient-control.json", {**self.binding, "passed": True,
+            "additional_b_gradient_tensors": len(additional_b), "finite_gradients": True,
+            "old_rank": 8, "new_rank": 16, "optimizer_updates": 0, "audit_used": False})
         model.zero_grad(set_to_none=True)
         self.head.zero_grad(set_to_none=True)
 

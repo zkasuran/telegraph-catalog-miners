@@ -1,5 +1,40 @@
 # Sources and rights
 
+## Retained rank16 capacity continuation
+
+Run 44754728791 passed both the original752 and combined880 data gates. Its
+combined surface probe was0.4992. Actual supplementary gradients reached two
+reward-head tensors and176 LoRA tensors. Both fitting epochs still failed strict
+verdict quality and the starting model was retained. No audit was consumed.
+
+The next candidate expands the same learned rank8 state to the current foundation
+maximum rank16. Alpha changes from32 to64 so alpha/rank remains4. Every learned
+rank8 matrix slice and reward-head tensor is retained. Only the extra A rows use
+the pinned primary seeded initialization; extra B columns are zero before fitting.
+This preserves the initial delta mathematically while adding trainable directions.
+It is not a runtime score transform or a claim of identical larger-container bytes.
+
+[PEFT-LORA-0.21.2] The primary LoraLayer source sets vanilla scaling to
+`lora_alpha / r`, initializes A with Kaiming uniform and initializes B to zero.
+Its original Apache-2.0 header and complete grant remain applicable. We call the
+same APIs and bundle no upstream implementation. The source hash is recorded in
+capacity-primary-sources.json.
+https://github.com/huggingface/peft/blob/v0.21.2/src/peft/tuners/lora/layer.py
+
+[TELEGRAPH-LORA-FORMAT] The pinned package format declares R_MAX=16 and feeds the
+engine alpha/rank. [TELEGRAPH-LORA-PARSER] The actual Go parser also declares
+LoRARMax=16 and refuses a rank above the foundation's RMax. Both original MIT
+grants and source hashes remain retained. The foundation, tokenizer and literal
+wire do not change.
+
+The runner verifies actual retained tensor slices, unchanged head bits, zero new
+B columns and every initial FP32 matrix delta within a fixed absolute1e-6 bound.
+This tolerance is for expansion arithmetic, not runtime acceptance or quality.
+Actual new-column gradients and six tensor refusals run only remotely. All880
+data rows, old checkpoints, losses, source/entity/time splits, integer baselines,
+CPU/epoch ceilings and strict validation/audit/runtime gates remain unchanged.
+Neural benefit and independent reference results are unverified until measured.
+
 ## Independently sourced training verdict preferences
 
 Compact run 44746932574 passed the unchanged full source-surface probe at 0.4723,

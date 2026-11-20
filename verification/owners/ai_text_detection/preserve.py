@@ -55,6 +55,10 @@ def main():
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
+    for name in ("capacity-continuation.json", "capacity-tensor-controls.json", "capacity-gradient-control.json"):
+        path = root / name
+        if path.is_file() and path.stat().st_size <= 256 << 10:
+            (out / name).write_bytes(path.read_bytes())
     (out / "source-manifest.json").write_bytes(source_manifest)
     for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "audit-generation.jsonl", "supplement-generation.jsonl"):
         path = root / name

@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "key": "PEFT-LORA-0.21.2",
+      "url": "https://raw.githubusercontent.com/huggingface/peft/v0.21.2/src/peft/tuners/lora/layer.py",
+      "sha256": "9a2688af69fd16cef94fdb08ab0e973b37d7b2a672e64ba2057a01df7e98b7d8",
+      "bytes": 127555,
+      "licence": "Apache-2.0"
+    },
+    {
+      "key": "TELEGRAPH-LORA-FORMAT",
+      "url": "https://github.com/telegraphprotocol/telegraph-wasm-baseline/blob/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/lora_format.py",
+      "sha256": "7b0d143ffcfe04a9aabaaf623d7aad1c20ceb541a56c1cdbc57cfc9c82a3674a",
+      "bytes": 5038,
+      "licence": "MIT"
+    },
+    {
+      "key": "TELEGRAPH-LORA-PARSER",
+      "url": "https://github.com/telegraphprotocol/telegraph-wasm-baseline/blob/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/pkg/wasm/runtime/lora_adapter.go",
+      "sha256": "3e77c1cf78dd395b2123277834498ae169f657a033bb5f1f47e7ad9f3ab6b929",
+      "bytes": 19890,
+      "licence": "MIT"
+    }
+  ],
+  "upstream_grants_retained": true,
+  "implementation_bundled": false,
+  "basis": "API use and exact source/formula inspection, not a neural result."
+}
