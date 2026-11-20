@@ -134,6 +134,9 @@ func main() {
     exec(compile((HERE / "primary/render_fragment.py.txt").read_text(), "primary-render-only", "exec"), render_ns)
     if render_ns["render"](QUESTION, "101") != "### Task:\n" + QUESTION + "\n\n### Answer:\n101":
         raise ValueError("literal primary renderer mismatch")
+    from wire_information import render
+    if render(result["question"], "101") != render_ns["render"](result["question"], "101"):
+        raise ValueError("information auditor differs from the real primary question/render")
     result["go_version"] = version
     result["unchanged_functions_sha256"] = {"question": sha(function.group(0).encode()), "handler": sha(handler.group(0).encode())}
     return result
@@ -169,10 +172,14 @@ def verify():
     run(args + ["--body", str(oracle.best_amount)], "primary-smoke.log")
     run(args + ["--body", str(oracle.best_amount + 1)], "tamper-smoke.log", expected=2)
     blocked = json.loads(run([sys.executable, "-W", "error", str(HERE / "qualification_gate.py"), "--require-ready"], "qualification-negative.log", expected=2))
+    information = json.loads(run([sys.executable, "-W", "error", str(HERE / "wire_information.py")], "wire-information-smoke.log"))
+    refused_information = json.loads(run([sys.executable, "-W", "error", str(HERE / "wire_information.py"), "--require-unambiguous"], "wire-information-negative.log", expected=2))
+    if information != refused_information or information["unavoidable_wire_errors"] != 1:
+        raise ValueError("literal-wire primary diagnostic or refusal mismatch")
     report = {"schema_version": 1, "family": "OPTIMAL_EXECUTION_ROUTE", "status": "SOURCE_GATE_PASSED",
               "tests": tests.testsRun, "python_sources_compiled": len(list(HERE.glob("*.py"))),
               "primary_wire": wire, "workflow": workflow_result, "qualification": blocked,
-              "source_tool_lock": lock,
+              "source_tool_lock": lock, "wire_information": information,
               "source_manifest_sha256": sha((HERE / "source-manifest.json").read_bytes()),
               "implementation_sha256": {p.name: sha(p.read_bytes()) for p in sorted(HERE.glob("*.py"))},
               "no_model_operations": True, "registration_ready": False}

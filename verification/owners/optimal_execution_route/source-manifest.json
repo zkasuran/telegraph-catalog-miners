@@ -5,6 +5,14 @@
   "sdk_pin": "5174518d5b50d21e6e920fe57e2db914550eddf9",
   "records": [
     {
+      "key": "kit-render-fragment",
+      "url": "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+      "kind": "source_fragment_with_retained_upstream_notice",
+      "upstream_body_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+      "sha256": "9ae1b715853987839218a79fa9a66ccdc1c486bc3698a450e451bfff0798d359",
+      "path": "primary/render_fragment.py.txt"
+    },
+    {
       "key": "sdk-license",
       "url": "https://raw.githubusercontent.com/Uniswap/v2-sdk/5174518d5b50d21e6e920fe57e2db914550eddf9/LICENSE",
       "sha256": "610ab47634715eb91e1ac6fe4b69fce3952ee978f294270e5cee367dd88b6b71",

@@ -153,3 +153,8 @@ Numerical blockchain facts are not claimed as exclusive software property.
 Retained upstream MIT portions are governed first by their original notices in
 NOTICE and upstream/. Source artifacts and failed checkpoints carry those
 notices with the package licence. No earlier grant is revoked or narrowed.
+
+Literal-wire information diagnostics and their tests are also our additions
+under the unchanged terms above. The pinned primary rendering expression stays
+under its original Telegraph MIT notice. Diagnostic state facts are not claimed
+as exclusive software property or new training material.

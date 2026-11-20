@@ -10,4 +10,4 @@ if ! python3 -c 'import pyflakes, yaml; assert pyflakes.__version__ == "3.4.0"; 
   python3 -m pip --isolated install --no-input --no-deps --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --target "$ROOT/.gate-work/tools" -r "$ROOT/requirements-source.lock"
 fi
 python3 -W error "$ROOT/release_gate.py"
-printf '%s\n' 'ALL GREEN: source contracts only. Qualification remains gated.'
+printf '%s\n' 'ALL GREEN: source contracts and literal-wire information controls. Qualification remains gated.'

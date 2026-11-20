@@ -19,6 +19,8 @@ FILES = {
     ".gate-work/primary-smoke.log": "primary-smoke.log",
     ".gate-work/tamper-smoke.log": "tamper-smoke.log",
     ".gate-work/qualification-negative.log": "qualification-negative.log",
+    ".gate-work/wire-information-smoke.log": "wire-information-smoke.log",
+    ".gate-work/wire-information-negative.log": "wire-information-negative.log",
     "LICENSE": "LICENSE",
     "NOTICE": "NOTICE",
     "source-manifest.json": "source-manifest.json",

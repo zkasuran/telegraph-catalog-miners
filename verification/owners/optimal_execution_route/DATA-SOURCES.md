@@ -54,3 +54,9 @@ The pinned action's primary input contract is https://raw.githubusercontent.com/
 > If false, hidden files will be excluded from the artifact.
 
 Its default is false. The source pipeline therefore stages only a closed list of report/log/licence assets into a normal directory. It does not enable broad hidden-file upload or copy tool/compiler caches. A source import guard independently rejects neural library imports in local and public source-only gates. That guard is our own source code and needs no model or provider credentials.
+
+## [WIRE] Literal rendering and input ambiguity
+
+The [KIT] renderer at float_runtime/train_adapter.py emits `### Task:\n{prompt}\n\n### Answer:\n{answer}`. The unchanged retained expression is in primary/render_fragment.py.txt under the original MIT grant. Its source-fragment record retains the full upstream body digest separately from the fragment digest. The source gate compares the information auditor against that expression and the actual compiled InputsQuestion function, not normalized task strings.
+
+The diagnostic deduplicates repeated normalized state identities while retaining exact scoring bytes. Opposite labels for an identical rendered pair imply unavoidable errors for a deterministic comparator on those supplied annotations. Per-pair majority counts give an optimistic ceiling, not measured model quality. Scalar-score transitivity and tokenizer truncation can impose further limits. The original state witness is exposed regression evidence only. No new training, validation or independent audit dataset is created.

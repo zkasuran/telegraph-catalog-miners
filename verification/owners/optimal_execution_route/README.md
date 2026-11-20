@@ -25,6 +25,12 @@ The current live request has only pair=ETH/USDC. The model executor receives tok
 
 `qualification_gate.py --require-ready` therefore exits 2 with an evidenced blocker. This is expected refusal, not a model-ready report. Only two normalized regression-state groups exist. Training and independent audit pairs are absent. The workflow mode is source_verify only and uploads source-run proof, never registration-ready.json.
 
+## Check label information before fitting
+
+Run `python3 verification/owners/optimal_execution_route/wire_information.py` to replay the existing diagnostic. Add `--require-unambiguous` to require no unavoidable literal-wire label errors. The retained three observations collapse to two normalized state rows. Their identical rendered pair has opposite labels, so the optimistic deterministic ceiling on this diagnostic is 1/2. It is not a model accuracy estimate or a claim about the hidden evaluation population.
+
+The reusable `assess(rows)` function accepts strict diagnostic annotations with source_group, question, answer_a, answer_b and preferred (-1, 0 or 1). It keeps scoring bytes literal, handles pair reversal, reports answer-only ceilings and refuses oversized or invalid annotations. Metadata is not added to the scoring input. The source gate compiles the real primary question builder, compares the pinned renderer and executes both CLI success and expected refusal. No original observation becomes new training or audit data.
+
 ## Source and licence
 
 Source pins, grants and inventory boundaries are in DATA-SOURCES.md and source-manifest.json. Retained Telegraph and Uniswap portions keep their MIT grants. New competitive additions use the reviewed SAND terms in LICENSE. SECURITY.md names each trust boundary. No protected pool row, private working file, credential or prior hidden audit is published.

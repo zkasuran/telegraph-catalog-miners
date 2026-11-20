@@ -41,7 +41,7 @@ jobs:
         with:
           go-version: '1.25.7'
           cache: false
-      - name: Verify the standalone source package
+      - name: Verify source contracts and literal-wire information controls
         timeout-minutes: 8
         run: bash verification/owners/optimal_execution_route/verify.sh
       - name: Bind the actual source run

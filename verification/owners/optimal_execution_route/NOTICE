@@ -25,3 +25,8 @@ report/log/licence stager. The artifact manifest names exact bytes and carries
 the same SAND notice on our report-format code. Original blockchain facts are
 not claimed as exclusive software property. Incomplete or failed checkpoints
 retain this boundary and the original upstream MIT notices.
+
+Literal-wire information diagnostics retain the pinned Telegraph rendering
+contract's MIT attribution above. Our collision counting, bounded validation
+and failure controls use SAND. Original exposed state observations are used only
+to demonstrate input ambiguity, never promoted to new independent model data.
