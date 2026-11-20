@@ -1,0 +1,97 @@
+{
+  "status": "BLOCKED_FOR_TRAINING",
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "raw_source_bindings": 512,
+  "freeze_sha256": "36f3f8ef76fd05391748616d17e9e236381d210b0c78ee533c78b810662d90a0",
+  "upstream_dataset_gate": {
+    "ok": true,
+    "n": 128,
+    "metrics": {
+      "unique_rejected_frac": 1.0,
+      "top_rejected_share": 0.0078,
+      "length_shortcut_acc": 0.5,
+      "eval_negative_leak": 0.0,
+      "surface_probe_acc": 0.4263,
+      "mean_len_chosen": 78.9,
+      "mean_len_rejected": 78.9
+    },
+    "failures": []
+  },
+  "train_fitted_baselines": {
+    "train_fitted_direction": {
+      "alarm_keywords": 1,
+      "length": 1,
+      "tfidf_overlap": 1
+    },
+    "by_split": {
+      "train": {
+        "alarm_keywords": 0.5,
+        "length": 0.5,
+        "tfidf_overlap": 1.0
+      },
+      "validation": {
+        "alarm_keywords": 0.5,
+        "length": 0.5,
+        "tfidf_overlap": 1.0
+      }
+    }
+  },
+  "name_and_digit_baselines": {
+    "train_fitted_direction": {
+      "company_name_tokens": 1,
+      "digits": 1
+    },
+    "by_split": {
+      "train": {
+        "company_name_tokens": 0.9805,
+        "digits": 0.5
+      },
+      "validation": {
+        "company_name_tokens": 0.625,
+        "digits": 0.5
+      }
+    }
+  },
+  "frozen_coefficients": {
+    "sha256": "00f9843de4ef9b73e890612fdbdefb9065881baaaf59215fba07d569aefb70e0",
+    "training_sha256": "108e2b692971b97d8d732deedddbe881f3f86969f760eaa2f83a8798fd0bf6de",
+    "fit_scope": "training only; no refitting on validation or audit"
+  },
+  "exact_lookup_accuracy": {
+    "train": 1.0,
+    "validation": 1.0
+  },
+  "controls": {
+    "train": {
+      "n": 128,
+      "missing_abstentions": 128,
+      "formatting_preserved": 128,
+      "misleading_display_name_ignored": 128,
+      "real_opposite_state_and_binding": 128,
+      "limits": "Constructed diagnostics on real observations, not natural vendor labels. Names never establish VAT membership."
+    },
+    "validation": {
+      "n": 32,
+      "missing_abstentions": 32,
+      "formatting_preserved": 32,
+      "misleading_display_name_ignored": 32,
+      "real_opposite_state_and_binding": 32,
+      "limits": "Constructed diagnostics on real observations, not natural vendor labels. Names never establish VAT membership."
+    }
+  },
+  "audit": "closed, hashes checked only, no model selection",
+  "render_utf8_bytes_max": 333,
+  "token_count": "unverified; byte ceiling is not token proof",
+  "blockers": [
+    "One acquisition day, not the required three disjoint dated windows.",
+    "Exact source lookup already orders every inspected pair; no learned advantage established.",
+    "Pinned tokenizer boundary and deployed trusted observation delivery unverified.",
+    "Independent tax-authority corroboration and undeclared corporate relationships unverified.",
+    "Applicable frozen shortcut/overlap gate exceeds 65%; no bypass."
+  ],
+  "model_loading": false,
+  "training_workflow_added": false,
+  "source_licence": "NLOD-2.0",
+  "own_additions_licence": "LicenseRef-zkasuran-SAND-1.0"
+}

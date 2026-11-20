@@ -1,0 +1,53 @@
+Brønnøysundregistrene source observations retain NLOD 2.0.
+Inneholder data under Norsk lisens for offentlige data (NLOD) tilgjengeliggjort av Brønnøysundregistrene.
+Source: https://data.brreg.no/enhetsregisteret/api/enheter
+Primary documentation: https://data.brreg.no/enhetsregisteret/api/dokumentasjon/no/index.html
+Source grant: https://data.norge.no/nlod/no/2.0
+Full source terms accompany the measured snapshot in NLOD-2.0.txt.
+Changes: minimal field projection, dispersed selection and constructed candidate assessments.
+Official VAT booleans and legal identities are unchanged. No official endorsement.
+Names do not determine VAT membership. These observations do not establish legitimacy.
+
+Telegraph reference kit, Copyright (c) 2026 telegraphprotocol, MIT.
+The kit is externally supplied and verified at revision
+1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd before its unchanged data gate is called.
+The kit is not relicensed. No model weights or kit source are redistributed here.
+
+Own collector, probe and tests: Copyright (c) 2026 zkasuran.
+LicenseRef-zkasuran-SAND-1.0, full own terms in LICENSE.
+Own SAND terms cover only our additions, not Brreg data or upstream kit rights.
+The same boundary applies to failed source checkpoints. No trained checkpoint exists.
+
+Full upstream MIT grant, retained verbatim:
+
+MIT License
+
+Copyright (c) 2026 telegraphprotocol
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+AI assistance: OpenCode with agentrouter/gpt-6.1-sol wrote this implementation.
+Automated checks are recorded separately. No human review is claimed.
+
+
+External source-check tools, not redistributed in this package:
+Ruff 0.15.18, Copyright (c) 2022 Charles Marsh, MIT with retained upstream notices.
+actions/checkout and actions/upload-artifact, Copyright (c) 2018 GitHub, Inc.
+and contributors, MIT. Their exact code revisions and primary grants appear in
+DATA-SOURCES.md. No provider or signer credential is requested by the pipeline.

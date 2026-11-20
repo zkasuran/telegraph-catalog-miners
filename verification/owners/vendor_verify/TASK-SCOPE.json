@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "family": "VENDOR_VERIFY",
+  "observation_task": "Norwegian domestic VAT observation consistency",
+  "vies_truth": false,
+  "prefix_class": "judgment",
+  "proper_descendants": [
+    {
+      "intent_id": "VENDOR_VERIFY_GENERAL",
+      "class": "hybrid",
+      "question_template": "Is {key} a valid EU VAT registration in VIES?"
+    }
+  ],
+  "scope": "Source diagnostic contribution, not an exact-live-task neural candidate"
+}

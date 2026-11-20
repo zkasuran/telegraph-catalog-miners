@@ -1,0 +1,55 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "name": "Vendor VAT source consistency checks",
+  "on": {
+    "workflow_dispatch": {
+      "inputs": {
+        "owner_attempt": {
+          "description": "Exact owner attempt identifier",
+          "required": true,
+          "type": "string"
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "jobs": {
+    "source_checks": {
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 10,
+      "steps": [
+        {
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "with": {
+            "persist-credentials": false,
+            "fetch-depth": 1
+          }
+        },
+        {
+          "name": "Install pinned source linter",
+          "run": "python3 -m pip install --disable-pip-version-check --no-input ruff==0.15.18"
+        },
+        {
+          "name": "Run actual packaged source gate",
+          "env": {
+            "OWNER_ATTEMPT": "${{ inputs.owner_attempt }}",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "run": "python3 -W error verification/owners/vendor_verify/ci.py --out source-proof"
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always()",
+          "with": {
+            "name": "vendor-source-proof",
+            "path": "source-proof/",
+            "if-no-files-found": "error",
+            "retention-days": 7
+          }
+        }
+      ]
+    }
+  }
+}
