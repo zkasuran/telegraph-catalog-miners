@@ -1,0 +1,19 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "package": "SENTIMENT_ANALYSIS-v3.safetensors",
+  "package_sha256": "ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e",
+  "report": "v3-registration-ready.json",
+  "report_sha256": "fa0cb600acb55f4b8d5c597f1c8f9fe254b5084c66eab7d968037b508e54dbbd",
+  "grants": {
+    "competitive_delta_and_report_additions": "LicenseRef-zkasuran-SAND-1.0, subject to retained upstream grants",
+    "ModernBERT": "Answer.AI and LightOn, Apache-2.0",
+    "GoEmotions": "Demszky et al. (2020), Google Research, Apache-2.0",
+    "Telegraph_reference_kit": "Copyright (c) 2026 telegraphprotocol, MIT",
+    "source_manifest_and_source_statistics": "Apache-2.0"
+  },
+  "attribution": "Original emotion annotations retained. Valence preferences and text compositions are constructed by AI-assisted code, not human-reviewed sentiment preferences.",
+  "immutable_assets": "The model and original actual report bytes are unchanged from audit run 44723258067. Original licences remain embedded in the model and attached in LICENSE/NOTICE/DATA-SOURCES.md.",
+  "status": "Passing source audit and runtime evidence only. Canonical qualification is not claimed."
+}

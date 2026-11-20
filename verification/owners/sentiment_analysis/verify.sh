@@ -32,6 +32,10 @@ for key in ('source_manifest_sha256', 'sources_sha256', 'baseline_sha256', 'quar
 if v3['source_version'] != 3 or not (1 <= v3['hyperparameters']['epochs'] <= 3 and
                                    v3['hyperparameters']['gate_min_acc'] >= .8):
     raise ValueError('invalid bounded v3 configuration')
+for name in ('SENTIMENT_ANALYSIS-v3.safetensors', 'v3-registration-ready.json',
+             'v3-source-manifest.json', 'v3-asset-notice.json'):
+    if not (root / 'model' / name).is_file():
+        raise ValueError('passing immutable release asset missing: ' + name)
 for name in ('LICENSE', 'NOTICE', 'DATA-SOURCES.md', 'SECURITY.md'):
     if not (root / name).is_file() or not (root / name).read_text().strip():
         raise ValueError('required standalone rights/threat-model artifact missing: ' + name)

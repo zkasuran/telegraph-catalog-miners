@@ -1,0 +1,68 @@
+{
+  "audit_used_for_selection": false,
+  "baseline_sha256": "4447b62214d6d735d8163fcdb13b86a5911f36b092f30c57cfbc4dfcf5b4630e",
+  "construction": "Upstream human emotion annotations, unanimous derived valence labels and constructed compositions/preferences. No human sentiment-preference review claimed.",
+  "family": "SENTIMENT_ANALYSIS",
+  "files": {
+    "audit": {
+      "groups_sha256": "d65a3ceaca4d6560f361c0fd0fcdf575a13aec09657103b1a544ef4786f2657c",
+      "independent_groups": 192,
+      "pairs": 576,
+      "sha256": "1bf3dcbe894da64d604f5a9f08fa662b2b65136e28525943cd6e8c118db1a057"
+    },
+    "train": {
+      "groups_sha256": "6f054be56b6568bf3d2c53a09821eb2ab83779116c16e30cebf41ffb8c6d559b",
+      "independent_groups": 768,
+      "pairs": 2304,
+      "sha256": "ff41f604f5d26dfbfc99714908e9ea3e8c3e067840404eafa632e4d418b89cbb"
+    },
+    "validation": {
+      "groups_sha256": "f6c612967623d4471f386016ccab4c6f317cd2e0c4bb806ee1166a9af4231158",
+      "independent_groups": 192,
+      "pairs": 576,
+      "sha256": "55f56f13e3c0793a80f6e991b9341bc6a3e46412545bf78b50e6293ca0b70e3b"
+    }
+  },
+  "grants_verified": true,
+  "independent_groups": 192,
+  "inventory": {
+    "distinct_comments": 58011,
+    "eligible_unanimous_comments": 11892,
+    "excluded": {
+      "not_unanimous_three_raters_or_bounded_source": 46119
+    },
+    "raw_rows": {
+      "goemotions_1.csv": 70000,
+      "goemotions_2.csv": 70000,
+      "goemotions_3.csv": 71225
+    },
+    "time_cutoffs": [
+      1548320220,
+      1548670926
+    ]
+  },
+  "normalized_overlap": 0,
+  "quarantine_sha256": "4211f234911287f734b8cdec42409d76e48fc1d07531b7c4ea92b8914374a854",
+  "schema_version": 1,
+  "scope": "High-agreement short English emotion-valence proxy. All Mixed texts and a subset of other labels are constructed compositions. Numeric confidence and reason correctness are not independently validated.",
+  "selection": {
+    "eligible": {
+      "audit/Negative": 328,
+      "audit/Neutral": 335,
+      "audit/Positive": 604,
+      "train/Negative": 2263,
+      "train/Neutral": 2348,
+      "train/Positive": 4040,
+      "validation/Negative": 400,
+      "validation/Neutral": 354,
+      "validation/Positive": 663
+    },
+    "excluded": {
+      "cross_time_entity_or_text": 478,
+      "prior_audit_or_uci_identity": 79
+    },
+    "quarantine_sha256": "4211f234911287f734b8cdec42409d76e48fc1d07531b7c4ea92b8914374a854"
+  },
+  "sources_sha256": "83d260a7a08c60195768a64e0ab8761a0dc644e93e10f084643686f13f451380",
+  "version": 3
+}

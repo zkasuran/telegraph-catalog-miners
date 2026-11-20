@@ -159,3 +159,13 @@ not a passing evaluator release. Its embedded upstream grants remain unchanged.
 The v3 source additions and newly trained delta additions use the same SAND terms,
 subject to the retained upstream Apache-2.0, MIT and source-data grants above.
 This continuation changes no prior recipient's grant.
+
+Passing v3 artifact boundary
+----------------------------
+SENTIMENT_ANALYSIS-v3.safetensors, SHA-256
+ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e,
+is the exact licensed delta produced by audit run 44723258067.
+Its original embedded grants remain unchanged. Our competitive additions retain
+SAND; upstream portions retain their original grants. Source statistics and source
+manifest portions derived from GoEmotions retain Apache-2.0. The immutable report
+and asset sidecar name their applicable grants. No prior recipient grant changes.

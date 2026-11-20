@@ -67,3 +67,15 @@ The v2 independent audit failed and is not reused as a new audit. V3 source
 labels still measure an emotion-valence proxy. Stronger rater agreement is not
 universal factual proof. No new neural quality or canonical win is claimed before
 the exact remote results and fresh node decision pass their unchanged gates.
+
+## Passing artifact release gate
+
+The immutable model, ready report and source manifest are byte-bound in the source
+gate. test_v3_release.py exercises the actual report and rejects altered hashes,
+missing formats/labels, below-floor accuracy, excessive shortcut baselines, false
+reference-runtime claims and nonfinite score bits. The exact model keeps every
+embedded upstream grant. No release test fits on audit data or loads a model.
+
+The published source audit passed. Live endpoint, receipt and canonical node
+qualification remain separate gates. The served executor source must match the
+audited serving_commit, not a modified runtime with a familiar model filename.

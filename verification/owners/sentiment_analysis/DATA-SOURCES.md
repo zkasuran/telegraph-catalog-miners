@@ -178,3 +178,26 @@ Immutable train-fitted length, overlap, answer-only and prompt-length/compositio
 histogram baselines are measured on the new audit. Frozen coefficients and source
 identities are bound in v3-config.json. Local source verification imports no
 neural framework. Only bounded public CPU jobs may fit or execute the model.
+
+## Passing v3 source audit and runtime artifact
+
+Actual run 44723258067 at bb1eb538a4308956bf5b27eac952d5487c985de6 completed
+training and the independent audit successfully. Model SHA-256:
+ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e.
+Immutable actual report SHA-256:
+fa0cb600acb55f4b8d5c597f1c8f9fe254b5084c66eab7d968037b508e54dbbd.
+
+The audit uses 192 independent groups and 576 contrasts per format. The formats
+share groups, not 1,728 independent originals. Actual reference accuracy:
+87.3264 percent JSON, 89.5833 percent prose and 81.25 percent bare label.
+The weakest per-label score is 74.3056 percent. Strongest train-fitted shortcut
+accuracy is 59.5486 percent. Length, overlap, answer-only, prompt length and prompt
+composition are all reported. The untrained comparison is an actual seed-matched
+fresh PyTorch adapter, not native scores mislabeled as node reference results.
+
+The report binds the real full parser, reference engine, three negative identity
+controls and eight actual fixed vectors with identical repeat bits. All 3,456
+actual reference scores were independently recomputed to the reported aggregates.
+Audit did not select or change the model. Its exact bytes and source grants are
+published unchanged. Serving uses the identical executor source at the audited
+commit. Canonical qualification still requires a fresh matching node result.

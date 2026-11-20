@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+# Passing v3 artifact binds audit run 44723258067 and executor source bb1eb538a4308956bf5b27eac952d5487c985de6.
+# Serving that artifact dispatches the audited source, not a changed executor.
 name: Sentiment owner qualification
 run-name: Sentiment owner ${{ inputs.mode }}
 on:
@@ -16,6 +18,7 @@ on:
         type: string
         default: ''
       package_url:
+        description: Exact immutable licensed package from the successful audit
         type: string
         default: ''
       package_sha256:

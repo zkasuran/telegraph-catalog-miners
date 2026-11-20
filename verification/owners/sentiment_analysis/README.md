@@ -1,14 +1,16 @@
-# Recover and qualify the frozen sentiment scorer
+# Score short English sentiment with a verified delta
 
-This pipeline preserves the useful trained SENTIMENT_ANALYSIS scorer and repairs
-registration identity without changing its learned function. The original real
-source-held-out runtime measured 87.89 percent JSON, 88.67 percent prose and
-91.02 percent bare-label pairwise accuracy on the same 256 Yelp originals.
-These are retained source measurements, not a current node qualification claim.
+This pipeline ranks Positive, Negative, Neutral and Mixed sentiment claims with
+the pinned ModernBERT reference engine. The current source audit measured
+87.33 percent JSON, 89.58 percent prose and 81.25 percent bare-label pairwise
+accuracy on 192 independent groups. Its exact licensed delta and report are
+published unchanged. Canonical node qualification is a separate live gate.
+
+## Preserved recovery history
 
 Registration 118 failed before download because the endpoint echoed a 0x-prefixed
 adapter hash. The reviewed front end now emits the node's literal bare hash.
-This export adds only one ignored x-registration-recovery field so the reserved
+The original recovery export adds only one ignored x-registration-recovery field so the reserved
 old hash is not reused. Every original model field, grant, tensor descriptor and
 payload byte is checked unchanged.
 
@@ -95,7 +97,7 @@ and select only on validation, then independently audit the frozen candidate usi
 the actual pinned reference engine. Every completed best epoch preserves a licensed
 checkpoint. A failed audit emits no registration-ready report.
 
-The new model has not yet passed a neural audit or node qualification. Reason
+At that source checkpoint, the new model had not passed a neural audit or node qualification. Reason
 correctness, numeric confidence and natural Mixed generalization are not claimed.
 
 ## V3 source continuation
@@ -110,4 +112,20 @@ composition controls for every label. It selects only on three-format validation
 starting with the weakest label. The new independent audit uses 192 disjoint
 groups. Length, overlap, answer-only and prompt composition shortcuts are measured,
 not assumed absent. The local gate preserves all previous 27 tests and adds eight
-new controls. New neural quality and canonical qualification are still pending.
+new controls. The original v3 source checkpoint preceded its neural audit.
+
+## Passing v3 artifact
+
+The actual independent audit in run 44723258067 passed: 87.33 percent JSON,
+89.58 percent prose and 81.25 percent bare-label accuracy. All four labels passed
+their unchanged floor. These formats share 192 independent source groups.
+
+The exact delta and report are under model/. The source gate verifies their
+hashes, original grants and complete quality/runtime contract without model
+loading. It now runs 38 tests. The model still measures a short English
+emotion-valence proxy, with constructed Mixed examples. Reason correctness and
+numeric calibration remain unverified. A source-audit pass is not a canonical win.
+
+Serving and registration use those exact immutable bytes and the identical
+audited executor commit. No retraining, restamping or audit-led model change is
+part of this release. The live node remains the authority on qualification.
