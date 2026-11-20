@@ -116,6 +116,9 @@ def main():
     from train_capacity import smoke as capacity_smoke
     expanded_capacity = capacity_policy(recipe)
     capacity_smoke(expanded_capacity, root)
+    from source_margin import source_margin_policy
+    from train_source_margin import smoke as source_margin_smoke
+    source_margin_smoke(source_margin_policy(recipe), root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     from tokenizers import Tokenizer

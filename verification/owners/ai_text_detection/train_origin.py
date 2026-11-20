@@ -125,6 +125,10 @@ class OriginAuxiliary:
             raise ValueError("origin head changed the expected learned adapter tensor inventory")
 
     def loss(self, view):
+        loss, correct, _ = self.loss_with_logit(view)
+        return loss, correct
+
+    def loss_with_logit(self, view):
         remote_only()
         torch = self.torch
         encoded = self.tok(view["input"], truncation=False, return_tensors="pt")
@@ -136,7 +140,7 @@ class OriginAuxiliary:
         loss = torch.nn.functional.binary_cross_entropy_with_logits(logit, torch.full_like(logit, target))
         if not torch.isfinite(loss).all():
             raise ValueError("nonfinite source-origin loss")
-        return loss, int((logit.detach().item() > 0) == bool(view["human"]))
+        return loss, int((logit.detach().item() > 0) == bool(view["human"])), logit
 
     def save(self):
         remote_only()

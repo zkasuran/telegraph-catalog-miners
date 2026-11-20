@@ -54,7 +54,7 @@ def main():
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
                 raise ValueError("neural import in local release path")
-    for name in ("secondary_contract.py", "test_secondary.py", "generation_resume.py", "test_generation_resume.py", "test_minimal_verdict.py"):
+    for name in ("secondary_contract.py", "test_secondary.py", "generation_resume.py", "test_generation_resume.py", "test_minimal_verdict.py", "source_margin.py", "test_source_margin.py"):
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
@@ -75,6 +75,8 @@ def main():
     expanded_sha, _, _, _ = expanded_source_bundle()
     from generation_resume import generation_policy, retained_prefix
     generation_policy(recipe)
+    from source_margin import source_margin_policy
+    source_margin_policy(recipe)
     if recipe.get("secondary_bare_groups") != 2 or type(recipe["secondary_bare_groups"]) is not int:
         raise ValueError("fixed two-group secondary minimal-verdict supervision required")
     retained_prefix((HERE / "recovery/secondary-prefix.jsonl").read_bytes(), json.loads((HERE / "recovery/secondary-prefix-producer.json").read_text()))

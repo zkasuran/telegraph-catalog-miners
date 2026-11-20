@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "fixed-secondary-minimal-verdict-supervision-v20",
+  "name": "bounded-detached-source-margin-consistency-v21",
   "checkpoint_sha256": "05d0d605cbe0e4f05af43f0e15562fbba6d3d5b41d45846b38b495f51b230b6f",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -134,5 +134,16 @@
     "word_gate_changed": false,
     "audit_used": false
   },
-  "secondary_bare_groups": 2
+  "secondary_bare_groups": 2,
+  "source_margin_consistency": {
+    "coefficient": 0.1,
+    "beta": 1.0,
+    "target_min": 0.25,
+    "target_max": 6.0,
+    "teacher_detached": true,
+    "source_labels_unchanged": true,
+    "scope": "existing_training_rows",
+    "runtime_transform": false,
+    "audit_used": false
+  }
 }

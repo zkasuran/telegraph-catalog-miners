@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+Minimal-verdict supervision passed all data and gradient controls but did not
+improve strict validation. The next fixed training term ties each correct-verdict
+margin to a bounded, detached source-readout target on the same1008 rows. It keeps
+every original loss, source label and acceptance gate. The fitted readout is not
+independent evidence and does not enter the served executor. New neural benefit
+and independent runtime quality are unverified until actual CPU measurement.
+
 Generation recovery completed64 groups and25 token-prefix controls, with the
 39-group prefix unchanged. The1008-row data gate passed, but strict model quality
 still failed and the audit stayed sealed. The current candidate restores that

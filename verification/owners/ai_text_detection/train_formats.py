@@ -83,6 +83,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     from margin_contract import margin_policy
     from train_margin import alignment
     aligned_policy = margin_policy(recipe)
+    from source_margin import source_margin_policy
+    from train_source_margin import consistency
+    source_consistency_policy = source_margin_policy(recipe)
     parameters = [p for p in model.parameters() if p.requires_grad]
     parameters += list(origin_aux.head.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
@@ -131,6 +134,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         origin_losses, origin_correct = 0.0, 0
         counterpart_gap = 0.0
         margin_loss_total = 0.0
+        source_consistency_total = 0.0
         for i, batch in enumerate(loader):
             chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
@@ -139,8 +143,12 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
             pair_values, point_values = [], []
             for j, text_id in enumerate(batch["source_text_ids"]):
                 raw_loss, pair_loss, point_loss = loss_components(chosen[j:j+1], rejected[j:j+1], batch["margin"][j:j+1], objective, trainer)
-                origin_loss, correct = origin_aux.loss(origin_aux.by_original_id[text_id])
-                row_losses.append(raw_loss * weight + origin_aux.policy["coefficient"] * origin_loss)
+                view = origin_aux.by_original_id[text_id]
+                origin_loss, correct, source_logit = origin_aux.loss_with_logit(view)
+                source_consistency = consistency(chosen[j:j+1], rejected[j:j+1], source_logit, view["human"], source_consistency_policy)
+                row_losses.append(raw_loss * weight + origin_aux.policy["coefficient"] * origin_loss +
+                    source_consistency_policy["coefficient"] * source_consistency)
+                source_consistency_total += source_consistency.item()
                 pair_values.append(pair_loss.item())
                 point_values.append(point_loss.item())
                 origin_losses += origin_loss.item()
@@ -164,6 +172,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         supplementary_correctness_loss = 0.0
         supplementary_margin_loss = 0.0
         secondary_loss, secondary_correct = 0.0, 0
+        extra_source_consistency_total = 0.0
         optimizer.zero_grad(set_to_none=True)
         for i, group in enumerate(supplement_batches):
             preference_group = supplementary_by_view[group[0]["view_id"]]
@@ -172,20 +181,28 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
             extra_rejected = trainer._reward(model, preference_batch["rejected_input_ids"], preference_batch["rejected_attention_mask"])
             terms = []
             source_losses = {}
+            source_logits = {}
+            source_roles = {}
             for view in group:
-                source_loss, correct = origin_aux.loss(view)
+                source_loss, correct, source_logit = origin_aux.loss_with_logit(view)
                 supplementary_loss += source_loss.item()
                 supplementary_correct += correct
                 if i >= 64:
                     secondary_loss += source_loss.item()
                     secondary_correct += correct
                 source_losses[view["text_id"]] = source_loss
+                source_logits[view["text_id"]] = source_logit
+                source_roles[view["text_id"]] = view["human"]
             for j, row in enumerate(preference_group):
                 raw_loss, pair_loss, point_loss = loss_components(extra_chosen[j:j+1], extra_rejected[j:j+1],
                     preference_batch["margin"][j:j+1], objective, trainer)
                 phase_weight = secondary_weight_by_id[row["text_id"]] if i >= 64 else 1.0
+                source_consistency = consistency(extra_chosen[j:j+1], extra_rejected[j:j+1], source_logits[row["text_id"]],
+                    source_roles[row["text_id"]], source_consistency_policy)
                 terms.append(supplementary_policy["pair_coefficient"] * phase_weight * raw_loss +
-                    origin_aux.policy["coefficient"] * source_losses[row["text_id"]])
+                    origin_aux.policy["coefficient"] * source_losses[row["text_id"]] +
+                    source_consistency_policy["coefficient"] * source_consistency)
+                extra_source_consistency_total += source_consistency.item()
                 supplementary_pair_loss += pair_loss.item()
                 supplementary_correctness_loss += point_loss.item()
             extra_margin_loss = alignment(extra_chosen, extra_rejected)
@@ -243,6 +260,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                     "secondary_preference_rows_sha256": secondary_binding["preference_rows_sha256"],
                     "secondary_training_weight_policy": secondary_weight_policy,
                     "secondary_new_bare_rows": secondary_binding["new_bare_rows"],
+                    "source_margin_consistency_policy": source_consistency_policy,
+                    "original_source_margin_loss": source_consistency_total / 752,
+                    "extra_source_margin_loss": extra_source_consistency_total / 256,
                     "supplement_preference_policy": supplementary_policy,
                     "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,

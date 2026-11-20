@@ -2,6 +2,12 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+Detached source-margin consistency is our training-only addition under SAND,
+subject to retained PyTorch and all original source/model grants. Its bounded
+targets come from the existing fitted source readout and recorded source labels,
+not human review or independent source truth. No new text/source annotation,
+evaluation material, runtime score transform or acceptance waiver is introduced.
+
 The completed secondary generation of public run44789054038 is restored exactly
 with its original source/model/producer/journal bindings, not generated again.
 Two fixed secondary article groups supply additional literal verdict comparisons

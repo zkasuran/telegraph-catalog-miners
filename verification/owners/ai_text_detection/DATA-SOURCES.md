@@ -1,5 +1,34 @@
 # Sources and rights
 
+## Detached source-margin training consistency
+
+Run44797766046 passed all original/combined data and task-head gradient controls
+but retained the starting state after strict validation loss. Bare accuracy stayed
+82.81%. The separate native source readout reached85.9375%, but this diagnostic is
+not independent truth, candidate selection or a reference-engine score. No audit
+was consumed. All failed artifacts and exact source/generation bytes remain.
+
+The next training-only loss uses the same existing source annotation and learned
+readout. For source logit z and recorded origin sign s it defines a detached target
+`t = clamp(2 * Softplus(s*z), 0.25, 6)` and adds fixed0.1 times
+`SmoothL1(chosen-rejected, t, beta=1)`. The positive floor means an incorrect teacher
+cannot reverse the original preference. The upper bound limits training pressure.
+The target is invariant to exchanging origin names and negating the source logit.
+It is a fitted training aid, not a new source annotation or human preference.
+
+Every existing pair, correctness, source-origin, counterpart and paired-margin
+loss remains. No new row, source, answer string, runtime transform or threshold
+change is introduced. Teacher gradients are detached only for this new term;
+the original source BCE still trains that readout and adapted encoder. Existing
+weighting, model, learning rate, source/entity/time splits and audit seal remain.
+Actual tensor/gradient/refusal controls and model benefit run only remotely.
+
+[TORCH-SOFTPLUS-2.15] The primary API defines beta1 Softplus as log(1+exp(x)) and
+uses a linear branch above threshold20 for numerical stability. Existing
+[TORCH-SMOOTHL1-2.15] defines the fixed beta1 consistency loss. Original PyTorch
+grant/attribution remain in PYTORCH-LICENSE; no upstream implementation is bundled.
+https://docs.pytorch.org/docs/2.15/generated/torch.nn.Softplus.html
+
 ## Fixed secondary minimal-verdict supervision
 
 Run44789054038 completed all64 source groups, retained the exact39-group prefix

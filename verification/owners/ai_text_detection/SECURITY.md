@@ -10,6 +10,8 @@
 | Secondary generator silently rerolls | Existing-output refusal and fixed source seeds/count/time caps | Local invocation refusal; actual generation/control results are remote-only |
 | More bare training defeats repeated-negative controls | Two fixed whole secondary groups and unchanged actual/worst-case gates | Actual1008-row repeated-negative and worst-case<=0.10 controls |
 | Format specialization biases an origin or rescales outputs | Weight16 symmetric on paired origins, actual mean normalization, runtime unchanged | Secondary weight balance test and all prior literal wire/quality controls |
+| A fitted teacher reverses source labels or changes runtime scores | Positive bounded detached training target, original labels/losses retained | Scalar wrong-teacher/origin-swap/policy refusals; literal runtime unchanged |
+| Teacher receives hidden gradient or nonfinite target | CPU FP32 batch-one shape/finite checks, detach,0.25-6 bound | Prepared remote value/gradient/shape/dtype/nonfinite/origin controls |
 | Completed generation is rerolled for a better result | Immutable full data/producer/journal lineage restored before neural imports | Actual completed-generation SHA/prefix/source checks |
 | Generator loses successful rows during recovery | Immutable39-group byte prefix with exact producer/source binding | Real retained-byte/grant/excerpt tests and producer corruption refusals |
 | More tokens are presented as guaranteed word coverage | Word gate stays24; remaining budget fixed128 with actual64-prefix controls | Short-word refusal remains, token prefix has positive/negative controls |
@@ -78,6 +80,11 @@ older training blocks. Generated rows are unbuilt until the real public CPU step
 Source-only generation fixtures are structural tests, never training material.
 The original baseline and every quality/runtime gate remain. No additive source
 publication is a model-quality or canonical-registration claim.
+
+Source-margin consistency uses an unexported fitted readout only during legitimate
+training. Its scores are not source truth, human review, calibrated probabilities
+or an independent audit. This term never opens held-out audit rows or modifies a
+served score. The old losses and all source/data/quality/runtime gates remain.
 
 Known limits: pretraining overlap is unknown. Journal controls do not certify an
 individual's production history. DistilGPT2 is related to GPT-2. A source-held-out
