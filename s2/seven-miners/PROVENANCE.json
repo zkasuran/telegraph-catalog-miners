@@ -31,27 +31,52 @@
     },
     {
       "path": "DATA-SOURCES.md",
-      "sha256": "dd2b05daddc8fdfb6103f1e129ec21c456219ba131345ea2f2cc520a2c81a300",
+      "sha256": "e9236d382e1d408c6d3437148862f9c6c38085e68340d11c833b3205564a6a81",
       "lineage": "own"
     },
     {
       "path": "SECURITY.md",
-      "sha256": "9f865eeb359705bd6113c6ab641eb2493d920c74437a0470ad80d11c4e2466eb",
+      "sha256": "6e8e6af0beba34db2393a723f784c266f878dc5a270732d22f07cf85f5027962",
       "lineage": "own"
     },
     {
       "path": "README.md",
-      "sha256": "1efd47a2ebd41ea49e5529fb5ff6623d868848382f1e905aabf3a98d3197f621",
+      "sha256": "3683701f6387b7260da4dd4164a6c275af47f13538dc4d6425395c52d9e873ff",
       "lineage": "own"
     },
     {
       "path": "verify.py",
-      "sha256": "0e447b0feadbb329ea58df6f764609b3966801b23a8820a5caf24756ef88920e",
+      "sha256": "a24bddc7f6b84e784915b5dc90fc303c6cc41f592d5e175e35be73489e522abb",
       "lineage": "own"
     },
     {
       "path": "verify.sh",
-      "sha256": "9eb86217780fcd0a0d90fd93f5db41cf5002e925be46fc6780e797d3852448e1",
+      "sha256": "803a19660a5a8efed7abd143cb4ba1076910dcdcbcef5ac50b790aec9747ed9e",
+      "lineage": "own"
+    },
+    {
+      "path": "chat.mjs",
+      "sha256": "5c53859a76f2c976c0cc949ff33ebe9158f396c31a43eb0e8184b8b6b6eb82d1",
+      "lineage": "own"
+    },
+    {
+      "path": "chat-router.mjs",
+      "sha256": "c3c53ed2c74794bcc3980710852d7a8052421b2b10eef0200a978868c69a88f1",
+      "lineage": "own"
+    },
+    {
+      "path": "chat.test.mjs",
+      "sha256": "a7729a2ffb93d3195d4e32435b545992db7c05e50b9555a731a1e537c232322b",
+      "lineage": "own"
+    },
+    {
+      "path": "chat-init.sql",
+      "sha256": "91a0e3b740816039bdcafbadec4fd1dabd45892434e340dd4d9d881938c1b672",
+      "lineage": "own"
+    },
+    {
+      "path": "chat-completion.yaml",
+      "sha256": "26269486b9f639732390ce9ebf9d3f52d73aec82675278d4f76ea47618f86ae5",
       "lineage": "own"
     }
   ]

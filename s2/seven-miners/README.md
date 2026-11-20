@@ -1,10 +1,21 @@
-# Read digital allocation stock
+# Ask questions and read digital stock
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 
-This miner returns current availability from the primary controlled digital
+The stock miner returns current availability from the primary controlled digital
 allocation store. It subtracts reservations from on-hand inventory, binds the
 merchant, SKU and location and reports read time separately from mutation time.
+
+The chat miner returns a generated reply, a verdict and an at-most-80-character
+brief. It reserves each attempt in a primary D1 budget before calling the model.
+At most twenty attempts per UTC day are allowed across all callers. No web
+retrieval, independent fact verification or calibrated forecast is claimed.
+
+```bash
+curl --fail --max-time 55 --get \
+  'https://telegraph-text.margyn.workers.dev/miners/v3/chat' \
+  --data-urlencode 'message=What is the sum of 23 and 19?'
+```
 
 ## Try the service
 
@@ -26,7 +37,8 @@ on-chain answer delivery are separate states. No ranking or adoption is claimed.
 |---|---|
 | Inventory | Owner-operated digital allocations in primary D1 |
 | Available quantity | Current on-hand minus reservations |
-| Tests | Nine independent tests with generated states and hostile inputs |
+| Stock tests | Nine independent tests with generated states and hostile inputs |
+| Chat tests | Ten tests for contracts, provider failures, budget and sibling routing |
 | Runtime source | Two byte-identical modules captured from the deployed Worker |
 | Physical stock or external retailers | Not supported |
 | Canonical comparison | Waiting for owner-defined format |
@@ -43,6 +55,11 @@ The gate checks descriptor keys, a deliberately invalid descriptor, runtime synt
 source hashes, generated allocation conservation, identity and time refusals and
 the real handler against an independent primary-session fixture. Live HTTP checks
 are recorded separately because they depend on current network/database state.
+The same gate runs chat controls and exercises the exact quota SQL on independent
+SQLite state. `chat-completion.yaml` declares `CHAT_COMPLETION_GENERAL` and maps
+all three canonical fields. `chat-router.mjs` mounts the new path while delegating
+existing Worker requests unchanged. Existing text data modules are not republished
+as part of this package.
 
 See [SECURITY.md](SECURITY.md), [DATA-SOURCES.md](DATA-SOURCES.md) and
 [PROVENANCE.json](PROVENANCE.json). Source is under [LICENSE](LICENSE).

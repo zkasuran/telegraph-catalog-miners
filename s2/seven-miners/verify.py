@@ -5,6 +5,8 @@ The descriptor is emitted in YAML's JSON subset, so only the stdlib is needed.
 import hashlib
 import json
 from pathlib import Path
+import re
+import sqlite3
 
 ROOT = Path(__file__).resolve().parent
 
@@ -36,6 +38,19 @@ if __name__ == "__main__":
     assert raw.startswith(b"# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0\n")
     value = json.loads(raw.split(b"\n", 1)[1])
     validate(value)
+    chat = json.loads((ROOT / "chat-completion.yaml").read_bytes().split(b"\n",1)[1])
+    assert chat["id"] == 202611202 and chat["slug"] == "zkasuran-s2-chat"
+    assert chat["semantics"]["supported_intents"] == ["CHAT_COMPLETION_GENERAL"]
+    assert chat["endpoints"][0]["external_path"] == "/miners/v3/chat"
+    assert chat["endpoints"][0]["params"]["query"]["required"][0]["name"] == "message"
+    assert set(chat["intent_mapping"]["CHAT_COMPLETION_GENERAL"]["output"]) == {"reply","verdict","brief"}
+    sql = re.search(r"QUOTA_SQL = `([^`]+)`",(ROOT / "chat.mjs").read_text())[1]
+    with sqlite3.connect(":memory:") as db:
+        db.executescript((ROOT / "chat-init.sql").read_text())
+        admitted = [row[0] for _ in range(35) if (row := db.execute(sql).fetchone())]
+        assert admitted == list(range(1,21))
+        assert db.execute("SELECT count(*),sum(calls) FROM s2_chat_quota").fetchone() == (1,20)
+        assert db.execute(sql).fetchone() is None
     # Prove a forbidden endpoint-local schema cannot pass this gate.
     bad = json.loads(json.dumps(value))
     bad["endpoints"][0]["input_schema"] = {}
@@ -50,4 +65,4 @@ if __name__ == "__main__":
     for item in provenance["files"]:
         assert item["lineage"] == "own"
         assert hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest() == item["sha256"]
-    print("PASS: descriptor allowlist, negative control and deployed source hashes")
+    print("PASS: descriptors, actual persistent-budget SQL, negative control and source hashes")

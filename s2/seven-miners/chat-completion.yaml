@@ -1,0 +1,136 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611202,
+  "slug": "zkasuran-s2-chat",
+  "protocol": "generic",
+  "name": "Bounded Chat Answers",
+  "description": "Generated chat answers with canonical reply, verdict and brief fields. A persistent twenty-call daily budget bounds the shared subscription. Answers are not independently verified facts or calibrated forecasts.",
+  "base_url": "https://telegraph-text.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/chat",
+      "external_path": "/miners/v3/chat",
+      "method": "GET",
+      "description": "Answer the supplied message. One required message string, normalized Unicode, at most 256 UTF-8 bytes. Returns reply, verdict and an at-most-80-character brief. No web search is performed.",
+      "intents": [
+        "CHAT_COMPLETION_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "message",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "The message or question, at most 256 UTF-8 bytes."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "semantics": {
+    "supported_intents": [
+      "CHAT_COMPLETION_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "brief",
+      "reason_field": "reply"
+    }
+  },
+  "intent_mapping": {
+    "CHAT_COMPLETION_GENERAL": {
+      "endpoint": "/chat",
+      "input": {
+        "message": {
+          "from": "message"
+        }
+      },
+      "output": {
+        "reply": {
+          "path": "reply"
+        },
+        "verdict": {
+          "path": "verdict"
+        },
+        "brief": {
+          "path": "brief"
+        }
+      }
+    }
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "message"
+    ],
+    "properties": {
+      "message": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "required": [
+      "reply",
+      "verdict",
+      "brief",
+      "ai_generated"
+    ],
+    "properties": {
+      "reply": {
+        "type": "string"
+      },
+      "verdict": {
+        "type": "string",
+        "enum": [
+          "Likely",
+          "Unlikely",
+          "Uncertain"
+        ]
+      },
+      "brief": {
+        "type": "string",
+        "maxLength": 80
+      },
+      "ai_generated": {
+        "type": "boolean"
+      }
+    }
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "Message is at most 256 UTF-8 bytes.",
+      "param": "message",
+      "property": "size_bytes",
+      "value_bytes": 256,
+      "operator": "lte"
+    },
+    {
+      "code": "ACCOUNT_QUOTA",
+      "message": "At most twenty attempts per UTC day, shared by all callers.",
+      "property": "rate",
+      "value_num": 20,
+      "window_seconds": 86400
+    }
+  ],
+  "errors": {
+    "message_path": "error"
+  },
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  }
+}
