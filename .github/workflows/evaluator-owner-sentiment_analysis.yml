@@ -1,0 +1,118 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Frozen sentiment owner qualification
+run-name: Sentiment owner ${{ inputs.mode }}
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        required: true
+        default: audit
+        options: [audit, serve]
+      audit_run_id:
+        type: string
+        default: '0'
+      report_sha256:
+        type: string
+        default: ''
+      package_url:
+        type: string
+        default: ''
+      package_sha256:
+        type: string
+        default: ''
+      package_keccak:
+        type: string
+        default: ''
+      slot:
+        type: string
+        default: '0'
+      forward_port:
+        type: string
+        default: '0'
+      runnable_url:
+        type: string
+        default: ''
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: owner-sentiment-analysis-${{ inputs.mode }}
+  cancel-in-progress: false
+jobs:
+  frozen:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MODE: ${{ inputs.mode }}
+      AUDIT_RUN_ID: ${{ inputs.audit_run_id }}
+      REPORT_SHA: ${{ inputs.report_sha256 }}
+      PACKAGE_URL: ${{ inputs.package_url }}
+      PACKAGE_SHA: ${{ inputs.package_sha256 }}
+      PACKAGE_KECCAK: ${{ inputs.package_keccak }}
+      SLOT: ${{ inputs.slot }}
+      FORWARD_PORT: ${{ inputs.forward_port }}
+      RUNNABLE_URL: ${{ inputs.runnable_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: verification/owners/sentiment_analysis
+      - name: Exact packaged source-only gate
+        timeout-minutes: 3
+        run: bash verification/owners/sentiment_analysis/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Hash-locked CPU environment for authoritative tokenizer
+        if: inputs.mode == 'audit'
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/owner-venv"
+          "$RUNNER_TEMP/owner-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/sentiment_analysis/requirements.lock
+          "$RUNNER_TEMP/owner-venv/bin/python" -m pip check
+      - name: Frozen source-held-out audit and actual old/new engine reproduction
+        if: inputs.mode == 'audit'
+        timeout-minutes: 290
+        run: timeout --signal=TERM --kill-after=20s 17100 "$RUNNER_TEMP/owner-venv/bin/python" verification/owners/sentiment_analysis/remote.py --root "$RUNNER_TEMP/sentiment-owner"
+      - name: Publish bounded actual audit artifact
+        if: always() && inputs.mode == 'audit'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: audit-SENTIMENT_ANALYSIS-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/sentiment-owner/registration-ready.json
+            ${{ runner.temp }}/sentiment-owner/actual-quality.json
+            ${{ runner.temp }}/sentiment-owner/byte-preservation.json
+            ${{ runner.temp }}/sentiment-owner/data/source-manifest.json
+            ${{ runner.temp }}/sentiment-owner/SENTIMENT_ANALYSIS-recovery.safetensors
+            ${{ runner.temp }}/sentiment-owner/failure.json
+      - name: Fetch the real completed audit report with a step-scoped token
+        if: inputs.mode == 'serve'
+        timeout-minutes: 5
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 verification/owners/sentiment_analysis/fetch_report.py --root "$RUNNER_TEMP/sentiment-owner" --audit-run-id "$AUDIT_RUN_ID" --report-sha256 "$REPORT_SHA"
+      - name: Prepare exact passing model and restricted public lease
+        if: inputs.mode == 'serve'
+        timeout-minutes: 35
+        run: python3 verification/owners/sentiment_analysis/serve.py prepare --root "$RUNNER_TEMP/sentiment-owner" --package-url "$PACKAGE_URL" --package-sha256 "$PACKAGE_SHA" --package-keccak "$PACKAGE_KECCAK" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL"
+      - name: Upload only the restricted public lease
+        if: inputs.mode == 'serve'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lease-SENTIMENT_ANALYSIS-${{ github.run_id }}
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/sentiment-owner/lease.json
+      - name: Keep the exact actual reference executor served
+        if: inputs.mode == 'serve'
+        timeout-minutes: 305
+        run: timeout --signal=TERM --kill-after=20s 18120 python3 verification/owners/sentiment_analysis/serve.py run --root "$RUNNER_TEMP/sentiment-owner"

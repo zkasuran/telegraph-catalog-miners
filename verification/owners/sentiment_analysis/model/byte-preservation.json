@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "recovery_id": "c34ec3fdb79b4839bcc08b509edb0e9c",
+  "origin_sha256": "f2eefcc7b7fd807bcbd260d97c8b3b0a6b50276199b475131df968a5b60d43d9",
+  "package_sha256": "56d98a41e68fe8f66356fe3fe0a28984278bd0d241c68f93734fe7d8b60f14eb",
+  "package_bytes": 6798519,
+  "tensor_payload_sha256": "967f9a1774da23799457da0daa9b91492d6d1d71cfa805a7fab4ac972c21d857",
+  "all_original_metadata_retained": true,
+  "all_tensor_descriptors_retained": true,
+  "all_tensor_bytes_retained": true,
+  "upstream_grants_retained": true,
+  "model_loaded": false,
+  "lineage": "own trained delta; ignored registration metadata only, not a foreign binary wrap",
+  "original_training_run": 44266324976,
+  "original_runtime_run": 44441475723,
+  "runtime_reproduction": "pending bounded public CPU workflow"
+}
