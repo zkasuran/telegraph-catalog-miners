@@ -48,7 +48,7 @@ def main():
     if "--hash=sha256:" not in lock or "torch==2.15.0+cpu" not in lock:
         raise ValueError("hash-locked CPU dependencies missing")
     # A source gate must not import a neural package directly or indirectly.
-    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "development_contract.py", "window_contract.py", "training_weights.py", "objective_contract.py", "augmentation_contract.py", "origin_contract.py", "coupled_contract.py", "reference_data_split.py", "preserve.py", "test_source.py", "static_check.py")
+    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "development_contract.py", "window_contract.py", "training_weights.py", "objective_contract.py", "augmentation_contract.py", "origin_contract.py", "coupled_contract.py", "supplement_contract.py", "reference_data_split.py", "preserve.py", "test_source.py", "static_check.py")
     for name in local:
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
@@ -77,6 +77,12 @@ def main():
     origin_policy(recipe)
     from coupled_contract import coupled_policy
     coupled_policy(recipe)
+    from supplement_contract import source_bundle
+    bundle_sha, _, _ = source_bundle()
+    if recipe.get("training_source_bundle_sha256") != bundle_sha or recipe.get("supplement") != {
+            "independent_groups": 64, "source_only_rows": 128, "optimizer_steps_per_epoch": 16,
+            "scope": "training_origin_only", "original_preference_rows": 752, "audit_used": False}:
+        raise ValueError("independent source supplement is unbound or unbounded")
     origin_checkpoint = Path(recipe["origin_checkpoint_file"])
     if origin_checkpoint.is_absolute() or ".." in origin_checkpoint.parts or origin_checkpoint.parts[0] != "recovery" or origin_checkpoint.suffix != ".safetensors":
         raise ValueError("source readout checkpoint must stay in owned recovery namespace")

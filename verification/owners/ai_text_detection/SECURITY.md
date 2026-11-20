@@ -22,6 +22,9 @@
 | Harder-origin loss becomes an origin prior | Paired mean plus absolute counterpart gap is role-symmetric | Origin swap and bounded-loss controls |
 | Group batching drops rows or changes accumulation silently | Exact view partition and eight literal rows per optimizer update | Actual 752-row/376-view population smoke |
 | Readout resume changes or loses learned state | Exact source-bound checkpoint bytes and remote tensor equality | Model/readout byte and shape refusals |
+| New training articles leak held-out entities | Fixed pre-2015 dates and existing/retired author/source exclusion | Supplement source/entity/date/grant refusals |
+| Extra data hides a changed preference population | Separate source-only phase with explicit row/update counts | Original 752-pair preservation and supplement role checks |
+| Composite source identity omits new grants | Bundle hashes both manifests; source attribution in package/checkpoints | Manifest and generated-byte bindings |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -98,3 +101,10 @@ remain licensed and the auxiliary head remains outside the production adapter.
 Source-coupled tensor gradients are remote controls, not independent quality or
 node evidence. A native 81.25% aggregate can still fail per-label and shortcut
 margins; those stricter checks are never replaced by the aggregate verdict.
+
+Independent source growth does not authorize audit reuse or weaker thresholds.
+The original preference rows and held-out source blocks are immutable. Additional
+articles train source-origin features only after original-XML/grant verification
+and actual fixed-seed generation. Their source-only optimizer updates are reported
+separately. Source bundle hashes, generator output hashes and original producer
+identities remain distinct. A source-only fixture never becomes generated data.

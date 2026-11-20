@@ -23,6 +23,7 @@ from augmentation_contract import validate_restored
 from origin_contract import check_origin_training, origin_policy, raw_origin_view, equal_byte_views, fit_length, length_accuracy
 from common import pair_data_shortcuts_ok
 from coupled_contract import coupled_policy, source_groups, scalar_coupled
+from supplement_contract import validate_sources, source_bundle, validate_generation
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -46,6 +47,52 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_independent_source_supplement_has_original_grants_and_no_role_overlap(self):
+        _, extra, base = source_bundle()
+        self.assertEqual(len(validate_sources(extra, base)), 64)
+        for field, value in (("split", "test"), ("year", 2016), ("grant_clause", "unlicensed")):
+            changed = copy.deepcopy(extra)
+            changed["articles"][0][field] = value
+            with self.assertRaises(ValueError):
+                validate_sources(changed, base)
+        changed = copy.deepcopy(extra)
+        changed["articles"][0]["author_ids"] = base["source_report"]["articles"]["validation"][0]["author_ids"]
+        with self.assertRaises(ValueError):
+            validate_sources(changed, base)
+
+    def test_supplement_generation_structural_fixtures_and_corruptions(self):
+        bundle_sha, extra, base = source_bundle()
+        records = []
+        # Explicit structural fixtures only, never written as actual generated data.
+        for row in extra["articles"]:
+            decoded = " ".join("fixture" + row["group_id"][:5] + str(i) for i in range(24))
+            human, machine, _ = audit_excerpts(row["human_text"], decoded)
+            common = {"source_id": row["source_id"], "group_id": row["group_id"], "split": "train",
+                      "year": row["year"], "source_sha256": row["sha256"], "fixture_only": True}
+            records += [{**common, "origin": "human_control", "text": human},
+                        {**common, "origin": "synthetic", "text": machine, "generator": "gpt2",
+                         "generator_weight_sha256": base["generators"]["gpt2"]["weight_sha256"]}]
+        raw = "".join(json.dumps(r) + "\n" for r in records).encode()
+        report = {"output_sha256": sha(raw), "extra_source_manifest_sha256": sha((HERE / "extra-training-sources.json").read_bytes()),
+                  "source_bundle_sha256": bundle_sha, "audit_used": False}
+        views = validate_generation(raw, report, extra, base, [])
+        self.assertEqual(len(views), 128)
+        self.assertEqual(length_accuracy(views, fit_length(views)), 0.5)
+        with self.assertRaises(ValueError):
+            validate_generation(raw + b"x", report, extra, base, [])
+        with self.assertRaises(ValueError):
+            validate_generation(raw, report, extra, base, [{"text_id": views[0]["text_id"]}])
+        broken = copy.deepcopy(records)
+        broken[0]["split"] = "test"
+        poisoned = "".join(json.dumps(r) + "\n" for r in broken).encode()
+        with self.assertRaises(ValueError):
+            validate_generation(poisoned, {**report, "output_sha256": sha(poisoned)}, extra, base, [])
+
+    def test_new_supplement_generator_refuses_local_model_execution(self):
+        import generate_supplement
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                generate_supplement.main()
     def test_coupling_preserves_training_population_and_source_counterparts(self):
         rows = fixture_splits()["train"]
         groups = source_groups(rows)
@@ -409,7 +456,9 @@ class SourceTests(unittest.TestCase):
         raw = (HERE / recipe["checkpoint_file"]).read_bytes()
         checked = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
         self.assertFalse(checked["tensor_payload_interpreted"])
-        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017, 44666934403))
+        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017, 44666934403, 44675121682))
+        if recipe["continuation_run_id"] == 44675121682:
+            self.assertEqual(recipe["checkpoint_sha256"], "e426a298d84b73c0b3a853e51695d8a8d6f77a7d5f65eb24a1b222e2f70d85ef")
 
     def test_weight16_predecessor_remains_retained_when_followup_is_selected(self):
         recipe = json.loads((HERE / "recipe.json").read_text())

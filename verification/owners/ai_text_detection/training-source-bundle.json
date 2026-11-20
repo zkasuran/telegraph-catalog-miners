@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "family": "AI_TEXT_DETECTION",
+  "base_file": "sources.json",
+  "base_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+  "extra_file": "extra-training-sources.json",
+  "extra_sha256": "eeb513513d04dfcc40a41c29784b96e580d21d9650e2c479e532999c1a996c56",
+  "terms": "Original source text/grants/attribution retained. Source annotations and constructed preferences are distinct."
+}

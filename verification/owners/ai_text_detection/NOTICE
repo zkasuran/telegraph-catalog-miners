@@ -85,3 +85,10 @@ original grants. Symmetric source-counterpart pooling keeps the same training
 population, labels and article attribution. It changes training loss only, never
 validation/audit scores, source-length margins or node execution. New pooling
 and resume controls use SAND; PyTorch API use retains its original grant.
+
+The independent source extension retains 64 additional eLife article grants and
+their original authors, DOI, source bytes and changes in extra-training-sources.json.
+They provide training-only origin annotations and recorded GPT-2 counterparts,
+not human-reviewed preferences. Original training/validation/audit records are
+unchanged. Composite source binding and all checkpoint/export attribution include
+the new article portions under their original CC BY terms. Only our code uses SAND.

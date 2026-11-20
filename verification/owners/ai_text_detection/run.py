@@ -219,7 +219,8 @@ def main():
     validation = validation_results["json"]
     cfg = AutoConfig.from_pretrained(base, local_files_only=True)
     tensors, params = read_peft(adapter, cfg)
-    source_hash = sha((HERE / "sources.json").read_bytes())
+    from supplement_contract import source_bundle
+    source_hash, extra_sources, _ = source_bundle()
     training = {"family": FAMILY, "children": [{"intent": FAMILY + "_GENERAL", "pairs": len(splits["validation"]),
                 "dataset_version": source_hash, "accuracy": validation["pairwise_accuracy"], "held_out": True}],
                 "source_scope": SCOPE, "selection": "Validation only; audit not opened.",
@@ -236,7 +237,9 @@ def main():
     meta["x-checkpoint-lineage"] = json.dumps(recipe, sort_keys=True)
     meta["x-source-attribution"] = json.dumps([{k: r[k] for k in
         ("source_id", "authors", "url", "licence", "licence_url", "changes", "sha256")}
-        for rows in source["source_report"]["articles"].values() for r in rows], ensure_ascii=False)
+         for rows in source["source_report"]["articles"].values() for r in rows], ensure_ascii=False)
+    meta["x-extra-source-attribution"] = json.dumps(extra_sources["articles"], ensure_ascii=False)
+    meta["x-base-source-manifest-sha256"] = sha((HERE / "sources.json").read_bytes())
     package = root / (FAMILY + ".safetensors")
     write_package(package, meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
     initial_tensors, _ = read_peft(initial_dir, cfg)
@@ -286,6 +289,9 @@ def main():
     frozen["training_expansion"] = expanded
     frozen["training_batch_semantics"] = {"source_views_per_batch": 1, "literal_rows_per_batch": 2,
                                          "literal_rows_per_optimizer_update": hp.grad_accum}
+    frozen["base_source_manifest_sha256"] = sha((HERE / "sources.json").read_bytes())
+    frozen["supplement_generation_sha256"] = sha((root / "supplement-generation.jsonl").read_bytes())
+    frozen["supplement_source_only_training_rows"] = 128
     dump(root / "frozen-candidate.json", frozen)
     if not selected_gate["passed"]:
         raise ValueError("all-format validation failed; preserve candidate and do not expose fresh audit")

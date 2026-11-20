@@ -1,5 +1,36 @@
 # Sources and rights
 
+## Independent source breadth extension
+
+The coupled run 44675121682 passed its real tensor, checkpoint and parser checks
+but did not improve the strict origin-verdict quality result. The original 752
+preference pairs and every validation/audit source remain intact.
+
+A fixed scan of 1,259 source candidates found 64 additional training articles.
+The complete pinned inventory still contains 32,141 XMLs and 19,701 article IDs;
+the complete legacy v1 candidate pool contains 4,555 entries. These are different
+counts. New sources have 2012-2014 dates, verified original Git blobs and individual
+CC BY grants. Existing and retired source IDs, named authors and normalized
+source text are excluded. Original clauses, DOI, source URLs and transformations
+are retained in extra-training-sources.json, not replaced by a blanket grant.
+
+Only the bounded public CPU workflow generates the new GPT-2 counterparts. They
+provide 128 source-provenance supervision rows, not new literal preference pairs
+or human-reviewed votes. Source inputs use equal-byte UTF-8 prefixes and normalized
+overlap refusals. Generation has fixed seeds, retained provenance and no score
+selection or rerolls. Generated data is unbuilt until that actual step succeeds.
+
+The additional source-only phase has 16 explicitly reported optimizer updates per
+epoch. The original preference phase still uses 752 rows and 94 updates. No old
+pair-data criterion or quality floor is weakened. Validation and audit remain
+unweighted and the train-fitted 78.125% source-length validation shortcut stays.
+
+training-source-bundle.json binds the unchanged original source manifest and the
+supplement's bytes. Package and independent-audit source identities use this
+composite hash. Original producer checks retain the base manifest identity. All
+source text, source annotations and constructed preferences keep their distinct
+provenance and licences, including in failed checkpoint exports.
+
 ## Symmetric counterpart continuation
 
 Run 44666934403 produced a real bare-format improvement to 81.25%, but its

@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Limits
 
+Repeated fitting on the same sources has not passed the strict gate. The next
+job adds 64 independently attributed training articles for source-origin
+supervision only. Existing preference and held-out rows stay unchanged. It must
+generate actual licensed counterparts, verify source/entity/byte separation and
+report the extra source-only updates. The benefit is unverified until remote
+measurement; no independent-audit or canonical result is claimed.
+
 The length-controlled run reached 81.25% bare overall but still failed its
 AI-generated label and source-length margins. The next continuation retains
 both actual selected learned states and couples each existing source view's two

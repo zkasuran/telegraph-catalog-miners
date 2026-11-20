@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "name": "source-origin-symmetric-counterpart-v11",
-  "checkpoint_sha256": "b6ca4eed3daa030860642dd4b677574ca65a59446f300644847fcf035230ffd1",
+  "name": "independent-source-origin-breadth-v12",
+  "checkpoint_sha256": "e426a298d84b73c0b3a853e51695d8a8d6f77a7d5f65eb24a1b222e2f70d85ef",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
   "parent_source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
@@ -14,9 +14,9 @@
   "lora_alpha": 32,
   "selection": "Measure the source-fitted starting checkpoint and each actual epoch. Validation gate/weakest margin before mean loss. Audit unused for selection.",
   "optimizer_state": "Not exported by original trainer. Fresh bounded AdamW continues the exact saved adapter, not a claimed optimizer resume.",
-  "checkpoint_file": "recovery/origin-adapted-checkpoint.safetensors",
-  "continuation_run_id": 44666934403,
-  "continuation_commit": "36f8a909f23098d7dc14b398e4832ad279dbeecf",
+  "checkpoint_file": "recovery/breadth-model-checkpoint.safetensors",
+  "continuation_run_id": 44675121682,
+  "continuation_commit": "38b8350f068dc06284358e351cd4ae2ca56a13db",
   "training_layout": "Symmetric verdict-first and verdict-last JSON/prose views, chosen by source hash. Bare training group remains unique.",
   "training_expansion": "At most 128 new non-overlapping windows from original training articles. Actual generator/byte/token/overlap refusals retained. Minimum 80 valid views.",
   "bare_exposure": "Six original source articles in an actually larger corpus, only if primary repetition gates and worst-case reuse <=0.10 pass.",
@@ -47,8 +47,8 @@
   },
   "quality_gate_change": "Add mandatory immutable train-fitted source-origin length shortcut to every quality margin. No existing floor or gate removed.",
   "origin_task": "Same source-provenance labels, byte-matched UTF-8-boundary prefixes, separate training-only head and no audit fitting.",
-  "origin_checkpoint_file": "recovery/origin-readout-checkpoint.safetensors",
-  "origin_checkpoint_sha256": "276ed73972d52aa085ed6e22465b038e0d53ecd0b784002debe93375ca5a31ea",
+  "origin_checkpoint_file": "recovery/breadth-readout-checkpoint.safetensors",
+  "origin_checkpoint_sha256": "2c76e1bedb130d4de499eb819f9c0871b2a1557b2387708a99f86dc0ad681050",
   "coupled_objective": {
     "gap_coefficient": 0.25,
     "rows_per_view": 2,
@@ -56,5 +56,14 @@
     "row_accumulation": 8,
     "runtime_transform": false
   },
-  "loader_batch_semantics": "One paired source view, two literal rows, four view batches per eight-row optimizer update."
+  "loader_batch_semantics": "One paired source view, two literal rows, four view batches per eight-row optimizer update.",
+  "supplement": {
+    "independent_groups": 64,
+    "source_only_rows": 128,
+    "optimizer_steps_per_epoch": 16,
+    "scope": "training_origin_only",
+    "original_preference_rows": 752,
+    "audit_used": false
+  },
+  "training_source_bundle_sha256": "297022609393437d9a6255c8012b74696467d61286cc98672063999e84d9d2e6"
 }

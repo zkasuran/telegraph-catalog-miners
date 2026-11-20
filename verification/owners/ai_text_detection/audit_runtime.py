@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 
 from common import (COUNTS, FAMILY, FORMATS, HERE, MAX_TOKENS, SCOPE, baseline_report,
-                    check_splits, dump, lines, pair, quality, remote_only, render, sha)
+                    check_splits, dump, lines, pair, quality, remote_only, render, sha, identity)
 from run import FOUNDATION
 from wire import check_reply, request, score_value
 
@@ -69,7 +69,9 @@ def main():
     if sha(package.read_bytes()) != frozen["package_sha256"] or frozen["audit_used_for_selection"] is not False:
         raise ValueError("candidate changed after validation freeze")
     source_raw = (HERE / "sources.json").read_bytes()
-    if sha(source_raw) != frozen["source_manifest_sha256"]:
+    from supplement_contract import source_bundle, validate_generation
+    bundle_sha, extra_sources, base_sources = source_bundle()
+    if sha(source_raw) != frozen["base_source_manifest_sha256"] or bundle_sha != frozen["source_manifest_sha256"]:
         raise ValueError("source changed after candidate freeze")
     for path, key in (("frozen-baselines.json", "baseline_sha256"), ("development-generation.jsonl", "development_sha256")):
         if sha((root / path).read_bytes()) != frozen[key]:
@@ -83,6 +85,14 @@ def main():
         raise ValueError("additional train-only generation changed after model freeze")
     kept_views = set(frozen["training_expansion"]["kept_view_ids"])
     records += [r for r in lines(augmentation) + lines(additional) if r["view_id"] in kept_views]
+    supplement_raw = (root / "supplement-generation.jsonl").read_bytes()
+    if sha(supplement_raw) != frozen["supplement_generation_sha256"]:
+        raise ValueError("source-only supplement changed after candidate freeze")
+    supplement_report = json.loads((root / "supplement-generation-report.json").read_text())
+    supplement_views = validate_generation(supplement_raw, supplement_report, extra_sources, base_sources, [])
+    supplement_marks = {r["text_id"] for r in supplement_views} | {identity(r["text"]) for r in lines(supplement_raw)}
+    if supplement_marks.intersection(identity(r["text"]) for r in records if r["split"] == "test"):
+        raise ValueError("supplementary training overlaps independent audit")
     generated = json.loads((root / "audit-generation-report.json").read_text())
     if (generated["output_sha256"] != sha((root / "audit-generation.jsonl").read_bytes()) or
             generated["source_manifest_sha256"] != sha(source_raw) or
@@ -165,7 +175,7 @@ def main():
     result = {"family": FAMILY, "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
               "formats": trained, "untrained": untrained, "shortcuts": shortcuts,
               "scope": SCOPE, "audit_used_for_selection": False, "package_sha256": frozen["package_sha256"],
-              "source_manifest_sha256": sha(source_raw), "normalized_overlap": 0,
+               "source_manifest_sha256": bundle_sha, "normalized_overlap": 0,
               "repeat_bits_identical": repeats, "negative_identity_controls": controls,
               "fixed_vectors": [{"tokens": ids, "score_bits": bits} for ids, bits in zip(vectors, all_bits["json"][:8])],
               "untrained_package_sha256": sha(untrained_package.read_bytes()),
@@ -181,7 +191,7 @@ def main():
              "foundation_sha256": FOUNDATION["foundation_lora_fp32.onnx"], "engine_sha256": FOUNDATION["foundation_engine.wasm"],
              "tokenizer_sha256": FOUNDATION["tokenizer.json"],
              "source": {"normalized_overlap": 0, "audit_used_for_selection": False, "grants_verified": True,
-                        "source_manifest_sha256": sha(source_raw), "independent_groups": COUNTS["test"]},
+                         "source_manifest_sha256": bundle_sha, "independent_groups": COUNTS["test"]},
              "quality": {"passed": True, "audit_pairs": result["audit_pairs"], "all_supported_formats_tested": True,
                          "formats": {style: {"accuracy": trained[style]["pairwise_accuracy"],
                            "per_label": trained[style]["accuracy_by_label"], "untrained_accuracy": untrained[style]["pairwise_accuracy"],

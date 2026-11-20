@@ -61,7 +61,13 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     parameters = [p for p in model.parameters() if p.requires_grad]
     parameters += list(origin_aux.head.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
-    total_steps = max(1, len(loader) // group_accum) * hp.epochs
+    supplement_groups = {}
+    for row in origin_aux.extra_views:
+        supplement_groups.setdefault(row["view_id"], []).append(row)
+    if len(supplement_groups) != 64 or any(len(v) != 2 for v in supplement_groups.values()):
+        raise ValueError("complete independently paired supplementary source phase required")
+    supplement_batches = [supplement_groups[k] for k in sorted(supplement_groups)]
+    total_steps = (len(loader) // group_accum + len(supplement_batches) // group_accum) * hp.epochs
     warm = int(total_steps * 0.06)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda s:
         min(1.0, s / max(1, warm)) if s < warm else max(0.0, (total_steps - s) / max(1, total_steps - warm)))
@@ -122,6 +128,22 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
+        supplementary_loss, supplementary_correct = 0.0, 0
+        optimizer.zero_grad(set_to_none=True)
+        for i, group in enumerate(supplement_batches):
+            terms = []
+            for view in group:
+                source_loss, correct = origin_aux.loss(view)
+                supplementary_loss += source_loss.item()
+                supplementary_correct += correct
+                terms.append(origin_aux.policy["coefficient"] * source_loss)
+            (coupled_loss(terms) / group_accum).backward()
+            if (i + 1) % group_accum == 0:
+                torch.nn.utils.clip_grad_norm_(parameters, 1.0)
+                optimizer.step()
+                scheduler.step()
+                optimizer.zero_grad(set_to_none=True)
+                step += 1
         metrics = measure()
         origin_diagnostic = origin_aux.measure(epoch, origin_losses, origin_correct, 2 * len(loader))
         key = validation_selection_key(metrics, baselines)
@@ -141,6 +163,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                    "coupled_objective": coupled, "training_counterpart_gap": counterpart_gap / len(loader),
                    "literal_training_rows": 2 * len(loader), "source_view_batches": len(loader),
                    "literal_batch_size": 2, "literal_rows_per_optimizer_update": hp.grad_accum,
+                   "supplement_source_only_rows": 128, "supplement_optimizer_steps": 16,
+                   "supplement_training_origin_loss": supplementary_loss / 128,
+                   "supplement_training_origin_accuracy": supplementary_correct / 128,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)
