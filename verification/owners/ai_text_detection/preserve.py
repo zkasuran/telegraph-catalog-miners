@@ -51,7 +51,7 @@ def main():
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
-    for name in ("supplement-generation-report.json", "supplement-source-contract.json"):
+    for name in ("supplement-generation-report.json", "supplement-source-contract.json", "supplement-preference-contract.json", "supplement-preference-gradient-control.json", "original-dataset-gate.json"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
@@ -68,7 +68,6 @@ def main():
     dump(out / "composite-source-binding.json", {"source_manifest_sha256": bundle_sha, "original_grants_retained": True})
     dump(out / "source-binding.json", {"source_manifest_sha256": bundle_sha,
         "base_source_manifest_sha256": sha(source_manifest), "source_grants_attached": True})
-    dump(out / "source-binding.json", {"source_manifest_sha256": sha(source_manifest), "source_grants_attached": True})
     for path in (root / "AI_TEXT_DETECTION.safetensors", root / "UNTRAINED.safetensors", root / "adapter/adapter_model.safetensors", root / "origin-head.safetensors"):
         if path.is_file():
             source = json.loads(source_manifest)

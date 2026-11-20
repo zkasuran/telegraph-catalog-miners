@@ -35,7 +35,7 @@ counts freeze before audit generation. No audit score chooses the candidate.
 The audit scores all JSON, prose and bare-label responses in the pinned Telegraph
 reference engine. It also measures a seed-matched untrained package in that engine.
 Passing requires 80% overall, 70% per origin, five points over untrained and ten
-points over the strongest length, overlap or answer-only shortcut. Strict token
+points over the strongest length, overlap, answer-only or source-origin-length shortcut. Strict token
 identity, three wrong identity hashes, a prefixed-hash control, invalid-token
 refusal and fresh-process identical score bits are required.
 
@@ -93,13 +93,28 @@ tests 125 planned, further-disjoint training contexts from the same original
 articles. They add no held-out rows or independent articles. Actual generated
 counterparts and every source/data/quality gate still have to pass remotely.
 
+## Current source-verdict experiment
+
+Compact run 44746932574 passed source, tensor and parser controls but still failed
+strict verdict validation. The starting model was retained and the audit sealed.
+The next job reuses the exact 128 supplementary provenance rows as constructed
+JSON/prose verdict preferences, in addition to their existing origin supervision.
+This directly trains the production reward head on 64 further licensed training
+articles. It is not new generation, human review or exposed audit data.
+
+All original 752 pairs and 12 bare rows remain unchanged. The existing 16
+supplementary updates now include their 128 verdict pairs. Both the original
+and combined 880-pair data gates run unchanged. Original and expanded integer
+source-length baselines both enter quality margins. New gradients, full combined
+surface probe and neural benefit remain remote-unverified. No registration is eligible.
+
 ## Limits
 
 The margin-only run did not improve strict verdict quality and kept its starting
-state. The next training view uses short, truthful opening/ending source quotes
+state. The compact training view used short, truthful opening/ending source quotes
 instead of whole-passage cue copying. Original prompts, labels, bare rows and
-held-out strings remain unchanged. Its real repetition controls pass locally;
-the full source-surface probe and any neural benefit remain remote-unverified.
+held-out strings remained unchanged. Its full source-surface probe passed at 0.4723
+but neural verdict quality still failed. No independent audit was consumed.
 
 The supplementary-source run completed real generation and improved source-only
 diagnostics, but the literal bare-verdict gate still failed. Its audit stayed

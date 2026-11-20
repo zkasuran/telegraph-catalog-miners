@@ -139,9 +139,26 @@ def main():
     expanded["additional_augmentation_sha256"] = sha(additional_raw)
     dump(root / "training-expansion-report.json", expanded)
     dump(root / "literal-repetition-gate.json", expanded["actual_repetition"])
-    fitted = fit_baselines(splits["train"])
+    from supplement_contract import source_bundle, validate_generation
+    from origin_contract import equal_byte_views
+    from source_preferences import preference_policy, preference_rows
+    preference_policy(recipe)
+    bundle_sha, extra_sources, base_sources = source_bundle()
+    supplement_report = json.loads((root / "supplement-generation-report.json").read_text())
+    if supplement_report["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or supplement_report["commit"] != os.environ["GITHUB_SHA"]:
+        raise ValueError("supplement preference producer run/commit mismatch")
+    supplement_views = validate_generation((root / "supplement-generation.jsonl").read_bytes(), supplement_report,
+        extra_sources, base_sources, equal_byte_views(splits["train"]) + equal_byte_views(validation_formats["json"]))
+    extra_preferences, preference_binding = preference_rows(supplement_views, splits["train"], validation_formats["json"])
+    preference_binding.update(run_id=int(os.environ["GITHUB_RUN_ID"]), commit=os.environ["GITHUB_SHA"],
+        source_manifest_sha256=bundle_sha, generation_sha256=sha((root / "supplement-generation.jsonl").read_bytes()))
+    dump(root / "supplement-preference-contract.json", preference_binding)
+    original_fitted = fit_baselines(splits["train"])
+    fitted = fit_baselines(splits["train"] + extra_preferences)
+    fitted["original_source_origin_length"] = original_fitted["source_origin_length"]
     dump(root / "frozen-baselines.json", fitted)
     baselines = {s: baseline_report(rows, fitted) for s, rows in splits.items()}
+    baselines["supplement"] = baseline_report(extra_preferences, fitted)
     # Retain every preexisting answer-surface data gate. Source-origin length
     # additionally enters the full quality margin. Auxiliary inputs separately
     # require equal source bytes and a 50% source-length control.
@@ -152,7 +169,11 @@ def main():
     hp = trainer.Hyperparams(max_length=MAX_TOKENS, batch_size=1, grad_accum=recipe["grad_accum"], epochs=recipe["epochs"], lr=recipe["lr"],
                             eval_batch=1, lora_rank=8, lora_alpha=32, gate_min_acc=0.80,
                             grad_checkpointing=False)
-    gate = trainer.gate_dataset(splits["train"], hp)
+    original_gate = trainer.gate_dataset(splits["train"], hp)
+    dump(root / "original-dataset-gate.json", original_gate)
+    if not original_gate["ok"]:
+        raise ValueError("unchanged original dataset gate refused the original 752 pairs")
+    gate = trainer.gate_dataset(splits["train"] + extra_preferences, hp)
     dump(root / "dataset-gate.json", gate)
     if not gate["ok"]:
         raise ValueError("unchanged upstream dataset gate refused development corpus")
@@ -160,7 +181,7 @@ def main():
     node = Tokenizer.from_file(str(foundation / "tokenizer.json"))
     node.no_padding()
     node.no_truncation()
-    for rows in [splits["train"], validation_rows]:
+    for rows in [splits["train"], extra_preferences, validation_rows]:
         for r in rows:
             for side in ("chosen", "rejected"):
                 text = render(r["prompt"], r[side])
@@ -227,7 +248,8 @@ def main():
     from supplement_contract import source_bundle
     source_hash, extra_sources, _ = source_bundle()
     training = {"family": FAMILY, "children": [{"intent": FAMILY + "_GENERAL", "pairs": len(splits["validation"]),
-                "dataset_version": source_hash, "accuracy": validation["pairwise_accuracy"], "held_out": True}],
+                 "dataset_version": source_hash, "accuracy": validation["pairwise_accuracy"], "held_out": True}],
+                 "training_preferences": {"original": 752, "supplementary": 128, "total": 880},
                 "source_scope": SCOPE, "selection": "Validation only; audit not opened.",
                 "preference_authorship": "Constructed by AI-assisted code from published controls and disclosed synthetic origin. Not human-reviewed."}
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
@@ -297,6 +319,7 @@ def main():
     frozen["base_source_manifest_sha256"] = sha((HERE / "sources.json").read_bytes())
     frozen["supplement_generation_sha256"] = sha((root / "supplement-generation.jsonl").read_bytes())
     frozen["supplement_source_only_training_rows"] = 128
+    frozen["supplement_preference_training"] = preference_binding
     dump(root / "frozen-candidate.json", frozen)
     if not selected_gate["passed"]:
         raise ValueError("all-format validation failed; preserve candidate and do not expose fresh audit")

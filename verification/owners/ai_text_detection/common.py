@@ -257,6 +257,8 @@ def baseline_report(rows, fitted):
               for name, ds in diffs.items()}
     from origin_contract import raw_origin_view, length_accuracy
     report["source_origin_length"] = length_accuracy([raw_origin_view(r) for r in rows], fitted["source_origin_length"])
+    if "original_source_origin_length" in fitted:
+        report["original_source_origin_length"] = length_accuracy([raw_origin_view(r) for r in rows], fitted["original_source_origin_length"])
     return report
 
 

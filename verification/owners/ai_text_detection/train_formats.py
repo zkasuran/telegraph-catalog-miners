@@ -7,6 +7,7 @@ The optimizer, collator and reward loss follow the pinned Telegraph source.
 Our addition selects an actual epoch using every claimed format and label.
 """
 import gc
+import os
 import random
 import time
 
@@ -40,6 +41,17 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     dump(root / "training-objective-report.json", objective)
     from train_origin import OriginAuxiliary
     origin_aux = OriginAuxiliary(model, tok, train_rows, validation_formats["json"], recipe, root)
+    from source_preferences import preference_policy, preference_rows
+    supplementary_policy = preference_policy(recipe)
+    supplementary_pairs, supplementary_binding = preference_rows(origin_aux.extra_views, train_rows, validation_formats["json"])
+    expected_supplementary = json.loads((root / "supplement-preference-contract.json").read_text())
+    if supplementary_binding["preference_rows_sha256"] != expected_supplementary["preference_rows_sha256"]:
+        raise ValueError("supplementary training preference bytes changed after source/data gate")
+    supplementary_by_view = {r["view_id"]: [] for r in supplementary_pairs}
+    for row in supplementary_pairs:
+        supplementary_by_view[row["view_id"]].append(row)
+    if len(supplementary_by_view) != 64 or any(len(v) != 2 for v in supplementary_by_view.values()):
+        raise ValueError("complete paired supplementary preferences required")
     if hp.batch_size != 1:
         raise ValueError("counterpart training is bounded to one source-view batch")
     dump(root / "training-weight-report.json", policy)
@@ -135,15 +147,45 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
         supplementary_loss, supplementary_correct = 0.0, 0
+        supplementary_pair_loss = 0.0
+        supplementary_correctness_loss = 0.0
+        supplementary_margin_loss = 0.0
         optimizer.zero_grad(set_to_none=True)
         for i, group in enumerate(supplement_batches):
+            preference_group = supplementary_by_view[group[0]["view_id"]]
+            preference_batch = basic_collator(preference_group)
+            extra_chosen = trainer._reward(model, preference_batch["chosen_input_ids"], preference_batch["chosen_attention_mask"])
+            extra_rejected = trainer._reward(model, preference_batch["rejected_input_ids"], preference_batch["rejected_attention_mask"])
             terms = []
+            source_losses = {}
             for view in group:
                 source_loss, correct = origin_aux.loss(view)
                 supplementary_loss += source_loss.item()
                 supplementary_correct += correct
-                terms.append(origin_aux.policy["coefficient"] * source_loss)
-            (coupled_loss(terms) / group_accum).backward()
+                source_losses[view["text_id"]] = source_loss
+            for j, row in enumerate(preference_group):
+                raw_loss, pair_loss, point_loss = loss_components(extra_chosen[j:j+1], extra_rejected[j:j+1],
+                    preference_batch["margin"][j:j+1], objective, trainer)
+                terms.append(supplementary_policy["pair_coefficient"] * raw_loss +
+                    origin_aux.policy["coefficient"] * source_losses[row["text_id"]])
+                supplementary_pair_loss += pair_loss.item()
+                supplementary_correctness_loss += point_loss.item()
+            extra_margin_loss = alignment(extra_chosen, extra_rejected)
+            supplementary_margin_loss += extra_margin_loss.item()
+            ((coupled_loss(terms) + aligned_policy["coefficient"] * extra_margin_loss) / group_accum).backward()
+            if epoch == 0 and i == 0:
+                touched_head = [name for name, p in model.named_parameters() if
+                    ("classifier" in name or ".score." in name) and p.grad is not None and torch.count_nonzero(p.grad).item()]
+                touched_encoder = [name for name, p in model.named_parameters() if
+                    "lora_" in name and p.grad is not None and torch.count_nonzero(p.grad).item()]
+                if not touched_head or not touched_encoder or any(not torch.isfinite(p.grad).all() for p in parameters if p.grad is not None):
+                    raise ValueError("supplementary preferences failed actual reward-head/encoder gradient control")
+                dump(root / "supplement-preference-gradient-control.json", {"passed": True,
+                    "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
+                    "preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
+                    "nonzero_reward_head_gradients": len(touched_head), "nonzero_lora_gradients": len(touched_encoder),
+                    "finite_gradients": True, "original_optimizer_updates_before_control": step,
+                    "supplementary_optimizer_updates_before_control": 0, "audit_used": False})
             if (i + 1) % group_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0)
                 optimizer.step()
@@ -171,7 +213,13 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                    "literal_batch_size": 2, "literal_rows_per_optimizer_update": hp.grad_accum,
                    "supplement_source_only_rows": 128, "supplement_optimizer_steps": 16,
                    "supplement_training_origin_loss": supplementary_loss / 128,
-                   "supplement_training_origin_accuracy": supplementary_correct / 128,
+                    "supplement_training_origin_accuracy": supplementary_correct / 128,
+                    "supplement_preference_rows": 128, "combined_literal_training_rows": 880,
+                    "supplement_preference_pair_loss": supplementary_pair_loss / 128,
+                    "supplement_preference_correctness_loss": supplementary_correctness_loss / 128,
+                    "supplement_preference_margin_loss": supplementary_margin_loss / 64,
+                    "supplement_preference_policy": supplementary_policy,
+                    "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}

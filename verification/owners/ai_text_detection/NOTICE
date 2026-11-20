@@ -2,6 +2,13 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+Supplementary training-verdict preferences reuse exact GPT-2 outputs from run
+44687535825 and original controls from64 additional attributed training articles.
+Their equal-byte prefix transformations and CC BY clauses remain bound in the
+source bundle. The128 preferences are constructed by AI-assisted code, not human
+review. Original752 preferences, held-out sources and all quality floors remain.
+Our new contract, training additions and tests use SAND subject to these grants.
+
 GPT-2 software, Copyright (c) 2019 OpenAI, Modified MIT License. Generated text
 is disclosed as created using GPT-2. DistilGPT2 by Hugging Face, Apache-2.0.
 ModernBERT by Answer.AI and LightOn, Apache-2.0. The original software grants,

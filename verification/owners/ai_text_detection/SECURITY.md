@@ -23,7 +23,9 @@
 | Group batching drops rows or changes accumulation silently | Exact view partition and eight literal rows per optimizer update | Actual 752-row/376-view population smoke |
 | Readout resume changes or loses learned state | Exact source-bound checkpoint bytes and remote tensor equality | Model/readout byte and shape refusals |
 | New training articles leak held-out entities | Fixed pre-2015 dates and existing/retired author/source exclusion | Supplement source/entity/date/grant refusals |
-| Extra data hides a changed preference population | Separate source-only phase with explicit row/update counts | Original 752-pair preservation and supplement role checks |
+| Extra data hides a changed preference population | Explicit original752 plus supplementary128 counts and unchanged combined data gates | Original preservation, source-role, normalized overlap and repetition refusals |
+| Supplement changes a weaker shortcut into the only comparator | Retain original train-fitted source-length rule beside expanded rule | Original78.125% validation shortcut still refuses85% overall |
+| Supplement supervision fails to train the actual task head | Actual first supplementary batch must have finite nonzero reward-head and encoder gradients | Prepared remote primary-path gradient control, unverified locally |
 | Composite source identity omits new grants | Bundle hashes both manifests; source attribution in package/checkpoints | Manifest and generated-byte bindings |
 | Confidence penalty changes served scores or favors a label | Fixed symmetric training-only paired margin loss | Scalar symmetry and remote gradient controls |
 | Old supplement is silently rerolled | Retained actual data, source bundle and original producer hashes | Locked-data byte/source checks and refusal to replace output |
@@ -108,9 +110,9 @@ margins; those stricter checks are never replaced by the aggregate verdict.
 
 Independent source growth does not authorize audit reuse or weaker thresholds.
 The original preference rows and held-out source blocks are immutable. Additional
-articles train source-origin features only after original-XML/grant verification
+articles train source-origin features and explicit verdict preferences only after original-XML/grant verification
 and actual fixed-seed generation. Their source-only optimizer updates are reported
-separately. Source bundle hashes, generator output hashes and original producer
+separately, with the additional128 verdict pairs disclosed. Source bundle hashes, generator output hashes and original producer
 identities remain distinct. A source-only fixture never becomes generated data.
 
 Margin alignment cannot override any validation/audit failure. It leaves original
