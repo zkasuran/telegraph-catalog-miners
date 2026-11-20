@@ -113,12 +113,12 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/augment_training.py --root \"$RUNNER_TEMP/ai-owner\" --additional"
         },
         {
-          "name": "Generate independently sourced training-origin supplement",
+          "name": "Restore actual independent training-origin supplement and producer",
           "timeout-minutes": 20,
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate_supplement.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
-          "name": "Verify counterpart gradients and continue both licensed learned states",
+          "name": "Verify paired margin gradients and continue under unchanged quality gates",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""
         },

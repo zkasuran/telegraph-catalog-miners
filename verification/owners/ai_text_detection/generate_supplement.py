@@ -6,8 +6,8 @@ import json
 import os
 import time
 from pathlib import Path
-from common import HERE, remote_only, fetch, dump, sha, audit_excerpts, identity
-from supplement_contract import source_bundle, validate_sources
+from common import HERE, remote_only, fetch, dump, sha, audit_excerpts, identity, lines
+from supplement_contract import source_bundle, validate_sources, validate_generation
 from source import parse_article
 
 
@@ -21,6 +21,26 @@ def main():
     output = root / "supplement-generation.jsonl"
     if output.exists():
         raise ValueError("supplement already generated; never reroll or replace")
+    locked = HERE / "recovery/locked-supplement.jsonl"
+    if locked.exists():
+        raw = locked.read_bytes()
+        producer_raw = (HERE / "recovery/locked-supplement-producer.json").read_bytes()
+        producer = json.loads(producer_raw)
+        lineage = json.loads((HERE / "recovery/locked-supplement-lineage.json").read_text())
+        if (sha(raw) != lineage["data_sha256"] or sha(producer_raw) != lineage["producer_sha256"] or
+                producer["run_id"] != lineage["run_id"] or producer["commit"] != lineage["commit"] or
+                lineage["source_bundle_sha256"] != bundle_sha):
+            raise ValueError("retained supplement producer/byte/source identity mismatch")
+        originals = []
+        for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl"):
+            originals += [{"text_id": identity(r["text"])} for r in lines((root / name).read_bytes())]
+        views = validate_generation(raw, producer, extra, base, originals)
+        output.write_bytes(raw)
+        dump(root / "supplement-generation-report.json", {**producer, "producer_run_id": producer["run_id"],
+            "producer_commit": producer["commit"], "generation_performed_here": False,
+            "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"]})
+        print(json.dumps({"restored_source_rows": len(views), "output_sha256": sha(raw), "new_generation_performed": False}), flush=True)
+        return
     for row in articles:
         raw = fetch(row["url"], root / row["path"], row["sha256"], 2 << 20)
         if parse_article(raw, {"sha": row["git_blob"], "size": row["bytes"], "path": row["path"]}) != row:

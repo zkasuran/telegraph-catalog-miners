@@ -1,0 +1,8 @@
+{
+  "data_sha256": "8b56251827c93deb1723e2db9ddc26c0140667fa1cd0c7dfe0d7da3717c7dc2a",
+  "producer_sha256": "c23b24ab489835d5607d54150ba8143961f3656d690c350378aa4e74cb304d50",
+  "run_id": 44687535825,
+  "commit": "fe2f45fc4116fa245e9070f94a22159674a22ad2",
+  "source_bundle_sha256": "297022609393437d9a6255c8012b74696467d61286cc98672063999e84d9d2e6",
+  "terms": "Original journal and generator grants remain attached. Byte-identical reuse is not new generation."
+}

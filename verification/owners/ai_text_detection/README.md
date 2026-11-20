@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Limits
 
+The supplementary-source run completed real generation and improved source-only
+diagnostics, but the literal bare-verdict gate still failed. Its audit stayed
+sealed. The next job reuses the exact generated data and tests a symmetric
+training-only penalty on paired verdict-margin gaps. It does not rescale the
+served score or lower gates. The new model's usefulness remains unverified until
+the public CPU workflow and independent reference audit measure it.
+
 Repeated fitting on the same sources has not passed the strict gate. The next
 job adds 64 independently attributed training articles for source-origin
 supervision only. Existing preference and held-out rows stay unchanged. It must

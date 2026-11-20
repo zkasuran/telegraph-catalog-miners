@@ -1,5 +1,29 @@
 # Sources and rights
 
+## Paired verdict-margin alignment
+
+Run 44687535825 produced all 64 supplementary groups and 128 provenance rows.
+Original source/byte/overlap and tensor/checkpoint/parser controls passed. The
+native source readout reached 82.8125% on validation, but literal bare verdicts
+still failed per-origin and shortcut margins. No independent audit was consumed.
+The exact actual supplementary output is retained by byte hash, producer run and
+source-bundle identity. Restoration is not reported as new generation.
+
+The next fixed train-only objective adds coefficient 0.1 times SmoothL1 between
+the two correct-verdict margins in each existing source view. This is symmetric
+under swapping source origins. It discourages one verdict margin from dominating
+even when pair losses are small. It does not change runtime scores, source rows,
+preference labels, selection rules or quality gates. Improved transfer is a
+hypothesis that requires the actual remote result, not an assumed causal finding.
+
+[TORCH-SMOOTHL1-2.15] The reviewed primary implementation uses a quadratic term
+for absolute error below beta and an L1 term otherwise. Beta is fixed at 1.0.
+Value/gradient and shape/nonfinite/dtype refusal controls run in the public CPU
+job before fitting. Original PyTorch terms remain in PYTORCH-LICENSE; only its
+API is called and no upstream implementation is bundled.
+https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/loss.py#L988
+https://docs.pytorch.org/docs/2.15/generated/torch.nn.SmoothL1Loss.html
+
 ## Independent source breadth extension
 
 The coupled run 44675121682 passed its real tensor, checkpoint and parser checks

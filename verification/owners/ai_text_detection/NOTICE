@@ -92,3 +92,9 @@ They provide training-only origin annotations and recorded GPT-2 counterparts,
 not human-reviewed preferences. Original training/validation/audit records are
 unchanged. Composite source binding and all checkpoint/export attribution include
 the new article portions under their original CC BY terms. Only our code uses SAND.
+
+Actual supplement data from run 44687535825 is reused without generation rerolls.
+Original source and generator grants remain attached. New paired margin-alignment
+and reuse controls use SAND for our code only. PyTorch SmoothL1 API use retains
+its original grant. This is training code, not a served score wrapper or a claim
+of human-reviewed preferences or independently certified authorship.

@@ -25,6 +25,8 @@
 | New training articles leak held-out entities | Fixed pre-2015 dates and existing/retired author/source exclusion | Supplement source/entity/date/grant refusals |
 | Extra data hides a changed preference population | Separate source-only phase with explicit row/update counts | Original 752-pair preservation and supplement role checks |
 | Composite source identity omits new grants | Bundle hashes both manifests; source attribution in package/checkpoints | Manifest and generated-byte bindings |
+| Confidence penalty changes served scores or favors a label | Fixed symmetric training-only paired margin loss | Scalar symmetry and remote gradient controls |
+| Old supplement is silently rerolled | Retained actual data, source bundle and original producer hashes | Locked-data byte/source checks and refusal to replace output |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -108,3 +110,8 @@ articles train source-origin features only after original-XML/grant verification
 and actual fixed-seed generation. Their source-only optimizer updates are reported
 separately. Source bundle hashes, generator output hashes and original producer
 identities remain distinct. A source-only fixture never becomes generated data.
+
+Margin alignment cannot override any validation/audit failure. It leaves original
+input strings and the public reference executor unchanged. Restored supplementary
+source data retains its original producer and licence. New tensor controls and
+model performance are remote-only claims, never inferred from local scalar tests.

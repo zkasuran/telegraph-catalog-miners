@@ -58,6 +58,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         raise ValueError("coupling must preserve complete eight-row optimizer updates")
     group_accum = hp.grad_accum // 2
     from train_coupled import coupled_loss
+    from margin_contract import margin_policy
+    from train_margin import alignment
+    aligned_policy = margin_policy(recipe)
     parameters = [p for p in model.parameters() if p.requires_grad]
     parameters += list(origin_aux.head.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
@@ -102,6 +105,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         pointwise_losses = 0.0
         origin_losses, origin_correct = 0.0, 0
         counterpart_gap = 0.0
+        margin_loss_total = 0.0
         for i, batch in enumerate(loader):
             chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
@@ -116,12 +120,14 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 point_values.append(point_loss.item())
                 origin_losses += origin_loss.item()
                 origin_correct += correct
-            loss = coupled_loss(row_losses) / group_accum
+            margin_loss = alignment(chosen, rejected)
+            loss = (coupled_loss(row_losses) + aligned_policy["coefficient"] * margin_loss) / group_accum
             loss.backward()
             losses += loss.item() * group_accum
             unweighted_losses += sum(pair_values) / 2
             pointwise_losses += sum(point_values) / 2
             counterpart_gap += abs(row_losses[0].item() - row_losses[1].item())
+            margin_loss_total += margin_loss.item()
             if (i + 1) % group_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0)
                 optimizer.step()
@@ -166,6 +172,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                    "supplement_source_only_rows": 128, "supplement_optimizer_steps": 16,
                    "supplement_training_origin_loss": supplementary_loss / 128,
                    "supplement_training_origin_accuracy": supplementary_correct / 128,
+                   "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)

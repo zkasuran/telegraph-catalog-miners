@@ -6,4 +6,4 @@ export PYTHONDONTWRITEBYTECODE=1
 bash -n "$ROOT/verify.sh"
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_*.py' -v
 python3 -W error "$ROOT/static_check.py"
-printf '%s\n' 'ALL GREEN: source-only gate, independent training-source supplement and original quality floors; neural work remains remote'
+printf '%s\n' 'ALL GREEN: source-only gate, retained actual source data and margin-policy controls; neural work remains remote'

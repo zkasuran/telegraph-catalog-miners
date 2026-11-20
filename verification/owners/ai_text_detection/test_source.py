@@ -24,6 +24,7 @@ from origin_contract import check_origin_training, origin_policy, raw_origin_vie
 from common import pair_data_shortcuts_ok
 from coupled_contract import coupled_policy, source_groups, scalar_coupled
 from supplement_contract import validate_sources, source_bundle, validate_generation
+from margin_contract import margin_policy, scalar_margin
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -47,6 +48,33 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_margin_policy_scalar_symmetry_and_runtime_boundary(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        self.assertFalse(margin_policy(recipe)["runtime_transform"])
+        for a, b in ((1, 4), (4, 1), (2, 2), (0.5, 0), (-1, 1)):
+            self.assertEqual(scalar_margin(a, b), scalar_margin(b, a))
+            self.assertGreaterEqual(scalar_margin(a, b), 0)
+        self.assertEqual(scalar_margin(4, 1), 2.5)
+        self.assertEqual(scalar_margin(2, 2), 0)
+        changed = copy.deepcopy(recipe)
+        changed["margin_alignment"]["coefficient"] = 10
+        with self.assertRaises(ValueError):
+            margin_policy(changed)
+        import train_margin
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                train_margin.alignment(None, None)
+
+    def test_actual_locked_supplement_has_no_new_generation_or_source_claim(self):
+        raw = (HERE / "recovery/locked-supplement.jsonl").read_bytes()
+        report = json.loads((HERE / "recovery/locked-supplement-producer.json").read_text())
+        self.assertEqual(report["run_id"], 44687535825)
+        self.assertEqual(report["output_sha256"], sha(raw))
+        bundle, extra, base = source_bundle()
+        self.assertEqual(report["source_bundle_sha256"], bundle)
+        self.assertEqual(len(validate_generation(raw, report, extra, base, [])), 128)
+        with self.assertRaises(ValueError):
+            validate_generation(raw + b"changed", report, extra, base, [])
     def test_independent_source_supplement_has_original_grants_and_no_role_overlap(self):
         _, extra, base = source_bundle()
         self.assertEqual(len(validate_sources(extra, base)), 64)

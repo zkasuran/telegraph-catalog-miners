@@ -110,6 +110,8 @@ def main():
     objective_smoke(objective_policy(recipe), trainer, root)
     from train_coupled import smoke as coupled_smoke
     coupled_smoke(root)
+    from train_margin import smoke as margin_smoke
+    margin_smoke(root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     from tokenizers import Tokenizer

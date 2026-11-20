@@ -1,0 +1,7 @@
+{
+  "key": "TORCH-SMOOTHL1-2.15",
+  "url": "https://docs.pytorch.org/docs/2.15/generated/torch.nn.SmoothL1Loss.html",
+  "sha256": "c86dadb4afcaf64f58da4f6ffe3667500e86ef344205056fc1c637428b2ec8a5",
+  "bytes": 215402,
+  "grant": "API use under retained PyTorch grant; no upstream code bundled."
+}
