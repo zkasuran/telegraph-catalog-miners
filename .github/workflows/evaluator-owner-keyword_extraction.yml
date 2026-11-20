@@ -97,7 +97,7 @@ jobs:
           "$RUNNER_TEMP/keyword-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/keyword_extraction/requirements.lock
           "$RUNNER_TEMP/keyword-venv/bin/python" -m pip check
           "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/dependency_audit.py --lock verification/owners/keyword_extraction/requirements.lock --out "$RUNNER_TEMP/keyword-requirements.txt" --report "$RUNNER_TEMP/keyword-dependency-audit.json"
-      - name: Run bounded source-gated pilot
+      - name: Run bounded source-gated pilot through the primary pair-loader contract
         timeout-minutes: 120
         run: |
           mkdir -p "$RUNNER_TEMP/keyword-pilot"

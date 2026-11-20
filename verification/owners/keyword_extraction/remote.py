@@ -27,6 +27,7 @@ from scorer import render
 from source import BASE, contains, parse, sha, verify_tree, write
 from source import fetch as source_fetch
 from terms_policy import licences_for
+from trainer_contract import trainer_pairs
 
 HERE = Path(__file__).resolve().parent
 
@@ -192,7 +193,12 @@ def main():
     trainer.save_reward_head(initial, initial_dir)
     del initial
     gc.collect()
-    model, tok, _ = trainer.train(str(base), splits["train"], splits["validation"], args.root / "adapter", hp)
+    train_input = trainer_pairs(splits["train"])
+    validation_input = trainer_pairs(splits["validation"])
+    write(args.root / "trainer-input-contract.json", {"schema_version": 1, "train_pairs": len(train_input), "validation_pairs": len(validation_input),
+          "default_margin": 0.0, "literal_strings_unchanged": True, "source_data_sha256": sha(json.dumps(data_report, sort_keys=True).encode()),
+          "scope": "Primary pair loader shape only; no dataset, hyperparameter or audit change."})
+    model, tok, _ = trainer.train(str(base), train_input, validation_input, args.root / "adapter", hp)
     (args.root / "adapter" / "tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())
     cfg = AutoConfig.from_pretrained(base, local_files_only=True)
     tensors, params = read_peft(args.root / "adapter", cfg)

@@ -14,6 +14,8 @@ The source data gate now passes with 64 train pairs over 32 components, 16 valid
 
 First train/audit run 44675020434 stopped before foundation or LoRA preparation. The unchanged primary source gate found one rejected string reused in 2 of 68 rows, above its 2% ceiling. The source-admission fix omits whole redundant reciprocal training comparisons only; it neither changes the threshold nor touches validation/audit. Source-only structural checks now catch this before remote work. The full original primary gate, including its surface probe, remains mandatory on the bounded CPU runner.
 
+Corrected run 44687373612 passed that full primary source gate and all 320 tokenizer-rendered text checks. It then stopped on the first training batch because the direct trainer call omitted `margin`, which the primary JSONL loader normally supplies as `0.0`. `trainer_contract.py` now supplies that loader shape to training/validation only after all source checks. Literal strings and source artifacts are unchanged. The original default objective and model hyperparameters are unchanged. No validation or independent audit quality was measured by that failed run.
+
 Source-only public CI run 44662981154 passed 34 tests at source commit 72f45a429eaf4a03beb26f6f86d456e9202e11ec. Its actual source-result artifact is distinct from neural quality evidence. No trained runtime score, registration or qualification is claimed. New expansion tests are source-only synthetic controls, not source or model preferences.
 
 ## Measurement boundary
