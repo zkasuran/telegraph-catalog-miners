@@ -75,6 +75,9 @@ def fetch(url, path, expected, ceiling=700 << 20):
 
 def check_splits(manifest, splits):
     from primary import anchors
+    exposure = json.loads((HERE / "exposed-audit.json").read_text())
+    forbidden_dois = set(exposure["dois"])
+    forbidden_entities = set(exposure["source_entity_ids"])
     groups_seen, documents_seen, texts_seen, identities_seen = set(), set(), set(), set()
     intervals = []
     for name, count in LIMITS.items():
@@ -86,6 +89,8 @@ def check_splits(manifest, splits):
         documents = [d["doi"] for g in groups for d in g["documents"]]
         texts = {norm(d[f]) for g in groups for d in g["documents"] for f in ("title", "abstract")}
         identities = {i for g in groups for i in g["source_entity_ids"]}
+        if set(documents) & forbidden_dois or identities & forbidden_entities:
+            raise ValueError("scored original audit source/entity reused after exposure")
         if (len(group_ids) != count or len(documents) != len(set(documents)) or group_ids & groups_seen
                 or set(documents) & documents_seen or texts & texts_seen or identities & identities_seen):
             raise ValueError("group, document, normalized text or author/ORCID leakage")

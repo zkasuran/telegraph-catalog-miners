@@ -16,7 +16,9 @@ summarization proof.
 | Tokenizer | 88 primary conformance vectors passed |
 | Frozen development controls | 50% for length, token length, TF-IDF overlap and answer-only counts in every format |
 | Full upstream source gate | Passed on 256 training pairs |
-| Neural quality and real engine | Must be measured remotely, no result claimed here |
+| First model quality | Failed near chance, not registration-ready |
+| First model integration | Full parser and actual engine agreed, repeat/identity controls passed |
+| Revision 2 quality | Unmeasured, fresh audit guarded by development gates |
 | Canonical node registration | Not attempted |
 
 Titles are unchanged human-authored source associations. Donor preferences were
@@ -35,6 +37,17 @@ load weights. Optional full source/tokenizer replay uses the pinned kit and
 source-only tokenizer dependency. The same gate runs in the public CPU workflow.
 
 ## Remote experiment
+
+The first bounded run completed all three epochs and the actual reference engine.
+Raw/JSON/prose accuracy was 48.44%, 49.22% and 50%. It did not improve the
+seed-matched untrained control. The failed model is not registered. Its scored
+audit is quarantined, not reused for later fitting or evaluation.
+
+Revision 2 keeps the training and validation rows unchanged. It uses a stronger
+fixed optimizer recipe and 64 fresh source/entity-independent audit groups from
+the same licensed inventory. All development formats must pass quality and
+baseline gains before audit scoring. This avoids consuming an audit on a model
+that has not learned the development task. Full original grants are retained.
 
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
 timeouts. Train only receives the 256 training pairs. All three fixed epochs
@@ -63,3 +76,7 @@ Apache-2.0. The Telegraph kit retains MIT. Our own competitive additions use
 `LicenseRef-zkasuran-SAND-1.0`. Full grants and attribution remain attached to
 unsuccessful checkpoints as well as any successful package. See `NOTICE` and
 `DATA-SOURCES.md`.
+
+`SAND-1.0.txt` retains the original reviewed own grant byte for byte. The LICENSE
+scope appendix clarifies which source and failed-checkpoint portions retain their
+own upstream grants. It does not change the SAND grant or restrict source rights.

@@ -44,6 +44,24 @@ tokenizer hashes are pinned in `runtime_check.py`.
 
 ## Freeze and evaluation
 
+Revision 2 retains the original 128 training and 32 validation components. It
+replaces the scored original audit with 64 fresh independent source components.
+The old audit SHA-256 is listed in `exposed-audit.json` and its source/entity
+identities are excluded from all new fitting and evaluation. Source text still
+has explicit CC BY 4.0 grants. The source-year range now admits 2014-2026. A
+rescan of the same 13,312 cached files produced 4,007 eligible unique records.
+The complete 19,699-file inventory was checked. No exhausted eligible-corpus
+claim is made. Fresh audit selection found 146 independent candidate components
+after excluding old sources/entities and selected 64 without model scoring.
+
+The optimizer recipe now uses learning rate 0.001, gradient accumulation 4 and
+zero LoRA dropout, with the same three epochs, rank 8, alpha 32 and seed 42.
+This gives 192 updates instead of 48. Selection still uses validation loss alone.
+All development formats must clear the unchanged quality and baseline gains
+before any new audit score is computed. A failed development candidate leaves
+the fresh audit unscored. Original source grants and numerical baseline
+coefficients are unchanged.
+
 Train has 128 components and 256 reciprocal pairs. Validation has 32 components
 and 64 pairs. Audit has 64 components and 128 pairs. Source/entity identities
 and normalized title/abstract text do not overlap across these splits.

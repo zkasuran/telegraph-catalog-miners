@@ -12,6 +12,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from audit_policy import check_source_quarantine, development_gate
 from baseline import load_controls
 from common import DEFAULT_OWNER, lease_for, validate_lease
 from data import HERE, VIEWS, check_splits, prepare, read_splits, view
@@ -129,6 +130,29 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_development_gate_keeps_clean_audit_closed(self):
+        rows = [dict(row, group_id="fixture-" + str(i)) for i in range(32) for row in fixture_rows()]
+        good = pair_metrics(rows, [2., 1.] * 64)
+        weak = pair_metrics(rows, [2., 1., 0., 1.] * 32)
+        trained = {style: good for style in VIEWS}
+        untrained = {style: weak for style in VIEWS}
+        controls = {style: {"fixture_shortcut": .5} for style in VIEWS}
+        self.assertTrue(development_gate(trained, untrained, controls)["audit_allowed"])
+        self.assertFalse(development_gate({style: weak for style in VIEWS}, untrained, controls)["audit_allowed"])
+        self.assertFalse(development_gate(trained, trained, controls)["audit_allowed"])
+        missing = dict(trained)
+        missing.pop("json")
+        self.assertFalse(development_gate(missing, untrained, controls)["audit_allowed"])
+
+    def test_exposed_original_audit_is_excluded(self):
+        self.assertEqual(check_source_quarantine()["source_entity_overlap"], 0)
+        exposure = json.loads((HERE / "exposed-audit.json").read_text())
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        manifest["splits"]["audit"][0]["source_entity_ids"].append(exposure["source_entity_ids"][0])
+        splits = {name: [r for g in groups for r in g["pairs"]] for name, groups in manifest["splits"].items()}
+        with self.assertRaises(ValueError):
+            check_splits(manifest, splits)
+
     def test_compile_processes_are_bounded_without_skipping_checks(self):
         with patch("runtime_check.subprocess.run") as execute:
             compile_tools(Path("fixture-output"), Path("fixture-kit"))

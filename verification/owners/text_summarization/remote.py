@@ -13,6 +13,7 @@ import time
 from dataclasses import asdict
 from pathlib import Path
 
+from audit_policy import development_gate
 from data import VIEWS, prepare, read_splits, view, write_json
 from gates import run_gate
 from licensing import OWN_ID, licence_metadata, preserve_artifact
@@ -155,6 +156,9 @@ def experiment(root):
     model, tok = trainer.build_model(str(base), hp)
     initial_hash = state_hash(model)
     save_checkpoint(model, root / "initial")
+    development_views = {style: [view(r, style) for r in splits["validation"]] for style in VIEWS}
+    with isolated_evaluation(model, torch, np):
+        untrained_development = {style: pair_metrics(rows, native_scores(model, rows)) for style, rows in development_views.items()}
     # Complete all three fixed epochs. Only development loss selects the
     # checkpoint. Its extra evaluation consumes no training RNG.
     if hp.epochs != EPOCHS:
@@ -227,6 +231,24 @@ def experiment(root):
     save_checkpoint(model, root / "adapter")
     tok.save_pretrained(root / "adapter")
     (root / "adapter/tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())
+    with isolated_evaluation(model, torch, np):
+        trained_development = {style: pair_metrics(rows, native_scores(model, rows)) for style, rows in development_views.items()}
+    development_controls = {style: controls(rows) for style, rows in development_views.items()}
+    admission = development_gate(trained_development, untrained_development, development_controls)
+    write_json(root / "development-gate.json", {"gate": admission, "trained": trained_development,
+               "untrained": untrained_development, "controls": development_controls,
+               "selected_trainable_sha256": best_hash, "audit_scored": False})
+    if not admission["audit_allowed"]:
+        write_json(root / "result.json", {"status": "DEVELOPMENT_GATE_FAIL", "family": "TEXT_SUMMARIZATION",
+                   "phase": "training_complete_clean_audit_unscored", "development": admission,
+                   "data": data_report, "hyperparameters": asdict(hp), "epochs_completed": EPOCHS,
+                   "optimizer_steps": len(timings), "train_loss_mean": sum(losses) / len(losses),
+                   "selected_epoch": best["epoch"], "selected_trainable_sha256": best_hash,
+                   "selection_split": "validation", "audit_scored": False,
+                   "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
+                   "owner_attempt": os.environ["OWNER_ATTEMPT"], "node_qualification": "not attempted"})
+        preserve(root)
+        return 1
     audit_views = {style: [view(r, style) for r in splits["audit"]] for style in VIEWS}
     native = {style: native_scores(model, rows) for style, rows in audit_views.items()}
     trained = {style: pair_metrics(audit_views[style], scores) for style, scores in native.items()}

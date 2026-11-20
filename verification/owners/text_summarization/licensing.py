@@ -11,16 +11,20 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 OWN_ID = "LicenseRef-zkasuran-SAND-1.0"
 OWN_SHA = "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447"
+SCOPE_LICENSE_SHA = "a1ffcae7839e7485274eb2839cced18b47f8416f47779dd8a11e7cbf484136de"
 APACHE_SHA = "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
 MIT_SHA = "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1"
 CC_SHA = "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
 MAX_BYTES = 64 << 20
 MAX_HEADER = 1 << 20
-SIDECARS = ("LICENSE", "UPSTREAM-APACHE-2.0.txt", "KIT-LICENSE", "CC-BY-4.0.txt", "NOTICE", "DATA-SOURCES.md")
+SIDECARS = ("LICENSE", "SAND-1.0.txt", "UPSTREAM-APACHE-2.0.txt", "KIT-LICENSE", "CC-BY-4.0.txt", "NOTICE", "DATA-SOURCES.md")
 
 
 def licence_metadata():
-    own = (HERE / "LICENSE").read_text()
+    own = (HERE / "SAND-1.0.txt").read_text()
+    scoped = (HERE / "LICENSE").read_bytes()
+    if not scoped.startswith(own.encode()) or hashlib.sha256(scoped).hexdigest() != SCOPE_LICENSE_SHA:
+        raise ValueError("source/checkpoint scope or unchanged own grant missing")
     apache = (HERE / "UPSTREAM-APACHE-2.0.txt").read_text()
     mit = (HERE / "KIT-LICENSE").read_text()
     cc = (HERE / "CC-BY-4.0.txt").read_text()

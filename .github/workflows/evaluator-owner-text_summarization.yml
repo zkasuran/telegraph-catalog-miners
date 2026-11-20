@@ -36,6 +36,11 @@
          "name": "text-summarization-result-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
          "path": "${{ runner.temp }}/summary-experiment/*.json\n${{ runner.temp }}/summary-experiment/*.safetensors\n${{ runner.temp }}/summary-experiment/LICENSE\n${{ runner.temp }}/summary-experiment/NOTICE\n${{ runner.temp }}/summary-experiment/*LICENSE\n${{ runner.temp }}/summary-experiment/*.txt\n${{ runner.temp }}/summary-experiment/*.md\n${{ runner.temp }}/summary-experiment/adapter/\n${{ runner.temp }}/summary-experiment/initial/\n${{ runner.temp }}/summary-experiment/checkpoint/\n${{ runner.temp }}/summary-experiment/data/*.json\n${{ runner.temp }}/summary-dependency-audit.json"
        }},
+      {"name": "Upload bounded registration-ready report only", "if": "${{ success() && inputs.mode == 'train' }}",
+       "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {
+         "name": "text-summarization-ready-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
+         "path": "${{ runner.temp }}/summary-experiment/registration-ready.json"
+       }},
       {"name": "Verify exact served package and prepare restricted lease", "if": "${{ inputs.mode == 'serve' }}", "timeout-minutes": 25,
        "run": "\"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/serve.py --root \"$RUNNER_TEMP/summary-serving\" --settings \"$SERVING_SETTINGS\""},
       {"name": "Upload ONLY restricted public lease", "if": "${{ inputs.mode == 'serve' }}",

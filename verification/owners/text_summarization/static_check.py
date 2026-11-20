@@ -21,8 +21,10 @@ def main():
     contract = json.loads((HERE / "contract.json").read_text())
     if contract["family"] != FAMILY or contract["child"] != FAMILY + "_GENERAL":
         raise ValueError("exact owner family required")
-    if contract["hyperparameters"] != {"max_length": 256, "lora_rank": 8, "lora_alpha": 32, "batch_size": 1, "grad_accum": 16, "epochs": 3, "eval_batch": 1, "seed": 42}:
+    if contract["hyperparameters"] != {"max_length": 256, "lora_rank": 8, "lora_alpha": 32, "batch_size": 1, "grad_accum": 4, "epochs": 3, "eval_batch": 1, "seed": 42, "lr": .001, "lora_dropout": 0.0}:
         raise ValueError("fixed CPU recipe changed")
+    if contract.get("recipe_version") != 2:
+        raise ValueError("explicit source/training revision required")
     if contract["quality"] != {"minimum_accuracy": .80, "minimum_subset_accuracy": .70, "minimum_untrained_gain": .05, "minimum_shortcut_gain": .10, "maximum_shortcut_accuracy": .65}:
         raise ValueError("unchanged quality thresholds required")
     if digest((HERE / "data/manifest.json").read_bytes()) != contract["source_manifest_sha256"]:
@@ -54,6 +56,8 @@ def main():
             subprocess.run(["bash", "-n", "-c", step["run"]], check=True, timeout=5)
         if step.get("name") == "Upload ONLY restricted public lease" and step["with"]["path"] != "${{ runner.temp }}/summary-serving/lease.json":
             raise ValueError("serving may upload only its restricted public lease")
+        if step.get("name") == "Upload bounded registration-ready report only" and step["with"]["path"] != "${{ runner.temp }}/summary-experiment/registration-ready.json":
+            raise ValueError("registration evidence must be a bounded root report, not the checkpoint archive")
     training = ast.parse((HERE / "remote.py").read_text())
     experiment = next(n for n in training.body if isinstance(n, ast.FunctionDef) and n.name == "experiment")
     loop = next(n for n in experiment.body if isinstance(n, ast.For) and isinstance(n.target, ast.Name) and n.target.id == "epoch")
@@ -62,6 +66,13 @@ def main():
     accesses = [n.slice.value for n in ast.walk(loop) if isinstance(n, ast.Subscript) and isinstance(n.value, ast.Name) and n.value.id == "splits" and isinstance(n.slice, ast.Constant)]
     if "validation" not in accesses or "audit" in accesses:
         raise ValueError("audit must remain outside development selection")
+    positions = {name: node.lineno for node in ast.walk(experiment) if isinstance(node, ast.Assign)
+                 for target in node.targets if isinstance(target, ast.Name)
+                 for name in (target.id,) if name in {"admission", "audit_views"}}
+    guarded = any(isinstance(node, ast.If) and ast.unparse(node.test) == "not admission['audit_allowed']"
+                  and any(isinstance(child, ast.Return) for child in ast.walk(node)) for node in ast.walk(experiment))
+    if not guarded or positions.get("admission", 1 << 30) >= positions.get("audit_views", 0):
+        raise ValueError("development admission must precede any neural audit scoring")
     for source in ("remote.py", "runtime_check.py", "serve.py"):
         tree = ast.parse((HERE / source).read_text())
         for node in tree.body:

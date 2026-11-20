@@ -14,3 +14,10 @@ Full Apache, MIT and CC BY terms accompany source and failed exports.
 Our competitive code, constructed preferences and fitted additions are
 Copyright (c) 2026 zkasuran, LicenseRef-zkasuran-SAND-1.0. These terms apply
 only to our own portions and do not restrict retained upstream grants.
+
+Source experiment revision 2 retains the complete original SAND grant in
+SAND-1.0.txt and clarifies source/checkpoint scope in LICENSE. Training and
+validation source rows remain unchanged. The scored original audit from run
+44682766454 is excluded from all new fitting and evaluation. Fresh audit groups
+include licensed publications through 2026 with separate source/entity identities.
+The new audit is not scored until the frozen candidate passes development gates.

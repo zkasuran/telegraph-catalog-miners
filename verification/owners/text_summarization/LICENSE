@@ -144,3 +144,13 @@ The structure and much of the plain-language wording of this licence is adapted 
 standardised source-available licence template, with its noncommercial restriction
 replaced by the "any purpose" grant above and its identifying references removed, as
 that template's own terms require of an adaptation.
+
+## Source experiment revision 2 scope
+
+The SAND grant above applies only to our own code, preference construction
+and fitted additions. Primary article text and unchanged published title
+associations retain the per-article CC BY 4.0 grants in data/manifest.json.
+ModernBERT retains Apache-2.0 and the Telegraph kit retains MIT. These
+upstream grants remain attached to unsuccessful checkpoints as well as
+successful exports. The original SAND grant is copied unchanged in
+SAND-1.0.txt. This scope statement does not narrow any upstream grant.

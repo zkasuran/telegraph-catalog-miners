@@ -39,9 +39,9 @@ def run_gate(root, kit):
     prepare(root)
     report, splits = read_splits(root)
     trainer = load_trainer(kit)
-    hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=16, lora_rank=8,
-                            lora_alpha=32, epochs=3, eval_batch=1, grad_checkpointing=False,
-                            early_stopping=False, gate_min_acc=.80)
+    hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=4, lora_rank=8,
+                             lora_alpha=32, epochs=3, eval_batch=1, grad_checkpointing=False,
+                             early_stopping=False, gate_min_acc=.80, lr=.001, lora_dropout=0.0)
     gate = trainer.gate_dataset(splits["train"], hp)
     if gate["metrics"].get("surface_probe_acc") is None:
         gate["ok"] = False

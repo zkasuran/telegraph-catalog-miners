@@ -18,6 +18,13 @@
 
 ## Known limits
 
+The first real model completed the full source/parser/reference-engine pipeline
+but failed quality near chance in all response formats. Its 64 scored audit
+groups are excluded by `exposed-audit.json`. Revision 2 requires complete
+development quality and untrained/shortcut gains before opening a fresh audit.
+`audit_policy.py` and named negative tests enforce this boundary. The new
+optimizer recipe is not a measured improvement until its remote run completes.
+
 This is a target-study title relevance experiment, not a general factual summary
 judge. Source grants do not establish independent scientific truth. Preferences
 are constructed, not human-reviewed. These grouped source audit rows are not the

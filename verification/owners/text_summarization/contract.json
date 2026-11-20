@@ -3,7 +3,7 @@
   "family": "TEXT_SUMMARIZATION",
   "child": "TEXT_SUMMARIZATION_GENERAL",
   "scope": "Target-study title relevance with complete two-study references, not full factual summarization",
-  "source_manifest_sha256": "8453ca0af04a1404ee763d87be05fdb39d7154e3a975308e97922ee1797a5db3",
+  "source_manifest_sha256": "ec9f5926842f86f3825f85c2c45e76d344976a29650e667c0120106841f2cac4",
   "splits": {
     "train": {
       "groups": 128,
@@ -18,19 +18,21 @@
     "audit": {
       "groups": 64,
       "pairs": 128,
-      "sha256": "887cc67b7279ea2f564b6c4b76a38a91aa7d4ee28e79034625d6a7313e1eabbc"
+      "sha256": "c891d35b58597d587c7c9785071b5a6a9ca191d7fb767d899ba3a0e9a32d781d"
     }
   },
-  "baseline_sha256": "c34139eb350d818d1e887f9f87d1200e49310dbbb956f75f5761ebc33729c34f",
+  "baseline_sha256": "f154ac6ceca05c8376fbecdb785bec4f28fc3aaa06cd6af1e64309e35505d0a3",
   "hyperparameters": {
     "max_length": 256,
     "lora_rank": 8,
     "lora_alpha": 32,
     "epochs": 3,
     "batch_size": 1,
-    "grad_accum": 16,
+    "grad_accum": 4,
     "eval_batch": 1,
-    "seed": 42
+    "seed": 42,
+    "lr": 0.001,
+    "lora_dropout": 0.0
   },
   "quality": {
     "minimum_accuracy": 0.8,
@@ -39,6 +41,7 @@
     "minimum_shortcut_gain": 0.1,
     "maximum_shortcut_accuracy": 0.65
   },
-  "selection": "All three epochs. Validation loss alone selects; audit only after restoring the selected checkpoint.",
-  "source_authorship": "Human published title associations. Donor preferences are constructed, not human preference votes."
+  "selection": "All three epochs. Validation loss alone selects. All development formats and untrained/shortcut gains must pass before a fresh audit is scored.",
+  "source_authorship": "Human published title associations. Donor preferences are constructed, not human preference votes.",
+  "recipe_version": 2
 }

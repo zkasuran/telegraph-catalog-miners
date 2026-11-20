@@ -19,6 +19,7 @@ fi
 [[ "$("$RUFF_BIN" --version)" == "ruff 0.16.4" ]]
 "$RUFF_BIN" check --config "$HERE/ruff.toml" "$HERE"
 python3 -W error "$HERE/static_check.py"
+python3 -W error "$HERE/audit_policy.py"
 python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -v
 KIT="${REFERENCE_KIT:-}"
 if [[ -z "$KIT" ]]; then
