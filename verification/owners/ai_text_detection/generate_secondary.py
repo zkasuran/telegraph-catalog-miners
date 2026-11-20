@@ -1,0 +1,86 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+"""Fixed-seed public CPU generation on a new independent licensed training block."""
+import argparse
+import gc
+import json
+import os
+import time
+from pathlib import Path
+
+from common import remote_only, fetch, dump, sha, audit_excerpts, identity, lines, HERE
+from secondary_contract import expanded_source_bundle, validate_secondary
+from source import parse_article
+
+
+def main():
+    remote_only()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path, required=True)
+    root = parser.parse_args().root.resolve()
+    bundle, secondary, _, base = expanded_source_bundle()
+    output = root / "secondary-generation.jsonl"
+    if output.exists():
+        raise ValueError("secondary generation already exists; do not reroll")
+    for row in secondary["articles"]:
+        raw = fetch(row["url"], root / row["path"], row["sha256"], 2 << 20)
+        if parse_article(raw, {"path": row["path"], "sha": row["git_blob"], "size": row["bytes"]}) != row:
+            raise ValueError("secondary original grant/source changed")
+    generator = base["generators"]["gpt2"]
+    directory = root / "secondary-gpt2"
+    directory.mkdir(exist_ok=True)
+    for name, expected in generator["files"].items():
+        fetch(f"https://huggingface.co/{generator['id']}/resolve/{generator['revision']}/{name}", directory / name, expected, 600 << 20)
+    import torch
+    from transformers import AutoTokenizer, AutoModelForCausalLM
+    torch.set_num_threads(4)
+    tok = AutoTokenizer.from_pretrained(directory, local_files_only=True, trust_remote_code=False)
+    model = AutoModelForCausalLM.from_pretrained(directory, local_files_only=True, trust_remote_code=False,
+        use_safetensors=True, dtype=torch.float32).eval()
+    started, seen, count = time.monotonic(), set(), 0
+    with output.open("w") as log:
+        for row in secondary["articles"]:
+            if time.monotonic() - started > 1100 or count >= 64:
+                raise ValueError("secondary generation time/count ceiling")
+            seed = int(row["group_id"][:8], 16)
+            torch.manual_seed(seed)
+            encoded = tok(row["prefix"], return_tensors="pt")
+            n = encoded["input_ids"].shape[1]
+            if not 1 <= n <= 64:
+                raise ValueError("secondary prefix token ceiling")
+            with torch.no_grad():
+                tokens = model.generate(**encoded, do_sample=True, top_p=0.9, top_k=50, temperature=0.9,
+                    min_new_tokens=64, max_new_tokens=64, pad_token_id=tok.eos_token_id)
+            continuation = tokens[0, n:].tolist()
+            decoded = tok.decode(continuation, skip_special_tokens=True)
+            human, machine, crop = audit_excerpts(row["human_text"], decoded)
+            if seen.intersection({identity(human), identity(machine)}):
+                raise ValueError("secondary normalized duplicate; no score-based retry")
+            common = {"source_id": row["source_id"], "group_id": row["group_id"], "split": "train", "year": row["year"],
+                "source_sha256": row["sha256"], "licence": row["licence"], "source_attribution": row["url"],
+                "excerpt_view": crop, "label_kind": "source_provenance_not_human_preference_review"}
+            records = [{**common, "origin": "human_control", "text": human},
+                {**common, "origin": "synthetic", "text": machine, "generator": "gpt2", "seed": seed,
+                 "generator_weight_sha256": generator["weight_sha256"], "generator_revision": generator["revision"],
+                 "prefix_token_ids": encoded["input_ids"][0].tolist(), "continuation_token_ids": continuation,
+                 "decoded_continuation": decoded, "disclosure": "Actual bounded GPT-2 training output, not human-reviewed."}]
+            for record in records:
+                log.write(json.dumps(record, ensure_ascii=False) + "\n")
+            log.flush()
+            seen.update({identity(human), identity(machine)})
+            count += 1
+    del model, tok
+    gc.collect()
+    report = {"schema_version": 1, "groups": count, "output_sha256": sha(output.read_bytes()),
+        "source_bundle_sha256": bundle, "secondary_source_manifest_sha256": sha((HERE / "secondary-training-sources.json").read_bytes()),
+        "generator": generator, "audit_used": False, "run_id": int(os.environ["GITHUB_RUN_ID"]),
+        "commit": os.environ["GITHUB_SHA"], "elapsed_seconds": time.monotonic() - started}
+    originals = []
+    for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "supplement-generation.jsonl"):
+        originals += [{"text_id": identity(r["text"])} for r in lines((root / name).read_bytes())]
+    validate_secondary(output.read_bytes(), report, originals)
+    dump(root / "secondary-generation-report.json", report)
+    print(json.dumps({"actual_groups": count, "output_sha256": report["output_sha256"], "audit_used": False}), flush=True)
+
+
+if __name__ == "__main__":
+    main()

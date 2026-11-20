@@ -54,6 +54,11 @@ def main():
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
                 raise ValueError("neural import in local release path")
+    for name in ("secondary_contract.py", "test_secondary.py"):
+        for node in ast.walk(ast.parse((HERE / name).read_text())):
+            modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
+            if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
+                raise ValueError("neural import in local secondary source path")
     recipe = json.loads((HERE / "recipe.json").read_text())
     if (recipe["schema_version"] != 1 or recipe["epochs"] > 8 or recipe["grad_accum"] != 8 or
             recipe["lora_rank"] != 16 or recipe["lora_alpha"] != 64 or recipe["original_run_id"] != 44565365361):
@@ -66,6 +71,11 @@ def main():
     capacity_policy(recipe)
     from resume_contract import source_resume
     source_resume((HERE / checkpoint).read_bytes(), recipe)
+    from secondary_contract import expanded_source_bundle
+    expanded_sha, _, _, _ = expanded_source_bundle()
+    if recipe.get("secondary_training") != {"groups": 64, "rows": 128, "updates_per_epoch": 16,
+            "original_rows": 880, "total_rows": 1008, "audit_used": False} or recipe.get("expanded_source_manifest_sha256") != expanded_sha:
+        raise ValueError("additive secondary training source/count policy changed")
     from window_contract import validate_plan
     import hashlib
     validate_plan(json.loads((HERE / "train-window-plan.json").read_text()), json.loads(source_raw), hashlib.sha256(source_raw).hexdigest())

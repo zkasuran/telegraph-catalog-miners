@@ -70,7 +70,8 @@ def main():
         raise ValueError("candidate changed after validation freeze")
     source_raw = (HERE / "sources.json").read_bytes()
     from supplement_contract import source_bundle, validate_generation
-    bundle_sha, extra_sources, base_sources = source_bundle()
+    from secondary_contract import expanded_source_bundle, validate_secondary
+    bundle_sha, _, extra_sources, base_sources = expanded_source_bundle()
     if sha(source_raw) != frozen["base_source_manifest_sha256"] or bundle_sha != frozen["source_manifest_sha256"]:
         raise ValueError("source changed after candidate freeze")
     for path, key in (("frozen-baselines.json", "baseline_sha256"), ("development-generation.jsonl", "development_sha256")):
@@ -93,6 +94,11 @@ def main():
     supplement_marks = {r["text_id"] for r in supplement_views} | {identity(r["text"]) for r in lines(supplement_raw)}
     if supplement_marks.intersection(identity(r["text"]) for r in records if r["split"] == "test"):
         raise ValueError("supplementary training overlaps independent audit")
+    secondary_raw = (root / "secondary-generation.jsonl").read_bytes()
+    if sha(secondary_raw) != frozen["secondary_generation_sha256"]:
+        raise ValueError("secondary training changed after candidate freeze")
+    secondary_report = json.loads((root / "secondary-generation-report.json").read_text())
+    validate_secondary(secondary_raw, secondary_report, [{"text_id": identity(r["text"])} for r in records] + supplement_views)
     generated = json.loads((root / "audit-generation-report.json").read_text())
     if (generated["output_sha256"] != sha((root / "audit-generation.jsonl").read_bytes()) or
             generated["source_manifest_sha256"] != sha(source_raw) or
@@ -111,7 +117,7 @@ def main():
               for style, rows in formats.items()}
     if any(len(ids) > MAX_TOKENS for batch in tokens.values() for ids in batch):
         raise ValueError("audit full context exceeds package cap")
-    identity = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"],
+    wire_identity = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"],
                 "adapter_hash": frozen["package_keccak"].removeprefix("0x"),
                 "tokenizer_hash": FOUNDATION["tokenizer.json"]}
     all_bits, trained, repeats, controls = {}, {}, False, []
@@ -120,17 +126,17 @@ def main():
             bits = []
             for start in range(0, len(vectors), 8):
                 batch = vectors[start:start + 8]
-                bits.extend(check_reply(request(url, batch, identity), len(batch), identity))
+                bits.extend(check_reply(request(url, batch, wire_identity), len(batch), wire_identity))
             all_bits[style] = bits
             trained[style] = measures(formats[style], bits)
         vectors = tokens["json"][:8]
-        repeats = check_reply(request(url, vectors, identity), 8, identity) == all_bits["json"][:8]
+        repeats = check_reply(request(url, vectors, wire_identity), 8, wire_identity) == all_bits["json"][:8]
         if not repeats:
             raise ValueError("repeat reference score bits differ")
         # The upstream executor returns its actual identity, not an echo. The
         # literal counterparty verifier must reject each wrong request identity.
-        for field in identity:
-            wrong = {**identity, field: "f" * 64}
+        for field in wire_identity:
+            wrong = {**wire_identity, field: "f" * 64}
             reply = request(url, vectors[:1], wrong)
             try:
                 check_reply(reply, 1, wrong)
@@ -138,19 +144,19 @@ def main():
                 controls.append(field)
             else:
                 raise ValueError("negative identity control accepted")
-        prefix_wrong = {**identity, "adapter_hash": "0x" + identity["adapter_hash"]}
+        prefix_wrong = {**wire_identity, "adapter_hash": "0x" + wire_identity["adapter_hash"]}
         try:
             check_reply(request(url, vectors[:1], prefix_wrong), 1, prefix_wrong)
         except ValueError:
             controls.append("prefixed_adapter_hash")
         else:
             raise ValueError("counterparty bare hash contract not enforced")
-        malformed = request(url, [[], [-1], [50368]], identity)
+        malformed = request(url, [[], [-1], [50368]], wire_identity)
         if any(not item.get("error") or "score" in item for item in malformed.get("results", [])) or len(malformed.get("results", [])) != 3:
             raise ValueError("actual engine invalid-token refusal failed")
     # Fresh process must reproduce the same frozen vectors.
     with executor(root, package) as url:
-        if check_reply(request(url, vectors, identity), 8, identity) != all_bits["json"][:8]:
+        if check_reply(request(url, vectors, wire_identity), 8, wire_identity) != all_bits["json"][:8]:
             raise ValueError("fresh-process reference bits differ")
     # Measure seed-matched untrained control in the identical reference engine.
     pins = json.loads((HERE / "model-pins.json").read_text())
@@ -163,7 +169,7 @@ def main():
     untrained_package = root / "UNTRAINED.safetensors"
     untrained_hash = subprocess.run([str(digest_tool), str(untrained_package)], capture_output=True,
                                    text=True, check=True, timeout=20).stdout.strip()
-    initial_identity = {**identity, "adapter_hash": untrained_hash}
+    initial_identity = {**wire_identity, "adapter_hash": untrained_hash}
     untrained = {}
     with executor(root, untrained_package) as url:
         for style, batch in tokens.items():
@@ -187,7 +193,7 @@ def main():
     # Only observed passes produce a registration envelope.
     ready = {"schema_version": 1, "status": "REGISTRATION_READY", "family": FAMILY,
              "run_id": result["run_id"], "commit": result["commit"],
-             "package_sha256": frozen["package_sha256"], "package_keccak": identity["adapter_hash"],
+              "package_sha256": frozen["package_sha256"], "package_keccak": wire_identity["adapter_hash"],
              "foundation_sha256": FOUNDATION["foundation_lora_fp32.onnx"], "engine_sha256": FOUNDATION["foundation_engine.wasm"],
              "tokenizer_sha256": FOUNDATION["tokenizer.json"],
              "source": {"normalized_overlap": 0, "audit_used_for_selection": False, "grants_verified": True,

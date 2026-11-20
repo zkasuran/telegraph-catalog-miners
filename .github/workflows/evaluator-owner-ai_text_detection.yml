@@ -118,6 +118,11 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate_supplement.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
+          "name": "Generate further independent licensed training origins",
+          "timeout-minutes": 20,
+          "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate_secondary.py --root \"$RUNNER_TEMP/ai-owner\""
+        },
+        {
           "name": "Continue exact selected rank16 state at lower rate under unchanged gates",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""

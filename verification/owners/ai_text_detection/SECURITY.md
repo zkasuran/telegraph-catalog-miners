@@ -4,6 +4,10 @@
 |---|---|---|
 | Wrong source bytes or missing grant | Git blob plus SHA-256 and per-article CC BY clause | Manifest and tampered-XML controls |
 | Sparse checkout omits gate inputs | Exact owned source and workflow paths in non-cone checkout | Incomplete-checkout refusal control |
+| Further source growth replaces old provenance or exposes audit | Immutable parent bundle plus separate64-source manifest and fixed training dates | Source/entity/retired-author exclusions and secondary byte/role/overlap refusals |
+| Additional data hides a failing old corpus | Separate unchanged752,880 and1008 primary data gates | Original data controls remain; fixture-only additive population tests |
+| Source attribution exhausts checkpoint metadata | Compact complete grant/citation fields, full source sidecars | Attribution retention test; existing1MiB header ceiling remains |
+| Secondary generator silently rerolls | Existing-output refusal and fixed source seeds/count/time caps | Local invocation refusal; actual generation/control results are remote-only |
 | Capacity silently rescales learned deltas | Rank8/alpha32 to rank16/alpha64 preserves alpha/rank4 and all old slices | Strict policy and scalar controls; actual matrix delta checks run remotely |
 | Resume discards learned rank16 capacity or mixes saved heads | Exact producer/selected-epoch/model/readout hashes and direct load | Actual opaque checkpoint/grant checks and new resume-policy corruption tests |
 | Smaller step size silently weakens acceptance | Fixed lower-rate recipe, identical data/losses/selection/audit thresholds | Same all-format/label/shortcut refusal tests and literal wire controls |
@@ -62,6 +66,12 @@ old rank8 prefix. The previous expansion proof remains historical evidence. The
 new runner must prove exact full learned-state equality before fitting. The
 selected-state artifacts keep their original grants; a failed quality gate cannot
 be turned into an eligible registration by resuming or changing the learning rate.
+
+Further training articles remain distinct from validation/audit sources and both
+older training blocks. Generated rows are unbuilt until the real public CPU step.
+Source-only generation fixtures are structural tests, never training material.
+The original baseline and every quality/runtime gate remain. No additive source
+publication is a model-quality or canonical-registration claim.
 
 Known limits: pretraining overlap is unknown. Journal controls do not certify an
 individual's production history. DistilGPT2 is related to GPT-2. A source-held-out

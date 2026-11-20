@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "exact-rank16-lower-rate-continuation-v17",
+  "name": "additive-independent-training-block-v18",
   "checkpoint_sha256": "05d0d605cbe0e4f05af43f0e15562fbba6d3d5b41d45846b38b495f51b230b6f",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -113,6 +113,15 @@
     "readout_sha256": "47ae66f72ff3d6b984d9550b8068a84611f84dabe7797fd1d6e5afcb9a51b1ab",
     "direct_load": true,
     "reexpand": false,
+    "audit_used": false
+  },
+  "expanded_source_manifest_sha256": "b8e02b79d02bfca44bc6898abebe3db57e918d0b4196ceb1ce34444ae2fef583",
+  "secondary_training": {
+    "groups": 64,
+    "rows": 128,
+    "updates_per_epoch": 16,
+    "original_rows": 880,
+    "total_rows": 1008,
     "audit_used": false
   }
 }

@@ -1,5 +1,34 @@
 # Sources and rights
 
+## A further independent training-source block
+
+Run44771475621 restored the selected rank16 state exactly and passed the data and
+parser gates, but both lower-rate fitting epochs failed to improve strict quality.
+The same selected state was retained and the independent audit stayed sealed.
+No unchanged failed binary is registered for another draw.
+
+A fixed source-only scan of1611 candidates selected64 further2012-2014 training
+articles. The full pinned inventory remains32141 XMLs/19701 article IDs, with a
+complete4555-entry legacy v1 candidate pool. This bounded scan is not the corpus.
+Every original/retired source, named author and normalized text from both previous
+source blocks is excluded. Individual original Git blobs and CC BY grant clauses
+are retained in secondary-training-sources.json and reverified before generation.
+
+The old880 preferences and all their source/producer hashes remain unchanged.
+Only bounded public CPU work generates the new128 counterpart rows with fixed
+GPT-2 seeds. New generation is unbuilt until that actual step succeeds. Training
+then has1008 preferences in256 source groups, with94 original,16 first-supplement
+and16 secondary updates per epoch. Original752, previous880 and combined1008 data
+gates all run unchanged. No new bare answer strings, audit data or runtime score
+transform are added. The old source-length comparator remains in every margin.
+
+expanded-training-source-bundle.json binds the unchanged parent bundle and new
+source manifest. Reports, packages, audit freeze and failed checkpoints use the
+same full identity. Attribution in tensor headers retains exact original clauses,
+authors, URLs and hashes without duplicating paragraph text. Complete originals
+remain in source sidecars. Constructed preferences are not human-reviewed votes.
+New generator/model results and independent runtime quality remain unverified.
+
 ## Exact selected rank16 lower-rate resume
 
 Run 44762535076 verified all88 original matrix deltas with zero actual difference,

@@ -2,6 +2,13 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+The further64 training articles retain individual CC BY clauses and attribution
+in secondary-training-sources.json. The new source block is independent of all
+original/current/retired source entities. Its future GPT-2 continuations are marked
+as synthetic only after real bounded generation. The expanded bundle retains the
+old source manifests and producer identities. Our source selection, generation
+and training additions use SAND only for our additions, not the original grants.
+
 The exact selected rank16 adapter and training-only source readout of public run
 44762535076 are retained with original producer/selection/source/byte identities.
 They remain subject to the original article, generator, foundation and software

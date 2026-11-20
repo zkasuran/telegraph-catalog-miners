@@ -95,6 +95,15 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+The exact-state lower-rate job restored all178 tensors but did not improve the
+strict validation result. A further64 independent licensed training articles
+are now source-verified. Their machine counterparts are not generated locally.
+The next public CPU job keeps all880 prior preferences and adds128 new source-backed
+comparisons only after actual fixed-seed generation and overlap controls. It retains
+the old source-length margin and runs all three original/expanded data gates.
+The intended combined population is1008 preferences in256 training article groups.
+New neural benefit and independent audit/runtime results remain unverified.
+
 Rank16 run44762535076 passed real expansion and gradient controls and selected
 epoch0. Bare accuracy improved to82.81% with both labels above70%, but every format
 still missed the stronger shortcut margin. No audit was consumed or registration

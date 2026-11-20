@@ -60,14 +60,20 @@ def main():
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
     (out / "source-manifest.json").write_bytes(source_manifest)
-    for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "audit-generation.jsonl", "supplement-generation.jsonl"):
+    for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "audit-generation.jsonl", "supplement-generation.jsonl", "secondary-generation.jsonl"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 16 << 20:
             (out / name).write_bytes(path.read_bytes())
-    from supplement_contract import source_bundle
-    bundle_sha, extra, _ = source_bundle()
+    from secondary_contract import expanded_source_bundle, attributions
+    bundle_sha, secondary, extra, _ = expanded_source_bundle()
     (out / "base-source-manifest.json").write_bytes(source_manifest)
-    (out / "source-manifest.json").write_bytes((HERE / "training-source-bundle.json").read_bytes())
+    (out / "source-manifest.json").write_bytes((HERE / "expanded-training-source-bundle.json").read_bytes())
+    (out / "parent-source-bundle.json").write_bytes((HERE / "training-source-bundle.json").read_bytes())
+    (out / "secondary-training-sources.json").write_bytes((HERE / "secondary-training-sources.json").read_bytes())
+    for name in ("secondary-generation-report.json", "secondary-source-contract.json", "secondary-preference-contract.json", "secondary-preference-gradient-control.json", "previous-combined-dataset-gate.json"):
+        path = root / name
+        if path.is_file() and path.stat().st_size <= 256 << 10:
+            (out / name).write_bytes(path.read_bytes())
     (out / "extra-training-sources.json").write_bytes((HERE / "extra-training-sources.json").read_bytes())
     dump(out / "composite-source-binding.json", {"source_manifest_sha256": bundle_sha, "original_grants_retained": True})
     dump(out / "source-binding.json", {"source_manifest_sha256": bundle_sha,
@@ -80,7 +86,7 @@ def main():
                      for rows in source["source_report"]["articles"].values() for r in rows], ensure_ascii=False)},
                       "source-manifest-sha256": {"text": sha(source_manifest)}, "notice": {"text": (HERE / "NOTICE").read_text()},
                       "training-source-bundle-sha256": {"text": bundle_sha},
-                      "extra-source-attribution": {"text": json.dumps(extra["articles"], ensure_ascii=False)}}
+                       "extra-source-attribution": {"text": json.dumps(attributions(extra["articles"] + secondary["articles"]), ensure_ascii=False)}}
             (out / path.name).write_bytes(stamp(path.read_bytes(), terms))
             # A released package is already stamped. Re-stamping must not change
             # its bytes or its audited identity. Only raw checkpoints need stamps.

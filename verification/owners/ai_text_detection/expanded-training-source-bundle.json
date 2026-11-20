@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "family": "AI_TEXT_DETECTION",
+  "parent_file": "training-source-bundle.json",
+  "parent_sha256": "297022609393437d9a6255c8012b74696467d61286cc98672063999e84d9d2e6",
+  "secondary_file": "secondary-training-sources.json",
+  "secondary_sha256": "092a8fa582d2e91e66761b31061b8433d5d6e4f1f2e4d4380de3acd192874fcd"
+}

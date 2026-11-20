@@ -52,6 +52,13 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         supplementary_by_view[row["view_id"]].append(row)
     if len(supplementary_by_view) != 64 or any(len(v) != 2 for v in supplementary_by_view.values()):
         raise ValueError("complete paired supplementary preferences required")
+    from secondary_contract import secondary_preferences
+    secondary_pairs, secondary_binding = secondary_preferences(origin_aux.secondary_views, train_rows + supplementary_pairs)
+    secondary_expected = json.loads((root / "secondary-preference-contract.json").read_text())
+    if secondary_binding["preference_rows_sha256"] != secondary_expected["preference_rows_sha256"]:
+        raise ValueError("secondary preference bytes changed after data gate")
+    for row in secondary_pairs:
+        supplementary_by_view.setdefault(row["view_id"], []).append(row)
     if hp.batch_size != 1:
         raise ValueError("counterpart training is bounded to one source-view batch")
     dump(root / "training-weight-report.json", policy)
@@ -77,11 +84,14 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     parameters += list(origin_aux.head.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
     supplement_groups = {}
-    for row in origin_aux.extra_views:
+    for row in origin_aux.extra_views + origin_aux.secondary_views:
         supplement_groups.setdefault(row["view_id"], []).append(row)
-    if len(supplement_groups) != 64 or any(len(v) != 2 for v in supplement_groups.values()):
+    if len(supplement_groups) != 128 or any(len(v) != 2 for v in supplement_groups.values()):
         raise ValueError("complete independently paired supplementary source phase required")
-    supplement_batches = [supplement_groups[k] for k in sorted(supplement_groups)]
+    supplement_batches = [supplement_groups[k] for k in sorted(supplement_groups) if k.startswith("supplement:")]
+    supplement_batches += [supplement_groups[k] for k in sorted(supplement_groups) if k.startswith("secondary:")]
+    if len(supplement_batches) != 128:
+        raise ValueError("supplementary phase identities changed")
     total_steps = (len(loader) // group_accum + len(supplement_batches) // group_accum) * hp.epochs
     warm = int(total_steps * 0.06)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda s:
@@ -150,6 +160,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         supplementary_pair_loss = 0.0
         supplementary_correctness_loss = 0.0
         supplementary_margin_loss = 0.0
+        secondary_loss, secondary_correct = 0.0, 0
         optimizer.zero_grad(set_to_none=True)
         for i, group in enumerate(supplement_batches):
             preference_group = supplementary_by_view[group[0]["view_id"]]
@@ -162,6 +173,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 source_loss, correct = origin_aux.loss(view)
                 supplementary_loss += source_loss.item()
                 supplementary_correct += correct
+                if i >= 64:
+                    secondary_loss += source_loss.item()
+                    secondary_correct += correct
                 source_losses[view["text_id"]] = source_loss
             for j, row in enumerate(preference_group):
                 raw_loss, pair_loss, point_loss = loss_components(extra_chosen[j:j+1], extra_rejected[j:j+1],
@@ -173,18 +187,19 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
             extra_margin_loss = alignment(extra_chosen, extra_rejected)
             supplementary_margin_loss += extra_margin_loss.item()
             ((coupled_loss(terms) + aligned_policy["coefficient"] * extra_margin_loss) / group_accum).backward()
-            if epoch == 0 and i == 0:
+            if epoch == 0 and i in (0, 64):
                 touched_head = [name for name, p in model.named_parameters() if
                     ("classifier" in name or ".score." in name) and p.grad is not None and torch.count_nonzero(p.grad).item()]
                 touched_encoder = [name for name, p in model.named_parameters() if
                     "lora_" in name and p.grad is not None and torch.count_nonzero(p.grad).item()]
                 if not touched_head or not touched_encoder or any(not torch.isfinite(p.grad).all() for p in parameters if p.grad is not None):
                     raise ValueError("supplementary preferences failed actual reward-head/encoder gradient control")
-                dump(root / "supplement-preference-gradient-control.json", {"passed": True,
+                control_name = "supplement-preference-gradient-control.json" if i == 0 else "secondary-preference-gradient-control.json"
+                dump(root / control_name, {"passed": True,
                     "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
-                    "preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
+                    "preference_rows_sha256": supplementary_binding["preference_rows_sha256"] if i == 0 else secondary_binding["preference_rows_sha256"],
                     "nonzero_reward_head_gradients": len(touched_head), "nonzero_lora_gradients": len(touched_encoder),
-                    "finite_gradients": True, "original_optimizer_updates_before_control": step,
+                    "finite_gradients": True, "optimizer_updates_before_control": step,
                     "supplementary_optimizer_updates_before_control": 0, "audit_used": False})
             if (i + 1) % group_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0)
@@ -211,13 +226,17 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                    "coupled_objective": coupled, "training_counterpart_gap": counterpart_gap / len(loader),
                    "literal_training_rows": 2 * len(loader), "source_view_batches": len(loader),
                    "literal_batch_size": 2, "literal_rows_per_optimizer_update": hp.grad_accum,
-                   "supplement_source_only_rows": 128, "supplement_optimizer_steps": 16,
-                   "supplement_training_origin_loss": supplementary_loss / 128,
-                    "supplement_training_origin_accuracy": supplementary_correct / 128,
-                    "supplement_preference_rows": 128, "combined_literal_training_rows": 880,
-                    "supplement_preference_pair_loss": supplementary_pair_loss / 128,
-                    "supplement_preference_correctness_loss": supplementary_correctness_loss / 128,
-                    "supplement_preference_margin_loss": supplementary_margin_loss / 64,
+                    "supplement_source_only_rows": 256, "supplement_optimizer_steps": 32,
+                    "supplement_training_origin_loss": supplementary_loss / 256,
+                    "supplement_training_origin_accuracy": supplementary_correct / 256,
+                    "supplement_preference_rows": 256, "combined_literal_training_rows": 1008,
+                    "supplement_preference_pair_loss": supplementary_pair_loss / 256,
+                    "supplement_preference_correctness_loss": supplementary_correctness_loss / 256,
+                    "supplement_preference_margin_loss": supplementary_margin_loss / 128,
+                    "source_phase_updates": {"original": 94, "first_supplement": 16, "secondary": 16},
+                    "secondary_training_origin_loss": secondary_loss / 128,
+                    "secondary_training_origin_accuracy": secondary_correct / 128,
+                    "secondary_preference_rows_sha256": secondary_binding["preference_rows_sha256"],
                     "supplement_preference_policy": supplementary_policy,
                     "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,

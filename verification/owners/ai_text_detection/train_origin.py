@@ -24,6 +24,13 @@ class OriginAuxiliary:
         if supplement_report["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or supplement_report["commit"] != os.environ["GITHUB_SHA"]:
             raise ValueError("actual supplemental generation run/commit mismatch")
         self.extra_views = validate_generation(supplement_raw, supplement_report, extra, base_sources, train + self.validation)
+        from secondary_contract import expanded_source_bundle, validate_secondary
+        expanded_hash, _, _, _ = expanded_source_bundle()
+        secondary_raw = (root / "secondary-generation.jsonl").read_bytes()
+        secondary_report = json.loads((root / "secondary-generation-report.json").read_text())
+        if secondary_report["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or secondary_report["commit"] != os.environ["GITHUB_SHA"]:
+            raise ValueError("secondary origin generation run/commit mismatch")
+        self.secondary_views = validate_secondary(secondary_raw, secondary_report, train + self.validation + self.extra_views)
         self.binding = {"run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
              "source_manifest_sha256": sha((HERE / "sources.json").read_bytes()),
              "development_sha256": sha((root / "development-generation.jsonl").read_bytes()),
@@ -31,12 +38,15 @@ class OriginAuxiliary:
              "additional_augmentation_sha256": sha((root / "additional-augmentation-generation.jsonl").read_bytes()),
              "training_view_sha256": sha(json.dumps(train, sort_keys=True, ensure_ascii=False).encode()),
              "training_source_bundle_sha256": bundle_sha, "supplement_generation_sha256": sha(supplement_raw)}
+        self.binding.update(expanded_source_manifest_sha256=expanded_hash, secondary_generation_sha256=sha(secondary_raw))
         self.by_original_id = {r["original_text_id"]: r for r in train}
         baseline = fit_length(train)
         if length_accuracy(train, baseline) != 0.5 or length_accuracy(self.validation, baseline) != 0.5:
             raise ValueError("equal-byte origin auxiliary retained a length shortcut")
         if length_accuracy(self.extra_views, fit_length(self.extra_views)) != 0.5:
             raise ValueError("supplementary source-origin length shortcut")
+        if length_accuracy(self.secondary_views, fit_length(self.secondary_views)) != 0.5:
+            raise ValueError("secondary source-origin length shortcut")
         base = model.get_base_model()
         if base.config.model_type != "modernbert":
             raise ValueError("origin readout requires pinned ModernBERT encoder")
@@ -64,7 +74,7 @@ class OriginAuxiliary:
         node = Tokenizer.from_file(str(root / "foundation/tokenizer.json"))
         node.no_padding()
         node.no_truncation()
-        for view in train + self.validation + self.extra_views:
+        for view in train + self.validation + self.extra_views + self.secondary_views:
             ids = tok(view["input"], truncation=False)["input_ids"]
             if not 1 <= len(ids) <= 256 or ids != node.encode(view["input"]).ids:
                 raise ValueError("origin-only tokenizer identity or token ceiling mismatch")
@@ -78,6 +88,9 @@ class OriginAuxiliary:
             "independent_extra_groups": 64, "combined_origin_training_groups": 192, "length_control": 0.5,
             "normalized_overlap": 0, "new_literal_preference_rows": 0, "audit_used": False})
         self.diagnostics = []
+        dump(root / "secondary-source-contract.json", {**self.binding, "independent_secondary_groups": 64,
+            "training_only_rows": 128, "combined_training_groups": 256, "normalized_overlap": 0,
+            "length_control": 0.5, "audit_used": False})
         # Real primary-path gradient smoke. No optimizer update, no held-out row.
         view = train[0]
         model.zero_grad(set_to_none=True)
@@ -132,10 +145,10 @@ class OriginAuxiliary:
         sources = json.loads((HERE / "sources.json").read_text())
         meta = {"x-terms-" + k: item["text"] for k, item in sources["terms"].items()}
         meta["x-control"] = "Training-only source-origin readout. Excluded from the production adapter and node package."
-        from supplement_contract import source_bundle
-        bundle_sha, extra, _ = source_bundle()
+        from secondary_contract import expanded_source_bundle, attributions
+        bundle_sha, secondary, extra, _ = expanded_source_bundle()
         meta["x-training-source-bundle-sha256"] = bundle_sha
-        meta["x-extra-source-attribution"] = json.dumps(extra["articles"], ensure_ascii=False)
+        meta["x-extra-source-attribution"] = json.dumps(attributions(extra["articles"] + secondary["articles"]), ensure_ascii=False)
         save_file({k: v.detach().cpu().contiguous() for k, v in self.head.state_dict().items()},
                   str(self.root / "origin-head.safetensors"), metadata=meta)
 
