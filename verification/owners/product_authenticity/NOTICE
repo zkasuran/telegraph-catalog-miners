@@ -32,3 +32,5 @@ ModernBERT development portions: Answer.AI and LightOn, Apache-2.0, pinned revis
 Audit-admission source facts retain the original CC BY 4.0 grants and all 20 creator names in audit_admission/NOTICE and sources/source-grants.json. Analytical-method quotations, maps and personal-contact data are excluded from the new safe snapshot. No original source annotation becomes AI-created specimen truth.
 
 Broader development preserves every original creator and source grant in development/NOTICE. Preferences are newly AI-assisted constructions from original source facts, not previously exposed model audit responses. No new physical authenticity or human review is claimed.
+
+The recovery delta was selected by broad-development run 44630753101 at source commit d7d21aa4c46d2fffc635a1e93fdbf04fc687f860. It is our source-trained LoRA/head, not a third-party binary wrapper. Original Apache-2.0/MIT grants and source attribution remain embedded. Failed checkpoints remain private with the same grants. No human review is claimed.

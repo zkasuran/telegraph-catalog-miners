@@ -292,6 +292,7 @@ def main(data_builder=build, max_tokens=256, control_hook=None, development_mode
     write(root / "foundation.json", spec)
     snapshot_sha = class_snapshot(root)
     command = [str(root / "packagecheck"), "--intent", FAMILY, "--child", CHILD, "--class-snapshot", str(root / "class-snapshot.json"),
+               "--expected-max-tokens", str(max_tokens),
                "--snapshot-sha256", snapshot_sha, "--package", str(package), "--sha256", digest(package.read_bytes()),
                "--foundation", str(root / "foundation.json"), "--foundation-sha256", digest((root / "foundation.json").read_bytes()), "--out", str(root)]
     checked = subprocess.run(command, capture_output=True, text=True, timeout=60)

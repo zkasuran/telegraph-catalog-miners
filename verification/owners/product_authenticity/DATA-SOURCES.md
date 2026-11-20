@@ -73,3 +73,7 @@ Nigeria DOI 10.4269/ajtmh.23-0837 releases 260 S2 rows but not the 62 vendor ide
 ## Broader source-grounded development
 
 New comparisons use the original 74 Newton/Metformin training records and 76 Sanada validation records. Whole sources/entities/acquisition groups and response-formulation templates are held apart. Each source annotation remains separate from its constructed response preference. No previous model audit or evaluation-pool capture is used. The typed product stays within 256 bytes; its verified primary request-helper framing is allowed to produce a longer question. The new remote candidate uses at most 512 tokens with actual tokenizer conformance and no truncation of distinguishing claims. This is not proof of the deployed judgment caller or independent model qualification.
+
+## Byte-preserving recovery
+
+The original run's complete 1184/1216 development split hashes and original source grants are retained. The recovery uses the exact selected package and immutable train-fitted baseline artifacts. It performs no training, candidate selection or independent audit. Development responses are not promoted to new physical authenticity or hidden-pool evidence.

@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "family": "PRODUCT_AUTHENTICITY",
-  "run_id": "5048c54b226d4e489c53c1ade4f52a33",
-  "scope": "Preserved source gates and real remote-only broader development, no independent audit or registration readiness",
+  "run_id": "9dab5a05ce4a4d21a2409f2bd7cc45fa",
+  "scope": "Preserved source/development modes and byte-preserving recovery, no independent audit or registration readiness",
   "files": [
     {
       "path": "DATA-SOURCES.md",
-      "sha256": "dd214dd3465f6c984e9f97dc332d65f72d7a9c6fb18a8102d424ad654256d754",
-      "bytes": 5495
+      "sha256": "89de870effd85c8202fc0224e84ab0d173f71c755c937c754b413ce7eeaa1e37",
+      "bytes": 5881
     },
     {
       "path": "KIT-LICENSE",
@@ -16,23 +16,23 @@
     },
     {
       "path": "LICENSE",
-      "sha256": "52375870bd075ce9d23beeddb6083a29aabaa6b4f278db26c347b05a418b05dd",
-      "bytes": 7269
+      "sha256": "32c8468a96ac832f2d2a57598cae91710d564269f43addfd8583ee9dccd57c39",
+      "bytes": 7500
     },
     {
       "path": "NOTICE",
-      "sha256": "acda42f5590f8003c93fefca8eb931add03261689d7a0a98de336c9ca794e5cb",
-      "bytes": 2618
+      "sha256": "dde9b8c57923c013a1be0a6ff82ed82573a11874f5314c31088b31e85ca66552",
+      "bytes": 2972
     },
     {
       "path": "README.md",
-      "sha256": "883a56968877b153de9b55c281d0fa69810ed79edb6a411aa3d939ba1d297151",
-      "bytes": 5020
+      "sha256": "0f3e283c43e0f2b56f6cf08d0c45ebcac900785e74c349ce14e52eefbc3d8053",
+      "bytes": 5535
     },
     {
       "path": "SECURITY.md",
-      "sha256": "c38991c610c775e1a26da580847de6a0d9cd48d8d4b5e8c074d346a5d1748d31",
-      "bytes": 3690
+      "sha256": "d89ae02f8323b8f2ac4f51b9a7620ac5ecb2b87301c93f6fa462e9d014d7794b",
+      "bytes": 4264
     },
     {
       "path": "SOURCE-INVENTORY.json",
@@ -186,18 +186,18 @@
     },
     {
       "path": "development/packagecheck.go",
-      "sha256": "e41b56a124121eb57aa27df109ee85c494ea82f34bd25c3b9a598f1910399cda",
-      "bytes": 7103
+      "sha256": "3391eef9445f8bdd46590f2af978201056002efc70dcded6f64ce282a7d435a5",
+      "bytes": 7636
     },
     {
       "path": "development/packagecheck_test.go",
-      "sha256": "559df8b793811cb4ec80d780ef1c6955f7422ccb5ae173784c0aca2cbfa60ac0",
-      "bytes": 5354
+      "sha256": "60357c8a3088a85520a4b2f36825dbf72db5b0a1e46c95293f526b5d3237bfc8",
+      "bytes": 6722
     },
     {
       "path": "development/remote_develop.py",
-      "sha256": "855c27d2982082dd557370219b1181f310fb3f92f0284254bd606fa72d8dff75",
-      "bytes": 20936
+      "sha256": "399ea51e0aef449036d09e61c5be1d06174ec312841704e56fa77785028ff7aa",
+      "bytes": 20993
     },
     {
       "path": "development/requirements.in",
@@ -258,6 +258,51 @@
       "path": "product_evidence.py",
       "sha256": "7e67e569e554b206bf07652d31e537fa97fb7a1b1e10be2ce82049b85d314f4d",
       "bytes": 2378
+    },
+    {
+      "path": "recovery/PRODUCT_AUTHENTICITY.safetensors",
+      "sha256": "6359621587da0a079113a7f2912ce059aab5cd267719bea077fae0ac0c00e84b",
+      "bytes": 6798300
+    },
+    {
+      "path": "recovery/README.md",
+      "sha256": "1d6c4301a5ffe4fe1915c351f0f8351bdf539fdc2d25f165da7e85dc79ea4220",
+      "bytes": 1388
+    },
+    {
+      "path": "recovery/frozen-answer-only-baseline.json",
+      "sha256": "a833876087da1d875a12bd33bbc5a4682679991986aae55334cb4e18738acc5d",
+      "bytes": 94952
+    },
+    {
+      "path": "recovery/frozen-token-length-baseline.json",
+      "sha256": "d9aadcf41de9b5761a625487804178c4c275e4cfd0bbe1b0e5b6e6b37771a68a",
+      "bytes": 288
+    },
+    {
+      "path": "recovery/original-data-report.json",
+      "sha256": "95249b4684c7dc2d1ce5501bc4a7e654e7fa51c7b95e61f7c4fb3930698ad6ca",
+      "bytes": 1864
+    },
+    {
+      "path": "recovery/original-selection.json",
+      "sha256": "7e2e39cc92f787a466ff272aeda8c4951fed9e610c752048cc0de6032770b546",
+      "bytes": 300
+    },
+    {
+      "path": "recovery/recover.py",
+      "sha256": "5610412956b045f69735d609616f6ff8fe7258e040849ea56a3b1071f6442d20",
+      "bytes": 15162
+    },
+    {
+      "path": "recovery/recovery-spec.json",
+      "sha256": "dc1ea29c6065768c383a582c231044188213402af0a42fc32f4d92c90b34bd4d",
+      "bytes": 943
+    },
+    {
+      "path": "recovery/test_recovery.py",
+      "sha256": "e8ed7cc7dcb05325eecfbcec7e80eab518af266712b09732901dff207a590aab",
+      "bytes": 2834
     },
     {
       "path": "scorer.py",
@@ -331,8 +376,8 @@
     },
     {
       "path": "verify.sh",
-      "sha256": "88dec7dbb6fae55df246ab17d279d83b1def46bcde553d73016ffdd0d00b1f1e",
-      "bytes": 1264
+      "sha256": "d916781f3e94c5a4d7854bd1012842868d4f312bc916d05fa50d9fddb73aeba2",
+      "bytes": 1438
     }
   ]
 }

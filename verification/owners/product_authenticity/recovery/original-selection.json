@@ -1,0 +1,18 @@
+{
+  "selection_source": "validation_loss_only",
+  "audit_used_for_selection": false,
+  "history": [
+    {
+      "epoch": 1,
+      "validation_loss": 0.638277
+    },
+    {
+      "epoch": 2,
+      "validation_loss": 0.540087
+    },
+    {
+      "epoch": 3,
+      "validation_loss": 0.560791
+    }
+  ]
+}

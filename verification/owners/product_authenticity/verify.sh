@@ -12,4 +12,6 @@ python3 -W error -m unittest discover -s "$ROOT/development" -p 'test_developmen
 bash "$ROOT/audit_admission/verify.sh"
 python3 -W error -m pyflakes "$ROOT/broad_development/broad_data.py" "$ROOT/broad_development/remote_broad.py" "$ROOT/broad_development/test_broad.py"
 python3 -W error -m unittest discover -s "$ROOT/broad_development" -p 'test_broad.py' -v
+python3 -W error -m pyflakes "$ROOT/recovery/recover.py" "$ROOT/recovery/test_recovery.py"
+python3 -W error -m unittest discover -s "$ROOT/recovery" -p 'test_recovery.py' -v
 printf '%s\n' 'ALL GREEN: archived source-report diagnostic. Model qualification is not ready.'

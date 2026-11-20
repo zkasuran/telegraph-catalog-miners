@@ -131,6 +131,16 @@ func checkSnapshot(raw []byte, intent, child string) (catalog.Class, error) {
 	return c, nil
 }
 
+func checkExperimentLayout(actualSHA, expectedSHA string, stage1, loaded bool, rank, maxTokens, expectedTokens int) error {
+	if expectedTokens != 256 && expectedTokens != 512 {
+		return errors.New("expected tokens must match a supported frozen experiment (256 or 512)")
+	}
+	if actualSHA != expectedSHA || loaded || !stage1 || rank != 8 || maxTokens != expectedTokens {
+		return errors.New("package binding, Stage 1 or frozen experiment layout failed")
+	}
+	return nil
+}
+
 func run() error {
 	intent := flag.String("intent", "", "exact family")
 	child := flag.String("child", "", "exact child")
@@ -142,6 +152,7 @@ func run() error {
 	foundationSHA := flag.String("foundation-sha256", "", "external foundation JSON SHA-256")
 	out := flag.String("out", "", "output directory")
 	preflight := flag.Bool("preflight", false, "class only, no package or model")
+	expectedTokens := flag.Int("expected-max-tokens", 256, "frozen training/export token ceiling")
 	flag.Parse()
 	if flag.NArg() != 0 {
 		return errors.New("unexpected positional arguments")
@@ -190,8 +201,8 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	if art.SHA256 != *packageSHA || man.Verification.Loaded || !man.Verification.Stage1 || man.Rank != 8 || man.MaxTokens != 256 {
-		return errors.New("package binding, Stage 1 or fixed experiment layout failed")
+	if err := checkExperimentLayout(art.SHA256, *packageSHA, man.Verification.Stage1, man.Verification.Loaded, man.Rank, man.MaxTokens, *expectedTokens); err != nil {
+		return err
 	}
 	return json.NewEncoder(os.Stdout).Encode(map[string]any{"intent": *intent, "class": man.Class, "sha256": art.SHA256,
 		"keccak256": art.Keccak256, "bytes": art.Bytes, "manifest": man,

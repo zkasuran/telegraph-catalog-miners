@@ -33,3 +33,7 @@ The additive source gate tests complete specimen inventory, original QMN identit
 ## Broader response and framing controls
 
 The new source gate rejects normalized/source/entity/time/formulation overlap, incorrect literal request framing, oversize product bytes and unknown-to-counterfeit promotion. Remote mode alone may train or run the model. It retains the primary dataset gate and immutable train-fitted baselines. Validation loss may choose one candidate; no audit exists. A 256-byte product and its 340-byte typed question were executed against the actual primary decoder/request helper without a model. This is library evidence, not a deployed caller trace.
+
+## Frozen-token and selected-checkpoint recovery
+
+The package checker now binds the expected token ceiling explicitly (256 legacy or 512 broad), while retaining full primary Stage 1, byte identity, rank and no-model-loaded checks. Tiny Go controls reject the wrong expected ceiling, changed hash, missing Stage 1, model loading and rank changes. Recovery refuses changed data/package hashes and validation-fitted baselines. Its inverse of the pinned exporter requires byte equality for every selected tensor. No local model operation or new candidate selection is allowed.

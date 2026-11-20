@@ -51,6 +51,10 @@ func TestLiveBinding(t *testing.T) {
 }
 
 func tinyPackage(t *testing.T) ([]byte, wasmrt.LoRAExpect) {
+	return tinyPackageTokens(t, "256")
+}
+
+func tinyPackageTokens(t *testing.T, tokens string) ([]byte, wasmrt.LoRAExpect) {
 	t.Helper()
 	spec := wasmrt.FoundationSpec{RMax: 16, HiddenSize: 4, NumLayers: 1, Targets: map[string][2]int{
 		"attn.Wqkv": {4, 12}, "attn.Wo": {4, 4}, "mlp.Wi": {4, 16}, "mlp.Wo": {8, 4}}}
@@ -58,7 +62,7 @@ func tinyPackage(t *testing.T) ([]byte, wasmrt.LoRAExpect) {
 	names, shapes := wasmrt.LoRAExpectedShapes(8, spec)
 	header := map[string]any{"__metadata__": map[string]string{"format_version": "1", "abi": "lora-v1", "class": "judgment",
 		"intent": familyID, "foundation_hash": want.FoundationHash, "foundation_version": "toy-parser-only",
-		"tokenizer_hash": want.TokenizerHash, "rank": "8", "alpha": "32", "target_modules": `["Wi","Wo","Wqkv"]`, "max_tokens": "256",
+		"tokenizer_hash": want.TokenizerHash, "rank": "8", "alpha": "32", "target_modules": `["Wi","Wo","Wqkv"]`, "max_tokens": tokens,
 		"training": `{"family":"PRODUCT_AUTHENTICITY","children":[{"intent":"PRODUCT_AUTHENTICITY_GENERAL","pairs":64,"accuracy":0.5,"held_out":true}]}`}}
 	var offset int
 	for _, name := range names {
@@ -77,6 +81,42 @@ func tinyPackage(t *testing.T) ([]byte, wasmrt.LoRAExpect) {
 	binary.LittleEndian.PutUint64(raw[:8], uint64(len(b)))
 	copy(raw[8:], b)
 	return raw, want
+}
+
+func Test512ExperimentRequiresExplicitBinding(t *testing.T) {
+	raw, expected := tinyPackageTokens(t, "512")
+	parsed, err := wasmrt.ParseLoRAAdapter(raw, expected)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if parsed.Header.MaxTokens != 512 {
+		t.Fatal("primary parser did not retain 512 token metadata")
+	}
+	if err := checkExperimentLayout("same", "same", true, false, 8, 512, 256); err == nil {
+		t.Fatal("the old 256-token experiment must still refuse a 512-token package")
+	}
+	if err := checkExperimentLayout("same", "same", true, false, 8, 512, 512); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestFrozenLayoutFailureControls(t *testing.T) {
+	for _, test := range []struct {
+		actual, expected     string
+		stage1, loaded       bool
+		rank, tokens, frozen int
+	}{
+		{"wrong", "same", true, false, 8, 512, 512},
+		{"same", "same", false, false, 8, 512, 512},
+		{"same", "same", true, true, 8, 512, 512},
+		{"same", "same", true, false, 16, 512, 512},
+		{"same", "same", true, false, 8, 256, 512},
+		{"same", "same", true, false, 8, 512, 513},
+	} {
+		if err := checkExperimentLayout(test.actual, test.expected, test.stage1, test.loaded, test.rank, test.tokens, test.frozen); err == nil {
+			t.Fatalf("invalid frozen layout accepted: %+v", test)
+		}
+	}
 }
 
 func TestUnchangedCheckLoRAStaticOnly(t *testing.T) {

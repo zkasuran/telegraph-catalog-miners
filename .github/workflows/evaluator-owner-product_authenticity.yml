@@ -6,7 +6,7 @@ on:
       mode:
         description: Source-only gate or real remote CPU development, not registration.
         type: choice
-        options: [source, develop, develop_broad]
+        options: [source, develop, develop_broad, recover_broad]
         default: source
         required: true
 permissions:
@@ -89,3 +89,30 @@ jobs:
             ${{ runner.temp }}/product-authenticity-broad/PRODUCT_AUTHENTICITY.safetensors
             ${{ runner.temp }}/product-authenticity-broad/checkpoint/*.safetensors
             ${{ runner.temp }}/product-authenticity-broad/checkpoint/*.pt
+  recover:
+    if: ${{ inputs.mode == 'recover_broad' }}
+    needs: source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install pinned public CPU dependencies
+        run: python3 -m pip install --disable-pip-version-check --require-hashes --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/product_authenticity/development/requirements.lock
+      - name: Recover the exact selected delta without training
+        run: python3 verification/owners/product_authenticity/recovery/recover.py --root "${{ runner.temp }}/product-authenticity-recovery"
+      - name: Preserve actual recovery reports and licensed restored checkpoints
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: product-authenticity-recovery
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/product-authenticity-recovery/recovery-report.json
+            ${{ runner.temp }}/product-authenticity-recovery/tensor-roundtrip.json
+            ${{ runner.temp }}/product-authenticity-recovery/native-validation-scores.json
+            ${{ runner.temp }}/product-authenticity-recovery/parser-result.json
+            ${{ runner.temp }}/product-authenticity-recovery/data/data-report.json
+            ${{ runner.temp }}/product-authenticity-recovery/reference-runtime.log
+            ${{ runner.temp }}/product-authenticity-recovery/restored/*.safetensors
+            ${{ runner.temp }}/product-authenticity-recovery/restored/*.pt

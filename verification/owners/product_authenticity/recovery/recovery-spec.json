@@ -1,0 +1,19 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0; upstream/source grants retained",
+  "schema_version": 1,
+  "family": "PRODUCT_AUTHENTICITY",
+  "original_run_id": 44630753101,
+  "original_commit": "d7d21aa4c46d2fffc635a1e93fdbf04fc687f860",
+  "original_artifact_id": 14585444156,
+  "original_artifact_sha256": "57e0671b0b43465dd84aff4154a630ba56e185c9819f35be04d07d87cb54a83d",
+  "package_sha256": "6359621587da0a079113a7f2912ce059aab5cd267719bea077fae0ac0c00e84b",
+  "package_bytes": 6798300,
+  "expected_max_tokens": 512,
+  "train_sha256": "0751e4769775344fb47e209591664aff51b20b3eec097dbe6a4f3b3165085062",
+  "validation_sha256": "b163056d974068d9ebf25c8db3b30a57c9791dc2e56628ad6788ce43b3fcf442",
+  "training_allowed": false,
+  "new_candidate_selection_allowed": false,
+  "audit_available": false,
+  "registration_ready": false,
+  "scope": "Byte-preserving integration recovery, not a new training run or independent audit"
+}

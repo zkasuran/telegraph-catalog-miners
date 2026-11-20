@@ -54,3 +54,7 @@ The additive audit-admission gate preserves all 29 earlier tests and adds 13 sou
 ## Broader development mode
 
 The `develop_broad` workflow mode uses 1184 newly constructed training comparisons from 74 original records and 1216 validation comparisons from 76 source-held-out records. It covers JSON/prose with direct/typed questions and disjoint response formulations. Product inputs retain the actual 256-byte ceiling while the model token ceiling is 512. Source tests and live class checks precede bounded free CPU training. Full parser and reference-engine execution remain mandatory. No independent audit, registration readiness or new model result is claimed until actual artifacts are read. The earlier model's validation remains matched by a perfect structured grammar control and is not qualified.
+
+## Selected-package recovery
+
+Run 44630753101 completed training but failed an experiment wrapper that still expected 256 tokens for a 512-token package. The unchanged selected delta is preserved under recovery with its original data, selection and grant bindings. The recover_broad workflow performs no retraining. It must verify the full package, tensor roundtrip, native development measures and reference engine before any result is claimed. An independent audit and registration readiness remain unavailable.

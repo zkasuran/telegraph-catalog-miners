@@ -159,3 +159,7 @@ use these SAND terms. This notice does not change or revoke any earlier grant.
 Broader development scope clarification: these terms cover our new response
 comparisons and source code only. Original public-domain/CC BY facts, Apache-2.0
 base-model portions and MIT reference code retain their original grants.
+
+Recovery scope: our exact selected delta and recovery code retain these SAND
+terms. Original model, reference code and source-data portions retain their
+upstream grants. This clarification does not revoke or replace prior rights.
