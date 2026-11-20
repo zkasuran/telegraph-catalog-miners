@@ -8,7 +8,7 @@ const png=new Uint8Array(readFileSync(new URL('./fixtures/owned-rendered.png',im
 const mp4=new Uint8Array(readFileSync(new URL('./fixtures/owned-rendered.mp4',import.meta.url)));
 const source='https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/main/owned.png';
 const env={MINIMAX_API_KEY:'artificial-media-fixture-key',MINER_DB:{withSession() {return {prepare() {return {bind() {return {async first() {return {calls:1};}};}};}};}}};
-const assessment={verdict:'Synthetic',confidence:0.8,evidence:['Two flat colour fields and a sharp geometric edge.'],summary:'The input appears to be a rendered graphic.'};
+const assessment={visual_form:'rendered_graphic',verdict:'Synthetic',confidence:0.8,evidence:['Two flat colour fields and a sharp geometric edge.'],summary:'The input appears to be a rendered graphic.'};
 const response=value=>Response.json({model:MODEL,base_resp:{status_code:0},choices:[{finish_reason:'stop',message:{content:JSON.stringify(value)}}]});
 test('owned PNG and MP4 have supported metadata',()=>{
   assert.equal(mediaType(png).mime,'image/png');
@@ -16,9 +16,13 @@ test('owned PNG and MP4 have supported metadata',()=>{
   assert.equal(videoDuration(mp4),2);
 });
 test('model assessments do not become forensic certainty',()=>{
-  assert.equal(normalizeAssessment({...assessment,verdict:'Authentic'}).verdict,'Likely authentic');
-  assert.equal(normalizeAssessment({...assessment,verdict:'Manipulated'}).verdict,'Likely manipulated');
+  assert.equal(normalizeAssessment({...assessment,visual_form:'photographic_or_uncertain',verdict:'Authentic'}).verdict,'Likely authentic');
+  assert.equal(normalizeAssessment({...assessment,visual_form:'photographic_or_uncertain',verdict:'Manipulated'}).verdict,'Likely manipulated');
   assert.match(normalizeAssessment(assessment).confidence_basis,/Uncalibrated/);
+});
+test('rendered graphics cannot inherit an authentic-original verdict',()=>{
+  assert.equal(normalizeAssessment({...assessment,verdict:'Authentic'}).verdict,'Synthetic');
+  assert.equal(normalizeAssessment({...assessment,verdict:'Likely authentic'}).verdict,'Synthetic');
 });
 test('invalid labels, confidence and evidence are refused',()=>{
   for(const change of [{verdict:'Guaranteed real'},{confidence:NaN},{confidence:1.1},{confidence:'0.8'},{evidence:[]},{summary:''}])
