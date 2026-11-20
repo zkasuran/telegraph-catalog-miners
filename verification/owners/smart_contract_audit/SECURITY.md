@@ -8,13 +8,13 @@
 | Training leakage | Whole designs and vulnerable/fixed siblings remain grouped | Normalized clone and group-leak negative tests |
 | Repeated formats counted as independent sources or audit leaks | Development views retain original source groups and accept train/validation only | View preservation, three-format coverage and audit refusal controls |
 | Annotation shortcut | No vulnerability annotation in source, both reports share finding words | Length, answer-only and overlap checks |
-| Candidate trained on audit | Separate audit job receives already frozen package hashes; training bytes are unchanged | Run/commit/package bindings and automatic adapter recheck |
+| Candidate trained on audit | Training extension accepts only original training pathways; validation/audit bytes remain pinned; separate audit job receives already frozen package hashes | Original-row, held-out hash and sibling-group preservation tests plus automatic adapter recheck |
 | Weak candidate consumes the audit during tuning | Saved-best exported bytes must pass all unchanged validation format/subgroup/baseline gates first; validation cannot emit registration-ready | Pure split-boundary refusal/control test and actual reference-engine validation before audit job |
 | Truncated guard or precondition | Reject any full render above 384 authoritative tokens | Remote tokenizer check, not run locally |
 | Endpoint returns another model | Exact foundation, tokenizer, adapter and token-root echo | Pinned literal client test plus real remote audit |
-| Floating baseline refit drift | Fixed integer coefficients, no fresh floating-point fit | Training identity and frozen-file SHA-256 |
+| Floating baseline refit drift or stale training identity | New training version has its own immutable integer baseline; original coefficients remain byte-identical | Train-identity binding and old-file SHA-256 regression |
 | Local neural operation | Guard before any neural import or download | Local authority refusal test |
-| Parser failure hidden by a wrapper | Persist actual stdout/stderr before checking exit status; a dedicated remote mode checks frozen packages without retraining | Diagnostic entry refuses local execution; remote real-parser result is still pending |
+| Parser failure hidden by a wrapper | Persist actual stdout/stderr before checking exit status; a dedicated remote mode checks frozen packages without retraining | Diagnostic entry refuses local execution; run 44598067975 passed full parsing of the frozen originals |
 | Stale or guessed model classification | Exact live family/child URLs, source hashes, freshness and matching model classes before private loaded-class parser call | Wrong class, wrong identity and stale-source refusal controls; no compiled/shared catalog edit |
 | Private or unrelated job repository | Exact owned identity and boolean public flag from the hosted dispatch payload; protected default environment context | Positive public control plus private, ambiguous and wrong-repository refusal controls |
 | Missing or malformed collator input | Default only omitted margin to 0.0 at the training boundary; reject nonfinite/nonnumeric values without mutating source | `test_contracts.py` literal-text preservation and invalid-margin controls; primary CLI smoke |

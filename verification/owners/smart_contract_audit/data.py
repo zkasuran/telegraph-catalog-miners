@@ -8,6 +8,8 @@ from pathlib import Path
 
 FAMILY = "SMART_CONTRACT_AUDIT"
 ATTEMPT = "74fac904d3e14d2690ef15803146a56a"
+DATA_VERSION = "training-pathways-v2"
+BASELINE_FILE = "frozen-baselines-v2.json"
 SPDX = "// SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0\n"
 PLAN = {"train": (range(4), 8), "validation": (range(4, 6), 6), "audit": (range(8, 40), 1)}
 MAX_SOURCE_BYTES = 2048
@@ -162,7 +164,19 @@ def build(out):
                                  "chosen": chosen, "rejected": rejected, "label_kind": "preference_pair",
                                  "vulnerable": vulnerable, "facts": facts,
                                  "authorship": "Original AI-assisted Solidity and constructed preferences; no human review claimed",
-                                 "licence": "LicenseRef-zkasuran-SAND-1.0"})
+                                  "licence": "LicenseRef-zkasuran-SAND-1.0"})
+    from training_designs import candidates
+    for candidate in candidates():
+        facts, source = candidate["facts"], candidate["source"]
+        chosen, rejected = answers(facts, candidate["vulnerable"])
+        call = f"Caller {facts['attacker']} calls {facts['function']}({facts['argument']}); owner is {facts['owner']}." if facts["mechanism"] == "access_control" else f"Call {facts['function']}({', '.join(map(str, facts['bad_args']))})."
+        prompt = "Audit the complete Solidity source for the stated call. Describe whether that call succeeds and its effect, not universal safety.\n" + call + "\n" + source
+        rows.append({"id": candidate["id"], "split": "train", "template_group": candidate["proposed_group"],
+                     "sibling_group": candidate["sibling_group"], "source": source, "source_sha256": candidate["source_sha256"],
+                     "prompt": prompt, "chosen": chosen, "rejected": rejected, "label_kind": "preference_pair",
+                     "vulnerable": candidate["vulnerable"], "facts": facts,
+                     "authorship": "Original AI-assisted Solidity and constructed preferences; no human review claimed",
+                     "licence": "LicenseRef-zkasuran-SAND-1.0"})
     report = check(rows)
     files = {}
     for split in PLAN:
@@ -178,7 +192,8 @@ def build(out):
                    "scope": "Bounded owner-only setter and integer wrapping claims. No reentrancy, bytecode-only or arbitrary audit coverage.",
                    "independent_groups": len({r["template_group"] for r in rows}),
                    "audit_used_for_selection": False,
-                   "independence": "Six retained train/validation designs and 32 fresh audit storage/authorization/arithmetic pathways. All siblings and variants stay grouped. Source groups are original AI-assisted work, not independent human adjudication. Old exposed audit designs 6 and 7 are excluded."})
+                    "data_version": DATA_VERSION, "baseline_file": BASELINE_FILE,
+                    "independence": "Twelve training designs, two retained validation designs and 32 reserved audit pathways. All siblings and variants stay grouped. Eight new training pathways are original source, not held-out source clones or independent human adjudication. Original training rows and all validation/audit bytes are retained. Old exposed audit designs 6 and 7 are excluded."})
     write(out / "data-report.json", report)
     print(json.dumps(report, sort_keys=True))
     return rows

@@ -1,6 +1,8 @@
 {
   "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
   "audit_used_for_selection": false,
+  "baseline_file": "frozen-baselines-v2.json",
+  "data_version": "training-pathways-v2",
   "family": "SMART_CONTRACT_AUDIT",
   "files": {
     "audit": {
@@ -42,13 +44,21 @@
       ]
     },
     "train": {
-      "rows": 64,
-      "sha256": "19b181ee63a1b0506116783392be0e4a49ba394b9375b14d1bd0e8e0556bb1fd",
+      "rows": 96,
+      "sha256": "2e3ddb9793a001def2239bbd3350be720e225302c53228894f633408ffd50c48",
       "template_groups": [
         "design-0",
         "design-1",
         "design-2",
-        "design-3"
+        "design-3",
+        "new-training-design-0",
+        "new-training-design-1",
+        "new-training-design-2",
+        "new-training-design-3",
+        "new-training-design-4",
+        "new-training-design-5",
+        "new-training-design-6",
+        "new-training-design-7"
       ]
     },
     "validation": {
@@ -60,13 +70,13 @@
       ]
     }
   },
-  "independence": "Six retained train/validation designs and 32 fresh audit storage/authorization/arithmetic pathways. All siblings and variants stay grouped. Source groups are original AI-assisted work, not independent human adjudication. Old exposed audit designs 6 and 7 are excluded.",
-  "independent_groups": 38,
-  "inventory_sha256": "4dce89e52cf41a2362c3b681718500451840b29b6594e0eb31a9e689a7fc1678",
+  "independence": "Twelve training designs, two retained validation designs and 32 reserved audit pathways. All siblings and variants stay grouped. Eight new training pathways are original source, not held-out source clones or independent human adjudication. Original training rows and all validation/audit bytes are retained. Old exposed audit designs 6 and 7 are excluded.",
+  "independent_groups": 46,
+  "inventory_sha256": "998ba18e6ca7adf181a26fa1dde6abd466143194f03c6828ab9434f44220ab42",
   "labels": "Accepted only with matching full compiler/EVM proof",
   "normalized_cross_split_duplicates": 0,
   "owner_attempt": "74fac904d3e14d2690ef15803146a56a",
   "scope": "Bounded owner-only setter and integer wrapping claims. No reentrancy, bytecode-only or arbitrary audit coverage.",
-  "source_rows": 152,
-  "template_groups": 38
+  "source_rows": 184,
+  "template_groups": 46
 }

@@ -63,7 +63,7 @@ def evaluate(rows, frozen):
     report["max_cross_split_token_jaccard"] = max(
         float(Fraction(len(words(a) & words(b)), len(words(a) | words(b))))
         for left in grouped for right in grouped if left < right for a in grouped[left] for b in grouped[right])
-    report["limits"] = "Thirty-eight grouped source implementations, not 152 independent human annotations. Identical token sets can have different execution paths. Tie baselines score one half; high lexical overlap is disclosed."
+    report["limits"] = f"{len({r['template_group'] for r in rows})} grouped source implementations, not {len(rows)} independent human annotations. Identical token sets can have different execution paths. Tie baselines score one half; high lexical overlap is disclosed."
     return report
 
 
