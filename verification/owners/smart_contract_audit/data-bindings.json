@@ -1,9 +1,9 @@
 {
   "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
   "audit_used_for_selection": false,
-  "baseline_file": "frozen-baselines-v5.json",
+  "baseline_file": "frozen-baselines-v6.json",
   "clean_audit_measured": false,
-  "data_version": "training-guard-equivalence-v5",
+  "data_version": "training-modifier-equivalence-v6",
   "family": "SMART_CONTRACT_AUDIT",
   "files": {
     "audit": {
@@ -46,7 +46,7 @@
     },
     "train": {
       "rows": 168,
-      "sha256": "63c38f275b8df7d931437f539e948a16ac7880f85dc32c6cc848c83d922ff527",
+      "sha256": "f89b7f480b4ddb7639bdf62e8dcbb3b72901469380fb9e81ede7285a74c343d9",
       "template_groups": [
         "design-0",
         "design-1",
@@ -83,21 +83,21 @@
       ]
     }
   },
-  "independence": "Twenty-four training implementations, two retained validation implementations and 32 clean reserved audit implementations. All siblings and variants stay grouped. Original data versions are preserved; six fixed training sources use execution-equivalent explicit guards. Validation and clean audit bytes are unchanged. The exposed original audit is excluded from new fitting/test data. All source/preferences are AI-assisted, not independent human adjudication.",
+  "independence": "Twenty-four training implementations, two retained validation implementations and 32 clean reserved audit implementations. All siblings and variants stay grouped. Original data versions are preserved; arithmetic guard equivalents and eight caller-guard modifier encodings are training-only. Validation and clean audit bytes are unchanged. The exposed original audit is excluded from new fitting/test data. All source/preferences are AI-assisted, not independent human adjudication.",
   "independent_groups": 58,
-  "inventory_sha256": "88c906e6f5da353fceafc3bed260415ab8033f9504e187e77d6f63caea262219",
+  "inventory_sha256": "554c6cb2722624719fda45995df38ec8522d9053fef0d31c91dac1b7548facc8",
   "labels": "Accepted only with matching full compiler/EVM proof",
   "normalized_cross_split_duplicates": 0,
   "owner_attempt": "74fac904d3e14d2690ef15803146a56a",
   "retired_audit_used_for_fitting_or_new_test": false,
   "retired_exposed_audit_sha256": "6cd7d2c0b11206df3c6ad04471cd53683c791f9393140e8c764101457cc31dd8",
-  "sampling_file": "frozen-sampling-v4.json",
+  "sampling_file": "frozen-sampling-v5.json",
   "scope": "Bounded owner-only setter and integer wrapping claims. No reentrancy, bytecode-only or arbitrary audit coverage.",
   "source_rows": 256,
   "template_groups": 58,
-  "training_guard_equivalents": {
-    "changed_sources": 6,
+  "training_modifier_equivalents": {
+    "changed_sources": 8,
     "new_rows_or_groups": 0,
-    "owner_attempt": "76c788b913024e3bb18d780e2d82f518"
+    "owner_attempt": "136137a1e92b4628b824a15adcd64826"
   }
 }

@@ -106,7 +106,7 @@ jobs:
           "$RUNNER_TEMP/venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/smart_contract_audit/requirements.lock
           "$RUNNER_TEMP/venv/bin/python" -m pip check
           "$RUNNER_TEMP/venv/bin/python" verification/owners/smart_contract_audit/dependency_audit.py --lock verification/owners/smart_contract_audit/requirements.lock --out "$RUNNER_TEMP/audit-requirements.txt" --report "$RUNNER_TEMP/smart-audit/dependency-audit.json"
-      - name: Fit execution-equivalent training guards before clean independent audit
+      - name: Fit equivalent training modifiers before clean independent audit
         timeout-minutes: 310
         run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/venv/bin/python" verification/owners/smart_contract_audit/train_remote.py --root "$RUNNER_TEMP/smart-audit"
       - name: Retain licensed checkpoint even on failure

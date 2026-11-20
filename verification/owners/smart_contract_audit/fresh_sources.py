@@ -39,7 +39,13 @@ def training(index, entity, vulnerable):
             guard = f"require(uint256(uint160(msg.sender))" + (">0" if vulnerable else f"=={owner}") + ");"
             store, write, read = "mapping(uint256=>uint256) values;", "values[x%3]=x;last=x%3;", "values[last]"
             store += "uint256 last;"
-        body = store + f"function {f}(uint256 x)external{{{guard}{write}}}function {rd}()external view returns(uint256){{return {read};}}"
+        if index in (0, 2, 4, 5):
+            # Caller-only guard is moved, not changed. It executes before the
+            # same writer via Solidity's literal modifier underscore contract.
+            declaration = f"modifier only{entity}(){{{guard}_;}}"
+            body = store + declaration + f"function {f}(uint256 x)external only{entity}{{{write}}}function {rd}()external view returns(uint256){{return {read};}}"
+        else:
+            body = store + f"function {f}(uint256 x)external{{{guard}{write}}}function {rd}()external view returns(uint256){{return {read};}}"
         facts = {"mechanism": "access_control", "function": f, "signature": f + "(uint256)", "read_function": rd,
                  "owner": owner, "attacker": owner + 10000, "argument": 17, "bad_args": [17], "normal_args": [18]}
         return make(entity, body, facts)
