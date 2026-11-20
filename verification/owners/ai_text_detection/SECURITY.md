@@ -8,6 +8,9 @@
 | Additional data hides a failing old corpus | Separate unchanged752,880 and1008 primary data gates | Original data controls remain; fixture-only additive population tests |
 | Source attribution exhausts checkpoint metadata | Compact complete grant/citation fields, full source sidecars | Attribution retention test; existing1MiB header ceiling remains |
 | Secondary generator silently rerolls | Existing-output refusal and fixed source seeds/count/time caps | Local invocation refusal; actual generation/control results are remote-only |
+| More bare training defeats repeated-negative controls | Two fixed whole secondary groups and unchanged actual/worst-case gates | Actual1008-row repeated-negative and worst-case<=0.10 controls |
+| Format specialization biases an origin or rescales outputs | Weight16 symmetric on paired origins, actual mean normalization, runtime unchanged | Secondary weight balance test and all prior literal wire/quality controls |
+| Completed generation is rerolled for a better result | Immutable full data/producer/journal lineage restored before neural imports | Actual completed-generation SHA/prefix/source checks |
 | Generator loses successful rows during recovery | Immutable39-group byte prefix with exact producer/source binding | Real retained-byte/grant/excerpt tests and producer corruption refusals |
 | More tokens are presented as guaranteed word coverage | Word gate stays24; remaining budget fixed128 with actual64-prefix controls | Short-word refusal remains, token prefix has positive/negative controls |
 | Failed generated candidates are represented as accepted preferences | Raw source/grant/token journal before cropping, separate accepted stream | Separate artifact names and acceptance gate; actual journal is remote-only |

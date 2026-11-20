@@ -54,7 +54,7 @@ def main():
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
                 raise ValueError("neural import in local release path")
-    for name in ("secondary_contract.py", "test_secondary.py", "generation_resume.py", "test_generation_resume.py"):
+    for name in ("secondary_contract.py", "test_secondary.py", "generation_resume.py", "test_generation_resume.py", "test_minimal_verdict.py"):
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
@@ -75,6 +75,8 @@ def main():
     expanded_sha, _, _, _ = expanded_source_bundle()
     from generation_resume import generation_policy, retained_prefix
     generation_policy(recipe)
+    if recipe.get("secondary_bare_groups") != 2 or type(recipe["secondary_bare_groups"]) is not int:
+        raise ValueError("fixed two-group secondary minimal-verdict supervision required")
     retained_prefix((HERE / "recovery/secondary-prefix.jsonl").read_bytes(), json.loads((HERE / "recovery/secondary-prefix-producer.json").read_text()))
     if recipe.get("secondary_training") != {"groups": 64, "rows": 128, "updates_per_epoch": 16,
             "original_rows": 880, "total_rows": 1008, "audit_used": False} or recipe.get("expanded_source_manifest_sha256") != expanded_sha:

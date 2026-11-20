@@ -95,6 +95,14 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+Generation recovery completed64 groups and25 token-prefix controls, with the
+39-group prefix unchanged. The1008-row data gate passed, but strict model quality
+still failed and the audit stayed sealed. The current candidate restores that
+exact completed data and gives two fixed secondary article groups literal bare
+verdict supervision. All880 earlier pairs and all acceptance floors remain.
+The intended16 bare rows must pass actual and worst-case repetition controls.
+No generation reroll or runtime score mapping is introduced.
+
 Secondary generation failed before training because one fixed64-token draw had
 fewer than24 words. The next job keeps all39 successfully emitted groups exactly
 and completes only25 missing groups using a fixed128-token budget and an actual

@@ -53,7 +53,10 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     if len(supplementary_by_view) != 64 or any(len(v) != 2 for v in supplementary_by_view.values()):
         raise ValueError("complete paired supplementary preferences required")
     from secondary_contract import secondary_preferences
-    secondary_pairs, secondary_binding = secondary_preferences(origin_aux.secondary_views, train_rows + supplementary_pairs)
+    secondary_pairs, secondary_binding = secondary_preferences(origin_aux.secondary_views, train_rows + supplementary_pairs,
+        bare_groups=recipe["secondary_bare_groups"])
+    secondary_weights, secondary_weight_policy = weight_policy(secondary_pairs, recipe["bare_loss_weight"])
+    secondary_weight_by_id = {r["text_id"]: w / secondary_weight_policy["mean_training_weight"] for r, w in zip(secondary_pairs, secondary_weights)}
     secondary_expected = json.loads((root / "secondary-preference-contract.json").read_text())
     if secondary_binding["preference_rows_sha256"] != secondary_expected["preference_rows_sha256"]:
         raise ValueError("secondary preference bytes changed after data gate")
@@ -180,7 +183,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
             for j, row in enumerate(preference_group):
                 raw_loss, pair_loss, point_loss = loss_components(extra_chosen[j:j+1], extra_rejected[j:j+1],
                     preference_batch["margin"][j:j+1], objective, trainer)
-                terms.append(supplementary_policy["pair_coefficient"] * raw_loss +
+                phase_weight = secondary_weight_by_id[row["text_id"]] if i >= 64 else 1.0
+                terms.append(supplementary_policy["pair_coefficient"] * phase_weight * raw_loss +
                     origin_aux.policy["coefficient"] * source_losses[row["text_id"]])
                 supplementary_pair_loss += pair_loss.item()
                 supplementary_correctness_loss += point_loss.item()
@@ -237,6 +241,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                     "secondary_training_origin_loss": secondary_loss / 128,
                     "secondary_training_origin_accuracy": secondary_correct / 128,
                     "secondary_preference_rows_sha256": secondary_binding["preference_rows_sha256"],
+                    "secondary_training_weight_policy": secondary_weight_policy,
+                    "secondary_new_bare_rows": secondary_binding["new_bare_rows"],
                     "supplement_preference_policy": supplementary_policy,
                     "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,

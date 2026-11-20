@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """A separate additive training block, preserving every old source/producer hash."""
 import json
+from collections import Counter
 
 from common import HERE, sha, lines, identity, pair
 from compact_contract import compact_training
@@ -71,19 +72,28 @@ def validate_secondary(raw, report, originals):
     return views
 
 
-def secondary_preferences(views, original_preferences):
+def secondary_preferences(views, original_preferences, bare_groups=0):
     if len(views) != 128 or len(original_preferences) != 880 or any(r["split"] != "train" for r in views):
         raise ValueError("secondary preference roles/count changed")
+    if type(bare_groups) is not int or bare_groups not in (0, 2):
+        raise ValueError("secondary minimal-verdict exposure is fixed to zero or two whole groups")
+    selected = set(sorted({v["group_id"] for v in views})[:bare_groups])
     result = compact_training([pair({**v, "origin": "human_control" if v["human"] else "synthetic",
         "generator": "publisher" if v["human"] else "gpt2"},
-        "json" if int(v["group_id"][:2], 16) % 2 == 0 else "prose") for v in views])
+        "bare_label" if v["group_id"] in selected else "json" if int(v["group_id"][:2], 16) % 2 == 0 else "prose") for v in views])
     if {r["group_id"] for r in result}.intersection(r["group_id"] for r in original_preferences):
         raise ValueError("secondary preference source groups overlap")
     combined = original_preferences + result
     repetition = repetition_gate(combined)
+    duplicates = sum(n - 1 for n in Counter(r["rejected"].strip() for r in combined).values())
+    worst_leak = duplicates / repetition["internal_holdout"]
     if not repetition["passed"] or len({r["group_id"] for r in combined}) != 256:
         raise ValueError("secondary preferences failed unchanged repetition/group gate")
+    if worst_leak > 0.10:
+        raise ValueError("secondary minimal-verdict exposure violates unchanged worst-case negative-leak gate")
     return result, {"original_preferences": 880, "added_preferences": 128, "combined_preferences": 1008,
-        "independent_training_groups": 256, "new_bare_rows": 0, "normalized_overlap": 0,
+        "independent_training_groups": 256, "new_bare_rows": 2 * bare_groups, "normalized_overlap": 0,
+        "bare_group_selector": "lowest source-group hashes", "bare_group_ids": sorted(selected),
+        "worst_case_negative_leak": worst_leak,
         "repetition": repetition, "audit_used": False,
         "preference_rows_sha256": sha(json.dumps(result, sort_keys=True, ensure_ascii=False).encode())}

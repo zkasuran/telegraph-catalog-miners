@@ -165,7 +165,8 @@ def main():
         raise ValueError("secondary generation run/commit mismatch")
     secondary_views = validate_secondary(secondary_raw, secondary_report,
         equal_byte_views(splits["train"]) + equal_byte_views(validation_formats["json"]) + supplement_views)
-    secondary_pairs, secondary_binding = secondary_preferences(secondary_views, splits["train"] + extra_preferences)
+    secondary_pairs, secondary_binding = secondary_preferences(secondary_views, splits["train"] + extra_preferences,
+        bare_groups=recipe["secondary_bare_groups"])
     secondary_binding.update(run_id=int(os.environ["GITHUB_RUN_ID"]), commit=os.environ["GITHUB_SHA"],
         source_manifest_sha256=full_source_hash, generation_sha256=sha(secondary_raw))
     dump(root / "secondary-preference-contract.json", secondary_binding)

@@ -22,6 +22,27 @@ def main():
     output = root / "secondary-generation.jsonl"
     if output.exists():
         raise ValueError("secondary generation already exists; do not reroll")
+    locked = HERE / "recovery/locked-secondary.jsonl"
+    if locked.exists():
+        raw = locked.read_bytes()
+        producer = json.loads((HERE / "recovery/locked-secondary-producer.json").read_text())
+        lineage = json.loads((HERE / "recovery/locked-secondary-lineage.json").read_text())
+        if sha(raw) != lineage["data_sha256"] or sha((HERE / "recovery/locked-secondary-producer.json").read_bytes()) != lineage["producer_sha256"] or producer["run_id"] != 44789054038:
+            raise ValueError("completed secondary generation byte/producer binding changed")
+        originals = []
+        for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "supplement-generation.jsonl"):
+            originals += [{"text_id": identity(r["text"])} for r in lines((root / name).read_bytes())]
+        validate_secondary(raw, producer, originals)
+        output.write_bytes(raw)
+        journal_raw = (HERE / "recovery/locked-secondary-journal.jsonl").read_bytes()
+        if sha(journal_raw) != producer["raw_candidate_journal_sha256"]:
+            raise ValueError("completed secondary raw journal changed")
+        (root / "secondary-generation-journal.jsonl").write_bytes(journal_raw)
+        dump(root / "secondary-generation-report.json", {**producer, "producer_run_id": producer["run_id"],
+            "producer_commit": producer["commit"], "generation_performed_here": False,
+            "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"]})
+        print(json.dumps({"restored_records": len(lines(raw)), "data_sha256": sha(raw), "new_generation": False}), flush=True)
+        return
     policy = generation_policy(json.loads((HERE / "recipe.json").read_text()))
     retained_raw = (HERE / "recovery/secondary-prefix.jsonl").read_bytes()
     retained_producer = json.loads((HERE / "recovery/secondary-prefix-producer.json").read_text())

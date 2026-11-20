@@ -1,5 +1,30 @@
 # Sources and rights
 
+## Fixed secondary minimal-verdict supervision
+
+Run44789054038 completed all64 source groups, retained the exact39-group prefix
+and passed25 actual token-prefix controls. Its generation bytes are now immutable:
+f4d8c1928e27c666d0255172604e756556696bfc2827d55e852530507f185f96.
+All three data gates and the package parser passed, but strict validation quality
+still failed and no independent audit was opened. Native aggregates are not wins.
+
+The next job restores that completed generation and original producer without any
+new neural generation. All880 earlier preferences remain unchanged. Two whole
+secondary training article groups, chosen by lowest group hashes before fitting,
+supply four additional literal bare-label comparisons. The other124 secondary
+rows retain truthful JSON/prose quotes. Total1008 preferences now include16 bare
+rows; unchanged uniqueness, repeated-negative and internal leakage gates still
+apply. A separate worst-case any-split leakage bound must stay at or below0.10.
+
+The secondary phase uses the existing symmetric bare weight16, normalized by its
+actual mean. Both source origins have equal total weight. Original training and
+the first supplementary phase are unchanged. The learning rate, losses, model
+state, all source/entity/time splits and every quality/runtime gate remain fixed.
+This is additional minimal-wire supervision, not answer padding, an origin prior
+or a score transform. Generated text/source rights are retained verbatim; these
+constructed preferences are not human-reviewed annotations. Model benefit remains
+unverified until the bounded CPU job and independent reference audit measure it.
+
 ## Retained successful generation with a fixed token extension
 
 Run44784633424 failed the unchanged24-word excerpt gate during secondary GPT-2
