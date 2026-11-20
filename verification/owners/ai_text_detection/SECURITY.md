@@ -27,6 +27,8 @@
 | Composite source identity omits new grants | Bundle hashes both manifests; source attribution in package/checkpoints | Manifest and generated-byte bindings |
 | Confidence penalty changes served scores or favors a label | Fixed symmetric training-only paired margin loss | Scalar symmetry and remote gradient controls |
 | Old supplement is silently rerolled | Retained actual data, source bundle and original producer hashes | Locked-data byte/source checks and refusal to replace output |
+| Compact cues fabricate facts or pad unique negatives | Exact first/last four source words on both sides, unchanged bare rows | Source-quote/prompt/label and no-padding tests |
+| Compact layout weakens data checks or changes held-out wires | Train-only layout and unchanged repetition/quality gates | Real 752-row repetition smoke and validation-role refusal |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -115,3 +117,8 @@ Margin alignment cannot override any validation/audit failure. It leaves origina
 input strings and the public reference executor unchanged. Restored supplementary
 source data retains its original producer and licence. New tensor controls and
 model performance are remote-only claims, never inferred from local scalar tests.
+
+Compact source quotation changes only fitted training responses. It does not
+select source passages, create new contributors or alter evaluation answers.
+Full upstream surface/quality checks must still pass. Original source and data
+artifacts are kept so the layout can be distinguished from the unmodified corpus.

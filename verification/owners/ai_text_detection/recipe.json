@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "source-paired-verdict-margin-alignment-v13",
+  "name": "source-grounded-compact-training-cues-v14",
   "checkpoint_sha256": "e426a298d84b73c0b3a853e51695d8a8d6f77a7d5f65eb24a1b222e2f70d85ef",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -17,7 +17,7 @@
   "checkpoint_file": "recovery/breadth-model-checkpoint.safetensors",
   "continuation_run_id": 44675121682,
   "continuation_commit": "38b8350f068dc06284358e351cd4ae2ca56a13db",
-  "training_layout": "Symmetric verdict-first and verdict-last JSON/prose views, chosen by source hash. Bare training group remains unique.",
+  "training_layout": "Truthful opening/ending source quotes instead of whole-passage cue copying; no unique ID padding or invented explanations.",
   "training_expansion": "At most 128 new non-overlapping windows from original training articles. Actual generator/byte/token/overlap refusals retained. Minimum 80 valid views.",
   "bare_exposure": "Six original source articles in an actually larger corpus, only if primary repetition gates and worst-case reuse <=0.10 pass.",
   "bare_loss_weight": 16,
@@ -72,5 +72,11 @@
     "scope": "paired_training_verdict_margins",
     "runtime_transform": false
   },
-  "supplement_reuse": "Exact actual output of run 44687535825, retained producer/byte/source identity."
+  "supplement_reuse": "Exact actual output of run 44687535825, retained producer/byte/source identity.",
+  "compact_training": {
+    "opening_words": 4,
+    "ending_words": 4,
+    "scope": "training_only",
+    "heldout_changed": false
+  }
 }

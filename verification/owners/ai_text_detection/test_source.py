@@ -25,6 +25,7 @@ from common import pair_data_shortcuts_ok
 from coupled_contract import coupled_policy, source_groups, scalar_coupled
 from supplement_contract import validate_sources, source_bundle, validate_generation
 from margin_contract import margin_policy, scalar_margin
+from compact_contract import compact_training
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -48,6 +49,26 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_compact_source_quotes_preserve_prompts_labels_and_actual_words(self):
+        rows = fixture_splits()["train"]
+        compact = compact_training(rows)
+        self.assertEqual(len(rows), len(compact))
+        for before, after in zip(rows, compact):
+            self.assertEqual(before["prompt"], after["prompt"])
+            self.assertEqual(before["label"], after["label"])
+            self.assertEqual(before["text_id"], after["text_id"])
+            text = json.loads(before["prompt"])["text"]
+            chosen, rejected = json.loads(after["chosen"]), json.loads(after["rejected"])
+            self.assertEqual(chosen["cues"], rejected["cues"])
+            self.assertEqual(chosen["cues"][0], "Opening words: " + " ".join(text.split()[:4]))
+            self.assertEqual(chosen["cues"][1], "Ending words: " + " ".join(text.split()[-4:]))
+        with self.assertRaises(ValueError):
+            compact_training(fixture_splits()["validation"])
+
+    def test_compact_bare_rows_are_unchanged_not_identifier_padded(self):
+        row = fixture_splits()["train"][0]
+        row = {**row, "style": "bare_label", "chosen": "Human", "rejected": "AI-generated"}
+        self.assertEqual(compact_training([row]), [row])
     def test_margin_policy_scalar_symmetry_and_runtime_boundary(self):
         recipe = json.loads((HERE / "recipe.json").read_text())
         self.assertFalse(margin_policy(recipe)["runtime_transform"])

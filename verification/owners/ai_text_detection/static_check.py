@@ -48,7 +48,7 @@ def main():
     if "--hash=sha256:" not in lock or "torch==2.15.0+cpu" not in lock:
         raise ValueError("hash-locked CPU dependencies missing")
     # A source gate must not import a neural package directly or indirectly.
-    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "development_contract.py", "window_contract.py", "training_weights.py", "objective_contract.py", "augmentation_contract.py", "origin_contract.py", "coupled_contract.py", "supplement_contract.py", "margin_contract.py", "reference_data_split.py", "preserve.py", "test_source.py", "static_check.py")
+    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "development_contract.py", "window_contract.py", "training_weights.py", "objective_contract.py", "augmentation_contract.py", "origin_contract.py", "coupled_contract.py", "supplement_contract.py", "margin_contract.py", "compact_contract.py", "reference_data_split.py", "preserve.py", "test_source.py", "static_check.py")
     for name in local:
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
@@ -79,6 +79,8 @@ def main():
     coupled_policy(recipe)
     from margin_contract import margin_policy
     margin_policy(recipe)
+    if recipe.get("compact_training") != {"opening_words": 4, "ending_words": 4, "scope": "training_only", "heldout_changed": False}:
+        raise ValueError("compact source layout must remain fixed and training-only")
     from supplement_contract import source_bundle
     bundle_sha, _, _ = source_bundle()
     if recipe.get("training_source_bundle_sha256") != bundle_sha or recipe.get("supplement") != {

@@ -1,5 +1,26 @@
 # Sources and rights
 
+## Compact source-grounded training cues
+
+Run 44695379185 passed its actual margin tensor controls and package parser but
+did not improve the strict verdict result. It kept the starting checkpoint and
+consumed no independent audit. No failed checkpoint is re-registered unchanged.
+
+The next training layout quotes four opening words and four ending words from
+each actual source passage instead of repeating the whole passage in the answer.
+Both preference sides have the same truthful quotes and opposite verdict labels.
+There are no case IDs, padding strings or invented origin explanations. Original
+prompts, source text IDs, article/entity/time roles and provenance remain intact.
+Bare training rows are unchanged. Held-out JSON, prose and bare responses keep
+their exact original wire strings.
+
+The data-only smoke retains 752 pairs and 12 bare rows. Unique rejected fraction
+is 0.9867021276595744, largest repeated negative share 0.007978723404255319 and
+internal negative leakage 0.008928571428571428, within the unchanged thresholds.
+The full upstream surface probe and model-quality gates still run remotely.
+Shorter source quotes are a training-format hypothesis, not a measured neural
+improvement. All original grants and quote attribution remain in the source bundle.
+
 ## Paired verdict-margin alignment
 
 Run 44687535825 produced all 64 supplementary groups and 128 provenance rows.

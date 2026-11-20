@@ -98,3 +98,9 @@ Original source and generator grants remain attached. New paired margin-alignmen
 and reuse controls use SAND for our code only. PyTorch SmoothL1 API use retains
 its original grant. This is training code, not a served score wrapper or a claim
 of human-reviewed preferences or independently certified authorship.
+
+Compact training cues quote the actual source passage's opening and ending words.
+They are source-derived text under the same original article/generator grants,
+not invented explanations or identifier padding. Source IDs and original inputs
+remain unchanged. Our layout code uses SAND; upstream grants and attribution
+survive. This does not change held-out answers or the public executor.

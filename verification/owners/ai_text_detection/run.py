@@ -131,6 +131,9 @@ def main():
         else:
             candidates.extend(rows)
     splits["train"], expanded = expanded_training_pairs(original, candidates, bare_group_count=6)
+    from compact_contract import compact_training
+    splits["train"] = compact_training(splits["train"])
+    expanded["training_answer_layout"] = "Opening/ending source quotes, four words each; original prompts and labels retained."
     expanded["full_context_refused_views"] = token_refusals
     expanded["augmentation_sha256"] = sha(augmentation_raw)
     expanded["additional_augmentation_sha256"] = sha(additional_raw)

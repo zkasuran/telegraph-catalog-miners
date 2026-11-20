@@ -95,6 +95,12 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Limits
 
+The margin-only run did not improve strict verdict quality and kept its starting
+state. The next training view uses short, truthful opening/ending source quotes
+instead of whole-passage cue copying. Original prompts, labels, bare rows and
+held-out strings remain unchanged. Its real repetition controls pass locally;
+the full source-surface probe and any neural benefit remain remote-unverified.
+
 The supplementary-source run completed real generation and improved source-only
 diagnostics, but the literal bare-verdict gate still failed. Its audit stayed
 sealed. The next job reuses the exact generated data and tests a symmetric
