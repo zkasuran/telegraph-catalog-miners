@@ -19,6 +19,8 @@ from contracts import training_pairs
 def main():
     remote_only()  # Before model libraries, downloads or model construction.
     owner_attempt = os.environ["OWNER_RUN_ID"]
+    from regularization import SETTINGS, load as load_regularization
+    lora_dropout, regularization_sha256 = load_regularization(HERE / SETTINGS)
     p = argparse.ArgumentParser()
     p.add_argument("--root", required=True, type=Path)
     root = p.parse_args().root
@@ -43,7 +45,9 @@ def main():
     # Worst-gate-margin selection uses validation only, never the audit.
     hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=4, epochs=12,
                              lr=1e-4, es_metric="worst_gate_margin", es_patience=4, es_min_delta=0.0,
-                            eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False)
+                             eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False, lora_dropout=lora_dropout)
+    write(root / "regularization.json", {"lora_dropout": lora_dropout, "config_sha256": regularization_sha256,
+          "basis": "actual training memorization and validation failure, never clean audit scores", "quality_gates_changed": False})
     train_sources = [r for r in rows if r["split"] == "train"]
     validation_sources = [r for r in rows if r["split"] == "validation"]
     train = training_pairs(response_views(train_sources, "train"))
@@ -101,6 +105,7 @@ def main():
                          training={"family": FAMILY, "owner_attempt": owner_attempt,
                                    "data": binding, "audit": "not yet measured",
                                    "sampling_sha256": sha(sampling_path.read_bytes()),
+                                   "regularization_sha256": regularization_sha256,
                                    "batching": "counterfactual sibling pairs, two original views per batch",
                                   "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": binding["inventory_sha256"]}],
                                   "authorship": "Original AI-assisted source and constructed preferences; no human review"})
@@ -178,6 +183,7 @@ def main():
            "selection_source_report_sha256": sha((root / "trainer-selection-source.json").read_bytes()),
            "sampling_runtime_report_sha256": sha((root / "sampling-runtime-controls.json").read_bytes()),
            "paired_batch_runtime_report_sha256": sha((root / "paired-batch-runtime-controls.json").read_bytes()),
+           "regularization_config_sha256": regularization_sha256,
           "full_parser_passed": True,
           "phase": "candidate frozen before independent audit", "node_qualification": "not attempted"})
     print("Candidate and seed-matched untrained packages frozen. Audit has not run.")

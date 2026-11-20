@@ -9,6 +9,7 @@ python3 -W error -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); 
 python3 -W error "$HERE/policy.py" --check-public-contract
 python3 -W error -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); compile(p.read_text(),str(p),"exec"); print("Live class source adapter syntax compiled without model imports")' "$HERE/class_source.py"
 python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -v
+PYTHONPATH="$HERE${PYTHONPATH:+:$PYTHONPATH}" python3 -W error -c 'from regularization import load; import sys; d,h=load(sys.argv[1]); assert d==0.25; print("Frozen adapter dropout validated without neural imports: "+str(d)+" "+h)' "$HERE/regularization-v1.json"
 python3 -W error "$HERE/trainer_selection.py" --source-check-report "$OUT/trainer-selection-contract.json"
 node --check "$HERE/execute.mjs"
 if ! test -d "$HERE/node_modules"; then

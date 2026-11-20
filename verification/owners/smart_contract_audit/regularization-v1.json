@@ -1,0 +1,8 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "lora_dropout": 0.25,
+  "method": "higher adapter dropout after actual training memorization and held-out validation loss",
+  "quality_gates_changed": false,
+  "schema_version": 1,
+  "selection_data": "training/validation only"
+}

@@ -28,6 +28,7 @@
 | Training identifier augmentation copies held-out data or inflates independence | Original training-side generators only, exact old-row and held-out byte checks, unchanged group IDs | `test_identifier_variants.py` retained full training/held-out hashes and no new-group count; full compilation/disputed-call/legitimate checks |
 | Exposed audit becomes training or a repeated qualification draw | Permanently retired audit fingerprint, generator refusal for retired design IDs, active clean audit must have a different hash | `test_audit_retirement.py`, source-binding runtime guard and immutable exposure ledger; no old audit row is used in new fitting/test data |
 | Rational sampling secretly refits or bypasses old integer limits | New immutable numerator/denominator schema binds exact training counts; legacy bounded integer schema remains unchanged | Exact rational group-mass test, changed denominator refusal and held-out input refusal; old invalid-integer tests retained |
+| Regularization settings secretly tune on audit or relax acceptance | Closed frozen config accepts a finite dropout in range, training/validation provenance and unchanged quality-gate flag only | `test_regularization.py` primary config plus invalid range/type, audit provenance and changed-gate refusal controls |
 
 ## Known limits
 
