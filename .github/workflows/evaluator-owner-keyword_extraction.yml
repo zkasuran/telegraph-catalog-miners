@@ -104,7 +104,9 @@ jobs:
           "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --root "$RUNNER_TEMP/keyword-pilot" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/remote.py --root "$RUNNER_TEMP/keyword-pilot" --data verification/owners/keyword_extraction/approved
       - name: Retain checkpoint terms on every outcome
         if: always()
-        run: python3 verification/owners/keyword_extraction/preserve.py --root "$RUNNER_TEMP/keyword-pilot"
+        run: |
+          python3 verification/owners/keyword_extraction/preserve.py --root "$RUNNER_TEMP/keyword-pilot"
+          python3 verification/owners/keyword_extraction/artifact_layout.py --kind train --root "$RUNNER_TEMP/keyword-pilot" --dependency "$RUNNER_TEMP/keyword-dependency-audit.json" --licences verification/owners/keyword_extraction/licences.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -114,8 +116,6 @@ jobs:
           path: |
             ${{ runner.temp }}/keyword-pilot/*.json
             ${{ runner.temp }}/keyword-pilot/*.safetensors
-            ${{ runner.temp }}/keyword-dependency-audit.json
-            verification/owners/keyword_extraction/licences.json
   audit:
     needs: train
     runs-on: ubuntu-24.04
@@ -153,6 +153,9 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/keyword-audit"
           "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --root "$RUNNER_TEMP/keyword-audit" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/audit_remote.py --root "$RUNNER_TEMP/keyword-audit" --bundle "$RUNNER_TEMP/keyword-bundle" --data verification/owners/keyword_extraction/approved
+      - name: Keep actual audit diagnostics at the literal registration artifact root
+        if: always()
+        run: python3 verification/owners/keyword_extraction/artifact_layout.py --kind audit --root "$RUNNER_TEMP/keyword-audit" --dependency "$RUNNER_TEMP/keyword-audit-dependencies.json"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -162,7 +165,6 @@ jobs:
           path: |
             ${{ runner.temp }}/keyword-audit/*.json
             ${{ runner.temp }}/keyword-audit/*.log
-            ${{ runner.temp }}/keyword-audit-dependencies.json
   serve:
     if: ${{ inputs.mode == 'serve' }}
     runs-on: ubuntu-24.04

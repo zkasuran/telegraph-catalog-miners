@@ -50,6 +50,8 @@ The source count, grouped-overlap, grant and immutable baseline checks now pass.
 
 The ready-report emitter combines actual parser, audit, runtime and source evidence only after these gates pass. Its per-label metrics describe observed source label_kind values, not absolute relevance labels. It binds eight actual fixed array-format vectors, asset hashes and the audit/source commit. No registration-ready.json has been produced by a real job.
 
+`artifact_layout.py` keeps producer metadata within one exact upload directory. The training artifact exposes literal root `candidate.json`, frozen baseline, foundation descriptor and delta names expected by the audit loader. The audit artifact exposes literal root `registration-ready.json` expected by the automatic registrar. Dependency reports and licence notices are copied into their producer directory without changing their bytes. Mixed runner/repository paths previously produced nested artifact names, as confirmed by the first real failed pilot artifact. Synthetic ZIP controls now refuse that layout. Model parameters, dataset bytes and quality gates are unchanged.
+
 Full deployed daemon string handling is still unverified. The live child currently has null request and response schemas. This does not automatically block a judgment adapter, but it does not establish a complete app request path. Live endpoint validation and fresh independent node qualification still require actual passing artifacts and adapter checks. The serving path is source-tested but has not run a real model or endpoint. A source-held-out score is not a canonical win.
 
 ## Terms

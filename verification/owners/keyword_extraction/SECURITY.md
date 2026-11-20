@@ -23,6 +23,8 @@
 | Shortcut learning | Train-only immutable integer coefficients plus unmodified primary dataset gate | Frozen coefficient test. Real dataset gate still pending |
 | Wrong runnable identity or nonfinite score | Literal primary wire contract, primary Go input roots and strict FP32 decoding | Primary Go equality probe, root/prefix and nonfinite controls |
 | Tiny or changed audit set | Rechecked minimum pair/component counts and frozen data/package/config/commit hashes | Minimum-count and audit-verdict failure tests |
+| Artifact paths disagree with the literal audit/registration consumer | One producer root, bounded metadata staging and exact root filenames | Actual nested pilot artifact, primary upload semantics and real synthetic ZIP/root refusal controls |
+| Packaging drops required deltas or includes private material | Complete train/audit member contracts, duplicate/traversal/hidden/private-key filename refusal and bounded member sizes | Missing delta, nested path, private filename and metadata staging tests. Real neural artifact still requires remote verification |
 | Report claims an unexecuted engine or identity result | Ready emitter requires completed parser/audit evidence, four actual identity probes, negative-token refusal and fixed finite vectors | Synthetic schema failure controls only. Actual remote probes remain unexecuted |
 | Audit shortcut outcomes select a training candidate | Training computes shortcuts only for train/validation; independent audit retains the 65% gate across every format | Source-path inspection and audit shortcut-refusal control. Neural path is unexecuted |
 | Accidental local model execution | Remote guard before model imports or weight preparation | Laptop refusal test |
