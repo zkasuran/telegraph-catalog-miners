@@ -1,0 +1,16 @@
+Source text and original title associations retain CC BY 4.0.
+Article authors, original sources, exact grant clauses and extraction changes
+are listed for every article in data/manifest.json. eLife publishes these
+articles. The XML source revision is c3cd502f94edfb5aa0c5870ed9eff053773c6125.
+No human preference review is claimed. Donor preferences were constructed by
+AI-assisted code from unchanged published abstract/title associations.
+
+ModernBERT-base, answerdotai, revision
+8949b909ec900327062f0ebf497f51aef5e6f0c8, retains Apache-2.0.
+The Telegraph baseline kit, Copyright (c) 2026 telegraphprotocol, revision
+1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd, retains its MIT licence.
+Full Apache, MIT and CC BY terms accompany source and failed exports.
+
+Our competitive code, constructed preferences and fitted additions are
+Copyright (c) 2026 zkasuran, LicenseRef-zkasuran-SAND-1.0. These terms apply
+only to our own portions and do not restrict retained upstream grants.

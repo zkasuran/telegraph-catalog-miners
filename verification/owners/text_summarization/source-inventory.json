@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source_revision": "c3cd502f94edfb5aa0c5870ed9eff053773c6125",
+  "tree": "4ee79e98a7dbdcd3dd040be4b836e0843520c1fd",
+  "tree_sha256": "0b16f982aa3dabd5b3e179a2da9644984fab3174d5af1e4dad869b66f9fc2e20",
+  "truncated": false,
+  "all_entries": 32142,
+  "all_v1_files": 19699,
+  "bounded_v1_files": 19699,
+  "v1_xml_bytes": 2064806503,
+  "per_file_read_bound": 4194304,
+  "verified_collection_files": 13312,
+  "selected_documents": 448,
+  "selected_components": 224,
+  "inventory_method": "Complete nonrecursive Git Trees response for the flat articles subtree. Not a Contents API page or a population rate inferred from a sample.",
+  "eligible_corpus_exhausted_claimed": false,
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0"
+}

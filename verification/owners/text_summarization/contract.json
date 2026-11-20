@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "family": "TEXT_SUMMARIZATION",
+  "child": "TEXT_SUMMARIZATION_GENERAL",
+  "scope": "Target-study title relevance with complete two-study references, not full factual summarization",
+  "source_manifest_sha256": "8453ca0af04a1404ee763d87be05fdb39d7154e3a975308e97922ee1797a5db3",
+  "splits": {
+    "train": {
+      "groups": 128,
+      "pairs": 256,
+      "sha256": "c75f132a5ef67505c6e1e43499113af6d9a9ed4531362ef70dd687e47d53e158"
+    },
+    "validation": {
+      "groups": 32,
+      "pairs": 64,
+      "sha256": "0168fb0688375035dacc6ef5c46378bfe871c3a79d471235250805018e62efc5"
+    },
+    "audit": {
+      "groups": 64,
+      "pairs": 128,
+      "sha256": "887cc67b7279ea2f564b6c4b76a38a91aa7d4ee28e79034625d6a7313e1eabbc"
+    }
+  },
+  "baseline_sha256": "c34139eb350d818d1e887f9f87d1200e49310dbbb956f75f5761ebc33729c34f",
+  "hyperparameters": {
+    "max_length": 256,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "epochs": 3,
+    "batch_size": 1,
+    "grad_accum": 16,
+    "eval_batch": 1,
+    "seed": 42
+  },
+  "quality": {
+    "minimum_accuracy": 0.8,
+    "minimum_subset_accuracy": 0.7,
+    "minimum_untrained_gain": 0.05,
+    "minimum_shortcut_gain": 0.1,
+    "maximum_shortcut_accuracy": 0.65
+  },
+  "selection": "All three epochs. Validation loss alone selects; audit only after restoring the selected checkpoint.",
+  "source_authorship": "Human published title associations. Donor preferences are constructed, not human preference votes."
+}

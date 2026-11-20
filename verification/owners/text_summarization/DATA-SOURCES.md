@@ -1,0 +1,67 @@
+# Source grants and task scope
+
+## eLife articles
+
+The source is the eLife article XML repository at revision
+`c3cd502f94edfb5aa0c5870ed9eff053773c6125`. The complete flat article subtree
+`4ee79e98a7dbdcd3dd040be4b836e0843520c1fd` contains 32,142 entries and
+19,699 v1 XML files. The complete inventory was checked, not its first page.
+13,312 articles were verified during candidate collection. The resulting
+freeze selects 448 articles in 224 conservative author/ORCID/DOI components.
+It is not claimed to be a census of eligible articles.
+
+The selected articles explicitly grant CC BY 4.0. One retained clause reads:
+
+> This article is distributed under the terms of the Creative Commons Attribution License permitting unrestricted use and redistribution provided that the original author and source are credited.
+
+Each article has its exact clause, authors, immutable URL, original XML SHA-256
+and Git blob hash in `data/manifest.json`. The original grant controls the source
+text. The complete CC BY legal code is in `CC-BY-4.0.txt`.
+
+The complete substantive abstract and unchanged published title are extracted
+by whitespace normalization. External references and quoted third-party passages
+are excluded. Published titles are human-authored source associations, not human
+preference votes. Pair construction is AI-assisted. Each reciprocal task asks
+for a title for Study A or Study B with both complete abstracts present.
+This tests target-study title relevance. It does not establish full summary
+faithfulness, independent scientific truth or general factual correctness.
+
+## ModernBERT and Telegraph
+
+ModernBERT-base at `8949b909ec900327062f0ebf497f51aef5e6f0c8` is supplied
+under Apache-2.0. Its retained grant says:
+
+> each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form.
+
+The MIT Telegraph kit at `1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd` says:
+
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software
+
+Verbatim grant punctuation above is retained. Full terms are in
+`UPSTREAM-APACHE-2.0.txt` and `KIT-LICENSE`. `reference-pins.json` binds
+the kit archive and each base-model file. Runtime foundation, engine and
+tokenizer hashes are pinned in `runtime_check.py`.
+
+## Freeze and evaluation
+
+Train has 128 components and 256 reciprocal pairs. Validation has 32 components
+and 64 pairs. Audit has 64 components and 128 pairs. Source/entity identities
+and normalized title/abstract text do not overlap across these splits.
+Complete constructed-task availability is strictly ordered by time. This is
+not a new-topic holdout. All raw/JSON/prose task-answer inputs fit 256 tokens.
+
+Analytical coefficient vocabulary, IDF, answer-only log odds and directions
+were fitted once using train only. They are immutable. Validation loss selects
+one checkpoint after all three fixed epochs. The independent audit is used
+only after restoring that checkpoint and is never used for later tuning.
+Source integrity and token-length checking do not score the audit.
+
+Length, token length, TF-IDF overlap and answer-only count controls replay at
+50% on development in each format. The upstream answer-only surface probe
+uses an internal pair-level diagnostic split. Its result is reported separately,
+not presented as source-group-held-out quality. Reciprocal complete groups
+counterbalance the same two answers across target A and target B.
+
+Our own portions use SAND. Source grants remain attached to unsuccessful
+checkpoints as well as any successful delta. No protected pool material,
+exposed development capture or evaluation-answer lookup is used.

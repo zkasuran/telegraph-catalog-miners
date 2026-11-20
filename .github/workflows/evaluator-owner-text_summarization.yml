@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "name": "Bounded target-study title CPU pipeline",
+  "on": {"workflow_dispatch": {"inputs": {
+    "mode": {"type": "choice", "options": ["train", "serve"], "default": "train", "required": true},
+    "owner_attempt": {"type": "string", "required": true, "description": "Exact owner attempt identity"},
+    "serving_settings": {"type": "string", "required": false, "default": "{}", "description": "Reserved endpoint and immutable package/report bindings"}
+  }}},
+  "permissions": {"contents": "read"},
+  "concurrency": {"group": "evaluator-owner-text-summarization-${{ inputs.mode }}", "cancel-in-progress": false},
+  "jobs": {"owner": {
+    "runs-on": "ubuntu-24.04",
+    "timeout-minutes": 350,
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1", "TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4", "OPENBLAS_NUM_THREADS": "4", "CUDA_VISIBLE_DEVICES": "",
+      "OWNER_ATTEMPT": "${{ inputs.owner_attempt }}", "SERVING_SETTINGS": "${{ inputs.serving_settings }}"
+    },
+    "steps": [
+      {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {
+        "sparse-checkout": "/verification/owners/text_summarization/\n/.github/workflows/evaluator-owner-text_summarization.yml",
+        "sparse-checkout-cone-mode": false,
+        "persist-credentials": false
+      }},
+      {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+      {"name": "Source-only release gate", "run": "bash verification/owners/text_summarization/verify.sh"},
+      {"name": "Preserve failed-run grants", "if": "${{ inputs.mode == 'train' }}", "run": "python3 verification/owners/text_summarization/preserve.py --root \"$RUNNER_TEMP/summary-experiment\""},
+      {"name": "Install hash-locked public CPU dependencies", "timeout-minutes": 20,
+       "run": "python3 -m venv \"$RUNNER_TEMP/summary-venv\"\n\"$RUNNER_TEMP/summary-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/text_summarization/requirements.lock\n\"$RUNNER_TEMP/summary-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/audit_dependencies.py --lock verification/owners/text_summarization/requirements.lock --out \"$RUNNER_TEMP/summary-audit-requirements.txt\" --report \"$RUNNER_TEMP/summary-dependency-audit.json\""},
+      {"name": "Fixed training then complete original audit and engine", "if": "${{ inputs.mode == 'train' }}", "timeout-minutes": 305,
+       "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/remote.py --root \"$RUNNER_TEMP/summary-experiment\""},
+      {"name": "Preserve partial results and grants", "if": "${{ always() && inputs.mode == 'train' }}",
+       "run": "python3 verification/owners/text_summarization/preserve.py --root \"$RUNNER_TEMP/summary-experiment\""},
+      {"name": "Upload bounded original experiment evidence", "if": "${{ always() && inputs.mode == 'train' }}",
+       "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {
+         "name": "text-summarization-result-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
+         "path": "${{ runner.temp }}/summary-experiment/*.json\n${{ runner.temp }}/summary-experiment/*.safetensors\n${{ runner.temp }}/summary-experiment/LICENSE\n${{ runner.temp }}/summary-experiment/NOTICE\n${{ runner.temp }}/summary-experiment/*LICENSE\n${{ runner.temp }}/summary-experiment/*.txt\n${{ runner.temp }}/summary-experiment/*.md\n${{ runner.temp }}/summary-experiment/adapter/\n${{ runner.temp }}/summary-experiment/initial/\n${{ runner.temp }}/summary-experiment/checkpoint/\n${{ runner.temp }}/summary-experiment/data/*.json\n${{ runner.temp }}/summary-dependency-audit.json"
+       }},
+      {"name": "Verify exact served package and prepare restricted lease", "if": "${{ inputs.mode == 'serve' }}", "timeout-minutes": 25,
+       "run": "\"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/serve.py --root \"$RUNNER_TEMP/summary-serving\" --settings \"$SERVING_SETTINGS\""},
+      {"name": "Upload ONLY restricted public lease", "if": "${{ inputs.mode == 'serve' }}",
+       "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {
+         "name": "text-summarization-lease-${{ github.run_id }}", "retention-days": 1, "if-no-files-found": "error",
+         "path": "${{ runner.temp }}/summary-serving/lease.json"
+       }},
+      {"name": "Bounded exact executor and restricted forwarding", "if": "${{ inputs.mode == 'serve' }}", "timeout-minutes": 300,
+       "run": "timeout --signal=TERM --kill-after=20s 17940 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/serve.py --root \"$RUNNER_TEMP/summary-serving\" --run"}
+    ]
+  }}
+}
