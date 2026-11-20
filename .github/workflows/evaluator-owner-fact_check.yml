@@ -1,0 +1,180 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "name": "FACT_CHECK bounded source model and exact executor",
+  "on": {
+    "workflow_dispatch": {
+      "inputs": {
+        "mode": {
+          "type": "choice",
+          "options": [
+            "train",
+            "serve"
+          ],
+          "default": "train",
+          "required": true
+        },
+        "package_url": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "package_sha256": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "package_keccak": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "report_url": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "report_sha256": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "runnable_url": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "slot": {
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "forward_port": {
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "factcheck-owner-${{ inputs.mode }}",
+    "cancel-in-progress": false
+  },
+  "jobs": {
+    "factcheck": {
+      "if": "github.repository == 'zkasuran/telegraph-catalog-miners' && github.event.repository.private == false",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 330,
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TOKENIZERS_PARALLELISM": "false",
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "CUDA_VISIBLE_DEVICES": "",
+        "FACTCHECK_REPOSITORY_PRIVATE": "${{ github.event.repository.private }}"
+      },
+      "steps": [
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "sparse-checkout": "/verification/owners/fact_check/\n/.github/workflows/evaluator-owner-fact_check.yml",
+            "sparse-checkout-cone-mode": false,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Actual packaged source gate",
+          "run": "bash verification/owners/fact_check/verify.sh"
+        },
+        {
+          "name": "Initialize full failed-run source grants",
+          "run": "python3 verification/owners/fact_check/preserve.py --root \"$RUNNER_TEMP/factcheck-experiment\""
+        },
+        {
+          "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "with": {
+            "go-version": "1.25.7",
+            "cache": false
+          }
+        },
+        {
+          "name": "Install audited hash-locked CPU dependencies",
+          "timeout-minutes": 15,
+          "run": "python3 -m venv \"$RUNNER_TEMP/factcheck-venv\"\n\"$RUNNER_TEMP/factcheck-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/fact_check/support/training/requirements.lock\n\"$RUNNER_TEMP/factcheck-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/support/training/audit.py --lock verification/owners/fact_check/support/training/requirements.lock --out \"$RUNNER_TEMP/factcheck-audit.txt\" --report \"$RUNNER_TEMP/factcheck-experiment/dependency-audit.json\""
+        },
+        {
+          "name": "Frozen source gate and three-epoch development-selected model",
+          "id": "train",
+          "if": "inputs.mode == 'train'",
+          "timeout-minutes": 305,
+          "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/remote.py --root \"$RUNNER_TEMP/factcheck-experiment\""
+        },
+        {
+          "name": "Preserve exact licensed successful or failed checkpoints",
+          "id": "preserve",
+          "if": "always() && inputs.mode == 'train'",
+          "run": "python3 verification/owners/fact_check/preserve.py --root \"$RUNNER_TEMP/factcheck-experiment\""
+        },
+        {
+          "name": "Registration-ready actual audit/runtime artifact",
+          "if": "steps.train.outcome == 'success' && inputs.mode == 'train'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "factcheck-registration-${{ github.run_id }}",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/factcheck-experiment/registration-ready.json\n${{ runner.temp }}/factcheck-experiment/FACT_CHECK.safetensors\n${{ runner.temp }}/factcheck-experiment/runtime-result.json\n${{ runner.temp }}/factcheck-experiment/package-manifest.json"
+          }
+        },
+        {
+          "name": "Bounded diagnostic results and failed licensed checkpoints",
+          "if": "always() && inputs.mode == 'train' && steps.preserve.outcome == 'success'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "factcheck-diagnostic-${{ github.run_id }}",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/factcheck-experiment/*.json\n${{ runner.temp }}/factcheck-experiment/*.txt\n${{ runner.temp }}/factcheck-experiment/LICENSE\n${{ runner.temp }}/factcheck-experiment/NOTICE\n${{ runner.temp }}/factcheck-experiment/SOURCE-CC0.txt\n${{ runner.temp }}/factcheck-experiment/KIT-LICENSE\n${{ runner.temp }}/factcheck-experiment/UPSTREAM-APACHE-2.0.txt\n${{ runner.temp }}/factcheck-experiment/adapter/\n${{ runner.temp }}/factcheck-experiment/initial/\n${{ runner.temp }}/factcheck-experiment/checkpoint/\n${{ runner.temp }}/factcheck-experiment/data/*.json"
+          }
+        },
+        {
+          "name": "Prepare identical public executor and restricted public lease",
+          "if": "inputs.mode == 'serve'",
+          "timeout-minutes": 25,
+          "env": {
+            "PACKAGE_URL": "${{ inputs.package_url }}",
+            "PACKAGE_SHA256": "${{ inputs.package_sha256 }}",
+            "PACKAGE_KECCAK": "${{ inputs.package_keccak }}",
+            "REPORT_URL": "${{ inputs.report_url }}",
+            "REPORT_SHA256": "${{ inputs.report_sha256 }}",
+            "RUNNABLE_URL": "${{ inputs.runnable_url }}",
+            "SLOT": "${{ inputs.slot }}",
+            "FORWARD_PORT": "${{ inputs.forward_port }}"
+          },
+          "run": "\"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/serving.py --background --root \"$RUNNER_TEMP/factcheck-serving\" --package-url \"$PACKAGE_URL\" --package-sha256 \"$PACKAGE_SHA256\" --package-keccak \"$PACKAGE_KECCAK\" --report-url \"$REPORT_URL\" --report-sha256 \"$REPORT_SHA256\" --runnable-url \"$RUNNABLE_URL\" --slot \"$SLOT\" --forward-port \"$FORWARD_PORT\""
+        },
+        {
+          "name": "Upload only the restricted public serving lease",
+          "if": "inputs.mode == 'serve'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "factcheck-public-lease-${{ github.run_id }}",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/factcheck-serving/public/lease.json"
+          }
+        },
+        {
+          "name": "Keep the exact bounded executor alive",
+          "if": "inputs.mode == 'serve'",
+          "timeout-minutes": 285,
+          "run": "\"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/serving.py --wait-root \"$RUNNER_TEMP/factcheck-serving\""
+        }
+      ]
+    }
+  }
+}

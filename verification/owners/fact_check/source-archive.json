@@ -1,0 +1,7 @@
+{
+  "archive_sha256": "95993d951893142e20672c1a99ccc9eb37e37ebbf41479e9a24ca4551524b754",
+  "archive_bytes": 6781180,
+  "raw_bytes": 47323316,
+  "entries": 150,
+  "policy": "Exact primary response bytes and CC0; transport-only pre-revision captures excluded"
+}

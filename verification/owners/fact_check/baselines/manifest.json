@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "artifact": "frozen-controls.json",
+  "artifact_sha256": "5968a20d4c7ddf14f8a3ba4995059ed389c30c17dec184830b8a4e5a57d750f0",
+  "fit_split": "train",
+  "training_rows": 128,
+  "training_sha256": "38f9e279e6426c667e874b1f29cfc8ba97d29311a65ee461d835f6b5c4d79ad7",
+  "source": "Wikidata",
+  "source_revision": "wikidata-p36-v1",
+  "source_manifest_sha256": "d793d8fc79db3880961ca25ebc3e898a89bf209f07683b5af5dc9c67aec589cc",
+  "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+}

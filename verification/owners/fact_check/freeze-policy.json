@@ -1,0 +1,19 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "source": "Primary Wikidata structured entity snapshots",
+  "relation": "P36",
+  "candidate_ceiling": 512,
+  "as_of": "2026-11-18",
+  "eligibility": "Nondeprecated referenced statements. Exactly one applicable capital ID. Unknown qualifier, calendar, incomplete reference or exact transition-day scope is excluded.",
+  "accepted_alternatives": "Wrong claims cannot equal any nondeprecated object ID or any accepted label/alias, including retained historical alternatives.",
+  "split_hash": "sha256(split-v1 + entity_id/P36) modulo 20: train <12, development 12..14, audit 15..19",
+  "ordering": "sha256(allocation-v1 + entity_id/P36), fixed before data acquisition completes",
+  "same_name_entities": "One deterministic representative per normalized subject label",
+  "truth_assignment": "Alternate True/False along fixed ordering within each split; never choose with model or audit scores",
+  "wrong_capital_assignment": "Hash-order real capitals by sha256(negative-v1 + group_id + object_id) per subject, then exclude all accepted alternatives. Never a fixed wrong-city marker.",
+  "required": {"train": 128, "validation": 32, "audit": 64},
+  "required_label_counts": "Exactly half True and half False in each split",
+  "token_ceiling": 256,
+  "audit_policy": "Source integrity and visibility checked before training. No audit neural or frozen shortcut scores until development-only epoch selection finishes.",
+  "quality": {"minimum_accuracy": 0.8, "minimum_subset_accuracy": 0.7, "minimum_untrained_gain": 0.05, "minimum_shortcut_gain": 0.1, "maximum_shortcut_accuracy": 0.65}
+}

@@ -1,0 +1,57 @@
+{
+  "splits": {
+    "train": {
+      "rows": 128,
+      "groups": 128,
+      "sha256": "38f9e279e6426c667e874b1f29cfc8ba97d29311a65ee461d835f6b5c4d79ad7",
+      "label_counts": {
+        "True": 64,
+        "False": 64
+      }
+    },
+    "validation": {
+      "rows": 32,
+      "groups": 32,
+      "sha256": "7f29e0edb076978948feb460aeb2fff1dc0e8a3a9bf4f4310ac07fb857d9f3a9",
+      "label_counts": {
+        "False": 16,
+        "True": 16
+      }
+    },
+    "audit": {
+      "rows": 64,
+      "groups": 64,
+      "sha256": "4772203facbf9fa3f6883f71375b5348e9ad348745a1be4fda85abfc98857a01",
+      "label_counts": {
+        "False": 32,
+        "True": 32
+      }
+    }
+  },
+  "freeze_sha256": {
+    "train.jsonl": "38f9e279e6426c667e874b1f29cfc8ba97d29311a65ee461d835f6b5c4d79ad7",
+    "audit.jsonl": "4772203facbf9fa3f6883f71375b5348e9ad348745a1be4fda85abfc98857a01",
+    "token-visible-binding.json": "1186f13049afe02000d182dccf1da2b09b188ad72ba7542b788153aea22ecd1e",
+    "data-report.json": "885f9e9e7804fbe5340f92d896014c5b51f10a460d9f7fca431566a5239562b6",
+    "validation.jsonl": "7f29e0edb076978948feb460aeb2fff1dc0e8a3a9bf4f4310ac07fb857d9f3a9",
+    "frozen-controls.json": "5968a20d4c7ddf14f8a3ba4995059ed389c30c17dec184830b8a4e5a57d750f0",
+    "sources.json": "d793d8fc79db3880961ca25ebc3e898a89bf209f07683b5af5dc9c67aec589cc"
+  },
+  "hyperparameters": {
+    "max_length": 256,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "batch_size": 1,
+    "grad_accum": 16,
+    "epochs": 3,
+    "eval_batch": 1,
+    "seed": 42
+  },
+  "quality": {
+    "minimum_accuracy": 0.8,
+    "minimum_subset_accuracy": 0.7,
+    "minimum_untrained_gain": 0.05,
+    "minimum_shortcut_gain": 0.1,
+    "maximum_shortcut_accuracy": 0.65
+  }
+}

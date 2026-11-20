@@ -1,0 +1,1126 @@
+{
+  "status": "SOURCE_ONLY",
+  "training_allowed": true,
+  "scope": "Consistency with referenced nondeprecated Wikidata P36 assertions, not universal fact-checking",
+  "files": {
+    "train": {
+      "rows": 128,
+      "groups": 128,
+      "sha256": "38f9e279e6426c667e874b1f29cfc8ba97d29311a65ee461d835f6b5c4d79ad7",
+      "label_counts": {
+        "True": 64,
+        "False": 64
+      }
+    },
+    "validation": {
+      "rows": 32,
+      "groups": 32,
+      "sha256": "7f29e0edb076978948feb460aeb2fff1dc0e8a3a9bf4f4310ac07fb857d9f3a9",
+      "label_counts": {
+        "False": 16,
+        "True": 16
+      }
+    },
+    "audit": {
+      "rows": 64,
+      "groups": 64,
+      "sha256": "4772203facbf9fa3f6883f71375b5348e9ad348745a1be4fda85abfc98857a01",
+      "label_counts": {
+        "False": 32,
+        "True": 32
+      }
+    }
+  },
+  "available_groups": {
+    "train": {
+      "True": 130,
+      "False": 129,
+      "required_each": 64
+    },
+    "validation": {
+      "True": 33,
+      "False": 33,
+      "required_each": 16
+    },
+    "audit": {
+      "True": 58,
+      "False": 57,
+      "required_each": 32
+    }
+  },
+  "source_recount": {
+    "observed_subjects": 512,
+    "accepted_source_groups": 442,
+    "exclusions": {
+      "active statement lacks bound references": 33,
+      "ambiguous calendar or time precision": 9,
+      "unresolved qualifier scope": 6,
+      "unknown or missing capital alternative": 1,
+      "missing or multiple applicable capitals; never labelled false": 16,
+      "missing or oversized primary entity label": 5
+    },
+    "index_sha256": "b3663d256021703c9216c31e4957a4c319fa19c337dd1691dccdf9158b0ebdc8"
+  },
+  "as_of": "2026-11-18",
+  "final_audit_frozen_before_training": true,
+  "source_manifest_sha256": "d793d8fc79db3880961ca25ebc3e898a89bf209f07683b5af5dc9c67aec589cc",
+  "source_pins": {
+    "SPDX-License-Identifier": "CC0-1.0",
+    "source_revision": "wikidata-p36-v1",
+    "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+    "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+    "files": {
+      "tokenizer.json": [
+        "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/tokenizer.json",
+        "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+      ]
+    },
+    "primary_index_sha256": "b3663d256021703c9216c31e4957a4c319fa19c337dd1691dccdf9158b0ebdc8",
+    "primary_records": [
+      {
+        "url": "https://query.wikidata.org/sparql?query=SELECT+DISTINCT+%3Fentity+WHERE+%7B+%3Fentity+p%3AP36+%3Fstatement.+%3Fstatement+ps%3AP36+%3Fcapital%3B+prov%3AwasDerivedFrom+%3Freference.+%7D+ORDER+BY+%3Fentity+LIMIT+512&format=json",
+        "file": "discovery.json",
+        "sha256": "756ddd16a993a1ed9b5c785657d810978f0c20fb2a6a291d7ab10fcf3041517e",
+        "bytes": 61597,
+        "fetched_at": "2026-11-19T05:53:33.313581+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q115%7CQ159%7CQ16%7CQ163&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-000-info-n4.json",
+        "sha256": "7ce620854e0a038a718aa3f579faa46b920a631d61e94c4160f4355255e44b2d",
+        "bytes": 2805729,
+        "fetched_at": "2026-11-19T05:59:28.567163+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q173%7CQ175&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-004-info-n2.json",
+        "sha256": "01374c4db20ceb52fa7ce0bbfd0d211d60b138f5b6af3bbadfc1042ceada157d",
+        "bytes": 1556538,
+        "fetched_at": "2026-11-19T05:59:36.849409+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q183%7CQ184&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-006-info-n2.json",
+        "sha256": "0f2b12e642567d7cc86e58ac706f85652b233d6af52ff6b1ac84f905990fc821",
+        "bytes": 3235471,
+        "fetched_at": "2026-11-19T05:59:41.683644+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q189%7CQ20%7CQ21%7CQ212&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-008-info-n4.json",
+        "sha256": "57afd52193831e6b31da611b394e39d59140f4aeca90db52f941cea99eb16618",
+        "bytes": 2209519,
+        "fetched_at": "2026-11-19T05:59:46.948102+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q213%7CQ214%7CQ219%7CQ221&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-012-info-n4.json",
+        "sha256": "464c009591a7af07cb48a79986e58ee2730f84676e91d8a9f1c5216842ec1794",
+        "bytes": 2504194,
+        "fetched_at": "2026-11-19T05:59:52.286105+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q222%7CQ225%7CQ232%7CQ236&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-016-info-n4.json",
+        "sha256": "ebcc79afdcdeeedf7229bce230abb8f665993ec23900715708c95d8803c5a139",
+        "bytes": 2072905,
+        "fetched_at": "2026-11-19T05:59:56.958374+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q240%7CQ25%7CQ252%7CQ26&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-020-info-n4.json",
+        "sha256": "370a6196291bfd98ce90213dcd97c84832fb5b8d0f06f5ecd20c72154acda860",
+        "bytes": 1379166,
+        "fetched_at": "2026-11-19T06:00:01.308985+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q28%7CQ29%7CQ31%7CQ32&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-024-info-n4.json",
+        "sha256": "4d7754b923d5bf342f752844824ea241efdb2dd15aedd4a5f38ab4d2ddca56f7",
+        "bytes": 3053796,
+        "fetched_at": "2026-11-19T06:00:06.463605+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q33%7CQ35%7CQ36%7CQ37&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-028-info-n4.json",
+        "sha256": "48ec0ff233c7a9723001091aa955dddbe42a94a959594f555e028b98a6f1241c",
+        "bytes": 3214276,
+        "fetched_at": "2026-11-19T06:00:11.674770+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q38%7CQ39%7CQ40%7CQ41&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-032-info-n4.json",
+        "sha256": "13547286ac2a458bf2aa239f52b580c0f5c20d2dd2e94e2be5b37e0265424739",
+        "bytes": 2872472,
+        "fetched_at": "2026-11-19T06:00:16.544419+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q43%7CQ45%7CQ55%7CQ77&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-036-info-n4.json",
+        "sha256": "998103f7ab07d2eeb86c3566f81cf1cb0315d7c805da01d8732aae7be7f3e20a",
+        "bytes": 2675893,
+        "fetched_at": "2026-11-19T06:00:21.879578+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q79%7CQ96%7CQ99%7CQ1000037&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-040-info-n4.json",
+        "sha256": "91e1d03983e409c82688aa3a8314c3c1655c7114217dcb6b9e97d436bba5d720",
+        "bytes": 1755106,
+        "fetched_at": "2026-11-19T06:00:26.796673+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1000041%7CQ1000052%7CQ1000093%7CQ1000099&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-044-info-n4.json",
+        "sha256": "c19762bf9582f52ba256acc4114b735c93ed58b34bdccf03c46dbb088af0e157",
+        "bytes": 218010,
+        "fetched_at": "2026-11-19T06:00:30.269575+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1000334%7CQ100067%7CQ100077%7CQ100082&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-048-info-n4.json",
+        "sha256": "f390f109e7c1b1678af6d241c3dc2affb2e6558f9b418a0de4fa924f05b37ae9",
+        "bytes": 91066,
+        "fetched_at": "2026-11-19T06:00:33.397878+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100085%7CQ100093%7CQ100095%7CQ100106&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-052-info-n4.json",
+        "sha256": "fbaf06c2a5d07d2f2de5f4342948aab20f3578cb143f19b8cd39dd91facef6aa",
+        "bytes": 83102,
+        "fetched_at": "2026-11-19T06:00:36.381332+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100117%7CQ100124%7CQ100130%7CQ100131&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-056-info-n4.json",
+        "sha256": "28931d7e1280650a4131445facddd418b23accf71ad61bd2a6799d2732592141",
+        "bytes": 108759,
+        "fetched_at": "2026-11-19T06:00:39.247499+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1001372%7CQ100139%7CQ100144%7CQ100144522&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-060-info-n4.json",
+        "sha256": "2a93af66e5763a66fd25b72d0ee238b65a9f6e83c8e79f1b7dbbfc09bd7f5b7d",
+        "bytes": 70671,
+        "fetched_at": "2026-11-19T06:00:42.132069+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100144523%7CQ100144524%7CQ100146%7CQ100152&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-064-info-n4.json",
+        "sha256": "a689e45815693b5aee98f59a975c70787bedc66d9c4d021bbd25443afac0c8af",
+        "bytes": 72419,
+        "fetched_at": "2026-11-19T06:02:19.527939+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100157%7CQ100164%7CQ100166%7CQ100182&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-068-info-n4.json",
+        "sha256": "e8e466c42ab1e75ff7efbdc84e27c3013cdae45055c3110931abaca3a8478611",
+        "bytes": 184549,
+        "fetched_at": "2026-11-19T06:02:30.963312+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1001862%7CQ1001882%7CQ100190%7CQ1001914&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-072-info-n4.json",
+        "sha256": "e30ba0f6ffc9e122da93614ab06054584831bd7b2ee97bc5d5aa9febb8bade38",
+        "bytes": 167128,
+        "fetched_at": "2026-11-19T06:02:42.285026+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1002006%7CQ100211%7CQ1002229%7CQ1002247&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-076-info-n4.json",
+        "sha256": "34268d5693815a22234b0fa9fdab840529ccea24e8a4ecc29238493afe1a1eef",
+        "bytes": 197173,
+        "fetched_at": "2026-11-19T06:02:53.618482+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1002371%7CQ1002565%7CQ1002609%7CQ100261948&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-080-info-n4.json",
+        "sha256": "118873dde345ed876991ad3f1656cf19133bd058b70ee1b1a12c1a64c6d925d0",
+        "bytes": 156408,
+        "fetched_at": "2026-11-19T06:03:04.364730+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100261949%7CQ100261957%7CQ100261960%7CQ100261964&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-084-info-n4.json",
+        "sha256": "790db18e9af587ebcba492241850c93f84827116fb0a4c205c9f58d8784bc308",
+        "bytes": 25140,
+        "fetched_at": "2026-11-19T06:03:15.441083+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1002863%7CQ1002990%7CQ1003126%7CQ1003134&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-088-info-n4.json",
+        "sha256": "3c641b90943088885957333f4a19bb55bca68e0921a30bbab63414445a9e9acf",
+        "bytes": 181584,
+        "fetched_at": "2026-11-19T06:03:26.533139+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1003140%7CQ1003146%7CQ1003157%7CQ1003164&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-092-info-n4.json",
+        "sha256": "1b42013d8868fe207ad5ca49a1ff04b768fddfa10f4d1a8536f685cccf287cce",
+        "bytes": 181243,
+        "fetched_at": "2026-11-19T06:03:37.569916+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1003172%7CQ100319423%7CQ1003231%7CQ100324929&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-096-info-n4.json",
+        "sha256": "79a7f8fb5c94c2a2ceb3f1339cf7693554af5bbc05690d94ea5fda5582d6b358",
+        "bytes": 133348,
+        "fetched_at": "2026-11-19T06:03:48.531069+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100326102%7CQ100326103%7CQ1003984%7CQ100418024&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-100-info-n4.json",
+        "sha256": "84d65f14d72fcf8b97198bf2cddf74b5cde0e793e082847cad71eecdfa201de4",
+        "bytes": 98083,
+        "fetched_at": "2026-11-19T06:03:59.161247+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100418025%7CQ1004223%7CQ1004251%7CQ100502984&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-104-info-n4.json",
+        "sha256": "b8690892df711bfd838de7fb7a96ef2964d0115d787bd43b3117ff313279ce51",
+        "bytes": 66799,
+        "fetched_at": "2026-11-19T06:04:10.335505+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1005038%7CQ1005090%7CQ1005105%7CQ1005121&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-108-info-n4.json",
+        "sha256": "92e99f6b292cec373e4ba7ee349219aed77040964e8bbb6e757111b07d0c568b",
+        "bytes": 190898,
+        "fetched_at": "2026-11-19T06:04:21.797346+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1005138%7CQ1005165%7CQ1005185%7CQ1005208&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-112-info-n4.json",
+        "sha256": "b1a5215544e105950d5d723e5289d2d855ee91f878139fbc3bf18b24fbca3c80",
+        "bytes": 270717,
+        "fetched_at": "2026-11-19T06:04:33.497606+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1005224%7CQ1005364%7CQ100552546%7CQ100552553&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-116-info-n4.json",
+        "sha256": "4e6f2dc1ecb5a5bdd7df10c92d8d81bc1019b92e66f61c29f89c6fb447eb993f",
+        "bytes": 162472,
+        "fetched_at": "2026-11-19T06:04:44.844652+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1005578%7CQ1006372%7CQ1006378%7CQ1006385&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-120-info-n4.json",
+        "sha256": "739295f01a877e4d527e5a8c75d101aecf3e0ce4d3b4dfe3f9ccd32bfa49bb66",
+        "bytes": 158026,
+        "fetched_at": "2026-11-19T06:04:56.132156+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1006389%7CQ1006397%7CQ1006408%7CQ1006413&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-124-info-n4.json",
+        "sha256": "4a2038d5da03803a8b8d4aadc70105470e556f49de0123fed1677a23c9442ded",
+        "bytes": 233830,
+        "fetched_at": "2026-11-19T06:05:07.813040+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1006418%7CQ1006836%7CQ100707781%7CQ100707782&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-128-info-n4.json",
+        "sha256": "4d0a63b8e59505a968f814f3dc15f992bd049ac1df5f6fdf6ff664c817adf920",
+        "bytes": 87350,
+        "fetched_at": "2026-11-19T06:05:18.924672+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100707783%7CQ100707784%7CQ100707785%7CQ100707786&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-132-info-n4.json",
+        "sha256": "14321f140e76ee5b72450681e547098a68b73c889c1b1a919d2e6e301e9736b0",
+        "bytes": 21731,
+        "fetched_at": "2026-11-19T06:05:29.654526+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100707787%7CQ100708029%7CQ100714316%7CQ100714321&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-136-info-n4.json",
+        "sha256": "cd36266461ce3a4da23c2da1adc00db4ec6e555d307fc0249707d92bd95fc167",
+        "bytes": 19131,
+        "fetched_at": "2026-11-19T06:05:40.367732+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1007272%7CQ100728519%7CQ1007366%7CQ1007634&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-140-info-n4.json",
+        "sha256": "c641b7481a6127ec8ed3077d78c093808b30a114bad17b543fd44e21f2572704",
+        "bytes": 123938,
+        "fetched_at": "2026-11-19T06:05:51.810385+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100786250%7CQ100786251%7CQ100786252%7CQ100786255&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-144-info-n4.json",
+        "sha256": "bbf1d0e6fa9432c11f5fae9552ae60cfb5802e964efad507a357b6f173386cbb",
+        "bytes": 24564,
+        "fetched_at": "2026-11-19T06:06:02.656295+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100803240%7CQ100803244%7CQ1008048%7CQ1008079&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-148-info-n4.json",
+        "sha256": "fe015c168165e508c14c330da049b13c85b838e90edb947d61b8ec2b6bee214a",
+        "bytes": 163823,
+        "fetched_at": "2026-11-19T06:06:14.081671+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1008086%7CQ1008095%7CQ1008102%7CQ1008179&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-152-info-n4.json",
+        "sha256": "a06e789bf9d2567f2c98fdf51f2afb9984715f5a97aa9cf0cb22c5d9e847eee3",
+        "bytes": 302489,
+        "fetched_at": "2026-11-19T06:06:25.832153+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1008374%7CQ1008456%7CQ1008487%7CQ1008953&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-156-info-n4.json",
+        "sha256": "6472e2a3906c12d3d456450337563e7a6f1052f553844210a016c2155515b53b",
+        "bytes": 87694,
+        "fetched_at": "2026-11-19T06:06:37.135516+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1009107%7CQ1009128%7CQ1009139%7CQ1009144&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-160-info-n4.json",
+        "sha256": "3eb68a1049701f7bdf20310ea09f6945308cedc21f27002dcc09d2edc585b080",
+        "bytes": 43879,
+        "fetched_at": "2026-11-19T06:06:48.237891+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1009156%7CQ1009163%7CQ1009165%7CQ1009169&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-164-info-n4.json",
+        "sha256": "468246796add10604d70a1e43ae1cae1d2f067d4fdfee2fc3270defc77b48b9b",
+        "bytes": 48184,
+        "fetched_at": "2026-11-19T06:06:59.205576+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100924632%7CQ100924633%7CQ1009353%7CQ1009396&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-168-info-n4.json",
+        "sha256": "586af309ac0a77252a4369cbde01498189abedbf87aa5f6e8860a82ca822bdb6",
+        "bytes": 74522,
+        "fetched_at": "2026-11-19T06:07:10.292282+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1009409%7CQ1009413%7CQ1009421%7CQ1009467&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-172-info-n4.json",
+        "sha256": "376ddbc8512c603b3032e5d5629ee8ff0cdd7042a07c72e1934547cd952f2908",
+        "bytes": 256226,
+        "fetched_at": "2026-11-19T06:07:21.830679+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100965141%7CQ100965142%7CQ100965143%7CQ100988015&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-176-info-n4.json",
+        "sha256": "35b2653523c16fe01d1dd422b865dd1df5578b64bea62d18d2b534f10e7f0297",
+        "bytes": 25136,
+        "fetched_at": "2026-11-19T06:07:32.554797+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q100988016%7CQ100988017%7CQ1010010%7CQ101001233&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-180-info-n4.json",
+        "sha256": "84abe6e93268e24bd477c2d9d546225424802981193480fcef1ed307df1d698a",
+        "bytes": 28346,
+        "fetched_at": "2026-11-19T06:07:43.341071+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101001235%7CQ101001236%7CQ1010063%7CQ101012330&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-184-info-n4.json",
+        "sha256": "eb55daf1fc1c41621a38a8524ca92d32b09f365262036252954b74f3dfcf1eaf",
+        "bytes": 22175,
+        "fetched_at": "2026-11-19T06:07:54.099607+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101012331%7CQ101012334%7CQ1010136%7CQ1010250&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-188-info-n4.json",
+        "sha256": "c3ee7ded713ea254bde55462bad83ec1fa3fae3e948fd17256bfc8f18540dd76",
+        "bytes": 86026,
+        "fetched_at": "2026-11-19T06:08:05.162745+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1010257%7CQ1010261%7CQ1010262%7CQ1010284&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-192-info-n4.json",
+        "sha256": "3c5fe41c0bb6cb6e810e934e4a38eb50b20399bc9ef4bcbc5093acb79149a905",
+        "bytes": 270489,
+        "fetched_at": "2026-11-19T06:08:16.754396+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1010291%7CQ1010314%7CQ1010463%7CQ1010466&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-196-info-n4.json",
+        "sha256": "10fc7af8676c5e82aae794ec0e779afa127b3c25cb671ba3a04112367c03fb03",
+        "bytes": 224302,
+        "fetched_at": "2026-11-19T06:08:28.352071+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1010468%7CQ1010496%7CQ1010572%7CQ1010576&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-200-info-n4.json",
+        "sha256": "f71754654adfd3d9c5eba3ac382241579c17a298556e9a9a3b4554e75d22abb6",
+        "bytes": 118997,
+        "fetched_at": "2026-11-19T06:08:39.697965+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1010589%7CQ1010659%7CQ1010812%7CQ101084916&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-204-info-n4.json",
+        "sha256": "d7c9eb694f8beede792a18b431c62483075e275236519250ea7b9e6b308feeae",
+        "bytes": 124357,
+        "fetched_at": "2026-11-19T06:08:50.985768+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101084917%7CQ101084918%7CQ101084919%7CQ101084920&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-208-info-n4.json",
+        "sha256": "d4a9473d117c4a1a5dd70511e07d12059eea98936ffed3fed464d12dbb1598b5",
+        "bytes": 21594,
+        "fetched_at": "2026-11-19T06:09:01.725502+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101088203%7CQ1010954%7CQ101102251%7CQ101102254&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-212-info-n4.json",
+        "sha256": "dd1140ac351efed98a22313e249450d5c1331ed00c92e1b9aa0e9ac9514de898",
+        "bytes": 46785,
+        "fetched_at": "2026-11-19T06:09:12.813770+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1011422%7CQ1012450%7CQ101246885%7CQ101246886&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-216-info-n4.json",
+        "sha256": "0086f7c964a213395336a8261aef2d50b5d63cb7f61a3609817d5620635dddae",
+        "bytes": 82429,
+        "fetched_at": "2026-11-19T06:09:23.939628+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101246888%7CQ101246889%7CQ101246891%7CQ101246896&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-220-info-n4.json",
+        "sha256": "30327cb9730581dab28ffb9cca405ce7ab9744744b69b12909d15d079b4f1f0b",
+        "bytes": 21610,
+        "fetched_at": "2026-11-19T06:09:34.743069+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101246897%7CQ101246900%7CQ101246901%7CQ101246902&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-224-info-n4.json",
+        "sha256": "f761e55cfd78d511243e4daca4ff7f3726196eb18e22294b2a6b3818aa6b3706",
+        "bytes": 21685,
+        "fetched_at": "2026-11-19T06:09:45.559128+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101246906%7CQ1012522%7CQ1012589%7CQ1012710&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-228-info-n4.json",
+        "sha256": "100c95fbc63229991049d9a6198a5692a69a1ea8b1699f3ee17e7b289745e0b3",
+        "bytes": 112318,
+        "fetched_at": "2026-11-19T06:09:56.858051+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1012714%7CQ1012719%7CQ1012723%7CQ1012761&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-232-info-n4.json",
+        "sha256": "42c64b61f75e760cdc31e30b9018caf5c476686e68e4bc7b37c7ce0c1aa54cc2",
+        "bytes": 223269,
+        "fetched_at": "2026-11-19T06:10:08.640513+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1012957%7CQ1012961%7CQ1012965%7CQ1012982&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-236-info-n4.json",
+        "sha256": "1d1deaedcaeb7865b3d5182bb3565c2ad92393bef0b0a9005ab36d04eca57d00",
+        "bytes": 227632,
+        "fetched_at": "2026-11-19T06:10:20.245588+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1013094%7CQ1013140%7CQ1013497%7CQ1013623&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-240-info-n4.json",
+        "sha256": "f9b6b13d887139be601cbf65c1202508a7a8575359001c285b1d0bf0e34c57e5",
+        "bytes": 188481,
+        "fetched_at": "2026-11-19T06:10:31.623544+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1013628%7CQ1013654%7CQ1013819%7CQ101421653&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-244-info-n4.json",
+        "sha256": "e988c3f31312295a9a857fc4d6cacc502752f0580dac9686ed4c9139b43bb0a0",
+        "bytes": 101408,
+        "fetched_at": "2026-11-19T06:10:42.975502+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101421655%7CQ1014642%7CQ1014671%7CQ1014717&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-248-info-n4.json",
+        "sha256": "bb4e2b8f24114f0d69a7969131f9ebddbb62bc1200858908760a3f8222895db8",
+        "bytes": 84085,
+        "fetched_at": "2026-11-19T06:10:54.233965+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1015117%7CQ1015364%7CQ101575%7CQ1015865&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-252-info-n4.json",
+        "sha256": "a181e33f23acafffa35892b4491699dc81e26dfe25a9e3b4586c612e703dd8b7",
+        "bytes": 123960,
+        "fetched_at": "2026-11-19T06:11:05.530874+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1016225%7CQ101661689%7CQ1016698%7CQ1016800&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-256-info-n4.json",
+        "sha256": "7d5cf8deddaf7a136d18c83e9cb6a7c67e44784cc50e0015fe4c53a4d15da601",
+        "bytes": 214793,
+        "fetched_at": "2026-11-19T06:11:17.366732+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1016805%7CQ1016812%7CQ1016820%7CQ1016826&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-260-info-n4.json",
+        "sha256": "20b1918990f64bd4555b9dde4c1a34105484c3a4b16048a05b58e613ef93c6bc",
+        "bytes": 298087,
+        "fetched_at": "2026-11-19T06:11:29.103548+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1016831%7CQ1016840%7CQ1017396%7CQ1017519&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-264-info-n4.json",
+        "sha256": "4afed123f1f5572a4c057fba6cb3b8309e9cf7abfc94db9b1b96df2a2f05890b",
+        "bytes": 171527,
+        "fetched_at": "2026-11-19T06:11:40.514771+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1017539%7CQ1017737%7CQ1018014%7CQ1018191&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-268-info-n4.json",
+        "sha256": "f53384f766cb1de0670ba1342919fc4e29f161cb3e3c9a43225d9ad307f088c7",
+        "bytes": 166051,
+        "fetched_at": "2026-11-19T06:11:52.062285+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1018386%7CQ1018398%7CQ1018405%7CQ1018406&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-272-info-n4.json",
+        "sha256": "932202be6d1b30f86a6ecc657ec0029a2383ed0f1f5d1d3961decf4ff1754fcd",
+        "bytes": 87972,
+        "fetched_at": "2026-11-19T06:12:02.979676+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1018469%7CQ1018761%7CQ1018767%7CQ1018776&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-276-info-n4.json",
+        "sha256": "228a92e12a17afe6f687d70d3493f047371955e1bb415552bfabbbdaed9a3218",
+        "bytes": 65725,
+        "fetched_at": "2026-11-19T06:12:14.079458+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1019042%7CQ1019047%7CQ1019053%7CQ1019989&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-280-info-n4.json",
+        "sha256": "e648f813caea7669df5dbc7d8ce1efcb39c4e69e4dd6983a9f1ff68e247d03c0",
+        "bytes": 154436,
+        "fetched_at": "2026-11-19T06:12:25.442844+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1020142%7CQ1020171%7CQ1020194%7CQ1020202&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-284-info-n4.json",
+        "sha256": "fee0fa56df4f99895ce0f25e7217ed4f8e6a7dfb193a5def7016bc4afdababc6",
+        "bytes": 107883,
+        "fetched_at": "2026-11-19T06:12:36.721358+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102025590%7CQ1020320%7CQ1020397%7CQ1020421&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-288-info-n4.json",
+        "sha256": "e0262eb6a4a088f36a087733ae88f713539faaf31a1151a7482e222d6f8f9704",
+        "bytes": 145840,
+        "fetched_at": "2026-11-19T06:12:48.172565+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1020436%7CQ102047150%7CQ102047152%7CQ102047154&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-292-info-n4.json",
+        "sha256": "d7bcb8284fb05c8dead1f23fb1ebba67385eab4ac2b40ba7dfd704937bfd54f7",
+        "bytes": 76976,
+        "fetched_at": "2026-11-19T06:12:59.269074+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102047161%7CQ102047163%7CQ102047164%7CQ1020508&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-296-info-n4.json",
+        "sha256": "4a16dc58ede15b1ae95dfc64b01a8fd952e4d942551682f61152d1b7685b181a",
+        "bytes": 72759,
+        "fetched_at": "2026-11-19T06:13:10.020863+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1020512%7CQ1020522%7CQ1020526%7CQ1020530&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-300-info-n4.json",
+        "sha256": "e3050c28c9108eadc4af499e09b4b0d96c6ba030861bc9b9108c2871b8649700",
+        "bytes": 275887,
+        "fetched_at": "2026-11-19T06:13:21.763046+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1020532%7CQ1020545%7CQ1020550%7CQ1020556&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-304-info-n4.json",
+        "sha256": "d4f974acd25803d741321ad1f272e00403737bbcd4a4688de05acea188455f08",
+        "bytes": 296429,
+        "fetched_at": "2026-11-19T06:13:33.107429+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1020559%7CQ1020564%7CQ1020632%7CQ102105646&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-308-info-n4.json",
+        "sha256": "072becb44765637ecfbd9402062d62de5fad2443974f15c785cc80571936e2a3",
+        "bytes": 152390,
+        "fetched_at": "2026-11-19T06:13:44.531637+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102105647%7CQ102105648%7CQ102105649%7CQ102105651&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-312-info-n4.json",
+        "sha256": "01cecaf347668c9570d7aa7358bdc048acb1b0e169d054bc4039ef96a13801e7",
+        "bytes": 23264,
+        "fetched_at": "2026-11-19T06:13:55.281477+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102105652%7CQ102119996%7CQ102119998%7CQ102119999&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-316-info-n4.json",
+        "sha256": "2f723d7811f1bee1c6a647d92bd8540e5985d0906dd6c6047e03eae0e94faa71",
+        "bytes": 24607,
+        "fetched_at": "2026-11-19T06:14:06.132549+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1021452%7CQ102200461%7CQ102200463%7CQ102200464&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-320-info-n4.json",
+        "sha256": "9a8ee71a5ed810257da79e6b4c179160bbc93686c9aebe442790bc26403922df",
+        "bytes": 60783,
+        "fetched_at": "2026-11-19T06:14:17.199443+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102200465%7CQ102200466%7CQ102200469%7CQ102200508&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-324-info-n4.json",
+        "sha256": "ec58e3d547939cbc05aa8d6032514c447e4a895cef83181cdfd60286988ba9da",
+        "bytes": 24252,
+        "fetched_at": "2026-11-19T06:14:27.972374+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102200510%7CQ102200511%7CQ1022265%7CQ1022488&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-328-info-n4.json",
+        "sha256": "b5ca3599dae3fa8ec19c8a1c5db9675a6e970237e727617a1113d0cf6e56d962",
+        "bytes": 107507,
+        "fetched_at": "2026-11-19T06:14:39.002279+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1023041%7CQ1023102%7CQ1023120%7CQ1023228&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-332-info-n4.json",
+        "sha256": "310a6268339d17175db1469e99204b86a84b4b0e50e9992cba40e957ce53eeda",
+        "bytes": 167054,
+        "fetched_at": "2026-11-19T06:14:50.368061+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1023381%7CQ1023427%7CQ1023589%7CQ1023736&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-336-info-n4.json",
+        "sha256": "4928c712e18135cb446d72d31e6a0c432cabc9d2e427f2d90e6cb89d20f9a4b1",
+        "bytes": 81457,
+        "fetched_at": "2026-11-19T06:15:01.433562+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1023757%7CQ1023975%7CQ102424699%7CQ102426425&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-340-info-n4.json",
+        "sha256": "c48994471aa8726ee5849fa37e327ab3ef049d3d596b9954b1df66dbf1e23a03",
+        "bytes": 92132,
+        "fetched_at": "2026-11-19T06:15:12.533209+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1024708%7CQ1024927%7CQ1024985%7CQ1025123&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-344-info-n4.json",
+        "sha256": "1b7edc94623f35f46a3add394288d5eb86c47e2ef42111464059e41d36bf42a0",
+        "bytes": 195249,
+        "fetched_at": "2026-11-19T06:15:24.016386+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1025138%7CQ102515399%7CQ102515409%7CQ102515419&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-348-info-n4.json",
+        "sha256": "cc981cbf53a5c92f52a6207c7912404b741e4ab9f5c64d5555939a4996f377db",
+        "bytes": 51943,
+        "fetched_at": "2026-11-19T06:15:35.042640+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102515443%7CQ102515457%7CQ102515464%7CQ102515488&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-352-info-n4.json",
+        "sha256": "c28f217caf3931176622b49ac3c9b8366a90b9bdf3e5690b608e9adf16d71b8e",
+        "bytes": 21597,
+        "fetched_at": "2026-11-19T06:15:45.851972+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102515496%7CQ102515504%7CQ102515526%7CQ102515537&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-356-info-n4.json",
+        "sha256": "3f0289bae630ce410d65bed7295060999d4e37331abb28f510c3be31c3cd4daa",
+        "bytes": 21612,
+        "fetched_at": "2026-11-19T06:15:56.595843+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102515552%7CQ102515567%7CQ102515574%7CQ102515589&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-360-info-n4.json",
+        "sha256": "0648a6361659131fbb6f72abb34e2b81c6a3f8b40a1b16411e0fc3405c913a7e",
+        "bytes": 30612,
+        "fetched_at": "2026-11-19T06:16:07.318046+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102515602%7CQ102515621%7CQ102515630%7CQ102515637&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-364-info-n4.json",
+        "sha256": "11c3db16defcbf55633754acad934fe0c005a4830e0ea4e4c90210703d160111",
+        "bytes": 25827,
+        "fetched_at": "2026-11-19T06:16:18.187491+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1025277%7CQ1025280%7CQ1025801%7CQ1025830&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-368-info-n4.json",
+        "sha256": "c390fa1d7dbd2a116ecc4dc3183ba97f7479a5d612ba852f79a18ce595abdb28",
+        "bytes": 85037,
+        "fetched_at": "2026-11-19T06:16:29.253782+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1026296%7CQ1026448%7CQ1026606%7CQ1026625&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-372-info-n4.json",
+        "sha256": "fbbe4e658ed01ed0dd3869df3fb56005200e319732ed9daa374eb5c1adfb660c",
+        "bytes": 128685,
+        "fetched_at": "2026-11-19T06:16:40.623017+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1026761%7CQ1026766%7CQ102679%7CQ1026803&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-376-info-n4.json",
+        "sha256": "8767db1e74d06068648794bb58f8c5fd323d23d6af56236cd4360fbf22408232",
+        "bytes": 205739,
+        "fetched_at": "2026-11-19T06:16:52.043950+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102683089%7CQ102685118%7CQ1027062%7CQ1027078&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-380-info-n4.json",
+        "sha256": "572b8f747e63205328b65dec5432af499c89731c4dd60b421de440cad4db0c03",
+        "bytes": 168984,
+        "fetched_at": "2026-11-19T06:17:03.372718+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1027089%7CQ1027100%7CQ102722072%7CQ102722075&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-384-info-n4.json",
+        "sha256": "cd7970fd98129e0877b0fdb4bd525dd7ec23be80be20c2381525a80adab9cb6f",
+        "bytes": 101625,
+        "fetched_at": "2026-11-19T06:17:14.742140+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q102722078%7CQ1027245%7CQ1027329%7CQ1027768&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-388-info-n4.json",
+        "sha256": "533968527a5ec9d04ecc2e9f03c3b1e2486f028c8e4d127eb4f2ca3f518164e4",
+        "bytes": 109300,
+        "fetched_at": "2026-11-19T06:17:25.990786+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1027809%7CQ1027864%7CQ1027967%7CQ1027991&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-392-info-n4.json",
+        "sha256": "4828fd57f6be7ec6fcd64580f6432b08d4c763703aa7552995c47b9e278094a3",
+        "bytes": 146659,
+        "fetched_at": "2026-11-19T06:17:37.393552+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1028094%7CQ1028101%7CQ1028133%7CQ1028156&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-396-info-n4.json",
+        "sha256": "e209f6b83fb0813e436c1a858b2f8f825aa8db4d10a77c23d7cb2e685527c6c0",
+        "bytes": 61617,
+        "fetched_at": "2026-11-19T06:17:48.343161+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1028399%7CQ102848%7CQ1028486%7CQ1028493&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-400-info-n4.json",
+        "sha256": "135c96c9984f75a5a63734bbf5c8ba6e271bd9f47a846efdee739cb447f9e0da",
+        "bytes": 96724,
+        "fetched_at": "2026-11-19T06:17:59.423827+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1028614%7CQ102862%7CQ1028801%7CQ1028821&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-404-info-n4.json",
+        "sha256": "754c34ce37b288dc4fc172222cd6a6ee925b4d048e6480dc627da8346d28e200",
+        "bytes": 82101,
+        "fetched_at": "2026-11-19T06:18:10.918189+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1028840%7CQ1028848%7CQ1028993%7CQ1028996&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-408-info-n4.json",
+        "sha256": "6cbf909918352902e627e87eeb7ad82027492c9651e76cd38f9b70b798973d2c",
+        "bytes": 115697,
+        "fetched_at": "2026-11-19T06:18:22.243884+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1029004%7CQ1029023%7CQ1029281%7CQ1029289&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-412-info-n4.json",
+        "sha256": "245efdc91191a2eb34d50b058f8e5ce9655ed4e5c1448a576298ebda0ae9a70e",
+        "bytes": 231938,
+        "fetched_at": "2026-11-19T06:18:33.881351+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1029303%7CQ1029307%7CQ1029319%7CQ1029326&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-416-info-n4.json",
+        "sha256": "b793ecc204c19674609af053e24b0016a2fb8adf796b86bee28fdd8f11f67235",
+        "bytes": 227670,
+        "fetched_at": "2026-11-19T06:18:45.480713+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1029544%7CQ10295972%7CQ1029653%7CQ10296950&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-420-info-n4.json",
+        "sha256": "0ea712294c4773707c80ce994b71a88fa2e15efc7e18077b43938bafcc22b5d8",
+        "bytes": 97108,
+        "fetched_at": "2026-11-19T06:18:56.456055+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q10296984%7CQ1029716%7CQ1029847%7CQ1029950&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-424-info-n4.json",
+        "sha256": "bcb30257ea321bcb3ff7fea3c7b1c73feeafc3fdc77872e632c4a13347904d2f",
+        "bytes": 38579,
+        "fetched_at": "2026-11-19T06:19:07.221031+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1029966%7CQ1030599%7CQ1030629%7CQ1030653&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-428-info-n4.json",
+        "sha256": "c5f0d409b4109ccb4f722b5dbd84743b541b61e61b62a9a3538de8b36d18e96f",
+        "bytes": 127987,
+        "fetched_at": "2026-11-19T06:19:18.601823+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1030918%7CQ1031125%7CQ1031286%7CQ1031357&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-432-info-n4.json",
+        "sha256": "d44a5b70fccfceebdcf3cbddc6b75e3f1f583b1b8c75884eb89f5e0cbafca783",
+        "bytes": 165840,
+        "fetched_at": "2026-11-19T06:19:29.955524+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1031442%7CQ1031448%7CQ1031453%7CQ1031502&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-436-info-n4.json",
+        "sha256": "fef16d2a141be30dfe196d5473c5c5592d62b8050c166b3be7bdc6717b66da96",
+        "bytes": 53157,
+        "fetched_at": "2026-11-19T06:19:40.987740+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1031520%7CQ1032351%7CQ1032356%7CQ1032358&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-440-info-n4.json",
+        "sha256": "91e82a342a322539a00f0b65c2a8c197185a8d0d025c9b539670c3666c6c5117",
+        "bytes": 86408,
+        "fetched_at": "2026-11-19T06:19:52.148101+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q10324879%7CQ1032677%7CQ1032683%7CQ1032807&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-444-info-n4.json",
+        "sha256": "2ccc7e0063856e2e1b4c4c66d92f330fc0ef00f483796b653976cba3dd9359c5",
+        "bytes": 211079,
+        "fetched_at": "2026-11-19T06:20:03.758516+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1033439%7CQ1033514%7CQ1033696%7CQ1033855&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-448-info-n4.json",
+        "sha256": "9eb962c7f8f78c521aaa95c81613f4df23a91b4668e675d43607698839660a85",
+        "bytes": 107649,
+        "fetched_at": "2026-11-19T06:20:15.087908+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1034071%7CQ1034173%7CQ103538757%7CQ103538764&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-452-info-n4.json",
+        "sha256": "6ff5716f1ea21921f779b70dbccca6f43d67b5c7bd89472898455a96372f19be",
+        "bytes": 46772,
+        "fetched_at": "2026-11-19T06:20:26.245252+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q103538771%7CQ103538781%7CQ103538816%7CQ1035523&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-456-info-n4.json",
+        "sha256": "127e2e65ce76f7c7ad1be5a4752f053bf5852c49826ecb8d8a3e4349420a2f69",
+        "bytes": 43669,
+        "fetched_at": "2026-11-19T06:20:37.310764+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1035536%7CQ1035547%7CQ1035559%7CQ1035570&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-460-info-n4.json",
+        "sha256": "0cf290ab5dc32358e80f588a4e206e628994cadda4ec10bd8507f4780eb6de07",
+        "bytes": 71403,
+        "fetched_at": "2026-11-19T06:20:48.359924+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1035580%7CQ1035591%7CQ1035599%7CQ1035617&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-464-info-n4.json",
+        "sha256": "340d03d65324878744ff7f95ad64cba2c9b34ab7b3abffccd024e0a601295c7a",
+        "bytes": 82417,
+        "fetched_at": "2026-11-19T06:20:59.414044+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1035632%7CQ1035648%7CQ1035651%7CQ1035652&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-468-info-n4.json",
+        "sha256": "c6a6a7dbcc5a6a38fa9dc39d12d0e4e897177b9a03921f3661e4572cf211cf4b",
+        "bytes": 88023,
+        "fetched_at": "2026-11-19T06:21:10.487696+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1035752%7CQ1035800%7CQ1035834%7CQ1036077&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-472-info-n4.json",
+        "sha256": "ade10e6aada27e84f7ece958dae74d2552c32931ddb4f91fdb201307eb341514",
+        "bytes": 185771,
+        "fetched_at": "2026-11-19T06:21:21.987310+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1036089%7CQ1036102%7CQ1036155%7CQ1036164&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-476-info-n4.json",
+        "sha256": "ee64a23991f925e82fe49c35ed55df761372397dec09cfa4cd9f0871e21f7957",
+        "bytes": 181101,
+        "fetched_at": "2026-11-19T06:21:33.367104+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1036166%7CQ1036167%7CQ1036174%7CQ1036323&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-480-info-n4.json",
+        "sha256": "5bcaa0fea6acb2ec0649c2c1cdc790b8fd80bf4a9248d354ecb0ecb48db8f010",
+        "bytes": 214062,
+        "fetched_at": "2026-11-19T06:21:45.107553+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q10370078%7CQ10370096%7CQ10370183%7CQ10370215&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-484-info-n4.json",
+        "sha256": "098f9106e9632d141fca881136c79b0588cca5eddce9773901441a37f461bd61",
+        "bytes": 266452,
+        "fetched_at": "2026-11-19T06:21:56.820614+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q10370269%7CQ10370304%7CQ103801%7CQ103819842&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-488-info-n4.json",
+        "sha256": "2c1b486cb17e0d456e9fa2bf8330a71c583e487af4eaa3d1b78161bd37d87352",
+        "bytes": 209595,
+        "fetched_at": "2026-11-19T06:22:08.128017+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q103820103%7CQ103821003%7CQ103821024%7CQ103826212&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-492-info-n4.json",
+        "sha256": "a26e944e8f7fb5c3ed4e95f661e1768a17db675110030ea9ec461d58ce220c3c",
+        "bytes": 90824,
+        "fetched_at": "2026-11-19T06:22:19.113255+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q10383165%7CQ103838707%7CQ103858836%7CQ103859410&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-496-info-n4.json",
+        "sha256": "b3dc0ec64ca8412cff92c0b56884dfdf255b7d72fbcd5775ce74f189b928ffcf",
+        "bytes": 55542,
+        "fetched_at": "2026-11-19T06:22:31.296786+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q103859569%7CQ1038949%7CQ1039014%7CQ1039203&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-500-info-n4.json",
+        "sha256": "c1813d41fcd23b6d6155396789dda0792404e1dbdeba2c47a1d9d58b57aa4bb3",
+        "bytes": 67840,
+        "fetched_at": "2026-11-19T06:22:42.373327+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1039230%7CQ104089550%7CQ104092033%7CQ104095&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-504-info-n4.json",
+        "sha256": "1c053d988aba4619613f9de144e1c3d9bd62ada7813e314320d1664f27087fdf",
+        "bytes": 156531,
+        "fetched_at": "2026-11-19T06:22:53.749425+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q104118306%7CQ104118309%7CQ104118314%7CQ104118319&props=info%7Cclaims%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "subjects-508-info-n4.json",
+        "sha256": "f539189aae59c622355806ca6857a09cd7f263c4c9ff565945594d1d008abb2e",
+        "bytes": 24862,
+        "fetched_at": "2026-11-19T06:23:04.282583+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1000244%7CQ1000404%7CQ1000918%7CQ1004667%7CQ1006076%7CQ1006363%7CQ100726345%7CQ1013471%7CQ1014795%7CQ1016275%7CQ1017644%7CQ102217%7CQ1023044%7CQ1024214%7CQ1024911%7CQ1025138%7CQ1027964%7CQ104541152%7CQ10587563%7CQ10600995%7CQ106055%7CQ10686%7CQ10690%7CQ108132525%7CQ1085%7CQ1093156%7CQ1102530%7CQ110601629%7CQ1111957%7CQ11125041%7CQ11194%7CQ112325895&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-000.json",
+        "sha256": "cd66a8af85ea86e400d7c70f675355b59db5b1c0c8af6ef44ba64d522382e679",
+        "bytes": 9151,
+        "fetched_at": "2026-11-19T06:23:14.955831+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1146736%7CQ1147452%7CQ1153959%7CQ116170766%7CQ116341%7CQ11766846%7CQ120172088%7CQ120172090%7CQ120172091%7CQ120172092%7CQ120172094%7CQ12303%7CQ1236657%7CQ12474662%7CQ12488454%7CQ12493072%7CQ124957052%7CQ12500238%7CQ12524619%7CQ125434%7CQ1264075%7CQ126596592%7CQ126598709%7CQ126877414%7CQ12803710%7CQ13048517%7CQ131541473%7CQ131545225%7CQ132175818%7CQ132179499%7CQ132179710%7CQ132181604&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-032.json",
+        "sha256": "dc8ac85aad52bf180cbff0d33232b9e244e6df731bdd64d5683725e56a6ab738",
+        "bytes": 10134,
+        "fetched_at": "2026-11-19T06:23:25.753181+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q132183228%7CQ132185932%7CQ132192563%7CQ132195413%7CQ132305363%7CQ1335%7CQ133760938%7CQ133775532%7CQ133799988%7CQ133804943%7CQ133805954%7CQ133806189%7CQ133822052%7CQ133823413%7CQ133824797%7CQ133830090%7CQ133867430%7CQ133867480%7CQ134018694%7CQ134081924%7CQ134120454%7CQ134393419%7CQ134475718%7CQ134503563%7CQ134505914%7CQ134516824%7CQ134532104%7CQ134562694%7CQ134563368%7CQ134564105%7CQ134572828%7CQ134577422&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-064.json",
+        "sha256": "863372ae6e0fdd948f4a36412ffe975e96a0eac60d63862a83b9d6da3f97648f",
+        "bytes": 8771,
+        "fetched_at": "2026-11-19T06:23:36.427962+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q134584344%7CQ134587856%7CQ134639370%7CQ135549%7CQ136358445%7CQ136358489%7CQ136367012%7CQ13662757%7CQ137660786%7CQ138794313%7CQ139764856%7CQ145717%7CQ146450%7CQ146453%7CQ14725485%7CQ1489%7CQ15069753%7CQ1509463%7CQ1520%7CQ1522211%7CQ1524%7CQ15248%7CQ15378%7CQ155108%7CQ1552353%7CQ155560%7CQ156588%7CQ156726%7CQ156752%7CQ156818%7CQ156820%7CQ156821&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-096.json",
+        "sha256": "142b1bac610a62068a66c63c57bdffe1a64d5eaa7d2b8307df507fc2349b52cb",
+        "bytes": 9427,
+        "fetched_at": "2026-11-19T06:23:47.296789+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q157457%7CQ157472%7CQ157520%7CQ161994%7CQ16553%7CQ170062%7CQ171632%7CQ174%7CQ1741%7CQ1748%7CQ1755440%7CQ1757%7CQ1764%7CQ1764344%7CQ176738%7CQ1771762%7CQ177805%7CQ1780%7CQ1781%7CQ18013%7CQ180131%7CQ1809670%7CQ181548%7CQ1828426%7CQ1842%7CQ184225%7CQ185591%7CQ189305%7CQ1895%7CQ1899%7CQ1899345%7CQ1899868&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-128.json",
+        "sha256": "3ae8bb52c2aae1c6825bcac6ba0fbe46952874ff0a2dfe074537dd77c0edaa23",
+        "bytes": 10796,
+        "fetched_at": "2026-11-19T06:23:58.503415+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q190184%7CQ191856%7CQ1925191%7CQ1929549%7CQ1930%7CQ193478%7CQ193922%7CQ1949410%7CQ1949551%7CQ1956509%7CQ196384%7CQ196514%7CQ196845%7CQ19689%7CQ196922%7CQ1972051%7CQ1973966%7CQ1997646%7CQ202097%7CQ202337%7CQ2025001%7CQ2037758%7CQ2044%7CQ204475%7CQ2046587%7CQ205586%7CQ20676219%7CQ20677184%7CQ2071848%7CQ2072287%7CQ2072364%7CQ208329&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-160.json",
+        "sha256": "394bf3e43e3725af54d75298a9082cc37593d70a150d0b60daa14be50e5f6be0",
+        "bytes": 8594,
+        "fetched_at": "2026-11-19T06:24:09.229534+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q208445%7CQ2091100%7CQ2091111%7CQ209537%7CQ21053624%7CQ21053651%7CQ21054761%7CQ2134569%7CQ2135530%7CQ21590761%7CQ216%7CQ217768%7CQ2188414%7CQ219836%7CQ220%7CQ2234098%7CQ2252470%7CQ225867%7CQ2280%7CQ2341756%7CQ2341909%7CQ23564%7CQ2360633%7CQ2363248%7CQ2381766%7CQ239%7CQ23958347%7CQ23982306%7CQ23984287%7CQ23985881%7CQ23986988%7CQ23991162&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-192.json",
+        "sha256": "2617e16b92b02c9e1f5f3c793217c671762e2229a1b8b3ab1453f4cc8984e097",
+        "bytes": 9979,
+        "fetched_at": "2026-11-19T06:24:20.222500+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q23992632%7CQ23993640%7CQ23995578%7CQ24008835%7CQ24010396%7CQ24010398%7CQ24011643%7CQ24012135%7CQ24012546%7CQ24013317%7CQ24013396%7CQ24013805%7CQ24014011%7CQ24014106%7CQ24015219%7CQ24017127%7CQ24017132%7CQ24017152%7CQ2443435%7CQ2456204%7CQ2468912%7CQ2470405%7CQ2483944%7CQ2501906%7CQ2501917%7CQ2501951%7CQ2502210%7CQ2502245%7CQ2511250%7CQ2513094%7CQ2525523%7CQ2527695&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-224.json",
+        "sha256": "89d465b01a72b115e833bb6730c55066183ab5d4d1583f98d4bf3a0eb15cec66",
+        "bytes": 8429,
+        "fetched_at": "2026-11-19T06:24:30.842854+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q2530331%7CQ2559726%7CQ2571402%7CQ2592655%7CQ2605582%7CQ2617100%7CQ2637427%7CQ2640042%7CQ2652738%7CQ2656228%7CQ2671709%7CQ268%7CQ270%7CQ2725971%7CQ2730365%7CQ273949%7CQ2749254%7CQ2751186%7CQ2770%7CQ2805176%7CQ2807%7CQ2933087%7CQ29364%7CQ2949626%7CQ2949953%7CQ3054098%7CQ3087537%7CQ3138773%7CQ31487%7CQ3162598%7CQ31809994%7CQ31843513&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-256.json",
+        "sha256": "0027cf2558e11ed7c7bd5add523a53875da2d9462c14cf2783de2acfc63354fe",
+        "bytes": 9066,
+        "fetched_at": "2026-11-19T06:24:41.790770+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q31844059%7CQ31891590%7CQ31896719%7CQ31925679%7CQ3254670%7CQ334874%7CQ33503226%7CQ3443700%7CQ3444661%7CQ3457104%7CQ3466616%7CQ3467865%7CQ3477447%7CQ3477461%7CQ3477614%7CQ34790334%7CQ3503148%7CQ35493%7CQ3562943%7CQ35710561%7CQ35719737%7CQ36081%7CQ36167%7CQ3624%7CQ3630%7CQ3639888%7CQ3640%7CQ36600%7CQ3720429%7CQ375497%7CQ3792901%7CQ3808&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-288.json",
+        "sha256": "b348d757feda2be2236b02d8378871567fa7e524db11f3b978d7c2a8878ddcd6",
+        "bytes": 10674,
+        "fetched_at": "2026-11-19T06:24:52.468138+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q382727%7CQ384%7CQ38511%7CQ386243%7CQ38834%7CQ3918853%7CQ3918864%7CQ3918877%7CQ3919123%7CQ3919125%7CQ3919161%7CQ3920493%7CQ3920503%7CQ3920504%7CQ3920579%7CQ3920580%7CQ3920586%7CQ3920591%7CQ3920600%7CQ3920603%7CQ3920609%7CQ3920610%7CQ3921198%7CQ3942764%7CQ405157%7CQ405620%7CQ4061282%7CQ406481%7CQ4074598%7CQ4088654%7CQ4089926%7CQ4091477&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-320.json",
+        "sha256": "db28e1ade503f584f0cf26b6d4888134ccbd4c5384134f8f5daa718cc7e42ebc",
+        "bytes": 8863,
+        "fetched_at": "2026-11-19T06:25:03.091505+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q4094881%7CQ4109031%7CQ4115712%7CQ4120832%7CQ4128808%7CQ4130351%7CQ4139761%7CQ4139814%7CQ4140287%7CQ4140362%7CQ4141901%7CQ4145866%7CQ4151047%7CQ4157500%7CQ4169684%7CQ4174565%7CQ4179554%7CQ4183396%7CQ4185928%7CQ4189514%7CQ4193607%7CQ4198357%7CQ4207694%7CQ4213158%7CQ4217390%7CQ4226440%7CQ4228834%7CQ4234477%7CQ4243002%7CQ4243102%7CQ42462%7CQ4265469&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-352.json",
+        "sha256": "cd3c9ae9b4bb1a906b210b83d07efb1581e135b4da7e0db4e928728e350b495b",
+        "bytes": 9441,
+        "fetched_at": "2026-11-19T06:25:13.703912+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q4266384%7CQ4275240%7CQ4289425%7CQ4298030%7CQ4298738%7CQ4299992%7CQ4300000%7CQ4301028%7CQ4315590%7CQ4316215%7CQ4322782%7CQ4325741%7CQ4325759%7CQ4331200%7CQ4335837%7CQ4336126%7CQ4350903%7CQ4361004%7CQ4363336%7CQ4366616%7CQ4374358%7CQ4374720%7CQ4382514%7CQ4384561%7CQ4386888%7CQ4408012%7CQ4415887%7CQ4420416%7CQ4423634%7CQ4423754%7CQ4445120%7CQ4453330&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-384.json",
+        "sha256": "d7dc8189fdbbd5c7b3b43f729dfe7e697eafddd6c979e9127c1a318d9040efb7",
+        "bytes": 8275,
+        "fetched_at": "2026-11-19T06:25:24.482661+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q4454%7CQ4456970%7CQ4465206%7CQ4469649%7CQ4470899%7CQ4496581%7CQ4496894%7CQ4501257%7CQ4513897%7CQ4515847%7CQ4539176%7CQ45412%7CQ472%7CQ48256%7CQ489890%7CQ49282137%7CQ49283095%7CQ49283388%7CQ49287827%7CQ49288188%7CQ49289034%7CQ49292319%7CQ49367436%7CQ495%7CQ4985499%7CQ49978176%7CQ51432%7CQ5160619%7CQ5196%7CQ52193%7CQ522992%7CQ52585&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-416.json",
+        "sha256": "b887b33d08a804380657fb7fbc77da54b9ebbc2e4c28ef7fd558abd9f10530a4",
+        "bytes": 9588,
+        "fetched_at": "2026-11-19T06:25:35.276387+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q5531702%7CQ5532104%7CQ568624%7CQ570490%7CQ5715%7CQ5792748%7CQ580%7CQ585%7CQ586%7CQ586710%7CQ5903623%7CQ5938733%7CQ597%7CQ61388837%7CQ617758%7CQ622379%7CQ625154%7CQ629049%7CQ630081%7CQ638284%7CQ639830%7CQ64%7CQ6400279%7CQ644115%7CQ6473583%7CQ6477445%7CQ6484620%7CQ6488116%7CQ649%7CQ6501432%7CQ6502437%7CQ650338&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-448.json",
+        "sha256": "265750066b8053f900552748d909656fd5f96e4b01df0ea4a3a1afb209077c82",
+        "bytes": 9517,
+        "fetched_at": "2026-11-19T06:25:45.952747+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q6513207%7CQ6526611%7CQ6529687%7CQ6531006%7CQ656%7CQ656373%7CQ6565933%7CQ6612742%7CQ6698235%7CQ685754%7CQ70%7CQ706857%7CQ7079440%7CQ7248%7CQ727%7CQ727464%7CQ731990%7CQ744916%7CQ745074%7CQ752334%7CQ7568%7CQ759222%7CQ765810%7CQ7917870%7CQ79580%7CQ8005236%7CQ8009642%7CQ8009736%7CQ80484%7CQ808243%7CQ817301%7CQ826561&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-480.json",
+        "sha256": "45d52611149f55ca4e28130b043234ff3a752e9c7560d2b3e74bb6e3be991d84",
+        "bytes": 10094,
+        "fetched_at": "2026-11-19T06:25:56.762792+00:00"
+      },
+      {
+        "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q829812%7CQ835559%7CQ835848%7CQ84%7CQ844404%7CQ846239%7CQ85%7CQ853761%7CQ860452%7CQ87%7CQ9015044%7CQ903241%7CQ906612%7CQ915%7CQ923853%7CQ933439%7CQ936510%7CQ9378006%7CQ9385401%7CQ939231%7CQ955588%7CQ955726%7CQ955740%7CQ956602%7CQ956893%7CQ978587%7CQ984529%7CQ988915%7CQ989616%7CQ992665%7CQ997469%7CQ999798&props=info%7Clabels%7Caliases&languages=en%7Cmul&format=json&maxlag=5",
+        "file": "objects-512.json",
+        "sha256": "3abe7b41e400ce854be0edb5fb9e3f57600adf34097809309534a303984d76b0",
+        "bytes": 10120,
+        "fetched_at": "2026-11-19T06:26:07.474517+00:00"
+      }
+    ],
+    "source_archive_sha256": "95993d951893142e20672c1a99ccc9eb37e37ebbf41479e9a24ca4551524b754",
+    "scope": "Consistency with nondeprecated referenced P36 assertions in fixed entity revisions",
+    "limits": {
+      "train": 128,
+      "validation": 32,
+      "audit": 64,
+      "max_tokens": 256
+    },
+    "grants": {
+      "SOURCE-CC0.txt": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "source-policy.html": "fb884ac7a1874e715492faef0cc1607c5292e41541fc3010c0be435f2881c212"
+    }
+  },
+  "sampling_policy_sha256": "0e55676bc31eee92d503b4bf64a65e408cd1f617569777d2c049eed362d8546a",
+  "wrong_claims_excluded_from_all_alternatives": true,
+  "synthetic_source_facts": false
+}
