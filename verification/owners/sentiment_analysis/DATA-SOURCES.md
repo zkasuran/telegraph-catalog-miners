@@ -201,3 +201,26 @@ actual reference scores were independently recomputed to the reported aggregates
 Audit did not select or change the model. Its exact bytes and source grants are
 published unchanged. Serving uses the identical executor source at the audited
 commit. Canonical qualification still requires a fresh matching node result.
+
+## Endpoint lifecycle recovery
+
+Registration 161 was rejected for an unreachable executor after its five-hour
+restricted public lease ended. The actual runner log shows successful forwarding
+then termination at the exact lease expiry, before delayed node qualification.
+There is no new node quality score and no reason to fit the model again.
+
+The recovery package adds one ignored registration identity field. It preserves
+every v3 model field, tensor descriptor, tensor payload byte and original grant.
+The prior source audit is replayed only to verify this fixed function's integration
+and reference bits. It is not new training, a new independent audit or selection.
+No private pool rows or development-exposed captures become new data.
+
+The new deterministic lease guard is an owner-side process, not another agent.
+It reads only exact public node/run/lease metadata and invokes installed actions.py
+for gated continuation. It cannot publish, register, sign, cancel workflows or read
+provider/signer keys. A changed owner attempt or terminal rejection stops it.
+Each restricted lease stays five hours; each standard public CPU job stays within
+350 minutes. The guard has a one-day ceiling and at most six continuation leases.
+New keys are additive for the identical package and existing route. A healthy
+endpoint is not replaced with a different model. Unknown writes are reconciled,
+never blindly resent. The guard's live handoff proof still needs real remote runs.

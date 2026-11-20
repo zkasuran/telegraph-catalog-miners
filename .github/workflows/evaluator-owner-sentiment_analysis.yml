@@ -10,7 +10,15 @@ on:
         type: choice
         required: true
         default: audit
-        options: [audit, serve, retrain, retrain_v3]
+        options: [audit, serve, retrain, retrain_v3, endpoint_recovery]
+      lease_epoch:
+        description: Durable same-package bounded lease generation
+        type: string
+        default: initial
+      registration_id:
+        description: Existing exact registration for lease continuation, zero before initial registration
+        type: string
+        default: '0'
       audit_run_id:
         type: string
         default: '0'
@@ -44,7 +52,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   frozen:
-    if: github.repository == 'zkasuran/telegraph-catalog-miners' && (inputs.mode == 'audit' || inputs.mode == 'serve')
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && (inputs.mode == 'audit' || inputs.mode == 'serve' || inputs.mode == 'endpoint_recovery')
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     env:
@@ -60,6 +68,8 @@ jobs:
       SLOT: ${{ inputs.slot }}
       FORWARD_PORT: ${{ inputs.forward_port }}
       RUNNABLE_URL: ${{ inputs.runnable_url }}
+      LEASE_EPOCH: ${{ inputs.lease_epoch }}
+      EXISTING_REGISTRATION: ${{ inputs.registration_id }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -73,7 +83,7 @@ jobs:
           go-version: '1.25.7'
           cache: false
       - name: Hash-locked CPU environment for authoritative tokenizer
-        if: inputs.mode == 'audit'
+        if: inputs.mode == 'audit' || inputs.mode == 'endpoint_recovery'
         timeout-minutes: 15
         run: |
           python3 -m venv "$RUNNER_TEMP/owner-venv"
@@ -83,8 +93,12 @@ jobs:
         if: inputs.mode == 'audit'
         timeout-minutes: 290
         run: timeout --signal=TERM --kill-after=20s 17100 "$RUNNER_TEMP/owner-venv/bin/python" verification/owners/sentiment_analysis/remote.py --root "$RUNNER_TEMP/sentiment-owner"
+      - name: Exact fixed-tensor endpoint recovery integration replay
+        if: inputs.mode == 'endpoint_recovery'
+        timeout-minutes: 290
+        run: timeout --signal=TERM --kill-after=20s 17100 "$RUNNER_TEMP/owner-venv/bin/python" verification/owners/sentiment_analysis/endpoint_recovery.py verify --root "$RUNNER_TEMP/sentiment-owner"
       - name: Publish bounded actual audit artifact
-        if: always() && inputs.mode == 'audit'
+        if: always() && (inputs.mode == 'audit' || inputs.mode == 'endpoint_recovery')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: audit-SENTIMENT_ANALYSIS-${{ github.run_id }}
@@ -96,6 +110,9 @@ jobs:
             ${{ runner.temp }}/sentiment-owner/byte-preservation.json
             ${{ runner.temp }}/sentiment-owner/data/source-manifest.json
             ${{ runner.temp }}/sentiment-owner/SENTIMENT_ANALYSIS-recovery.safetensors
+            ${{ runner.temp }}/sentiment-owner/SENTIMENT_ANALYSIS-endpoint-recovery.safetensors
+            ${{ runner.temp }}/sentiment-owner/endpoint-byte-preservation.json
+            ${{ runner.temp }}/sentiment-owner/audit-score-bits.json
             ${{ runner.temp }}/sentiment-owner/failure.json
       - name: Fetch the real completed audit report with a step-scoped token
         if: inputs.mode == 'serve'
@@ -106,7 +123,7 @@ jobs:
       - name: Prepare exact passing model and restricted public lease
         if: inputs.mode == 'serve'
         timeout-minutes: 35
-        run: python3 verification/owners/sentiment_analysis/serve.py prepare --root "$RUNNER_TEMP/sentiment-owner" --package-url "$PACKAGE_URL" --package-sha256 "$PACKAGE_SHA" --package-keccak "$PACKAGE_KECCAK" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL"
+        run: python3 verification/owners/sentiment_analysis/serve.py prepare --root "$RUNNER_TEMP/sentiment-owner" --package-url "$PACKAGE_URL" --package-sha256 "$PACKAGE_SHA" --package-keccak "$PACKAGE_KECCAK" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL" --existing "$EXISTING_REGISTRATION"
       - name: Upload only the restricted public lease
         if: inputs.mode == 'serve'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

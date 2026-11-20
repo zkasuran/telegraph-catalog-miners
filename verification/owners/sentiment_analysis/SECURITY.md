@@ -79,3 +79,19 @@ embedded upstream grant. No release test fits on audit data or loads a model.
 The published source audit passed. Live endpoint, receipt and canonical node
 qualification remain separate gates. The served executor source must match the
 audited serving_commit, not a modified runtime with a familiar model filename.
+
+## Endpoint lease continuation
+
+| Risk | Defense | Test or implementation |
+|---|---|---|
+| Delayed qualification outlives a lease | Bounded owner-side guard requests next identical lease before expiry | lease_guard.due and expiry boundary tests |
+| Recovery hides changed model weights or grants | Exact original fields, descriptors and payload comparison | test_endpoint_recovery identity/tamper tests |
+| Retry causes duplicate workflow/write | Persist exact operation key before adapter call, reconcile unknown sends | lease_guard.submit/advance and pending-action tests |
+| Continuation bypasses failed gates | Only installed action adapter writes; explicit failure stops the guard | lease_guard action allowlist and failure path |
+| Background process becomes another owner | Private process lock, exact owner-attempt check and bounded deadline/generations | lease_guard.main and owner-change/bounds tests |
+| Private forwarding key crosses machines | Download only restricted public lease; keys stay ephemeral on each runner | existing common.lease_for contract |
+
+Guard source tests and read-only primary smoke do not prove a live multi-lease
+handoff. Remote recovery/reference verification and actual continuation remain
+unverified until run. No five-hour expiry, quality threshold or parser gate is
+weakened. The guard performs no registration sends or local neural operations.

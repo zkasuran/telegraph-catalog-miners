@@ -36,6 +36,11 @@ for name in ('SENTIMENT_ANALYSIS-v3.safetensors', 'v3-registration-ready.json',
              'v3-source-manifest.json', 'v3-asset-notice.json'):
     if not (root / 'model' / name).is_file():
         raise ValueError('passing immutable release asset missing: ' + name)
+recovery = json.loads((root / 'endpoint-recovery-plan.json').read_text())
+if (recovery['origin_package_sha256'] != 'ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e' or
+        recovery['bounds']['lease_seconds'] != 18000 or recovery['bounds']['remote_job_minutes'] > 350 or
+        recovery['bounds']['guard_seconds'] > 86400 or recovery['bounds']['max_generations'] > 6):
+    raise ValueError('recovery/continuity must retain reviewed source and bounded lease policy')
 for name in ('LICENSE', 'NOTICE', 'DATA-SOURCES.md', 'SECURITY.md'):
     if not (root / name).is_file() or not (root / name).read_text().strip():
         raise ValueError('required standalone rights/threat-model artifact missing: ' + name)

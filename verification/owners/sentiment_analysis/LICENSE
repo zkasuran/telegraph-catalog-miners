@@ -169,3 +169,11 @@ Its original embedded grants remain unchanged. Our competitive additions retain
 SAND; upstream portions retain their original grants. Source statistics and source
 manifest portions derived from GoEmotions retain Apache-2.0. The immutable report
 and asset sidecar name their applicable grants. No prior recipient grant changes.
+
+Endpoint recovery boundary
+--------------------------
+The endpoint-recovery delta retains the passing v3 tensor payload and every
+original embedded grant unchanged. Its added ignored registration identity and
+owned lease-continuation code are our SAND additions, subject to the retained
+upstream grants. Registration 161 failed endpoint reachability after lease expiry,
+not a measured quality gate. No licence or prior recipient grant is withdrawn.

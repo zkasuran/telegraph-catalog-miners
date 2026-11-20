@@ -1,0 +1,12 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "SENTIMENT_ANALYSIS",
+  "origin_package_sha256": "ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e",
+  "original_fields_grants_and_descriptors_identical": true,
+  "package_bytes": 6810457,
+  "package_sha256": "1d5c4c5f020dc75e3cd2c8b59bcd0c04a862ae6ab58f3031be9ad88b8778edd1",
+  "schema_version": 1,
+  "scope": "Ignored endpoint recovery identity only, no model loading, fitting or inference.",
+  "tensor_payload_identical": true,
+  "tensor_payload_sha256": "b6adbf4d38d3e44d0242993db46332e561b201f678cecd52f0494badf951dd04"
+}

@@ -1,0 +1,16 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "recovery_id": "21e2d141d64647f3a319c3b8dda5823d",
+  "rejected_registration_id": 161,
+  "origin_package_sha256": "ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e",
+  "origin_report_sha256": "fa0cb600acb55f4b8d5c597f1c8f9fe254b5084c66eab7d968037b508e54dbbd",
+  "origin_run_id": 44723258067,
+  "origin_commit": "bb1eb538a4308956bf5b27eac952d5487c985de6",
+  "reason": "The exact passing tensors lost endpoint reachability after their bounded lease ended. No node quality loss was measured.",
+  "change": "One ignored endpoint-recovery identity field only; every original metadata field, descriptor, payload byte and grant stays unchanged.",
+  "runtime_reverification": "Actual full parser, repeated reference vectors, literal wire controls and frozen-score integration replay. Prior audit is not new training, a new independent audit or model selection.",
+  "continuity": "Owned deterministic local guard invokes only installed actions.py for additive same-package lease handoff on bounded public CPU runs. No signer/provider keys, no registration sends by the guard, no controller/shared-service edits.",
+  "bounds": {"lease_seconds": 18000, "renew_before_seconds": 900, "max_generations": 6, "guard_seconds": 86400, "remote_job_minutes": 350}
+}

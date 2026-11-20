@@ -2,6 +2,7 @@
 """Keep one exact verified public executor alive on a bounded free runner."""
 import argparse
 import os
+import re
 import signal
 import subprocess
 import threading
@@ -27,7 +28,7 @@ from contracts import (
 from remote import assets, classes, executor, identity_controls, score, stage_check
 
 
-def prepare(root, package_url, package_sha, package_keccak, slot, forward_port, runnable_url):
+def prepare(root, package_url, package_sha, package_keccak, slot, forward_port, runnable_url, existing=0):
     remote_only()
     immutable_url(package_url)
     report = validate_ready(strict_json((root / "registration-ready.json").read_bytes()))
@@ -43,8 +44,13 @@ def prepare(root, package_url, package_sha, package_keccak, slot, forward_port, 
     if manifest["keccak256"].removeprefix("0x") != package_keccak:
         raise ValueError("served package actual Keccak mismatch")
     report_sha = file_sha(root / "registration-ready.json")
+    if type(existing) is not int or not 0 <= existing < 1 << 63:
+        raise ValueError("explicit existing registration identity required for continuation")
+    epoch = os.environ.get("LEASE_EPOCH", "initial")
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", epoch):
+        raise ValueError("bounded public lease epoch required")
     row = {"family": FAMILY, "owner": OWNER, "slot": slot, "forward_port": forward_port, "runnable_url": runnable_url,
-           "keccak": package_keccak, "sha256": package_sha, "existing_registration_id": 0}
+           "keccak": package_keccak, "sha256": package_sha, "existing_registration_id": existing}
     for kind in ("candidate", "runtime", "source"):
         row[kind + "_proof"] = {"sha256": report_sha}
     key = root / "forward-key"
@@ -54,7 +60,7 @@ def prepare(root, package_url, package_sha, package_keccak, slot, forward_port, 
                    check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
     key.chmod(0o600)
     (root / "known_hosts").write_text(HOST_KEY)
-    lease = lease_for(row, public_key(key.with_suffix(".pub").read_text().strip()), "sentiment-" + str(report["run_id"]),
+    lease = lease_for(row, public_key(key.with_suffix(".pub").read_text().strip()), "sentiment-" + str(report["run_id"]) + "-" + epoch,
                       os.environ["GITHUB_RUN_ID"], os.environ["GITHUB_SHA"])
     validate_lease(lease, row)
     write_json(root / "lease.json", lease)
@@ -113,15 +119,19 @@ def run(root):
                 if time.monotonic() >= next_poll:
                     url = NODE + "/api/wasm?intent=" + FAMILY + "&poll=" + str(time.time_ns())
                     try:
-                        with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache"}), timeout=25) as response:
+                        with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache", "User-Agent": "curl/8.0 Telegraph-owned-serving"}), timeout=25) as response:
                             raw = response.read(MAX_BODY + 1)
                         if len(raw) > MAX_BODY:
                             raise ValueError("node listing bound")
                         entries = strict_json(raw).get("intents", {}).get(FAMILY, {}).get("entries", [])
                         for entry in entries:
                             if (entry.get("intent_id") != FAMILY or entry.get("author_address", "").lower() != OWNER or
-                                    entry.get("wasm_hash", "").removeprefix("0x") != row["keccak"] or
-                                    datetime.fromisoformat(entry["registered_at"].replace("Z", "+00:00")) < created):
+                                    entry.get("wasm_hash", "").removeprefix("0x") != row["keccak"]):
+                                continue
+                            if row["existing_registration_id"]:
+                                if entry.get("registration_id") != row["existing_registration_id"]:
+                                    continue
+                            elif datetime.fromisoformat(entry["registered_at"].replace("Z", "+00:00")) < created:
                                 continue
                             status = entry.get("activation_status")
                             write_json(root / "node-state.json", {"family": FAMILY, "owner": OWNER, "package_keccak": row["keccak"],
@@ -157,6 +167,7 @@ def main():
     parser.add_argument("--slot", type=int)
     parser.add_argument("--forward-port", type=int)
     parser.add_argument("--runnable-url")
+    parser.add_argument("--existing", type=int, default=0)
     args = parser.parse_args()
 
     def stop(signum, frame):
@@ -166,7 +177,7 @@ def main():
     signal.signal(signal.SIGINT, stop)
     if args.phase == "prepare":
         prepare(args.root, args.package_url, args.package_sha256, args.package_keccak,
-                args.slot, args.forward_port, args.runnable_url)
+                args.slot, args.forward_port, args.runnable_url, args.existing)
     else:
         run(args.root)
 

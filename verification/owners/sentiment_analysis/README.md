@@ -129,3 +129,18 @@ numeric calibration remain unverified. A source-audit pass is not a canonical wi
 Serving and registration use those exact immutable bytes and the identical
 audited executor commit. No retraining, restamping or audit-led model change is
 part of this release. The live node remains the authority on qualification.
+
+## Endpoint recovery and bounded lease continuation
+
+The passing v3 tensors remain useful. Registration 161 failed reachability after
+its five-hour serving lease ended before delayed node qualification. No node
+quality score exists. The endpoint-recovery path preserves every learned tensor
+and original grant, adding one ignored registration identity field only.
+
+`endpoint_recovery` mode runs actual fixed-function parser/reference/wire replay,
+not fitting or selection on the exposed source audit. The owner-side lease guard
+then uses the installed automatic action adapter for bounded same-package lease
+continuation. It cannot publish, register or sign. It stops on terminal rejection,
+owner change, failed gates or its one-day/six-generation ceiling. Every remote
+lease and CPU job retains its original limits. Live continuation remains a
+separate verification step, not a promise inferred from source tests.
