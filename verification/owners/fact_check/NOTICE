@@ -16,3 +16,9 @@ Shared helper source is operator-authored. Telegraph reference kit copyright
 2026 telegraphprotocol, MIT, full terms in KIT-LICENSE. ModernBERT by Answer.AI
 and LightOn, Apache 2.0, full terms in UPSTREAM-APACHE-2.0.txt. Their rights remain.
 Full grants are preserved in successful and failed checkpoints.
+
+The development-only successor uses the original public training and validation
+splits. The failed pilot audit is excluded from further fitting and auditing.
+Validation is development-exposed, not an independent audit. Any passing
+development checkpoint still requires a clean source-held-out audit and the full
+reference-engine/parser qualification path before registration.

@@ -11,6 +11,12 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 OWN_ID = "LicenseRef-zkasuran-SAND-1.0"
 OWN_SHA = "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447"
+RELEASE_SCOPE = (
+    "Upstream scope: Wikidata structured facts retain CC0-1.0. Telegraph kit code\n"
+    "retains MIT. ModernBERT retains Apache-2.0. Their grants are in NOTICE and the\n"
+    "named sidecars. The unchanged SAND terms below cover our competitive additions\n"
+    "including the development-only training pipeline. Prior grants remain in force.\n\n"
+)
 APACHE_SHA = "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
 MIT_SHA = "e20635bc37e1ec73cc962c20cf23b0043bfcf20d01dbcefb959238ebc2f8fde1"
 MAX_BYTES = 64 << 20
@@ -25,7 +31,8 @@ def licence_metadata():
     cc0 = (HERE / "SOURCE-CC0.txt").read_text()
     if hashlib.sha256(cc0.encode()).hexdigest() != "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499":
         raise ValueError("full primary CC0 terms changed")
-    if hashlib.sha256(own.encode()).hexdigest() != OWN_SHA or hashlib.sha256(apache.encode()).hexdigest() != APACHE_SHA:
+    if (not own.startswith(RELEASE_SCOPE) or hashlib.sha256(own[len(RELEASE_SCOPE):].encode()).hexdigest() != OWN_SHA
+            or hashlib.sha256(apache.encode()).hexdigest() != APACHE_SHA):
         raise ValueError("own or upstream licence bytes differ from the reviewed terms")
     if hashlib.sha256(mit.encode()).hexdigest() != MIT_SHA:
         raise ValueError("upstream MIT terms differ from the reviewed bytes")

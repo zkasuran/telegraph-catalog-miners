@@ -35,3 +35,20 @@ the right "to deal in the Software without restriction" with copyright and
 permission notice retention. Revision `1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd`;
 complete terms are in `KIT-LICENSE`. Our packaging changes do not replace those
 upstream permissions or relicense source text.
+
+## Development-only successor
+
+Run 44674965147 failed quality at 32 of 64 source audit pairs. Its audit hash
+`4772203facbf9fa3f6883f71375b5348e9ad348745a1be4fda85abfc98857a01`
+is exposed and cannot be reused for fitting or another audit. The original
+source archive, splits and train-fitted shortcut coefficients stay unchanged.
+`develop.py` reads only the original 128 training and 32 validation pairs.
+Validation may select a frozen checkpoint. It is not independent audit evidence.
+
+The original discovery used LIMIT 512. It is a bounded pilot, not a population.
+`inventory.py` reads an independent aggregate count then all primary subject IDs
+with monotonic keyset pages. It checks the complete count before and after.
+These IDs are discovery metadata, not accepted claim evidence or preferences.
+Every newly sampled subject still needs its exact revision, all relevant P36
+statements, references, alternatives and qualifier/time checks. An unchanged
+aggregate does not make these requests an atomic snapshot.

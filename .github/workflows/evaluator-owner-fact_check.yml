@@ -7,10 +7,11 @@
         "mode": {
           "type": "choice",
           "options": [
+            "develop",
             "train",
             "serve"
           ],
-          "default": "train",
+          "default": "develop",
           "required": true
         },
         "package_url": {
@@ -114,9 +115,22 @@
           "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/remote.py --root \"$RUNNER_TEMP/factcheck-experiment\""
         },
         {
+          "name": "Complete primary inventory before successor development",
+          "if": "inputs.mode == 'develop'",
+          "timeout-minutes": 25,
+          "run": "timeout --signal=TERM --kill-after=20s 1440 python3 verification/owners/fact_check/inventory.py --out \"$RUNNER_TEMP/factcheck-experiment/inventory\""
+        },
+        {
+          "name": "Audit-inaccessible development-only fitting",
+          "id": "develop",
+          "if": "inputs.mode == 'develop'",
+          "timeout-minutes": 275,
+          "run": "chmod 000 verification/owners/fact_check/bundle/audit.jsonl\ntest ! -r verification/owners/fact_check/bundle/audit.jsonl\ntimeout --signal=TERM --kill-after=20s 16200 \"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/develop.py --root \"$RUNNER_TEMP/factcheck-experiment\""
+        },
+        {
           "name": "Preserve exact licensed successful or failed checkpoints",
           "id": "preserve",
-          "if": "always() && inputs.mode == 'train'",
+          "if": "always() && inputs.mode != 'serve'",
           "run": "python3 verification/owners/fact_check/preserve.py --root \"$RUNNER_TEMP/factcheck-experiment\""
         },
         {
@@ -132,13 +146,13 @@
         },
         {
           "name": "Bounded diagnostic results and failed licensed checkpoints",
-          "if": "always() && inputs.mode == 'train' && steps.preserve.outcome == 'success'",
+          "if": "always() && inputs.mode != 'serve' && steps.preserve.outcome == 'success'",
           "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
           "with": {
             "name": "factcheck-diagnostic-${{ github.run_id }}",
             "retention-days": 7,
             "if-no-files-found": "error",
-            "path": "${{ runner.temp }}/factcheck-experiment/*.json\n${{ runner.temp }}/factcheck-experiment/*.txt\n${{ runner.temp }}/factcheck-experiment/LICENSE\n${{ runner.temp }}/factcheck-experiment/NOTICE\n${{ runner.temp }}/factcheck-experiment/SOURCE-CC0.txt\n${{ runner.temp }}/factcheck-experiment/KIT-LICENSE\n${{ runner.temp }}/factcheck-experiment/UPSTREAM-APACHE-2.0.txt\n${{ runner.temp }}/factcheck-experiment/adapter/\n${{ runner.temp }}/factcheck-experiment/initial/\n${{ runner.temp }}/factcheck-experiment/checkpoint/\n${{ runner.temp }}/factcheck-experiment/data/*.json"
+            "path": "${{ runner.temp }}/factcheck-experiment/*.json\n${{ runner.temp }}/factcheck-experiment/*.txt\n${{ runner.temp }}/factcheck-experiment/LICENSE\n${{ runner.temp }}/factcheck-experiment/NOTICE\n${{ runner.temp }}/factcheck-experiment/SOURCE-CC0.txt\n${{ runner.temp }}/factcheck-experiment/KIT-LICENSE\n${{ runner.temp }}/factcheck-experiment/UPSTREAM-APACHE-2.0.txt\n${{ runner.temp }}/factcheck-experiment/adapter/\n${{ runner.temp }}/factcheck-experiment/initial/\n${{ runner.temp }}/factcheck-experiment/checkpoint/\n${{ runner.temp }}/factcheck-experiment/data/*.json\n${{ runner.temp }}/factcheck-experiment/inventory/"
           }
         },
         {

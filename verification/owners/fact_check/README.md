@@ -26,8 +26,8 @@ equality on another machine.
 
 ## Bounded public CPU workflow
 
-The owned workflow is `evaluator-owner-fact_check.yml`. Only its `train` mode can
-train or evaluate the adapter. It uses the hash-locked dependencies, a fresh
+The owned workflow is `evaluator-owner-fact_check.yml`. The preserved `train` mode
+reproduces the original experiment. It uses the hash-locked dependencies, a fresh
 seed-matched initialization and all three epochs. Development loss alone selects
 the checkpoint; the audit is measured only after selection. The thresholds remain
 80 percent overall, 70 percent per label, five points over untrained and ten
@@ -38,6 +38,19 @@ engine. It records actual finite score bits, repeated/fresh-process controls and
 three negative identities. `registration-ready.json` is emitted only from real
 passing audit/runtime artifacts. Native Torch logits are not substituted for
 reference-engine evidence.
+
+The original run 44674965147 failed at 32 of 64 audit pairs. Its False-labelled
+pairs scored zero correct and its validation showed the same True preference.
+The package parser passed and reference execution agreed with native ordering.
+That package is not registered. Its exposed audit cannot be reused.
+
+The successor `develop` mode first checks the full primary discovery inventory.
+It then fits only on the original training split for a predeclared 24 epochs,
+with learning rate 0.001, accumulation four and no LoRA dropout. Only development
+loss selects a checkpoint. The original frozen bytes and quality thresholds
+are unchanged. Development outputs are explicitly not registration-ready.
+Even a passing development result needs a clean independent audit, full parser
+and reference-engine qualification before activation.
 
 The `serve` mode refuses any package or report that differs from those audited
 bytes. It reproduces the actual reference vectors before exposing a token-only
