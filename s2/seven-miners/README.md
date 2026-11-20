@@ -1,10 +1,28 @@
-# Ask questions and read digital stock
+# Seven bounded Telegraph miner integrations
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 
 The stock miner returns current availability from the primary controlled digital
 allocation store. It subtracts reservations from on-hand inventory, binds the
 merchant, SKU and location and reports read time separately from mutation time.
+
+Seven source implementations and canonical descriptors are included. Credentials
+and live-source requirements remain separate from code publication.
+
+| Descriptor | Capability | Source or requirement |
+|---|---|---|
+| `sku-in-stock.yaml` | Controlled digital allocation availability | Current primary D1 state |
+| `chat-completion.yaml` | Generated chat answer | Existing MiniMax subscription |
+| `deepfake.yaml` | Image or short-video visual assessment | Fetched bytes, uncalibrated MiniMax assessment |
+| `video-verification.yaml` | Short MP4 visual assessment | Eight-second movie header, one-frame-per-second sampling |
+| `twitter-search.yaml` | Public indexed X post-ID discovery | MiniMax web search plus current public oEmbed confirmation |
+| `package-status.yaml` | Authorized DHL shipment status | Actual account, public-data permission and per-shipment grant required |
+| `port-congestion.yaml` | Authenticated mean anchorage waiting hours | Licensed signed publisher feed required |
+
+The parcel and port integrations currently fail closed on their unconfigured source
+requirements. They do not substitute invented shipment state or ETA differences.
+See [REQUIRED-SOURCES.json](REQUIRED-SOURCES.json). X returns IDs and source links,
+not restricted post text or user objects. Indexed discovery is not exhaustive.
 
 The chat miner returns a generated reply, a verdict and an at-most-80-character
 brief. It reserves each attempt in a primary D1 budget before calling the model.
@@ -43,6 +61,12 @@ on-chain answer delivery are separate states. No ranking or adoption is claimed.
 | Physical stock or external retailers | Not supported |
 | Canonical comparison | Waiting for owner-defined format |
 
+The media fixtures are owned rendered graphics, not real photographs or a detection
+benchmark. Actual provider checks accepted PNG and MP4 bytes and returned Synthetic.
+No calibrated deepfake, audio or full-video accuracy is claimed. Video frames are
+sampled and can miss events between frames. The port client verifies a publisher's
+authentication and stated units, not the physical measurement independently.
+
 ## Verify
 
 Node.js and Python are required. No package installation is needed.
@@ -60,6 +84,10 @@ SQLite state. `chat-completion.yaml` declares `CHAT_COMPLETION_GENERAL` and maps
 all three canonical fields. `chat-router.mjs` mounts the new path while delegating
 existing Worker requests unchanged. Existing text data modules are not republished
 as part of this package.
+It also runs media, indexed-search and licensed-source integration controls. Source
+records in those tests are explicit artificial fixtures. No live parcel or port
+measurement is claimed by a passing offline test. No unconfigured source is registered
+as a verified functioning service.
 
 See [SECURITY.md](SECURITY.md), [DATA-SOURCES.md](DATA-SOURCES.md) and
 [PROVENANCE.json](PROVENANCE.json). Source is under [LICENSE](LICENSE).

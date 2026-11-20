@@ -1,0 +1,102 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611203,
+  "slug": "zkasuran-s2-deepfake",
+  "protocol": "generic",
+  "name": "Media Visual Assessment",
+  "description": "Multimodal visual assessment of fetched PNG, JPEG or MP4 bytes. Limited to 256 KiB and eight-second MP4 movie headers. Model confidence is uncalibrated. This is not forensic certification, audio detection or proof of capture provenance.",
+  "base_url": "https://telegraph-vision.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/deepfake",
+      "external_path": "/miners/v3/deepfake",
+      "method": "GET",
+      "description": "Multimodal visual assessment of fetched PNG, JPEG or MP4 bytes. Limited to 256 KiB and eight-second MP4 movie headers. Model confidence is uncalibrated. This is not forensic certification, audio detection or proof of capture provenance.",
+      "intents": [
+        "DEEPFAKE_DETECTION_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "media_url",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "Public PNG, JPEG or short MP4 URL from one of the documented media origins, at most 256 UTF-8 bytes. Submit only media authorized for processing."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "semantics": {
+    "supported_intents": [
+      "DEEPFAKE_DETECTION_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "verdict"
+    }
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "media_url"
+    ],
+    "properties": {
+      "media_url": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    }
+  },
+  "errors": {
+    "message_path": "error"
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "The request value is at most 256 UTF-8 bytes.",
+      "param": "media_url",
+      "property": "size_bytes",
+      "value_bytes": 256,
+      "operator": "lte"
+    }
+  ],
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  },
+  "intent_mapping": {
+    "DEEPFAKE_DETECTION_GENERAL": {
+      "endpoint": "/deepfake",
+      "input": {
+        "media_url": {
+          "from": "media_url"
+        }
+      },
+      "output": {
+        "verdict": {
+          "path": "verdict"
+        },
+        "confidence": {
+          "path": "confidence"
+        },
+        "evidence": {
+          "path": "evidence"
+        },
+        "summary": {
+          "path": "summary"
+        }
+      }
+    }
+  }
+}

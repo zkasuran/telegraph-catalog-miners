@@ -1,0 +1,102 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611204,
+  "slug": "zkasuran-s2-video-check",
+  "protocol": "generic",
+  "name": "Short Video Visual Assessment",
+  "description": "Multimodal assessment of fetched short MP4 bytes, sampled at one frame per second. At most 256 KiB and eight seconds in the movie header. Audio and forensic provenance are not evaluated; model confidence is uncalibrated.",
+  "base_url": "https://telegraph-vision.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/video",
+      "external_path": "/miners/v3/video",
+      "method": "GET",
+      "description": "Multimodal assessment of fetched short MP4 bytes, sampled at one frame per second. At most 256 KiB and eight seconds in the movie header. Audio and forensic provenance are not evaluated; model confidence is uncalibrated.",
+      "intents": [
+        "VIDEO_VERIFICATION_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "video_url",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "Public MP4 URL from a documented origin, at most 256 UTF-8 bytes. Movie-header duration at most eight seconds and download at most 256 KiB."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "semantics": {
+    "supported_intents": [
+      "VIDEO_VERIFICATION_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "verdict"
+    }
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "video_url"
+    ],
+    "properties": {
+      "video_url": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    }
+  },
+  "errors": {
+    "message_path": "error"
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "The request value is at most 256 UTF-8 bytes.",
+      "param": "video_url",
+      "property": "size_bytes",
+      "value_bytes": 256,
+      "operator": "lte"
+    }
+  ],
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  },
+  "intent_mapping": {
+    "VIDEO_VERIFICATION_GENERAL": {
+      "endpoint": "/video",
+      "input": {
+        "video_url": {
+          "from": "video_url"
+        }
+      },
+      "output": {
+        "verdict": {
+          "path": "verdict"
+        },
+        "confidence": {
+          "path": "confidence"
+        },
+        "evidence": {
+          "path": "evidence"
+        },
+        "summary": {
+          "path": "summary"
+        }
+      }
+    }
+  }
+}

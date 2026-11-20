@@ -10,5 +10,11 @@ node --test "$ROOT/stock.test.mjs"
 node --check "$ROOT/chat.mjs"
 node --check "$ROOT/chat-router.mjs"
 node --test "$ROOT/chat.test.mjs"
+node --check "$ROOT/network.mjs"
+node --check "$ROOT/media.mjs"
+node --check "$ROOT/sources.mjs"
+node --check "$ROOT/indexed-x.mjs"
+node --check "$ROOT/remaining-router.mjs"
+node --test "$ROOT/media.test.mjs" "$ROOT/sources.test.mjs" "$ROOT/indexed-x.test.mjs"
 PYTHONDONTWRITEBYTECODE=1 python3 -W error "$ROOT/verify.py"
-printf '%s\n' 'ALL GREEN: stock and chat source release checks'
+printf '%s\n' 'ALL GREEN: seven miner source release checks; external source requirements remain explicit'

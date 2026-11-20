@@ -1,0 +1,22 @@
+{
+  "license": "LicenseRef-zkasuran-SAND-1.0",
+  "port_congestion": {
+    "required": ["PORT_FEED_URL", "PORT_FEED_HMAC_KEY", "PORT_FEED_LICENSE_APPROVED"],
+    "source_contract": "Version-one raw JSON payload signed with HMAC-SHA256, actual mean completed anchorage waiting hours and an observation no older than five minutes",
+    "current_live_status": "source_not_configured",
+    "restriction": "ETA differences and time in port are not accepted as anchorage waiting time"
+  },
+  "package_status": {
+    "required": ["DHL_API_KEY", "DHL_PUBLIC_STATUS_CONSENT_CONFIRMED", "per-tracking-number public-status grant in primary D1"],
+    "source": "https://developer.dhl.com/api-reference/shipment-tracking",
+    "current_live_status": "account_and_permission_not_configured",
+    "restriction": "Demo-key mock shipments are not treated as live parcels; confidential tracking data is not released without actual source permission"
+  },
+  "twitter_search": {
+    "required": ["existing MEDIA_MINIMAX_API_KEY or MINIMAX_API_KEY", "primary MINER_DB budget"],
+    "source": "https://platform.minimax.io/docs/guides/server-tools.md",
+    "current_live_status": "real indexed search and oEmbed source probe passed; Worker check pending",
+    "optional_direct_api": ["X_API_BEARER_TOKEN", "X_API_SPEND_AUTHORIZED"],
+    "restriction": "Only public post IDs and source links are returned, not restricted post text or user objects. Default indexed discovery uses the existing MiniMax plan and public oEmbed, not paid X API reads. Index coverage can lag."
+  }
+}

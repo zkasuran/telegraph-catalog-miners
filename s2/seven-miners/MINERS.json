@@ -1,0 +1,40 @@
+{
+  "license": "LicenseRef-zkasuran-SAND-1.0",
+  "miners": [
+    {
+      "descriptor": "sku-in-stock.yaml",
+      "intent": "SKU_IN_STOCK_GENERAL",
+      "source_required": false
+    },
+    {
+      "descriptor": "chat-completion.yaml",
+      "intent": "CHAT_COMPLETION_GENERAL",
+      "source_required": false
+    },
+    {
+      "descriptor": "deepfake.yaml",
+      "intent": "DEEPFAKE_DETECTION_GENERAL",
+      "source_required": false
+    },
+    {
+      "descriptor": "video-verification.yaml",
+      "intent": "VIDEO_VERIFICATION_GENERAL",
+      "source_required": false
+    },
+    {
+      "descriptor": "port-congestion.yaml",
+      "intent": "LIVE_PORT_CONGESTION_GENERAL",
+      "source_required": true
+    },
+    {
+      "descriptor": "package-status.yaml",
+      "intent": "PACKAGE_STATUS_GENERAL",
+      "source_required": true
+    },
+    {
+      "descriptor": "twitter-search.yaml",
+      "intent": "TWITTER_SEARCH_GENERAL",
+      "source_required": false
+    }
+  ]
+}

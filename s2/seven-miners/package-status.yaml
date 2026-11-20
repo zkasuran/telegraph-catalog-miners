@@ -1,0 +1,78 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611206,
+  "slug": "zkasuran-s2-package-status",
+  "protocol": "generic",
+  "name": "Authorized DHL Shipment Status",
+  "description": "Reads exact-ID DHL shipment status only after an approved account, actual public-data permission and a current per-shipment consent grant are configured. Does not expose recipient names, addresses or locations. The canonical owner format is currently undefined.",
+  "base_url": "https://telegraph-vision.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/package",
+      "external_path": "/miners/v3/package",
+      "method": "GET",
+      "description": "Reads exact-ID DHL shipment status only after an approved account, actual public-data permission and a current per-shipment consent grant are configured. Does not expose recipient names, addresses or locations. The canonical owner format is currently undefined.",
+      "intents": [
+        "PACKAGE_STATUS_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "tracking_number",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "Exact approved DHL shipment ID, 6 to 40 letters, digits or hyphens. Reference searches and private recipient data are not exposed."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "semantics": {
+    "supported_intents": [
+      "PACKAGE_STATUS_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "status_code"
+    }
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tracking_number"
+    ],
+    "properties": {
+      "tracking_number": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    }
+  },
+  "errors": {
+    "message_path": "error"
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "The request value is at most 256 UTF-8 bytes.",
+      "param": "tracking_number",
+      "property": "size_bytes",
+      "value_bytes": 256,
+      "operator": "lte"
+    }
+  ],
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  }
+}

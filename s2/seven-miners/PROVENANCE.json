@@ -31,27 +31,27 @@
     },
     {
       "path": "DATA-SOURCES.md",
-      "sha256": "e9236d382e1d408c6d3437148862f9c6c38085e68340d11c833b3205564a6a81",
+      "sha256": "5679c5b93488f355013c31061da001702ad0d545492b3876a41c4f94e29f1da5",
       "lineage": "own"
     },
     {
       "path": "SECURITY.md",
-      "sha256": "6e8e6af0beba34db2393a723f784c266f878dc5a270732d22f07cf85f5027962",
+      "sha256": "a0115f00c0477ac4c1b1dcc48cd1ff222df0271453a5d11fe94877bc7b9bb5e2",
       "lineage": "own"
     },
     {
       "path": "README.md",
-      "sha256": "3683701f6387b7260da4dd4164a6c275af47f13538dc4d6425395c52d9e873ff",
+      "sha256": "80602b6219eb14c981fa768c89d1217881c9e7b262e868ca794c5262b32b8bb4",
       "lineage": "own"
     },
     {
       "path": "verify.py",
-      "sha256": "a24bddc7f6b84e784915b5dc90fc303c6cc41f592d5e175e35be73489e522abb",
+      "sha256": "f1deef2cd516c1eef6ae59cdaab3c3b9f27fd67e87f5548796f54c0d0dd3cf99",
       "lineage": "own"
     },
     {
       "path": "verify.sh",
-      "sha256": "803a19660a5a8efed7abd143cb4ba1076910dcdcbcef5ac50b790aec9747ed9e",
+      "sha256": "70e2319f284398d46e642758bc1434c0f5beab327162d3d531c9404a32550dfb",
       "lineage": "own"
     },
     {
@@ -77,6 +77,101 @@
     {
       "path": "chat-completion.yaml",
       "sha256": "26269486b9f639732390ce9ebf9d3f52d73aec82675278d4f76ea47618f86ae5",
+      "lineage": "own"
+    },
+    {
+      "path": "network.mjs",
+      "sha256": "52240c78ae1059a5b80ab0230d394cfd99bc241784c62b3db028e4d4bca7f0c6",
+      "lineage": "own"
+    },
+    {
+      "path": "media.mjs",
+      "sha256": "a2df0d9ed3a3b5013d9fa9409a86df38fa8e6d4896af6718254b183bb9fdcbf6",
+      "lineage": "own"
+    },
+    {
+      "path": "sources.mjs",
+      "sha256": "df96288e3d876e170e60aa6a4a2f92c58078b591f65ffb9cd048e87c3601392e",
+      "lineage": "own"
+    },
+    {
+      "path": "indexed-x.mjs",
+      "sha256": "094de98dfd963bfabf178f8e314f8bd4a69ae72044951a323100ac40e4e988c1",
+      "lineage": "own"
+    },
+    {
+      "path": "remaining-router.mjs",
+      "sha256": "4153153dfcf1c8dc2b07353882b4e6f0a9cbd73e8da5b6ab971cd1e4739fab0d",
+      "lineage": "own"
+    },
+    {
+      "path": "media.test.mjs",
+      "sha256": "46ec15d71cf029581ed61ae02d772209a268b9eae4451e5b6aca7380ef566c9e",
+      "lineage": "own"
+    },
+    {
+      "path": "sources.test.mjs",
+      "sha256": "82187baef967c2350eea0e7cc71ccc7d632f5279b862603879265cc78bdfd969",
+      "lineage": "own"
+    },
+    {
+      "path": "indexed-x.test.mjs",
+      "sha256": "e2d455d53bca3bf9831026a232ff842df59bc34f73a6c5252dad778250691561",
+      "lineage": "own"
+    },
+    {
+      "path": "miner-init.sql",
+      "sha256": "e380ed8c4a03b08a7fb228a72ea2f25864e02cc70710bf9b6c2bf7759baf5e3a",
+      "lineage": "own"
+    },
+    {
+      "path": "make-media.py",
+      "sha256": "798994400298daefc6d281770415e456bad15d5a3ffcbcf924b9f8299dbd3a65",
+      "lineage": "own"
+    },
+    {
+      "path": "MINERS.json",
+      "sha256": "45e292e01ce0217f2bd3d0559f25bd2c2c80f7b358831871bbef1bd264b02679",
+      "lineage": "own"
+    },
+    {
+      "path": "REQUIRED-SOURCES.json",
+      "sha256": "add5e3a02a393f9230d414d9b374e2671959cc89f41c7a0968b82794f0bf25a8",
+      "lineage": "own"
+    },
+    {
+      "path": "deepfake.yaml",
+      "sha256": "89938b17df068c35670c70e6b1ad869b8d6250a627c79145abbd6543b0ca512a",
+      "lineage": "own"
+    },
+    {
+      "path": "video-verification.yaml",
+      "sha256": "1b5bc80a534e6dc4138a05e965fc13cb3253e7b4ba175f6cb054ac310b425845",
+      "lineage": "own"
+    },
+    {
+      "path": "port-congestion.yaml",
+      "sha256": "c5fc3f86a9fc2c2300239de7a014d37e739fdcc5f98b68b4b460716a8c091478",
+      "lineage": "own"
+    },
+    {
+      "path": "package-status.yaml",
+      "sha256": "1e10b1c8b591f1400b72c3d6b0edd49c18494b5f795d583db7f2048a554e2d44",
+      "lineage": "own"
+    },
+    {
+      "path": "twitter-search.yaml",
+      "sha256": "2d079ef39c9670fd96c88fd7f4be6e10ce888878063e12f2380c01cdb328c24d",
+      "lineage": "own"
+    },
+    {
+      "path": "fixtures/owned-rendered.png",
+      "sha256": "cf398a28070591111d1f702664415a7ecb34ea764231a72a1137df33dc215431",
+      "lineage": "own"
+    },
+    {
+      "path": "fixtures/owned-rendered.mp4",
+      "sha256": "69fff8447236b0a29132d0bd5aa9cc4d34c22ea6498e3f55d4fd45f1e3af2185",
       "lineage": "own"
     }
   ]

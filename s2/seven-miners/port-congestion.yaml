@@ -1,0 +1,105 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611205,
+  "slug": "zkasuran-s2-port-wait",
+  "protocol": "generic",
+  "name": "Signed Port Wait Observations",
+  "description": "Authenticates a licensed publisher feed of actual mean completed anchorage waiting hours, vessel count and observation time. Rejects ETA proxies, wrong ports, invalid signatures and observations older than five minutes. A licensed live feed must be configured.",
+  "base_url": "https://telegraph-vision.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/port",
+      "external_path": "/miners/v3/port",
+      "method": "GET",
+      "description": "Authenticates a licensed publisher feed of actual mean completed anchorage waiting hours, vessel count and observation time. Rejects ETA proxies, wrong ports, invalid signatures and observations older than five minutes. A licensed live feed must be configured.",
+      "intents": [
+        "LIVE_PORT_CONGESTION_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "port",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "Exact port name or code accepted by the configured licensed publisher."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "semantics": {
+    "supported_intents": [
+      "LIVE_PORT_CONGESTION_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "wait_hours"
+    }
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "port"
+    ],
+    "properties": {
+      "port": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    }
+  },
+  "errors": {
+    "message_path": "error"
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "The request value is at most 256 UTF-8 bytes.",
+      "param": "port",
+      "property": "size_bytes",
+      "value_bytes": 256,
+      "operator": "lte"
+    }
+  ],
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  },
+  "intent_mapping": {
+    "LIVE_PORT_CONGESTION_GENERAL": {
+      "endpoint": "/port",
+      "input": {
+        "port": {
+          "from": "port"
+        }
+      },
+      "output": {
+        "port": {
+          "path": "port"
+        },
+        "wait_hours": {
+          "path": "wait_hours"
+        },
+        "vessels_waiting": {
+          "path": "vessels_waiting"
+        },
+        "congestion_level": {
+          "path": "congestion_level"
+        },
+        "as_of": {
+          "path": "as_of"
+        }
+      }
+    }
+  }
+}

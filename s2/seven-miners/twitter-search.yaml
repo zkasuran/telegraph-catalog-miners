@@ -1,0 +1,99 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611207,
+  "slug": "zkasuran-s2-x-search",
+  "protocol": "generic",
+  "name": "Public X Post ID Discovery",
+  "description": "Discovers indexed public X post URLs using MiniMax web search, then confirms each post through public X oEmbed. Returns post IDs and source links, not post text or user objects. Index coverage can lag and is not an exhaustive recent-post API. A direct X API mode is available only with approved credentials and explicit spending authorization.",
+  "base_url": "https://telegraph-vision.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/x-search",
+      "external_path": "/miners/v3/x-search",
+      "method": "GET",
+      "description": "Discovers indexed public X post URLs using MiniMax web search, then confirms each post through public X oEmbed. Returns post IDs and source links, not post text or user objects. Index coverage can lag and is not an exhaustive recent-post API. A direct X API mode is available only with approved credentials and explicit spending authorization.",
+      "intents": [
+        "TWITTER_SEARCH_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "query",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "X recent-post search query, at most 256 UTF-8 bytes; results expose post IDs and source links only."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "semantics": {
+    "supported_intents": [
+      "TWITTER_SEARCH_GENERAL"
+    ],
+    "signal_mapping": {
+      "label_field": "brief"
+    }
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    }
+  },
+  "errors": {
+    "message_path": "error"
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "The request value is at most 256 UTF-8 bytes.",
+      "param": "query",
+      "property": "size_bytes",
+      "value_bytes": 256,
+      "operator": "lte"
+    }
+  ],
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  },
+  "intent_mapping": {
+    "TWITTER_SEARCH_GENERAL": {
+      "endpoint": "/x-search",
+      "input": {
+        "query": {
+          "from": "query"
+        }
+      },
+      "output": {
+        "answer": {
+          "path": "answer"
+        },
+        "urls": {
+          "path": "urls"
+        },
+        "brief": {
+          "path": "brief"
+        }
+      }
+    }
+  }
+}

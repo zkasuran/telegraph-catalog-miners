@@ -38,6 +38,19 @@ if __name__ == "__main__":
     assert raw.startswith(b"# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0\n")
     value = json.loads(raw.split(b"\n", 1)[1])
     validate(value)
+    inventory=json.loads((ROOT / 'MINERS.json').read_text())['miners']
+    assert len(inventory)==7 and len({item['intent'] for item in inventory})==7
+    ids=set()
+    for item in inventory:
+        body=json.loads((ROOT / item['descriptor']).read_bytes().split(b'\n',1)[1])
+        assert body['kind']=='miner' and body['version']=='1'
+        assert body['semantics']['supported_intents']==[item['intent']]
+        assert body['id'] not in ids
+        ids.add(body['id'])
+        for endpoint in body['endpoints']:
+            assert not endpoint.keys()-{'path','external_path','method','description','intents','params'}
+            assert endpoint['method']=='GET' and endpoint['description'] and endpoint['intents']==[item['intent']]
+    assert {item['intent'] for item in inventory}=={'SKU_IN_STOCK_GENERAL','CHAT_COMPLETION_GENERAL','DEEPFAKE_DETECTION_GENERAL','VIDEO_VERIFICATION_GENERAL','LIVE_PORT_CONGESTION_GENERAL','PACKAGE_STATUS_GENERAL','TWITTER_SEARCH_GENERAL'}
     chat = json.loads((ROOT / "chat-completion.yaml").read_bytes().split(b"\n",1)[1])
     assert chat["id"] == 202611202 and chat["slug"] == "zkasuran-s2-chat"
     assert chat["semantics"]["supported_intents"] == ["CHAT_COMPLETION_GENERAL"]
