@@ -24,6 +24,7 @@ import test_class_binding
 import test_wire
 import test_variant2
 import test_warmstart
+import test_audit_source
 
 HERE = Path(__file__).resolve().parent
 
@@ -44,7 +45,8 @@ def main():
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_class_binding.LiveClassTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_wire.WireTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_variant2.Variant2Tests),
-                                unittest.defaultTestLoader.loadTestsFromTestCase(test_warmstart.WarmStartTests)])
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_warmstart.WarmStartTests),
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_audit_source.AuditSourceTests)])
     result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
     if not result.wasSuccessful():
         print(stream.getvalue())

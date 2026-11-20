@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "family": "THREAT_IP_REPUTATION",
+  "selection_run_id": 44643126816,
+  "selection_commit": "b2d9c8be87b172f3fb2a7c62bae0bc106b3c060a",
+  "artifact_id": 14589527011,
+  "frozen_at": "2026-11-20T00:41:05.166908+00:00",
+  "package_sha256": "adb082ede25012a378e5efd03428ee9bb7b8ac90ba6521b43501654c67cf05b1",
+  "package_keccak": "589b6eb55c7413270f37678b5c78e308e1cf9c1fc4a40e30cc9e41f82ccee434",
+  "package_bytes": 13563780,
+  "untrained_sha256": "8f0f58b1f0d439ec0245e5ad1be63a413b41a9c4e066ef84128556934d153fb0",
+  "frozen_controls_sha256": "70b73e4eaa8200683a945f599fdc325f5ab32d18e0f9bc4e5168b69a9bd39509",
+  "candidate_report_sha256": "72dd99d87c4581c123fb2c96ab9bd0877406c53f104dd0b08fae6e790b34ea74",
+  "train_sha256": "8a074d8b374ac02117a84d6708fcf739b130831a116fe40186717a98e725143d",
+  "validation_sha256": "b537d108aa76a3e06f46822419cfb319ceb0fd49c547cb8e72c3d46473a2e686",
+  "audit_used_for_selection": false,
+  "selection_basis": "native development validation only, fresh audit not collected"
+}

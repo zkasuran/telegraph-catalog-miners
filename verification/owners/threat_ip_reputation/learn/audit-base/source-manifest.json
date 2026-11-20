@@ -1,0 +1,23 @@
+{
+  "grant": "CC0-1.0",
+  "source_commit": "22a75ad48e34b524998ca99d890f576e8e8485ff",
+  "files": {
+    "blocklist.csv": {
+      "sha256": "e7013a729f56514c22523f8dd121b4a4e8c4e58fdbe3369dfa5ab5af3c374965",
+      "bytes": 42639
+    },
+    "blocklist.json": {
+      "sha256": "ebc86ec4929d3ceb9ac1a574e2b863cb3ba662c75b8abc765fe516ce6aa7158a",
+      "bytes": 105483
+    },
+    "blocklist.misp.csv": {
+      "sha256": "94774871d5c08ba6c9c4197862a11006a6d3332a6d6cef4314d045c58dc5f328",
+      "bytes": 42578
+    },
+    "blocklist.txt": {
+      "sha256": "8d563425e2f92c6d2629aea8e72ca16659795d6d9c20b3675de4af2f53862d8f",
+      "bytes": 8148
+    }
+  },
+  "purpose": "unchanged original source bytes for global entity closure only, not new audit observations"
+}

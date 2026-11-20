@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 {
   "name": "THREAT_IP_REPUTATION owner learning",
-  "run-name": "THREAT_IP_REPUTATION continued ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
+  "run-name": "THREAT_IP_REPUTATION audit ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
   "on": {
     "workflow_dispatch": {
       "inputs": {
@@ -18,10 +18,17 @@
             "train-development",
             "replay-runtime",
             "train-variant2",
-            "continue-variant2"
+            "continue-variant2",
+            "audit-once"
           ],
           "default": "source-check",
           "required": true
+        },
+        "source_commit": {
+          "type": "string",
+          "description": "Exact immutable licensed audit-source commit, required for audit-once",
+          "required": false,
+          "default": ""
         }
       }
     }
@@ -65,8 +72,19 @@
           }
         },
         {
+          "name": "Exact candidate and fresh source preflight",
+          "id": "audit_source",
+          "if": "inputs.mode == 'audit-once'",
+          "timeout-minutes": 8,
+          "env": {
+            "GH_TOKEN": "${{ github.token }}",
+            "AUDIT_SOURCE_COMMIT": "${{ inputs.source_commit }}"
+          },
+          "run": "gh run download 44643126816 --repo zkasuran/telegraph-catalog-miners --name threat-ip-development --dir \"$RUNNER_TEMP/threat-ip-audit-candidate\" && python3 -W error verification/owners/threat_ip_reputation/learn/audit_source.py --commit \"$AUDIT_SOURCE_COMMIT\" --out \"$RUNNER_TEMP/threat-ip-independent-audit/source-capture\" --lock verification/owners/threat_ip_reputation/learn/candidate-lock.json --base-source verification/owners/threat_ip_reputation/learn/audit-base --development verification/owners/threat_ip_reputation/learn/data-v2/train.jsonl verification/owners/threat_ip_reputation/learn/data-v2/validation.jsonl && python3 -c 'import json,os; p=os.environ[\"RUNNER_TEMP\"]+\"/threat-ip-independent-audit/source-capture/source-preflight.json\"; print(\"ready=\"+str(json.load(open(p))[\"status\"]==\"AUDIT_SOURCE_READY\").lower())' >> \"$GITHUB_OUTPUT\""
+        },
+        {
           "name": "Install exact audited CPU dependencies",
-          "if": "inputs.mode != 'source-check'",
+          "if": "inputs.mode != 'audit-once' || steps.audit_source.outputs.ready == 'true'",
           "timeout-minutes": 20,
           "run": "python3 -m venv \"$RUNNER_TEMP/threat-ip-venv\" && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/threat_ip_reputation/learn/requirements.lock && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -m pip check && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" verification/owners/threat_ip_reputation/learn/audit.py --lock verification/owners/threat_ip_reputation/learn/requirements.lock --out \"$RUNNER_TEMP/threat-ip-audit-requirements.txt\" --report \"$RUNNER_TEMP/threat-ip-audit.json\""
         },
@@ -114,6 +132,23 @@
             "retention-days": 7,
             "if-no-files-found": "error",
             "path": "${{ runner.temp }}/threat-ip-recovery/*.json\n${{ runner.temp }}/threat-ip-recovery/*.log\n${{ runner.temp }}/threat-ip-recovery/*.safetensors"
+          }
+        },
+        {
+          "name": "Actual independent frozen reference-engine audit",
+          "if": "inputs.mode == 'audit-once' && steps.audit_source.outputs.ready == 'true'",
+          "timeout-minutes": 295,
+          "run": "timeout --signal=TERM --kill-after=15s 17400 \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -W error verification/owners/threat_ip_reputation/learn/remote_audit.py --root \"$RUNNER_TEMP/threat-ip-independent-audit\" --candidate \"$RUNNER_TEMP/threat-ip-audit-candidate\""
+        },
+        {
+          "name": "Retain actual audit or source blocker evidence",
+          "if": "always() && inputs.mode == 'audit-once'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "threat-ip-independent-audit",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/threat-ip-independent-audit/source-capture/receipt.json\n${{ runner.temp }}/threat-ip-independent-audit/source-capture/source-preflight.json\n${{ runner.temp }}/threat-ip-independent-audit/source-capture/tree.json\n${{ runner.temp }}/threat-ip-independent-audit/audit-started.json\n${{ runner.temp }}/threat-ip-independent-audit/audit.jsonl\n${{ runner.temp }}/threat-ip-independent-audit/registration-ready.json\n${{ runner.temp }}/threat-ip-independent-audit/trained-parser.json\n${{ runner.temp }}/threat-ip-independent-audit/untrained-parser.json\n${{ runner.temp }}/threat-ip-independent-audit/trained-runtime.json\n${{ runner.temp }}/threat-ip-independent-audit/untrained-runtime.json\n${{ runner.temp }}/threat-ip-independent-audit/trained-engine.log\n${{ runner.temp }}/threat-ip-independent-audit/untrained-engine.log\n${{ runner.temp }}/threat-ip-independent-audit/live-class-proof.json\n${{ runner.temp }}/threat-ip-independent-audit/THREAT_IP_REPUTATION.safetensors"
           }
         }
       ]
