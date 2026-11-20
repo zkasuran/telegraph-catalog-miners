@@ -1,0 +1,14 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "owner_attempt": "f1d969e1701949a0a266edee9d1c06b8",
+  "phase": "source_and_build",
+  "failed_training_run": 44704610971,
+  "warm_checkpoint_status": "FAILED_AUDIT, never registration-ready",
+  "warm_checkpoint_sha256": "80729d67ac03086dfce4915252c665635c095e706c2332807a514f39ec0f72fd",
+  "improvement": "Shorter response evidence, three-format validation with per-label selection, stronger rater agreement and composition controls for every label.",
+  "data_boundary": "Quarantine all exposed v2 audit source, author, thread and normalized-text identities from all later splits. Reuse legitimate training material only.",
+  "authorship": "Original emotion annotations are human-created upstream. Valence preferences, composition and short response evidence are constructed by AI-assisted code, not human-reviewed sentiment preferences.",
+  "quality": "Unchanged 80 percent overall, 70 percent per label, five points over untrained and ten over the strongest measured shortcut. No new neural result claimed."
+}

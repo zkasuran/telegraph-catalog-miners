@@ -36,9 +36,9 @@ def source(root):
     return groups, manifest
 
 
-def base_assets(root):
+def base_assets(root, config_fn=config):
     remote_only()
-    cfg = config()
+    cfg = config_fn()
     assets(root)
     base = root / "base"
     base.mkdir(exist_ok=True)
@@ -65,12 +65,12 @@ def base_assets(root):
     return base
 
 
-def warm_start(model, hp):
+def warm_start(model, hp, package_path=None, expected_sha=None):
     remote_only()
     import torch
     from safetensors.torch import load_file
-    package = HERE / "model/SENTIMENT_ANALYSIS-recovery.safetensors"
-    if file_sha(package) != config()["warm_package_sha256"]:
+    package = package_path or HERE / "model/SENTIMENT_ANALYSIS-recovery.safetensors"
+    if file_sha(package) != (expected_sha or config()["warm_package_sha256"]):
         raise ValueError("warm-start package identity mismatch")
     metadata = package_parts(package.read_bytes())[0]["__metadata__"]
     if int(metadata["rank"]) != hp.lora_rank or float(metadata["alpha"]) != hp.lora_alpha:
@@ -90,7 +90,9 @@ def warm_start(model, hp):
             raise ValueError("nonzero package bias cannot be represented by the pinned bias-free head")
 
 
-def save_checkpoint(root, model, tokenizer, selected, validation_pairs, manifest, hp):
+def save_checkpoint(root, model, tokenizer, selected, validation_pairs, manifest, hp,
+                    config_fn=config, warm_path=None, package_name="SENTIMENT_ANALYSIS-v2.safetensors",
+                    selection_rule="validation loss only; frozen before new independent audit"):
     remote_only()
     from float_runtime import train_adapter as trainer
     from float_runtime.export_adapter import read_peft
@@ -101,12 +103,16 @@ def save_checkpoint(root, model, tokenizer, selected, validation_pairs, manifest
     tokenizer.save_pretrained(adapter)
     trainer.save_reward_head(model, adapter)
     tensors, parameters = read_peft(adapter, AutoConfig.from_pretrained(root / "base", local_files_only=True))
-    lineage = package_parts((HERE / "model/SENTIMENT_ANALYSIS-recovery.safetensors").read_bytes())[0]["__metadata__"]
+    cfg = config_fn()
+    original = warm_path or HERE / "model/SENTIMENT_ANALYSIS-recovery.safetensors"
+    if file_sha(original) != cfg["warm_package_sha256"]:
+        raise ValueError("checkpoint warm-start lineage mismatch")
+    lineage = package_parts(original.read_bytes())[0]["__metadata__"]
     record = {"family": FAMILY, "fitted_material": True, "source_manifest_sha256": file_sha(root / "data/source-manifest.json"),
-              "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": config()["validation_sha256"],
+              "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": cfg["validation_sha256"],
                             "pairs": validation_pairs, "accuracy": selected["pairwise_accuracy"], "held_out": False}],
-              "selection": "validation loss only; frozen before new independent audit", "supported_labels": list(LABELS),
-              "warm_start_sha256": config()["warm_package_sha256"], "run_id": int(os.environ["GITHUB_RUN_ID"]),
+              "selection": selection_rule, "supported_labels": list(LABELS),
+              "warm_start_sha256": cfg["warm_package_sha256"], "run_id": int(os.environ["GITHUB_RUN_ID"]),
               "commit": os.environ["GITHUB_SHA"], "preference_authorship": manifest["construction"]}
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                     foundation_version="modernbert-base-lora16-v1", rank=parameters["rank"], alpha=parameters["alpha"],
@@ -115,13 +121,15 @@ def save_checkpoint(root, model, tokenizer, selected, validation_pairs, manifest
         meta[key] = lineage[key]
     meta["x-goemotions-apache-2.0"] = (root / "data/LICENSE").read_text()
     meta["x-goemotions-attribution"] = "GoEmotions, Demszky et al. (2020), Google Research. Emotion annotations retained; valence preferences and Mixed juxtapositions constructed by AI-assisted code."
-    package = root / "SENTIMENT_ANALYSIS-v2.safetensors"
+    if package_name not in ("SENTIMENT_ANALYSIS-v2.safetensors", "SENTIMENT_ANALYSIS-v3.safetensors"):
+        raise ValueError("unsupported owned checkpoint name")
+    package = root / package_name
     write_package(package, meta, {name: tensors[name] for name in tensor_names(22)})
-    if package_parts(package.read_bytes())[1] == package_parts((HERE / "model/SENTIMENT_ANALYSIS-recovery.safetensors").read_bytes())[1]:
+    if package_parts(package.read_bytes())[1] == package_parts(original.read_bytes())[1]:
         raise ValueError("unchanged tensor retry refused")
     parsed = stage_check(root, package, file_sha(package), "new-parser")
     record.update(package_sha256=file_sha(package), package_keccak=parsed["keccak256"].removeprefix("0x"),
-                  validation=selected, hyperparameters=config()["hyperparameters"],
+                  validation=selected, hyperparameters=cfg["hyperparameters"],
                   versions={name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors")})
     dump(root / "training-frozen.json", record)
 

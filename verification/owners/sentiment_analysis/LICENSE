@@ -151,3 +151,11 @@ Source revision c878a53ec1764bcb91a6178dc5c315202a3b5fa2.
 Original source text and emotion annotations retain Apache License 2.0.
 The complete Apache grant retained in this file applies to those portions.
 Our additional competitive code and delta additions retain the SAND terms.
+
+Failed checkpoint and v3 continuation
+-------------------------------------
+The exact v2 failed-audit checkpoint is retained as licensed training lineage,
+not a passing evaluator release. Its embedded upstream grants remain unchanged.
+The v3 source additions and newly trained delta additions use the same SAND terms,
+subject to the retained upstream Apache-2.0, MIT and source-data grants above.
+This continuation changes no prior recipient's grant.

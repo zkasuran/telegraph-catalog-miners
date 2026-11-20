@@ -52,3 +52,18 @@ unverified until the bounded remote jobs complete. Validation may select a froze
 epoch; its audit cannot tune that epoch. Raw Reddit authors are used only as hashed
 grouping keys and are never included in the public manifest. Reason correctness
 and numeric confidence remain outside the independently tested coverage.
+
+## V3 continuation controls
+
+| Risk | Defense | Test or implementation |
+|---|---|---|
+| Failed checkpoint presented as passing | Explicit failed filename, unchanged byte hash and original embedded grants | test_v3 frozen checkpoint control |
+| Exposed audit recycled into later learning | Quarantine every old audit source, author, thread and normalized original | v3_data.select_groups/check_groups and refusal tests |
+| Mixed solved by composition artifacts | Composition controls in all labels, varied connectors/order and train-fitted prompt shortcut histograms | v3_data.pairs/baselines and composition tests |
+| Aggregate validation hides a failing format or label | Measure all three formats and all four labels; select weakest-label performance first | v3_remote.selection_key and missing/weak-label controls |
+| Nonfinite or incomplete validation report | Exact label/format inventory and finite metric validation | test_v3 invalid metric controls |
+
+The v2 independent audit failed and is not reused as a new audit. V3 source
+labels still measure an emotion-valence proxy. Stronger rater agreement is not
+universal factual proof. No new neural quality or canonical win is claimed before
+the exact remote results and fresh node decision pass their unchanged gates.

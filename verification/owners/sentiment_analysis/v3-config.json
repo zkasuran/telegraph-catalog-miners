@@ -1,0 +1,35 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "audit_sha256": "1bf3dcbe894da64d604f5a9f08fa662b2b65136e28525943cd6e8c118db1a057",
+  "base_files": {
+    "config.json": "1609d59e627c33eaed524b4f01e546d42e84190a079a5a5ded84b212c41c324f",
+    "model.safetensors": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+    "special_tokens_map.json": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049",
+    "tokenizer_config.json": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2"
+  },
+  "base_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+  "baseline_sha256": "4447b62214d6d735d8163fcdb13b86a5911f36b092f30c57cfbc4dfcf5b4630e",
+  "hyperparameters": {
+    "batch_size": 2,
+    "epochs": 3,
+    "eval_batch": 4,
+    "gate_min_acc": 0.8,
+    "grad_accum": 8,
+    "grad_checkpointing": false,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "lora_rank": 8,
+    "lr": 8e-05,
+    "max_length": 256,
+    "seed": 42,
+    "weight_decay": 0.01
+  },
+  "quarantine_sha256": "4211f234911287f734b8cdec42409d76e48fc1d07531b7c4ea92b8914374a854",
+  "schema_version": 1,
+  "source_manifest_sha256": "26d60abd24ce9bef104a1c43966a46bbfd1dbdbc24f1c1b9bb207d9768261d1a",
+  "source_version": 3,
+  "sources_sha256": "83d260a7a08c60195768a64e0ab8761a0dc644e93e10f084643686f13f451380",
+  "train_sha256": "ff41f604f5d26dfbfc99714908e9ea3e8c3e067840404eafa632e4d418b89cbb",
+  "validation_sha256": "55f56f13e3c0793a80f6e991b9341bc6a3e46412545bf78b50e6293ca0b70e3b",
+  "warm_package_sha256": "80729d67ac03086dfce4915252c665635c095e706c2332807a514f39ec0f72fd"
+}

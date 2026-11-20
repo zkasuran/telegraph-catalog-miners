@@ -8,7 +8,7 @@ on:
         type: choice
         required: true
         default: audit
-        options: [audit, serve, retrain]
+        options: [audit, serve, retrain, retrain_v3]
       audit_run_id:
         type: string
         default: '0'
@@ -41,7 +41,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   frozen:
-    if: github.repository == 'zkasuran/telegraph-catalog-miners' && inputs.mode != 'retrain'
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && (inputs.mode == 'audit' || inputs.mode == 'serve')
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     env:
@@ -117,7 +117,7 @@ jobs:
         timeout-minutes: 305
         run: timeout --signal=TERM --kill-after=20s 18120 python3 verification/owners/sentiment_analysis/serve.py run --root "$RUNNER_TEMP/sentiment-owner"
   train:
-    if: github.repository == 'zkasuran/telegraph-catalog-miners' && inputs.mode == 'retrain'
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && (inputs.mode == 'retrain' || inputs.mode == 'retrain_v3')
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     env:
@@ -125,6 +125,7 @@ jobs:
       TOKENIZERS_PARALLELISM: 'false'
       OMP_NUM_THREADS: '4'
       MKL_NUM_THREADS: '4'
+      MODE: ${{ inputs.mode }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -145,7 +146,10 @@ jobs:
           "$RUNNER_TEMP/owner-venv/bin/python" -m pip check
       - name: Warm-start source-only fit and frozen validation selection
         timeout-minutes: 310
-        run: timeout --signal=TERM --kill-after=20s 18300 "$RUNNER_TEMP/owner-venv/bin/python" verification/owners/sentiment_analysis/retrain.py train --root "$RUNNER_TEMP/sentiment-v2"
+        run: |
+          ENTRY=retrain.py
+          if [[ "$MODE" == retrain_v3 ]]; then ENTRY=v3_remote.py; fi
+          timeout --signal=TERM --kill-after=20s 18300 "$RUNNER_TEMP/owner-venv/bin/python" "verification/owners/sentiment_analysis/$ENTRY" train --root "$RUNNER_TEMP/sentiment-v2"
       - name: Preserve licensed checkpoint and real selection evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -155,6 +159,7 @@ jobs:
           if-no-files-found: warn
           path: |
             ${{ runner.temp }}/sentiment-v2/SENTIMENT_ANALYSIS-v2.safetensors
+            ${{ runner.temp }}/sentiment-v2/SENTIMENT_ANALYSIS-v3.safetensors
             ${{ runner.temp }}/sentiment-v2/training-frozen.json
             ${{ runner.temp }}/sentiment-v2/dataset-gate.json
             ${{ runner.temp }}/sentiment-v2/validation-history.json
@@ -162,7 +167,7 @@ jobs:
             ${{ runner.temp }}/sentiment-v2/failure.json
   independent_audit:
     needs: train
-    if: github.repository == 'zkasuran/telegraph-catalog-miners' && inputs.mode == 'retrain'
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && (inputs.mode == 'retrain' || inputs.mode == 'retrain_v3')
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     env:
@@ -170,6 +175,7 @@ jobs:
       TOKENIZERS_PARALLELISM: 'false'
       OMP_NUM_THREADS: '4'
       MKL_NUM_THREADS: '4'
+      MODE: ${{ inputs.mode }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -195,7 +201,10 @@ jobs:
           "$RUNNER_TEMP/owner-venv/bin/python" -m pip check
       - name: New independent source audit and real reference executor
         timeout-minutes: 310
-        run: timeout --signal=TERM --kill-after=20s 18300 "$RUNNER_TEMP/owner-venv/bin/python" verification/owners/sentiment_analysis/retrain.py audit --root "$RUNNER_TEMP/sentiment-v2"
+        run: |
+          ENTRY=retrain.py
+          if [[ "$MODE" == retrain_v3 ]]; then ENTRY=v3_remote.py; fi
+          timeout --signal=TERM --kill-after=20s 18300 "$RUNNER_TEMP/owner-venv/bin/python" "verification/owners/sentiment_analysis/$ENTRY" audit --root "$RUNNER_TEMP/sentiment-v2"
       - name: Preserve actual bounded audit result
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -209,5 +218,6 @@ jobs:
             ${{ runner.temp }}/sentiment-v2/audit-score-bits.json
             ${{ runner.temp }}/sentiment-v2/training-frozen.json
             ${{ runner.temp }}/sentiment-v2/SENTIMENT_ANALYSIS-v2.safetensors
+            ${{ runner.temp }}/sentiment-v2/SENTIMENT_ANALYSIS-v3.safetensors
             ${{ runner.temp }}/sentiment-v2/data/source-manifest.json
             ${{ runner.temp }}/sentiment-v2/failure.json

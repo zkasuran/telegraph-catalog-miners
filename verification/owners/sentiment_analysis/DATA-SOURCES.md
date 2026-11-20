@@ -137,3 +137,44 @@ unchanged. The old UCI audit is retained as history, not a fresh audit for this
 candidate. No exposed node pairs or private pool rows are training inputs.
 New neural quality and canonical qualification remain unverified until the real
 bounded public CPU jobs and node decisions complete.
+
+## [GOEMOTIONS-V3] Quarantined source continuation
+
+Run 44704610971 selected a validation checkpoint but its independent audit failed:
+75.78 percent JSON, 77.86 percent prose and 70.57 percent bare-label accuracy.
+These measurements use 128 source groups and 384 contrasts per format. The exact
+failed checkpoint keeps SHA-256 80729d67ac03086dfce4915252c665635c095e706c2332807a514f39ec0f72fd
+and its complete embedded grants. It is not a passed release or a registration
+candidate. Its actual source/audit evidence is preserved, never relabeled a pass.
+
+V3 reuses that checkpoint only as licensed warm-start lineage. The 160 source
+originals underlying its exposed audit are quarantined, along with their author,
+thread and normalized-text identities. They cannot enter new fitting, validation
+or a later independent audit. v3-quarantine.json contains only identity keys,
+not raw comments or private pool rows. The old UCI originals remain excluded.
+
+The complete raw inventory remains 211,225 rater rows and 58,011 source IDs.
+V3 retains 11,892 bounded originals with unanimous agreement of at least three
+distinct raters and unambiguous valence categories. The original emotion labels
+are human-created upstream. The narrowed valence mapping is a programmatic proxy,
+not a new human sentiment annotation. Prior-audit/old-UCI identity filtering
+removes 79 of those eligible originals and the time/entity filter removes 478.
+
+New disjoint groups: 768 training, 192 validation and 192 independent audit.
+Each has three wrong-label contrasts. JSON, prose and bare responses share those
+same originals, not independent populations. Some Positive/Negative/Neutral
+examples combine two same-valence comments; Mixed combines opposite-valence
+comments in both orders. Connectors vary across every label. All composed texts
+and their preferences are constructed work, not human-reviewed sentiment truth.
+
+Answers now use short source excerpts rather than repeat the whole prompt.
+Numeric values in JSON are constructed category values, not human confidence
+measurements. Reason correctness and confidence calibration remain unverified.
+V3 validation measures every label in every format and selects the weakest-label
+score first, then weakest format accuracy. The independent audit cannot select
+another epoch after its result is exposed. All original quality gates remain.
+
+Immutable train-fitted length, overlap, answer-only and prompt-length/composition
+histogram baselines are measured on the new audit. Frozen coefficients and source
+identities are bound in v3-config.json. Local source verification imports no
+neural framework. Only bounded public CPU jobs may fit or execute the model.

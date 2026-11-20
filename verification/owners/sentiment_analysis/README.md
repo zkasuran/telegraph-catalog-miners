@@ -97,3 +97,17 @@ checkpoint. A failed audit emits no registration-ready report.
 
 The new model has not yet passed a neural audit or node qualification. Reason
 correctness, numeric confidence and natural Mixed generalization are not claimed.
+
+## V3 source continuation
+
+The v2 independent audit did not pass. Its exact licensed checkpoint is retained
+under an explicit failed filename for warm-start training, not registration.
+All 160 old audit originals and their entity identities are quarantined from
+every new split. The original UCI audit is not reused as a fresh audit.
+
+`retrain_v3` uses unanimous source annotations, short response excerpts and
+composition controls for every label. It selects only on three-format validation,
+starting with the weakest label. The new independent audit uses 192 disjoint
+groups. Length, overlap, answer-only and prompt composition shortcuts are measured,
+not assumed absent. The local gate preserves all previous 27 tests and adds eight
+new controls. New neural quality and canonical qualification are still pending.
