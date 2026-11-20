@@ -26,3 +26,9 @@ Training-only diagnostic mode compares source-role binding and a single requeste
 reference on four existing training groups. It records real gradients, parameter
 changes and train-fit metrics, not held-out quality or registration readiness.
 The fresh audit remains unscored after the second development failure.
+
+Revision 3 uses a train-only requested-reference warm-up over all original
+training rows before the original two-reference main task. The title associations
+and complete source abstracts keep their CC BY 4.0 grants and original attribution.
+The constructed training view and fitted additions use the unchanged reviewed
+SAND grant. Neither the warm-up nor the tiny training diagnostic is an audit.

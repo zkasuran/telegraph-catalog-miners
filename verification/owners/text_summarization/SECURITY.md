@@ -6,6 +6,8 @@
 | Shortened decisive context | Complete source fields, literal rendering and every format under 256 tokens | `data.py`, `gates.py`, changed-context controls |
 | Source/entity/time leakage | Grouped author/ORCID/DOI identities, normalized overlap and ordered task availability | `data.py`, split mutation controls |
 | Audit used for tuning | All three epochs, validation loss selection and restored checkpoint before audit scoring | `training_policy.py`, `static_check.py` |
+| Held-out data substituted into warm-up | Exact frozen manifest and complete training-row equality, preserved titles/source bytes | `curriculum.py`, split/title/source mutation tests |
+| Warm-up silently replaces main training | Fixed 64-update warm-up, fresh main optimizer and complete main epochs | `static_check.py`, actual-source mutation tests |
 | Floating-point baseline refit drift | Immutable train-only coefficient bytes and identity checks | `baseline.py`, baseline mutation controls |
 | Bad tensors or metadata | Full pinned upstream package parser with fresh live-class binding | `packagecheck.go`, actual remote parser |
 | Wrong runnable identity | Literal bare lowercase hash echoes and exact batch input root | `wire.py`, wire negative controls |
@@ -18,7 +20,7 @@
 
 ## Known limits
 
-The two fixed recipes failed development. Training-only diagnostic mode uses
+Two fixed recipes failed quality. Training-only diagnostic mode uses
 four existing training groups to test parameter updates and source-role binding.
 It never uses validation/audit outcomes and cannot emit registration readiness.
 Its tiny-group fit metrics are not independent capability evidence. Source and
@@ -29,7 +31,10 @@ but failed quality near chance in all response formats. Its 64 scored audit
 groups are excluded by `exposed-audit.json`. Revision 2 requires complete
 development quality and untrained/shortcut gains before opening a fresh audit.
 `audit_policy.py` and named negative tests enforce this boundary. The new
-optimizer recipe is not a measured improvement until its remote run completes.
+revision 3 warm-up recipe is not a measured improvement until its remote run
+completes. It fits only original training groups, then returns to the original
+two-reference task. Single-source tiny-train fit does not prove two-source
+generalization or independence from overlap shortcuts.
 
 This is a target-study title relevance experiment, not a general factual summary
 judge. Source grants do not establish independent scientific truth. Preferences

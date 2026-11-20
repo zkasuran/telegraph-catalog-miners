@@ -54,7 +54,7 @@ The complete 19,699-file inventory was checked. No exhausted eligible-corpus
 claim is made. Fresh audit selection found 146 independent candidate components
 after excluding old sources/entities and selected 64 without model scoring.
 
-The optimizer recipe now uses learning rate 0.001, gradient accumulation 4 and
+The failed revision 2 recipe used learning rate 0.001, gradient accumulation 4 and
 zero LoRA dropout, with the same three epochs, rank 8, alpha 32 and seed 42.
 This gives 192 updates instead of 48. Selection still uses validation loss alone.
 All development formats must clear the unchanged quality and baseline gains
@@ -67,6 +67,15 @@ their original titles. One control retains the original two-reference task;
 another asks about one full requested abstract. No source sentence or title is
 cropped. Neither validation nor audit rows are fitted or scored by this mode.
 Tiny-group fit is a representation/gradient control, not general capability.
+
+Revision 3 constructs a single requested-reference warm-up only from all 256
+exact original training rows. Published titles and complete substantive abstracts
+remain unchanged. One epoch uses learning rate 0.0005 with 64 updates. A fresh
+optimizer then runs the original two-reference task for three epochs at 0.0001
+with 192 updates. No new source, preference annotation or evaluated audit row is
+introduced. Warm-up is fitted material, not an independent evaluation. The same
+development gates protect the still-unscored audit. Numerical baseline coefficients
+and source split hashes remain unchanged.
 
 Train has 128 components and 256 reciprocal pairs. Validation has 32 components
 and 64 pairs. Audit has 64 components and 128 pairs. Source/entity identities

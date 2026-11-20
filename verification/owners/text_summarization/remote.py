@@ -3,6 +3,7 @@
 """Fixed remote CPU experiment. No registration or local model execution."""
 import argparse
 import gc
+import json
 import math
 import os
 import random
@@ -14,7 +15,8 @@ from dataclasses import asdict
 from pathlib import Path
 
 from audit_policy import development_gate
-from data import VIEWS, prepare, read_splits, view, write_json
+from curriculum import WARMUP_EPOCHS, WARMUP_LR, WARMUP_STEPS, check_tokens, warmup_rows
+from data import HERE, VIEWS, prepare, read_splits, view, write_json
 from gates import run_gate
 from licensing import OWN_ID, licence_metadata, preserve_artifact
 from metrics import all_formats, pair_metrics
@@ -164,6 +166,53 @@ def experiment(root):
     if hp.epochs != EPOCHS:
         raise ValueError("fixed three-epoch training contract changed")
     params = [p for p in model.parameters() if p.requires_grad]
+    manifest_source = json.loads((HERE / "data/manifest.json").read_text())
+    warm = warmup_rows(manifest_source, splits["train"])
+    warm_token_report = check_tokens(warm, node, trainer.render)
+    for row in warm:
+        for side in ("chosen", "rejected"):
+            text = trainer.render(row["prompt"], row[side])
+            if tok(text, truncation=False)["input_ids"] != node.encode(text).ids:
+                raise ValueError("curriculum tokenizer mismatch")
+    warm_optimizer = torch.optim.AdamW(params, lr=WARMUP_LR, weight_decay=hp.weight_decay)
+    warm_generator = torch.Generator(device="cpu").manual_seed(hp.seed)
+    warm_loader = DataLoader(warm, batch_size=1, shuffle=True, collate_fn=trainer.PairCollator(tok, 256),
+                             num_workers=0, generator=warm_generator)
+    if len(warm_loader) % hp.grad_accum:
+        raise ValueError("fixed warm-up requires complete accumulation groups")
+    warm_losses, warm_steps = [], 0
+    warm_started = time.monotonic()
+    for _ in range(WARMUP_EPOCHS):
+        model.train()
+        warm_optimizer.zero_grad(set_to_none=True)
+        for index, batch in enumerate(warm_loader):
+            rc = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
+            rr = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
+            warm_loss = trainer.bt_loss(rc, rr, batch["margin"])
+            if not torch.isfinite(warm_loss):
+                raise ValueError("nonfinite train-only curriculum loss")
+            (warm_loss / hp.grad_accum).backward()
+            warm_losses.append(float(warm_loss.detach()))
+            if (index + 1) % hp.grad_accum == 0:
+                torch.nn.utils.clip_grad_norm_(params, 1., error_if_nonfinite=True)
+                warm_optimizer.step()
+                warm_optimizer.zero_grad(set_to_none=True)
+                warm_steps += 1
+    if warm_steps != WARMUP_STEPS:
+        raise ValueError("complete fixed warm-up accumulation groups required")
+    curriculum_report = {"recipe_version": 3, "training_pairs": len(warm), "training_only": True, "epochs": WARMUP_EPOCHS,
+               "optimizer_steps": warm_steps, "learning_rate": WARMUP_LR, "mean_loss": sum(warm_losses) / len(warm_losses),
+                "training_sha256": data_report["files"]["train"]["sha256"], "audit_scored": False,
+                "source_manifest_sha256": data_report["source_manifest_sha256"], "validation_scored": False,
+                "elapsed_seconds": time.monotonic() - warm_started, **warm_token_report,
+                "initial_trainable_sha256": initial_hash, "post_warmup_trainable_sha256": state_hash(model),
+                "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
+                "owner_attempt": os.environ["OWNER_ATTEMPT"]}
+    # validation_scored describes this warm-up only; the seed-matched development
+    # baseline above was measured before any fitted updates.
+    write_json(root / "curriculum.json", curriculum_report)
+    save_checkpoint(model, root / "warmup")
+    del warm_optimizer, warm_loader, warm_generator, warm
     optimizer = torch.optim.AdamW(params, lr=hp.lr, weight_decay=hp.weight_decay)
     sampler = torch.Generator(device="cpu").manual_seed(hp.seed)
     loader = DataLoader(splits["train"], batch_size=1, shuffle=True,
@@ -246,7 +295,11 @@ def experiment(root):
                    "selected_epoch": best["epoch"], "selected_trainable_sha256": best_hash,
                    "selection_split": "validation", "audit_scored": False,
                    "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
-                   "owner_attempt": os.environ["OWNER_ATTEMPT"], "node_qualification": "not attempted"})
+                    "owner_attempt": os.environ["OWNER_ATTEMPT"], "node_qualification": "not attempted"})
+        failed = json.loads((root / "result.json").read_text())
+        failed.update({"recipe_version": 3, "curriculum": curriculum_report,
+                       "total_optimizer_steps": warm_steps + len(timings)})
+        write_json(root / "result.json", failed)
         preserve(root)
         return 1
     audit_views = {style: [view(r, style) for r in splits["audit"]] for style in VIEWS}
@@ -268,7 +321,8 @@ def experiment(root):
                                "accuracy": trained["raw"]["pairwise_accuracy"], "held_out": True}],
                                "trainer": "Fixed source-conditioned title relevance experiment", "backbone": "ModernBERT-base",
                               "backbone_version": "8949b909ec900327062f0ebf497f51aef5e6f0c8"})
-    meta["x-source-provenance"] = __import__("json").dumps({"data": data_report, "hyperparameters": asdict(hp)}, separators=(",", ":"))
+    meta["x-source-provenance"] = json.dumps({"data": data_report, "hyperparameters": asdict(hp),
+                                             "recipe_version": 3, "curriculum": curriculum_report}, separators=(",", ":"))
     meta.update(licence_metadata())
     write_package(root / "TEXT_SUMMARIZATION.safetensors", meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
     preserve_artifact(root / "TEXT_SUMMARIZATION.safetensors")
@@ -294,6 +348,8 @@ def experiment(root):
               "runtime_gap": "Full live-class parser and reference-runtime checks have not completed yet.",
                "node_qualification": "not attempted", "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"]}
     report["owner_attempt"] = os.environ["OWNER_ATTEMPT"]
+    report.update({"recipe_version": 3, "curriculum": curriculum_report,
+                   "total_optimizer_steps": warm_steps + len(timings)})
     write_json(root / "result.json", report)
     manifest = validate_package(root)
     runtime = execute_runtime(root, manifest, native)

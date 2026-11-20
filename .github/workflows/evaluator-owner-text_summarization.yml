@@ -34,14 +34,14 @@
          "name": "text-summarization-training-controls-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
          "path": "${{ runner.temp }}/summary-diagnostic/*.json\n${{ runner.temp }}/summary-diagnostic/LICENSE\n${{ runner.temp }}/summary-diagnostic/NOTICE\n${{ runner.temp }}/summary-diagnostic/*.txt\n${{ runner.temp }}/summary-diagnostic/*.md"
        }},
-      {"name": "Fixed training then complete original audit and engine", "if": "${{ inputs.mode == 'train' }}", "timeout-minutes": 305,
+      {"name": "Train-only warm-up then main training, guarded clean audit and engine", "if": "${{ inputs.mode == 'train' }}", "timeout-minutes": 305,
        "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/remote.py --root \"$RUNNER_TEMP/summary-experiment\""},
       {"name": "Preserve partial results and grants", "if": "${{ always() && inputs.mode == 'train' }}",
        "run": "python3 verification/owners/text_summarization/preserve.py --root \"$RUNNER_TEMP/summary-experiment\""},
       {"name": "Upload bounded original experiment evidence", "if": "${{ always() && inputs.mode == 'train' }}",
        "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {
          "name": "text-summarization-result-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
-         "path": "${{ runner.temp }}/summary-experiment/*.json\n${{ runner.temp }}/summary-experiment/*.safetensors\n${{ runner.temp }}/summary-experiment/LICENSE\n${{ runner.temp }}/summary-experiment/NOTICE\n${{ runner.temp }}/summary-experiment/*LICENSE\n${{ runner.temp }}/summary-experiment/*.txt\n${{ runner.temp }}/summary-experiment/*.md\n${{ runner.temp }}/summary-experiment/adapter/\n${{ runner.temp }}/summary-experiment/initial/\n${{ runner.temp }}/summary-experiment/checkpoint/\n${{ runner.temp }}/summary-experiment/data/*.json\n${{ runner.temp }}/summary-dependency-audit.json"
+          "path": "${{ runner.temp }}/summary-experiment/*.json\n${{ runner.temp }}/summary-experiment/*.safetensors\n${{ runner.temp }}/summary-experiment/LICENSE\n${{ runner.temp }}/summary-experiment/NOTICE\n${{ runner.temp }}/summary-experiment/*LICENSE\n${{ runner.temp }}/summary-experiment/*.txt\n${{ runner.temp }}/summary-experiment/*.md\n${{ runner.temp }}/summary-experiment/adapter/\n${{ runner.temp }}/summary-experiment/initial/\n${{ runner.temp }}/summary-experiment/warmup/\n${{ runner.temp }}/summary-experiment/checkpoint/\n${{ runner.temp }}/summary-experiment/data/*.json\n${{ runner.temp }}/summary-dependency-audit.json"
        }},
       {"name": "Upload bounded registration-ready report only", "if": "${{ success() && inputs.mode == 'train' }}",
        "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {

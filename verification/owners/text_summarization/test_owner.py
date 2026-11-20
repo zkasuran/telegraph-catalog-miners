@@ -15,6 +15,7 @@ from unittest.mock import patch
 from audit_policy import check_source_quarantine, development_gate
 from baseline import load_controls
 from common import DEFAULT_OWNER, lease_for, validate_lease
+from curriculum import check_tokens, source_check, warmup_rows
 from data import HERE, VIEWS, check_splits, prepare, read_splits, view
 from diagnostic import training_controls
 from licensing import preserve_artifact, tensor_parts, verify_checkpoint_metadata
@@ -24,6 +25,7 @@ from proxy import validate_request
 from report import validate_ready
 from runtime_check import RELEASE_HASHES, compile_tools, model_remote_only
 from serve import parse_settings
+from static_check import check_curriculum_training
 from training_policy import development_selection
 from wire import decode_bits, input_root, validate_response
 
@@ -131,6 +133,67 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_curriculum_complete_exact_training_sources(self):
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
+        before = copy.deepcopy(train)
+        rows = warmup_rows(manifest, train)
+        self.assertEqual(train, before)
+        self.assertEqual(len(rows), 256)
+        self.assertEqual(source_check()["training_pairs"], 256)
+        documents = {d["doi"]: d for g in manifest["splits"]["train"] for d in g["documents"]}
+        excluded = {d["doi"] for name in ("validation", "audit") for g in manifest["splits"][name] for d in g["documents"]}
+        for original, row in zip(train, rows):
+            self.assertFalse({row["source_id"], row["donor_id"]} & excluded)
+            self.assertTrue(row["prompt"].endswith(documents[row["source_id"]]["abstract"]))
+            self.assertEqual({k: v for k, v in row.items() if k not in ("prompt", "training_view")},
+                             {k: v for k, v in original.items() if k != "prompt"})
+
+    def test_curriculum_rejects_source_split_and_title_mutations(self):
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
+        for name in ("validation", "audit"):
+            with self.subTest(split=name), self.assertRaises(ValueError):
+                warmup_rows(manifest, [r for g in manifest["splits"][name] for r in g["pairs"]])
+        for attack in ("missing", "duplicate", "title", "source"):
+            changed = copy.deepcopy(train)
+            if attack == "missing":
+                changed.pop()
+            elif attack == "duplicate":
+                changed[-1] = changed[0]
+            elif attack == "title":
+                changed[0]["chosen"] = "Unverified title"
+            else:
+                changed[0]["source_id"] = "unverified-source"
+            with self.subTest(attack=attack), self.assertRaises(ValueError):
+                warmup_rows(manifest, changed)
+        changed = copy.deepcopy(manifest)
+        changed["splits"]["train"][0]["documents"][0]["abstract"] = "Cropped."
+        with self.assertRaises(ValueError):
+            warmup_rows(changed, train)
+
+    def test_curriculum_token_boundaries_and_actual_training_mutations(self):
+        class FixtureTokenizer:
+            def encode(self, text):
+                return type("Encoding", (), {"ids": list(range(len(text)))})()
+        def render(prompt, answer):
+            return prompt + answer
+        report = check_tokens([{"prompt": "x" * 255, "chosen": "y", "rejected": "z"}], FixtureTokenizer(), render)
+        self.assertEqual(report, {"complete_warmup_inputs": 2, "maximum_warmup_tokens": 256})
+        for prompt in ("x" * 256, ""):
+            answer = "y" if prompt else ""
+            with self.assertRaises(ValueError):
+                check_tokens([{"prompt": prompt, "chosen": answer, "rejected": answer}], FixtureTokenizer(), render)
+        source = (HERE / "remote.py").read_text()
+        check_curriculum_training(source)
+        for old, new in (("warmup_rows(manifest_source, splits[\"train\"])", "warmup_rows(manifest_source, splits[\"audit\"])"),
+                         ("lr=hp.lr, weight_decay=hp.weight_decay", "lr=WARMUP_LR, weight_decay=hp.weight_decay"),
+                         ("warm_steps != WARMUP_STEPS", "warm_steps < 1"),
+                         ('root / "warmup"', 'root / "checkpoint"')):
+            self.assertIn(old, source)
+            with self.subTest(mutation=old), self.assertRaises(ValueError):
+                check_curriculum_training(source.replace(old, new))
+
     def test_training_diagnostic_excludes_validation_and_audit(self):
         manifest = json.loads((HERE / "data/manifest.json").read_text())
         train = [row for g in manifest["splits"]["train"] for row in g["pairs"]]

@@ -18,7 +18,9 @@ summarization proof.
 | Full upstream source gate | Passed on 256 training pairs |
 | First model quality | Failed near chance, not registration-ready |
 | First model integration | Full parser and actual engine agreed, repeat/identity controls passed |
-| Revision 2 quality | Unmeasured, fresh audit guarded by development gates |
+| Revision 2 quality | Failed development at 50% in every format, clean audit unscored |
+| Training-only diagnostic | Single requested-source control fitted eight train pairs; original two-reference control stayed at chance |
+| Revision 3 quality | Unmeasured, train-only warm-up followed by original task training |
 | Canonical node registration | Not attempted |
 
 Titles are unchanged human-authored source associations. Donor preferences were
@@ -40,10 +42,11 @@ source-only tokenizer dependency. The same gate runs in the public CPU workflow.
 
 The stronger revision 2 recipe also failed development at 50% in every format
 after 192 updates. Its development gate kept the fresh audit unscored.
-Before another candidate, bounded training-only diagnostic mode tests four
-existing training groups with the original A/B binding and a complete requested
-abstract control. It records real gradient norms, parameter changes and train-fit
-metrics. It cannot produce registration readiness or claim independent quality.
+The bounded diagnostic ran on four existing training groups. Both controls had
+nonzero gradients and changed parameters. The original A/B control stayed at 50%
+from step 16 through 128. The complete requested abstract control reached 100%
+at step 16 and retained it. These are tiny-train fit scores, not independent
+capability evidence. See [the actual diagnostic run](https://github.com/zkasuran/telegraph-catalog-miners/actions/runs/44713196605).
 
 The first bounded run completed all three epochs and the actual reference engine.
 Raw/JSON/prose accuracy was 48.44%, 49.22% and 50%. It did not improve the
@@ -56,8 +59,15 @@ the same licensed inventory. All development formats must pass quality and
 baseline gains before audit scoring. This avoids consuming an audit on a model
 that has not learned the development task. Full original grants are retained.
 
+Revision 3 adds one complete requested-source warm-up epoch over the same 256
+training pairs. Titles and abstracts are unchanged. Warm-up has 64 updates at
+learning rate 0.0005, then a fresh optimizer runs the original three two-reference
+epochs at 0.0001 with 192 updates. Rank 8, alpha 32, accumulation 4 and zero dropout
+remain fixed. The warm-up checkpoint and its actual metrics are retained.
+No measured improvement is claimed until this recipe runs remotely.
+
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
-timeouts. Train only receives the 256 training pairs. All three fixed epochs
+timeouts. Fitting only receives the 256 training pairs. All three main epochs
 complete. Validation loss selects a frozen checkpoint without advancing the
 training RNG. Only then are the 64 independent audit groups scored in every
 claimed format. A seed-matched untrained initialization and immutable train-fitted
@@ -74,7 +84,8 @@ source-held-out audit is not a canonical node win.
 
 `data.py` replays source boundaries. `primary.py` reproduces primary XML fields.
 `baseline.py` replays immutable coefficients. `gates.py` runs source/tokenizer
-checks. `remote.py` owns training and export. `runtime_check.py` owns reference
+checks. `curriculum.py` enforces the exact-train warm-up. `remote.py` owns training
+and export. `runtime_check.py` owns reference
 execution. `report.py` validates registration readiness. `SECURITY.md` records
 failure controls and limits.
 

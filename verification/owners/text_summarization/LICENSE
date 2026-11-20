@@ -159,3 +159,9 @@ Training-only diagnostics use legitimate training source groups and retain these
 same original grants. Tiny-group fit scores and diagnostic checkpoints are not
 independent audits, passing candidates or registration evidence. They may not be
 presented as a canonical qualification result.
+
+Revision 3 warm-up uses unchanged primary title associations and complete abstracts
+from the original training split. Those source portions retain their original
+CC BY 4.0 grants. Our constructed training view and fitted additions use the same
+SAND grant above, including unsuccessful warm-up and main-task checkpoints.
+This scope statement changes neither the original SAND grant nor upstream rights.

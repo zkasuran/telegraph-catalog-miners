@@ -7,7 +7,9 @@ import sys
 from pathlib import Path
 
 from baseline import load_controls
+from curriculum import check_tokens, warmup_rows
 from data import (
+    HERE,
     TOKENIZER_SHA,
     VIEWS,
     digest,
@@ -41,7 +43,7 @@ def run_gate(root, kit):
     trainer = load_trainer(kit)
     hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=4, lora_rank=8,
                              lora_alpha=32, epochs=3, eval_batch=1, grad_checkpointing=False,
-                             early_stopping=False, gate_min_acc=.80, lr=.001, lora_dropout=0.0)
+                             early_stopping=False, gate_min_acc=.80, lr=.0001, lora_dropout=0.0)
     gate = trainer.gate_dataset(splits["train"], hp)
     if gate["metrics"].get("surface_probe_acc") is None:
         gate["ok"] = False
@@ -67,6 +69,7 @@ def run_gate(root, kit):
                 if tokens[0] == tokens[1] or max(map(len, tokens)) > 256:
                     raise ValueError("whole decisive references and answers do not fit")
                 checked += 2
+    warmup = check_tokens(warmup_rows(json.loads((HERE / "data/manifest.json").read_text()), splits["train"]), tokenizer, render)
     controls = load_controls(splits["train"], tokenizer)
     development = {style: controls([view(r, style) for r in splits["validation"]]) for style in VIEWS}
     failures = list(gate["failures"])
@@ -75,7 +78,8 @@ def run_gate(root, kit):
     result = {"ok": gate["ok"] and not failures, "upstream": gate, "development_controls": development,
               "complete_rendered_inputs": checked, "tokenizer_vectors": len(vectors),
               "failures": failures, "audit_scored": False, "baseline_refit": False,
-              "source_manifest_sha256": report["source_manifest_sha256"], "source_boundary": report["boundary"]}
+               "source_manifest_sha256": report["source_manifest_sha256"], "source_boundary": report["boundary"]}
+    result.update(warmup)
     write_json(root / "dataset-gate.json", result)
     if "torch" in sys.modules:
         raise RuntimeError("local source gate imported a neural runtime")
