@@ -38,3 +38,9 @@ published titles on four existing training groups. No new preference labels or
 held-out data are introduced. Metrics are fitted training controls, not audited
 capability. Warm-up checkpoints now receive the same full grant sidecars as main
 checkpoints; previously stamped tensor bytes remain covered by retained grants.
+
+Revision 4 role bootstrap repeats eight unchanged original training pairs from
+four existing source groups before full main training. Repetitions are disclosed
+and do not count as new source groups or annotations. Original per-article grants
+and attribution are retained. Our training schedule and fitted additions use
+SAND only on our own portions, including incomplete or failed checkpoints.

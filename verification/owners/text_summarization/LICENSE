@@ -170,3 +170,8 @@ Matched batching controls use original complete training prompts and published
 titles under the retained source grants. Our batching code and fitted additions
 use the unchanged SAND grant. Training-fit reports are not independent audits.
 Full grant sidecars accompany warm-up checkpoints as well as main checkpoints.
+
+Revision 4 role bootstrap uses repeated unchanged original training tasks and
+source annotations. Source portions retain their original CC BY 4.0 grants.
+Our schedule and fitted additions retain the same SAND grant, including partial
+bootstrap checkpoints. Repeated presentations are not independent audit data.

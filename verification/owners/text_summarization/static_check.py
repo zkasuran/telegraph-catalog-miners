@@ -13,15 +13,19 @@ WORKFLOW = HERE.parents[2] / ".github/workflows/evaluator-owner-text_summarizati
 
 
 def check_curriculum_training(source):
-    from curriculum import WARMUP_EPOCHS, WARMUP_LR, WARMUP_STEPS
-    if (WARMUP_EPOCHS, WARMUP_LR, WARMUP_STEPS) != (1, .0005, 64):
+    from role_bootstrap import WARMUP_EPOCHS, WARMUP_LR, WARMUP_STEPS
+    if (WARMUP_EPOCHS, WARMUP_LR, WARMUP_STEPS) != (64, .0001, 256):
         raise ValueError("fixed train-only warm-up constants changed")
     tree = ast.parse(source)
+    imports = {n.module: {a.name for a in n.names} for n in tree.body if isinstance(n, ast.ImportFrom)}
+    if imports.get("role_bootstrap") != {"WARMUP_EPOCHS", "WARMUP_LR", "WARMUP_STEPS", "admit", "warmup_plan", "warmup_rows"}:
+        raise ValueError("actual runtime must import the frozen role-bootstrap implementation")
     experiment = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "experiment")
     assignments = {t.id: n for n in experiment.body if isinstance(n, ast.Assign)
                    for t in n.targets if isinstance(t, ast.Name)}
     required = {
         "warm": "warmup_rows(manifest_source, splits['train'])",
+        "warm_schedule": "warmup_plan(warm)",
         "warm_optimizer": "torch.optim.AdamW(params, lr=WARMUP_LR, weight_decay=hp.weight_decay)",
         "optimizer": "torch.optim.AdamW(params, lr=hp.lr, weight_decay=hp.weight_decay)",
     }
@@ -36,9 +40,14 @@ def check_curriculum_training(source):
         raise ValueError("warm-up may not stop early")
     if "warm_steps != WARMUP_STEPS" not in source or 'save_checkpoint(model, root / "warmup")' not in source:
         raise ValueError("complete warm-up count and preserved checkpoint required")
+    if "warm_loss.backward()" not in source or "if not admit(bootstrap_metrics):" not in source:
+        raise ValueError("actual batch-size-2 bootstrap loss and training-fit admission required")
 
 
 def main():
+    from training_policy import EPOCHS
+    if EPOCHS != 9:
+        raise ValueError("fixed nine main epochs required in the executed policy")
     for path in HERE.glob("*.py"):
         ast.parse(path.read_text(), filename=path.name)
         if "SPDX-License-Identifier: " + OWN_ID not in path.read_text():
@@ -47,9 +56,9 @@ def main():
     contract = json.loads((HERE / "contract.json").read_text())
     if contract["family"] != FAMILY or contract["child"] != FAMILY + "_GENERAL":
         raise ValueError("exact owner family required")
-    if contract["hyperparameters"] != {"max_length": 256, "lora_rank": 8, "lora_alpha": 32, "batch_size": 1, "grad_accum": 4, "epochs": 3, "eval_batch": 1, "seed": 42, "lr": .0001, "lora_dropout": 0.0}:
+    if contract["hyperparameters"] != {"max_length": 256, "lora_rank": 8, "lora_alpha": 32, "batch_size": 1, "grad_accum": 4, "epochs": 9, "eval_batch": 1, "seed": 42, "lr": .0001, "lora_dropout": 0.0}:
         raise ValueError("fixed CPU recipe changed")
-    if contract.get("recipe_version") != 3 or contract.get("curriculum") != {"split": "train", "view": "complete_requested_reference", "epochs": 1, "learning_rate": .0005, "optimizer_steps": 64}:
+    if contract.get("recipe_version") != 4 or contract.get("curriculum") != {"split": "train", "view": "original_complete_two_reference", "unique_groups": 4, "unique_pairs": 8, "epochs": 64, "batch_size": 2, "learning_rate": .0001, "optimizer_steps": 256, "minimum_training_accuracy": 1.0}:
         raise ValueError("explicit source/training revision required")
     if contract["quality"] != {"minimum_accuracy": .80, "minimum_subset_accuracy": .70, "minimum_untrained_gain": .05, "minimum_shortcut_gain": .10, "maximum_shortcut_accuracy": .65}:
         raise ValueError("unchanged quality thresholds required")
@@ -89,7 +98,7 @@ def main():
     experiment = next(n for n in training.body if isinstance(n, ast.FunctionDef) and n.name == "experiment")
     loop = next(n for n in experiment.body if isinstance(n, ast.For) and isinstance(n.target, ast.Name) and n.target.id == "epoch")
     if ast.unparse(loop.iter) != "range(1, EPOCHS + 1)" or any(isinstance(n, (ast.Break, ast.Return)) for n in ast.walk(loop)):
-        raise ValueError("all three fixed epochs must complete")
+        raise ValueError("all nine fixed main epochs must complete")
     accesses = [n.slice.value for n in ast.walk(loop) if isinstance(n, ast.Subscript) and isinstance(n.value, ast.Name) and n.value.id == "splits" and isinstance(n.slice, ast.Constant)]
     if "validation" not in accesses or "audit" in accesses:
         raise ValueError("audit must remain outside development selection")

@@ -20,6 +20,9 @@ from data import (
     view,
     write_json,
 )
+from role_bootstrap import warmup_plan
+from role_bootstrap import warmup_rows as role_rows
+from training_policy import EPOCHS
 
 TRAINER_SHA = "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71"
 
@@ -42,7 +45,7 @@ def run_gate(root, kit):
     report, splits = read_splits(root)
     trainer = load_trainer(kit)
     hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=4, lora_rank=8,
-                             lora_alpha=32, epochs=3, eval_batch=1, grad_checkpointing=False,
+                             lora_alpha=32, epochs=EPOCHS, eval_batch=1, grad_checkpointing=False,
                              early_stopping=False, gate_min_acc=.80, lr=.0001, lora_dropout=0.0)
     gate = trainer.gate_dataset(splits["train"], hp)
     if gate["metrics"].get("surface_probe_acc") is None:
@@ -70,6 +73,8 @@ def run_gate(root, kit):
                     raise ValueError("whole decisive references and answers do not fit")
                 checked += 2
     warmup = check_tokens(warmup_rows(json.loads((HERE / "data/manifest.json").read_text()), splits["train"]), tokenizer, render)
+    bootstrap_rows = role_rows(json.loads((HERE / "data/manifest.json").read_text()), splits["train"])
+    bootstrap_tokens = check_tokens(bootstrap_rows, tokenizer, render)
     controls = load_controls(splits["train"], tokenizer)
     development = {style: controls([view(r, style) for r in splits["validation"]]) for style in VIEWS}
     failures = list(gate["failures"])
@@ -80,6 +85,8 @@ def run_gate(root, kit):
               "failures": failures, "audit_scored": False, "baseline_refit": False,
                "source_manifest_sha256": report["source_manifest_sha256"], "source_boundary": report["boundary"]}
     result.update(warmup)
+    result["role_bootstrap"] = {"unique_training_pairs": len(bootstrap_rows), "complete_inputs": bootstrap_tokens["complete_warmup_inputs"],
+                                "maximum_tokens": bootstrap_tokens["maximum_warmup_tokens"], "optimizer_steps": len(warmup_plan(bootstrap_rows))}
     write_json(root / "dataset-gate.json", result)
     if "torch" in sys.modules:
         raise RuntimeError("local source gate imported a neural runtime")

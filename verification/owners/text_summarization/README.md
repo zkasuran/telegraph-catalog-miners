@@ -21,7 +21,8 @@ summarization proof.
 | Revision 2 quality | Failed development at 50% in every format, clean audit unscored |
 | Training-only diagnostic | Single requested-source control fitted eight train pairs; original two-reference control stayed at chance |
 | Revision 3 quality | Failed development at 33/64 in every format; clean audit unscored |
-| Matched batching diagnostic | Prepared on four train groups; no measured fit yet |
+| Matched batching diagnostic | Timed out after 320 stochastic updates; reciprocal comparison incomplete |
+| Revision 4 quality | Unmeasured original-task bootstrap followed by full training |
 | Canonical node registration | Not attempted |
 
 Titles are unchanged human-authored source associations. Donor preferences were
@@ -76,9 +77,20 @@ parameters. Each control sees every training pair equally often. All prompts and
 titles are the original complete two-reference task. The question is whether
 balancing both targets within each update helps learn source selection. This is
 training-only diagnosis, not independent quality or registration evidence.
+The actual run timed out at 40 minutes. Stochastic training fit reached 8/8 at
+step 192 and retained it through step 320. The reciprocal control did not start,
+so no batching advantage is claimed. See [the actual partial diagnostic](https://github.com/zkasuran/telegraph-catalog-miners/actions/runs/44785467964).
+
+Revision 4 follows that measured original-task fit path. It performs 256 stochastic
+batch-size-2 bootstrap updates on those same four training groups at 0.0001.
+The eight unique pairs appear 64 times each, not as new independent data.
+Actual 8/8 training fit is required before main training. A fresh optimizer then
+runs nine complete main epochs over all 256 original training pairs. Validation
+loss alone selects the main checkpoint. The full development and clean-audit
+gates are unchanged. No held-out improvement is claimed before the remote run.
 
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
-timeouts. Fitting only receives the 256 training pairs. All three main epochs
+timeouts. Fitting only receives original training pairs. All nine main epochs
 complete. Validation loss selects a frozen checkpoint without advancing the
 training RNG. Only then are the 64 independent audit groups scored in every
 claimed format. A seed-matched untrained initialization and immutable train-fitted

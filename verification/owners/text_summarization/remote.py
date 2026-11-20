@@ -15,7 +15,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from audit_policy import development_gate
-from curriculum import WARMUP_EPOCHS, WARMUP_LR, WARMUP_STEPS, check_tokens, warmup_rows
+from curriculum import check_tokens
 from data import HERE, VIEWS, prepare, read_splits, view, write_json
 from gates import run_gate
 from licensing import OWN_ID, licence_metadata, preserve_artifact
@@ -24,6 +24,14 @@ from preserve import preserve
 from primary import verify_primary
 from reference import prepare_kit, prepare_reference
 from report import registration_ready
+from role_bootstrap import (
+    WARMUP_EPOCHS,
+    WARMUP_LR,
+    WARMUP_STEPS,
+    admit,
+    warmup_plan,
+    warmup_rows,
+)
 from runtime_check import (
     compile_tools,
     execute_runtime,
@@ -161,10 +169,10 @@ def experiment(root):
     development_views = {style: [view(r, style) for r in splits["validation"]] for style in VIEWS}
     with isolated_evaluation(model, torch, np):
         untrained_development = {style: pair_metrics(rows, native_scores(model, rows)) for style, rows in development_views.items()}
-    # Complete all three fixed epochs. Only development loss selects the
+    # Complete all nine fixed main epochs. Only development loss selects the
     # checkpoint. Its extra evaluation consumes no training RNG.
     if hp.epochs != EPOCHS:
-        raise ValueError("fixed three-epoch training contract changed")
+        raise ValueError("fixed nine-epoch training contract changed")
     params = [p for p in model.parameters() if p.requires_grad]
     manifest_source = json.loads((HERE / "data/manifest.json").read_text())
     warm = warmup_rows(manifest_source, splits["train"])
@@ -175,32 +183,38 @@ def experiment(root):
             if tok(text, truncation=False)["input_ids"] != node.encode(text).ids:
                 raise ValueError("curriculum tokenizer mismatch")
     warm_optimizer = torch.optim.AdamW(params, lr=WARMUP_LR, weight_decay=hp.weight_decay)
-    warm_generator = torch.Generator(device="cpu").manual_seed(hp.seed)
-    warm_loader = DataLoader(warm, batch_size=1, shuffle=True, collate_fn=trainer.PairCollator(tok, 256),
-                             num_workers=0, generator=warm_generator)
-    if len(warm_loader) % hp.grad_accum:
-        raise ValueError("fixed warm-up requires complete accumulation groups")
+    warm_schedule = warmup_plan(warm)
+    warm_collate = trainer.PairCollator(tok, 256)
     warm_losses, warm_steps = [], 0
     warm_started = time.monotonic()
-    for _ in range(WARMUP_EPOCHS):
+    for epoch_index in range(WARMUP_EPOCHS):
         model.train()
         warm_optimizer.zero_grad(set_to_none=True)
-        for index, batch in enumerate(warm_loader):
+        for indices in warm_schedule[epoch_index * 4:(epoch_index + 1) * 4]:
+            batch = warm_collate([warm[i] for i in indices])
             rc = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rr = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
             warm_loss = trainer.bt_loss(rc, rr, batch["margin"])
             if not torch.isfinite(warm_loss):
                 raise ValueError("nonfinite train-only curriculum loss")
-            (warm_loss / hp.grad_accum).backward()
+            warm_loss.backward()
             warm_losses.append(float(warm_loss.detach()))
-            if (index + 1) % hp.grad_accum == 0:
-                torch.nn.utils.clip_grad_norm_(params, 1., error_if_nonfinite=True)
-                warm_optimizer.step()
-                warm_optimizer.zero_grad(set_to_none=True)
-                warm_steps += 1
+            torch.nn.utils.clip_grad_norm_(params, 1., error_if_nonfinite=True)
+            warm_optimizer.step()
+            warm_optimizer.zero_grad(set_to_none=True)
+            warm_steps += 1
+            if warm_steps % 64 == 0:
+                save_checkpoint(model, root / "warmup")
+                write_json(root / "bootstrap-progress.json", {"status": "INCOMPLETE", "optimizer_steps": warm_steps,
+                           "planned_steps": WARMUP_STEPS, "unique_training_pairs": len(warm), "audit_scored": False,
+                           "source_manifest_sha256": data_report["source_manifest_sha256"], "trainable_sha256": state_hash(model)})
     if warm_steps != WARMUP_STEPS:
         raise ValueError("complete fixed warm-up accumulation groups required")
-    curriculum_report = {"recipe_version": 3, "training_pairs": len(warm), "training_only": True, "epochs": WARMUP_EPOCHS,
+    with isolated_evaluation(model, torch, np):
+        bootstrap_metrics = pair_metrics(warm, native_scores(model, warm))
+    curriculum_report = {"recipe_version": 4, "training_pairs": len(warm), "unique_training_groups": 4,
+               "training_presentations": sum(map(len, warm_schedule)), "training_only": True, "epochs": WARMUP_EPOCHS,
+               "view": "original_complete_two_reference", "training_fit": bootstrap_metrics,
                "optimizer_steps": warm_steps, "learning_rate": WARMUP_LR, "mean_loss": sum(warm_losses) / len(warm_losses),
                 "training_sha256": data_report["files"]["train"]["sha256"], "audit_scored": False,
                 "source_manifest_sha256": data_report["source_manifest_sha256"], "validation_scored": False,
@@ -212,7 +226,14 @@ def experiment(root):
     # baseline above was measured before any fitted updates.
     write_json(root / "curriculum.json", curriculum_report)
     save_checkpoint(model, root / "warmup")
-    del warm_optimizer, warm_loader, warm_generator, warm
+    if not admit(bootstrap_metrics):
+        write_json(root / "result.json", {"status": "ROLE_BOOTSTRAP_GATE_FAIL", "recipe_version": 4,
+                   "phase": "main_training_not_started_clean_audit_unscored", "curriculum": curriculum_report,
+                   "data": data_report, "audit_scored": False, "commit": os.environ["GITHUB_SHA"],
+                   "run_id": os.environ["GITHUB_RUN_ID"], "owner_attempt": os.environ["OWNER_ATTEMPT"]})
+        preserve(root)
+        return 1
+    del warm_optimizer, warm_schedule, warm_collate, warm
     optimizer = torch.optim.AdamW(params, lr=hp.lr, weight_decay=hp.weight_decay)
     sampler = torch.Generator(device="cpu").manual_seed(hp.seed)
     loader = DataLoader(splits["train"], batch_size=1, shuffle=True,
@@ -269,7 +290,7 @@ def experiment(root):
                    "best_trainable_sha256": best_hash, "selection_split": "validation", "selection_metric": "val_loss",
                    "audit_scored": False, "epochs_required": EPOCHS, "epochs_completed": epoch})
     if best_state is None or len(development_history) != EPOCHS:
-        raise ValueError("three-epoch development selection did not complete")
+        raise ValueError("nine-epoch development selection did not complete")
     with torch.no_grad():
         for name, parameter in model.named_parameters():
             if parameter.requires_grad:
@@ -297,7 +318,7 @@ def experiment(root):
                    "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
                     "owner_attempt": os.environ["OWNER_ATTEMPT"], "node_qualification": "not attempted"})
         failed = json.loads((root / "result.json").read_text())
-        failed.update({"recipe_version": 3, "curriculum": curriculum_report,
+        failed.update({"recipe_version": 4, "curriculum": curriculum_report,
                        "total_optimizer_steps": warm_steps + len(timings)})
         write_json(root / "result.json", failed)
         preserve(root)
@@ -322,7 +343,7 @@ def experiment(root):
                                "trainer": "Fixed source-conditioned title relevance experiment", "backbone": "ModernBERT-base",
                               "backbone_version": "8949b909ec900327062f0ebf497f51aef5e6f0c8"})
     meta["x-source-provenance"] = json.dumps({"data": data_report, "hyperparameters": asdict(hp),
-                                             "recipe_version": 3, "curriculum": curriculum_report}, separators=(",", ":"))
+                                             "recipe_version": 4, "curriculum": curriculum_report}, separators=(",", ":"))
     meta.update(licence_metadata())
     write_package(root / "TEXT_SUMMARIZATION.safetensors", meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
     preserve_artifact(root / "TEXT_SUMMARIZATION.safetensors")
@@ -348,7 +369,7 @@ def experiment(root):
               "runtime_gap": "Full live-class parser and reference-runtime checks have not completed yet.",
                "node_qualification": "not attempted", "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"]}
     report["owner_attempt"] = os.environ["OWNER_ATTEMPT"]
-    report.update({"recipe_version": 3, "curriculum": curriculum_report,
+    report.update({"recipe_version": 4, "curriculum": curriculum_report,
                    "total_optimizer_steps": warm_steps + len(timings)})
     write_json(root / "result.json", report)
     manifest = validate_package(root)

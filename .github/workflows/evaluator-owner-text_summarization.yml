@@ -36,7 +36,7 @@
          "name": "text-summarization-training-controls-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
          "path": "${{ runner.temp }}/summary-diagnostic/*.json\n${{ runner.temp }}/summary-diagnostic/LICENSE\n${{ runner.temp }}/summary-diagnostic/NOTICE\n${{ runner.temp }}/summary-diagnostic/*.txt\n${{ runner.temp }}/summary-diagnostic/*.md"
        }},
-      {"name": "Train-only warm-up then main training, guarded clean audit and engine", "if": "${{ inputs.mode == 'train' }}", "timeout-minutes": 305,
+      {"name": "Original-task role bootstrap then nine main epochs, guarded audit and engine", "if": "${{ inputs.mode == 'train' }}", "timeout-minutes": 305,
        "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/remote.py --root \"$RUNNER_TEMP/summary-experiment\""},
       {"name": "Preserve partial results and grants", "if": "${{ always() && inputs.mode == 'train' }}",
        "run": "python3 verification/owners/text_summarization/preserve.py --root \"$RUNNER_TEMP/summary-experiment\""},

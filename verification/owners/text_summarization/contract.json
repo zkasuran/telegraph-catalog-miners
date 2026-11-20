@@ -26,7 +26,7 @@
     "max_length": 256,
     "lora_rank": 8,
     "lora_alpha": 32,
-    "epochs": 3,
+    "epochs": 9,
     "batch_size": 1,
     "grad_accum": 4,
     "eval_batch": 1,
@@ -41,8 +41,8 @@
     "minimum_shortcut_gain": 0.1,
     "maximum_shortcut_accuracy": 0.65
   },
-  "selection": "All three epochs. Validation loss alone selects. All development formats and untrained/shortcut gains must pass before a fresh audit is scored.",
+  "selection": "All nine main epochs. Validation loss alone selects. All development formats and untrained/shortcut gains must pass before a fresh audit is scored.",
   "source_authorship": "Human published title associations. Donor preferences are constructed, not human preference votes.",
-  "recipe_version": 3,
-  "curriculum": {"split": "train", "view": "complete_requested_reference", "epochs": 1, "learning_rate": 0.0005, "optimizer_steps": 64}
+  "recipe_version": 4,
+  "curriculum": {"split": "train", "view": "original_complete_two_reference", "unique_groups": 4, "unique_pairs": 8, "epochs": 64, "batch_size": 2, "learning_rate": 0.0001, "optimizer_steps": 256, "minimum_training_accuracy": 1.0}
 }

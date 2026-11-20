@@ -62,6 +62,16 @@ before any new audit score is computed. A failed development candidate leaves
 the fresh audit unscored. Original source grants and numerical baseline
 coefficients are unchanged.
 
+Revision 4 adds an original-task role bootstrap based only on the actual
+training-only stochastic fit in run 44785467964. It repeats the same eight
+original pairs from four training groups 64 times per pair. These 512 presentations
+are not additional data or independent groups. Bootstrap uses 256 batch-size-2
+updates at 0.0001 and must measure complete training fit before main training.
+Main training runs nine complete epochs across all 128 original training groups.
+Source titles, abstracts, row hashes, validation, clean audit and immutable
+baseline coefficients remain unchanged. The unfinished reciprocal comparison
+does not establish a batching advantage and is not independent quality evidence.
+
 The actual revision 3 run 44778080472 failed the same development gates at
 33/64 in every format and left the clean audit unscored. A matched batching
 diagnostic now uses four original training groups and their unchanged complete
@@ -93,7 +103,7 @@ not a new-topic holdout. All raw/JSON/prose task-answer inputs fit 256 tokens.
 
 Analytical coefficient vocabulary, IDF, answer-only log odds and directions
 were fitted once using train only. They are immutable. Validation loss selects
-one checkpoint after all three fixed epochs. The independent audit is used
+one main checkpoint after all nine fixed epochs. The independent audit is used
 only after restoring that checkpoint and is never used for later tuning.
 Source integrity and token-length checking do not score the audit.
 

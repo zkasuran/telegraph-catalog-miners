@@ -25,10 +25,12 @@ from primary import anchors
 from proxy import validate_request
 from reciprocal import policy, schedules, selected_rows
 from report import validate_ready
+from role_bootstrap import admit, warmup_plan
+from role_bootstrap import warmup_rows as bootstrap_rows
 from runtime_check import RELEASE_HASHES, compile_tools, model_remote_only
 from serve import parse_settings
 from static_check import check_curriculum_training
-from training_policy import development_selection
+from training_policy import EPOCHS, development_selection
 from wire import decode_bits, input_root, validate_response
 
 
@@ -135,6 +137,25 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_original_task_bootstrap_exact_rows_and_repeats(self):
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
+        rows = bootstrap_rows(manifest, train)
+        self.assertEqual(rows, train[:8])
+        plan = warmup_plan(rows)
+        self.assertEqual(plan, schedules(rows)["stochastic_batch"][:256])
+        self.assertEqual(len(plan), 256)
+        self.assertEqual([sum(i in batch for batch in plan) for i in range(8)], [64] * 8)
+        for name in ("validation", "audit"):
+            with self.subTest(split=name), self.assertRaises(ValueError):
+                bootstrap_rows(manifest, [r for g in manifest["splits"][name] for r in g["pairs"]])
+        good = pair_metrics(rows, [2., 1.] * 8)
+        weak = pair_metrics(rows, [2., 1., 0., 1.] * 4)
+        self.assertTrue(admit(good))
+        self.assertFalse(admit(weak))
+        self.assertFalse(admit({**good, "independent_groups": 3}))
+        self.assertFalse(admit({**good, "per_label": {"A": 1., "B": .5}}))
+
     def test_matched_original_task_batches(self):
         manifest = json.loads((HERE / "data/manifest.json").read_text())
         train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
@@ -242,6 +263,8 @@ class ModelContractTests(unittest.TestCase):
         for old, new in (("warmup_rows(manifest_source, splits[\"train\"])", "warmup_rows(manifest_source, splits[\"audit\"])"),
                          ("lr=hp.lr, weight_decay=hp.weight_decay", "lr=WARMUP_LR, weight_decay=hp.weight_decay"),
                          ("warm_steps != WARMUP_STEPS", "warm_steps < 1"),
+                         ("if not admit(bootstrap_metrics):", "if False:"),
+                         ("from role_bootstrap import", "from curriculum import"),
                          ('root / "warmup"', 'root / "checkpoint"')):
             self.assertIn(old, source)
             with self.subTest(mutation=old), self.assertRaises(ValueError):
@@ -313,7 +336,7 @@ class ModelContractTests(unittest.TestCase):
         self.assertEqual(best["epoch"], 3)
         self.assertTrue(changed)
         with self.assertRaises(ValueError):
-            development_selection(best, 4, {"val_loss": 0})
+            development_selection(best, EPOCHS + 1, {"val_loss": 0})
 
     def test_quality_failure_controls(self):
         good = pair_metrics(fixture_rows(), [2., 1., 2., 1.])

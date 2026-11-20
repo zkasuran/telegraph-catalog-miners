@@ -5,7 +5,8 @@
 | Source replaced or grant missing | Exact revision, XML/Git hashes, primary title/abstract/author/grant reproduction | `primary.py`, source negative controls |
 | Shortened decisive context | Complete source fields, literal rendering and every format under 256 tokens | `data.py`, `gates.py`, changed-context controls |
 | Source/entity/time leakage | Grouped author/ORCID/DOI identities, normalized overlap and ordered task availability | `data.py`, split mutation controls |
-| Audit used for tuning | All three epochs, validation loss selection and restored checkpoint before audit scoring | `training_policy.py`, `static_check.py` |
+| Audit used for tuning | All nine fixed main epochs, validation loss selection and restored checkpoint before audit scoring | `training_policy.py`, `static_check.py` |
+| Repeated bootstrap examples inflate data counts | Eight exact original pairs, four train groups, declared 64 repetitions per pair | `role_bootstrap.py`, source/exposure and admission tests |
 | Held-out data substituted into warm-up | Exact frozen manifest and complete training-row equality, preserved titles/source bytes | `curriculum.py`, split/title/source mutation tests |
 | Warm-up silently replaces main training | Fixed 64-update warm-up, fresh main optimizer and complete main epochs | `static_check.py`, actual-source mutation tests |
 | Floating-point baseline refit drift | Immutable train-only coefficient bytes and identity checks | `baseline.py`, baseline mutation controls |
@@ -21,7 +22,7 @@
 
 ## Known limits
 
-Two fixed recipes failed quality. Training-only diagnostic mode uses
+Three fixed recipes failed quality. Training-only diagnostic mode uses
 four existing training groups to test parameter updates and source-role binding.
 It never uses validation/audit outcomes and cannot emit registration readiness.
 Its tiny-group fit metrics are not independent capability evidence. Source and
@@ -37,6 +38,13 @@ did not establish two-source generalization. The next diagnostic fits only four
 existing training groups with matched stochastic versus reciprocal batches.
 It uses no validation/audit scores. Even successful tiny training fit would not
 prove generalization or independence from overlap shortcuts.
+
+The matched-batch run timed out after 320 stochastic updates. Its original-task
+training fit reached 8/8, but no reciprocal result exists and the comparison is
+incomplete. Revision 4 uses that training-only role-bootstrap path before all
+nine main epochs. It does not fit either held-out split or lower a quality gate.
+Tiny bootstrap fit is not independent quality. The new candidate remains
+unmeasured until its real remote run and complete parser/runtime checks finish.
 
 This is a target-study title relevance experiment, not a general factual summary
 judge. Source grants do not establish independent scientific truth. Preferences
