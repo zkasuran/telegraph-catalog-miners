@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "source-origin-diverse-bare-contexts-v8",
+  "name": "source-origin-correctness-auxiliary-v9",
   "checkpoint_sha256": "39c3b89efa9da2c61ab841d82a7ceb31ba2da1acafbf6d2710163a987a073efe",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -25,6 +25,16 @@
   "locked_augmentation_sha256": "b8021a5faeff9fc9f55aa9f7f4e34f7d01d52c8f6f2f7a2089dac01c1ff68c92",
   "locked_augmentation_producer_run_id": 44622803647,
   "continuation_validation": "Actual predecessor bare 0.7656 (Human 0.8438, AI 0.6875), JSON/prose 0.875. No audit consumed.",
-  "additional_training": "Disjoint third source windows, actual public CPU generation, no validation or audit input.",
-  "quality_gate_changes": false
+  "additional_training": "Restore exact existing third-window outputs from run 44646831194, not new generation.",
+  "quality_gate_changes": false,
+  "correctness_auxiliary": {
+    "coefficient": 0.5,
+    "chosen_target": 0.9,
+    "rejected_target": 0.1,
+    "scope": "existing_training_pair_sides",
+    "reduction": "mean"
+  },
+  "objective": "Retain pairwise Bradley-Terry loss; add symmetric pointwise correctness loss on the same literal rows. Fixed before remote fitting; validation selection and gates unchanged.",
+  "locked_additional_augmentation_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
+  "locked_additional_producer_run_id": 44646831194
 }

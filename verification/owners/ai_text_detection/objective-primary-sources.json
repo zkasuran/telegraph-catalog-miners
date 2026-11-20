@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "key": "TORCH-BCE-2.15",
+      "url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.15.0/torch/nn/modules/loss.py",
+      "sha256": "415e4ccbbab63b9cc2b79f09a338cca6fa191c07138a4fb419e3c841c4748ae0",
+      "bytes": 106989
+    },
+    {
+      "key": "TORCH-LICENSE-2.15",
+      "url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.15.0/LICENSE",
+      "sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+      "bytes": 3464
+    }
+  ],
+  "implementation": "API use only; upstream code is not bundled. Original grant retained.",
+  "local_model_operation": false
+}

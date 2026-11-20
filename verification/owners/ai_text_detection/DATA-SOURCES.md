@@ -1,5 +1,40 @@
 # Sources and rights
 
+## Current frozen correctness-objective experiment
+
+Run 44646831194 generated 125 valid third-context views without structural
+refusals. Combined fixed-order trimming kept 248 added views, giving 752 fit pairs
+in the same 128 articles. Its data and full-parser gates passed. The selected
+checkpoint still scored 76.56% bare overall and 68.75% for AI-generated, so the
+independent audit stayed sealed. These validation figures are source development,
+not an independent audit or canonical result.
+
+The next job restores the exact third-context data SHA-256
+`7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574`
+with its actual producer, source and plan bindings. It does not regenerate or
+select new examples. All original training and held-out roles remain fixed.
+
+[TORCH-BCE-2.15] PyTorch v2.15.0 `BCEWithLogitsLoss` source lines 719-844
+defines a stable binary loss on raw logits, mean reduction and same-shape targets
+in [0,1]. Its forward method calls `binary_cross_entropy_with_logits`.
+https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/loss.py#L719
+https://docs.pytorch.org/docs/2.15/generated/torch.nn.BCEWithLogitsLoss.html
+
+The fixed train-only objective retains [TRAINER-1ed063] pairwise loss and adds
+0.5 times the mean pointwise correctness loss on those same chosen/rejected
+logits. Targets are 0.9 and 0.1 for correct and incorrect verdicts, equally for
+both origins. No extra training rows, origin weighting, runtime sigmoid or
+score transformation is introduced. This constrains a common reward offset that
+the pairwise difference alone does not constrain. Improved discrimination is a
+remote hypothesis, not a measured result. Targets are not authorship probabilities.
+
+[TORCH-LICENSE-2.15] The reviewed PyTorch grant states: "Redistribution and use
+in source and binary forms, with or without modification, are permitted provided
+that the following conditions are met:". Copyright, conditions and disclaimer
+are retained in `PYTORCH-LICENSE`. Only the API is called; PyTorch source and
+weights are not bundled. Its dependency package retains its own grant.
+https://github.com/pytorch/pytorch/blob/v2.15.0/LICENSE
+
 ## Journal controls
 
 `elifesciences/elife-article-xml`, revision

@@ -18,6 +18,8 @@ from checkpoint_contract import check_checkpoint
 from development_contract import validate_locked, training_pairs, repetition_gate, layout_training_pairs
 from window_contract import validate_plan, validate_augmented, expanded_training_pairs
 from training_weights import weight_policy
+from objective_contract import objective_policy, scalar_losses
+from augmentation_contract import validate_restored
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -41,6 +43,73 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_correctness_policy_preserves_training_roles_and_original_labels(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        rows = fixture_splits()["train"]
+        result = objective_policy(recipe, rows)
+        self.assertEqual(result["extra_training_rows"], 0)
+        self.assertTrue(result["pair_loss_retained"])
+        self.assertFalse(result["runtime_score_transform"])
+        bad = copy.deepcopy(rows)
+        bad[0]["split"] = "validation"
+        with self.assertRaisesRegex(ValueError, "training pairs only"):
+            objective_policy(recipe, bad)
+        bad = copy.deepcopy(rows)
+        bad[0]["label"] = "AI-generated"
+        with self.assertRaises(ValueError):
+            objective_policy(recipe, bad)
+
+    def test_correctness_policy_refuses_changed_coefficients_or_side_targets(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        for field, value in (("coefficient", True), ("coefficient", 10), ("chosen_target", 0.1),
+                             ("rejected_target", 0.9), ("scope", "validation")):
+            bad = copy.deepcopy(recipe)
+            bad["correctness_auxiliary"][field] = value
+            with self.assertRaises(ValueError):
+                objective_policy(bad)
+
+    def test_scalar_objective_is_correctness_symmetric_and_shift_sensitive(self):
+        policy = objective_policy(json.loads((HERE / "recipe.json").read_text()))
+        good = scalar_losses(1, -1, policy)
+        wrong = scalar_losses(-1, 1, policy)
+        self.assertLess(good[2], wrong[2])
+        shifted = scalar_losses(11, 9, policy)
+        self.assertEqual(good[0], shifted[0])  # BT cannot constrain a common offset.
+        self.assertGreater(shifted[1], good[1])
+        self.assertEqual(good, scalar_losses(1, -1, policy))
+        self.assertAlmostEqual(scalar_losses(0, 0, policy)[2], 1.5 * __import__("math").log(2))
+        for c, r in ((1000, -1000), (-1000, 1000)):
+            self.assertTrue(all(__import__("math").isfinite(x) for x in scalar_losses(c, r, policy)))
+        with self.assertRaises(ValueError):
+            scalar_losses(float("nan"), 0, policy)
+
+    def test_remote_tensor_entry_refuses_local_execution_before_neural_import(self):
+        import train_objective
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "public CPU"):
+                train_objective.loss_components(None, None, None, {}, None)
+            with self.assertRaisesRegex(RuntimeError, "public CPU"):
+                train_objective.smoke({}, None, None)
+
+    def test_both_actual_augmentations_bind_literal_bytes_and_producer(self):
+        source_raw = (HERE / "sources.json").read_bytes()
+        source = json.loads(source_raw)
+        for name, plan_name, expected in (("locked-augmentation", "train-window-plan.json", 252),
+                                         ("locked-additional-augmentation", "additional-train-window-plan.json", 250)):
+            raw = (HERE / "recovery" / (name + ".jsonl")).read_bytes()
+            producer_raw = (HERE / "recovery" / (name + "-producer.json")).read_bytes()
+            lineage = json.loads((HERE / "recovery" / (name + "-lineage.json")).read_text())
+            plan_raw = (HERE / plan_name).read_bytes()
+            records, _ = validate_restored(raw, producer_raw, lineage, plan_raw, source, source_raw)
+            self.assertEqual(len(records), expected)
+            with self.assertRaises(ValueError):
+                validate_restored(raw + b"x", producer_raw, lineage, plan_raw, source, source_raw)
+            poisoned = {**lineage, "producer_commit": "0" * 40}
+            with self.assertRaises(ValueError):
+                validate_restored(raw, producer_raw, poisoned, plan_raw, source, source_raw)
+            with self.assertRaises(ValueError):
+                validate_restored(raw, producer_raw, lineage, plan_raw + b" ", source, source_raw)
+
     def test_further_source_windows_are_disjoint_training_annotations(self):
         source_raw = (HERE / "sources.json").read_bytes()
         source = json.loads(source_raw)

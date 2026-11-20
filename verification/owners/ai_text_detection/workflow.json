@@ -108,12 +108,12 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/augment_training.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
-          "name": "Generate further disjoint original training contexts",
+          "name": "Restore exact actual third-context training input and producer",
           "timeout-minutes": 20,
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/augment_training.py --root \"$RUNNER_TEMP/ai-owner\" --additional"
         },
         {
-          "name": "Continue improved rare-format checkpoint under unchanged validation gates",
+          "name": "Verify actual tensor objective and continue under unchanged format gates",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""
         },

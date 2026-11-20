@@ -12,6 +12,7 @@ import time
 
 from common import remote_only, dump, validation_gate, validation_selection_key
 from training_weights import weight_policy
+from objective_contract import objective_policy
 
 
 def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, root):
@@ -31,6 +32,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     import json
     recipe = json.loads((HERE / "recipe.json").read_text())
     weights, policy = weight_policy(train_rows, recipe.get("bare_loss_weight", 1))
+    objective = objective_policy(recipe, train_rows)
+    from train_objective import loss_components
+    dump(root / "training-objective-report.json", objective)
     if hp.batch_size != 1:
         raise ValueError("weighted source-pair loss is bounded to batch size one")
     dump(root / "training-weight-report.json", policy)
@@ -73,15 +77,17 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         optimizer.zero_grad(set_to_none=True)
         losses = 0.0
         unweighted_losses = 0.0
+        pointwise_losses = 0.0
         for i, batch in enumerate(loader):
             chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
-            raw_loss = trainer.bt_loss(chosen, rejected, batch["margin"])
+            raw_loss, pair_loss, point_loss = loss_components(chosen, rejected, batch["margin"], objective, trainer)
             weight = batch["training_weight"] / policy["mean_training_weight"]
             loss = raw_loss * weight / hp.grad_accum
             loss.backward()
             losses += loss.item() * hp.grad_accum
-            unweighted_losses += raw_loss.item()
+            unweighted_losses += pair_loss.item()
+            pointwise_losses += point_loss.item()
             if (i + 1) % hp.grad_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0)
                 optimizer.step()
@@ -99,7 +105,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         else:
             stale += 1
         record = {"epoch": epoch, "optimizer_steps": step, "training_loss": losses / max(1, len(loader)),
-                  "unweighted_training_pair_loss": unweighted_losses / max(1, len(loader)), "training_weight_policy": policy,
+                   "unweighted_training_pair_loss": unweighted_losses / max(1, len(loader)), "training_weight_policy": policy,
+                   "unweighted_training_correctness_loss": pointwise_losses / max(1, len(loader)), "training_objective": objective,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)

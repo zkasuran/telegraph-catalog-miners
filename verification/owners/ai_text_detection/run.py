@@ -105,6 +105,9 @@ def main():
     import torch
     import numpy as np
     from float_runtime import train_adapter as trainer
+    from objective_contract import objective_policy
+    from train_objective import smoke as objective_smoke
+    objective_smoke(objective_policy(recipe), trainer, root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     from tokenizers import Tokenizer

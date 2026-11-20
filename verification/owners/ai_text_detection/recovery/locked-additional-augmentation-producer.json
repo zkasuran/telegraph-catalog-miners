@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+  "plan_sha256": "2686acff35536adf676fdf041beda757a4e3eda0eb21e195a82a46f27e65ec21",
+  "output_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
+  "generator": {
+    "id": "openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "weight_sha256": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+    "weight_bytes": 548105171,
+    "licence": "OpenAI-Modified-MIT",
+    "files": {
+      "model.safetensors": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+      "config.json": "0daed7749b4f02b8f76240d5444551d7b08712dab4d0adb8239c56ba823bb7b4",
+      "tokenizer.json": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6",
+      "tokenizer_config.json": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f",
+      "generation_config.json": "ed0b32ac72c0f5f44a719abb2d7786ea5146c871f83717b7f2018065954de02b",
+      "README.md": "0fcd631078093c2aa1d93438b898320b8a1167784e2a1ab37b8016e9de8b3c2e"
+    }
+  },
+  "valid_views": 125,
+  "refusals": [],
+  "run_id": 44646831194,
+  "commit": "57e93d822ab4b95ac091335c523382128cc9a767",
+  "audit_used": false,
+  "elapsed_generation_seconds": 175.78980446199998
+}

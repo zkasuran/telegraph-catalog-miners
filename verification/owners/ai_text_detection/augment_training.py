@@ -30,20 +30,16 @@ def main():
     output = root / (prefix_name + "-generation.jsonl")
     if output.exists():
         raise ValueError("augmentation already exists; never replace or reroll it")
-    locked_path = HERE / "recovery/locked-augmentation.jsonl"
-    if locked_path.exists() and not args.additional:
-        from window_contract import validate_augmented
-        producer_raw = (HERE / "recovery/locked-augmentation-producer.json").read_bytes()
-        producer = json.loads(producer_raw)
-        lineage = json.loads((HERE / "recovery/locked-augmentation-lineage.json").read_text())
+    locked_name = "locked-additional-augmentation" if args.additional else "locked-augmentation"
+    locked_path = HERE / "recovery" / (locked_name + ".jsonl")
+    if locked_path.exists():
+        from augmentation_contract import validate_restored
+        producer_raw = (HERE / "recovery" / (locked_name + "-producer.json")).read_bytes()
+        lineage = json.loads((HERE / "recovery" / (locked_name + "-lineage.json")).read_text())
         raw = locked_path.read_bytes()
-        if (sha(raw) != lineage["data_sha256"] or sha(producer_raw) != lineage["producer_report_sha256"] or
-                lineage["source_manifest_sha256"] != sha(source_raw) or producer["run_id"] != lineage["producer_run_id"] or
-                producer["commit"] != lineage["producer_commit"]):
-            raise ValueError("locked actual augmentation byte/producer/source identity mismatch")
-        restored = validate_augmented(raw, plan, sources, producer)
+        restored, producer = validate_restored(raw, producer_raw, lineage, plan_path.read_bytes(), sources, source_raw)
         output.write_bytes(raw)
-        dump(root / "augmentation-generation-report.json", {**producer, "producer_run_id": producer["run_id"],
+        dump(root / (prefix_name + "-generation-report.json"), {**producer, "producer_run_id": producer["run_id"],
              "producer_commit": producer["commit"], "generation_performed_here": False,
              "preparation": "Byte-identical reuse of actual prior train-only generation; no new model generation claim.",
              "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"]})

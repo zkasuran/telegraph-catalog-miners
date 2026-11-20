@@ -11,6 +11,11 @@ Telegraph reference kit, Copyright (c) 2026 telegraphprotocol, MIT, revision
 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd. Full MIT notice is in sources.json.
 Other dependency licences remain applicable to their own packages.
 
+The correctness auxiliary calls PyTorch 2.15.0's stable BCE-with-logits API.
+PyTorch's original copyright, BSD-style conditions and disclaimer are retained
+in PYTORCH-LICENSE. No PyTorch source implementation or model is bundled by this
+addition. The new objective policy and controls use SAND only for our code.
+
 Our code, constructed preferences and learned additions, Copyright (c) 2026
 zkasuran, LicenseRef-zkasuran-SAND-1.0. Only these additions use SAND. All original
 source rights survive. AI-assisted implementation and constructed comparisons
@@ -59,3 +64,9 @@ Further source-context planning uses only original training paragraphs, with
 disjoint spans and original article attribution. Planned machine counterparts
 are not represented as generated before actual public CPU execution. Existing
 source/article grouping, unweighted audit thresholds and source grants remain.
+
+Run 44646831194's 125 actual third-context views are now reused byte-identically
+with their producer, source and plan identity. They are not new audit data or a
+new generation claim. The fixed symmetric correctness objective uses the same
+existing preference sides and leaves literal validation, audit and runtime
+contracts unchanged. A local source/math gate does not prove model quality.

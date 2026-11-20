@@ -7,12 +7,15 @@
 | Weak validation consumes an audit | All claimed validation formats must pass first | Validation refusal keeps audit sealed |
 | Old audit tunes a later model | Retired articles and named authors quarantined | Fresh-audit source/entity exclusion test |
 | Checkpoint state is swapped | Opaque SHA/grant checks locally, exact learned-state checks remotely | Wrong byte/source identity refusals |
-| Repeated bare negatives leak | Each opposite bare label appears once in training | Actual four-of-38 defect reproduction and unique-negative repair |
+| Repeated bare negatives leak | Fixed bare exposure stays within unchanged share/leak ceilings | Actual four-of-38 defect reproduction, unique-negative repair and larger-corpus bound |
 | Restored validation data becomes training | Exact byte, producer and original source-role bindings | Locked-data role-swap refusal |
 | Good average hides one failed format | Epoch selection prioritizes every actual gate and weakest format/label margin | Failed-bare/low-mean-loss selection refusal |
 | Augmentation leaks held-out sources | New windows bind only original training IDs, spans and roles | Validation-role and span-mismatch refusal controls |
 | More bare labels game the data gate | Larger actual corpus must pass primary gate and worst-case reuse bound | Expanded structural fixture under unchanged ceilings |
 | Format loss weights bias origins or hide metric failure | Fixed bounded symmetric train-only weights; unchanged unweighted gates | Origin-asymmetry, nontraining-role and weight-ceiling refusals |
+| Auxiliary objective changes labels, rows or runtime scores | Fixed symmetric correctness targets on existing train sides only | Wrong target, role and coefficient refusals; unchanged literal renderer |
+| Invalid tensor shape or arithmetic silently poisons training | Batch-one CPU FP32 finite loss and gradients | Actual remote shape, margin, dtype and NaN refusal controls |
+| Reused third-context outputs conceal a new generator operation | Exact original bytes and separate producer/source/plan hashes | Both-augmentation byte, plan and producer corruption refusals |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -68,3 +71,9 @@ Article/entity/time splits stay fixed. More bare contexts cannot relax the
 primary data gate or the existing worst-case reuse ceiling; insufficient valid
 data fails before fitting. Old trained input and every failed checkpoint remain
 retained, not silently replaced by a source-only plan.
+
+The correctness objective is a training-only hypothesis. Local tests exercise
+scalar mathematics and input-policy refusals without loading a model. Actual
+Torch value/gradient controls run in the public CPU job before model fitting.
+Validation and audit still measure raw reward ordering in every claimed format.
+No target smoothing or auxiliary loss makes a calibrated probability claim.

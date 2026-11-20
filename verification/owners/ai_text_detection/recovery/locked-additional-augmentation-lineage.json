@@ -1,0 +1,10 @@
+{
+  "data_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
+  "producer_report_sha256": "58d60c5883dc5ba2683726800021f922c98ac7dd694f9f17c1a516f3d4c6348d",
+  "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+  "plan_sha256": "2686acff35536adf676fdf041beda757a4e3eda0eb21e195a82a46f27e65ec21",
+  "producer_run_id": 44646831194,
+  "producer_commit": "57e93d822ab4b95ac091335c523382128cc9a767",
+  "terms": "Original source attribution and generator grants remain attached. Reuse is not new generation.",
+  "audit_used": false
+}

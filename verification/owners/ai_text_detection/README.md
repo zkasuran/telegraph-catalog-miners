@@ -95,6 +95,14 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Limits
 
+The latest larger-corpus run generated 125 further views, used 248 total added
+views and fitted 752 pairs across the same 128 training articles. Its data and
+parser gates passed but the selected bare result remained 76.56%. No audit ran.
+The next job reuses those exact actual inputs and tests a symmetric pointwise
+correctness auxiliary beside the unchanged pairwise loss. It introduces no new
+rows or runtime score mapping. Local gates verify policy and scalar controls;
+actual tensor gradients and any model improvement must be measured remotely.
+
 GPT-2 and its distilled student are related. Passing cannot establish transfer to
 modern models, adversarial rewriting, mixed authorship, non-English text or a
 particular person's writing. Pretraining overlap with journal text is unknown.
