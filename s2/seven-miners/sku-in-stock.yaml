@@ -1,0 +1,152 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+{
+  "version": "1",
+  "kind": "miner",
+  "id": 202611201,
+  "slug": "zkasuran-s2-digital-stock",
+  "protocol": "generic",
+  "name": "Digital Allocation Stock",
+  "description": "Reads current primary inventory for the zkasuran controlled digital store. Returns available allocations after reservations with revision and observation time. This is digital allocation inventory, not physical stock or external retailer data.",
+  "base_url": "https://telegraph-s2-hashprice.margyn.workers.dev",
+  "cache_ttl_sec": 0,
+  "rate_limit_per_sec": 1,
+  "circuit_threshold": 3,
+  "circuit_cooldown_seconds": 60,
+  "endpoints": [
+    {
+      "path": "/stock",
+      "external_path": "/truth/v2/sku",
+      "method": "GET",
+      "description": "Read a SKU from the current primary controlled digital inventory. The merchant is zkasuran-controlled-digital-store and location is local-digital-allocation. Unknown SKUs return 404 rather than out of stock. External retailers and physical inventory are not supported.",
+      "intents": [
+        "SKU_IN_STOCK_GENERAL"
+      ],
+      "params": {
+        "query": {
+          "required": [
+            {
+              "name": "merchant",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "The controlled merchant identifier."
+            },
+            {
+              "name": "sku",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "Exact SKU identifier in the controlled store, at most 128 characters."
+            },
+            {
+              "name": "location",
+              "type": "string",
+              "intents": [
+                "*"
+              ],
+              "description": "The digital allocation location."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "merchant",
+      "sku",
+      "location"
+    ],
+    "properties": {
+      "merchant": {
+        "type": "string",
+        "enum": [
+          "zkasuran-controlled-digital-store"
+        ]
+      },
+      "sku": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "location": {
+        "type": "string",
+        "enum": [
+          "local-digital-allocation"
+        ]
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "required": [
+      "merchant",
+      "sku",
+      "location",
+      "in_stock",
+      "quantity",
+      "revision",
+      "observed_at",
+      "last_changed_at"
+    ],
+    "properties": {
+      "merchant": {
+        "type": "string"
+      },
+      "sku": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string"
+      },
+      "in_stock": {
+        "type": "boolean"
+      },
+      "quantity": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "revision": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "observed_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "last_changed_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "semantics": {
+    "signal_mapping": {
+      "label_field": "in_stock",
+      "reason_field": "provenance"
+    },
+    "supported_intents": [
+      "SKU_IN_STOCK_GENERAL"
+    ]
+  },
+  "limitations": [
+    {
+      "code": "MAX_PARAM_SIZE",
+      "message": "SKU identifiers are at most 128 characters.",
+      "param": "sku",
+      "property": "length",
+      "value_num": 128,
+      "operator": "lte"
+    }
+  ],
+  "errors": {
+    "message_path": "error"
+  },
+  "docs": {
+    "repository": "https://github.com/zkasuran/telegraph-catalog-miners"
+  }
+}

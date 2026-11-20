@@ -1,0 +1,58 @@
+{
+  "license": "LicenseRef-zkasuran-SAND-1.0",
+  "binary_wrap": 0,
+  "deployed_worker": "telegraph-s2-hashprice",
+  "deployed_endpoint": "/truth/v2/sku",
+  "files": [
+    {
+      "path": "sku-in-stock.yaml",
+      "sha256": "54cc9d7590b52c7ce2d172ac4689a91c1325b6c06c242c5aa915dd794b56fad9",
+      "lineage": "own"
+    },
+    {
+      "path": "stock.test.mjs",
+      "sha256": "1557da693c8130d5d7802b8f6bd8a2d790715cd9ed1cc4ded7887d858756e1eb",
+      "lineage": "own"
+    },
+    {
+      "path": "runtime/commerce/88/worker.mjs",
+      "sha256": "127180be649587c2bf40bc5b35183b5a78953857c16f2e1cb54ecb26a9a7b42e",
+      "lineage": "own"
+    },
+    {
+      "path": "runtime/commerce/common.mjs",
+      "sha256": "eac9e2862f3464070774d5ae57911b7b1cf216e23a3319f22223503f278dfb73",
+      "lineage": "own"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "e6cf0cc83fbc51616590209d71ef1fa5fe46c130bef44e0d97d439ee91663447",
+      "lineage": "own"
+    },
+    {
+      "path": "DATA-SOURCES.md",
+      "sha256": "dd2b05daddc8fdfb6103f1e129ec21c456219ba131345ea2f2cc520a2c81a300",
+      "lineage": "own"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "9f865eeb359705bd6113c6ab641eb2493d920c74437a0470ad80d11c4e2466eb",
+      "lineage": "own"
+    },
+    {
+      "path": "README.md",
+      "sha256": "1efd47a2ebd41ea49e5529fb5ff6623d868848382f1e905aabf3a98d3197f621",
+      "lineage": "own"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "0e447b0feadbb329ea58df6f764609b3966801b23a8820a5caf24756ef88920e",
+      "lineage": "own"
+    },
+    {
+      "path": "verify.sh",
+      "sha256": "9eb86217780fcd0a0d90fd93f5db41cf5002e925be46fc6780e797d3852448e1",
+      "lineage": "own"
+    }
+  ]
+}
