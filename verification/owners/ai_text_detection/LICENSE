@@ -162,3 +162,4 @@ Margin alignment and exact source-data reuse retain every original grant.
 Compact training source quotes keep original article attribution and grants.
 Supplementary verdict preferences retain all original source and generator grants.
 Rank16 capacity continuation retains PEFT and original learned-state grants.
+Exact selected-state lower-rate resumes retain all original grants and attribution.

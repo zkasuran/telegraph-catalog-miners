@@ -5,6 +5,8 @@
 | Wrong source bytes or missing grant | Git blob plus SHA-256 and per-article CC BY clause | Manifest and tampered-XML controls |
 | Sparse checkout omits gate inputs | Exact owned source and workflow paths in non-cone checkout | Incomplete-checkout refusal control |
 | Capacity silently rescales learned deltas | Rank8/alpha32 to rank16/alpha64 preserves alpha/rank4 and all old slices | Strict policy and scalar controls; actual matrix delta checks run remotely |
+| Resume discards learned rank16 capacity or mixes saved heads | Exact producer/selected-epoch/model/readout hashes and direct load | Actual opaque checkpoint/grant checks and new resume-policy corruption tests |
+| Smaller step size silently weakens acceptance | Fixed lower-rate recipe, identical data/losses/selection/audit thresholds | Same all-format/label/shortcut refusal tests and literal wire controls |
 | New columns overwrite prior learned state | Original slices/head retained, seeded extra A and zero extra B | Opaque descriptor/source controls; prepared remote key/shape/dtype/nonfinite/zero refusals |
 | More parameters are claimed to work without learning | Actual extra B columns must receive finite encoder gradients before updates | Prepared remote primary-path capacity gradient control, not locally verified |
 | Weak validation consumes an audit | All claimed validation formats must pass first | Validation refusal keeps audit sealed |
@@ -54,6 +56,12 @@ byte equality claim. It retains the actual old rank slices and head. Actual
 initial FP32 deltas are checked within absolute1e-6 before fitting; independent
 runtime identity, repeat score bits and quality thresholds are not relaxed.
 No rank16 model is loaded, constructed or executed locally.
+
+Direct rank16 continuation retains every actually selected tensor, not just an
+old rank8 prefix. The previous expansion proof remains historical evidence. The
+new runner must prove exact full learned-state equality before fitting. The
+selected-state artifacts keep their original grants; a failed quality gate cannot
+be turned into an eligible registration by resuming or changing the learning rate.
 
 Known limits: pretraining overlap is unknown. Journal controls do not certify an
 individual's production history. DistilGPT2 is related to GPT-2. A source-held-out

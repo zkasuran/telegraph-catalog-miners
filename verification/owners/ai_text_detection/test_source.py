@@ -505,9 +505,11 @@ class SourceTests(unittest.TestCase):
         raw = (HERE / recipe["checkpoint_file"]).read_bytes()
         checked = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
         self.assertFalse(checked["tensor_payload_interpreted"])
-        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017, 44666934403, 44675121682))
+        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017, 44666934403, 44675121682, 44762535076))
         if recipe["continuation_run_id"] == 44675121682:
             self.assertEqual(recipe["checkpoint_sha256"], "e426a298d84b73c0b3a853e51695d8a8d6f77a7d5f65eb24a1b222e2f70d85ef")
+        if recipe["continuation_run_id"] == 44762535076:
+            self.assertEqual(recipe["checkpoint_sha256"], "05d0d605cbe0e4f05af43f0e15562fbba6d3d5b41d45846b38b495f51b230b6f")
 
     def test_weight16_predecessor_remains_retained_when_followup_is_selected(self):
         recipe = json.loads((HERE / "recipe.json").read_text())

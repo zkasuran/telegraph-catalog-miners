@@ -13,7 +13,9 @@ from capacity_contract import capacity_policy, source_capacity
 
 class CapacityTests(unittest.TestCase):
     def setUp(self):
-        self.recipe = json.loads((HERE / "recipe.json").read_text())
+        # Keep every original rank8 expansion check on its actual historical recipe.
+        # The active rank16 direct-resume contract has its own additional tests.
+        self.recipe = json.loads((HERE / "recovery/rank16-selected-producer.json").read_text())["checkpoint_lineage"]
 
     def test_exact_supported_capacity_and_scale(self):
         policy = capacity_policy(self.recipe)

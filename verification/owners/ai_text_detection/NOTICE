@@ -2,6 +2,12 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+The exact selected rank16 adapter and training-only source readout of public run
+44762535076 are retained with original producer/selection/source/byte identities.
+They remain subject to the original article, generator, foundation and software
+grants attached to their bytes. Our direct-resume contract and lower-rate training
+addition use SAND only for our additions. No human review or canonical win is claimed.
+
 Rank16 continuation retains the original rank8 learned slices and reward head,
 then trains added capacity only in a bounded public CPU job. PEFT v0.21.2 by
 Hugging Face retains Apache-2.0; the Telegraph format/parser retain MIT. Their

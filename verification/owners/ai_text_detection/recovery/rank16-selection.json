@@ -1,0 +1,521 @@
+{
+  "epochs": [
+    {
+      "epoch": -1,
+      "optimizer_steps": 0,
+      "training_loss": null,
+      "validation_formats": {
+        "json": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.875,
+          "val_loss": 0.216267,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.8125,
+            "AI-generated": 0.9375
+          }
+        },
+        "prose": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8906,
+          "val_loss": 0.193383,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.875,
+            "AI-generated": 0.9062
+          }
+        },
+        "bare_label": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8125,
+          "val_loss": 0.426839,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.9688,
+            "AI-generated": 0.6562
+          }
+        }
+      },
+      "validation_gate": {
+        "passed": false,
+        "failures": [
+          "json failed unchanged validation quality/label/shortcut gate",
+          "bare_label failed unchanged validation quality/label/shortcut gate"
+        ]
+      },
+      "selection_key": [
+        0,
+        -0.06875,
+        -0.2788296666666667
+      ],
+      "selected": true,
+      "role": "Actual measured source-fitted starting checkpoint, before new fitting."
+    },
+    {
+      "epoch": 0,
+      "optimizer_steps": 110,
+      "training_loss": 0.8139925074783412,
+      "unweighted_training_pair_loss": 0.19302482432250204,
+      "training_weight_policy": {
+        "rows": 752,
+        "bare_weight": 16.0,
+        "mean_training_weight": 1.2393617021276595,
+        "total_training_weight": 932.0,
+        "weight_by_origin": {
+          "Human": 466.0,
+          "AI-generated": 466.0
+        },
+        "weighting_scope": "Training loss only, not validation/audit metrics or selection gates.",
+        "acceptance_thresholds_changed": false
+      },
+      "unweighted_training_correctness_loss": 0.49224658191521115,
+      "training_objective": {
+        "coefficient": 0.5,
+        "chosen_target": 0.9,
+        "rejected_target": 0.1,
+        "scope": "existing_training_pair_sides",
+        "reduction": "mean",
+        "pair_loss_retained": true,
+        "origin_specific_weights": false,
+        "extra_training_rows": 0,
+        "validation_audit_inputs_unchanged": true,
+        "runtime_score_transform": false,
+        "probability_claim": false,
+        "rows": 752,
+        "weight_by_origin": {
+          "Human": 466.0,
+          "AI-generated": 466.0
+        }
+      },
+      "origin_auxiliary_diagnostic": {
+        "run_id": 44762535076,
+        "commit": "3e140852eae8ded934d3bb29dc18e13f5693a6a6",
+        "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+        "development_sha256": "032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3",
+        "augmentation_sha256": "b8021a5faeff9fc9f55aa9f7f4e34f7d01d52c8f6f2f7a2089dac01c1ff68c92",
+        "additional_augmentation_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
+        "training_view_sha256": "cb6d82069441022faaf111fbc2fcdd807975f4c0061cf2806bda104c66dbe21b",
+        "training_source_bundle_sha256": "297022609393437d9a6255c8012b74696467d61286cc98672063999e84d9d2e6",
+        "supplement_generation_sha256": "8b56251827c93deb1723e2db9ddc26c0140667fa1cd0c7dfe0d7da3717c7dc2a",
+        "epoch": 0,
+        "training_loss": 0.4382638349891343,
+        "training_accuracy": 0.8976063829787234,
+        "validation_accuracy": 0.859375,
+        "validation_by_origin": {
+          "0": 0.875,
+          "1": 0.84375
+        },
+        "scope": "Native training-only readout diagnostic, not node runtime or candidate selection.",
+        "used_for_selection": false,
+        "audit_used": false
+      },
+      "coupled_objective": {
+        "gap_coefficient": 0.25,
+        "rows_per_view": 2,
+        "origin_order": "role_symmetric",
+        "row_accumulation": 8,
+        "runtime_transform": false
+      },
+      "training_counterpart_gap": 0.3763662656333218,
+      "literal_training_rows": 752,
+      "source_view_batches": 376,
+      "literal_batch_size": 2,
+      "literal_rows_per_optimizer_update": 8,
+      "supplement_source_only_rows": 128,
+      "supplement_optimizer_steps": 16,
+      "supplement_training_origin_loss": 0.5851995267439634,
+      "supplement_training_origin_accuracy": 0.765625,
+      "supplement_preference_rows": 128,
+      "combined_literal_training_rows": 880,
+      "supplement_preference_pair_loss": 0.4709502810383128,
+      "supplement_preference_correctness_loss": 0.6187686517369002,
+      "supplement_preference_margin_loss": 2.1470376176748687,
+      "supplement_preference_policy": {
+        "scope": "training_only",
+        "independent_groups": 64,
+        "new_preference_rows": 128,
+        "new_bare_rows": 0,
+        "original_preference_rows": 752,
+        "supplement_updates": 16,
+        "pair_coefficient": 1.0,
+        "original_phase_unchanged": true,
+        "runtime_transform": false,
+        "audit_used": false
+      },
+      "supplement_preference_rows_sha256": "51c1172b02dae55521505101fd438c09b29cb3c4654ab0a28dc2bb7487353ca3",
+      "training_margin_alignment_loss": 2.1773318684068106,
+      "margin_alignment": {
+        "coefficient": 0.1,
+        "beta": 1.0,
+        "scope": "paired_training_verdict_margins",
+        "runtime_transform": false
+      },
+      "validation_formats": {
+        "json": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8438,
+          "val_loss": 0.261537,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.7188,
+            "AI-generated": 0.9688
+          }
+        },
+        "prose": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.875,
+          "val_loss": 0.216896,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.7812,
+            "AI-generated": 0.9688
+          }
+        },
+        "bare_label": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8281,
+          "val_loss": 0.339091,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.9375,
+            "AI-generated": 0.7188
+          }
+        }
+      },
+      "validation_gate": {
+        "passed": false,
+        "failures": [
+          "json failed unchanged validation quality/label/shortcut gate",
+          "prose failed unchanged validation quality/label/shortcut gate",
+          "bare_label failed unchanged validation quality/label/shortcut gate"
+        ]
+      },
+      "selection_key": [
+        0,
+        -0.05315000000000006,
+        -0.27250800000000003
+      ],
+      "selected": true
+    },
+    {
+      "epoch": 1,
+      "optimizer_steps": 220,
+      "training_loss": 0.6473719766561655,
+      "unweighted_training_pair_loss": 0.15259338960985336,
+      "training_weight_policy": {
+        "rows": 752,
+        "bare_weight": 16.0,
+        "mean_training_weight": 1.2393617021276595,
+        "total_training_weight": 932.0,
+        "weight_by_origin": {
+          "Human": 466.0,
+          "AI-generated": 466.0
+        },
+        "weighting_scope": "Training loss only, not validation/audit metrics or selection gates.",
+        "acceptance_thresholds_changed": false
+      },
+      "unweighted_training_correctness_loss": 0.46458772058658143,
+      "training_objective": {
+        "coefficient": 0.5,
+        "chosen_target": 0.9,
+        "rejected_target": 0.1,
+        "scope": "existing_training_pair_sides",
+        "reduction": "mean",
+        "pair_loss_retained": true,
+        "origin_specific_weights": false,
+        "extra_training_rows": 0,
+        "validation_audit_inputs_unchanged": true,
+        "runtime_score_transform": false,
+        "probability_claim": false,
+        "rows": 752,
+        "weight_by_origin": {
+          "Human": 466.0,
+          "AI-generated": 466.0
+        }
+      },
+      "origin_auxiliary_diagnostic": {
+        "run_id": 44762535076,
+        "commit": "3e140852eae8ded934d3bb29dc18e13f5693a6a6",
+        "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+        "development_sha256": "032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3",
+        "augmentation_sha256": "b8021a5faeff9fc9f55aa9f7f4e34f7d01d52c8f6f2f7a2089dac01c1ff68c92",
+        "additional_augmentation_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
+        "training_view_sha256": "cb6d82069441022faaf111fbc2fcdd807975f4c0061cf2806bda104c66dbe21b",
+        "training_source_bundle_sha256": "297022609393437d9a6255c8012b74696467d61286cc98672063999e84d9d2e6",
+        "supplement_generation_sha256": "8b56251827c93deb1723e2db9ddc26c0140667fa1cd0c7dfe0d7da3717c7dc2a",
+        "epoch": 1,
+        "training_loss": 0.42990864535912554,
+        "training_accuracy": 0.9242021276595744,
+        "validation_accuracy": 0.828125,
+        "validation_by_origin": {
+          "0": 0.875,
+          "1": 0.78125
+        },
+        "scope": "Native training-only readout diagnostic, not node runtime or candidate selection.",
+        "used_for_selection": false,
+        "audit_used": false
+      },
+      "coupled_objective": {
+        "gap_coefficient": 0.25,
+        "rows_per_view": 2,
+        "origin_order": "role_symmetric",
+        "row_accumulation": 8,
+        "runtime_transform": false
+      },
+      "training_counterpart_gap": 0.24825337346880993,
+      "literal_training_rows": 752,
+      "source_view_batches": 376,
+      "literal_batch_size": 2,
+      "literal_rows_per_optimizer_update": 8,
+      "supplement_source_only_rows": 128,
+      "supplement_optimizer_steps": 16,
+      "supplement_training_origin_loss": 0.5653634874615818,
+      "supplement_training_origin_accuracy": 0.7890625,
+      "supplement_preference_rows": 128,
+      "combined_literal_training_rows": 880,
+      "supplement_preference_pair_loss": 0.379246405275353,
+      "supplement_preference_correctness_loss": 0.5671911041717976,
+      "supplement_preference_margin_loss": 1.987329748868433,
+      "supplement_preference_policy": {
+        "scope": "training_only",
+        "independent_groups": 64,
+        "new_preference_rows": 128,
+        "new_bare_rows": 0,
+        "original_preference_rows": 752,
+        "supplement_updates": 16,
+        "pair_coefficient": 1.0,
+        "original_phase_unchanged": true,
+        "runtime_transform": false,
+        "audit_used": false
+      },
+      "supplement_preference_rows_sha256": "51c1172b02dae55521505101fd438c09b29cb3c4654ab0a28dc2bb7487353ca3",
+      "training_margin_alignment_loss": 1.2931218607747645,
+      "margin_alignment": {
+        "coefficient": 0.1,
+        "beta": 1.0,
+        "scope": "paired_training_verdict_margins",
+        "runtime_transform": false
+      },
+      "validation_formats": {
+        "json": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8594,
+          "val_loss": 0.287956,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.7188,
+            "AI-generated": 1.0
+          }
+        },
+        "prose": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.875,
+          "val_loss": 0.21913,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.75,
+            "AI-generated": 1.0
+          }
+        },
+        "bare_label": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8125,
+          "val_loss": 0.392444,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.9375,
+            "AI-generated": 0.6875
+          }
+        }
+      },
+      "validation_gate": {
+        "passed": false,
+        "failures": [
+          "json failed unchanged validation quality/label/shortcut gate",
+          "prose failed unchanged validation quality/label/shortcut gate",
+          "bare_label failed unchanged validation quality/label/shortcut gate"
+        ]
+      },
+      "selection_key": [
+        0,
+        -0.06875,
+        -0.2998433333333333
+      ],
+      "selected": false
+    },
+    {
+      "epoch": 2,
+      "optimizer_steps": 330,
+      "training_loss": 0.5536200257929715,
+      "unweighted_training_pair_loss": 0.11368593641116681,
+      "training_weight_policy": {
+        "rows": 752,
+        "bare_weight": 16.0,
+        "mean_training_weight": 1.2393617021276595,
+        "total_training_weight": 932.0,
+        "weight_by_origin": {
+          "Human": 466.0,
+          "AI-generated": 466.0
+        },
+        "weighting_scope": "Training loss only, not validation/audit metrics or selection gates.",
+        "acceptance_thresholds_changed": false
+      },
+      "unweighted_training_correctness_loss": 0.4349848014956459,
+      "training_objective": {
+        "coefficient": 0.5,
+        "chosen_target": 0.9,
+        "rejected_target": 0.1,
+        "scope": "existing_training_pair_sides",
+        "reduction": "mean",
+        "pair_loss_retained": true,
+        "origin_specific_weights": false,
+        "extra_training_rows": 0,
+        "validation_audit_inputs_unchanged": true,
+        "runtime_score_transform": false,
+        "probability_claim": false,
+        "rows": 752,
+        "weight_by_origin": {
+          "Human": 466.0,
+          "AI-generated": 466.0
+        }
+      },
+      "origin_auxiliary_diagnostic": {
+        "run_id": 44762535076,
+        "commit": "3e140852eae8ded934d3bb29dc18e13f5693a6a6",
+        "source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
+        "development_sha256": "032c08d6b59fe66c22cc498e6ac6b9f7464676443f140469e22b31142e5cd3e3",
+        "augmentation_sha256": "b8021a5faeff9fc9f55aa9f7f4e34f7d01d52c8f6f2f7a2089dac01c1ff68c92",
+        "additional_augmentation_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
+        "training_view_sha256": "cb6d82069441022faaf111fbc2fcdd807975f4c0061cf2806bda104c66dbe21b",
+        "training_source_bundle_sha256": "297022609393437d9a6255c8012b74696467d61286cc98672063999e84d9d2e6",
+        "supplement_generation_sha256": "8b56251827c93deb1723e2db9ddc26c0140667fa1cd0c7dfe0d7da3717c7dc2a",
+        "epoch": 2,
+        "training_loss": 0.41152595704857337,
+        "training_accuracy": 0.9321808510638298,
+        "validation_accuracy": 0.828125,
+        "validation_by_origin": {
+          "0": 0.875,
+          "1": 0.78125
+        },
+        "scope": "Native training-only readout diagnostic, not node runtime or candidate selection.",
+        "used_for_selection": false,
+        "audit_used": false
+      },
+      "coupled_objective": {
+        "gap_coefficient": 0.25,
+        "rows_per_view": 2,
+        "origin_order": "role_symmetric",
+        "row_accumulation": 8,
+        "runtime_transform": false
+      },
+      "training_counterpart_gap": 0.1805288104063019,
+      "literal_training_rows": 752,
+      "source_view_batches": 376,
+      "literal_batch_size": 2,
+      "literal_rows_per_optimizer_update": 8,
+      "supplement_source_only_rows": 128,
+      "supplement_optimizer_steps": 16,
+      "supplement_training_origin_loss": 0.5524882881436497,
+      "supplement_training_origin_accuracy": 0.8125,
+      "supplement_preference_rows": 128,
+      "combined_literal_training_rows": 880,
+      "supplement_preference_pair_loss": 0.32927680599095766,
+      "supplement_preference_correctness_loss": 0.5373906749300659,
+      "supplement_preference_margin_loss": 1.8658976382066612,
+      "supplement_preference_policy": {
+        "scope": "training_only",
+        "independent_groups": 64,
+        "new_preference_rows": 128,
+        "new_bare_rows": 0,
+        "original_preference_rows": 752,
+        "supplement_updates": 16,
+        "pair_coefficient": 1.0,
+        "original_phase_unchanged": true,
+        "runtime_transform": false,
+        "audit_used": false
+      },
+      "supplement_preference_rows_sha256": "51c1172b02dae55521505101fd438c09b29cb3c4654ab0a28dc2bb7487353ca3",
+      "training_margin_alignment_loss": 1.0195892128978927,
+      "margin_alignment": {
+        "coefficient": 0.1,
+        "beta": 1.0,
+        "scope": "paired_training_verdict_margins",
+        "runtime_transform": false
+      },
+      "validation_formats": {
+        "json": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8438,
+          "val_loss": 0.389729,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.6875,
+            "AI-generated": 1.0
+          }
+        },
+        "prose": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.875,
+          "val_loss": 0.272013,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.75,
+            "AI-generated": 1.0
+          }
+        },
+        "bare_label": {
+          "n_eval": 64,
+          "pairwise_accuracy": 0.8125,
+          "val_loss": 0.418441,
+          "length_baseline": 0.5,
+          "beats_length_baseline": true,
+          "verdict": "PASS",
+          "accuracy_by_label": {
+            "Human": 0.9688,
+            "AI-generated": 0.6562
+          }
+        }
+      },
+      "validation_gate": {
+        "passed": false,
+        "failures": [
+          "json failed unchanged validation quality/label/shortcut gate",
+          "prose failed unchanged validation quality/label/shortcut gate",
+          "bare_label failed unchanged validation quality/label/shortcut gate"
+        ]
+      },
+      "selection_key": [
+        0,
+        -0.06875,
+        -0.36006099999999996
+      ],
+      "selected": false
+    }
+  ],
+  "selected_epoch": 0,
+  "selection": "Actual validation only; gate pass and weakest format/label margin before mean loss.",
+  "audit_used_for_selection": false,
+  "elapsed_seconds": 1981.597377596
+}

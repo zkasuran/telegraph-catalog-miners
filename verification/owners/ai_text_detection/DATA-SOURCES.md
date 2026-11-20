@@ -1,5 +1,29 @@
 # Sources and rights
 
+## Exact selected rank16 lower-rate resume
+
+Run 44762535076 verified all88 original matrix deltas with zero actual difference,
+retained old slices/head and finite gradients in all88 added B matrices. Its actual
+selected epoch0 reached bare82.81% (Human93.75%, AI71.88%), JSON84.38% and prose87.50%.
+Every format still missed the strict78.125% source-length baseline plus ten points.
+Later epochs degraded; no independent audit was opened. A partial improvement is
+not registration eligibility or a canonical win.
+
+The next candidate resumes the exact selected rank16 adapter and its paired saved
+origin readout, not the older rank8 checkpoint. Original producer, selection,
+source and package evidence are retained beside them. The adapter SHA-256 is
+05d0d605cbe0e4f05af43f0e15562fbba6d3d5b41d45846b38b495f51b230b6f;
+the readout SHA-256 is47ae66f72ff3d6b984d9550b8068a84611f84dabe7797fd1d6e5afcb9a51b1ab.
+No tensor payload is interpreted locally. Original grants and attribution remain
+attached to these failed-but-licensed checkpoints. The readout remains unexported.
+
+Fresh bounded AdamW uses a fixed1e-5 rate, one-third the prior3e-5 rate, because
+later updates worsened the weakest measured validation margin. This hypothesis
+does not use audit data. Four epochs, all880 rows, all losses and integer baselines
+remain unchanged. The runner requires exact direct tensor equality before new
+fitting. It does not re-expand, reroll generation or rescale the served score.
+Neural benefit and independent reference qualification remain unverified.
+
 ## Retained rank16 capacity continuation
 
 Run 44754728791 passed both the original752 and combined880 data gates. Its

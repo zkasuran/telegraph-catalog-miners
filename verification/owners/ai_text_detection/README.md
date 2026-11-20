@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+Rank16 run44762535076 passed real expansion and gradient controls and selected
+epoch0. Bare accuracy improved to82.81% with both labels above70%, but every format
+still missed the stronger shortcut margin. No audit was consumed or registration
+claimed. The current candidate directly resumes that selected adapter and its
+paired readout at a fixed1e-5 rate. It keeps the same880 rows and all gates. This
+is a bounded training hypothesis, not an unchanged binary retry or score mapping.
+
 The source-verdict run44754728791 passed both data gates and actual reward-head
 gradients but still failed strict quality. The current candidate retains its
 rank8 checkpoint and expands only the supported trainable LoRA capacity to rank16.

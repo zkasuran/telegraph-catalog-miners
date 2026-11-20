@@ -217,8 +217,12 @@ def main():
         continued, tokenizer = build(base_path, parameters)
         saved = load_file(str(checkpoint), device="cpu")
         expected = get_peft_model_state_dict(continued, save_embedding_layers=False)
-        from train_capacity import expand
-        saved, capacity_binding = expand(saved, expected, expanded_capacity)
+        from resume_contract import resume_policy, source_resume
+        resume = resume_policy(recipe)
+        source_resume(checkpoint.read_bytes(), recipe)
+        capacity_binding = {"direct_rank16_resume": True, "reexpanded": False,
+            "producer_run_id": resume["producer_run_id"], "selected_epoch": resume["selected_epoch"],
+            "checkpoint_sha256": recipe["checkpoint_sha256"]}
         dump(root / "capacity-continuation.json", {**capacity_binding, "checkpoint_sha256": recipe["checkpoint_sha256"],
             "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
             "policy": expanded_capacity, "audit_used": False})
@@ -229,7 +233,7 @@ def main():
         if any(not torch.equal(saved[k], actual[k]) for k in saved):
             raise ValueError("warm-started learned tensor differs from exact saved checkpoint")
         dump(root / "checkpoint-loaded.json", {"checkpoint_sha256": recipe["checkpoint_sha256"],
-             "verified_learned_tensors": len(saved), "post_load_bits_identical_before_fitting": False,
+             "verified_learned_tensors": len(saved), "post_load_bits_identical_before_fitting": True,
              "expanded_state_loaded_bits_identical": True, "retained_rank_slices_bits_identical": True,
              "parent_source_manifest_sha256": recipe["parent_source_manifest_sha256"]})
         return continued, tokenizer
