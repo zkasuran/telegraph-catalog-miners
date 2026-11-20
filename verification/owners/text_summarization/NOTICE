@@ -50,3 +50,9 @@ bytes, original embedded grants and original attribution. Its complete audit
 and reference-engine evidence is not used for later fitting or selection.
 Recovery code fixes reporting and re-verifies the immutable package only.
 The scored audit is not rescored. New recovery additions use the same SAND grant.
+
+The released readiness report is the original observed output of recovery run
+44829226761, not an AI-created expected report. Its training/audit provenance
+binds original run 44796102138. Publication does not change the candidate bytes,
+source text, original grants or attribution. Source-only release checks add no
+model fitting, held-out scoring or human preference review.

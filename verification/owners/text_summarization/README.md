@@ -108,6 +108,15 @@ audit. The report binds both the original training run and the new recovery run.
 Serving uses the exact same package with its original embedded grants.
 No canonical node result is claimed.
 
+The byte-preserving recovery completed as [run 44829226761](https://github.com/zkasuran/telegraph-catalog-miners/actions/runs/44829226761).
+Its actual `REGISTRATION_READY` report is retained unchanged in `release/` with
+artifact and byte hashes in `release-manifest.json`. It binds original training
+and audit run 44796102138 plus fresh parser/reference checks in recovery run
+44829226761. No fitting or audit rescoring occurred. The package is unchanged.
+Serving must execute the report's pinned serving commit, not the later commit
+that publishes these proof assets. Endpoint activation and canonical registration
+remain unverified until their actual gates complete.
+
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
 timeouts. Fitting only receives original training pairs. All nine main epochs
 complete. Validation loss selects a frozen checkpoint without advancing the

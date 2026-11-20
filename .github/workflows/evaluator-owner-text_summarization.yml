@@ -24,6 +24,7 @@
       }},
       {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
       {"name": "Source-only release gate", "run": "bash verification/owners/text_summarization/verify.sh"},
+      {"name": "Check exact published readiness proof without model loading", "run": "python3 -W error verification/owners/text_summarization/released_report.py"},
       {"name": "Preserve failed-run grants", "if": "${{ inputs.mode == 'train' }}", "run": "python3 verification/owners/text_summarization/preserve.py --root \"$RUNNER_TEMP/summary-experiment\""},
       {"name": "Install hash-locked public CPU dependencies", "timeout-minutes": 20,
        "run": "python3 -m venv \"$RUNNER_TEMP/summary-venv\"\n\"$RUNNER_TEMP/summary-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/text_summarization/requirements.lock\n\"$RUNNER_TEMP/summary-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/audit_dependencies.py --lock verification/owners/text_summarization/requirements.lock --out \"$RUNNER_TEMP/summary-audit-requirements.txt\" --report \"$RUNNER_TEMP/summary-dependency-audit.json\""},

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "TEXT_SUMMARIZATION",
+  "verified_run_id": 44829226761,
+  "verified_commit": "47d5ad5fcfe19fc6a23679fb3517a09cf24e2ca5",
+  "serving_commit": "47d5ad5fcfe19fc6a23679fb3517a09cf24e2ca5",
+  "ready_artifact_id": 14675422884,
+  "result_artifact_id": 14675412919,
+  "package_sha256": "8e3ef949fea2fae5cfbe24f1e80ffd85d2bb77d947a2e610d4d01da062816814",
+  "package_keccak": "6ab216be4394b4c5208f8667d3577a64e6a3be6e275933d64d121b87a17e653b",
+  "package_bytes": 6821580,
+  "training_origin": {
+    "run_id": 44796102138,
+    "commit": "e5d4eaedf0cba90d2c837be94171d89dc29c8934",
+    "artifact_id": 14672169224,
+    "archive_sha256": "614c6ab88a9bdd636072edae2f906c89dce1b639496d3953b82d18c76fa27905",
+    "runtime_report_sha256": "7c51cabaed0d7725b8a5991132f3d62f08b2ef56ace9995adee35840eedeba51",
+    "result_report_sha256": "4bf771f04a3eeb8cf772aad549772a4c7bd61b00eb26cad546b761205d1ac26f"
+  },
+  "files": [
+    {
+      "path": "release/registration-ready.json",
+      "sha256": "5a92cb05d9dcf00ddb5eaafe19234ee2f66234433400f077011b34b5e70defa9",
+      "bytes": 13881
+    },
+    {
+      "path": "release/recovery-result.json",
+      "sha256": "5e0815cea11f57dbed7ba02fa391e7b0477ea6ae98167999f2387abbba8da77e",
+      "bytes": 1062
+    },
+    {
+      "path": "release/package-manifest.json",
+      "sha256": "50795e71033464c30e640ead0610be5504b498ce69f99c7e037a666a5fc70f53",
+      "bytes": 2016
+    }
+  ],
+  "canonical_registration": "not attempted"
+}

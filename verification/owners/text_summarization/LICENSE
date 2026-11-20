@@ -180,3 +180,8 @@ The frozen candidate package from run 44796102138 retains its original embedded
 SAND and upstream grants byte for byte. New integration-recovery code uses the
 same SAND grant only on our additions. This scope does not restamp, relicense
 or narrow rights in the original immutable package or source evidence.
+
+Publication of the observed recovery readiness proof preserves its exact original
+bytes and retained source/model grants. Our source-only release checks use the
+unchanged SAND grant on our additions. No later publication narrows rights in
+previously obtained original packages or proof assets.

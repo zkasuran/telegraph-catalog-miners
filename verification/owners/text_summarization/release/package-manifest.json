@@ -1,0 +1,59 @@
+{
+  "bytes": 6821580,
+  "class": "judgment",
+  "foundation_spec_sha256": "dc085fea3f521fcaa38485cd31c168a6396f118e976f5d0fc1b6581fce3fad82",
+  "intent": "TEXT_SUMMARIZATION",
+  "keccak256": "0x6ab216be4394b4c5208f8667d3577a64e6a3be6e275933d64d121b87a17e653b",
+  "manifest": {
+    "schema": 1,
+    "builder": "github.com/telegraphprotocol/telegraph-wasm-baseline/cmd/adapterbuild",
+    "builder_version": "adapterbuild/2",
+    "intent": "TEXT_SUMMARIZATION",
+    "class": "judgment",
+    "abi": "lora-v1",
+    "foundation": {
+      "hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+      "version": "modernbert-base-lora16-v1"
+    },
+    "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+    "rank": 8,
+    "alpha": 32,
+    "target_modules": [
+      "Wi",
+      "Wo",
+      "Wqkv"
+    ],
+    "max_tokens": 256,
+    "tensors": 178,
+    "delta_bytes": 6761476,
+    "package": {
+      "file": "TEXT_SUMMARIZATION.safetensors",
+      "sha256": "8e3ef949fea2fae5cfbe24f1e80ffd85d2bb77d947a2e610d4d01da062816814",
+      "bytes": 6821580
+    },
+    "keccak256": "0x6ab216be4394b4c5208f8667d3577a64e6a3be6e275933d64d121b87a17e653b",
+    "training": {
+      "family": "TEXT_SUMMARIZATION",
+      "children": [
+        {
+          "intent": "TEXT_SUMMARIZATION_GENERAL",
+          "dataset_version": "c891d35b58597d587c7c9785071b5a6a9ca191d7fb767d899ba3a0e9a32d781d",
+          "pairs": 128,
+          "accuracy": 0.9375,
+          "spearman": 0,
+          "held_out": true
+        }
+      ],
+      "trainer": "Fixed source-conditioned title relevance experiment",
+      "backbone": "ModernBERT-base",
+      "backbone_version": "8949b909ec900327062f0ebf497f51aef5e6f0c8"
+    },
+    "verification": {
+      "stage1": true,
+      "loaded": false
+    },
+    "built_at": "2026-11-20T22:30:39Z"
+  },
+  "sha256": "8e3ef949fea2fae5cfbe24f1e80ffd85d2bb77d947a2e610d4d01da062816814",
+  "snapshot_sha256": "121219a7eeebe858aeba30a2635db7a1ead071f642bf8b6653ebe497a65d2a6e"
+}

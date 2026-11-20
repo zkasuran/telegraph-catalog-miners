@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "TEXT_SUMMARIZATION",
+  "run_id": 44829226761,
+  "commit": "47d5ad5fcfe19fc6a23679fb3517a09cf24e2ca5",
+  "original_training": {
+    "run_id": 44796102138,
+    "commit": "e5d4eaedf0cba90d2c837be94171d89dc29c8934",
+    "artifact_id": 14672169224,
+    "archive_sha256": "614c6ab88a9bdd636072edae2f906c89dce1b639496d3953b82d18c76fa27905",
+    "runtime_report_sha256": "7c51cabaed0d7725b8a5991132f3d62f08b2ef56ace9995adee35840eedeba51",
+    "result_report_sha256": "4bf771f04a3eeb8cf772aad549772a4c7bd61b00eb26cad546b761205d1ac26f"
+  },
+  "package_sha256": "8e3ef949fea2fae5cfbe24f1e80ffd85d2bb77d947a2e610d4d01da062816814",
+  "package_keccak": "6ab216be4394b4c5208f8667d3577a64e6a3be6e275933d64d121b87a17e653b",
+  "fitting_performed": false,
+  "audit_rescored": false,
+  "full_parser_passed": true,
+  "fixed_vectors": 8,
+  "negative_identity_controls": 3,
+  "repeat_bits_identical": true,
+  "node_qualification": "not attempted",
+  "ready_status": "REGISTRATION_READY"
+}

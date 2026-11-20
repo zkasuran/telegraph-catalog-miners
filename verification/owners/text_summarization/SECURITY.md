@@ -79,3 +79,10 @@ in the pinned reference engine, then combines those results with the original
 audit evidence. Tests reject changed epoch counts, package bytes and freeze flags.
 Original training and recovery identities remain distinct in the ready report.
 This is integration recovery, not a new independent audit or canonical win.
+
+`released_report.py` checks the exact observed report and manifest hashes plus
+original/recovery/serving identities before publication. The report is not
+rewritten for a later source publication. Serving uses its verified source commit
+with immutable proof URLs and repeats its actual vectors before forwarding.
+The released proof byte-tamper test rejects changed manifests. Live endpoint
+activation and registration must still pass the adapter's independent gates.

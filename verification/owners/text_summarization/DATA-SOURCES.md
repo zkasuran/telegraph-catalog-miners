@@ -128,3 +128,10 @@ Recovery replays the exact package parser and fixed engine vectors only, with
 original immutable quality evidence. It performs no fitting or audit rescoring.
 The original package keeps its original full embedded grants and attribution;
 new recovery code uses SAND only on our own additions.
+
+The successful recovery run 44829226761 on commit
+47d5ad5fcfe19fc6a23679fb3517a09cf24e2ca5 produced the exact readiness report
+published under `release/`. Original quality evidence and fresh runtime checks
+remain separate. Publication adds no training data or new audit scores. All
+report bytes and the original package remain unchanged. This is registration
+readiness, not a canonical win or independent demand.

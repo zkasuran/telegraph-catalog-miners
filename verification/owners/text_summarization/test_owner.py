@@ -25,6 +25,7 @@ from preserve import preserve
 from primary import anchors
 from proxy import validate_request
 from reciprocal import policy, schedules, selected_rows
+from released_report import source_check as released_source_check
 from report import completed_checks, validate_ready
 from role_bootstrap import admit, warmup_plan
 from role_bootstrap import warmup_rows as bootstrap_rows
@@ -138,6 +139,16 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_exact_observed_ready_release_and_byte_tamper(self):
+        result = released_source_check()
+        self.assertEqual(result["verified_run_id"], 44829226761)
+        self.assertEqual(result["serving_commit"], "47d5ad5fcfe19fc6a23679fb3517a09cf24e2ca5")
+        with tempfile.TemporaryDirectory(prefix="summary-release-test-") as directory:
+            raw = (HERE / "release-manifest.json").read_bytes()
+            (Path(directory) / "release-manifest.json").write_bytes(raw + b" ")
+            with patch("released_report.HERE", Path(directory)), self.assertRaises(ValueError):
+                released_source_check()
+
     def test_actual_nine_epoch_ready_checks_and_stale_epoch_control(self):
         freeze, report, primary = original_evidence()
         self.assertTrue(completed_checks(report, primary)["passed"])
