@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 {
   "name": "THREAT_IP_REPUTATION owner learning",
-  "run-name": "THREAT_IP_REPUTATION audit ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
+  "run-name": "THREAT_IP_REPUTATION qualified ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
   "on": {
     "workflow_dispatch": {
       "inputs": {
@@ -19,7 +19,8 @@
             "replay-runtime",
             "train-variant2",
             "continue-variant2",
-            "audit-once"
+            "audit-once",
+            "serve"
           ],
           "default": "source-check",
           "required": true
@@ -27,6 +28,36 @@
         "source_commit": {
           "type": "string",
           "description": "Exact immutable licensed audit-source commit, required for audit-once",
+          "required": false,
+          "default": ""
+        },
+        "audit_run_id": {
+          "type": "string",
+          "description": "Actual verified serving input audit_run_id",
+          "required": false,
+          "default": ""
+        },
+        "report_sha256": {
+          "type": "string",
+          "description": "Actual verified serving input report_sha256",
+          "required": false,
+          "default": ""
+        },
+        "slot": {
+          "type": "string",
+          "description": "Actual verified serving input slot",
+          "required": false,
+          "default": ""
+        },
+        "forward_port": {
+          "type": "string",
+          "description": "Actual verified serving input forward_port",
+          "required": false,
+          "default": ""
+        },
+        "runnable_url": {
+          "type": "string",
+          "description": "Actual verified serving input runnable_url",
           "required": false,
           "default": ""
         }
@@ -84,7 +115,7 @@
         },
         {
           "name": "Install exact audited CPU dependencies",
-          "if": "inputs.mode != 'audit-once' || steps.audit_source.outputs.ready == 'true'",
+          "if": "inputs.mode != 'serve' && (inputs.mode != 'audit-once' || steps.audit_source.outputs.ready == 'true')",
           "timeout-minutes": 20,
           "run": "python3 -m venv \"$RUNNER_TEMP/threat-ip-venv\" && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/threat_ip_reputation/learn/requirements.lock && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -m pip check && \"$RUNNER_TEMP/threat-ip-venv/bin/python\" verification/owners/threat_ip_reputation/learn/audit.py --lock verification/owners/threat_ip_reputation/learn/requirements.lock --out \"$RUNNER_TEMP/threat-ip-audit-requirements.txt\" --report \"$RUNNER_TEMP/threat-ip-audit.json\""
         },
@@ -150,6 +181,42 @@
             "if-no-files-found": "error",
             "path": "${{ runner.temp }}/threat-ip-independent-audit/source-capture/receipt.json\n${{ runner.temp }}/threat-ip-independent-audit/source-capture/source-preflight.json\n${{ runner.temp }}/threat-ip-independent-audit/source-capture/tree.json\n${{ runner.temp }}/threat-ip-independent-audit/audit-started.json\n${{ runner.temp }}/threat-ip-independent-audit/audit.jsonl\n${{ runner.temp }}/threat-ip-independent-audit/registration-ready.json\n${{ runner.temp }}/threat-ip-independent-audit/trained-parser.json\n${{ runner.temp }}/threat-ip-independent-audit/untrained-parser.json\n${{ runner.temp }}/threat-ip-independent-audit/trained-runtime.json\n${{ runner.temp }}/threat-ip-independent-audit/untrained-runtime.json\n${{ runner.temp }}/threat-ip-independent-audit/trained-engine.log\n${{ runner.temp }}/threat-ip-independent-audit/untrained-engine.log\n${{ runner.temp }}/threat-ip-independent-audit/live-class-proof.json\n${{ runner.temp }}/threat-ip-independent-audit/THREAT_IP_REPUTATION.safetensors\n${{ runner.temp }}/threat-ip-independent-audit/source-capture/entity-history/**"
           }
+        },
+        {
+          "name": "Prepare exact passing audited reference executor and public lease",
+          "if": "inputs.mode == 'serve'",
+          "timeout-minutes": 25,
+          "env": {
+            "GH_TOKEN": "${{ github.token }}",
+            "AUDIT_RUN_ID": "${{ inputs.audit_run_id }}",
+            "REPORT_SHA256": "${{ inputs.report_sha256 }}",
+            "RESERVED_SLOT": "${{ inputs.slot }}",
+            "FORWARD_PORT": "${{ inputs.forward_port }}",
+            "RUNNABLE_URL": "${{ inputs.runnable_url }}"
+          },
+          "run": "[[ \"$AUDIT_RUN_ID\" =~ ^[1-9][0-9]*$ ]] && gh run download \"$AUDIT_RUN_ID\" --repo zkasuran/telegraph-catalog-miners --name threat-ip-independent-audit --dir \"$RUNNER_TEMP/threat-ip-audit-result\" && python3 -c 'import json,os; r=json.load(open(os.environ[\"RUNNER_TEMP\"]+\"/threat-ip-audit-result/registration-ready.json\")); v={\"family\":\"THREAT_IP_REPUTATION\",\"package_keccak\":r[\"package_keccak\"],\"slot\":int(os.environ[\"RESERVED_SLOT\"]),\"forward_port\":int(os.environ[\"FORWARD_PORT\"]),\"runnable_url\":os.environ[\"RUNNABLE_URL\"],\"ssh_host\":\"98.95.110.88\",\"ssh_user\":\"telegraph-verify\"}; json.dump(v,open(os.environ[\"RUNNER_TEMP\"]+\"/threat-ip-reservation.json\",\"w\"))' && timeout --signal=TERM --kill-after=15s 1400 python3 -W error verification/owners/threat_ip_reputation/learn/serving.py --mode prepare --root \"$RUNNER_TEMP/threat-ip-serving\" --audit \"$RUNNER_TEMP/threat-ip-audit-result\" --reservation \"$RUNNER_TEMP/threat-ip-reservation.json\" --report-sha256 \"$REPORT_SHA256\""
+        },
+        {
+          "name": "Upload ONLY the verified restricted public lease",
+          "if": "inputs.mode == 'serve'",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "name": "threat-ip-serving-lease",
+            "if-no-files-found": "error",
+            "retention-days": 1,
+            "path": "${{ runner.temp }}/threat-ip-serving/lease.json"
+          }
+        },
+        {
+          "name": "Run identical bounded public reference executor",
+          "if": "inputs.mode == 'serve'",
+          "timeout-minutes": 295,
+          "run": "timeout --signal=TERM --kill-after=15s 17400 python3 -W error verification/owners/threat_ip_reputation/learn/serving.py --mode run --root \"$RUNNER_TEMP/threat-ip-serving\""
+        },
+        {
+          "name": "Remove ONLY this runner ephemeral forwarding key",
+          "if": "always() && inputs.mode == 'serve'",
+          "run": "python3 -W error verification/owners/threat_ip_reputation/learn/serving.py --mode cleanup --root \"$RUNNER_TEMP/threat-ip-serving\""
         }
       ]
     }
