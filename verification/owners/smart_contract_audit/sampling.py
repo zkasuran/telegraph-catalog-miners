@@ -35,8 +35,18 @@ def fit(rows):
             "replacement": True, "samples_per_epoch": len(rows), "audit_used_for_fitting": False}
 
 
+def fit_rational(rows):
+    view_identity = identity(rows)
+    counts = Counter(r["template_group"] for r in rows)
+    return {"schema_version": 2, "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+            "method": "train-only immutable inverse-count rational group weights",
+            "view_identity": view_identity, "group_view_counts": dict(sorted(counts.items())),
+            "coefficients": {g: 1 for g in sorted(counts)}, "denominators": dict(sorted(counts.items())),
+            "replacement": True, "samples_per_epoch": len(rows), "audit_used_for_fitting": False}
+
+
 def weights(rows, frozen):
-    if not isinstance(frozen, dict) or frozen.get("schema_version") != 1 or frozen.get("audit_used_for_fitting") is not False:
+    if not isinstance(frozen, dict) or frozen.get("schema_version") not in (1, 2) or frozen.get("audit_used_for_fitting") is not False:
         raise ValueError("frozen train-only sampling record required")
     if frozen.get("view_identity") != identity(rows) or frozen.get("samples_per_epoch") != len(rows) or frozen.get("replacement") is not True:
         raise ValueError("sampling training identity changed")
@@ -48,6 +58,11 @@ def weights(rows, frozen):
         raise ValueError("sampling group population changed")
     if any(type(value) is not int or not 1 <= value <= 16 for value in coefficients.values()):
         raise ValueError("positive bounded frozen integer coefficients required")
+    if frozen["schema_version"] == 2:
+        denominators = frozen.get("denominators")
+        if denominators != dict(counts) or any(type(v) is not int or not 1 <= v <= 768 for v in denominators.values()) or any(v != 1 for v in coefficients.values()):
+            raise ValueError("exact bounded immutable inverse-count rational coefficients required")
+        return [float(Fraction(1, denominators[r["template_group"]])) for r in rows]
     masses = {coefficients[group] * count for group, count in counts.items()}
     if len(masses) != 1:
         raise ValueError("frozen weights do not equalize implementation probability")
@@ -71,13 +86,13 @@ def main():
     if args.freeze:
         if args.frozen.exists():
             raise ValueError("frozen sampling coefficients already exist; refusing overwrite")
-        args.frozen.write_text(json.dumps(fit(rows), indent=2, sort_keys=True) + "\n")
+        args.frozen.write_text(json.dumps(fit_rational(rows), indent=2, sort_keys=True) + "\n")
     frozen = json.loads(args.frozen.read_text())
     actual = weights(rows, frozen)
     counts = Counter(r["template_group"] for r in rows)
-    masses = {g: counts[g] * frozen["coefficients"][g] for g in counts}
+    masses = {g: Fraction(counts[g] * frozen["coefficients"][g], frozen.get("denominators", {}).get(g, 1)) for g in counts}
     report = {"training_originals": len(original), "training_views": len(rows), "training_groups": len(counts),
-              "group_view_counts": dict(counts), "coefficients": frozen["coefficients"],
+              "group_view_counts": dict(counts), "coefficients": frozen["coefficients"], "denominators": frozen.get("denominators"), "method": frozen["method"],
               "weighted_probability_per_group": {g: float(Fraction(m, sum(masses.values()))) for g, m in masses.items()},
               "unweighted_retained_design_probability": float(Fraction(sum(counts[g] for g in counts if g.startswith("design-")), len(rows))),
               "weighted_retained_design_probability": float(Fraction(sum(masses[g] for g in masses if g.startswith("design-")), sum(masses.values()))),

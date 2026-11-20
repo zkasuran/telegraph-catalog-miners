@@ -62,7 +62,8 @@ def main():
     from paired_sampling_remote import check as check_paired_sampler
     check_paired_sampler(train, sampling, root, hp.seed)
     write(root / "training-sampling.json", {"frozen_sha256": sha(sampling_path.read_bytes()),
-          "coefficients": sampling["coefficients"], "replacement": True, "samples_per_epoch": len(train),
+          "coefficients": sampling["coefficients"], "denominators": sampling.get("denominators"), "method": sampling["method"],
+          "replacement": True, "samples_per_epoch": len(train),
           "source_groups": len(sampling["coefficients"]), "audit_used_for_fitting": False,
           "minibatch_contract": "both vulnerable/fixed source siblings with exactly reversed literal preferences",
           "limits": "Repeated samples are existing training views, not new independent source rows"})

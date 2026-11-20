@@ -67,6 +67,10 @@ def bound_data(root):
     rows = json.loads((root / "data/inventory.json").read_text())
     check(rows)
     expected = json.loads((HERE / "data-bindings.json").read_text())
+    if expected.get("retired_exposed_audit_sha256") == expected["files"]["audit"]["sha256"]:
+        raise ValueError("exposed original source audit cannot be reused for qualification")
+    if expected.get("retired_audit_used_for_fitting_or_new_test") is not False:
+        raise ValueError("explicit retired-audit exclusion required")
     for split, entry in expected["files"].items():
         if sha((root / "data" / (split + ".jsonl")).read_bytes()) != entry["sha256"]:
             raise ValueError("split identity changed")

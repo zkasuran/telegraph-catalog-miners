@@ -8,11 +8,12 @@ from pathlib import Path
 
 FAMILY = "SMART_CONTRACT_AUDIT"
 ATTEMPT = "74fac904d3e14d2690ef15803146a56a"
-DATA_VERSION = "training-identifiers-v3"
-BASELINE_FILE = "frozen-baselines-v3.json"
-SAMPLING_FILE = "frozen-sampling-v2.json"
+DATA_VERSION = "self-contained-coverage-v4"
+BASELINE_FILE = "frozen-baselines-v4.json"
+SAMPLING_FILE = "frozen-sampling-v3.json"
+RETIRED_AUDIT_SHA256 = "6cd7d2c0b11206df3c6ad04471cd53683c791f9393140e8c764101457cc31dd8"
 SPDX = "// SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0\n"
-PLAN = {"train": (range(4), 8), "validation": (range(4, 6), 6), "audit": (range(8, 40), 1)}
+PLAN = {"train": (range(4), 8), "validation": (range(4, 6), 6), "audit": (range(0), 0)}
 MAX_SOURCE_BYTES = 2048
 MAX_ROWS = 256
 
@@ -39,8 +40,7 @@ def normalize(source):
 
 def source_for(template, entity, vulnerable):
     if template >= 8:
-        from audit_designs import source_for as fresh_source
-        return fresh_source(template - 8, entity, vulnerable)
+        raise ValueError("retired exposed source-audit designs cannot generate new fitting/test rows")
     c, f, v, rd = (p + str(entity) for p in ("C", "f", "v", "read"))
     owner = 100 + entity
     if template in (0, 1, 4, 6):
@@ -198,6 +198,24 @@ def build(out):
                      "chosen": chosen, "rejected": rejected, "label_kind": "preference_pair", "vulnerable": candidate["vulnerable"], "facts": facts,
                      "authorship": "Original AI-assisted Solidity and constructed preferences; no human review claimed",
                      "licence": "LicenseRef-zkasuran-SAND-1.0", "augmentation": "training-only identifier variants of existing implementation groups"})
+    # Preserve legitimate training/validation in their exact original order.
+    # The exposed original audit is excluded, not regenerated as new test data.
+    rows = [r for r in rows if r["split"] == "train"] + [r for r in rows if r["split"] == "validation"]
+    from fresh_sources import training as broad_training, audit as clean_audit
+    for split, count, start, factory in (("train", 12, 340000, broad_training), ("audit", 32, 500000, clean_audit)):
+        for design in range(count):
+            entity = start + design * 10
+            for vulnerable in (True, False):
+                source, facts = factory(design, entity, vulnerable)
+                chosen, rejected = answers(facts, vulnerable)
+                call = f"Caller {facts['attacker']} calls {facts['function']}({facts['argument']}); owner is {facts['owner']}." if facts["mechanism"] == "access_control" else f"Call {facts['function']}({', '.join(map(str, facts['bad_args']))})."
+                rows.append({"id": f"fresh-{split}-{design}-{int(vulnerable)}", "split": split,
+                             "template_group": f"fresh-{split}-design-{design}", "sibling_group": str(entity),
+                             "source": source, "source_sha256": sha(source.encode()), "facts": facts, "vulnerable": vulnerable,
+                             "prompt": "Audit the complete Solidity source for the stated call. Describe whether that call succeeds and its effect, not universal safety.\n" + call + "\n" + source,
+                             "chosen": chosen, "rejected": rejected, "label_kind": "preference_pair",
+                             "authorship": "Original AI-assisted Solidity and constructed preferences; no human review claimed",
+                             "licence": "LicenseRef-zkasuran-SAND-1.0", "provenance": "New source implementation, no exposed audit source/annotation/score used"})
     report = check(rows)
     files = {}
     for split in PLAN:
@@ -214,7 +232,8 @@ def build(out):
                    "independent_groups": len({r["template_group"] for r in rows}),
                    "audit_used_for_selection": False,
                     "data_version": DATA_VERSION, "baseline_file": BASELINE_FILE, "sampling_file": SAMPLING_FILE,
-                    "independence": "Twelve training designs, two retained validation designs and 32 reserved audit pathways. All siblings and variants stay grouped. Eight new training pathways are original source, not held-out source clones or independent human adjudication. Original training rows and all validation/audit bytes are retained. Old exposed audit designs 6 and 7 are excluded."})
+                    "retired_exposed_audit_sha256": RETIRED_AUDIT_SHA256,
+                    "independence": "Twenty-four original training implementations, two retained validation implementations and 32 clean reserved audit implementations. All siblings and variants stay grouped. Original training and validation bytes are retained; the exposed original audit is retired and excluded from new fitting/test data. All source/preferences are AI-assisted, not independent human adjudication."})
     write(out / "data-report.json", report)
     print(json.dumps(report, sort_keys=True))
     return rows

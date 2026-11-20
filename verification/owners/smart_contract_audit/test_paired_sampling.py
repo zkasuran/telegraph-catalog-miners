@@ -78,9 +78,9 @@ class PairedChecks(unittest.TestCase):
         train = response_views([r for r in rows if r["split"] == "train"], "train")
         frozen = json.loads(Path(__file__).with_name(data.SAMPLING_FILE).read_text())
         actual = report(train, frozen)
-        self.assertEqual(actual["training_views"], 432)
-        self.assertEqual(actual["pair_batches"], 216)
-        self.assertEqual(actual["training_groups"], 12)
+        self.assertEqual(actual["training_views"], 504)
+        self.assertEqual(actual["pair_batches"], 252)
+        self.assertEqual(actual["training_groups"], 24)
 
 
 if __name__ == "__main__":

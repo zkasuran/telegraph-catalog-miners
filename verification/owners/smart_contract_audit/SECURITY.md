@@ -26,6 +26,8 @@
 | Wrong sibling, changed call facts or normalized answer matching | Require exact two-row sibling/format identity, same facts, distinct source hashes and literal reversed strings | Missing sibling, same label, changed answer, changed facts and audit-input refusal tests |
 | Incompatible custom DataLoader batching | Use batch_sampler without conflicting batch_size/sampler/shuffle arguments; retain two rows and accumulation four | Primary source syntax and actual remote DataLoader/repeat/length controls; expanded training has 216 batches/54 updates, not new independent sources |
 | Training identifier augmentation copies held-out data or inflates independence | Original training-side generators only, exact old-row and held-out byte checks, unchanged group IDs | `test_identifier_variants.py` retained full training/held-out hashes and no new-group count; full compilation/disputed-call/legitimate checks |
+| Exposed audit becomes training or a repeated qualification draw | Permanently retired audit fingerprint, generator refusal for retired design IDs, active clean audit must have a different hash | `test_audit_retirement.py`, source-binding runtime guard and immutable exposure ledger; no old audit row is used in new fitting/test data |
+| Rational sampling secretly refits or bypasses old integer limits | New immutable numerator/denominator schema binds exact training counts; legacy bounded integer schema remains unchanged | Exact rational group-mass test, changed denominator refusal and held-out input refusal; old invalid-integer tests retained |
 
 ## Known limits
 
