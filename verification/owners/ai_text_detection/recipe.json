@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bounded-detached-source-margin-consistency-v21",
+  "name": "zero-training-comparison-dropout-v22",
   "checkpoint_sha256": "05d0d605cbe0e4f05af43f0e15562fbba6d3d5b41d45846b38b495f51b230b6f",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
@@ -145,5 +145,13 @@
     "scope": "existing_training_rows",
     "runtime_transform": false,
     "audit_used": false
+  },
+  "comparison_dropout": {
+    "lora_dropout": 0.0,
+    "scope": "training_only",
+    "inference_contract_changed": false,
+    "data_changed": false,
+    "quality_gates_changed": false,
+    "native_repeat_control_required": true
   }
 }

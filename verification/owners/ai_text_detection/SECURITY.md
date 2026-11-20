@@ -10,6 +10,8 @@
 | Secondary generator silently rerolls | Existing-output refusal and fixed source seeds/count/time caps | Local invocation refusal; actual generation/control results are remote-only |
 | More bare training defeats repeated-negative controls | Two fixed whole secondary groups and unchanged actual/worst-case gates | Actual1008-row repeated-negative and worst-case<=0.10 controls |
 | Format specialization biases an origin or rescales outputs | Weight16 symmetric on paired origins, actual mean normalization, runtime unchanged | Secondary weight balance test and all prior literal wire/quality controls |
+| Training noise is presented as a proved quality cause | Fixed dropout-only hypothesis, unchanged data/loss/gate/inference contract | Policy and actual-hyperparameter source tests; actual repeat/quality controls remote-only |
+| Dropout remains active or training differs from eval | Inspect actual modules and repeat one actual training vector before updates | Prepared native train/train/eval exact-score control, not node evidence |
 | A fitted teacher reverses source labels or changes runtime scores | Positive bounded detached training target, original labels/losses retained | Scalar wrong-teacher/origin-swap/policy refusals; literal runtime unchanged |
 | Teacher receives hidden gradient or nonfinite target | CPU FP32 batch-one shape/finite checks, detach,0.25-6 bound | Prepared remote value/gradient/shape/dtype/nonfinite/origin controls |
 | Completed generation is rerolled for a better result | Immutable full data/producer/journal lineage restored before neural imports | Actual completed-generation SHA/prefix/source checks |
@@ -85,6 +87,11 @@ Source-margin consistency uses an unexported fitted readout only during legitima
 training. Its scores are not source truth, human review, calibrated probabilities
 or an independent audit. This term never opens held-out audit rows or modifies a
 served score. The old losses and all source/data/quality/runtime gates remain.
+
+Zero training dropout does not waive any audit/runtime requirement or change a
+registered package. Its effect is unverified until bounded public CPU measurement.
+Base pooling and frozen prediction-head transforms match the pinned foundation
+exporter and stay unchanged. Models are never loaded or evaluated locally.
 
 Known limits: pretraining overlap is unknown. Journal controls do not certify an
 individual's production history. DistilGPT2 is related to GPT-2. A source-held-out

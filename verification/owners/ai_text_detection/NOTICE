@@ -2,6 +2,12 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+The comparison-dropout experiment changes one training parameter only. Exact
+source/model/producer lineage and all original grants remain. PEFT0.21.2 retains
+Apache-2.0 and the Telegraph trainer/foundation exporter retain MIT. Our source
+controls and policy use SAND only for our additions. No human review, known
+quality improvement, runtime score transform or canonical result is claimed.
+
 Detached source-margin consistency is our training-only addition under SAND,
 subject to retained PyTorch and all original source/model grants. Its bounded
 targets come from the existing fitted source readout and recorded source labels,

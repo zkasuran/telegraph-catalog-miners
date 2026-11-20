@@ -167,3 +167,4 @@ Further independent training articles retain their own per-article CC BY grants.
 Retained generated prefixes and raw candidate journals retain source/model grants.
 Minimal-verdict training on completed secondary source material retains those grants.
 Detached source-margin training consistency retains PyTorch and all original grants.
+Zero training dropout controls retain PEFT and all original model/source grants.

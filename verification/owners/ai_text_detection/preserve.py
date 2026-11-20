@@ -55,7 +55,7 @@ def main():
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
-    for name in ("capacity-continuation.json", "capacity-tensor-controls.json", "capacity-gradient-control.json", "source-margin-tensor-controls.json"):
+    for name in ("capacity-continuation.json", "capacity-tensor-controls.json", "capacity-gradient-control.json", "source-margin-tensor-controls.json", "comparison-dropout-control.json"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())

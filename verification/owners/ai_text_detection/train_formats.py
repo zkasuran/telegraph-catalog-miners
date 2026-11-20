@@ -30,6 +30,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     if device.type != "cpu" or dtype != torch.float32:
         raise ValueError("standard public CPU FP32 training required")
     model.to(device)
+    from train_dropout import verify as verify_dropout
+    verify_dropout(model, tok, train_rows, hp, trainer, root)
     from common import HERE
     import json
     recipe = json.loads((HERE / "recipe.json").read_text())
@@ -266,6 +268,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                     "supplement_preference_policy": supplementary_policy,
                     "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,
+                   "lora_training_dropout": hp.lora_dropout,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)

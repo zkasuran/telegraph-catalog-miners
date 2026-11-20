@@ -1,0 +1,12 @@
+{
+  "base_config": {
+    "url": "https://huggingface.co/answerdotai/ModernBERT-base/resolve/8949b909ec900327062f0ebf497f51aef5e6f0c8/config.json",
+    "sha256": "1609d59e627c33eaed524b4f01e546d42e84190a079a5a5ded84b212c41c324f"
+  },
+  "peft_source": {
+    "url": "https://github.com/huggingface/peft/blob/v0.21.2/src/peft/tuners/lora/layer.py",
+    "sha256": "9a2688af69fd16cef94fdb08ab0e973b37d7b2a672e64ba2057a01df7e98b7d8"
+  },
+  "reference_foundation_export_sha256": "5b4b35eec1da7fba3392d143bbf7a64414f2cc967a7454b71dc4e44a58ce81fa",
+  "scope": "Primary source inspection only; no frozen head defect or actual training-noise effect is claimed."
+}

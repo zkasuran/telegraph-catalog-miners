@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+The source-margin job passed tensor/data/parser controls but still missed strict
+quality. The next candidate tests zero training LoRA dropout, with exact saved
+weights, all1008 rows, every loss and every gate unchanged. The primary foundation
+includes the same frozen prediction head, so no head-export defect is claimed.
+Actual native train/eval repeat controls and new model benefit are remote-unverified.
+Nothing changes the served score or source/audit boundary.
+
 Minimal-verdict supervision passed all data and gradient controls but did not
 improve strict validation. The next fixed training term ties each correct-verdict
 margin to a bounded, detached source-readout target on the same1008 rows. It keeps

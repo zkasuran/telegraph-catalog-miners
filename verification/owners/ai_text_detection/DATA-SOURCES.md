@@ -1,5 +1,28 @@
 # Sources and rights
 
+## Zero training dropout for paired comparisons
+
+Run44806134085 passed source-margin value/teacher-detach/gradient and all data/parser
+controls but still failed strict validation. The old selected state was retained
+and the independent audit stayed sealed. No missing prediction-head export defect
+was found: the primary foundation exporter includes frozen pooling, head.dense and
+head.norm before the supplied scalar head, matching the sequence classifier.
+
+The primary trainer defaults LoRA dropout to0.1 during training. [PEFT-LORA-0.21.2]
+applies that dropout before each A projection, while validation uses eval. The
+next fixed hypothesis sets only training LoRA dropout to0 to remove independently
+sampled comparison noise. This is not a claimed cause or measured improvement.
+All1008 data rows, state, source/labels, losses, rate and acceptance gates remain.
+No runtime output or literal wire changes. The pinned base config has zero base,
+embedding, classifier and MLP dropout and mean pooling; those settings stay fixed.
+
+The public CPU runner must confirm no nonzero dropout module remains and repeated
+training-mode scores on one actual training input match each other and eval before
+an optimizer update. This native control is not a node/reference-engine result.
+Actual quality and independent reference execution still gate registration.
+comparison-dropout-primary.json binds source/config hashes. PEFT Apache-2.0 and
+Telegraph MIT grants remain, with SAND only on our additions.
+
 ## Detached source-margin training consistency
 
 Run44797766046 passed all original/combined data and task-head gradient controls

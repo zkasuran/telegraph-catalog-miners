@@ -187,7 +187,9 @@ def main():
     if not pair_data_shortcuts_ok(baselines):
         raise ValueError("expanded development shortcut exceeds unchanged 65% gate")
     validation_baselines = {style: baseline_report(rows, fitted) for style, rows in validation_formats.items()}
+    from dropout_contract import dropout_policy
     hp = trainer.Hyperparams(max_length=MAX_TOKENS, batch_size=1, grad_accum=recipe["grad_accum"], epochs=recipe["epochs"], lr=recipe["lr"],
+                             lora_dropout=dropout_policy(recipe)["lora_dropout"],
                              eval_batch=1, lora_rank=recipe["lora_rank"], lora_alpha=recipe["lora_alpha"], gate_min_acc=0.80,
                             grad_checkpointing=False)
     original_gate = trainer.gate_dataset(splits["train"], hp)
