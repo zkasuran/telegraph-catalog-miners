@@ -21,6 +21,9 @@ def validate_plan(value):
         raise ValueError("frozen format-balanced recipe/source/audit counts changed")
     if not re.fullmatch(r"[0-9a-f]{64}", value.get("excluded_audit_groups_sha256", "")):
         raise ValueError("exposed-audit exclusions unbound")
+    for key in ("frozen_audit_sha256", "frozen_audit_groups_sha256"):
+        if not re.fullmatch(r"[0-9a-f]{64}", value.get(key, "")):
+            raise ValueError("unscored independent audit identity unbound")
     for key in ("checkpoint_sha256", "config_sha256", "untrained_sha256"):
         if not re.fullmatch(r"[0-9a-f]{64}", value.get("warm_start", {}).get(key, "")):
             raise ValueError("fitted and genuine-untrained inputs unbound")
@@ -48,16 +51,31 @@ def training_batch(batch, positions, epoch, pair):
 def training_pair(original, style, pair):
     """Source-anchored training only. Bare labels remain an honest unseen format."""
     row = {**pair(FAMILY, original, style), "margin": 0.0}
-    if style == 2:
-        opposite = {"Flagged": "Safe", "Safe": "Flagged"}[original["label"]]
-        row["chosen"] = original["label"] + ". Text assessed: " + original["text"]
-        row["rejected"] = opposite + ". Text assessed: " + original["text"]
+    opposite = {"Flagged": "Safe", "Safe": "Flagged"}[original["label"]]
+    def answer(verdict, excluded):
+        if style == 0:
+            return json.dumps({"verdict": verdict, "excluded_verdict": excluded, "flagged": verdict == "Flagged",
+                               "safe": verdict == "Safe", "reason": "Text assessed: " + original["text"]}, ensure_ascii=False, separators=(",", ":"))
+        if style == 1:
+            return "Verdict: " + verdict + ". Excludes: " + excluded + ". Text assessed: " + original["text"]
+        if style == 2:
+            return verdict + ", not " + excluded + ". Text assessed: " + original["text"]
+        raise ValueError("unsupported source-anchored training style")
+    row["chosen"] = answer(original["label"], opposite)
+    row["rejected"] = answer(opposite, original["label"])
     return row
 
 
 def training_views(rows, pair):
     return {name: [training_pair({**r, "text": json.loads(r["prompt"])["text"]}, style, pair) for r in rows]
             for style, name in enumerate(("json", "prose", "label_led_source"))}
+
+
+def check_audit_identity(raw, group_ids, value):
+    if len(group_ids) != 256 or len(set(group_ids)) != 256:
+        raise ValueError("complete unique independent audit group inventory required")
+    if sha(raw) != value["frozen_audit_sha256"] or sha(json.dumps(group_ids, separators=(",", ":")).encode()) != value["frozen_audit_groups_sha256"]:
+        raise ValueError("previously frozen unscored independent audit changed")
 
 
 def audit_select(rows, excluded, salt, per_label=128):

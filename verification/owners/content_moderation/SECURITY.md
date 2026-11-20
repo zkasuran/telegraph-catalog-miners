@@ -38,6 +38,13 @@ both labels equally represented in each style. The upstream anti-repeated-negati
 gate remains unchanged. Exact bare labels are not trained and must still pass
 the full validation and independent reference-engine gates.
 
+Run 44745877586 stopped before model loading at the train-only shortcut gate.
+The response correction uses ordered accepted/excluded verdict roles with equal
+word bags and lengths, not random tags, stock answers or lower thresholds. Tests
+check source truth, opposed verdict roles, exact word-count equality and unchanged
+shortcut results. The still-unscored source audit is pinned by its actual hash
+and complete group identities before any new model work.
+
 No hidden-pool or development-exposed audit input is permitted. No neural model
 is loaded locally. Source publication alone is not qualification. The runtime
 bridge returns the identical engine's score bits, not a Torch substitute.

@@ -158,3 +158,5 @@ Qualification recovery retains exact F3 packages from run 44703787106.
 No fitting, candidate change or audit redraw is part of that recovery.
 B3 is separate format-balanced training, not a retry of the failed audit.
 The entire exposed audit is excluded from its new independent sample.
+The B3 source correction preserves the still-unscored source audit and
+all gate thresholds. Accepted/excluded verdict roles remove surface tells.

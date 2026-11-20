@@ -24,8 +24,12 @@
   },
   "selection": "Validation only with all original 80%/70% and baseline-improvement gates, minimum label/format accuracy then worst BT loss. No original audit metric selects a candidate.",
   "baseline": "Fit once on all three training-only views, freeze emitted coefficient bytes before validation and audit. Reproduction consumes those bytes, never a fresh fit.",
-  "hypothesis_basis": "Primary data.pair defaults to styles 0/1 only; bare-label validation was weakest. Retain the upstream anti-stock-negative gate. Balance JSON/prose and source-anchored label-led training to test transfer to exact bare labels. This is not exact bare-label training or a claimed repair. No exposed audit rows are copied.",
-  "audit_boundary": "New complete official test-file scan and salted source-only selection before model loading. Exclude every original split and all exposed audit groups. No audit-driven tuning or redraw.",
+  "hypothesis_basis": "B3 prepare rejected a training-only answer baseline. Correct source responses with substantive accepted/excluded verdict roles and equal word bags. Keep every source and quality threshold unchanged. Exact bare labels remain unseen transfer inputs.",
+  "audit_boundary": "Reuse the exact source-only audit frozen in B3 prepare before any foundation model was loaded. Its original run failed the train-only shortcut gate. No audit access or scoring happened. Verify the actual audit and group hashes before model work; all exposed earlier groups stay excluded.",
   "job_minutes": 330,
-  "scope": "English Civil Comments extremes; not universal moderation policy."
+  "scope": "English Civil Comments extremes; not universal moderation policy.",
+  "response_design": "Both responses contain a verdict and an excluded verdict, plus original source evidence. Paired role reversal preserves exact lexical multisets and length; meaning depends on ordered verdict roles, not lexical tells.",
+  "previous_source_failure_run_id": 44745877586,
+  "frozen_audit_sha256": "0fb6dda84798c5c6746e1becbf40b1f07c3f076a0bbc452f6017052b92838db4",
+  "frozen_audit_groups_sha256": "6ecc47aee4d899c8e2a4868f04653a97f3103d2a5ee107ae041650007c5c1e70"
 }

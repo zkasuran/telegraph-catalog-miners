@@ -12,7 +12,7 @@ from collections import Counter
 from pathlib import Path
 from shutil import copyfile
 
-from balanced import audit_select, plan, training_views
+from balanced import audit_select, check_audit_identity, plan, training_views
 from baselines import fit as fit_baselines, scores as shortcut_scores
 from contracts import FAMILY, HERE, eligibility, remote_only, sha, validate_report, write
 from remote import capture_class, compile_tools, engine_audit, execute_phase, export_package, finish_report, initial as original_initial, read, support
@@ -69,6 +69,7 @@ def prepare(root):
     if set(r["group_id"] for r in audit_rows) & exposed:
         raise ValueError("exposed audit source reused")
     audit_raw = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in audit_rows).encode()
+    check_audit_identity(audit_raw, [r["group_id"] for r in audit_rows], recipe)
     (root / "audit-private").mkdir()
     (root / "audit-private/audit.jsonl").write_bytes(audit_raw)
     freeze = {"audit_sha256": sha(audit_raw), "audit_groups": [r["group_id"] for r in audit_rows],
@@ -90,7 +91,10 @@ def prepare(root):
     anchored_views = training_views(splits["train"], data.pair)
     coefficients = fit_baselines([r for rows in anchored_views.values() for r in rows])
     write(root / "evidence/baseline-coefficients.json", coefficients)
-    if any(max(shortcut_scores(rows, coefficients).values()) > 0.65 for rows in anchored_views.values()):
+    training_shortcuts = {name: shortcut_scores(rows, coefficients) for name, rows in anchored_views.items()}
+    write(root / "evidence/training-shortcut-gates.json", {"scores": training_shortcuts, "ceiling": 0.65,
+          "coefficient_sha256": sha((root / "evidence/baseline-coefficients.json").read_bytes()), "scope": "Train-only source gate, not validation or audit"})
+    if any(max(values.values()) > 0.65 for values in training_shortcuts.values()):
         raise ValueError("strongest training-format shortcut exceeds source gate")
     write(root / "evidence/source-manifest.json", {"sources": freeze, "coefficient_sha256": sha((root / "evidence/baseline-coefficients.json").read_bytes()),
           "training_format_policy": recipe["training_format_policy"], "scope": data.SOURCES[FAMILY]["scope"],

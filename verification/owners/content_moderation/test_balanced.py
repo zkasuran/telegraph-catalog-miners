@@ -8,7 +8,8 @@ import unittest
 from collections import Counter
 from unittest.mock import patch
 
-from balanced import audit_select, plan, style_positions, training_batch, training_views, validate_plan
+from balanced import audit_select, check_audit_identity, plan, style_positions, training_batch, training_views, validate_plan
+from baselines import WORDS, scores
 from contracts import sha
 from remote import support
 
@@ -48,7 +49,28 @@ class BalancedTests(unittest.TestCase):
                 text = json.loads(row["prompt"])["text"]
                 self.assertIn(text, row["chosen"])
                 self.assertIn(text, row["rejected"])
-        self.assertTrue(all(r["chosen"].startswith(r["label"] + ". Text assessed: ") for r in views["label_led_source"]))
+        self.assertTrue(all(r["chosen"].startswith(r["label"] + ", not ") for r in views["label_led_source"]))
+
+    def test_substantive_verdict_roles_carry_truth_not_bag_or_length_tells(self):
+        rows = self.rows(6)
+        data = support()["core"].load_shared()[0]
+        views = training_views(rows, data.pair)
+        coefficients = {"idf": {"safe": 1.0, "flagged": 1.0}, "answer_only": {"weights": {"safe": 0.2, "flagged": -0.8, "verdict": 0.3}},
+                        "directions": {name: 1 for name in ("length", "tfidf_overlap", "alarm_keywords", "answer_only")}}
+        for name, values in views.items():
+            for row in values:
+                self.assertNotEqual(row["chosen"], row["rejected"])
+                self.assertEqual(len(row["chosen"]), len(row["rejected"]))
+                self.assertEqual(Counter(WORDS.findall(row["chosen"].casefold())), Counter(WORDS.findall(row["rejected"].casefold())))
+                if name == "json":
+                    chosen, rejected = json.loads(row["chosen"]), json.loads(row["rejected"])
+                    self.assertEqual(chosen["verdict"], row["label"])
+                    self.assertNotEqual(rejected["verdict"], row["label"])
+                    self.assertEqual(chosen["excluded_verdict"], rejected["verdict"])
+                    self.assertEqual(chosen["flagged"], row["label"] == "Flagged")
+                else:
+                    self.assertLess(row["chosen"].index(row["label"]), row["chosen"].index({"Safe": "Flagged", "Flagged": "Safe"}[row["label"]]))
+            self.assertEqual(scores(values, coefficients), {name: 0.5 for name in coefficients["directions"]})
 
     def test_train_only_membership_extra_epoch_and_duplicate_controls(self):
         rows = self.rows(6)
@@ -86,6 +108,15 @@ class BalancedTests(unittest.TestCase):
             changed[key] = 0
             with self.assertRaises(ValueError):
                 validate_plan(changed)
+
+    def test_same_unscored_audit_byte_group_and_count_controls(self):
+        raw = b"Synthetic audit identity control, not source rows"
+        groups = [sha(str(i).encode()) for i in range(256)]
+        value = {"frozen_audit_sha256": sha(raw), "frozen_audit_groups_sha256": sha(json.dumps(groups, separators=(",", ":")).encode())}
+        check_audit_identity(raw, groups, value)
+        for changed_raw, changed_groups in ((raw + b"x", groups), (raw, groups[:-1]), (raw, [groups[0], *groups[:-1]]), (raw, list(reversed(groups)))):
+            with self.assertRaises(ValueError):
+                check_audit_identity(changed_raw, changed_groups, value)
 
     def test_remote_work_refuses_locally_before_any_framework_import(self):
         import balanced_remote

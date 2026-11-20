@@ -35,6 +35,13 @@ unchanged upstream data gate. B3 balances JSON/prose/label-led source responses
 and tests whether that improves transfer to exact bare labels. No such improvement
 is claimed yet. A fresh audit excludes all exposed groups before model loading.
 
+The first B3 run stopped during source preparation because a training-format
+shortcut exceeded 65%. It did not load the foundation model or score the audit.
+Corrected source responses state the accepted and excluded verdicts. Paired role
+reversal keeps word bags and lengths identical while changing which verdict is
+true. The unchanged source and model gates still apply. The still-unscored audit
+is pinned to its actual source hash, not replaced with another draw.
+
 | Boundary | Frozen contract |
 |---|---|
 | Training | Original 768 public originals |

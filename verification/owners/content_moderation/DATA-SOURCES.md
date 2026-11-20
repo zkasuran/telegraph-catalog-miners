@@ -85,3 +85,11 @@ test-file scan with a fixed new salt. All original split groups and all 256 expo
 audit groups are excluded. Source conflict removal and normalized identity checks
 remain mandatory. New train-only fitted baseline coefficients are emitted once
 then consumed as immutable bytes for validation, audit and reproduction.
+
+Run 44745877586 failed the train-only shortcut source gate during preparation.
+No foundation model was loaded and no validation or audit model score was made.
+The corrected constructed responses identify the accepted verdict and explicitly
+exclude its opposite, quoting the same original source in both answers. Role
+reversal changes truth while keeping word bags and lengths equal. This removes
+surface tells without lowering the original gates or adding meaningless padding.
+The actual still-unscored audit hash and all group identities are now pinned.
