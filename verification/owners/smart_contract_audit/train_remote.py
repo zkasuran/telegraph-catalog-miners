@@ -55,6 +55,14 @@ def main():
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:
         raise ValueError("upstream dataset gate failed, no bypass")
+    sampling_path = HERE / "frozen-sampling-v1.json"
+    sampling = json.loads(sampling_path.read_text())
+    from sampling_remote import check as check_sampler
+    check_sampler(train, sampling, root, hp.seed)
+    write(root / "training-sampling.json", {"frozen_sha256": sha(sampling_path.read_bytes()),
+          "coefficients": sampling["coefficients"], "replacement": True, "samples_per_epoch": len(train),
+          "source_groups": len(sampling["coefficients"]), "audit_used_for_fitting": False,
+          "limits": "Repeated samples are existing training views, not new independent source rows"})
     tok = AutoTokenizer.from_pretrained(base, local_files_only=True)
     node_tok = Tokenizer.from_file(str(foundation / "tokenizer.json"))
     node_tok.no_padding()
@@ -86,8 +94,9 @@ def main():
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=hashes["foundation_lora_fp32.onnx"],
                         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                         target_modules=params["target_modules"], max_tokens=384,
-                        training={"family": FAMILY, "owner_attempt": owner_attempt,
-                                  "data": binding, "audit": "not yet measured",
+                         training={"family": FAMILY, "owner_attempt": owner_attempt,
+                                   "data": binding, "audit": "not yet measured",
+                                   "sampling_sha256": sha(sampling_path.read_bytes()),
                                   "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": binding["inventory_sha256"]}],
                                   "authorship": "Original AI-assisted source and constructed preferences; no human review"})
         for key, value in licences.items():
@@ -162,6 +171,7 @@ def main():
           "runtime": {"python": sys.version, "torch": torch.__version__},
            "source_manifest_sha256": sha((HERE / "data-bindings.json").read_bytes()),
            "selection_source_report_sha256": sha((root / "trainer-selection-source.json").read_bytes()),
+           "sampling_runtime_report_sha256": sha((root / "sampling-runtime-controls.json").read_bytes()),
           "full_parser_passed": True,
           "phase": "candidate frozen before independent audit", "node_qualification": "not attempted"})
     print("Candidate and seed-matched untrained packages frozen. Audit has not run.")

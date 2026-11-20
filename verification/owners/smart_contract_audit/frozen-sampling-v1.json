@@ -1,0 +1,37 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "audit_used_for_fitting": false,
+  "coefficients": {
+    "design-0": 1,
+    "design-1": 1,
+    "design-2": 1,
+    "design-3": 1,
+    "new-training-design-0": 4,
+    "new-training-design-1": 4,
+    "new-training-design-2": 4,
+    "new-training-design-3": 4,
+    "new-training-design-4": 4,
+    "new-training-design-5": 4,
+    "new-training-design-6": 4,
+    "new-training-design-7": 4
+  },
+  "group_view_counts": {
+    "design-0": 48,
+    "design-1": 48,
+    "design-2": 48,
+    "design-3": 48,
+    "new-training-design-0": 12,
+    "new-training-design-1": 12,
+    "new-training-design-2": 12,
+    "new-training-design-3": 12,
+    "new-training-design-4": 12,
+    "new-training-design-5": 12,
+    "new-training-design-6": 12,
+    "new-training-design-7": 12
+  },
+  "method": "train-only inverse implementation view count, frozen integers",
+  "replacement": true,
+  "samples_per_epoch": 288,
+  "schema_version": 1,
+  "view_identity": "1a6fb52ac1785c63fc76fcf32c45d54a2295a810bd8e7cf9044809710b026930"
+}

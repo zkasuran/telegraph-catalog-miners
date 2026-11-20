@@ -17,6 +17,8 @@ def main():
     assert (here / "LICENSE").read_text() == licence["sand"]
     assert "Apache License" in licence["apache_2_0"] and "Copyright (c) 2026 telegraphprotocol" in licence["kit_mit"]
     assert "Source Code Form" in (here / "MPL-2.0.txt").read_text()
+    assert licence["torch_bsd"] == (here / "PYTORCH-LICENSE.txt").read_text()
+    assert "Redistribution and use in source and binary forms" in licence["torch_bsd"]
     raw = (root / "data/inventory.json").read_bytes()
     rows = json.loads(raw)
     execution_gate(rows, json.loads((root / "evm-report.json").read_text()), sha(raw))
