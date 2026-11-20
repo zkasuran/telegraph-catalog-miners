@@ -2,6 +2,7 @@
 """Gated reference-engine serving and restricted leases on an owned CPU runner."""
 import argparse
 import datetime as dt
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -106,7 +107,33 @@ def stop(process):
         process.wait(timeout=10)
 
 
+def validate_pins(known_hosts, hashes):
+    if known_hosts != lease_common.HOST_KEY:
+        raise ValueError("pinned forwarding host identity changed")
+    if set(hashes) != set(contracts.FOUNDATION) or any(hashes[name] != value for name, value in contracts.FOUNDATION.items()):
+        raise ValueError("pinned foundation/runtime/tokenizer bytes changed")
+
+
+def validate_assets(root):
+    known_hosts = (root / "known_hosts").read_text()
+    if known_hosts != lease_common.HOST_KEY:
+        raise ValueError("pinned forwarding host identity changed")
+    hashes = {}
+    for name in contracts.FOUNDATION:
+        digest, total = hashlib.sha256(), 0
+        with (root / "foundation" / name).open("rb") as stream:
+            for chunk in iter(lambda: stream.read(1 << 20), b""):
+                total += len(chunk)
+                if total > 1 << 30:
+                    raise ValueError("serving foundation byte ceiling")
+                digest.update(chunk)
+        hashes[name] = digest.hexdigest()
+    validate_pins(known_hosts, hashes)
+
+
 def engine(root, row):
+    contracts.remote_only()
+    validate_assets(root)
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))
         port = probe.getsockname()[1]
@@ -187,6 +214,7 @@ def main():
         if root.exists():
             raise ValueError("serving root already holds a candidate")
         root.mkdir(mode=0o700)
+        (root / "known_hosts").write_text(lease_common.HOST_KEY)
         shutil.copyfile(package, root / package.name)
         (root / "registration-ready.json").write_bytes(raw)
         foundation, base, kit = prepare(root)

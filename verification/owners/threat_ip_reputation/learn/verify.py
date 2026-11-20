@@ -27,6 +27,7 @@ import test_warmstart
 import test_audit_source
 import test_history
 import test_serving
+import test_serving_assets
 
 HERE = Path(__file__).resolve().parent
 
@@ -50,7 +51,8 @@ def main():
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_warmstart.WarmStartTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_audit_source.AuditSourceTests),
                                 unittest.defaultTestLoader.loadTestsFromTestCase(test_history.HistoryTests),
-                                unittest.defaultTestLoader.loadTestsFromTestCase(test_serving.ServingTests)])
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_serving.ServingTests),
+                                unittest.defaultTestLoader.loadTestsFromTestCase(test_serving_assets.ServingAssetTests)])
     result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
     if not result.wasSuccessful():
         print(stream.getvalue())

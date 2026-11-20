@@ -12,3 +12,4 @@ PYTHONDONTWRITEBYTECODE=1 python3 -W error "$HERE/learn/verify.py"
 # Independent-audit source closure and actual local neural refusal are release-gated.
 # Complete anchored source-history closure and missing-anchor refusal are release-gated.
 # Complete anchored source-history closure and missing-anchor refusal are release-gated.
+# Every serving start rechecks exact public host and foundation/runtime/tokenizer pins.

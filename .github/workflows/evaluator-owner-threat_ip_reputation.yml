@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 {
   "name": "THREAT_IP_REPUTATION owner learning",
-  "run-name": "THREAT_IP_REPUTATION qualified ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
+  "run-name": "THREAT_IP_REPUTATION pinned runtime ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
   "on": {
     "workflow_dispatch": {
       "inputs": {
