@@ -195,6 +195,11 @@ def validate_ready(report):
         if report.get(key) != value:
             raise ValueError("ready runtime asset identity mismatch")
     source, quality, runtime = report.get("source", {}), report.get("quality", {}), report.get("runtime", {})
+    claimed_labels = report.get("supported_labels", sorted(LABELS))
+    if (not isinstance(claimed_labels, list) or any(type(label) is not str for label in claimed_labels) or
+            len(claimed_labels) != len(set(claimed_labels)) or
+            set(claimed_labels) not in (LABELS, LABELS | {"Neutral", "Mixed"})):
+        raise ValueError("unsupported claimed label inventory")
     if (source.get("normalized_overlap") != 0 or source.get("audit_used_for_selection") is not False or
             source.get("grants_verified") is not True or source.get("independent_groups", 0) < 32):
         raise ValueError("source audit boundary failed")
@@ -205,7 +210,7 @@ def validate_ready(report):
     for metrics in quality["formats"].values():
         labels = metrics.get("per_label", {})
         values = [metrics.get("accuracy"), metrics.get("untrained_accuracy"), metrics.get("shortcut_accuracy"), *labels.values()]
-        if set(labels) != LABELS or not all(type(v) in (int, float) and math.isfinite(v) and 0 <= v <= 1 for v in values):
+        if set(labels) != set(claimed_labels) or not all(type(v) in (int, float) and math.isfinite(v) and 0 <= v <= 1 for v in values):
             raise ValueError("invalid actual audit metrics")
         if values[0] < .80 or min(labels.values()) < .70 or values[0] < values[1] + .05 or values[0] < values[2] + .10:
             raise ValueError("audit quality or shortcut gate failed")

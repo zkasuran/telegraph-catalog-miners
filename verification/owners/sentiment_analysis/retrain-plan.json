@@ -1,0 +1,24 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "owner_attempt": "db9138abf8ed4ae69870d81675d6dfaa",
+  "replaces_rejected_registration": 154,
+  "rejected_package_sha256": "56d98a41e68fe8f66356fe3fe0a28984278bd0d241c68f93734fe7d8b60f14eb",
+  "objective": "Improve four-way text sentiment preference scoring with legitimate independent source annotations and prompt/response format diversity.",
+  "source_candidate": {
+    "name": "GoEmotions",
+    "primary_revision": "c878a53ec1764bcb91a6178dc5c315202a3b5fa2",
+    "licence": "Apache-2.0",
+    "annotation_type": "Original human emotion annotations; constructed valence mapping is not a human-reviewed sentiment preference.",
+    "inventory_requirement": "Read all three raw annotation files, aggregate distinct raters by original comment and preserve author/thread/time separation.",
+    "scope": "English Reddit emotion-to-valence proxy. Mixed requires positive and negative emotion evidence; ambiguous emotions are excluded. Neutral uses original Neutral annotations. This is not universal factual proof."
+  },
+  "boundaries": {
+    "fit": "training source groups only",
+    "selection": "validation only, frozen before audit",
+    "audit": "New independent grouped source slice, measured once per frozen candidate",
+    "exclusions": ["Protected evaluation-pool rows", "Exposed node gate pairs", "Original UCI audit as a new audit", "Development-exposed captures"],
+    "local_neural_operations": false
+  }
+}

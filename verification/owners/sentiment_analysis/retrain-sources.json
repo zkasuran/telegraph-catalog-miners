@@ -1,0 +1,39 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "files": {
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "url": "https://raw.githubusercontent.com/google-research/google-research/c878a53ec1764bcb91a6178dc5c315202a3b5fa2/LICENSE"
+    },
+    "README.md": {
+      "bytes": 7968,
+      "sha256": "c882c69be9f400129bce8535319606434481a085be9c20263930670890e171a7",
+      "url": "https://raw.githubusercontent.com/google-research/google-research/c878a53ec1764bcb91a6178dc5c315202a3b5fa2/goemotions/README.md"
+    },
+    "goemotions_1.csv": {
+      "bytes": 14174600,
+      "sha256": "cac049036bad5d68d1081f72b65f2cc51e4df82af05e3e22cfa747051cac1af3",
+      "url": "https://storage.googleapis.com/gresearch/goemotions/data/full_dataset/goemotions_1.csv"
+    },
+    "goemotions_2.csv": {
+      "bytes": 14173154,
+      "sha256": "f699ecc5aa425c1720c1d02475f1e41815244b680bd75b282eb770d2c76cd84d",
+      "url": "https://storage.googleapis.com/gresearch/goemotions/data/full_dataset/goemotions_2.csv"
+    },
+    "goemotions_3.csv": {
+      "bytes": 14395164,
+      "sha256": "467f1e7191af00f2e76cc7f425885c2dc304bea8aff284b10e8c460d22f2e1af",
+      "url": "https://storage.googleapis.com/gresearch/goemotions/data/full_dataset/goemotions_3.csv"
+    },
+    "sentiment_mapping.json": {
+      "bytes": 367,
+      "sha256": "801f6f028082141bd38541a4b14d65b33bdc55d29c7b2aaa029fefecf206f76b",
+      "url": "https://raw.githubusercontent.com/google-research/google-research/c878a53ec1764bcb91a6178dc5c315202a3b5fa2/goemotions/data/sentiment_mapping.json"
+    }
+  },
+  "grant": "Apache-2.0 section 2 and retained section 4 attribution",
+  "revision": "c878a53ec1764bcb91a6178dc5c315202a3b5fa2",
+  "schema_version": 1,
+  "stage": "verified"
+}

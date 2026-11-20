@@ -76,3 +76,24 @@ Our competitive code and delta additions use LicenseRef-zkasuran-SAND-1.0.
 Upstream ModernBERT Apache-2.0, kit MIT and UCI CC BY 4.0 grants remain attached.
 Dataset statistics and coefficients retain the source grant. See LICENSE,
 NOTICE, licences.json, DATA-SOURCES.md and SECURITY.md.
+
+## New training experiment after registration 154
+
+The frozen recovery passed the source-held-out checks but registration 154 failed
+the real public quality floor, ordering 10 of 15 pairs correctly. It is not a
+canonical winner and is never resubmitted unchanged.
+
+The `retrain` workflow mode warm-starts the licensed delta, then fits new tensors
+on a separate full-inventory source. GoEmotions contributes original emotion
+annotations. Valence mapping and Mixed juxtapositions are constructed preferences.
+They are not human-reviewed sentiment preferences. New source groups are separated
+by author, thread and time, with a new audit that excludes all original UCI groups.
+
+The source gate includes the old 18 tests and nine new retraining controls.
+Local verification loads no model. Two sequential public CPU jobs fit training
+and select only on validation, then independently audit the frozen candidate using
+the actual pinned reference engine. Every completed best epoch preserves a licensed
+checkpoint. A failed audit emits no registration-ready report.
+
+The new model has not yet passed a neural audit or node qualification. Reason
+correctness, numeric confidence and natural Mixed generalization are not claimed.

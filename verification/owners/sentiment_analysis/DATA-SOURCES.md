@@ -35,7 +35,7 @@ code. They are not human-authored or human-reviewed preference pairs. Three
 formats share the same 256 originals, not 768 independent examples.
 
 The original model was selected on validation before the source-held-out result
-was exposed. This continuation changes only ignored registration metadata.
+was exposed. The frozen recovery changes only ignored registration metadata.
 Every model field, tensor descriptor and payload byte must remain identical.
 The original source-held-out audit is replayed solely for exported-runtime and
 registration recovery. It is not used to select a later semantic candidate.
@@ -81,3 +81,59 @@ field. SAND boundary is retained for failed checkpoints as well as exports.
 Scope is short Positive/Negative English source reviews. Neutral, Mixed,
 multilingual coverage, reason quality, backbone pretraining overlap and
 population accuracy remain unverified. A source-held-out pass is not a node win.
+
+## [GOEMOTIONS] New four-way training experiment
+
+GoEmotions, Demszky et al. (2020), Google Research. Citation key:
+demszky2020goemotions. Source revision c878a53ec1764bcb91a6178dc5c315202a3b5fa2.
+https://github.com/google-research/google-research/tree/c878a53ec1764bcb91a6178dc5c315202a3b5fa2/goemotions
+Original grant: Apache-2.0, repository LICENSE. The maintained dataset card names
+that grant: https://huggingface.co/datasets/google-research-datasets/go_emotions
+
+<!-- voice-gate:off -->
+> each Contributor hereby grants to You a perpetual,
+> worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+> copyright license to reproduce, prepare Derivative Works of,
+> publicly display, publicly perform, sublicense, and distribute the
+> Work and such Derivative Works in Source or Object form.
+<!-- voice-gate:on -->
+
+Section 4 requires the original licence and attribution to remain attached.
+The original full LICENSE is verified by its SHA-256 and embedded in every new
+delta and checkpoint package. SAND applies only to our competitive additions.
+
+The importer checked all 211,225 rater rows across all three raw CSV files:
+70,000 plus 70,000 plus 71,225. These contain 58,011 distinct comment IDs in the
+actual files, not the README's rounded 58k. All source bytes are hash-pinned in
+retrain-sources.json. Rater votes are aggregated by original ID with a strict
+majority of at least two distinct raters. The original positive/negative emotion
+mapping is retained. Neutral uses original Neutral annotations. Raw emotion
+annotations are human-created; derived valence labels and preference pairs are
+programmatic work, not human-reviewed sentiment preferences.
+
+Mixed examples juxtapose one independently annotated positive comment and one
+negative comment. Those composite texts and their labels are constructed, not
+original human Mixed annotations. They test an emotion-valence proxy and do not
+prove universal sentiment truth, natural Mixed performance or reason correctness.
+
+The new inventory splits by original time before selection. Any author, thread
+or normalized original crossing a time boundary is removed. Selected originals
+also have distinct authors, threads and normalized texts within each split.
+All original UCI groups are excluded from this new data. Frozen split sizes:
+512 training groups, 128 validation groups and 128 new independent audit groups.
+Each group has three wrong-label contrasts, not three independent sources.
+The 1,536 training pairs and 384 validation pairs may select an epoch; the new
+384 audit contrasts are scored only after the candidate package is frozen.
+
+Prompt styles cover JSON input, raw text and text classification instructions.
+Response audits cover JSON, prose and bare labels for all four allowed labels.
+The strongest measured train-fitted length, overlap, keyword and answer-only
+shortcuts remain reported. Coefficients were fitted once on training only and
+are hash-pinned. Remote jobs verify their bytes rather than refit them.
+
+This experiment warm-starts the existing licensed delta, then fits new tensors.
+Registration 154 failed the real public quality floor. It is never resubmitted
+unchanged. The old UCI audit is retained as history, not a fresh audit for this
+candidate. No exposed node pairs or private pool rows are training inputs.
+New neural quality and canonical qualification remain unverified until the real
+bounded public CPU jobs and node decisions complete.

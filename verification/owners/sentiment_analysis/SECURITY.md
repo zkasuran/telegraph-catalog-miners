@@ -18,6 +18,12 @@
 | Credential leakage | Source gate blocks local model work; no provider/signer credential in source, artifacts or CI | remote_only and workflow |
 | Stolen runner transport key | Ephemeral key, restricted listener, forced command, no local/Unix forwarding server policy, expiry | common.lease_for and installed action adapter |
 | Wrong or stale audit artifact | Real run/commit/artifact/report hashes and exact serving bytes | fetch_report |
+| Old audit reused after a quality loss | New corpus, fixed time boundary, no UCI audit or exposed node pairs used as data | retrain_data.grouped_select and exclusion test |
+| Author, thread or normalized entity leakage | Remove every cross-time entity, select distinct originals even within each split | test_retrain grouped split failure controls |
+| Constructed labels presented as human review | Preserve emotion annotations separately from valence mapping and Mixed juxtaposition provenance | retrain-plan.json and source manifest |
+| Missing Neutral/Mixed measurements | Explicit four-label claims require all four per-label scores at the unchanged floor | test_retrain expanded-report controls |
+| Local model loading during a source gate | Remote guards precede warm start, training, checkpoint export and audit imports | test_retrain local-neural-refusal controls |
+| Failed checkpoint exported without grants | Embed original upstream grants and full GoEmotions Apache text at every best epoch | retrain.save_checkpoint; real export proof is remote-only |
 
 Only the audit artifact's source-only metadata, fixed vectors and licensed
 resulting delta are uploaded. Serving uploads only lease.json. Never upload
@@ -39,3 +45,10 @@ Source labels are binary annotations, not full sentiment truth. The model is
 fitted public training material. The old exposed source audit is never used for
 adaptive selection. A genuine quality loss requires a better development model
 and a clean independent audit, not another random registration of the same bytes.
+
+The new source is an English emotion-to-valence proxy. Mixed texts are constructed
+juxtapositions, not original human Mixed annotations. All new neural quality is
+unverified until the bounded remote jobs complete. Validation may select a frozen
+epoch; its audit cannot tune that epoch. Raw Reddit authors are used only as hashed
+grouping keys and are never included in the public manifest. Reason correctness
+and numeric confidence remain outside the independently tested coverage.
