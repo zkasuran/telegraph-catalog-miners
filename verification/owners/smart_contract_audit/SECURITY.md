@@ -21,6 +21,10 @@
 | Private or unrelated job repository | Exact owned identity and boolean public flag from the hosted dispatch payload; protected default environment context | Positive public control plus private, ambiguous and wrong-repository refusal controls |
 | Missing or malformed collator input | Default only omitted margin to 0.0 at the training boundary; reject nonfinite/nonnumeric values without mutating source | `test_contracts.py` literal-text preservation and invalid-margin controls; primary CLI smoke |
 | Resource exhaustion | 256 rows, 2048 source bytes, 8192 bytecode bytes, 1 million interpreter gas, bounded subprocess/HTTP timeouts and eight serving connections | Wrong source and control tests; serving refuses malformed tokens before inference |
+| Variant-rich training implementations dominate fitting | Frozen train-only integer weights equalize expected implementation mass while retaining corpus bytes and the dataset gate | Pure weight/identity/refusal controls; actual 12000-draw/repeat/refusal controls passed in run 44672243024, not evidence of model improvement |
+| Minibatches reinforce source-independent answer or label bias | Both vulnerable/fixed source siblings and reversed literal preferences in each training minibatch | Pure complete-pair and analytical opposed-loss controls; actual DataLoader/batch identity checked on runner, no improved accuracy claimed locally |
+| Wrong sibling, changed call facts or normalized answer matching | Require exact two-row sibling/format identity, same facts, distinct source hashes and literal reversed strings | Missing sibling, same label, changed answer, changed facts and audit-input refusal tests |
+| Incompatible custom DataLoader batching | Use batch_sampler without conflicting batch_size/sampler/shuffle arguments; retain two rows and 36 accumulated updates per epoch | Primary source syntax and actual remote DataLoader/repeat/length controls |
 
 ## Known limits
 

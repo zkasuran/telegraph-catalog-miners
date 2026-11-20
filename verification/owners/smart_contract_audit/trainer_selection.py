@@ -14,7 +14,7 @@ from urllib.request import Request, urlopen
 
 from policy import remote_only
 from selection import selection_metrics
-from sampling import weights
+from paired_sampling_remote import sampler as sibling_sampler
 
 UPSTREAM_SHA256 = "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71"
 UPSTREAM_URL = "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py"
@@ -30,7 +30,7 @@ def adapt_source(raw):
         ('        metric = val["val_loss"] if lower_better else val["pairwise_accuracy"]\n',
          '        metric = val["selection_score"] if hp.es_metric == "worst_gate_margin" else (val["val_loss"] if lower_better else val["pairwise_accuracy"])\n'),
         ('    loader = DataLoader(train_pairs, batch_size=hp.batch_size, shuffle=True,\n                        collate_fn=PairCollator(tok, hp.max_length))\n',
-         '    loader = DataLoader(train_pairs, batch_size=hp.batch_size,\n                        sampler=torch.utils.data.WeightedRandomSampler(owner_training_weights(train_pairs), len(train_pairs), replacement=True, generator=torch.Generator().manual_seed(hp.seed)),\n                        collate_fn=PairCollator(tok, hp.max_length))\n'),
+         '    loader = DataLoader(train_pairs,\n                        batch_sampler=owner_training_batches(train_pairs, hp),\n                        collate_fn=PairCollator(tok, hp.max_length))\n'),
     )
     for original, changed in replacements:
         if text.count(original) != 1:
@@ -63,14 +63,14 @@ def install(source_path, output_root):
     module.__dict__["owner_selection_metrics"] = record
     frozen_path = Path(__file__).with_name("frozen-sampling-v1.json")
     frozen = json.loads(frozen_path.read_text())
-    module.__dict__["owner_training_weights"] = lambda rows: weights(rows, frozen)
+    module.__dict__["owner_training_batches"] = lambda rows, hp: sibling_sampler(rows, frozen, hp)
     sys.modules[name] = module
     exec(compile(adapted.decode(), str(source_path), "exec"), module.__dict__)
     report = {"upstream_sha256": hashlib.sha256(original).hexdigest(), "adapted_source_sha256": hashlib.sha256(adapted).hexdigest(),
               "method": "worst_gate_margin", "upstream_grant": "MIT, Copyright (c) 2026 telegraphprotocol",
               "additions_grant": "LicenseRef-zkasuran-SAND-1.0", "shared_kit_modified": False,
               "optimizer_and_training_data_changed": False, "aggregate_accuracy_still_reported": True,
-              "training_sampling": "frozen inverse-group integer weights with replacement",
+              "training_sampling": "frozen inverse-group weights with replacement on literal reversed sibling minibatches",
               "frozen_sampling_sha256": hashlib.sha256(frozen_path.read_bytes()).hexdigest(),
               "audit_or_quality_gates_modified": False}
     (output_root / "trainer-selection-source.json").write_text(json.dumps(report, indent=2) + "\n")

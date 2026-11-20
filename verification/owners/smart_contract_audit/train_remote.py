@@ -59,9 +59,12 @@ def main():
     sampling = json.loads(sampling_path.read_text())
     from sampling_remote import check as check_sampler
     check_sampler(train, sampling, root, hp.seed)
+    from paired_sampling_remote import check as check_paired_sampler
+    check_paired_sampler(train, sampling, root, hp.seed)
     write(root / "training-sampling.json", {"frozen_sha256": sha(sampling_path.read_bytes()),
           "coefficients": sampling["coefficients"], "replacement": True, "samples_per_epoch": len(train),
           "source_groups": len(sampling["coefficients"]), "audit_used_for_fitting": False,
+          "minibatch_contract": "both vulnerable/fixed source siblings with exactly reversed literal preferences",
           "limits": "Repeated samples are existing training views, not new independent source rows"})
     tok = AutoTokenizer.from_pretrained(base, local_files_only=True)
     node_tok = Tokenizer.from_file(str(foundation / "tokenizer.json"))
@@ -97,6 +100,7 @@ def main():
                          training={"family": FAMILY, "owner_attempt": owner_attempt,
                                    "data": binding, "audit": "not yet measured",
                                    "sampling_sha256": sha(sampling_path.read_bytes()),
+                                   "batching": "counterfactual sibling pairs, two original views per batch",
                                   "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": binding["inventory_sha256"]}],
                                   "authorship": "Original AI-assisted source and constructed preferences; no human review"})
         for key, value in licences.items():
@@ -172,6 +176,7 @@ def main():
            "source_manifest_sha256": sha((HERE / "data-bindings.json").read_bytes()),
            "selection_source_report_sha256": sha((root / "trainer-selection-source.json").read_bytes()),
            "sampling_runtime_report_sha256": sha((root / "sampling-runtime-controls.json").read_bytes()),
+           "paired_batch_runtime_report_sha256": sha((root / "paired-batch-runtime-controls.json").read_bytes()),
           "full_parser_passed": True,
           "phase": "candidate frozen before independent audit", "node_qualification": "not attempted"})
     print("Candidate and seed-matched untrained packages frozen. Audit has not run.")

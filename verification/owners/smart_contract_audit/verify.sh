@@ -19,6 +19,7 @@ python3 -W error "$HERE/data.py" --out "$OUT/data"
 PYTHONPATH="$HERE${PYTHONPATH:+:$PYTHONPATH}" python3 -W error -c 'from data import response_views; from pathlib import Path; import json,sys; r=json.loads(Path(sys.argv[1]).read_text()); t=response_views([x for x in r if x["split"]=="train"],"train"); v=response_views([x for x in r if x["split"]=="validation"],"validation"); assert len(t)==288 and len(v)==72; print("Balanced development views: 288 train and 72 validation, grouped originals, no audit views")' "$OUT/data/inventory.json"
 python3 -W error "$HERE/contracts.py" --inventory "$OUT/data/inventory.json"
 python3 -W error "$HERE/sampling.py" --train "$OUT/data/train.jsonl" --frozen "$HERE/frozen-sampling-v1.json" --report "$OUT/training-sampling-contract.json"
+python3 -W error "$HERE/paired_sampling.py" --train "$OUT/data/train.jsonl" --frozen "$HERE/frozen-sampling-v1.json" --report "$OUT/paired-batch-contract.json"
 PYTHONPATH="$HERE${PYTHONPATH:+:$PYTHONPATH}" python3 -W error -c 'from contracts import heldout_pairs; rows=[{"split":"validation"},{"split":"audit"}]; p,allowed=heldout_pairs(rows,"validation"); assert len(p)==1 and not allowed; print("Validation source boundary excludes audit and registration-ready claims")'
 timeout --signal=TERM --kill-after=5s 180 node "$HERE/execute.mjs" "$OUT/data/inventory.json" "$OUT/evm-report.json"
 python3 -W error "$HERE/shortcuts.py" --inventory "$OUT/data/inventory.json" --frozen "$HERE/frozen-baselines-v2.json" --out "$OUT/shortcut-report.json"
