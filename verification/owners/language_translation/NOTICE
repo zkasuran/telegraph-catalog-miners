@@ -1,0 +1,16 @@
+Our recovery pipeline and additions: Copyright (c) 2026 zkasuran, SAND 1.0.
+Original sentence text and translation links: Tatoeba and contributors,
+https://tatoeba.org, CC BY 2.0 FR. The full unchanged per-sentence contributor,
+sentence URI, original text and export hash attribution is in
+assets/source-manifest.json. It is also embedded in the unchanged candidate.
+Original source rights remain in force separately from our addition terms.
+
+ModernBERT architecture and foundation by Answer.AI and LightOn, Apache-2.0.
+Telegraph reference kit: Copyright (c) 2026 telegraphprotocol, MIT,
+revision 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd.
+Complete Apache, MIT, source legal codes and SAND terms are retained in
+assets/rights.json and in the immutable package. No licensor endorsement.
+
+Source review and constructed preferences were AI-assisted. They are not
+human preference votes or professional translation certification. Native
+quality is source-bound; actual node qualification is a separate operation.

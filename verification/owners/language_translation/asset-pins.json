@@ -1,0 +1,10 @@
+{
+  "candidate.safetensors": "e02ce556730041da5f24196e74e37afd8a6df9cfab4e17a6045ed2672671cb42",
+  "native-report.json": "54e46d046155e462756cff5bce54f159130a0ba1a4280efad348d7fa5a4fd0fd",
+  "source-manifest.json": "099fa6f2c0f4eda56dd995ed5265e820b8c885bae58667e0e72f12db1f7e6f7b",
+  "source-checks.json": "e7ccc6069113a4ed879953b344bc1fd5e5215258b64234fc7a27f81bb900b932",
+  "rights.json": "7835477892ad1d1f3cdf4b665535c58bd1f6b5a9f770e0dc05ff735aae46b0b3",
+  "parser-template.go.txt": "0caaa5ee0159247efc3150d6333a4cc394aa79e8e20c57c8b2dfb1584c9af18e",
+  "runtime-helper.py.txt": "6d17ad3cabbdcc5dadd42687291efbde4685f53a63027cc226f2b1014dd6b9e8",
+  "reference-common.py.txt": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784"
+}

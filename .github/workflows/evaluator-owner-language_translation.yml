@@ -1,0 +1,119 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: Immutable language translation owner runtime recovery
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [verify, serve]
+        default: verify
+      report_url:
+        type: string
+        default: ''
+      report_sha:
+        type: string
+        default: ''
+      verified_run_id:
+        type: string
+        default: '0'
+      slot:
+        type: string
+        default: '0'
+      forward_port:
+        type: string
+        default: '0'
+      runnable_url:
+        type: string
+        default: ''
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: language-translation-owner-${{ inputs.mode }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '4'
+      MODE: ${{ inputs.mode }}
+      REPORT_URL: ${{ inputs.report_url }}
+      REPORT_SHA: ${{ inputs.report_sha }}
+      VERIFIED_RUN_ID: ${{ inputs.verified_run_id }}
+      SLOT: ${{ inputs.slot }}
+      FORWARD_PORT: ${{ inputs.forward_port }}
+      RUNNABLE_URL: ${{ inputs.runnable_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Exact packaged source gate
+        run: bash verification/owners/language_translation/verify.sh
+      - name: Hash-locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/replay-venv"
+          "$RUNNER_TEMP/replay-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/training/requirements.lock
+          "$RUNNER_TEMP/replay-venv/bin/python" -m pip check
+      - name: Fixed checkpoint-only verification
+        if: inputs.mode == 'verify'
+        timeout-minutes: 160
+        run: |
+          "$RUNNER_TEMP/replay-venv/bin/python" verification/owners/language_translation/supervise.py --root "$RUNNER_TEMP/translation-replay"
+      - name: Upload actual runtime proof
+        if: always() && inputs.mode == 'verify'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: language-translation-runtime-recovery
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/translation-replay/registration-ready.json
+            ${{ runner.temp }}/translation-replay/runtime-result.json
+            ${{ runner.temp }}/translation-replay/runtime-score-bits.json
+            ${{ runner.temp }}/translation-replay/runtime-error.json
+            ${{ runner.temp }}/translation-replay/package-manifest.json
+            ${{ runner.temp }}/translation-replay/supervisor.json
+      - name: Start exact restricted serving mode
+        if: inputs.mode == 'serve'
+        timeout-minutes: 300
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "$VERIFIED_RUN_ID" --repo "$GITHUB_REPOSITORY" --name language-translation-runtime-recovery --dir "$RUNNER_TEMP/verified-report"
+          unset GH_TOKEN
+          nohup "$RUNNER_TEMP/replay-venv/bin/python" verification/owners/language_translation/serve.py --root "$RUNNER_TEMP/translation-serve" --report-path "$RUNNER_TEMP/verified-report/registration-ready.json" --report-sha "$REPORT_SHA" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL" >"$RUNNER_TEMP/translation-serving.log" 2>&1 &
+          serving_pid=$!
+          for n in $(seq 1 180); do
+            if test -s "$RUNNER_TEMP/translation-serve/public-lease.json"; then break; fi
+            if ! kill -0 "$serving_pid" 2>/dev/null; then wait "$serving_pid"; exit 1; fi
+            sleep 5
+          done
+          test -s "$RUNNER_TEMP/translation-serve/public-lease.json"
+          printf 'SERVING_PID=%s\n' "$serving_pid" >> "$GITHUB_ENV"
+      - name: Upload only public restricted lease
+        if: always() && inputs.mode == 'serve'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: language-translation-public-lease
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/translation-serve/public-lease.json
+      - name: Keep exact lease alive within the free CPU window
+        if: inputs.mode == 'serve'
+        timeout-minutes: 275
+        run: |
+          for n in $(seq 1 3240); do
+            kill -0 "$SERVING_PID"
+            sleep 5
+          done
