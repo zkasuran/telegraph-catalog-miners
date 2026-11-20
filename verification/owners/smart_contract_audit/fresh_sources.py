@@ -47,9 +47,16 @@ def training(index, entity, vulnerable):
     typ, maximum = f"uint{width}", (1 << width) - 1
     expressions = ("(x+y)*3", "x*x+y", "x*(y+1)", "(x+1)*(y+1)", "x+x+y", "(x*y)+x")
     expression = expressions[index - 6]
-    checked = f"return {expression};"
-    if vulnerable:
-        checked = f"unchecked{{{checked}}}"
+    bound = f"type({typ}).max"
+    guards = (
+        f"require(x<={bound}-y);require(x+y<={bound}/3);",
+        f"require(x==0||x<={bound}/x);require(x*x<={bound}-y);",
+        f"require(y<{bound});require(x<={bound}/(y+1));",
+        f"require(x<{bound}&&y<{bound});require(x+1<={bound}/(y+1));",
+        f"require(x<={bound}/2);require(x+x<={bound}-y);",
+        f"require(y==0||x<={bound}/y);require(x*y<={bound}-x);",
+    )
+    checked = ("" if vulnerable else guards[index - 6]) + f"unchecked{{return {expression};}}"
     # A memory tuple and distinct assertion separate these training pathways
     # from the reserved source-held-out implementation shapes.
     body = f"struct Pair{{{typ} a;{typ} b;}}function {f}({typ} x,{typ} y)external pure returns({typ}){{Pair memory p=Pair(x,y);require(p.a==x&&p.b==y);{checked}}}"

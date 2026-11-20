@@ -30,6 +30,7 @@
 | Rational sampling secretly refits or bypasses old integer limits | New immutable numerator/denominator schema binds exact training counts; legacy bounded integer schema remains unchanged | Exact rational group-mass test, changed denominator refusal and held-out input refusal; old invalid-integer tests retained |
 | Regularization settings secretly tune on audit or relax acceptance | Closed frozen config accepts a finite dropout in range, training/validation provenance and unchanged quality-gate flag only | `test_regularization.py` primary config plus invalid range/type, audit provenance and changed-gate refusal controls |
 | Scalar checkpoint ties retain weaker formats or labels | Exact rational lexicographic gate-margin vector with aggregate count tie-break; minimum gate never sacrificed and quality thresholds unchanged | `test_gate_vector.py` same-minimum improvement, worse-minimum/higher-average refusal and malformed/audit-flag/count rejection |
+| Explicit arithmetic guards omit intermediate overflow checks or change labels | New training-only guards preserve native checked acceptance/results; no facts/preferences/groups changed | Complete small-width arithmetic grids plus real EVM disputed-call/legitimate controls for every source; old source versions remain preserved |
 
 ## Known limits
 

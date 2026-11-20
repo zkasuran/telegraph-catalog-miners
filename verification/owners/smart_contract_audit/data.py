@@ -8,9 +8,9 @@ from pathlib import Path
 
 FAMILY = "SMART_CONTRACT_AUDIT"
 ATTEMPT = "74fac904d3e14d2690ef15803146a56a"
-DATA_VERSION = "self-contained-coverage-v4"
-BASELINE_FILE = "frozen-baselines-v4.json"
-SAMPLING_FILE = "frozen-sampling-v3.json"
+DATA_VERSION = "training-guard-equivalence-v5"
+BASELINE_FILE = "frozen-baselines-v5.json"
+SAMPLING_FILE = "frozen-sampling-v4.json"
 RETIRED_AUDIT_SHA256 = "6cd7d2c0b11206df3c6ad04471cd53683c791f9393140e8c764101457cc31dd8"
 SPDX = "// SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0\n"
 PLAN = {"train": (range(4), 8), "validation": (range(4, 6), 6), "audit": (range(0), 0)}
@@ -233,7 +233,7 @@ def build(out):
                    "audit_used_for_selection": False,
                     "data_version": DATA_VERSION, "baseline_file": BASELINE_FILE, "sampling_file": SAMPLING_FILE,
                     "retired_exposed_audit_sha256": RETIRED_AUDIT_SHA256,
-                    "independence": "Twenty-four original training implementations, two retained validation implementations and 32 clean reserved audit implementations. All siblings and variants stay grouped. Original training and validation bytes are retained; the exposed original audit is retired and excluded from new fitting/test data. All source/preferences are AI-assisted, not independent human adjudication."})
+                    "independence": "Twenty-four training implementations, two retained validation implementations and 32 clean reserved audit implementations. All siblings and variants stay grouped. Original data versions are preserved; six fixed training sources use execution-equivalent explicit guards. Validation and clean audit bytes are unchanged. The exposed original audit is excluded from new fitting/test data. All source/preferences are AI-assisted, not independent human adjudication."})
     write(out / "data-report.json", report)
     print(json.dumps(report, sort_keys=True))
     return rows
