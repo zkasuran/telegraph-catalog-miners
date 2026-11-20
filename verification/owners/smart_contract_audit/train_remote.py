@@ -33,15 +33,16 @@ def main():
     import torch
     from tokenizers import Tokenizer
     from transformers import AutoConfig, AutoTokenizer
-    from float_runtime import train_adapter as trainer
+    from trainer_selection import install
+    trainer = install(kit / "float_runtime/train_adapter.py", root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, tensor_names, write_package, target_dims
 
     torch.set_num_threads(min(4, os.cpu_count() or 1))
-    # Prior single-format training memorized and failed held-out format gates.
-    # Balanced views and less noisy updates use development evidence only.
+    # Aggregate selection hid weak format/label cells in real validation.
+    # Worst-gate-margin selection uses validation only, never the audit.
     hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=4, epochs=12,
-                            lr=1e-4, es_metric="pairwise_accuracy", es_patience=4, es_min_delta=0.0,
+                             lr=1e-4, es_metric="worst_gate_margin", es_patience=4, es_min_delta=0.0,
                             eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False)
     train_sources = [r for r in rows if r["split"] == "train"]
     validation_sources = [r for r in rows if r["split"] == "validation"]
@@ -49,7 +50,7 @@ def main():
     validation = training_pairs(response_views(validation_sources, "validation"))
     write(root / "development-views.json", {"training_originals": len(train_sources), "training_views": len(train),
           "validation_originals": len(validation_sources), "validation_views": len(validation), "independent_audit_views_used": 0,
-          "selection": "validation pair accuracy across supported formats, not confidence/loss alone"})
+          "selection": "validation worst format/label/mechanism gate margin; aggregate accuracy still reported"})
     gate = trainer.gate_dataset(train, hp)
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:
@@ -159,7 +160,8 @@ def main():
           "executor_sha256": sha(executable.read_bytes()), "kit": sources["kit"],
           "wire_root_sha256": sha((root / "wire-root").read_bytes()),
           "runtime": {"python": sys.version, "torch": torch.__version__},
-          "source_manifest_sha256": sha((HERE / "data-bindings.json").read_bytes()),
+           "source_manifest_sha256": sha((HERE / "data-bindings.json").read_bytes()),
+           "selection_source_report_sha256": sha((root / "trainer-selection-source.json").read_bytes()),
           "full_parser_passed": True,
           "phase": "candidate frozen before independent audit", "node_qualification": "not attempted"})
     print("Candidate and seed-matched untrained packages frozen. Audit has not run.")

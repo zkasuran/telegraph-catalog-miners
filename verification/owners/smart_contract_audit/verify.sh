@@ -9,6 +9,7 @@ python3 -W error -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); 
 python3 -W error "$HERE/policy.py" --check-public-contract
 python3 -W error -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); compile(p.read_text(),str(p),"exec"); print("Live class source adapter syntax compiled without model imports")' "$HERE/class_source.py"
 python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -v
+python3 -W error "$HERE/trainer_selection.py" --source-check-report "$OUT/trainer-selection-contract.json"
 node --check "$HERE/execute.mjs"
 if ! test -d "$HERE/node_modules"; then
   npm --prefix "$HERE" ci --ignore-scripts --no-fund
