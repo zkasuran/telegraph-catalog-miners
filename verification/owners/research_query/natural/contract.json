@@ -8,9 +8,9 @@
   "audit_used_for_selection": false,
   "splits": {
     "train": {
-      "rows": 512,
-      "groups": 512,
-      "sha256": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",
+      "rows": 768,
+      "groups": 768,
+      "sha256": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
       "date_range": [
         "2023-01-29T16:25:00.292541+00:00",
         "2023-02-09T19:06:04.143867+00:00"
@@ -35,7 +35,7 @@
       ]
     }
   },
-  "frozen_controls_sha256": "364180ba1d5bb4439bde523e37d0b6a27a13f874aa92db37ec0c6c0cc7fc1e08",
+  "frozen_controls_sha256": "effa6edd157a271770796c73e18f4ab022050d1ac6df3557ae90de759431e8be",
   "quality": {
     "minimum_accuracy": 0.8,
     "minimum_subset_accuracy": 0.7,
@@ -49,22 +49,29 @@
     "runtime_check.py": "8da4ce53abca409907630c5d335e3132c266df343918c268cd0b1edec416a9f3",
     "live_class.py": "9c54d9f9effef267d06181c7ee4707ac9b5540936763875ed75f64b22cbd019d",
     "training_policy.py": "df89218bcd7e33ad6a226b953071844cb681911359ae9d9bb76981da32f16ba5",
-    "gates.py": "573e5b95a1c215612af7d1e3878c1d036c3af7fcb618fbaaad19eab6d843d55c",
+    "gates.py": "6752e0e56f01a2c4690e166cc8f12cade528a9bd07561ea5118fa5b4822d163a",
     "preserve.py": "8836d69aff6e7db0757b643a8a179b9f82af6b5776e163c6b1d32008e60cce08",
-    "static_check.py": "0880b2e87464512061ab5d11f5b3d2e45f084a99c68fbaf89946c4b9653dfa88",
-    "verify_source.py": "8eb2d4d3ccdfa9225aa62cf4764f023f9fb9dacdefd0e4107f1f18a01ac750e3",
-    "run.py": "61d09e37450ea3b4928e883efda1e4a9e06d1967836e9b6e5bc6b66bf57714d9",
+    "static_check.py": "ecda82d5ebb7998257c354d87927fcd12e6f7f302a65b9ce13388fe5e64e61a6",
+    "verify_source.py": "f06ad066d5913d6deece78edd7e14d506cf3a224aadc408b15615998b8974d64",
+    "run.py": "12196f71f22f400e4494497949a58c0bcca7287b9d3d12ef2d382c68a14765b0",
     "bridge.py": "87d1077ef34e489df6deedcb8e6538350707b40c2c402660ca23795d9b47b24d",
-    "run_base.py": "3bace1099093112effc9b4905de8ec3e2c0f00b5c64bba164716d13cc22ce259",
-    "test_natural.py": "ae3d56d1d93761a11ab76b8f1d5b277c48791462604e7259efaa27f329d8de4f"
+    "run_base.py": "b001ca6abac00ec6bfb9b6d2cd3e232e4e415a3159f4052366f0125b07d7e52a",
+    "test_natural.py": "359bcd8af99a1c015ab75f3615a2074901205f361ddbd0a85fd8530a0758dbb0"
   },
   "fixture_hashes": {
-    "train.jsonl": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",
+    "train.jsonl": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
     "audit.jsonl": "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143",
-    "data-report.json": "0b1b186d06a9f13615e4c0a85674ba285e2b1719fc7f8ab5a6948bd170d85864",
+    "data-report.json": "33c85e0c6d601f6c3dd1c7b6892f0270da275523c90e32d7c27a46062413cd46",
     "validation.jsonl": "002531c88e52ab2f2b159662aa776a4d708de0031cbaf6a3e03f5a286d5e672f",
-    "source-reverification.json": "9f3a38052681626ba67a83405f22d51423a07542d8821a114b73a31097dfc26c",
-    "frozen-controls.json": "364180ba1d5bb4439bde523e37d0b6a27a13f874aa92db37ec0c6c0cc7fc1e08",
-    "dataset-gate.json": "a2ed3a1c858f3ca82331c1ec1d3123f638db0e5636b0b1dcd7fd342b9a0ac602"
+    "source-reverification.json": "ac07286b775898008c85695cd342e4bc13967c77a4501857567ca7302dab4bc7",
+    "frozen-controls.json": "effa6edd157a271770796c73e18f4ab022050d1ac6df3557ae90de759431e8be",
+    "dataset-gate.json": "e1652b1360da5f06cb88d0c48331537c31881f43d4e2a95092fa4478c1f4c0f7"
+  },
+  "model_recipe": {
+    "lr": 2e-05,
+    "lora_dropout": 0.1,
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "weight_decay": 0.1
   }
 }

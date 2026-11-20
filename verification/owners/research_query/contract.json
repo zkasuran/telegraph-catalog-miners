@@ -31,12 +31,12 @@
   "owned_source_sha256": {
     "verify.py": "4de06b1336d596bef9d22d1326a84550c65d6102a9393231e8e8db8c24b48d0f",
     "report.py": "98a5a29187ad2c8ccf9aaad4073956510f02c43ab97967456b1a0874e24802c8",
-    "verify.sh": "85a64ac340c0de8b212c8358b93fc57273b5609e952e15eb60aae5f44d42c3c6",
+    "verify.sh": "a19fd1387ab9e14b5b123f87b88959e76c1a67a1d1f4e435360dac3063531a21",
     "train_core.py": "049ea4f66ed58e2622c21789c17fcf22e31d28a7fe63cdbc256d670793952ef8",
     "test_research.py": "14924ea6b2139fbea6f276a8b0e99836670e70270f66e64920a3ccb37594d369",
     "terms.py": "bb4606410ad6276ca4793af25d2b0ffb48f24b6841f9c466c34d370e0e6496f7",
     "scorer.py": "3102b207c1c83c62b13709d2b22fd3ac180d0c7438bf89fea92b9346be69684b",
-    "workflow.yml": "15019a869a48f1463bbdbd6a969b99f5f7a9f517a9da180db102b591c2f7b499",
+    "workflow.yml": "110c2678184b25832682b8eea4f669275a786d43fc4233c5272053686ea60551",
     "source.py": "33f698b5c87d86e9fb125a5c0bf17003ceaa8e510c09e2403010e917df05eb05",
     "prepare.py": "46c4e2e2a272b308b60dc1ff2330c8a52d287a5010e296e0c4482c7f78459271",
     "remote.py": "1b6a6b73ff4e832db8460ee0627c2908c2bb0acc1a8ecbf8b5220f04060bb2d6",
@@ -51,14 +51,14 @@
     "natural/runtime_check.py": "8da4ce53abca409907630c5d335e3132c266df343918c268cd0b1edec416a9f3",
     "natural/live_class.py": "9c54d9f9effef267d06181c7ee4707ac9b5540936763875ed75f64b22cbd019d",
     "natural/training_policy.py": "df89218bcd7e33ad6a226b953071844cb681911359ae9d9bb76981da32f16ba5",
-    "natural/gates.py": "573e5b95a1c215612af7d1e3878c1d036c3af7fcb618fbaaad19eab6d843d55c",
+    "natural/gates.py": "6752e0e56f01a2c4690e166cc8f12cade528a9bd07561ea5118fa5b4822d163a",
     "natural/preserve.py": "8836d69aff6e7db0757b643a8a179b9f82af6b5776e163c6b1d32008e60cce08",
-    "natural/static_check.py": "0880b2e87464512061ab5d11f5b3d2e45f084a99c68fbaf89946c4b9653dfa88",
-    "natural/verify_source.py": "8eb2d4d3ccdfa9225aa62cf4764f023f9fb9dacdefd0e4107f1f18a01ac750e3",
-    "natural/run.py": "61d09e37450ea3b4928e883efda1e4a9e06d1967836e9b6e5bc6b66bf57714d9",
+    "natural/static_check.py": "ecda82d5ebb7998257c354d87927fcd12e6f7f302a65b9ce13388fe5e64e61a6",
+    "natural/verify_source.py": "f06ad066d5913d6deece78edd7e14d506cf3a224aadc408b15615998b8974d64",
+    "natural/run.py": "12196f71f22f400e4494497949a58c0bcca7287b9d3d12ef2d382c68a14765b0",
     "natural/bridge.py": "87d1077ef34e489df6deedcb8e6538350707b40c2c402660ca23795d9b47b24d",
-    "natural/run_base.py": "3bace1099093112effc9b4905de8ec3e2c0f00b5c64bba164716d13cc22ce259",
-    "natural/test_natural.py": "ae3d56d1d93761a11ab76b8f1d5b277c48791462604e7259efaa27f329d8de4f",
+    "natural/run_base.py": "b001ca6abac00ec6bfb9b6d2cd3e232e4e415a3159f4052366f0125b07d7e52a",
+    "natural/test_natural.py": "359bcd8af99a1c015ab75f3615a2074901205f361ddbd0a85fd8530a0758dbb0",
     "serving/proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51",
     "serving/common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784"
   },
@@ -147,6 +147,6 @@
     "verified_report_artifact_id": 14557995786,
     "neural_result_created_locally": false
   },
-  "natural_source_manifest_sha256": "9b2b7e6011d87082221ed007dfe47a76283990dea55d8b286bdbcf84539442cc",
-  "natural_contract_sha256": "b87a086149fd9dff024f2b4fb15ad1a6d1997ae134c640384e9345c6a6be331c"
+  "natural_source_manifest_sha256": "cf31cd7611d6478148cb0fba7beb96d45ab94cc61cf57576c40982d9f0f10587",
+  "natural_contract_sha256": "4a4ec9c3665d11d3b50f37b117f51b4ade3ba30497b38d0614b1f0baa03af8c1"
 }

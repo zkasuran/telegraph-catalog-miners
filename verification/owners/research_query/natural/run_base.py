@@ -214,10 +214,10 @@ def experiment(root):
     model, tok = trainer.build_model(str(base), hp)
     initial_hash = state_hash(model)
     save_checkpoint(model, root / "initial")
-    # Complete all three fixed epochs. Only development loss selects the
+    # Complete all eight fixed epochs. Only development loss selects the
     # checkpoint. Its extra evaluation consumes no training RNG.
     if hp.epochs != EPOCHS:
-        raise ValueError("fixed three-epoch training contract changed")
+        raise ValueError("fixed eight-epoch training contract changed")
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.AdamW(params, lr=hp.lr, weight_decay=hp.weight_decay)
     sampler = torch.Generator(device="cpu").manual_seed(hp.seed)
@@ -229,6 +229,7 @@ def experiment(root):
     best, best_state, best_hash = None, None, None
     development_history = []
     for epoch in range(1, EPOCHS + 1):
+        epoch_loss_start = len(losses)
         model.train()
         optimizer.zero_grad(set_to_none=True)
         step_started = time.monotonic()
@@ -270,12 +271,13 @@ def experiment(root):
             best_hash = state_hash(model)
             save_checkpoint(model, root / "adapter")
         development_history.append({"epoch": epoch, "metrics": development, "selected": improved,
-                                    "rng_restored": True, "split": "validation"})
+                                    "rng_restored": True, "split": "validation",
+                                    "training_loss_mean": sum(losses[epoch_loss_start:]) / (len(losses) - epoch_loss_start)})
         write_json(root / "development-selection.json", {"history": development_history, "best": best,
                    "best_trainable_sha256": best_hash, "selection_split": "validation", "selection_metric": "val_loss",
                    "audit_scored": False, "epochs_required": EPOCHS, "epochs_completed": epoch})
     if best_state is None or len(development_history) != EPOCHS:
-        raise ValueError("three-epoch development selection did not complete")
+        raise ValueError("eight-epoch development selection did not complete")
     with torch.no_grad():
         for name, parameter in model.named_parameters():
             if parameter.requires_grad:
@@ -286,7 +288,7 @@ def experiment(root):
     save_checkpoint(model, root / "adapter")
     tok.save_pretrained(root / "adapter")
     (root / "adapter/tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())
-    if not record_natural_development(model, tok, trainer):
+    if not record_natural_development(model, tok, trainer, root):
         write_json(root / "result.json", {"status": "DEVELOPMENT_FAILED_AUDIT_SEALED", "audit_scored": False, "selected_epoch": best["epoch"], "commit": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"]})
         return 1
     trained = evaluate(model, splits["audit"])

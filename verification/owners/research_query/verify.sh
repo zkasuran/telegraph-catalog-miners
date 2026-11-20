@@ -13,3 +13,5 @@ python3 -W error "$here/verify.py"
 python3 -I -W error "$here/natural/bridge.py" --source-smoke
 python3 -W error "$here/candidate/check_assets.py"
 python3 -W error "$here/natural/verify_source.py"
+# Source verification includes the frozen regularized recipe and old/new
+# training-fitted shortcut identities. No neural entrypoint runs in this gate.

@@ -51,3 +51,6 @@ The earlier template-only source audit did not establish broader live research q
 ## Cold-start preparation namespace
 
 An inherited PYTHONPATH must not select a different source helper or hide a broken remote import. The natural bridge loads source.py and common.py by explicit paths and checks their frozen root hashes before execution. Its temporary source binding is restored, leaving natural/data.py and sys.path unchanged. The release gate and CI exercise an isolated cold start without model loading. A changed root dependency hash is refused. Test: test_standalone_bridge_import_and_model_refusal. No trained result or node win follows from this source smoke.
+## Development loss and training-only expansion
+
+A failed validation run never opens its independent audit or becomes a registration-ready artifact. The regularized candidate preserves the sealed 64-group audit and the 64-group validation bytes. Its 256 added training groups precede those dates and retain original source ranks. The grouping gate refused within-component duplication; no duplicate row is counted as a new independent group. Both immutable training-fitted baseline versions compete at the unchanged shortcut floor. Validation acceptance writes both literal-format measurements even on failure, while audit scoring remains after acceptance.

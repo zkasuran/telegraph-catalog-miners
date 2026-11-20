@@ -44,11 +44,13 @@ def measured(rows, values):
     return {"accuracy": sum(wins) / 64, "per_label": {name: sum(values) / len(values) for name, values in slices.items()}}
 
 
-def record_development(model, tok, trainer):
+def record_development(model, tok, trainer, root):
     model_remote_only()
     _, split = read_splits(HERE / "fixtures")
     result = {name: measured(split["validation"], native(model, tok, trainer, formatted(split["validation"], name))) for name in ("prose", "json")}
-    return all(value["accuracy"] >= .8 and min(value["per_label"].values()) >= .7 for value in result.values())
+    accepted = all(value["accuracy"] >= .8 and min(value["per_label"].values()) >= .7 for value in result.values())
+    write_json(root / "validation-acceptance.json", {"formats": result, "accepted": accepted, "selection_split": "validation", "audit_scored": False})
+    return accepted
 
 
 def record_audit(model, tok, trainer, rows):
@@ -135,7 +137,7 @@ def main():
             return code
         manifest = json.loads((root / "package-manifest.json").read_text())
         source = json.loads((root / "data/source-reverification.json").read_text())
-        if source["grants_verified"] is not True or source["checked_preference_pairs"] != 640:
+        if source["grants_verified"] is not True or source["checked_preference_pairs"] != 896:
             raise ValueError("full source/rank verification not completed")
         from runtime_check import RELEASE_HASHES
         report = {"schema_version": 1, "status": "REGISTRATION_READY", "family": "RESEARCH_QUERY", "run_id": int(os.environ["GITHUB_RUN_ID"]),

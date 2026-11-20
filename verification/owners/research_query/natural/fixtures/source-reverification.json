@@ -3,7 +3,7 @@
     "train": 84437,
     "validation": 4401
   },
-  "checked_preference_pairs": 640,
+  "checked_preference_pairs": 896,
   "grants_verified": true,
   "normalized_overlap": 0,
   "original_rank_and_text_unchanged": true,

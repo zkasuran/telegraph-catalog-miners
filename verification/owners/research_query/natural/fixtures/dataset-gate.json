@@ -1,24 +1,30 @@
 {
   "ok": true,
-  "n": 512,
+  "n": 768,
   "metrics": {
     "unique_rejected_frac": 1.0,
-    "top_rejected_share": 0.002,
-    "length_shortcut_acc": 0.501,
+    "top_rejected_share": 0.0013,
+    "length_shortcut_acc": 0.5007,
     "eval_negative_leak": 0.0,
-    "surface_probe_acc": 0.5605,
-    "mean_len_chosen": 852.2,
-    "mean_len_rejected": 776.6
+    "surface_probe_acc": 0.5522,
+    "mean_len_chosen": 890.7,
+    "mean_len_rejected": 793.2
   },
   "failures": [],
   "validation_controls": {
     "length": 0.5,
     "token_length": 0.5546875,
     "overlap": 0.46875,
-    "answer_only": 0.5234375,
+    "answer_only": 0.5625,
     "citation": 0.53125,
-    "hedging": 0.5
+    "hedging": 0.5,
+    "previous_length": 0.5,
+    "previous_token_length": 0.5546875,
+    "previous_overlap": 0.46875,
+    "previous_answer_only": 0.5234375,
+    "previous_citation": 0.53125,
+    "previous_hedging": 0.5
   },
   "audit_scored": false,
-  "immutable_coefficients": "364180ba1d5bb4439bde523e37d0b6a27a13f874aa92db37ec0c6c0cc7fc1e08"
+  "immutable_coefficients": "effa6edd157a271770796c73e18f4ab022050d1ac6df3557ae90de759431e8be"
 }

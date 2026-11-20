@@ -17,3 +17,5 @@ def main():
         raise ValueError("unchanged quality gates must be retained")
     if contract["audit_used_for_selection"] is not False or contract["scope"] != "Original human research-answer preference relevance/usefulness, not factual proof":
         raise ValueError("source annotations or audit scope misrepresented")
+    if contract.get("model_recipe") != {"lr": .00002, "lora_dropout": .1, "lora_rank": 16, "lora_alpha": 32, "weight_decay": .1}:
+        raise ValueError("frozen regularized training improvement changed")

@@ -104,3 +104,6 @@ OpenAssistant/oasst1 at fdf72ae0827c1cda404aff25b6603abec9e3399b declares Apache
 ## Byte-preserving preparation recovery
 
 Run 44647549256 failed before model training with an unresolved root source import. This release changes the source preparation bridge and its isolated startup checks only. Original train, validation and audit text/rank hashes plus frozen train-only coefficients are unchanged. The independent audit was not scored in that failed job. No exposed scientific audit or live public ordering row is introduced as new training or test data.
+## Training update after a measured development failure
+
+The original-human model completed eight epochs in run 44649762004 but selected validation accuracy was 57.03%, below the unchanged 80% floor. The audit was not scored. The next training set preserves all 512 earlier components and adds 256 unused older original components before the frozen validation dates. Full 84437/4401 source inventories and all 896 selected preferences are rechecked against original text/ranks. Official validation and exposed source components/text remain excluded. Cross-split normalized overlap is zero. Both old and new exact integer training-fitted baselines are retained as shortcut competitors. No new audit or live public ordering rows enter training.

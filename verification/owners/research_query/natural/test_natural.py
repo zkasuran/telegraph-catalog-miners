@@ -15,6 +15,20 @@ from runtime_check import check_response, RELEASE_HASHES
 
 
 class NaturalContracts(unittest.TestCase):
+    def test_frozen_training_improvement_and_retained_baseline(self):
+        contract = json.loads((HERE / "contract.json").read_text())
+        frozen = json.loads((HERE / "fixtures/frozen-controls.json").read_text())
+        report = json.loads((HERE / "fixtures/data-report.json").read_text())
+        self.assertEqual(frozen["fit_split"], "train")
+        self.assertEqual(frozen["training_sha256"], report["files"]["train"]["sha256"])
+        self.assertEqual(frozen["previous_baseline"]["training_sha256"], "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff")
+        self.assertEqual(frozen["previous_baseline"]["training_rows"], 512)
+        self.assertEqual(contract["model_recipe"], {"lr": .00002, "lora_dropout": .1, "lora_rank": 16, "lora_alpha": 32, "weight_decay": .1})
+        self.assertTrue(all(type(value) is int for value in frozen["coefficients"].values()))
+        self.assertEqual(report["training_expansion"]["preserved_old_training_components"], 512)
+        self.assertEqual(report["training_expansion"]["new_older_training_components"], 256)
+        self.assertEqual(report["files"]["audit"]["sha256"], "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143")
+
     def test_bridge_rejects_changed_root_dependency(self):
         with tempfile.TemporaryDirectory(prefix="natural-bridge-hash-") as directory:
             root = Path(directory)
@@ -62,7 +76,8 @@ print('STANDALONE BRIDGE AND LOCAL MODEL REFUSAL PASS')
 
     def test_primary_original_rank_and_group_smoke(self):
         report, splits = read_splits(HERE / "fixtures")
-        self.assertEqual(len(splits["train"]), 512)
+        self.assertEqual(len(splits["train"]), 768)
+        self.assertEqual(len({row["group_id"] for row in splits["train"]}), 768)
         self.assertEqual(len({row["group_id"] for row in splits["audit"]}), 64)
         self.assertTrue(all(row["chosen_rank"] == 0 and row["rejected_rank"] > 0 for rows in splits.values() for row in rows))
         self.assertEqual(report["normalized_cross_split_overlap"], 0)

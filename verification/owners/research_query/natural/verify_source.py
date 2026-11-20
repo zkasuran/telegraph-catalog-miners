@@ -24,7 +24,7 @@ def main():
     for name, expected in contract["fixture_hashes"].items():
         if digest((HERE / "fixtures" / name).read_bytes()) != expected:
             raise ValueError("frozen original corpus changed")
-    if len(splits["train"]) != 512 or len(splits["audit"]) != 64 or report["official_validation_quarantined"] is not True:
+    if len(splits["train"]) != 768 or len({r["group_id"] for r in splits["train"]}) != 768 or len(splits["audit"]) != 64 or report["official_validation_quarantined"] is not True:
         raise ValueError("complete independent source cohorts required")
     source = ast.parse((HERE / "run_base.py").read_text())
     experiment = next(node for node in source.body if isinstance(node, ast.FunctionDef) and node.name == "experiment")

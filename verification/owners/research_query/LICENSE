@@ -40,6 +40,14 @@ neither original source text/ranks nor retained upstream grants. The
 failed pre-training job and any future checkpoints keep the same licence
 boundary. No earlier grant is revoked by this integration repair.
 
+REGULARIZED ORIGINAL-SOURCE TRAINING UPDATE
+
+The additional 256 older training components retain original Apache-2.0
+text and human source ranks. Our selection, frozen diagnostic coefficients
+and rank-16 learned additions use the unchanged reviewed terms below,
+subject to those upstream grants. Earlier fitted checkpoints keep their
+original terms. An unconsumed audit is not newly created human review.
+
 # Source-Available No-Derivatives Licence 1.0
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0

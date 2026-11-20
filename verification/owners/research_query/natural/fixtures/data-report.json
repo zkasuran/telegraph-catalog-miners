@@ -4,9 +4,9 @@
   "status": "SOURCE_ONLY",
   "files": {
     "train": {
-      "rows": 512,
-      "groups": 512,
-      "sha256": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",
+      "rows": 768,
+      "groups": 768,
+      "sha256": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
       "date_range": [
         "2023-01-29T16:25:00.292541+00:00",
         "2023-02-09T19:06:04.143867+00:00"
@@ -72,11 +72,43 @@
     "length": 0.5,
     "token_length": 0.5546875,
     "overlap": 0.4765625,
-    "answer_only": 0.5390625,
+    "answer_only": 0.5859375,
     "citation": 0.53125,
-    "hedging": 0.5
+    "hedging": 0.5,
+    "previous_length": 0.5,
+    "previous_token_length": 0.5546875,
+    "previous_overlap": 0.4765625,
+    "previous_answer_only": 0.5390625,
+    "previous_citation": 0.53125,
+    "previous_hedging": 0.5
   },
   "audit_scores_measured": false,
   "neural_operations": 0,
-  "training_allowed": true
+  "training_allowed": true,
+  "training_expansion": {
+    "schema_version": 1,
+    "family": "RESEARCH_QUERY",
+    "original_source_messages": {
+      "train": 84437,
+      "validation": 4401
+    },
+    "training_rows": 768,
+    "training_groups": 768,
+    "additional_available": {
+      "longer": 333,
+      "shorter": 129
+    },
+    "training_sha256": "10f90e26c7b016dd919ccddbd8b7bcd6fdbf609d6b00e986aa9a43ae328fe4dd",
+    "validation_sha256": "002531c88e52ab2f2b159662aa776a4d708de0031cbaf6a3e03f5a286d5e672f",
+    "audit_sha256": "4734c2c4d83f8a66eb72af146bbf0af737c7db4dee4e32b29e049f2c50a11143",
+    "normalized_overlap": 0,
+    "original_source_rank_and_text": true,
+    "preserved_old_training_components": 512,
+    "new_older_training_components": 256,
+    "latest_training_date": "2023-02-09T19:06:04.143867+00:00",
+    "within_component_duplication_refused": true,
+    "fit_split": "train",
+    "audit_scored": false,
+    "neural_operations": 0
+  }
 }

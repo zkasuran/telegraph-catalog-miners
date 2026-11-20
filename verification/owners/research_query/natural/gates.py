@@ -29,7 +29,10 @@ def controls(rows, frozen, tokenizer):
         values["answer_only"].append(bow(c) - bow(r))
         values["citation"].append(row["chosen"].count("http") - row["rejected"].count("http"))
         values["hedging"].append(sum(c[w] for w in ("may", "might", "perhaps")) - sum(r[w] for w in ("may", "might", "perhaps")))
-    return {name: sum(1 if v * frozen["orientations"][name] > 0 else .5 if v == 0 else 0 for v in diffs) / len(diffs) for name, diffs in values.items()}
+    result = {name: sum(1 if v * frozen["orientations"][name] > 0 else .5 if v == 0 else 0 for v in diffs) / len(diffs) for name, diffs in values.items()}
+    if frozen.get("previous_baseline"):
+        result.update({"previous_" + name: value for name, value in controls(rows, frozen["previous_baseline"], tokenizer).items()})
+    return result
 
 
 def run_gate(directory, kit):
@@ -49,13 +52,16 @@ def run_gate(directory, kit):
     frozen = json.loads(frozen_raw)
     if frozen["fit_split"] != "train" or frozen["training_sha256"] != report["files"]["train"]["sha256"]:
         raise ValueError("baseline is not bound to original training")
+    previous = frozen.get("previous_baseline", {})
+    if previous.get("fit_split") != "train" or previous.get("training_sha256") != "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff" or previous.get("training_rows") != 512:
+        raise ValueError("retained previous train-only baseline identity changed")
     tokenizer = Tokenizer.from_file(str(directory / "sources/tokenizer.json"))
     tokenizer.no_padding()
     tokenizer.no_truncation()
     split = {**raw, "train": [r for row in raw["train"] for r in formatted([row], "prose" if int(digest(row["group_id"].encode()), 16) % 2 == 0 else "json")],
              "validation": formatted(raw["validation"], "prose") + formatted(raw["validation"], "json")}
-    hp = trainer.Hyperparams(max_length=512, batch_size=1, grad_accum=4, epochs=8, lr=.0001, lora_dropout=.05,
-                            lora_rank=8, lora_alpha=32, eval_batch=1, early_stopping=False, grad_checkpointing=False, gate_min_acc=.8)
+    hp = trainer.Hyperparams(max_length=512, batch_size=1, grad_accum=4, epochs=8, lr=.00002, lora_dropout=.1,
+                            lora_rank=16, lora_alpha=32, weight_decay=.1, eval_batch=1, early_stopping=False, grad_checkpointing=False, gate_min_acc=.8)
     gate = trainer.gate_dataset(split["train"], hp)
     if gate["metrics"].get("surface_probe_acc") is None:
         raise ValueError("actual source surface probe did not run")
