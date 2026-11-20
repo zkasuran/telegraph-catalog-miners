@@ -6,12 +6,12 @@
   "archive_sha256": "e03fc77bbf8b53e2976a250e81d8a294bc3d5e5fb014521e477dee9340d6287b",
   "archive_url": "https://raw.githubusercontent.com/stanfordnlp/contract-nli/eced6528dd3c1d14d73f9a87df8f7bdbc03126f9/resources/contract-nli.zip",
   "limits": {
-    "train": 320,
+    "train": 356,
     "validation": 30,
     "audit": 64
   },
   "max_evidence_bytes": 768,
   "max_tokens": 512,
-  "epochs": 6,
+  "epochs": 4,
   "seed": 42
 }

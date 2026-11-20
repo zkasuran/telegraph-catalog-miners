@@ -58,7 +58,7 @@ def main():
     parser.add_argument("--freeze", action="store_true")
     args = parser.parse_args()
     train = read_jsonl(args.data / "train.jsonl")
-    path = HERE / "frozen-baselines-v5.json"
+    path = HERE / "frozen-baselines-v6.json"
     if args.freeze:
         if path.exists():
             raise ValueError("frozen baseline already exists; do not overwrite it")

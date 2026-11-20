@@ -115,7 +115,7 @@
           "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
           "with": {
             "name": "contract-licensed-checkpoint",
-            "run-id": 44628637805,
+            "run-id": 44647112954,
             "github-token": "${{ github.token }}",
             "path": "${{ runner.temp }}/contract-run/parent-checkpoint"
           }
@@ -142,7 +142,7 @@
             "name": "contract-frozen",
             "retention-days": 7,
             "if-no-files-found": "error",
-            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json"
+            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/validation-ready.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/upstream-training-view-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json"
           }
         },
         {

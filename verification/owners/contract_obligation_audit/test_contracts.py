@@ -31,6 +31,18 @@ def fixture(label="Entailment", hypothesis_id="control"):
 
 
 class ContractTests(unittest.TestCase):
+    def test_auxiliary_keeps_primary_evidence_and_group_cap(self):
+        def row(identifier, label, group):
+            return {"document_id": identifier, "hypothesis_id": "auxiliary-control", "label": label,
+                    "source_group": group, "normalized_evidence_sha256": identifier}
+        initial = [row("primary", "Entailment", "primary-group")]
+        pool = [row("primary", "Contradiction", "other"), row("capped", "Contradiction", "primary-group"),
+                row("fresh-positive", "Entailment", "fresh-one"), row("fresh-negative", "Contradiction", "fresh-two")]
+        selected = allocate(pool, ["auxiliary-control"], 2, 1, initial=initial)
+        self.assertEqual({r["document_id"] for r in selected}, {"fresh-positive", "fresh-negative"})
+        with self.assertRaises(ValueError):
+            allocate(pool, ["auxiliary-control"], 4, 1, initial=initial)
+
     def test_failed_tensor_cannot_be_restamped(self):
         # Authored opaque bytes, not a failed audit/model capture.
         from contracts import sha
@@ -83,9 +95,10 @@ class ContractTests(unittest.TestCase):
 
     def test_warmstart_policy_retains_gates(self):
         policy = warmstart_policy()
-        self.assertEqual(policy["epochs"], 6)
-        self.assertEqual(policy["learning_rate"], .00005)
+        self.assertEqual(policy["epochs"], 4)
+        self.assertEqual(policy["learning_rate"], .000025)
         self.assertEqual(policy["weight_decay"], .05)
+        self.assertEqual(policy["reward_margin_penalty"], .01)
         self.assertEqual(policy["max_tokens"], 512)
         self.assertEqual(policy["train_formats"], ["json", "prose"])
         self.assertIn("retained licensed", policy["initialization"])

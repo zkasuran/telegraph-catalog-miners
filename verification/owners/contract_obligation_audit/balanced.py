@@ -9,8 +9,8 @@ from contracts import HERE, LABELS, check_config, sha, strict_json, write_json
 from data import check_splits, collect_source, download, pair
 
 
-def allocate(pool, hypotheses, count, group_cap, preferred=(), quotas=None):
-    selected, used, groups, allocated = [], set(), Counter(), Counter()
+def allocate(pool, hypotheses, count, group_cap, preferred=(), quotas=None, initial=()):
+    selected, used, groups, allocated = [], {row["normalized_evidence_sha256"] for row in initial}, Counter(row["source_group"] for row in initial), Counter()
     preferred = set(preferred)
     buckets = {}
     for hypothesis in hypotheses:
@@ -60,13 +60,19 @@ def construct(archive, config, policy):
     prior_evidence = set(policy["audit_forbidden_evidence"])
     hypotheses = policy["hypotheses"]
     clean = {split: [r for r in rows if r["source_group"] not in forbidden] for split, rows in eligible.items()}
-    allowed = set(policy["allowed_source_records"])
+    allowed = set(policy["allowed_source_records"])|set(policy["allowed_auxiliary_training_records"])
     clean = {split: [row for row in rows if row["document_id"]+":"+row["hypothesis_id"]+":"+row["evidence_sha256"] in allowed]
              for split, rows in clean.items()}
     reserved_groups = set(policy["reserved_audit_groups"])
     development = {name: [row for row in rows if row["source_group"] not in reserved_groups] for name, rows in clean.items()}
-    train = allocate(development["train"], hypotheses, config["limits"]["train"], 4, policy["prior_training_groups"],
-                     quotas=policy["training_pairs_per_hypothesis"])
+    auxiliary_quotas = policy["auxiliary_training_pairs_per_hypothesis"]
+    auxiliary_count = 2*sum(auxiliary_quotas.values())
+    primary_pool = [row for row in development["train"] if row["hypothesis_id"] in hypotheses]
+    train = allocate(primary_pool, hypotheses, config["limits"]["train"]-auxiliary_count, 4, policy["prior_training_groups"],
+                      quotas=policy["training_pairs_per_hypothesis"])
+    auxiliary_pool = [row for row in development["train"] if row["hypothesis_id"] in auxiliary_quotas]
+    auxiliary = allocate(auxiliary_pool, list(auxiliary_quotas), auxiliary_count, 4, quotas=auxiliary_quotas, initial=train)
+    train += auxiliary
     # Development coverage quotas were fixed from train/development inventory,
     # not from an audit result or a model score.
     validation_order = sorted(hypotheses, key=lambda h: min(sum(row["hypothesis_id"] == h and row["label"] == label for row in development["validation"]) for label in LABELS))
@@ -88,14 +94,16 @@ def construct(archive, config, policy):
     for split, rows in (("train", train), ("validation", validation), ("audit", audit)):
         splits[split] = [pair({**r, "original_source_split": r["split"], "split": split}) for r in rows]
         counts = Counter((r["hypothesis_id"], r["label"]) for r in rows)
-        if any(counts[h, "Entailment"] != counts[h, "Contradiction"] for h in hypotheses):
+        balanced_hypotheses = [*hypotheses, *auxiliary_quotas] if split == "train" else hypotheses
+        if any(counts[h, "Entailment"] != counts[h, "Contradiction"] for h in balanced_hypotheses):
             raise ValueError("hypothesis-conditioned source labels are not balanced")
     check_splits(splits, config)
     if any(r["source_group"] in forbidden for rows in splits.values() for r in rows):
         raise ValueError("retired audit group entered a new split")
     if any(r["source_group"] in audit_forbidden for r in splits["audit"]):
         raise ValueError("development-exposed group entered a new audit")
-    return splits, {**source, "generation": 5, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
+    return splits, {**source, "generation": 6, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
+                    "auxiliary_training_hypotheses": list(auxiliary_quotas), "primary_training_pairs": len(train)-len(auxiliary), "auxiliary_training_pairs": len(auxiliary),
                     "hypotheses": hypotheses, "retired_groups_excluded": len(forbidden),
                     "audit_forbidden_groups": sorted(audit_forbidden), "policy_sha256": sha((HERE / "source-policy.json").read_bytes()),
                     "independent_groups": len({r["source_group"] for r in splits["audit"]})}

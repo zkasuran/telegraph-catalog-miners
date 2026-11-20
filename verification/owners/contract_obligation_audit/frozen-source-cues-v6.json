@@ -1,0 +1,15 @@
+{
+  "fit_split": "train",
+  "integer_coefficients": {
+    "exception": {
+      "direction": 1,
+      "threshold": 1
+    },
+    "negation": {
+      "direction": -1,
+      "threshold": 2
+    }
+  },
+  "scope": "Training-only source-aware semantic comparison, all original quality gates remain mandatory",
+  "training_data_sha256": "3793a7baf8476e45a7cd8b397e32e7a49eee7c458747e7820dba67420cb4973e"
+}
