@@ -1,0 +1,47 @@
+{
+  "bow_integer_coefficients": {},
+  "fit_rows": 356,
+  "fit_split": "train",
+  "hypothesis_label_counts": {
+    "nda-1": {
+      "Contradiction": 40,
+      "Entailment": 40
+    },
+    "nda-10": {
+      "Contradiction": 1,
+      "Entailment": 1
+    },
+    "nda-17": {
+      "Contradiction": 38,
+      "Entailment": 38
+    },
+    "nda-19": {
+      "Contradiction": 6,
+      "Entailment": 6
+    },
+    "nda-2": {
+      "Contradiction": 7,
+      "Entailment": 7
+    },
+    "nda-20": {
+      "Contradiction": 42,
+      "Entailment": 42
+    },
+    "nda-4": {
+      "Contradiction": 3,
+      "Entailment": 3
+    },
+    "nda-5": {
+      "Contradiction": 1,
+      "Entailment": 1
+    },
+    "nda-7": {
+      "Contradiction": 40,
+      "Entailment": 40
+    }
+  },
+  "length_direction": 1,
+  "overlap_direction": 1,
+  "schema_version": 1,
+  "train_sha256": "6e5459a39b8f315303304d0b6f1c9d38ebe943b19729d24f75b4c79762633b6b"
+}

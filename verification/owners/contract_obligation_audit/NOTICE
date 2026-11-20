@@ -18,7 +18,7 @@ Full retained grants are in licences.json and embedded in every exported delta.
 The reference engine and foundation are pinned, not binary-wrapped or altered.
 
 New source/contract code and trained deltas: Copyright (c) 2026 zkasuran.
-Generation-six training resumes the licensed source-trained best checkpoint
+Generation-seven training resumes the licensed source-trained best checkpoint
 of public run 44647112954. Its validation failed and the audit never executed.
 The source audit reservation remains fixed and separate from every fit step.
 Previously exposed audit groups are never reused. Original source labels and
@@ -27,7 +27,9 @@ AI-assisted constructions, not fresh human preferences. A changed or registered
 package is not a canonical win.
 Thirty-six additional balanced original training records cover five auxiliary
 claims. Their labels remain published gold annotations, not generated truth.
-Four epochs, a lower learning rate and squared reward-margin regularization
-address the observed loss divergence without changing the backbone or gates.
+Rank grows from eight to sixteen, within the pinned reference capacity. Retained
+factor values and alpha/rank scale stay fixed; new output factors start at zero.
+Eight epochs and squared reward-margin regularization train the added capacity
+without changing the backbone, reference executor or quality gates.
 LicenseRef-zkasuran-SAND-1.0. These terms do not restrict original CC BY text,
 annotations or source-derived data. No licensor endorsement is implied.

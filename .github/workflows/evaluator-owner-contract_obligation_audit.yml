@@ -126,7 +126,7 @@
           "run": "python3 verification/owners/contract_obligation_audit/balanced.py --out \"$RUNNER_TEMP/contract-run/data\"\npython3 verification/owners/contract_obligation_audit/source_gate.py --data \"$RUNNER_TEMP/contract-run/data\" --report \"$RUNNER_TEMP/contract-run/source-gate.json\""
         },
         {
-          "name": "Resume both-format training and freeze, no audit selection",
+          "name": "Grow retained rank and train both formats, no audit selection",
           "timeout-minutes": 285,
           "run": "timeout --signal=TERM --kill-after=20s 16800 \"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/train_remote.py --root \"$RUNNER_TEMP/contract-run\""
         },
@@ -142,7 +142,7 @@
             "name": "contract-frozen",
             "retention-days": 7,
             "if-no-files-found": "error",
-            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/validation-ready.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/upstream-training-view-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json"
+            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/validation-ready.json\n${{ runner.temp }}/contract-run/rank-growth.json\n${{ runner.temp }}/contract-run/rank-growth-trained.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/upstream-training-view-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json"
           }
         },
         {

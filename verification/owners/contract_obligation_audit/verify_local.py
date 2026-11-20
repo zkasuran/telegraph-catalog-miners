@@ -22,7 +22,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-generation", type=int, required=True)
     args = parser.parse_args()
-    if args.source_generation != 6:
+    if args.source_generation != 7:
         raise ValueError("retired source generations are not eligible releases")
     for path in HERE.glob("*.py"):
         raw = path.read_bytes()
@@ -63,9 +63,9 @@ def main():
             raw = b"".join(json.dumps(row, sort_keys=True, ensure_ascii=False).encode()+b"\n" for row in rows)
             if sha(raw) != fingerprints["files"][name]["sha256"]:
                 raise ValueError("constructed source split differs from frozen source bytes")
-        frozen = strict_json((HERE/"frozen-baselines-v6.json").read_bytes())
+        frozen = strict_json((HERE/"frozen-baselines-v7.json").read_bytes())
         validate_frozen(frozen, splits["train"])
-        cues = strict_json((HERE/"frozen-source-cues-v6.json").read_bytes())
+        cues = strict_json((HERE/"frozen-source-cues-v7.json").read_bytes())
         if cues["training_data_sha256"] != fingerprints["files"]["train"]["sha256"]:
             raise ValueError("semantic coefficients are not bound to training data")
         for split in ("train", "validation"):

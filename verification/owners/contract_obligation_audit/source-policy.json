@@ -542,8 +542,8 @@
     "fda53a564fc97e21b8ee14fe0bb73f3afd425c4923e64d35a80b24590ae7d009",
     "fe8e2526485e477756ae6f2c75b781e0876688a9cb3bd76415ad1366391c6cbd"
   ],
-  "basis": "Generation five improved validation to 0.7333 but did not pass. Add distinct balanced gold auxiliary contract claims on training groups only, regularize reward margins and resume the retained licensed checkpoint. Every original audit/development byte and all quality gates remain fixed; no audit score selects this policy.",
-  "generation": 6,
+  "basis": "Keep identical public training/development/unconsumed audit records. Grow the best retained source-trained rank-eight checkpoint to the reference engine rank-sixteen capacity while preserving original factors and scale. Select only on validation; no audit score or unchanged failed binary retry.",
+  "generation": 7,
   "training_pairs_per_hypothesis": {
     "nda-1": 40,
     "nda-7": 40,

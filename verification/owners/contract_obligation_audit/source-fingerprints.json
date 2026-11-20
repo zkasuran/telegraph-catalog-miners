@@ -1,13 +1,5 @@
 {
-  "audit_metrics_inspected": false,
-  "audit_reservation_unchanged": true,
-  "auxiliary_training_hypotheses": [
-    "nda-10",
-    "nda-19",
-    "nda-2",
-    "nda-4",
-    "nda-5"
-  ],
+  "generation": 7,
   "files": {
     "audit": {
       "groups": 61,
@@ -25,13 +17,20 @@
       "sha256": "24ddc1a3fcb204803f494346f9cf932994242382f2f81ff4a25b24a4bcc46526"
     }
   },
-  "generation": 6,
+  "policy_sha256": "cb0982c40cdacc028a247638bb8124e7418c4769c546528ec5687f1edc18ca59",
   "hypotheses": [
     "nda-1",
     "nda-7",
     "nda-17",
     "nda-20"
   ],
-  "policy_sha256": "dde8fde92629f86defb8d2645d97ee293b4e933873dee5b8a215df8a2568879e",
-  "primary_training_unchanged": true
+  "auxiliary_training_hypotheses": [
+    "nda-10",
+    "nda-19",
+    "nda-2",
+    "nda-4",
+    "nda-5"
+  ],
+  "audit_metrics_inspected": false,
+  "source_splits_unchanged": true
 }

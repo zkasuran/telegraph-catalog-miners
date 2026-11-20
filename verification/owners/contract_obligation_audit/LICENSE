@@ -1,7 +1,7 @@
 # Component licence bundle
 
 Original component scopes are named in NOTICE. Original grants remain unchanged.
-Generation six continues the source-trained checkpoint from public run 44647112954.
+Generation seven grows the retained source-trained checkpoint from public run 44647112954.
 The retained checkpoint and every earlier export keep their original grants. No fresh human preference review is implied.
 
 ## ModernBERT architecture and pretrained weights

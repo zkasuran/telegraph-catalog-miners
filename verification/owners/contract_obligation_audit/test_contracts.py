@@ -21,6 +21,7 @@ from serve_remote import immutable_url
 from validation_policy import require_validation, warmstart_policy
 from parent_checkpoint import check_candidate_tensor, restore
 from source_cues import measure_source_cues
+from rank_growth import grow, growth_config, growth_shapes, require_learning, verify_trained
 
 
 def fixture(label="Entailment", hypothesis_id="control"):
@@ -31,6 +32,32 @@ def fixture(label="Entailment", hypothesis_id="control"):
 
 
 class ContractTests(unittest.TestCase):
+    def test_rank_growth_metadata_and_shapes(self):
+        config = {"peft_type": "LORA", "r": 8, "lora_alpha": 32, "target_modules": ["Wqkv", "Wo", "Wi"]}
+        grown = growth_config(config)
+        self.assertEqual((grown["r"], grown["lora_alpha"]), (16, 64))
+        self.assertEqual(grown["lora_alpha"]/grown["r"], config["lora_alpha"]/config["r"])
+        self.assertEqual(growth_shapes((8, 768), (2304, 8)), ((16, 768), (2304, 16)))
+        for key, value in (("r", 16), ("use_rslora", True), ("rank_pattern", {"Wi": 4}), ("bias", "all")):
+            with self.assertRaises(ValueError):
+                growth_config({**config, key: value})
+        for a, b in (((7, 768), (2304, 8)), ((8, 0), (2304, 8)), ((8, 768), (2304, 9))):
+            with self.assertRaises(ValueError):
+                growth_shapes(a, b)
+
+    def test_rank_growth_never_runs_locally(self):
+        with patch.dict(os.environ, {"GITHUB_ACTIONS": "false", "OWNER_SOURCE_ONLY": "1"}, clear=True):
+            with self.assertRaises(RuntimeError):
+                grow(HERE, HERE, None, 42)
+            with self.assertRaises(RuntimeError):
+                verify_trained(HERE, HERE, None)
+
+    def test_unlearned_rank_padding_is_refused(self):
+        require_learning(1)
+        for count in (0, -1, True, 1 << 30, float("nan")):
+            with self.assertRaises(ValueError):
+                require_learning(count)
+
     def test_auxiliary_keeps_primary_evidence_and_group_cap(self):
         def row(identifier, label, group):
             return {"document_id": identifier, "hypothesis_id": "auxiliary-control", "label": label,
@@ -95,10 +122,11 @@ class ContractTests(unittest.TestCase):
 
     def test_warmstart_policy_retains_gates(self):
         policy = warmstart_policy()
-        self.assertEqual(policy["epochs"], 4)
-        self.assertEqual(policy["learning_rate"], .000025)
+        self.assertEqual(policy["epochs"], 8)
+        self.assertEqual(policy["learning_rate"], .00005)
         self.assertEqual(policy["weight_decay"], .05)
-        self.assertEqual(policy["reward_margin_penalty"], .01)
+        self.assertEqual(policy["reward_margin_penalty"], .001)
+        self.assertEqual((policy["rank"], policy["alpha"]), (16, 64))
         self.assertEqual(policy["max_tokens"], 512)
         self.assertEqual(policy["train_formats"], ["json", "prose"])
         self.assertIn("retained licensed", policy["initialization"])

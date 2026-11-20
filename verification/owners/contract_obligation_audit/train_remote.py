@@ -15,6 +15,7 @@ from prepare_remote import compile_runtime, full_parser, prepare
 from validation_policy import require_validation, warmstart_policy
 from parent_checkpoint import PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, check_candidate_tensor, restore
 from source_cues import measure_source_cues
+from rank_growth import grow, verify_trained
 
 
 def main():
@@ -28,7 +29,7 @@ def main():
     for name in ("train", "validation", "audit"):
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("frozen source data identity changed")
-    validate_frozen(strict_json((HERE/"frozen-baselines-v6.json").read_bytes()), train)
+    validate_frozen(strict_json((HERE/"frozen-baselines-v7.json").read_bytes()), train)
     foundation, base, kit = prepare(root, weights=True)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -49,6 +50,7 @@ def main():
     hp = trainer.Hyperparams(max_length=config["max_tokens"], batch_size=2, grad_accum=4, epochs=config["epochs"],
                              eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"],
                              lr=policy["learning_rate"], weight_decay=policy["weight_decay"],
+                             lora_rank=policy["rank"], lora_alpha=policy["alpha"],
                              es_patience=policy["patience"], es_metric="pairwise_accuracy")
     gate = trainer.gate_dataset(train, hp)
     write_json(root/"upstream-dataset-gate.json", gate)
@@ -102,8 +104,8 @@ def main():
     torch.manual_seed(hp.seed)
     initial, _ = trainer.build_model(str(base), hp)
     from baselines import measure
-    frozen_baseline = strict_json((HERE/"frozen-baselines-v6.json").read_bytes())
-    source_baseline = strict_json((HERE/"frozen-source-cues-v6.json").read_bytes())
+    frozen_baseline = strict_json((HERE/"frozen-baselines-v7.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v7.json").read_bytes())
     if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
         raise ValueError("source-aware baseline is not bound to this training data")
     def validation_metrics(model):
@@ -124,7 +126,7 @@ def main():
     del initial
     gc.collect()
     trained_path = root/"trained-adapter"
-    parent = restore(root)
+    parent = grow(restore(root), root, cfg, hp.seed)
     original_build, original_evaluate, original_loss = trainer.build_model, trainer.evaluate, trainer.bt_loss
     def resumed_build(base_model, hyperparams):
         model, tokenizer = original_build(base_model, hyperparams)
@@ -148,6 +150,7 @@ def main():
         model, tok, _ = trainer.train(str(base), training_views, validation_views, trained_path, hp)
     finally:
         trainer.build_model, trainer.evaluate, trainer.bt_loss = original_build, original_evaluate, original_loss
+    verify_trained(trained_path, root, cfg)
     validation_report = validation_metrics(model)
     for style, measured in validation_report.items():
         measured["untrained_accuracy"] = initial_validation[style]["accuracy"]
@@ -171,6 +174,8 @@ def main():
         "parent_run_id": PARENT_RUN, "parent_commit": PARENT_COMMIT, "parent_checkpoint_sha256": PARENT_CHECKPOINT_SHA,
         "training_originals": len(train), "training_views": len(training_views),
         "auxiliary_training_pairs": source["auxiliary_training_pairs"], "reward_margin_penalty": policy["reward_margin_penalty"],
+        "rank_growth_sha256": file_sha(root/"rank-growth.json"),
+        "rank_growth_trained_sha256": file_sha(root/"rank-growth-trained.json"),
         "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors", "numpy")}})
     print("Frozen licensed candidate and seed-matched untrained package. Independent audit was not scored.")
     # Preserve bytes and failure evidence first, then refuse to expose the audit.

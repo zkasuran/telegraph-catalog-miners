@@ -12,6 +12,6 @@
   },
   "max_evidence_bytes": 768,
   "max_tokens": 512,
-  "epochs": 4,
+  "epochs": 8,
   "seed": 42
 }
