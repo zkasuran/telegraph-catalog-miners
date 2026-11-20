@@ -44,7 +44,7 @@ def main():
     # Aggregate selection hid weak format/label cells in real validation.
     # Worst-gate-margin selection uses validation only, never the audit.
     hp = trainer.Hyperparams(max_length=384, batch_size=2, grad_accum=4, epochs=12,
-                             lr=1e-4, es_metric="worst_gate_margin", es_patience=4, es_min_delta=0.0,
+                             lr=1e-4, es_metric="gate_vector", es_patience=4, es_min_delta=0.0,
                              eval_batch=4, gate_min_acc=0.80, grad_checkpointing=False, lora_dropout=lora_dropout)
     write(root / "regularization.json", {"lora_dropout": lora_dropout, "config_sha256": regularization_sha256,
           "basis": "actual training memorization and validation failure, never clean audit scores", "quality_gates_changed": False})
@@ -54,7 +54,7 @@ def main():
     validation = training_pairs(response_views(validation_sources, "validation"))
     write(root / "development-views.json", {"training_originals": len(train_sources), "training_views": len(train),
           "validation_originals": len(validation_sources), "validation_views": len(validation), "independent_audit_views_used": 0,
-          "selection": "validation worst format/label/mechanism gate margin; aggregate accuracy still reported"})
+          "selection": "lexicographic validation gate vector, actual aggregate tie-break; minimum margin still reported"})
     gate = trainer.gate_dataset(train, hp)
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:

@@ -29,6 +29,7 @@
 | Exposed audit becomes training or a repeated qualification draw | Permanently retired audit fingerprint, generator refusal for retired design IDs, active clean audit must have a different hash | `test_audit_retirement.py`, source-binding runtime guard and immutable exposure ledger; no old audit row is used in new fitting/test data |
 | Rational sampling secretly refits or bypasses old integer limits | New immutable numerator/denominator schema binds exact training counts; legacy bounded integer schema remains unchanged | Exact rational group-mass test, changed denominator refusal and held-out input refusal; old invalid-integer tests retained |
 | Regularization settings secretly tune on audit or relax acceptance | Closed frozen config accepts a finite dropout in range, training/validation provenance and unchanged quality-gate flag only | `test_regularization.py` primary config plus invalid range/type, audit provenance and changed-gate refusal controls |
+| Scalar checkpoint ties retain weaker formats or labels | Exact rational lexicographic gate-margin vector with aggregate count tie-break; minimum gate never sacrificed and quality thresholds unchanged | `test_gate_vector.py` same-minimum improvement, worse-minimum/higher-average refusal and malformed/audit-flag/count rejection |
 
 ## Known limits
 

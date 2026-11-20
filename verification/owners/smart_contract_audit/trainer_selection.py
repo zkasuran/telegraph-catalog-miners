@@ -13,7 +13,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 from policy import remote_only
-from selection import selection_metrics
+from selection import selection_metrics, checkpoint_better
 from data import SAMPLING_FILE
 from paired_sampling_remote import sampler as sibling_sampler
 
@@ -29,9 +29,14 @@ def adapt_source(raw):
         ("    n = len(diffs)\n", "    n = len(diffs)\n    owner_selection = owner_selection_metrics(pairs, diffs)\n"),
         ('        "n_eval": n,\n', '        "n_eval": n,\n        "owner_selection": owner_selection,\n        "selection_score": owner_selection["selection_score"],\n'),
         ('        metric = val["val_loss"] if lower_better else val["pairwise_accuracy"]\n',
-         '        metric = val["selection_score"] if hp.es_metric == "worst_gate_margin" else (val["val_loss"] if lower_better else val["pairwise_accuracy"])\n'),
+         '        metric = val["selection_score"] if hp.es_metric in {"worst_gate_margin", "gate_vector"} else (val["val_loss"] if lower_better else val["pairwise_accuracy"])\n'),
         ('    loader = DataLoader(train_pairs, batch_size=hp.batch_size, shuffle=True,\n                        collate_fn=PairCollator(tok, hp.max_length))\n',
          '    loader = DataLoader(train_pairs,\n                        batch_sampler=owner_training_batches(train_pairs, hp),\n                        collate_fn=PairCollator(tok, hp.max_length))\n'),
+        ('    gstep = 0\n', '    gstep = 0\n    owner_best_validation = None\n'),
+        ('        improved = (metric < best - hp.es_min_delta) if lower_better else (metric > best + hp.es_min_delta)\n',
+         '        improved = owner_checkpoint_better(val["owner_selection"], owner_best_validation) if hp.es_metric == "gate_vector" else ((metric < best - hp.es_min_delta) if lower_better else (metric > best + hp.es_min_delta))\n'),
+        ('            best, best_epoch, no_improve = metric, epoch, 0\n',
+         '            best, best_epoch, no_improve = metric, epoch, 0\n            owner_best_validation = val["owner_selection"]\n'),
     )
     for original, changed in replacements:
         if text.count(original) != 1:
@@ -62,13 +67,14 @@ def install(source_path, output_root):
     module = types.ModuleType(name)
     module.__file__ = str(source_path)
     module.__dict__["owner_selection_metrics"] = record
+    module.__dict__["owner_checkpoint_better"] = checkpoint_better
     frozen_path = Path(__file__).with_name(SAMPLING_FILE)
     frozen = json.loads(frozen_path.read_text())
     module.__dict__["owner_training_batches"] = lambda rows, hp: sibling_sampler(rows, frozen, hp)
     sys.modules[name] = module
     exec(compile(adapted.decode(), str(source_path), "exec"), module.__dict__)
     report = {"upstream_sha256": hashlib.sha256(original).hexdigest(), "adapted_source_sha256": hashlib.sha256(adapted).hexdigest(),
-              "method": "worst_gate_margin", "upstream_grant": "MIT, Copyright (c) 2026 telegraphprotocol",
+              "method": "lexicographic validation gate vector, actual aggregate tie-break", "upstream_grant": "MIT, Copyright (c) 2026 telegraphprotocol",
               "additions_grant": "LicenseRef-zkasuran-SAND-1.0", "shared_kit_modified": False,
               "optimizer_and_training_data_changed": False, "aggregate_accuracy_still_reported": True,
               "training_sampling": "frozen inverse-group weights with replacement on literal reversed sibling minibatches",
@@ -91,7 +97,7 @@ def main():
     assert b'if hp.early_stopping and avg_loss < hp.loss_floor:' in adapted
     report = {"primary_source_url": UPSTREAM_URL, "upstream_sha256": hashlib.sha256(original).hexdigest(),
               "adapted_source_sha256": hashlib.sha256(adapted).hexdigest(), "primary_source_compiled": True,
-               "neural_import_or_execution": False, "source_adaptation_anchors": 4,
+               "neural_import_or_execution": False, "source_adaptation_anchors": 7,
               "aggregate_accuracy_optimizer_loss_floor_and_quality_gates_retained": True}
     args.source_check_report.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report))

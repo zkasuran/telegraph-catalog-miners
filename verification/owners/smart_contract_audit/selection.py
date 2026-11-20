@@ -35,6 +35,33 @@ def selection_metrics(rows, differences):
         formats[name] = {"accuracy": float(overall), "per_label": {k: float(v) for k, v in labels.items()},
                          "per_mechanism": {k: float(v) for k, v in mechanisms.items()}, "pairs": len(indices)}
     return {"method": "validation worst format/label/mechanism gate margin", "selection_score": float(min(margins)),
+            "gate_margins": [[value.numerator, value.denominator] for value in sorted(margins)],
+            "correct_pairs": sum(wins), "measured_pairs": len(wins),
             "aggregate_accuracy": float(Fraction(sum(wins), len(wins))), "formats": formats,
             "audit_used_for_selection": False, "registration_ready": False,
             "limits": "Native validation selection only. Actual exported-engine validation and independent audit remain separate unchanged gates."}
+
+
+def checkpoint_key(result):
+    if result.get("audit_used_for_selection") is not False or result.get("registration_ready") is not False:
+        raise ValueError("validation-only checkpoint record required")
+    margins = result.get("gate_margins")
+    if not isinstance(margins, list) or len(margins) != 15:
+        raise ValueError("all supported format/label/mechanism margins required")
+    exact = []
+    for value in margins:
+        if not isinstance(value, list) or len(value) != 2 or any(type(v) is not int for v in value) or not -7680 <= value[0] <= 7680 or not 1 <= value[1] <= 7680:
+            raise ValueError("bounded exact rational gate margins required")
+        margin = Fraction(*value)
+        if not -1 <= margin <= 1:
+            raise ValueError("validation gate margin outside probability bounds")
+        exact.append(margin)
+    correct, measured = result.get("correct_pairs"), result.get("measured_pairs")
+    if type(correct) is not int or type(measured) is not int or not 0 <= correct <= measured <= 768 or measured == 0:
+        raise ValueError("actual bounded validation counts required")
+    return tuple(sorted(exact)), Fraction(correct, measured)
+
+
+def checkpoint_better(result, previous):
+    candidate = checkpoint_key(result)
+    return previous is None or candidate > checkpoint_key(previous)
