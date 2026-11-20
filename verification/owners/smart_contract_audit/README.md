@@ -1,10 +1,10 @@
 # Score source-bound smart contract findings
 
-This pipeline connects a contract finding to complete source and a stated call. The source reference compiles 184 original Solidity contracts and checks the disputed call plus a legitimate control in an offline EVM. Neural work runs only in the bounded public GitHub workflow.
+This pipeline connects a contract finding to complete source and a stated call. The source reference compiles 232 original Solidity contracts and checks the disputed call plus a legitimate control in an offline EVM. Neural work runs only in the bounded public GitHub workflow.
 
 | Boundary | Source pairs | Grouped implementations |
 |---|---:|---:|
-| Training, 64 retained originals plus 32 new pathway sources | 96 | 12 |
+| Training, 96 retained originals plus 48 identifier variants | 144 | 12 |
 | Validation, unchanged | 24 | 2 |
 | Fresh audit, excluded from candidate selection | 64 | 32 |
 
@@ -18,11 +18,13 @@ No private checkout path, sibling training module, wallet or RPC is required. No
 
 ## Remote candidate and qualification
 
-`evaluator-owner-smart_contract_audit.yml` has train, serve and parser-diagnostic modes. Training uses the existing rank-8 recipe with at most 12 epochs, learning rate 1e-4 and gradient accumulation 4. Balanced formats create 288 training views of 96 sources and 72 validation views of 24 sources. Views do not add independent source groups. Validation selects saved bytes by the worst margin to each supported format, label and mechanism gate, not the average alone. A fresh runner audits both frozen candidate and seed-matched untrained packages in the actual pinned Telegraph reference engine.
+`evaluator-owner-smart_contract_audit.yml` has train, serve and parser-diagnostic modes. Training uses the existing rank-8 recipe with at most 12 epochs, learning rate 1e-4 and gradient accumulation 4. Balanced formats create 432 training views of 144 sources and 72 validation views of 24 sources. Views do not add independent source groups. Validation selects saved bytes by the worst margin to each supported format, label and mechanism gate, not the average alone. A fresh runner audits both frozen candidate and seed-matched untrained packages in the actual pinned Telegraph reference engine.
 
-Training now samples those same views using frozen positive integer implementation weights. Four retained designs have 48 views each; eight newer pathways have 12 each. Uniform row sampling gave the retained designs two thirds of training probability. Weights 1 and 4 give each implementation expected probability 1/12. The sampler draws 288 views per epoch with replacement. Repeated draws are not additional source rows, preferences or human annotations. Coefficients are fitted on training only and never refitted during reproduction. The upstream dataset gate still checks the unchanged unique corpus.
+The latest paired-batch candidate failed real validation in run 44686261525: prose 0.75, JSON 0.625 and report 0.541667. Actual DataLoader controls passed but training memorized. Training-identifiers-v3 adds 48 execution-checked variants only within the same 12 training implementations to test identifier generalization. All 184 previous rows and both held-out files remain exact. These variants are not new independent groups or human annotations. New train-only integer baselines and sampling coefficients use separate versioned files; older versions stay untouched. There are 216 sibling batches and 54 accumulated updates per epoch. The longer owned CPU timeout is explicit and remains below 350 minutes. New neural quality is unmeasured.
 
-The next batcher draws vulnerable/fixed sibling pairs instead of independent rows. Each minibatch has two existing source views with the same call facts, the same format and exactly reversed literal preferences. There are 144 possible pair batches across the unchanged 288 views. Batch size two, accumulation four and 36 optimizer steps per epoch are retained. Frozen implementation weights are unchanged. Pairing is a training-side contrast against source-independent answer bias, not a new dataset or model-quality claim.
+Training samples these views using frozen positive integer implementation weights. Four retained designs now have 60 views each and eight newer pathways have 24 each. Versioned weights 2 and 5 give each implementation expected probability 1/12. The sampler draws 432 views per epoch with replacement. Older weights 1 and 4 remain preserved with their original training identity. Repeated draws are not additional source rows, preferences or human annotations. Coefficients are fitted on training only and never refitted during reproduction. The upstream dataset gate still checks the unique corpus.
+
+The batcher draws vulnerable/fixed sibling pairs instead of independent rows. Each minibatch has two source views with the same call facts, the same format and exactly reversed literal preferences. There are 216 possible pair batches across 432 views. Batch size two and accumulation four are retained, giving 54 optimizer steps per epoch on the expanded training set. Pairing is a training-side contrast against source-independent answer bias, not new independent evidence or a model-quality claim.
 
 Each claimed response format, prose, JSON and report, requires 80% pair accuracy, 70% for both labels and both mechanisms, five points over untrained and ten points over the strongest shortcut. Whole source and answer must fit the authoritative 384-token render. An answer-only ablation must remain below the shortcut ceiling. A passing report binds the actual run, commit, package hashes, source manifest, engine, tokenizer and fixed finite score-bit vectors. No missing result becomes a pass.
 

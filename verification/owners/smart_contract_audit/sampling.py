@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 from collections import Counter
 from fractions import Fraction
 from pathlib import Path
@@ -24,7 +25,7 @@ def identity(rows):
 def fit(rows):
     view_identity = identity(rows)
     counts = Counter(r["template_group"] for r in rows)
-    maximum = max(counts.values())
+    maximum = math.lcm(*counts.values())
     if any(maximum % count or maximum // count > 16 for count in counts.values()):
         raise ValueError("exact bounded integer group weights required")
     return {"schema_version": 1, "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",

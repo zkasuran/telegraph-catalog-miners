@@ -76,10 +76,10 @@ class PairedChecks(unittest.TestCase):
         with tempfile.TemporaryDirectory() as out:
             rows = data.build(Path(out))
         train = response_views([r for r in rows if r["split"] == "train"], "train")
-        frozen = json.loads(Path(__file__).with_name("frozen-sampling-v1.json").read_text())
+        frozen = json.loads(Path(__file__).with_name(data.SAMPLING_FILE).read_text())
         actual = report(train, frozen)
-        self.assertEqual(actual["training_views"], 288)
-        self.assertEqual(actual["pair_batches"], 144)
+        self.assertEqual(actual["training_views"], 432)
+        self.assertEqual(actual["pair_batches"], 216)
         self.assertEqual(actual["training_groups"], 12)
 
 

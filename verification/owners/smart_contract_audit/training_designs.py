@@ -7,10 +7,10 @@ share their implementation group. Sources are AI-assisted, not human reviewed.
 import hashlib
 
 
-def candidates():
+def candidates(variant_count=2):
     rows = []
     for design in range(8):
-        for variant in range(2):
+        for variant in range(variant_count):
             entity = 70000 + design * 100 + variant
             f, c, rd = "f" + str(entity), "C" + str(entity), "read" + str(entity)
             owner, attacker, arg = 2000 + entity, 12000 + entity, 21 + 2 * variant

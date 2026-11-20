@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 
 from policy import remote_only
 from selection import selection_metrics
+from data import SAMPLING_FILE
 from paired_sampling_remote import sampler as sibling_sampler
 
 UPSTREAM_SHA256 = "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71"
@@ -61,7 +62,7 @@ def install(source_path, output_root):
     module = types.ModuleType(name)
     module.__file__ = str(source_path)
     module.__dict__["owner_selection_metrics"] = record
-    frozen_path = Path(__file__).with_name("frozen-sampling-v1.json")
+    frozen_path = Path(__file__).with_name(SAMPLING_FILE)
     frozen = json.loads(frozen_path.read_text())
     module.__dict__["owner_training_batches"] = lambda rows, hp: sibling_sampler(rows, frozen, hp)
     sys.modules[name] = module

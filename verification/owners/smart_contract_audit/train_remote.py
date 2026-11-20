@@ -10,7 +10,7 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from data import FAMILY, ATTEMPT, answers, render, sha, write, response_views
+from data import FAMILY, ATTEMPT, answers, render, sha, write, response_views, SAMPLING_FILE
 from policy import execution_gate, remote_only
 from remote_prepare import HERE, bound_data, prepare
 from contracts import training_pairs
@@ -55,7 +55,7 @@ def main():
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:
         raise ValueError("upstream dataset gate failed, no bypass")
-    sampling_path = HERE / "frozen-sampling-v1.json"
+    sampling_path = HERE / SAMPLING_FILE
     sampling = json.loads(sampling_path.read_text())
     from sampling_remote import check as check_sampler
     check_sampler(train, sampling, root, hp.seed)

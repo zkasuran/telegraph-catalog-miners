@@ -23,8 +23,8 @@ class Checks(unittest.TestCase):
         cls.tmp.cleanup()
 
     def test_inventory_and_split_counts(self):
-        self.assertEqual(data.check(self.rows)["source_rows"], 184)
-        self.assertEqual({s: sum(r["split"] == s for r in self.rows) for s in data.PLAN}, {"train": 96, "validation": 24, "audit": 64})
+        self.assertEqual(data.check(self.rows)["source_rows"], 232)
+        self.assertEqual({s: sum(r["split"] == s for r in self.rows) for s in data.PLAN}, {"train": 144, "validation": 24, "audit": 64})
         self.assertEqual(len({r["template_group"] for r in self.rows}), 46)
         self.assertFalse(any(r["template_group"] in ("design-6", "design-7") for r in self.rows))
 
@@ -115,12 +115,12 @@ class Checks(unittest.TestCase):
     def test_training_extension_preserves_heldout_and_original_rows(self):
         import json
         import hashlib
-        original = [r for r in self.rows if r["split"] == "train" and not r["template_group"].startswith("new-training-")]
+        original = [r for r in self.rows if r["split"] == "train" and not r["template_group"].startswith("new-training-") and "augmentation" not in r]
         encoded = lambda rows: b"".join((json.dumps(r, sort_keys=True) + "\n").encode() for r in rows)
         self.assertEqual(hashlib.sha256(encoded(original)).hexdigest(), "19b181ee63a1b0506116783392be0e4a49ba394b9375b14d1bd0e8e0556bb1fd")
         for split, digest in (("validation", "8c79f65c18479354acc40065036a7d1e7c26a6ddcb6cc2b41eb608266138aec4"), ("audit", "6cd7d2c0b11206df3c6ad04471cd53683c791f9393140e8c764101457cc31dd8")):
             self.assertEqual(hashlib.sha256(encoded([r for r in self.rows if r["split"] == split])).hexdigest(), digest)
-        extension = [r for r in self.rows if r["template_group"].startswith("new-training-")]
+        extension = [r for r in self.rows if r["template_group"].startswith("new-training-") and "augmentation" not in r]
         self.assertEqual(len(extension), 32)
         self.assertEqual({r["split"] for r in extension}, {"train"})
         self.assertEqual(len({r["template_group"] for r in extension}), 8)

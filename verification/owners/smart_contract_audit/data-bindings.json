@@ -1,8 +1,14 @@
 {
   "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
   "audit_used_for_selection": false,
-  "baseline_file": "frozen-baselines-v2.json",
-  "data_version": "training-pathways-v2",
+  "augmentation": {
+    "new_implementation_groups": 0,
+    "owner_attempt": "c85edd1fd4f9495d8e1726582a5c026c",
+    "rows": 48,
+    "training_only": true
+  },
+  "baseline_file": "frozen-baselines-v3.json",
+  "data_version": "training-identifiers-v3",
   "family": "SMART_CONTRACT_AUDIT",
   "files": {
     "audit": {
@@ -44,8 +50,8 @@
       ]
     },
     "train": {
-      "rows": 96,
-      "sha256": "2e3ddb9793a001def2239bbd3350be720e225302c53228894f633408ffd50c48",
+      "rows": 144,
+      "sha256": "657badf477d3e67fce0311000688117a8c58d00add9ee79dc2f4d7782cac264a",
       "template_groups": [
         "design-0",
         "design-1",
@@ -72,11 +78,12 @@
   },
   "independence": "Twelve training designs, two retained validation designs and 32 reserved audit pathways. All siblings and variants stay grouped. Eight new training pathways are original source, not held-out source clones or independent human adjudication. Original training rows and all validation/audit bytes are retained. Old exposed audit designs 6 and 7 are excluded.",
   "independent_groups": 46,
-  "inventory_sha256": "998ba18e6ca7adf181a26fa1dde6abd466143194f03c6828ab9434f44220ab42",
+  "inventory_sha256": "517e083e9c328accd795e01e705b65a9f2b2229f0da05b192d0228480e3fe341",
   "labels": "Accepted only with matching full compiler/EVM proof",
   "normalized_cross_split_duplicates": 0,
   "owner_attempt": "74fac904d3e14d2690ef15803146a56a",
+  "sampling_file": "frozen-sampling-v2.json",
   "scope": "Bounded owner-only setter and integer wrapping claims. No reentrancy, bytecode-only or arbitrary audit coverage.",
-  "source_rows": 184,
+  "source_rows": 232,
   "template_groups": 46
 }
