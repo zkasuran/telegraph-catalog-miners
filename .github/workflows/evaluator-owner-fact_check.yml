@@ -115,10 +115,10 @@
           "run": "timeout --signal=TERM --kill-after=20s 18000 \"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/remote.py --root \"$RUNNER_TEMP/factcheck-experiment\""
         },
         {
-          "name": "Resumable complete primary inventory before successor development",
+          "name": "Verified full primary inventory replay before successor development",
           "if": "inputs.mode == 'develop'",
           "timeout-minutes": 25,
-          "run": "timeout --signal=TERM --kill-after=20s 1440 python3 verification/owners/fact_check/inventory.py --out \"$RUNNER_TEMP/factcheck-experiment/inventory\""
+          "run": "timeout --signal=TERM --kill-after=20s 1440 python3 verification/owners/fact_check/inventory_replay.py --out \"$RUNNER_TEMP/factcheck-experiment/inventory\""
         },
         {
           "name": "Audit-inaccessible development-only fitting",

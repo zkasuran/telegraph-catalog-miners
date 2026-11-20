@@ -57,6 +57,13 @@ request budget and spacing. This addresses an observed source acquisition
 failure, not a model-quality pass. Refusals stay in the checkpoint and malformed
 source data remains a hard failure.
 
+The full source inventory is now frozen and checked before development. It has
+83,761 referenced subjects across nine primary pages, with before/after aggregate
+checks. The failed source run and its 80,000 captured IDs were resumed, not discarded.
+The bounded completion is recorded separately and the original request/refusal
+history stays intact. Replay requires no live queries and does not lower a source
+or quality gate. These IDs are not accepted source claims or preference annotations.
+
 The `serve` mode refuses any package or report that differs from those audited
 bytes. It reproduces the actual reference vectors before exposing a token-only
 proxy and uploads only the restricted public forwarding lease. The installed

@@ -59,3 +59,19 @@ identity. The limit remains 16 requests with at least 65 seconds between starts.
 Every timeout and rate-limit response stays in the durable refusal history.
 Invalid source data is not retried or accepted. No new claim evidence was
 obtained from that timed-out request.
+
+## Complete inventory snapshot
+
+Run 44684179717 captured the count and 80,000 referenced entity IDs but exhausted
+its 16-request budget before model training. Those exact captures were preserved.
+A separate eight-request maximum source-only continuation used three GET attempts
+to capture the final 3,761 IDs and final aggregate, with one timeout retained.
+Both aggregate observations equal 83,761. The combined normalized payload hash is
+`ec622e39568eefc74b0826bfb5822b6c191bf347ceb7ecc25be20880128f5a55`.
+
+The archive and full file-level lineage are in `inventory-snapshot.tar.gz` and
+`inventory-manifest.json`. `inventory_replay.py` checks every primary page, both
+counts, all hashes, the original failed request history and the full CC0 grant.
+Raw responses keep CC0. Completion/recount code and metadata are our SAND additions.
+The observations are not an atomic snapshot or a statement-eligibility audit.
+No original training, validation, exposed audit or baseline bytes changed.

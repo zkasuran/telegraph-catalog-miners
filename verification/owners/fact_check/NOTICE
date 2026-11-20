@@ -26,3 +26,9 @@ reference-engine/parser qualification path before registration.
 The source acquisition timeout recovery changes transport only. Every retry
 consumes the same fixed request budget and retains the primary query identity.
 No fact, preference, frozen split or train-fitted coefficient is replaced.
+
+The complete referenced P36 inventory retains all primary captures from run
+44684179717 and a separately bounded source-only completion. The failed run is
+not relabelled passing. Its 16-request history and refusals remain unchanged.
+The completed inventory is replayed as licensed source metadata, not as human
+review or proof that every indexed statement supplies a valid factual claim.

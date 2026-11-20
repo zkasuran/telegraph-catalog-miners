@@ -37,3 +37,9 @@ publication, dispatch, activation or registration writes. The source request
 budget, spacing, byte limits and identity checks stay unchanged. Tests exercise
 timeout resume, complete cache replay, budget exhaustion and invalid-source
 refusal without turning artificial fixtures into source facts.
+
+Full inventory replay still gates development. Its completed archive preserves
+all recovered primary pages and a separately bounded continuation. Missing tail
+pages, altered counters, changed primary bytes, false counts and truncated archives
+are refused. No network outage can turn an incomplete source snapshot into a pass.
+The archive identifies referenced subjects, not the eligibility of each statement.
