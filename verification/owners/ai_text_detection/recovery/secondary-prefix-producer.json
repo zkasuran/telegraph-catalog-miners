@@ -1,0 +1,9 @@
+{
+  "run_id": 44784633424,
+  "commit": "4099c81a0154f8ec12e2ad8acd3732052f5d806b",
+  "data_sha256": "560aa8bc4a15593b1819f8fe06e05a53a0f9851ddf56edc235c9f593bfff438d",
+  "source_bundle_sha256": "b8e02b79d02bfca44bc6898abebe3db57e918d0b4196ceb1ce34444ae2fef583",
+  "records": 78,
+  "audit_used": false,
+  "kind": "Actual successfully emitted prefix of a structurally failed training generation, not audit material."
+}

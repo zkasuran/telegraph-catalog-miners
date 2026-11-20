@@ -2,6 +2,13 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+The39 retained secondary groups are actual successful output of public
+run44784633424, byte/producer/source bound, not new generation or audit data.
+The fixed extension and raw candidate journals retain each original CC BY clause,
+author/source attribution and GPT-2 disclosure. Transformers5.22.1 API use retains
+Apache-2.0. Our recovery code uses SAND only for our additions, subject to all
+retained grants. Neither failed journals nor constructed pairs are human review.
+
 The further64 training articles retain individual CC BY clauses and attribution
 in secondary-training-sources.json. The new source block is independent of all
 original/current/retired source entities. Its future GPT-2 continuations are marked

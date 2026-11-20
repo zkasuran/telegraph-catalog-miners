@@ -35,6 +35,15 @@ def validate_secondary(raw, report, originals):
             report.get("secondary_source_manifest_sha256") != sha((HERE / "secondary-training-sources.json").read_bytes()) or
             report.get("audit_used") is not False):
         raise ValueError("secondary generation lost its byte/source/audit binding")
+    if "retained_sha256" in report:
+        from generation_resume import PREFIX_SHA
+        prefix = (HERE / "recovery/secondary-prefix.jsonl").read_bytes()
+        if (sha(prefix) != PREFIX_SHA or report["retained_sha256"] != PREFIX_SHA or
+                report.get("retained_records") != 78 or report.get("retained_groups") != 39 or
+                report.get("retained_producer_run_id") != 44784633424 or
+                report.get("remaining_generation_token_budget") != 128 or report.get("same_job_prefix_controls") != 25 or
+                not raw.startswith(prefix)):
+            raise ValueError("secondary completion changed retained bytes or fixed prefix controls")
     articles = {r["source_id"]: r for r in secondary["articles"]}
     rows = []
     for row in lines(raw):

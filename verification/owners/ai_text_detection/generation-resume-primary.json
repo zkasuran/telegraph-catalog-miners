@@ -1,0 +1,8 @@
+{
+  "key": "TRANSFORMERS-GENERATION-5.22.1",
+  "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.22.1/src/transformers/generation/configuration_utils.py",
+  "sha256": "b9ba50d5b9c449f85c7b29633243754715e6a68c8576f9be0a9528590f2450c3",
+  "bytes": 103561,
+  "licence": "Apache-2.0 under retained original grant",
+  "upstream_code_bundled": false
+}

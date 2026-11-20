@@ -8,6 +8,9 @@
 | Additional data hides a failing old corpus | Separate unchanged752,880 and1008 primary data gates | Original data controls remain; fixture-only additive population tests |
 | Source attribution exhausts checkpoint metadata | Compact complete grant/citation fields, full source sidecars | Attribution retention test; existing1MiB header ceiling remains |
 | Secondary generator silently rerolls | Existing-output refusal and fixed source seeds/count/time caps | Local invocation refusal; actual generation/control results are remote-only |
+| Generator loses successful rows during recovery | Immutable39-group byte prefix with exact producer/source binding | Real retained-byte/grant/excerpt tests and producer corruption refusals |
+| More tokens are presented as guaranteed word coverage | Word gate stays24; remaining budget fixed128 with actual64-prefix controls | Short-word refusal remains, token prefix has positive/negative controls |
+| Failed generated candidates are represented as accepted preferences | Raw source/grant/token journal before cropping, separate accepted stream | Separate artifact names and acceptance gate; actual journal is remote-only |
 | Capacity silently rescales learned deltas | Rank8/alpha32 to rank16/alpha64 preserves alpha/rank4 and all old slices | Strict policy and scalar controls; actual matrix delta checks run remotely |
 | Resume discards learned rank16 capacity or mixes saved heads | Exact producer/selected-epoch/model/readout hashes and direct load | Actual opaque checkpoint/grant checks and new resume-policy corruption tests |
 | Smaller step size silently weakens acceptance | Fixed lower-rate recipe, identical data/losses/selection/audit thresholds | Same all-format/label/shortcut refusal tests and literal wire controls |

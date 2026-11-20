@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+Secondary generation failed before training because one fixed64-token draw had
+fewer than24 words. The next job keeps all39 successfully emitted groups exactly
+and completes only25 missing groups using a fixed128-token budget and an actual
+same-seed prefix control. It does not reroll successful sources or reduce the
+24-word gate. New raw candidate journals remain distinct from accepted pairs.
+The1008-row corpus, model benefit and independent runtime are not yet verified.
+
 The exact-state lower-rate job restored all178 tensors but did not improve the
 strict validation result. A further64 independent licensed training articles
 are now source-verified. Their machine counterparts are not generated locally.

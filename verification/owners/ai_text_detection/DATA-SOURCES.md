@@ -1,5 +1,31 @@
 # Sources and rights
 
+## Retained successful generation with a fixed token extension
+
+Run44784633424 failed the unchanged24-word excerpt gate during secondary GPT-2
+generation, before fitting. Its actual partial artifact retained39 complete source
+groups,78 records and112299 bytes, SHA-256
+560aa8bc4a15593b1819f8fe06e05a53a0f9851ddf56edc235c9f593bfff438d.
+The old880 rows, selected checkpoints and every quality gate remain unchanged.
+
+The next job reuses those39 groups verbatim. Only25 missing groups receive a fixed
+128-token generation budget with the same predetermined source seed. A real
+same-job64-token control must match the first64 tokens of the128-token completion.
+No source skipping, seed search, model-score selection or reduced word/byte gate
+is allowed. The originally rejected draw was not journaled, so its historical
+token identity is unverified; the new control measures the current pinned job.
+
+Raw generated candidates now carry source/grant/generator identity in a journal
+before excerpt acceptance. A journaled candidate is not an accepted preference
+or human-reviewed material. Both successful and failed output retain source and
+model grants. New completion, fitting and reference quality remain unverified.
+
+[TRANSFORMERS-GENERATION-5.22.1] The primary GenerationConfig defines
+min_new_tokens and max_new_tokens in tokens, not words. This explains the actual
+refusal without treating64 tokens as24 words. The original Apache-2.0 grant
+remains attached; only APIs are used and no upstream implementation is bundled.
+https://github.com/huggingface/transformers/blob/v5.22.1/src/transformers/generation/configuration_utils.py
+
 ## A further independent training-source block
 
 Run44771475621 restored the selected rank16 state exactly and passed the data and

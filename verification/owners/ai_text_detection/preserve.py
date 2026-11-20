@@ -60,7 +60,7 @@ def main():
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
     (out / "source-manifest.json").write_bytes(source_manifest)
-    for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "audit-generation.jsonl", "supplement-generation.jsonl", "secondary-generation.jsonl"):
+    for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "audit-generation.jsonl", "supplement-generation.jsonl", "secondary-generation.jsonl", "secondary-generation-journal.jsonl"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 16 << 20:
             (out / name).write_bytes(path.read_bytes())
