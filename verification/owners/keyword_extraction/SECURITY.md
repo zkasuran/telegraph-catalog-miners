@@ -14,6 +14,8 @@
 | Source capacity and assembly use different JSON layouts | Shared exact complete-annotation renderer without dropping source keywords | Complete list equality and literal wire rendering test |
 | False source preference labels | Proposals remain unreviewed until explicit centrality reasons exist | Six documented original-text rejections and empty approval refusal |
 | Duplicated/conflicting decisions or stale reported counts | Unique source/review IDs, explicit reasoning/origin and recomputed declared counts | Duplicate, conflicting decision, unknown proposal and count-drift controls |
+| Expansion mistakes substring or annotation membership for truth | Bounded nested-match trie plus independent primary literal check and explicit annotation witnesses | Nested Unicode, morphological, source-group and topic controls. No proposal is automatically approved |
+| Packing reuses source/answer resources or stale review state | Exclude approved resources, pack distinct resources and bind source/review hashes | Synthetic resource-conflict refusal and packed-view hash checks. Packing is not proof of preference quality |
 | Shortcut learning | Train-only immutable integer coefficients plus unmodified primary dataset gate | Frozen coefficient test. Real dataset gate still pending |
 | Wrong runnable identity or nonfinite score | Literal primary wire contract, primary Go input roots and strict FP32 decoding | Primary Go equality probe, root/prefix and nonfinite controls |
 | Tiny or changed audit set | Rechecked minimum pair/component counts and frozen data/package/config/commit hashes | Minimum-count and audit-verdict failure tests |
