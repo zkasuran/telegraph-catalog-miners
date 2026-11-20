@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "upstream": {
+    "ok": true,
+    "n": 768,
+    "metrics": {
+      "unique_rejected_frac": 1.0,
+      "top_rejected_share": 0.0013,
+      "length_shortcut_acc": 0.5,
+      "eval_negative_leak": 0.0,
+      "surface_probe_acc": 0.5278,
+      "mean_len_chosen": 453.2,
+      "mean_len_rejected": 398.5
+    },
+    "failures": []
+  },
+  "validation_controls": {
+    "length": 0.5,
+    "token_length": 0.55859375,
+    "overlap": 0.609375,
+    "answer_only": 0.5625,
+    "surface": 0.5546875
+  },
+  "failures": [],
+  "train_rows": 768,
+  "development_rows": 128,
+  "fit_split": "train",
+  "audit_used": false
+}

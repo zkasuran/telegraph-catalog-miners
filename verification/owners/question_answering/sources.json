@@ -1,0 +1,17 @@
+{
+  "SPDX-License-Identifier": "Apache-2.0",
+  "source_revision": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+  "rank_revision": "f1e6ed9526f5817531f3ab85441a40b3671ddccb",
+  "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+  "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "files": {
+    "oasst-train.parquet": ["https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/data/train-00000-of-00001-b42a775f407cee45.parquet", "bbfadf5ed1278ba2208c837fdcad865adf65f5df55d80abadab2745db13fcb5e"],
+    "oasst-validation.parquet": ["https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/data/validation-00000-of-00001-134b8fd0c89408b6.parquet", "24002597bb13a7edd42d92f773762f25e285f72c31a70449393d0ded1dc7b416"],
+    "oasst-license.txt": ["https://huggingface.co/datasets/OpenAssistant/oasst1/raw/fdf72ae0827c1cda404aff25b6603abec9e3399b/LICENSE", "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"],
+    "oasst-card.txt": ["https://huggingface.co/datasets/OpenAssistant/oasst1/raw/fdf72ae0827c1cda404aff25b6603abec9e3399b/README.md", "68483ac2fcc2f3f7779f453352363827678070ef35b6d746ccb2ca6958540fff"],
+    "oasst-pinned-model_model_training_custom_datasets_oasst_dataset.py.txt": ["https://raw.githubusercontent.com/LAION-AI/Open-Assistant/f1e6ed9526f5817531f3ab85441a40b3671ddccb/model/model_training/custom_datasets/oasst_dataset.py", "37d6e473db1b4f5ef2b871f53a36b5d3bd2bc26385f7bb5d9e5258fbf7160ba7"],
+    "tokenizer.json": ["https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/tokenizer.json", "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"]
+  },
+  "limits": {"train": 128, "validation": 32, "audit": 64, "max_tokens": 256, "max_messages": 100000, "max_download_bytes": 50331648},
+  "scope": "English single-turn root sibling human preference relevance and usefulness. Source ranks do not prove factual correctness or node equivalence."
+}

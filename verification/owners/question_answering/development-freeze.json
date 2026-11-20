@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "generation": 2,
+  "design_sha256": "c83aba2b2fb535b5b1e4c6f8988328b530df89830b9c11664e74d485b123b9a3",
+  "frozen_controls_sha256": "48a9450c33713dd823b387fbee1a1cfa07b62470ddca487abce0018ffef2fa1d",
+  "training_files": {
+    "train": {
+      "rows": 768,
+      "groups": 768,
+      "sha256": "ecabc72e694e27deaf0f235ff487b4ed376ab1ba2fdfa50633d4c305bc0044d5"
+    },
+    "validation": {
+      "rows": 128,
+      "groups": 128,
+      "sha256": "3609c75f6e23e3ed8b9e23125f4ced61967b2b18fe580f9cb4c92656ba0a95b1"
+    }
+  },
+  "recipe": {
+    "max_length": 256,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "batch_size": 1,
+    "grad_accum": 16,
+    "epochs": 3,
+    "eval_batch": 1,
+    "seed": 42
+  },
+  "audit_used_for_selection": false
+}

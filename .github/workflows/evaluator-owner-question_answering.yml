@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
+name: QUESTION_ANSWERING owner source and runtime
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Fixed qualification or exact restricted serving
+        required: true
+        default: qualify
+        type: choice
+        options: [qualify, serve]
+      package_url:
+        type: string
+      package_sha256:
+        type: string
+      report_url:
+        type: string
+      report_sha256:
+        type: string
+      slot:
+        type: string
+      forward_port:
+        type: string
+      runnable_url:
+        type: string
+permissions:
+  contents: read
+jobs:
+  qualify:
+    if: inputs.mode == 'qualify'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '4'
+      CUDA_VISIBLE_DEVICES: ''
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: verification/owners/question_answering
+          persist-credentials: false
+      - name: Packaged source-only gate
+        run: bash verification/owners/question_answering/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Initialize licensed failure evidence
+        run: python3 verification/owners/question_answering/preserve.py --root "$RUNNER_TEMP/qa-owner"
+      - name: Hash-locked public CPU environment
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/qa-venv"
+          "$RUNNER_TEMP/qa-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/question_answering/requirements.lock
+          "$RUNNER_TEMP/qa-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/qa-venv/bin/python" verification/owners/question_answering/dependency_audit.py --lock verification/owners/question_answering/requirements.lock --out "$RUNNER_TEMP/audit-req.txt" --report "$RUNNER_TEMP/qa-owner/dependency-audit.json"
+      - name: Frozen train development and independent audit with real runtime
+        timeout-minutes: 305
+        run: timeout --signal=TERM --kill-after=20s 18000 "$RUNNER_TEMP/qa-venv/bin/python" verification/owners/question_answering/remote_run.py --root "$RUNNER_TEMP/qa-owner"
+      - name: Preserve complete own and upstream checkpoint terms
+        id: preserve
+        if: always()
+        run: python3 verification/owners/question_answering/preserve.py --root "$RUNNER_TEMP/qa-owner"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.preserve.outcome == 'success'
+        with:
+          name: owner-QUESTION_ANSWERING-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/qa-owner/*.json
+            ${{ runner.temp }}/qa-owner/*.safetensors
+            ${{ runner.temp }}/qa-owner/*.txt
+            ${{ runner.temp }}/qa-owner/LICENSE
+            ${{ runner.temp }}/qa-owner/NOTICE
+            ${{ runner.temp }}/qa-owner/KIT-LICENSE
+            ${{ runner.temp }}/qa-owner/adapter/
+            ${{ runner.temp }}/qa-owner/checkpoint/
+            ${{ runner.temp }}/qa-owner/initial/
+            ${{ runner.temp }}/qa-owner/data/*.json
+            ${{ runner.temp }}/qa-owner/data/LICENSE
+            ${{ runner.temp }}/qa-owner/data/NOTICE
+  serve:
+    if: inputs.mode == 'serve'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OMP_NUM_THREADS: '4'
+      PACKAGE_URL: ${{ inputs.package_url }}
+      PACKAGE_SHA: ${{ inputs.package_sha256 }}
+      REPORT_URL: ${{ inputs.report_url }}
+      REPORT_SHA: ${{ inputs.report_sha256 }}
+      SLOT: ${{ inputs.slot }}
+      FORWARD_PORT: ${{ inputs.forward_port }}
+      RUNNABLE_URL: ${{ inputs.runnable_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          sparse-checkout: verification/owners/question_answering
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Start exact public executor and prepare restricted public lease
+        timeout-minutes: 25
+        run: |
+          mkdir -p "$RUNNER_TEMP/qa-serving"
+          python3 verification/owners/question_answering/serve_remote.py --root "$RUNNER_TEMP/qa-serving" --package-url "$PACKAGE_URL" --package-sha256 "$PACKAGE_SHA" --report-url "$REPORT_URL" --report-sha256 "$REPORT_SHA" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL" > "$RUNNER_TEMP/qa-serving/run.log" 2>&1 &
+          for i in $(seq 1 240); do
+            test ! -f "$RUNNER_TEMP/qa-serving/lease.json" || exit 0
+            sleep 5
+          done
+          exit 1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lease-QUESTION_ANSWERING-${{ github.run_id }}
+          retention-days: 1
+          if-no-files-found: error
+          path: ${{ runner.temp }}/qa-serving/lease.json
+      - name: Keep this exact endpoint available within the bounded lease
+        timeout-minutes: 301
+        run: sleep 17900
