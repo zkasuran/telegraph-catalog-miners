@@ -85,7 +85,7 @@ jobs:
         with:
           go-version: '1.25.7'
           cache: false
-      - name: Validate prepared data availability
+      - name: Validate prepared source admission and immutable held-out bytes
         run: |
           bash verification/owners/keyword_extraction/verify.sh
           test -s verification/owners/keyword_extraction/approved/approved-manifest.json

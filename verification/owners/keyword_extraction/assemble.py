@@ -22,6 +22,18 @@ MAX_REVIEW_RECORDS = 4096
 MAX_REVIEW_BYTES = 1 << 20
 
 
+def training_exclusions(selection, approved):
+    if type(selection.get("schema_version")) is not int or selection["schema_version"] != 1 or selection.get("family") != "KEYWORD_EXTRACTION" or selection.get("audit_used_for_selection") is not False or selection.get("thresholds_changed") is not False:
+        raise ValueError("training-only source selection contract required")
+    values = selection.get("excluded_training_proposals")
+    if not isinstance(values, list) or any(not isinstance(v, str) for v in values) or len(set(values)) != len(values):
+        raise ValueError("unique excluded training proposal IDs required")
+    excluded = set(values)
+    if not excluded <= {r["proposal_id"] for r in approved}:
+        raise ValueError("training selection names an unapproved or unknown source comparison")
+    return excluded
+
+
 def validate_reviews(review, proposals):
     """Refuse conflicting decisions and stale declared counts before assembly."""
     if not isinstance(review, dict) or type(review.get("schema_version")) is not int or review["schema_version"] != 1:
@@ -64,6 +76,7 @@ def main():
     parser.add_argument("--tokenizer", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--heldout-freeze", type=Path)
+    parser.add_argument("--training-selection", type=Path)
     args = parser.parse_args()
     if args.reviews.stat().st_size > MAX_REVIEW_BYTES:
         raise ValueError("review byte ceiling exceeded")
@@ -73,6 +86,12 @@ def main():
     if len(proposals) != len(proposal_rows):
         raise ValueError("duplicate source proposal identity")
     approved = validate_reviews(review, proposals)
+    excluded = set()
+    if args.training_selection:
+        if args.training_selection.stat().st_size > 1 << 20:
+            raise ValueError("training selection byte ceiling exceeded")
+        selection = json.loads(args.training_selection.read_text())
+        excluded = training_exclusions(selection, approved)
     args.out.mkdir(parents=True, exist_ok=True)
     if not approved:
         write(args.out / "assembly-failure.json", {"verdict": "FAIL", "reason": "No approved centrality preferences. Original annotations and proposals cannot supply preferences by themselves.",
@@ -117,6 +136,12 @@ def main():
     used = set()
     for r in approved:
         p = proposals[r["proposal_id"]]
+        # Raw accepted sources still form the conservative components above.
+        # Admission removes whole reciprocal training comparisons only.
+        if p["proposal_id"] in excluded:
+            if split[union.root(ids[p["doi_a"]])] != "train":
+                raise ValueError("training selection cannot remove validation or audit sources")
+            continue
         for side in ("a", "b"):
             row = rows[ids[p["doi_" + side]]]
             if row["doi"] in used:
@@ -181,10 +206,13 @@ def main():
         path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in pairs))
         files[s] = {"sha256": sha(path.read_bytes()), "pairs": len(pairs), "groups": len({r["group_id"] for r in pairs})}
     (args.out / "heldout-freeze.json").write_bytes(args.heldout_freeze.read_bytes())
+    if args.training_selection:
+        (args.out / "training-selection.json").write_bytes(args.training_selection.read_bytes())
     write(args.out / "approved-manifest.json", {"family": "KEYWORD_EXTRACTION", "max_tokens": MAX_TOKENS, "files": files,
           "spdx_license_identifier": "LicenseRef-zkasuran-SAND-1.0",
           "source_rights": "Original source text/annotations retain per-row Creative Commons grants. Our constructed prompts/preferences use SAND. No human review claimed.",
           "heldout_freeze_sha256": sha(args.heldout_freeze.read_bytes()),
+          "training_selection_sha256": sha(args.training_selection.read_bytes()) if args.training_selection else None,
           "held_out_group_rule": "topic-held-out plus DOI-author-donor components", "held_out_topic": "Neuroscience",
           "review_sha256": sha(args.reviews.read_bytes()), "articles_sha256": sha((args.data / "intact-articles.jsonl").read_bytes()),
           "sources": [r["source"] for pairs in splits.values() for r in pairs], "normalized_cross_split_overlap": 0,

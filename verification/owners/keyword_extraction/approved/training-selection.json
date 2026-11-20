@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "family": "KEYWORD_EXTRACTION",
+  "spdx_license_identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "kind": "pre-model training source/answer redundancy deduplication",
+  "excluded_training_proposals": [
+    "e7cb0ce841256015557f8dd380cf81b89f0d3d5acb24f67489c492dc0eab71df",
+    "4ca8554b9fe6c22b386f8c9d7abb70945d0887cbbcb42a841f75175974869acd"
+  ],
+  "reason": "Retain one complete reciprocal comparison per repeated training answer resource. The macrophage/inflammation and transcription-factor/transcription comparisons remain. Full raw source reviews and conservative original grouping stay unchanged. No validation/audit rows or bytes are removed or tuned.",
+  "trigger": "Actual run 44675020434 failed the unchanged MAX_SINGLE_REJECTED=0.02 primary source gate before foundation or LoRA preparation. Other actual gates passed, including unique fraction 0.9706, length 0.5, negative leak 0 and surface probe 0.1.",
+  "audit_used_for_selection": false,
+  "thresholds_changed": false
+}

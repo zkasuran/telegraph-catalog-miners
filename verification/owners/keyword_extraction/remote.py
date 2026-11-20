@@ -19,6 +19,7 @@ from gates import (
     check_splits,
     fit_baselines,
     shortcut_report,
+    structural_source_gate,
 )
 from heldout_freeze import verify_freeze
 from prepare_data import MAX_TOKENS, answer, prompt
@@ -47,10 +48,17 @@ def approved_data(directory):
         splits[split] = [json.loads(line) for line in raw.decode().split("\n") if line]
     check_splits(splits)
     check_pilot_counts(splits)
+    if not structural_source_gate(splits["train"])["ok"]:
+        raise ValueError("unmodified primary structural source thresholds failed")
     freeze = directory / "heldout-freeze.json"
     if not freeze.is_file() or sha(freeze.read_bytes()) != report.get("heldout_freeze_sha256"):
         raise ValueError("actual frozen held-out source identity required")
     verify_freeze(splits, json.loads(freeze.read_text()))
+    selection_hash = report.get("training_selection_sha256")
+    if selection_hash:
+        selection = directory / "training-selection.json"
+        if not selection.is_file() or sha(selection.read_bytes()) != selection_hash:
+            raise ValueError("training source-admission identity mismatch")
     if report.get("held_out_group_rule") not in {"topic-held-out plus DOI-author-donor components", "time-held-out plus DOI-author-donor components"}:
         raise ValueError("an explicit topic/time held-out group rule is required")
     return report, splits

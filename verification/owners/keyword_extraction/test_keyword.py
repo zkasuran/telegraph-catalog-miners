@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from assemble import validate_reviews
+from assemble import training_exclusions, validate_reviews
 from audit_remote import (
     FORMATS,
     identity_controls,
@@ -20,7 +20,13 @@ from audit_remote import (
     verdict,
     views,
 )
-from gates import check_pilot_counts, check_splits, fit_baselines, shortcut_report
+from gates import (
+    check_pilot_counts,
+    check_splits,
+    fit_baselines,
+    shortcut_report,
+    structural_source_gate,
+)
 from prepare_data import answer, group_sources, prompt, whole_annotation
 from preserve import stamp
 from ready_contract import ENGINE, FOUNDATION, TOKENIZER
@@ -40,6 +46,24 @@ def fixture(doi="10.7554/eLife.fixture", author="Test Author", group="fixture"):
 
 
 class KeywordTests(unittest.TestCase):
+    def test_source_admission_cannot_change_thresholds_or_use_audit(self):
+        selection = {"schema_version": 1, "family": "KEYWORD_EXTRACTION", "audit_used_for_selection": False,
+                     "thresholds_changed": False, "excluded_training_proposals": ["synthetic-only"]}
+        approved = [{"proposal_id": "synthetic-only"}]
+        self.assertEqual(training_exclusions(selection, approved), {"synthetic-only"})
+        for changed in ({"thresholds_changed": True}, {"audit_used_for_selection": True}, {"schema_version": True},
+                        {"excluded_training_proposals": ["unknown"]}, {"excluded_training_proposals": ["synthetic-only", "synthetic-only"]}):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                training_exclusions({**selection, **changed}, approved)
+
+    def test_primary_stock_negative_threshold_is_not_relaxed(self):
+        rows = [{"chosen": "positive-" + str(i), "rejected": "negative-" + str(i)} for i in range(68)]
+        self.assertTrue(structural_source_gate(rows)["ok"])
+        rows[1]["rejected"] = rows[0]["rejected"]
+        report = structural_source_gate(rows)
+        self.assertFalse(report["ok"])
+        self.assertIn("primary single rejected answer exceeds 2%", report["failures"])
+
     def test_review_identity_counts_and_origins(self):
         # Synthetic decisions exercise validation only, never scientific labels.
         decision = {"proposal_id": "test-only", "status": "approve", "review_origin": "AI-assisted",

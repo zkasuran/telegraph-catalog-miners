@@ -9,6 +9,31 @@ from source import norm, sha
 SPLITS = ("train", "validation", "test")
 
 
+def structural_source_gate(rows):
+    """Mirror primary non-fitted source thresholds; the full remote gate remains mandatory."""
+    if not rows:
+        raise ValueError("empty primary structural source check")
+    counts = Counter(r["rejected"].strip() for r in rows)
+    n = len(rows)
+    unique = len(counts) / n
+    top = max(counts.values()) / n
+    identical = sum(r["chosen"].strip() == r["rejected"].strip() for r in rows) / n
+    length = (sum(len(r["chosen"]) > len(r["rejected"]) for r in rows) + 0.5 * sum(len(r["chosen"]) == len(r["rejected"]) for r in rows)) / n
+    metrics = {"unique_rejected_frac": unique, "top_rejected_share": top, "identical_share": identical,
+               "length_shortcut_acc": max(length, 1 - length)}
+    failures = []
+    if unique < 0.80:
+        failures.append("primary unique-rejected fraction below 80%")
+    if top > 0.02:
+        failures.append("primary single rejected answer exceeds 2%")
+    if identical > 0.01:
+        failures.append("primary identical answer fraction exceeds 1%")
+    if metrics["length_shortcut_acc"] > 0.65:
+        failures.append("primary length shortcut exceeds 65%")
+    return {"ok": not failures, "n": n, "metrics": metrics, "failures": failures,
+            "scope": "Source-only counts, not full primary gate. Surface probe and actual neural work remain remote-only."}
+
+
 def check_pilot_counts(splits):
     minimums = {"train": 64, "validation": 16, "test": 64}
     if any(len(splits[s]) < minimums[s] for s in SPLITS):
