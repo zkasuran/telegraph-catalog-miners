@@ -15,6 +15,14 @@ from transport import RuntimeBridge, live_controls
 
 
 class OwnerTests(unittest.TestCase):
+    def test_fitted_warm_start_never_becomes_untrained_baseline(self):
+        warm = EXPERIMENT["warm_start"]
+        self.assertNotEqual(warm["checkpoint_sha256"], warm["untrained_sha256"])
+        self.assertIn("Fresh AdamW", warm["optimizer"])
+        changed = copy.deepcopy(EXPERIMENT)
+        changed["warm_start"]["untrained_sha256"] = "not-a-hash"
+        with self.assertRaises(ValueError):
+            validate_experiment(changed)
     def test_preserved_rng_isolation_with_fake_success_and_failure(self):
         from remote import support
         isolated = support()["core"].isolated_rng
@@ -60,13 +68,13 @@ class OwnerTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "Torch RNG"), isolated(torch, np):
             torch.state += 1
 
-    def test_h9_order_plan_and_exact_boundary_failure_controls(self):
+    def test_refinement_order_plan_and_exact_boundary_failure_controls(self):
         from remote import support
         matched = support()["matched"]
         rows = [{"group_id": str(i)} for i in range(4)]
-        plan = {"source_groups": [str(i) for i in range(4)], "epochs": [[0, 1, 2, 3] for _ in range(9)]}
+        plan = {"source_groups": [str(i) for i in range(4)], "epochs": [[0, 1, 2, 3] for _ in range(3)]}
         matched.validate_orders(plan, rows)
-        bad = {**plan, "epochs": plan["epochs"][:6]}
+        bad = {**plan, "epochs": plan["epochs"][:2]}
         with self.assertRaises(ValueError):
             matched.validate_orders(bad, rows)
         fields = support()["core"].CONTRACT["matched_trial"]["matched_fields"]
@@ -116,6 +124,9 @@ class OwnerTests(unittest.TestCase):
         self.assertTrue(eligibility(good, self.metrics(0.86), shortcuts))
         self.assertTrue(eligibility(good, baseline, {f: 0.85 for f in FORMATS}))
         self.assertTrue(eligibility(self.metrics(float("nan")), baseline, shortcuts))
+        changed = self.metrics()
+        changed["json"]["accuracy"] = 102 / 128
+        self.assertTrue(eligibility(changed, baseline, shortcuts))  # Real H9 boundary must not be rounded into a pass.
 
     def test_actual_finite_bits_contract(self):
         self.assertEqual(bits(0x3f800000), 1.0)

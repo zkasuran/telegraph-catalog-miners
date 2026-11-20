@@ -66,7 +66,7 @@
     },
     {
       "path": "support/moderation-diagnostic/fit.py",
-      "sha256": "6f4cf935f7290844c3a8b744d1545fd42dcb664ffcae6c3c20fc7f5b75ce4654",
+      "sha256": "c54c2336686193c87335f663a89eacdc051857d7996ae37ee7f624de10d5ac2e",
       "origin_sha256": "6f4cf935f7290844c3a8b744d1545fd42dcb664ffcae6c3c20fc7f5b75ce4654"
     },
     {
@@ -81,7 +81,7 @@
     },
     {
       "path": "support/moderation-diagnostic/matched.py",
-      "sha256": "398ae4a3442269de2841c3eb488acc830f5dc2fb268a09cd50688fba5dd2ded9",
+      "sha256": "27aaea8a03f3d4216a958f9e9df7cacf1dc452e8cbecb85740ed993883876b57",
       "origin_sha256": "54e44783c74de3ff7950af1eb24e721236b7fdc8d6ea48ea0f59bd3acc305f0c"
     },
     {
@@ -101,7 +101,7 @@
     },
     {
       "path": "support/moderation-diagnostic/contract.json",
-      "sha256": "c67d126505a3cb7c51d4323ad9b28070365a096c204a3443b14dadce73f91873",
+      "sha256": "1590fb52c046d7cb98d92758b820092686d609fb12222f854b1547dd6724890b",
       "origin_sha256": "534d6a8a3dc02159b8a937b28cc866ca917b883865237984f19c06b7b5ff5d57"
     },
     {

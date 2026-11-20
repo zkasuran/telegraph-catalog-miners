@@ -1,7 +1,7 @@
 {
   "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
   "schema_version": 3,
-  "name": "moderation-h9-validation-only",
+  "name": "moderation-f3-warm-start-validation-only",
   "motivation": "Flat original validation trajectory after three completed epochs. No prior test errors choose settings.",
   "repository": "zkasuran/telegraph-catalog-miners",
   "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
@@ -41,8 +41,8 @@
   },
   "matched_trial": {
     "initialization": "One saved initial adapter, exact named trainable tensors and post-build Python/NumPy/Torch CPU RNG restored in both arms.",
-    "order": "Nine frozen training permutations, exact captured initial state and dedicated DataLoader generator.",
-    "comparison": "Frozen H9 trial, not historical replay",
+    "order": "Three frozen training permutations, exact captured warm-start state and dedicated DataLoader generator.",
+    "comparison": "Frozen low-LR warm-start trial, fresh optimizer, not exact continuation",
     "historical_comparison_valid": false,
     "matched_fields": [
       "trainable",
@@ -61,7 +61,7 @@
     "policy": "Retain the still-unopened audit. Any changed source or exclusions fail rather than replace it."
   },
   "arms": {
-    "H9": 9
+    "F3": 3
   },
   "hyperparameters": {
     "max_length": 256,
@@ -74,7 +74,7 @@
     "lora_rank": 8,
     "lora_alpha": 32,
     "lora_dropout": 0.1,
-    "lr": 0.0001,
+    "lr": 1e-05,
     "weight_decay": 0.01,
     "early_stopping": true,
     "es_metric": "val_loss",
@@ -103,8 +103,8 @@
     "untrained_gain": 0.05
   },
   "limits": {
-    "snapshots": 9,
-    "optimizer_steps": 432,
+    "snapshots": 3,
+    "optimizer_steps": 144,
     "job_minutes": 330,
     "threads": 4
   },

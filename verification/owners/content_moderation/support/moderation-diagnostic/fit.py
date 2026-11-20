@@ -118,11 +118,11 @@ def fit(root, arm):
     original_build = trainer.build_model
     def observed_build(base, hparams):
         model, token = original_build(base, hparams)
-        frozen = json.loads((root / "evidence" / "untrained-validation.json").read_text())
-        directory = root / "adapters" / "untrained"
+        frozen = json.loads((root / "evidence" / "training-start.json").read_text())
+        directory = root / "adapters" / "training-start"
         if sha((directory / "adapter_model.safetensors").read_bytes()) != frozen["adapter_sha256"] or sha((directory / "adapter_config.json").read_bytes()) != frozen["config_sha256"]:
             raise ValueError("frozen initial adapter identity changed")
-        reload_snapshot(root, "untrained", model)
+        reload_snapshot(root, "training-start", model)
         restore_rng(torch, np, initial["rng"])
         names = {name: p.numel() for name, p in model.named_parameters() if p.requires_grad}
         write(root / "evidence" / (arm + "-trainable.json"), {"parameters": names, "count": sum(names.values())})

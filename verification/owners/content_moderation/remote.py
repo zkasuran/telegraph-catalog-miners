@@ -14,8 +14,11 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-from baselines import fit as fit_baselines, scores as shortcut_scores
+from baselines import scores as shortcut_scores
 from contracts import CHILD, EXPERIMENT, FAMILY, FORMATS, FOUNDATION, HERE, bits, check_reply, eligibility, identity, input_root, remote_only, sha, write
+
+ARM = EXPERIMENT["arm"]
+EPOCHS = EXPERIMENT["epochs"]
 
 
 def support():
@@ -93,8 +96,21 @@ def prepare(root):
     extra = json.loads(os.environ.get("CAMPAIGN_EXCLUSIONS_JSON", "[]"))
     source = m["freeze_data"].freeze(root, extra)
     splits = m["model_ops"].read_development(root)
-    coefficients = fit_baselines(splits["train"])
-    write(root / "evidence/baseline-coefficients.json", coefficients)
+    warm = EXPERIMENT["warm_start"]
+    from shutil import copyfile
+    for name, expected in ((warm["checkpoint"], warm["checkpoint_sha256"]), (warm["config"], warm["config_sha256"]),
+                           (warm["untrained"], warm["untrained_sha256"]), (warm["untrained_config"], warm["config_sha256"]),
+                           (warm["coefficients"], warm["coefficients_sha256"])):
+        if sha((HERE / "assets" / name).read_bytes()) != expected:
+            raise ValueError("frozen licensed warm-start asset changed")
+    for name, tensor, config in (("training-start", warm["checkpoint"], warm["config"]), ("untrained", warm["untrained"], warm["untrained_config"])):
+        directory = root / "adapters" / name
+        directory.mkdir(parents=True)
+        copyfile(HERE / "assets" / tensor, directory / "adapter_model.safetensors")
+        copyfile(HERE / "assets" / config, directory / "adapter_config.json")
+        write(root / "evidence" / (name + "-input.json"), {"snapshot": name, "adapter_sha256": sha((directory / "adapter_model.safetensors").read_bytes()), "config_sha256": sha((directory / "adapter_config.json").read_bytes())})
+    copyfile(HERE / "assets" / warm["coefficients"], root / "evidence/baseline-coefficients.json")
+    coefficients = read(root / "evidence/baseline-coefficients.json")
     if max(shortcut_scores(splits["train"], coefficients).values()) > 0.65:
         raise ValueError("training strongest-shortcut source gate failed")
     write(root / "evidence/source-manifest.json", {"sources": source, "coefficient_sha256": sha((root / "evidence/baseline-coefficients.json").read_bytes()),
@@ -102,13 +118,42 @@ def prepare(root):
           "support_sha256": read(HERE / "SUPPORT.json")})
 
 
+def initial(root):
+    """Freeze genuine untrained control separately from the fitted warm start."""
+    remote_only()
+    m = support()
+    torch, np, trainer, hp = m["model_ops"].runtime(root, EPOCHS)
+    splits = m["model_ops"].read_development(root)
+    gate = trainer.gate_dataset(splits["train"], hp)
+    write(root / "evidence/dataset-gate.json", gate)
+    if gate["ok"] is not True:
+        raise ValueError("source dataset gate failed before model loading")
+    write(root / "evidence/rng-controls.json", importlib.import_module("remote_controls").controls())
+    tok, node = m["model_ops"].tokenizer(root)
+    views = m["model_ops"].views(splits["validation"])
+    m["model_ops"].tokenize(trainer, tok, node, [splits["train"], splits["validation"], *views.values()], root / "evidence/tokenizer-check.json")
+    m["model_ops"].seed(torch, np, hp)
+    model, tok = trainer.build_model(str(root / "base"), hp)
+    m["model_ops"].reload_snapshot(root, "untrained", model)
+    with m["core"].isolated_rng(torch, np):
+        baseline = m["model_ops"].score_views(trainer, model, tok, views, hp)
+        saved = m["model_ops"].save_snapshot(root, "untrained", model, tok, trainer)
+    write(root / "evidence/untrained-validation.json", {"formats": baseline, **saved, "scope": "Genuine frozen untrained H9 initialization, not the fitted warm start."})
+    m["model_ops"].reload_snapshot(root, "training-start", model)
+    m["model_ops"].seed(torch, np, hp)
+    frozen = m["matched"].freeze_initial(root, model, torch, np, splits["train"])
+    with m["core"].isolated_rng(torch, np):
+        saved = m["model_ops"].save_snapshot(root, "training-start", model, tok, trainer)
+    write(root / "evidence/training-start.json", {**saved, "initial_state_sha256": frozen["initial_state_sha256"], "scope": "Fitted H9 epoch 8 warm start, fresh optimizer, not exact continuation."})
+
+
 def select(root):
     m = support()
     m["core"].deny_measurement_reads(root)
-    if read(root / "evidence/dataset-gate.json")["ok"] is not True or read(root / "evidence/H9-dataset-gate.json")["ok"] is not True:
+    if read(root / "evidence/dataset-gate.json")["ok"] is not True or read(root / ("evidence/" + ARM + "-dataset-gate.json"))["ok"] is not True:
         raise ValueError("mandatory upstream data gates missing")
     match = m["matched"].matched_report(root)
-    restore = read(root / "evidence/H9-restoration.json")
+    restore = read(root / ("evidence/" + ARM + "-restoration.json"))
     if not restore["parameter_bytes_equal"] or not restore["validation_replay_equal"]:
         raise ValueError("snapshot restoration evidence missing")
     coefficients = read(root / "evidence/baseline-coefficients.json")
@@ -118,15 +163,15 @@ def select(root):
     validation = m["model_ops"].views(m["model_ops"].read_development(root)["validation"])
     shortcuts = {name: max(shortcut_scores(rows, coefficients).values()) for name, rows in validation.items()}
     untrained = read(root / "evidence/untrained-validation.json")
-    records = read(root / "evidence/H9-validation-history.json")
-    if not records or len(records) > 9:
-        raise ValueError("bounded actual H9 trajectory required")
+    records = read(root / ("evidence/" + ARM + "-validation-history.json"))
+    if not records or len(records) > EPOCHS:
+        raise ValueError("bounded actual refinement trajectory required")
     transcript = [{"epoch": r["epoch"], "failures": eligibility(r["formats"], untrained["formats"], shortcuts), "key": m["core"].rank_key(r)} for r in records]
     eligible = [r for r in records if not eligibility(r["formats"], untrained["formats"], shortcuts)]
     write(root / "evidence/selection.json", {"transcript": transcript, "shortcuts": shortcuts, "matching": match, "selection_uses_audit": False})
     if not eligible:
         write(root / "evidence/result.json", {"status": "NO_VALIDATION_CANDIDATE", "audit_opened": False, "historical_comparison_valid": False})
-        raise RuntimeError("no H9 validation-eligible snapshot; audit remains sealed")
+        raise RuntimeError("no refinement validation-eligible snapshot; audit remains sealed")
     candidate = min(eligible, key=m["core"].rank_key)
     for row in (candidate, untrained):
         path = root / "evidence" / (row["snapshot"] + ".safetensors")
@@ -249,7 +294,7 @@ def qualify(root):
     if frozen["experiment_sha256"] != sha((HERE / "experiment.json").read_bytes()) or frozen["source_manifest_sha256"] != sha((root / "evidence/source-manifest.json").read_bytes()) or frozen["selection_sha256"] != sha((root / "evidence/selection.json").read_bytes()):
         raise ValueError("frozen experiment/source/selection changed")
     m["matched"].matched_report(root)
-    torch, np, trainer, hp = m["model_ops"].runtime(root, 9)
+    torch, np, trainer, hp = m["model_ops"].runtime(root, EPOCHS)
     tok, node = m["model_ops"].tokenizer(root)
     m["model_ops"].seed(torch, np, hp)
     model, tok = trainer.build_model(str(root / "base"), hp)
@@ -308,12 +353,12 @@ def qualify(root):
 def main():
     remote_only()
     parser = argparse.ArgumentParser()
-    parser.add_argument("phase", choices=("run", "prepare", "select", "qualify"))
+    parser.add_argument("phase", choices=("run", "prepare", "initial", "select", "qualify"))
     parser.add_argument("--root", type=Path, required=True)
     args = parser.parse_args()
     root = args.root.resolve()
     if args.phase != "run":
-        {"prepare": prepare, "select": select, "qualify": qualify}[args.phase](root)
+        {"prepare": prepare, "initial": initial, "select": select, "qualify": qualify}[args.phase](root)
         return
     if root.exists():
         raise ValueError("fresh owner run directory required; no audit rerun")
@@ -325,8 +370,8 @@ def main():
         command = [sys.executable, str(HERE / "remote.py")]
         execute_phase(root, "prepare", [*command, "prepare", "--root", str(root)], 1800, deadline)
         path = HERE / "support/moderation-diagnostic"
-        execute_phase(root, "initial", [sys.executable, str(path / "stages.py"), "initial", "--root", str(root)], 1200, deadline)
-        execute_phase(root, "fit-H9", [sys.executable, str(path / "fit.py"), "--arm", "H9", "--root", str(root)], 12000, deadline)
+        execute_phase(root, "initial", [*command, "initial", "--root", str(root)], 1200, deadline)
+        execute_phase(root, "fit-" + ARM, [sys.executable, str(path / "fit.py"), "--arm", ARM, "--root", str(root)], 12000, deadline)
         execute_phase(root, "select", [*command, "select", "--root", str(root)], 120, deadline)
         execute_phase(root, "qualify", [*command, "qualify", "--root", str(root)], 5400, deadline)
     except (OSError, ValueError, RuntimeError, KeyError, TypeError, subprocess.SubprocessError) as error:

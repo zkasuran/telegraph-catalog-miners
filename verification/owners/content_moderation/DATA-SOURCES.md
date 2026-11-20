@@ -28,6 +28,14 @@ This is inventory context, not a claim that this experiment trains on all rows.
 No parent text or identity annotations enter the experiment. Parent-context,
 identity subgroups, middle-range toxicity and multilingual policy are unvalidated.
 
+F3 warm-start assets are the licensed trained H9 epoch 8 checkpoint and the
+separate genuine untrained initialization from public run 44678239020. Their
+entire archive and individual SHA-256 values were checked without model loading.
+Both tensor containers retain original grants in their metadata. Frozen
+train-fitted baseline coefficients from that same job are reused byte-for-byte.
+These assets are fitted training work, not independent audit results or human
+review. H9 never opened the audit. The original failure evidence remains retained.
+
 The audit stays sealed through validation selection. Its hash and exclusion hash
 are frozen in experiment.json. Exposure cannot become training data or select a
 later candidate. Three response views are correlated views of the same originals.

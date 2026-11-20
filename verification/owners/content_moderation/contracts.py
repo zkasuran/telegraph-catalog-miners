@@ -125,17 +125,20 @@ def eligibility(formats, untrained, shortcuts):
 def validate_experiment(value):
     if value.get("family") != FAMILY or value.get("child") != CHILD or value.get("class") != "judgment":
         raise ValueError("owned family/class mismatch")
-    if value.get("epochs") != 9 or value.get("audit_originals") != 256 or value.get("job_minutes") != 330:
+    if value.get("epochs") != 3 or value.get("audit_originals") != 256 or value.get("job_minutes") != 330:
         raise ValueError("frozen schedule/audit/budget mismatch")
     if set(value.get("formats", [])) != set(FORMATS) or set(value.get("labels", [])) != LABELS:
         raise ValueError("missing format/label coverage")
     if value.get("historical_comparison_valid") is not False:
         raise ValueError("historical failure relabelled")
-    expected = {"seed": 42, "lora_rank": 8, "lora_alpha": 32, "lr": 0.0001, "lora_dropout": 0.1,
+    expected = {"seed": 42, "lora_rank": 8, "lora_alpha": 32, "lr": 0.00001, "lora_dropout": 0.1,
                 "weight_decay": 0.01, "batch_size": 2, "grad_accum": 8, "max_length": 256,
                 "early_stopping": True, "es_min_delta": 0.001, "es_patience": 1}
     if value.get("hyperparameters") != expected:
         raise ValueError("frozen rank/LR/dropout/source training recipe changed")
+    for key in ("checkpoint_sha256", "config_sha256", "untrained_sha256", "coefficients_sha256"):
+        if not SHA.fullmatch(value.get("warm_start", {}).get(key, "")):
+            raise ValueError("fitted warm start or genuine untrained control unbound")
     for key in ("audit_sha256", "exclusion_sha256"):
         if not SHA.fullmatch(value.get(key, "")):
             raise ValueError("unbound sealed source boundary")

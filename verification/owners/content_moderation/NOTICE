@@ -18,3 +18,9 @@ by AI-assisted code, not human-authored or human-reviewed preferences.
 
 No licensor endorsement is implied. Fitted public training data is not an
 independent audit. Hidden evaluation-pool material is not an input.
+
+F3 distribution lineage: the fitted warm-start tensor asset is H9 epoch 8 from
+public run 44678239020. That run failed strict validation eligibility and never
+opened the independent audit. Its failure remains preserved. The separately
+shipped untrained initialization is not fitted H9 work. Both containers keep
+original grants. Frozen training-only coefficient bytes are reused unchanged.

@@ -144,3 +144,13 @@ The structure and much of the plain-language wording of this licence is adapted 
 standardised source-available licence template, with its noncommercial restriction
 replaced by the "any purpose" grant above and its identifying references removed, as
 that template's own terms require of an adaptation.
+
+
+Distribution lineage notice (not a change to the above licence)
+
+This F3 source distribution contains owned refinement code and licensed
+H9 warm-start assets from public run 44678239020. The trained additions use
+the reviewed SAND terms above. Original ModernBERT Apache-2.0, Telegraph
+MIT and public Civil Comments CC0 grants remain in force for their portions.
+Full original checkpoint terms are verified by check_checkpoint_terms.py.
+Fitted public training is not an independent audit or human review.

@@ -137,4 +137,4 @@ def matched_report(root):
         if len(history) != len(orders):
             raise ValueError("observed orders do not cover every trained epoch")
     return {"experiment": CONTRACT["name"], "arms": reports,
-            "historical_comparison_valid": False, "comparison": "Frozen H9 trial, not historical replay"}
+            "historical_comparison_valid": False, "comparison": "Frozen warm-start trial, not historical replay"}

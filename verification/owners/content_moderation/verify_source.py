@@ -8,7 +8,14 @@ from contracts import HERE, WORKFLOW, sha, validate_experiment
 
 
 def main():
-    validate_experiment(json.loads((HERE / "experiment.json").read_bytes()))
+    experiment = json.loads((HERE / "experiment.json").read_bytes())
+    validate_experiment(experiment)
+    warm = experiment["warm_start"]
+    for name, expected in ((warm["checkpoint"], warm["checkpoint_sha256"]), (warm["config"], warm["config_sha256"]),
+                           (warm["untrained"], warm["untrained_sha256"]), (warm["untrained_config"], warm["config_sha256"]),
+                           (warm["coefficients"], warm["coefficients_sha256"])):
+        if sha((HERE / "assets" / name).read_bytes()) != expected:
+            raise ValueError("fitted/untrained asset or frozen coefficient bytes changed")
     support = json.loads((HERE / "SUPPORT.json").read_bytes())
     for row in support["files"]:
         path = HERE / row["path"]
@@ -38,6 +45,9 @@ def main():
         raise ValueError("workflow is not the bounded free CPU contract")
     if workflow["concurrency"]["cancel-in-progress"] is not False:
         raise ValueError("workflow may cancel a preserved job")
+    result_steps = [step for step in job["steps"] if step.get("with", {}).get("name", "").startswith("owner-registration-")]
+    if len(result_steps) != 1 or "success()" not in result_steps[0].get("if", "") or "registration-ready.json" not in result_steps[0]["with"]["path"] or "/evidence/\n" in result_steps[0]["with"]["path"]:
+        raise ValueError("bounded registration evidence must be separate from epoch diagnostics")
     for name in ("LICENSE", "NOTICE", "DATA-SOURCES.md", "SECURITY.md"):
         if not (HERE / name).is_file() or (HERE / name).stat().st_size < 100:
             raise ValueError("missing publication rights/security file")
