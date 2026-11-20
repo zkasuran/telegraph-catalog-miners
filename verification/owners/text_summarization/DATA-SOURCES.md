@@ -116,3 +116,15 @@ counterbalance the same two answers across target A and target B.
 Our own portions use SAND. Source grants remain attached to unsuccessful
 checkpoints as well as any successful delta. No protected pool material,
 exposed development capture or evaluation-answer lookup is used.
+
+## Frozen candidate 4 integration recovery
+
+Actual run 44796102138 scored the independent audit after frozen development
+selection. The exact package passed quality and reference-engine gates. The
+readiness formatter failed on a stale three-epoch check. `frozen-candidate.json`
+binds the original run, commit, package bytes and full report hashes. That scored
+audit may not fit or select a later candidate. Training is disabled in this release.
+Recovery replays the exact package parser and fixed engine vectors only, with
+original immutable quality evidence. It performs no fitting or audit rescoring.
+The original package keeps its original full embedded grants and attribution;
+new recovery code uses SAND only on our own additions.

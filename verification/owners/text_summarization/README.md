@@ -22,7 +22,9 @@ summarization proof.
 | Training-only diagnostic | Single requested-source control fitted eight train pairs; original two-reference control stayed at chance |
 | Revision 3 quality | Failed development at 33/64 in every format; clean audit unscored |
 | Matched batching diagnostic | Timed out after 320 stochastic updates; reciprocal comparison incomplete |
-| Revision 4 quality | Unmeasured original-task bootstrap followed by full training |
+| Revision 4 quality | Passed raw/JSON/prose audit at 93.75%, 92.19% and 90.63% |
+| Revision 4 engine | Full parser, numerical/order agreement and repeated bits passed |
+| Readiness recovery | Fixes stale epoch check without retraining or audit rescoring |
 | Canonical node registration | Not attempted |
 
 Titles are unchanged human-authored source associations. Donor preferences were
@@ -87,7 +89,24 @@ The eight unique pairs appear 64 times each, not as new independent data.
 Actual 8/8 training fit is required before main training. A fresh optimizer then
 runs nine complete main epochs over all 256 original training pairs. Validation
 loss alone selects the main checkpoint. The full development and clean-audit
-gates are unchanged. No held-out improvement is claimed before the remote run.
+gates are unchanged. The actual run completed and selected epoch 5 by validation
+loss. All development gates passed. Its independent audit scored 120/128 raw,
+118/128 JSON and 116/128 prose, compared with untrained 65/128, 66/128 and 64/128.
+Every frozen shortcut was 50%. All target labels exceeded the unchanged 70% floor.
+
+The exact package passed the full parser and real engine. Eight fixed vectors
+repeated bit-identically in the same process and a fresh process. Three wrong
+identities and two invalid-token refusals passed. The job failed only because
+the readiness formatter still expected three epochs instead of the frozen nine.
+See [the original audit/runtime run](https://github.com/zkasuran/telegraph-catalog-miners/actions/runs/44796102138).
+
+The package and original reports are frozen under `frozen-candidate.json`.
+Training is disabled after audit exposure. `recover` verifies those exact bytes,
+runs the full parser and fresh fixed-vector engine controls then derives readiness
+from the original immutable quality evidence. It does not retrain or rescore the
+audit. The report binds both the original training run and the new recovery run.
+Serving uses the exact same package with its original embedded grants.
+No canonical node result is claimed.
 
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
 timeouts. Fitting only receives original training pairs. All nine main epochs

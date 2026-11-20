@@ -1,0 +1,213 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.7812,
+        "val_loss": 0.452795,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "FAIL",
+        "fail_reason": "accuracy 0.7812 is below --gate-min-acc 0.8",
+        "subsets": {
+          "chosen_longer": 0.8438,
+          "chosen_shorter": 0.7188
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.6656721604337418,
+          0.8649768059328052
+        ]
+      },
+      "selected": true,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 2,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8281,
+        "val_loss": 0.493206,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.8438,
+          "chosen_shorter": 0.8125
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7178678837734179,
+          0.9012225769875536
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 3,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8594,
+        "val_loss": 0.472304,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.875,
+          "chosen_shorter": 0.8438
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7538371825842297,
+          0.9242142744396914
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 4,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8906,
+        "val_loss": 0.50834,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.9062,
+          "chosen_shorter": 0.875
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7910135867310387,
+          0.945998866555832
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 5,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.9219,
+        "val_loss": 0.188639,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.9688,
+          "chosen_shorter": 0.875
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.8298046264583709,
+          0.9661688230914496
+        ]
+      },
+      "selected": true,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 6,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8906,
+        "val_loss": 0.263984,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.9375,
+          "chosen_shorter": 0.8438
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7910135867310387,
+          0.945998866555832
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 7,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8906,
+        "val_loss": 0.233041,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.9375,
+          "chosen_shorter": 0.8438
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7910135867310387,
+          0.945998866555832
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 8,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8906,
+        "val_loss": 0.233568,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.9375,
+          "chosen_shorter": 0.8438
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7910135867310387,
+          0.945998866555832
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    },
+    {
+      "epoch": 9,
+      "metrics": {
+        "n_eval": 64,
+        "pairwise_accuracy": 0.8906,
+        "val_loss": 0.231477,
+        "length_baseline": 0.5,
+        "beats_length_baseline": true,
+        "verdict": "PASS",
+        "subsets": {
+          "chosen_longer": 0.9375,
+          "chosen_shorter": 0.8438
+        },
+        "pair_wilson_95_not_group_independent": [
+          0.7910135867310387,
+          0.945998866555832
+        ]
+      },
+      "selected": false,
+      "rng_restored": true,
+      "split": "validation"
+    }
+  ],
+  "best": {
+    "epoch": 5,
+    "val_loss": 0.188639
+  },
+  "best_trainable_sha256": "e9e64756971e71e5e139e8186b1d64531cb75ee4bd77ab422570005c587c634b",
+  "selection_split": "validation",
+  "selection_metric": "val_loss",
+  "audit_scored": false,
+  "epochs_required": 9,
+  "epochs_completed": 9
+}

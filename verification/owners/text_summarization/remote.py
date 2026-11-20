@@ -61,6 +61,8 @@ def interval(wins, n):
 
 def experiment(root):
     remote_only()
+    if (HERE / "frozen-candidate.json").exists():
+        raise ValueError("candidate is frozen after its audit; only byte-preserving recovery is allowed")
     started = time.monotonic()
     preserve(root)
     check_static()

@@ -66,3 +66,16 @@ Remote parser, training, engine and endpoint results are unverified until their
 real jobs complete. A source gate, registration receipt or audit pass is not a
 canonical node win. No local model loading, credentials or paid resources are
 part of the release gate.
+
+## Frozen passing package
+
+The candidate passed all original audit/parser/engine gates but the final report
+formatter rejected the nine-epoch result with a stale three-epoch predicate.
+`frozen_candidate.py` checks original package and report bytes against their
+immutable hashes. It checks original embedded grants, not a rewritten notice.
+`remote.py` refuses retraining this audited candidate. Recovery runs no fitting
+and scores no audit rows. It repeats actual fixed vectors and wrong identities
+in the pinned reference engine, then combines those results with the original
+audit evidence. Tests reject changed epoch counts, package bytes and freeze flags.
+Original training and recovery identities remain distinct in the ready report.
+This is integration recovery, not a new independent audit or canonical win.

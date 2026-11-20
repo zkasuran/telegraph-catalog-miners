@@ -18,13 +18,14 @@ from common import DEFAULT_OWNER, lease_for, validate_lease
 from curriculum import check_tokens, source_check, warmup_rows
 from data import HERE, VIEWS, check_splits, prepare, read_splits, view
 from diagnostic import training_controls
+from frozen_candidate import original_evidence, read_frozen, verify_frozen_package
 from licensing import preserve_artifact, tensor_parts, verify_checkpoint_metadata
 from metrics import all_formats, pair_metrics, quality
 from preserve import preserve
 from primary import anchors
 from proxy import validate_request
 from reciprocal import policy, schedules, selected_rows
-from report import validate_ready
+from report import completed_checks, validate_ready
 from role_bootstrap import admit, warmup_plan
 from role_bootstrap import warmup_rows as bootstrap_rows
 from runtime_check import RELEASE_HASHES, compile_tools, model_remote_only
@@ -137,6 +138,52 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_actual_nine_epoch_ready_checks_and_stale_epoch_control(self):
+        freeze, report, primary = original_evidence()
+        self.assertTrue(completed_checks(report, primary)["passed"])
+        self.assertEqual(freeze["training_run_id"], 44796102138)
+        for count in (3, 8, 10):
+            bad = copy.deepcopy(report)
+            bad["epochs_completed"] = count
+            with self.subTest(count=count), self.assertRaises(ValueError):
+                completed_checks(bad, primary)
+        bad = copy.deepcopy(report)
+        bad["selection_split"] = "audit"
+        with self.assertRaises(ValueError):
+            completed_checks(bad, primary)
+
+    def test_frozen_package_and_original_grants_tamper_controls(self):
+        freeze = read_frozen()
+        source = HERE / "frozen/TEXT_SUMMARIZATION.safetensors"
+        self.assertEqual(verify_frozen_package(source)["package_sha256"], freeze["package_sha256"])
+        with tempfile.TemporaryDirectory(prefix="summary-frozen-test-") as directory:
+            raw = source.read_bytes()
+            bad = Path(directory) / "mutated.safetensors"
+            bad.write_bytes(raw[:-1] + bytes([raw[-1] ^ 1]))
+            with self.assertRaises(ValueError):
+                verify_frozen_package(bad)
+            descriptor = json.loads((HERE / "frozen-candidate.json").read_text())
+            descriptor["training_disabled"] = False
+            (Path(directory) / "frozen-candidate.json").write_text(json.dumps(descriptor))
+            with patch("frozen_candidate.HERE", Path(directory)), self.assertRaises(ValueError):
+                read_frozen()
+
+    def test_frozen_candidate_refuses_retraining_before_work(self):
+        import remote
+        with patch("remote.remote_only"), self.assertRaisesRegex(ValueError, "candidate is frozen"):
+            remote.experiment(Path("fixture-must-not-be-created"))
+
+    def test_recovery_workflow_installs_before_engine_and_never_fits(self):
+        workflow = json.loads((HERE.parents[2] / ".github/workflows/evaluator-owner-text_summarization.yml").read_text().split("\n", 1)[1])
+        self.assertEqual(workflow["on"]["workflow_dispatch"]["inputs"]["mode"]["options"], ["recover", "serve"])
+        steps = workflow["jobs"]["owner"]["steps"]
+        names = [s.get("name") for s in steps]
+        self.assertLess(names.index("Install hash-locked public CPU dependencies"), names.index("Byte-preserving readiness recovery and fresh engine vectors"))
+        recovery = next(s for s in steps if s.get("name") == "Byte-preserving readiness recovery and fresh engine vectors")
+        self.assertIn("recover.py", recovery["run"])
+        self.assertNotIn("remote.py", recovery["run"])
+        self.assertLessEqual(recovery["timeout-minutes"], 85)
+
     def test_original_task_bootstrap_exact_rows_and_repeats(self):
         manifest = json.loads((HERE / "data/manifest.json").read_text())
         train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
@@ -351,7 +398,7 @@ class ModelContractTests(unittest.TestCase):
         self.assertTrue(all_formats({s: good for s in VIEWS}, {s: weak for s in VIEWS}, {s: controls for s in VIEWS})["passed"])
 
     def test_no_local_neural_entry_points(self):
-        for name in ("remote.py", "serve.py", "diagnostic.py", "reciprocal.py"):
+        for name in ("remote.py", "serve.py", "diagnostic.py", "reciprocal.py", "recover.py"):
             completed = subprocess.run([sys.executable, str(HERE / name), "--help"], env={"PATH": os.environ.get("PATH", ""), "PYTHONDONTWRITEBYTECODE": "1"}, capture_output=True, timeout=10, check=False)
             self.assertNotEqual(completed.returncode, 0)
             self.assertIn(b"runtime scoring is limited", completed.stderr)

@@ -175,3 +175,8 @@ Revision 4 role bootstrap uses repeated unchanged original training tasks and
 source annotations. Source portions retain their original CC BY 4.0 grants.
 Our schedule and fitted additions retain the same SAND grant, including partial
 bootstrap checkpoints. Repeated presentations are not independent audit data.
+
+The frozen candidate package from run 44796102138 retains its original embedded
+SAND and upstream grants byte for byte. New integration-recovery code uses the
+same SAND grant only on our additions. This scope does not restamp, relicense
+or narrow rights in the original immutable package or source evidence.

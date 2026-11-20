@@ -1,0 +1,9 @@
+{
+  "grants_verified": true,
+  "primary_documents": 448,
+  "cropped": false,
+  "source_manifest_sha256": "ec9f5926842f86f3825f85c2c45e76d344976a29650e667c0120106841f2cac4",
+  "source_revision": "c3cd502f94edfb5aa0c5870ed9eff053773c6125",
+  "audit_scored": false,
+  "elapsed_seconds": 17.84636271599993
+}

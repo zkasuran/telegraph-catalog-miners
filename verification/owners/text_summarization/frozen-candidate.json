@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "TEXT_SUMMARIZATION",
+  "training_run_id": 44796102138,
+  "training_commit": "e5d4eaedf0cba90d2c837be94171d89dc29c8934",
+  "training_artifact_id": 14672169224,
+  "training_archive_sha256": "614c6ab88a9bdd636072edae2f906c89dce1b639496d3953b82d18c76fa27905",
+  "package_sha256": "8e3ef949fea2fae5cfbe24f1e80ffd85d2bb77d947a2e610d4d01da062816814",
+  "package_keccak": "6ab216be4394b4c5208f8667d3577a64e6a3be6e275933d64d121b87a17e653b",
+  "package_bytes": 6821580,
+  "audit_sha256": "c891d35b58597d587c7c9785071b5a6a9ca191d7fb767d899ba3a0e9a32d781d",
+  "audit_scored_once": true,
+  "audit_used_for_selection": false,
+  "training_disabled": true,
+  "source_manifest_sha256": "ec9f5926842f86f3825f85c2c45e76d344976a29650e667c0120106841f2cac4",
+  "files": [
+    {
+      "path": "frozen/TEXT_SUMMARIZATION.safetensors",
+      "sha256": "8e3ef949fea2fae5cfbe24f1e80ffd85d2bb77d947a2e610d4d01da062816814",
+      "bytes": 6821580
+    },
+    {
+      "path": "frozen/result.json",
+      "sha256": "4bf771f04a3eeb8cf772aad549772a4c7bd61b00eb26cad546b761205d1ac26f",
+      "bytes": 84241
+    },
+    {
+      "path": "frozen/runtime-result.json",
+      "sha256": "7c51cabaed0d7725b8a5991132f3d62f08b2ef56ace9995adee35840eedeba51",
+      "bytes": 11700
+    },
+    {
+      "path": "frozen/runtime-score-bits.json",
+      "sha256": "7d8415ddd3a70c004f2f1b10ab013d02a97759e06a35bdd09e690b98fed7efbd",
+      "bytes": 13999
+    },
+    {
+      "path": "frozen/development-selection.json",
+      "sha256": "ca8e09218b3f9bd1e497391ce7626509d959a72e8d1a7cc58b088410a4ab3b91",
+      "bytes": 5309
+    },
+    {
+      "path": "frozen/development-gate.json",
+      "sha256": "f53ff928c5a671d91609705cf96f6dd32bd28c05abfc8b37d1abae4686437cc8",
+      "bytes": 3104
+    },
+    {
+      "path": "frozen/data/primary-checks.json",
+      "sha256": "429cca5300d7d7da93790241d3fd3157000793a0406328d2b69f1860c896f8ef",
+      "bytes": 304
+    },
+    {
+      "path": "frozen/foundation.json",
+      "sha256": "dc085fea3f521fcaa38485cd31c168a6396f118e976f5d0fc1b6581fce3fad82",
+      "bytes": 559
+    },
+    {
+      "path": "frozen/licence-metadata.json",
+      "sha256": "31036a0c6eb10f17a31a042acecb402d58a56b9e1e5bbf000d615c2c78a12634",
+      "bytes": 41543
+    },
+    {
+      "path": "frozen/original-run.json",
+      "sha256": "f6e0816123b1231aac32cf5c2d4e982ce13b9d11de39ea618693a21a6dcfb4f8",
+      "bytes": 13314
+    }
+  ],
+  "original_job_failure": "Readiness formatter retained a stale three-epoch check after the frozen nine-epoch recipe completed. No quality or engine gate failed."
+}

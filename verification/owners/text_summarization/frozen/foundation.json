@@ -1,0 +1,27 @@
+{
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "foundation_version": "modernbert-base-lora16-v1",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "base_model": "/home/runner/work/_temp/summary-experiment/base",
+  "r_max": 16,
+  "num_layers": 22,
+  "hidden_size": 768,
+  "targets": {
+    "attn.Wqkv": [
+      768,
+      2304
+    ],
+    "attn.Wo": [
+      768,
+      768
+    ],
+    "mlp.Wi": [
+      768,
+      2304
+    ],
+    "mlp.Wo": [
+      1152,
+      768
+    ]
+  }
+}

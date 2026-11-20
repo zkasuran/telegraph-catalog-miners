@@ -1,0 +1,147 @@
+{
+  "gate": {
+    "passed": true,
+    "audit_allowed": true,
+    "quality": {
+      "passed": true,
+      "by_format": {
+        "raw": {
+          "passed": true,
+          "failures": []
+        },
+        "json": {
+          "passed": true,
+          "failures": []
+        },
+        "prose": {
+          "passed": true,
+          "failures": []
+        }
+      }
+    },
+    "audit_scored": false,
+    "selection_split": "validation"
+  },
+  "trained": {
+    "raw": {
+      "n_eval": 64,
+      "independent_groups": 32,
+      "correct": 59,
+      "pairwise_accuracy": 0.921875,
+      "subsets": {
+        "target_A": 0.9375,
+        "target_B": 0.90625,
+        "chosen_longer": 0.96875,
+        "chosen_shorter": 0.875
+      },
+      "per_label": {
+        "A": 0.9375,
+        "B": 0.90625
+      }
+    },
+    "json": {
+      "n_eval": 64,
+      "independent_groups": 32,
+      "correct": 57,
+      "pairwise_accuracy": 0.890625,
+      "subsets": {
+        "target_A": 0.90625,
+        "target_B": 0.875,
+        "chosen_longer": 0.84375,
+        "chosen_shorter": 0.9375
+      },
+      "per_label": {
+        "A": 0.90625,
+        "B": 0.875
+      }
+    },
+    "prose": {
+      "n_eval": 64,
+      "independent_groups": 32,
+      "correct": 58,
+      "pairwise_accuracy": 0.90625,
+      "subsets": {
+        "target_A": 0.875,
+        "target_B": 0.9375,
+        "chosen_longer": 0.875,
+        "chosen_shorter": 0.9375
+      },
+      "per_label": {
+        "A": 0.875,
+        "B": 0.9375
+      }
+    }
+  },
+  "untrained": {
+    "raw": {
+      "n_eval": 64,
+      "independent_groups": 32,
+      "correct": 33,
+      "pairwise_accuracy": 0.515625,
+      "subsets": {
+        "target_A": 0.5,
+        "target_B": 0.53125,
+        "chosen_longer": 0.53125,
+        "chosen_shorter": 0.5
+      },
+      "per_label": {
+        "A": 0.5,
+        "B": 0.53125
+      }
+    },
+    "json": {
+      "n_eval": 64,
+      "independent_groups": 32,
+      "correct": 32,
+      "pairwise_accuracy": 0.5,
+      "subsets": {
+        "target_A": 0.4375,
+        "target_B": 0.5625,
+        "chosen_longer": 0.46875,
+        "chosen_shorter": 0.53125
+      },
+      "per_label": {
+        "A": 0.4375,
+        "B": 0.5625
+      }
+    },
+    "prose": {
+      "n_eval": 64,
+      "independent_groups": 32,
+      "correct": 32,
+      "pairwise_accuracy": 0.5,
+      "subsets": {
+        "target_A": 0.40625,
+        "target_B": 0.59375,
+        "chosen_longer": 0.5,
+        "chosen_shorter": 0.5
+      },
+      "per_label": {
+        "A": 0.40625,
+        "B": 0.59375
+      }
+    }
+  },
+  "controls": {
+    "raw": {
+      "length": 0.5,
+      "token_length": 0.5,
+      "tfidf_overlap": 0.5,
+      "answer_only_counts": 0.5
+    },
+    "json": {
+      "length": 0.5,
+      "token_length": 0.5,
+      "tfidf_overlap": 0.5,
+      "answer_only_counts": 0.5
+    },
+    "prose": {
+      "length": 0.5,
+      "token_length": 0.5,
+      "tfidf_overlap": 0.5,
+      "answer_only_counts": 0.5
+    }
+  },
+  "selected_trainable_sha256": "e9e64756971e71e5e139e8186b1d64531cb75ee4bd77ab422570005c587c634b",
+  "audit_scored": false
+}

@@ -44,3 +44,9 @@ four existing source groups before full main training. Repetitions are disclosed
 and do not count as new source groups or annotations. Original per-article grants
 and attribution are retained. Our training schedule and fitted additions use
 SAND only on our own portions, including incomplete or failed checkpoints.
+
+The frozen candidate from run 44796102138 retains its exact original package
+bytes, original embedded grants and original attribution. Its complete audit
+and reference-engine evidence is not used for later fitting or selection.
+Recovery code fixes reporting and re-verifies the immutable package only.
+The scored audit is not rescored. New recovery additions use the same SAND grant.

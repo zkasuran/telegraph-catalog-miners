@@ -20,7 +20,7 @@ from common import (
     validate_lease,
 )
 from data import FAMILY, fetch, write_json
-from licensing import verify_checkpoint_metadata
+from frozen_candidate import verify_frozen_package
 from proxy import Backend, BoundedServer, identity, input_root
 from reference import RELEASE, prepare_kit
 from report import validate_ready
@@ -63,7 +63,7 @@ def setup(root, settings):
         raise ValueError("serving commit and audited candidate bytes mismatch")
     package = root / (FAMILY + ".safetensors")
     fetch(settings["package_url"], package, settings["package_sha256"], 64 << 20)
-    verify_checkpoint_metadata(package)
+    verify_frozen_package(package)
     kit = prepare_kit(root)
     compile_tools(root, kit)
     foundation = root / "foundation"

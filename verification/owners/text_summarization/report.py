@@ -10,6 +10,7 @@ import sys
 from data import FAMILY, VIEWS, write_json
 from metrics import all_formats
 from runtime_check import RELEASE_HASHES, model_remote_only
+from training_policy import EPOCHS
 from wire import decode_bits
 
 SHA = re.compile(r"[a-f0-9]{64}")
@@ -57,16 +58,23 @@ def validate_ready(value):
     return value
 
 
-def registration_ready(root, report, primary):
-    model_remote_only()
+def completed_checks(report, primary):
     runtime, package = report["runtime"], report["package_manifest"]
     quality = all_formats(runtime["metrics"], report["untrained"], report["audit_controls"])
-    if (report["verdict"] != "PASS" or not quality["passed"] or report["epochs_completed"] != 3
+    if (report["verdict"] != "PASS" or not quality["passed"] or report["epochs_completed"] != EPOCHS
+            or report["hyperparameters"]["epochs"] != EPOCHS or len(report["development_history"]) != EPOCHS
             or report["selection_split"] != "validation" or not report["dataset_gate"]["ok"]
             or not primary["grants_verified"] or primary["primary_documents"] != 448
             or primary["source_manifest_sha256"] != report["data"]["source_manifest_sha256"]
             or package["manifest"]["verification"] != {"stage1": True, "loaded": False}):
         raise ValueError("incomplete source, selected model or reference runtime cannot become ready")
+    return quality
+
+
+def registration_ready(root, report, primary, training_origin=None):
+    model_remote_only()
+    quality = completed_checks(report, primary)
+    runtime, package = report["runtime"], report["package_manifest"]
     value = {"schema_version": 1, "status": "REGISTRATION_READY", "family": FAMILY,
              "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
              "serving_commit": os.environ["GITHUB_SHA"], "package_sha256": package["sha256"],
@@ -90,7 +98,12 @@ def registration_ready(root, report, primary):
              "node": "https://devnode.telegraphprotocol.com", "runtime_node": socket.gethostname(),
              "python": sys.version, "versions": {name: importlib.metadata.version(name) for name in ("torch", "numpy", "transformers", "peft", "tokenizers")},
              "owner_attempt": os.environ["OWNER_ATTEMPT"],
-             "node_qualification": "not attempted"}
+              "node_qualification": "not attempted"}
+    if training_origin is not None:
+        value["training_origin"] = training_origin
+        value["audit_origin"] = {"run_id": training_origin["run_id"], "commit": training_origin["commit"],
+                                 "scored_once": True, "runtime_report_sha256": training_origin["runtime_report_sha256"]}
+        value["recovery_scope"] = "Original immutable quality evidence plus fresh full parser and fixed-vector reference-engine verification. No fitting or audit rescoring."
     validate_ready(value)
     write_json(root / "registration-ready.json", value)
     return value
