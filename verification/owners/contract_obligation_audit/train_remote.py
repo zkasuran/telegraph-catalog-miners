@@ -29,7 +29,7 @@ def main():
     for name in ("train", "validation", "audit"):
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("frozen source data identity changed")
-    validate_frozen(strict_json((HERE/"frozen-baselines-v7.json").read_bytes()), train)
+    validate_frozen(strict_json((HERE/"frozen-baselines-v8.json").read_bytes()), train)
     foundation, base, kit = prepare(root, weights=True)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -90,6 +90,7 @@ def main():
         training = {"family": FAMILY, "children": [{"intent": FAMILY+"_GENERAL", "dataset_version": file_sha(root/"data/source-manifest.json"),
                     "pairs": len(train), "held_out": False}], "source_scope": "Four audited NDA clause claims plus five auxiliary training claims, not performance compliance",
                     "auxiliary_training": {"pairs": source["auxiliary_training_pairs"], "hypotheses": source["auxiliary_training_hypotheses"], "audited_claim": False},
+                    "wider_training": {"pairs": source["wider_training_pairs"], "render": "truthful hash citations, complete original prompt spans", "audited_claim": False},
                     "preference_authorship": "Published document-level source labels and AI-assisted response templates, not human preference reviews"}
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
@@ -104,8 +105,8 @@ def main():
     torch.manual_seed(hp.seed)
     initial, _ = trainer.build_model(str(base), hp)
     from baselines import measure
-    frozen_baseline = strict_json((HERE/"frozen-baselines-v7.json").read_bytes())
-    source_baseline = strict_json((HERE/"frozen-source-cues-v7.json").read_bytes())
+    frozen_baseline = strict_json((HERE/"frozen-baselines-v8.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v8.json").read_bytes())
     if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
         raise ValueError("source-aware baseline is not bound to this training data")
     def validation_metrics(model):
@@ -174,6 +175,7 @@ def main():
         "parent_run_id": PARENT_RUN, "parent_commit": PARENT_COMMIT, "parent_checkpoint_sha256": PARENT_CHECKPOINT_SHA,
         "training_originals": len(train), "training_views": len(training_views),
         "auxiliary_training_pairs": source["auxiliary_training_pairs"], "reward_margin_penalty": policy["reward_margin_penalty"],
+        "wider_training_pairs": source["wider_training_pairs"],
         "rank_growth_sha256": file_sha(root/"rank-growth.json"),
         "rank_growth_trained_sha256": file_sha(root/"rank-growth-trained.json"),
         "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors", "numpy")}})

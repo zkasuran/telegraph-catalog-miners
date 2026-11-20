@@ -126,7 +126,7 @@
           "run": "python3 verification/owners/contract_obligation_audit/balanced.py --out \"$RUNNER_TEMP/contract-run/data\"\npython3 verification/owners/contract_obligation_audit/source_gate.py --data \"$RUNNER_TEMP/contract-run/data\" --report \"$RUNNER_TEMP/contract-run/source-gate.json\""
         },
         {
-          "name": "Grow retained rank and train both formats, no audit selection",
+          "name": "Train retained rank with complete wider source contexts, no audit selection",
           "timeout-minutes": 285,
           "run": "timeout --signal=TERM --kill-after=20s 16800 \"$RUNNER_TEMP/contract-venv/bin/python\" verification/owners/contract_obligation_audit/train_remote.py --root \"$RUNNER_TEMP/contract-run\""
         },

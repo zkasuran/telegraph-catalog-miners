@@ -14,6 +14,9 @@ def verdict(splits, frozen, config):
     validate_frozen(frozen, splits["train"])
     checks = {split: {style: measure([pair(row, style) for row in splits[split]], frozen)
                       for style in FORMATS} for split in ("train", "validation")}
+    wider = [row for row in splits["train"] if row.get("training_render_policy") == "citation"]
+    if wider:
+        checks["wider_training"] = {style: measure([pair(row, style) for row in wider], frozen) for style in FORMATS}
     failures = []
     for split, formats in checks.items():
         for style, shortcuts in formats.items():
@@ -33,7 +36,7 @@ def main():
     parser.add_argument("--report", required=True, type=Path)
     args = parser.parse_args()
     config = check_config(strict_json((HERE / "config.json").read_bytes()))
-    frozen = strict_json((HERE / "frozen-baselines-v7.json").read_bytes())
+    frozen = strict_json((HERE / "frozen-baselines-v8.json").read_bytes())
     splits = {split: read_jsonl(args.data / (split + ".jsonl")) for split in config["limits"]}
     result = verdict(splits, frozen, config)
     write_json(args.report, result)

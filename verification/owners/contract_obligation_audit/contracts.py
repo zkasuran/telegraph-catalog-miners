@@ -104,13 +104,13 @@ def read_jsonl(path):
 
 
 def check_config(value):
-    fields = {"SPDX-License-Identifier", "schema_version", "family", "source_revision", "archive_sha256", "archive_url", "limits", "max_evidence_bytes", "max_tokens", "epochs", "seed"}
+    fields = {"SPDX-License-Identifier", "schema_version", "family", "source_revision", "archive_sha256", "archive_url", "limits", "max_evidence_bytes", "max_training_evidence_bytes", "max_tokens", "epochs", "seed"}
     if set(value) != fields or value["schema_version"] != 1 or value["family"] != FAMILY:
         raise ValueError("pipeline config identity/schema mismatch")
     if not re.fullmatch(r"[a-f0-9]{40}", value["source_revision"]) or not re.fullmatch(r"[a-f0-9]{64}", value["archive_sha256"]):
         raise ValueError("source identity must be pinned")
-    if value["limits"] != {"train": 356, "validation": 30, "audit": 64}:
+    if value["limits"] != {"train": 396, "validation": 30, "audit": 64}:
         raise ValueError("frozen split ceilings changed")
-    if value["max_evidence_bytes"] != 768 or value["max_tokens"] != 512 or value["epochs"] != 8 or value["seed"] != 42:
+    if value["max_evidence_bytes"] != 768 or value["max_training_evidence_bytes"] != 1600 or value["max_tokens"] != 512 or value["epochs"] != 6 or value["seed"] != 42:
         raise ValueError("frozen pipeline bounds changed")
     return value

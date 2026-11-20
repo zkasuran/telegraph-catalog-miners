@@ -51,19 +51,34 @@ def pair(row, style="json"):
     # rather than only learning the words "supports" and "refutes".
     positive = row["hypothesis"]
     negative = "It is not true that " + row["hypothesis"][0].lower() + row["hypothesis"][1:]
+    policy = row.get("training_render_policy", "quote")
+    if policy not in ("quote", "citation"):
+        raise ValueError("unknown source rendering policy")
+    if policy == "citation" and (row.get("split") != "train" or not re.fullmatch(r"[a-f0-9]{64}", row["evidence_sha256"])):
+        raise ValueError("hash-citation auxiliary rendering is training-only and source-bound")
+    clause = "sha256:"+row["evidence_sha256"] if policy == "citation" else row["evidence"]
     def answer(statement):
         if style == "json":
-            return json.dumps({"verdict": "Unclear", "obligations": [{"claim": statement, "status": "source_supported"}], "clauses": [row["evidence"]],
+            return json.dumps({"verdict": "Unclear", "obligations": [{"claim": statement, "status": "source_supported"}], "clauses": [clause],
                                "summary": statement + " Actual performance is not established."},
                               ensure_ascii=False, separators=(",", ":"))
         if style == "prose":
-            return "Verdict: Unclear. Source-supported statement: " + statement + " Clause: " + row["evidence"] + " Actual performance is not established."
+            locator = " Clause citation: " if policy == "citation" else " Clause: "
+            return "Verdict: Unclear. Source-supported statement: " + statement + locator + clause + " Actual performance is not established."
         raise ValueError("unclaimed response format")
     true = positive if row["label"] == "Entailment" else negative
     false = negative if true == positive else positive
     return {**row, "prompt": row["evidence"], "chosen": answer(true), "rejected": answer(false),
             "label_kind": "preference_pair", "margin": 0.0,
-            "authorship": "Published document-level NLI/evidence labels; direct/complementary claim templates are AI-assisted constructions, not fresh human preference reviews"}
+            "authorship": "Published document-level NLI/evidence labels; direct/complementary claim templates are AI-assisted constructions, not fresh human preference reviews" + (". Hash citations are training-only; every original annotation span remains in the prompt." if policy == "citation" else "")}
+
+
+def evidence_bound(row, split, config):
+    if row.get("training_render_policy") == "citation":
+        if split != "train":
+            raise ValueError("wider source render must not enter development or audit")
+        return config["max_training_evidence_bytes"]
+    return config["max_evidence_bytes"]
 
 
 def collect_source(archive_path, config):
@@ -194,7 +209,7 @@ def check_splits(splits, config):
             raise ValueError("audit requires at least 32 independent source groups")
         for row in rows:
             if (row["prompt"] != row["evidence"] or sha(row["evidence"].encode()) != row["evidence_sha256"]
-                    or len(row["evidence"].encode()) > config["max_evidence_bytes"] or row["chosen"] == row["rejected"]):
+                    or len(row["evidence"].encode()) > evidence_bound(row, split, config) or row["chosen"] == row["rejected"]):
                 raise ValueError("source/pair identity or input bounds mismatch")
 
 

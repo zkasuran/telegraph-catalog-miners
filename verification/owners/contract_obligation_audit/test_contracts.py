@@ -13,7 +13,7 @@ from unittest.mock import patch
 from baselines import fit, measure, validate_frozen
 from balanced import allocate
 from contracts import FAMILY, FOUNDATION, HERE, check_config, check_wire, decode_bits, quality, remote_only, render, strict_json
-from data import normalized, pair, source_group
+from data import evidence_bound, normalized, pair, source_group
 from live import validate
 from reference_render import render as actual_reference_render
 from executor import Server, validate_request
@@ -32,6 +32,31 @@ def fixture(label="Entailment", hypothesis_id="control"):
 
 
 class ContractTests(unittest.TestCase):
+    def test_citation_training_keeps_original_source(self):
+        from contracts import sha
+        row = fixture()
+        row.update(split="train", evidence_sha256=sha(row["evidence"].encode()), training_render_policy="citation")
+        result = pair(row)
+        self.assertEqual(result["prompt"], row["evidence"])
+        self.assertEqual(json.loads(result["chosen"])["clauses"], ["sha256:"+row["evidence_sha256"]])
+        self.assertEqual(json.loads(result["chosen"])["clauses"], json.loads(result["rejected"])["clauses"])
+        self.assertIn("Clause citation: sha256:", pair(row, "prose")["chosen"])
+
+    def test_citation_source_refuses_audit_and_forged_hash(self):
+        row = {**fixture(), "training_render_policy": "citation", "split": "audit"}
+        with self.assertRaises(ValueError):
+            pair(row)
+        row["split"] = "train"
+        with self.assertRaises(ValueError):
+            pair(row)
+
+    def test_wider_evidence_bound_is_training_only(self):
+        config = {"max_evidence_bytes": 768, "max_training_evidence_bytes": 1600}
+        self.assertEqual(evidence_bound({}, "audit", config), 768)
+        self.assertEqual(evidence_bound({"training_render_policy": "citation"}, "train", config), 1600)
+        with self.assertRaises(ValueError):
+            evidence_bound({"training_render_policy": "citation"}, "audit", config)
+
     def test_rank_growth_metadata_and_shapes(self):
         config = {"peft_type": "LORA", "r": 8, "lora_alpha": 32, "target_modules": ["Wqkv", "Wo", "Wi"]}
         grown = growth_config(config)
@@ -122,8 +147,8 @@ class ContractTests(unittest.TestCase):
 
     def test_warmstart_policy_retains_gates(self):
         policy = warmstart_policy()
-        self.assertEqual(policy["epochs"], 8)
-        self.assertEqual(policy["learning_rate"], .00005)
+        self.assertEqual(policy["epochs"], 6)
+        self.assertEqual(policy["learning_rate"], .000025)
         self.assertEqual(policy["weight_decay"], .05)
         self.assertEqual(policy["reward_margin_penalty"], .001)
         self.assertEqual((policy["rank"], policy["alpha"]), (16, 64))

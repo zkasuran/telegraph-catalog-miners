@@ -67,12 +67,21 @@ def construct(archive, config, policy):
     development = {name: [row for row in rows if row["source_group"] not in reserved_groups] for name, rows in clean.items()}
     auxiliary_quotas = policy["auxiliary_training_pairs_per_hypothesis"]
     auxiliary_count = 2*sum(auxiliary_quotas.values())
+    wider_quotas = policy["wider_training_pairs_per_hypothesis"]
+    wider_count = 2*sum(wider_quotas.values())
     primary_pool = [row for row in development["train"] if row["hypothesis_id"] in hypotheses]
-    train = allocate(primary_pool, hypotheses, config["limits"]["train"]-auxiliary_count, 4, policy["prior_training_groups"],
+    train = allocate(primary_pool, hypotheses, config["limits"]["train"]-auxiliary_count-wider_count, 4, policy["prior_training_groups"],
                       quotas=policy["training_pairs_per_hypothesis"])
     auxiliary_pool = [row for row in development["train"] if row["hypothesis_id"] in auxiliary_quotas]
     auxiliary = allocate(auxiliary_pool, list(auxiliary_quotas), auxiliary_count, 4, quotas=auxiliary_quotas, initial=train)
     train += auxiliary
+    wider_eligible, _ = collect_source(archive, {**config, "max_evidence_bytes": config["max_training_evidence_bytes"]})
+    wider_allowed = set(policy["allowed_wider_training_records"])
+    wider_pool = [{**row, "training_render_policy": "citation"} for row in wider_eligible["train"]
+                  if row["source_group"] not in forbidden|reserved_groups
+                  and row["document_id"]+":"+row["hypothesis_id"]+":"+row["evidence_sha256"] in wider_allowed]
+    wider_rows = allocate(wider_pool, list(wider_quotas), wider_count, 4, quotas=wider_quotas, initial=train)
+    train += wider_rows
     # Development coverage quotas were fixed from train/development inventory,
     # not from an audit result or a model score.
     validation_order = sorted(hypotheses, key=lambda h: min(sum(row["hypothesis_id"] == h and row["label"] == label for row in development["validation"]) for label in LABELS))
@@ -102,8 +111,9 @@ def construct(archive, config, policy):
         raise ValueError("retired audit group entered a new split")
     if any(r["source_group"] in audit_forbidden for r in splits["audit"]):
         raise ValueError("development-exposed group entered a new audit")
-    return splits, {**source, "generation": 7, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
-                    "auxiliary_training_hypotheses": list(auxiliary_quotas), "primary_training_pairs": len(train)-len(auxiliary), "auxiliary_training_pairs": len(auxiliary),
+    return splits, {**source, "generation": 8, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
+                    "wider_training_pairs": len(wider_rows), "training_only_citation_render": True,
+                    "auxiliary_training_hypotheses": list(auxiliary_quotas), "primary_training_pairs": len(train)-len(auxiliary)-len(wider_rows), "auxiliary_training_pairs": len(auxiliary),
                     "hypotheses": hypotheses, "retired_groups_excluded": len(forbidden),
                     "audit_forbidden_groups": sorted(audit_forbidden), "policy_sha256": sha((HERE / "source-policy.json").read_bytes()),
                     "independent_groups": len({r["source_group"] for r in splits["audit"]})}

@@ -47,8 +47,8 @@ def audit(root):
             raise ValueError("previously exposed audit group is permanently retired")
     if any(r["source_group"] in policy["audit_forbidden_groups"] for r in splits["audit"]):
         raise ValueError("exposed source entered independent audit")
-    frozen = strict_json((HERE/"frozen-baselines-v7.json").read_bytes())
-    source_baseline = strict_json((HERE/"frozen-source-cues-v7.json").read_bytes())
+    frozen = strict_json((HERE/"frozen-baselines-v8.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v8.json").read_bytes())
     if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
         raise ValueError("audit semantic baseline is not from the frozen training data")
     validate_frozen(frozen, splits["train"])
