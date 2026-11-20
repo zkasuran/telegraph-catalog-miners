@@ -10,3 +10,4 @@ PYTHONDONTWRITEBYTECODE=1 python3 -W error "$HERE/learn/verify.py"
 # Compact elapsed-time source/data contracts are included in the unchanged source-only learner gate.
 # Source-only warm-start inverse mapping and frozen-base protection tests are included.
 # Independent-audit source closure and actual local neural refusal are release-gated.
+# Complete anchored source-history closure and missing-anchor refusal are release-gated.
