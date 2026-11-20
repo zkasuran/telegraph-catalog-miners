@@ -13,7 +13,7 @@ def objective_policy(recipe, rows=None):
                               ("coefficient", "chosen_target", "rejected_target")):
         raise ValueError("fixed symmetric training-only correctness objective required")
     report = {**obj, "pair_loss_retained": True, "origin_specific_weights": False,
-              "extra_training_rows": 0, "validation_audit_unchanged": True,
+              "extra_training_rows": 0, "validation_audit_inputs_unchanged": True,
               "runtime_score_transform": False, "probability_claim": False}
     if rows is not None:
         _, weights = weight_policy(rows, recipe["bare_loss_weight"])

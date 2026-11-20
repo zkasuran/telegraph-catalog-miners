@@ -20,6 +20,8 @@ from window_contract import validate_plan, validate_augmented, expanded_training
 from training_weights import weight_policy
 from objective_contract import objective_policy, scalar_losses
 from augmentation_contract import validate_restored
+from origin_contract import check_origin_training, origin_policy, raw_origin_view, equal_byte_views, fit_length, length_accuracy
+from common import pair_data_shortcuts_ok
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -43,6 +45,64 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_original_pair_data_ceiling_is_not_weakened_by_new_source_metric(self):
+        values = {"train": {"length": 0.5, "overlap": 0.5, "answer_only": 0.5, "source_origin_length": 0.78}}
+        self.assertTrue(pair_data_shortcuts_ok(values))
+        for name in ("length", "overlap", "answer_only"):
+            bad = copy.deepcopy(values)
+            bad["train"][name] = 0.65001
+            self.assertFalse(pair_data_shortcuts_ok(bad))
+            bad["train"].pop(name)
+            self.assertFalse(pair_data_shortcuts_ok(bad))
+    def test_origin_auxiliary_uses_only_byte_matched_grouped_source_prefixes(self):
+        splits = fixture_splits()
+        rows, valid = check_origin_training(splits["train"], splits["validation"])
+        fitted = fit_length(rows)
+        self.assertEqual(length_accuracy(rows, fitted), 0.5)
+        self.assertEqual(length_accuracy(valid, fitted), 0.5)
+        for row in rows:
+            self.assertTrue(row["input"].endswith("### Answer:\n"))
+            self.assertTrue(row["original_text_id"])
+        bad = copy.deepcopy(splits["train"])
+        bad[0]["split"] = "validation"
+        with self.assertRaises(ValueError):
+            check_origin_training(bad, splits["validation"])
+        with self.assertRaisesRegex(ValueError, "audit"):
+            equal_byte_views(splits["test"])
+
+    def test_origin_auxiliary_utf8_crop_and_identity_refusals(self):
+        rows = fixture_splits()["train"][:2]
+        for r, text in zip(rows, ("é" * 31 + "human text", "字" * 23 + "generated text")):
+            r["prompt"] = json.dumps({"text": text})
+            r["text_id"] = identity(text)
+        cropped = equal_byte_views(rows)
+        self.assertEqual(cropped[0]["text_bytes"], cropped[1]["text_bytes"])
+        self.assertTrue(all(r["text"].encode().decode() == r["text"] for r in cropped))
+        duplicate = fixture_splits()["train"]
+        duplicate[1]["prompt"] = duplicate[0]["prompt"]
+        duplicate[1]["text_id"] = duplicate[0]["text_id"]
+        with self.assertRaises(ValueError):
+            check_origin_training(duplicate, fixture_splits()["validation"])
+
+    def test_origin_policy_and_remote_head_have_no_local_neural_path(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        self.assertFalse(origin_policy(recipe)["head_exported"])
+        bad = copy.deepcopy(recipe)
+        bad["origin_auxiliary"]["head_exported"] = True
+        with self.assertRaises(ValueError):
+            origin_policy(bad)
+        import train_origin
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "public CPU"):
+                train_origin.OriginAuxiliary(None, None, None, None, None, None)
+
+    def test_source_length_baseline_is_train_fitted_not_answer_length(self):
+        rows = fixture_splits()["train"]
+        fitted = fit_length([raw_origin_view(r) for r in rows])
+        self.assertFalse(fitted["floating_point_fit"])
+        self.assertIsInstance(fitted["threshold_bytes"], int)
+        with self.assertRaises(ValueError):
+            fit_length([raw_origin_view(r) for r in fixture_splits()["validation"]])
     def test_correctness_policy_preserves_training_roles_and_original_labels(self):
         recipe = json.loads((HERE / "recipe.json").read_text())
         rows = fixture_splits()["train"]
@@ -302,7 +362,7 @@ class SourceTests(unittest.TestCase):
         raw = (HERE / recipe["checkpoint_file"]).read_bytes()
         checked = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
         self.assertFalse(checked["tensor_payload_interpreted"])
-        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433))
+        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017))
 
     def test_weight16_predecessor_remains_retained_when_followup_is_selected(self):
         recipe = json.loads((HERE / "recipe.json").read_text())
@@ -520,11 +580,25 @@ class WireAndQualityTests(unittest.TestCase):
         trained = {f: {"n_eval": 128, "pairwise_accuracy": 0.85,
                        "accuracy_by_label": {"Human": 0.8, "AI-generated": 0.9}} for f in FORMATS}
         untrained = {f: {"pairwise_accuracy": 0.5} for f in FORMATS}
-        shortcuts = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5} for f in FORMATS}
+        shortcuts = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5, "source_origin_length": 0.5} for f in FORMATS}
         return trained, untrained, shortcuts
 
     def test_good_fixture_quality_passes(self):
         self.assertEqual(quality(*self.reports())["verdict"], "PASS")
+
+    def test_source_origin_shortcut_cannot_be_omitted_or_hidden(self):
+        trained, untrained, shortcuts = self.reports()
+        shortcuts["bare_label"]["source_origin_length"] = 0.78125
+        self.assertEqual(quality(trained, untrained, shortcuts)["verdict"], "FAIL")
+        metrics = {f: {"n_eval": 64, "pairwise_accuracy": 0.875,
+                      "accuracy_by_label": {"Human": 0.875, "AI-generated": 0.875}} for f in FORMATS}
+        self.assertFalse(validation_gate(metrics, shortcuts)["passed"])
+        shortcuts["bare_label"].pop("source_origin_length")
+        self.assertEqual(quality(trained, untrained, shortcuts)["verdict"], "FAIL")
+        self.assertFalse(validation_gate(metrics, shortcuts)["passed"])
+        shortcuts["bare_label"]["source_origin_length"] = float("nan")
+        self.assertEqual(quality(trained, untrained, shortcuts)["verdict"], "FAIL")
+        self.assertFalse(validation_gate(metrics, shortcuts)["passed"])
 
     def test_each_quality_gate_has_failure_control(self):
         for mutation in ("overall", "label", "format", "untrained", "shortcut", "count"):
@@ -540,7 +614,7 @@ class WireAndQualityTests(unittest.TestCase):
     def test_validation_seals_audit_on_any_failed_format_or_label(self):
         metrics = {f: {"n_eval": 64, "pairwise_accuracy": 0.85,
                       "accuracy_by_label": {"Human": 0.8, "AI-generated": 0.9}} for f in FORMATS}
-        baseline = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5} for f in FORMATS}
+        baseline = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5, "source_origin_length": 0.5} for f in FORMATS}
         self.assertTrue(validation_gate(metrics, baseline)["passed"])
         metrics["bare_label"]["pairwise_accuracy"] = 0.5469
         self.assertFalse(validation_gate(metrics, baseline)["passed"])
@@ -551,7 +625,7 @@ class WireAndQualityTests(unittest.TestCase):
     def test_epoch_selection_cannot_hide_a_failed_format_with_good_mean_loss(self):
         base = {f: {"n_eval": 64, "pairwise_accuracy": 0.85, "val_loss": 0.8,
                     "accuracy_by_label": {"Human": 0.8, "AI-generated": 0.9}} for f in FORMATS}
-        baseline = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5} for f in FORMATS}
+        baseline = {f: {"length": 0.5, "overlap": 0.5, "answer_only": 0.5, "source_origin_length": 0.5} for f in FORMATS}
         failed = copy.deepcopy(base)
         for m in failed.values():
             m["val_loss"] = 0.01

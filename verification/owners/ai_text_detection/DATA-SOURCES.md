@@ -1,5 +1,49 @@
 # Sources and rights
 
+## Length-controlled source-origin supervision
+
+Run 44660532017 passed actual tensor controls, data gates and the full package
+parser. Its selected epoch reduced validation loss but bare accuracy stayed at
+76.56% (Human 84.38%, AI-generated 68.75%). No independent audit was consumed.
+The exact source-fitted checkpoint is retained, not registered.
+
+A source-only measurement found that a train-fitted integer source-byte threshold
+gets 566/752 training origins and 50/64 validation origins correct. The latter
+is 78.125%. Prior answer-length probes did not measure this input-text shortcut.
+The next frozen baseline includes it in every validation and audit format's
+strongest-shortcut margin. No existing 80%, 70%, five-point or ten-point floor is
+lowered. The unchanged upstream pair-data gate continues to measure its original
+answer-surface criteria; this extra source-origin rule strengthens quality gates.
+
+The new auxiliary uses the same accepted 752 training passages from 128 source
+articles. It selects a contiguous UTF-8-boundary prefix with equal byte count
+within each paired source view. No score, origin-specific choice or retry selects
+the cut. Prefix changes and original normalized text IDs remain bound. Normalized
+train/validation crop overlap is zero and the auxiliary's integer source-length
+baseline is 50% on both splits. Original evaluator and audit inputs are unchanged.
+
+Source provenance supplies the auxiliary targets, not human preference review.
+A separate training-only linear readout uses the adapted encoder's CLS state.
+Its fixed coefficient is 0.25 and its smoothed human/synthetic targets are 0.9/0.1.
+The readout is not attached to the production model and is excluded from its
+178 learned adapter tensors and node package. Only shared LoRA features learn
+from this additional supervision. Native readout validation is diagnostic only,
+never a candidate-selection or independent-audit metric.
+
+[MODERNBERT-5.22.1] The pinned primary implementation returns
+`BaseModelOutput(last_hidden_state=hidden_states)` from `ModernBertModel.forward`.
+The sequence classifier separately pools the encoder state and applies its
+prediction head and classifier. This permits a training-only readout without
+changing the node's classifier or package contract.
+https://github.com/huggingface/transformers/blob/v5.22.1/src/transformers/models/modernbert/modeling_modernbert.py#L401
+
+[PEFT-BASE-0.21.2] `get_base_model` returns the underlying adapted model for a
+non-prompt-learning adapter. The primary implementation and original Apache-2.0
+headers are hash-bound in origin-primary-sources.json. API calls do not bundle
+either source implementation. Apache section 2 grants reproduction and preparation
+of derivative works; the complete terms and attribution remain in sources.json.
+https://github.com/huggingface/peft/blob/v0.21.2/src/peft/peft_model.py#L1079
+
 ## Current frozen correctness-objective experiment
 
 Run 44646831194 generated 125 valid third-context views without structural

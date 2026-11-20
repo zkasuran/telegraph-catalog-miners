@@ -95,6 +95,14 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Limits
 
+The correctness-objective run passed tensor, source and parser controls but did
+not improve bare accuracy. Source-only checks then found a 78.125% validation
+source-length shortcut missed by answer-length probes. It now enters every
+quality margin. The next job tests equal-byte source-origin supervision through
+a separate training-only encoder readout. It is not exported to the node package.
+All original evaluator formats and thresholds remain, with the extra shortcut
+making qualification stricter. No model improvement or independent audit is claimed.
+
 The latest larger-corpus run generated 125 further views, used 248 total added
 views and fitted 752 pairs across the same 128 training articles. Its data and
 parser gates passed but the selected bare result remained 76.56%. No audit ran.

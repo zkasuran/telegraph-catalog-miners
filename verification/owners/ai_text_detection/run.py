@@ -135,7 +135,11 @@ def main():
     fitted = fit_baselines(splits["train"])
     dump(root / "frozen-baselines.json", fitted)
     baselines = {s: baseline_report(rows, fitted) for s, rows in splits.items()}
-    if any(v > 0.65 for values in baselines.values() for v in values.values()):
+    # Retain every preexisting answer-surface data gate. Source-origin length
+    # additionally enters the full quality margin. Auxiliary inputs separately
+    # require equal source bytes and a 50% source-length control.
+    from common import pair_data_shortcuts_ok
+    if not pair_data_shortcuts_ok(baselines):
         raise ValueError("expanded development shortcut exceeds unchanged 65% gate")
     validation_baselines = {style: baseline_report(rows, fitted) for style, rows in validation_formats.items()}
     hp = trainer.Hyperparams(max_length=MAX_TOKENS, batch_size=1, grad_accum=recipe["grad_accum"], epochs=recipe["epochs"], lr=recipe["lr"],

@@ -48,7 +48,7 @@ def main():
     if "--hash=sha256:" not in lock or "torch==2.15.0+cpu" not in lock:
         raise ValueError("hash-locked CPU dependencies missing")
     # A source gate must not import a neural package directly or indirectly.
-    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "development_contract.py", "window_contract.py", "training_weights.py", "objective_contract.py", "augmentation_contract.py", "reference_data_split.py", "preserve.py", "test_source.py", "static_check.py")
+    local = ("common.py", "source.py", "wire.py", "checkpoint_contract.py", "development_contract.py", "window_contract.py", "training_weights.py", "objective_contract.py", "augmentation_contract.py", "origin_contract.py", "reference_data_split.py", "preserve.py", "test_source.py", "static_check.py")
     for name in local:
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
@@ -73,6 +73,8 @@ def main():
         raise ValueError("unbounded train-only format weight")
     from objective_contract import objective_policy
     objective_policy(recipe)
+    from origin_contract import origin_policy
+    origin_policy(recipe)
     print("PASS: compiled Python syntax, JSON configs, bounded pinned public workflow and local import boundary")
 
 

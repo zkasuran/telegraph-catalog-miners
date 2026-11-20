@@ -35,6 +35,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     objective = objective_policy(recipe, train_rows)
     from train_objective import loss_components
     dump(root / "training-objective-report.json", objective)
+    from train_origin import OriginAuxiliary
+    origin_aux = OriginAuxiliary(model, tok, train_rows, validation_formats["json"], recipe, root)
     if hp.batch_size != 1:
         raise ValueError("weighted source-pair loss is bounded to batch size one")
     dump(root / "training-weight-report.json", policy)
@@ -42,10 +44,12 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     def collate(rows):
         result = basic_collator(rows)
         result["training_weight"] = float(recipe.get("bare_loss_weight", 1) if rows[0]["style"] == "bare_label" else 1)
+        result["source_text_id"] = rows[0]["text_id"]
         return result
     loader = DataLoader(train_rows, batch_size=hp.batch_size, shuffle=True,
                         collate_fn=collate)
     parameters = [p for p in model.parameters() if p.requires_grad]
+    parameters += list(origin_aux.head.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
     total_steps = max(1, len(loader) // hp.grad_accum) * hp.epochs
     warm = int(total_steps * 0.06)
@@ -69,25 +73,32 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     model.save_pretrained(adapter)
     tok.save_pretrained(adapter)
     trainer.save_reward_head(model, adapter)
+    origin_aux.save()
     epochs.append({"epoch": -1, "optimizer_steps": 0, "training_loss": None, "validation_formats": starting,
                    "validation_gate": validation_gate(starting, baselines), "selection_key": list(best), "selected": True,
                    "role": "Actual measured source-fitted starting checkpoint, before new fitting."})
     for epoch in range(hp.epochs):
         model.train()
+        origin_aux.head.train()
         optimizer.zero_grad(set_to_none=True)
         losses = 0.0
         unweighted_losses = 0.0
         pointwise_losses = 0.0
+        origin_losses, origin_correct = 0.0, 0
         for i, batch in enumerate(loader):
             chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
             raw_loss, pair_loss, point_loss = loss_components(chosen, rejected, batch["margin"], objective, trainer)
             weight = batch["training_weight"] / policy["mean_training_weight"]
-            loss = raw_loss * weight / hp.grad_accum
+            view = origin_aux.by_original_id[batch["source_text_id"]]
+            origin_loss, correct = origin_aux.loss(view)
+            loss = (raw_loss * weight + origin_aux.policy["coefficient"] * origin_loss) / hp.grad_accum
             loss.backward()
             losses += loss.item() * hp.grad_accum
             unweighted_losses += pair_loss.item()
             pointwise_losses += point_loss.item()
+            origin_losses += origin_loss.item()
+            origin_correct += correct
             if (i + 1) % hp.grad_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0)
                 optimizer.step()
@@ -95,6 +106,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
         metrics = measure()
+        origin_diagnostic = origin_aux.measure(epoch, origin_losses, origin_correct, len(loader))
         key = validation_selection_key(metrics, baselines)
         improved = best is None or key > best
         if improved:
@@ -102,11 +114,13 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
             model.save_pretrained(adapter)
             tok.save_pretrained(adapter)
             trainer.save_reward_head(model, adapter)
+            origin_aux.save()
         else:
             stale += 1
         record = {"epoch": epoch, "optimizer_steps": step, "training_loss": losses / max(1, len(loader)),
                    "unweighted_training_pair_loss": unweighted_losses / max(1, len(loader)), "training_weight_policy": policy,
                    "unweighted_training_correctness_loss": pointwise_losses / max(1, len(loader)), "training_objective": objective,
+                   "origin_auxiliary_diagnostic": origin_diagnostic,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)
@@ -117,6 +131,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         if stale > hp.es_patience or record["training_loss"] < hp.loss_floor:
             break
     del optimizer, parameters
+    origin_aux.assert_excluded()
     gc.collect()
     model.load_adapter(str(adapter), adapter_name="default", is_trainable=False)
     model.set_adapter("default")

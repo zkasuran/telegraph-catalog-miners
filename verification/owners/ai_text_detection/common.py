@@ -16,6 +16,7 @@ MAX_TEXT_BYTES = 256
 MAX_TOKENS = 256
 WORDS = re.compile(r"[a-z0-9']+")
 FORMATS = ("json", "prose", "bare_label")
+SHORTCUTS = {"length", "overlap", "answer_only", "source_origin_length"}
 SCOPE = ("Published scientific human controls versus GPT-2-family synthetic continuations. "
          "DistilGPT2 is a held-out checkpoint distilled from GPT-2, not an independent generator family. "
          "No modern-model detection, Mixed/likely calibration or proof of a person's authorship.")
@@ -101,6 +102,8 @@ def audit_excerpts(human, decoded):
 def validation_gate(formats, baselines):
     if set(formats) != set(FORMATS) or set(baselines) != set(FORMATS):
         return {"passed": False, "failures": ["missing validation format"]}
+    if any(not SHORTCUTS <= set(v) or any(not math.isfinite(x) or not 0 <= x <= 1 for x in v.values()) for v in baselines.values()):
+        return {"passed": False, "failures": ["missing or invalid frozen shortcut, including source-origin length"]}
     failures = []
     for style, metrics in formats.items():
         labels = metrics.get("accuracy_by_label", {})
@@ -111,11 +114,19 @@ def validation_gate(formats, baselines):
     return {"passed": not failures, "failures": failures}
 
 
+def pair_data_shortcuts_ok(baselines):
+    """The original 65% answer-surface data gate, distinct from quality margins."""
+    names = {"length", "overlap", "answer_only"}
+    return bool(baselines) and all(names <= set(v) and all(v[k] <= 0.65 for k in names) for v in baselines.values())
+
+
 def validation_selection_key(formats, baselines):
     """Train-independent selection on validation only, with no metric overwrite."""
     gate = validation_gate(formats, baselines)
     if set(formats) != set(FORMATS):
         raise ValueError("selection requires every claimed validation format")
+    if set(baselines) != set(FORMATS) or any(not SHORTCUTS <= set(v) for v in baselines.values()):
+        raise ValueError("selection requires every frozen shortcut")
     for metrics in formats.values():
         labels = metrics.get("accuracy_by_label", {})
         if (metrics.get("n_eval") != 2 * COUNTS["validation"] or set(labels) != {"Human", "AI-generated"} or
@@ -213,7 +224,12 @@ def fit_baselines(train):
         diffs = [rule_diff(r, name) for r in train]
         directions[name] = 1 if sum((d > 0) + 0.5 * (d == 0) for d in diffs) >= len(diffs)/2 else -1
     return {"schema_version": 1, "fit_split": "train", "integer_word_counts": counts,
-            "direction": directions, "smoothing": 1}
+            "direction": directions, "smoothing": 1, "source_origin_length": source_length_fit(train)}
+
+
+def source_length_fit(train):
+    from origin_contract import raw_origin_view, fit_length
+    return fit_length([raw_origin_view(r) for r in train])
 
 
 def rule_diff(row, name):
@@ -237,14 +253,19 @@ def baseline_report(rows, fitted):
     diffs = {name: [rule_diff(r, name) * direction for r in rows]
              for name, direction in fitted["direction"].items()}
     diffs["answer_only"] = [surface(r["chosen"]) - surface(r["rejected"]) for r in rows]
-    return {name: sum(0.5 if abs(d) < 1e-12 else float(d > 0) for d in ds) / len(ds)
-            for name, ds in diffs.items()}
+    report = {name: sum(0.5 if abs(d) < 1e-12 else float(d > 0) for d in ds) / len(ds)
+              for name, ds in diffs.items()}
+    from origin_contract import raw_origin_view, length_accuracy
+    report["source_origin_length"] = length_accuracy([raw_origin_view(r) for r in rows], fitted["source_origin_length"])
+    return report
 
 
 def quality(metrics, untrained, baseline):
     failures = []
-    if set(metrics) != set(FORMATS) or set(untrained) != set(FORMATS):
+    if set(metrics) != set(FORMATS) or set(untrained) != set(FORMATS) or set(baseline) != set(FORMATS):
         return {"verdict": "FAIL", "failures": ["missing literal response format"]}
+    if any(not SHORTCUTS <= set(v) or any(not math.isfinite(x) or not 0 <= x <= 1 for x in v.values()) for v in baseline.values()):
+        return {"verdict": "FAIL", "failures": ["missing or invalid frozen shortcut including source-origin length"]}
     for style in FORMATS:
         m = metrics[style]
         if m["n_eval"] != 2 * COUNTS["test"] or m["pairwise_accuracy"] < 0.80:

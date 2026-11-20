@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "key": "MODERNBERT-5.22.1",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.22.1/src/transformers/models/modernbert/modeling_modernbert.py",
+      "sha256": "29b598c408582bd53c0a48ae34dce2cb008aefc5f6087b03c310b5ce7bb0de9b",
+      "bytes": 35097,
+      "licence": "Apache-2.0"
+    },
+    {
+      "key": "PEFT-BASE-0.21.2",
+      "url": "https://raw.githubusercontent.com/huggingface/peft/v0.21.2/src/peft/peft_model.py",
+      "sha256": "d22a1c50dea7a046ce28e71a79dfc20b1d96a2d238a9b457be6a88b6068e04d5",
+      "bytes": 173182,
+      "licence": "Apache-2.0"
+    }
+  ],
+  "implementation": "API calls only; no upstream implementation source bundled. Original Apache terms retained in sources.json."
+}

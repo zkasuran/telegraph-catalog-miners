@@ -16,6 +16,9 @@
 | Auxiliary objective changes labels, rows or runtime scores | Fixed symmetric correctness targets on existing train sides only | Wrong target, role and coefficient refusals; unchanged literal renderer |
 | Invalid tensor shape or arithmetic silently poisons training | Batch-one CPU FP32 finite loss and gradients | Actual remote shape, margin, dtype and NaN refusal controls |
 | Reused third-context outputs conceal a new generator operation | Exact original bytes and separate producer/source/plan hashes | Both-augmentation byte, plan and producer corruption refusals |
+| Source byte length substitutes for origin discrimination | Mandatory train-fitted source-origin length baseline in every quality gate | High or omitted source-length baseline refusal |
+| Auxiliary learns length or leaks audit rows | Paired equal-byte UTF-8 prefixes, source/entity/time splits and no audit fitting | Crop, normalized identity, role and immutable baseline controls |
+| Training-only head enters the served package | Head is outside production model; expected 178 adapter tensor inventory | Actual remote parameter-exclusion and encoder-gradient checks |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -77,3 +80,10 @@ scalar mathematics and input-policy refusals without loading a model. Actual
 Torch value/gradient controls run in the public CPU job before model fitting.
 Validation and audit still measure raw reward ordering in every claimed format.
 No target smoothing or auxiliary loss makes a calibrated probability claim.
+
+Native origin readout diagnostics are not node scores. Its source labels retain
+the journal-control assumption and recorded generator provenance. Byte cropping
+creates attributed source annotations, not new independent articles or certified
+human review. Auxiliary quality is unverified until the remote job runs. The
+actual runtime remains the unchanged production head over literal task/answer
+tokens, checked by the full parser and reference engine before registration.

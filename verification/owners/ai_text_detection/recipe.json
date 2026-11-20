@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "name": "source-origin-correctness-auxiliary-v9",
-  "checkpoint_sha256": "39c3b89efa9da2c61ab841d82a7ceb31ba2da1acafbf6d2710163a987a073efe",
+  "name": "source-origin-length-controlled-auxiliary-v10",
+  "checkpoint_sha256": "2e789310db63bdc449905374b55335d829f5337c93530777c95c7a268678c2e0",
   "original_run_id": 44565365361,
   "original_commit": "9d9eff49fbab10377b54bba7249226b21091baf9",
   "parent_source_manifest_sha256": "13af77676657ae81c94effa93e00b4214ce8e72e4808161180270e10d1500e1e",
@@ -14,9 +14,9 @@
   "lora_alpha": 32,
   "selection": "Measure the source-fitted starting checkpoint and each actual epoch. Validation gate/weakest margin before mean loss. Audit unused for selection.",
   "optimizer_state": "Not exported by original trainer. Fresh bounded AdamW continues the exact saved adapter, not a claimed optimizer resume.",
-  "checkpoint_file": "recovery/weight16-checkpoint.safetensors",
-  "continuation_run_id": 44632309433,
-  "continuation_commit": "8f655bd103a253428333eebc232a990faf380fdc",
+  "checkpoint_file": "recovery/correctness-checkpoint.safetensors",
+  "continuation_run_id": 44660532017,
+  "continuation_commit": "fe3136d7636b8ceed826399f15a4e38616c411fb",
   "training_layout": "Symmetric verdict-first and verdict-last JSON/prose views, chosen by source hash. Bare training group remains unique.",
   "training_expansion": "At most 128 new non-overlapping windows from original training articles. Actual generator/byte/token/overlap refusals retained. Minimum 80 valid views.",
   "bare_exposure": "Six original source articles in an actually larger corpus, only if primary repetition gates and worst-case reuse <=0.10 pass.",
@@ -26,7 +26,7 @@
   "locked_augmentation_producer_run_id": 44622803647,
   "continuation_validation": "Actual predecessor bare 0.7656 (Human 0.8438, AI 0.6875), JSON/prose 0.875. No audit consumed.",
   "additional_training": "Restore exact existing third-window outputs from run 44646831194, not new generation.",
-  "quality_gate_changes": false,
+  "quality_gate_changes": true,
   "correctness_auxiliary": {
     "coefficient": 0.5,
     "chosen_target": 0.9,
@@ -36,5 +36,15 @@
   },
   "objective": "Retain pairwise Bradley-Terry loss; add symmetric pointwise correctness loss on the same literal rows. Fixed before remote fitting; validation selection and gates unchanged.",
   "locked_additional_augmentation_sha256": "7c42ad4c1b08f4029c1ec2168431bb93f3cdd67b1bf15d86bfb701dda3937574",
-  "locked_additional_producer_run_id": 44646831194
+  "locked_additional_producer_run_id": 44646831194,
+  "origin_auxiliary": {
+    "coefficient": 0.25,
+    "human_target": 0.9,
+    "synthetic_target": 0.1,
+    "input": "equal_byte_prompt_only",
+    "pooling": "cls",
+    "head_exported": false
+  },
+  "quality_gate_change": "Add mandatory immutable train-fitted source-origin length shortcut to every quality margin. No existing floor or gate removed.",
+  "origin_task": "Same source-provenance labels, byte-matched UTF-8-boundary prefixes, separate training-only head and no audit fitting."
 }

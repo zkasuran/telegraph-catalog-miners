@@ -47,13 +47,17 @@ def main():
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
     source_manifest = (HERE / "sources.json").read_bytes()
+    for name in ("origin-source-contract.json", "origin-gradient-control.json", "origin-training-report.json"):
+        path = root / name
+        if path.is_file() and path.stat().st_size <= 256 << 10:
+            (out / name).write_bytes(path.read_bytes())
     (out / "source-manifest.json").write_bytes(source_manifest)
     for name in ("development-generation.jsonl", "augmentation-generation.jsonl", "additional-augmentation-generation.jsonl", "audit-generation.jsonl"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 16 << 20:
             (out / name).write_bytes(path.read_bytes())
     dump(out / "source-binding.json", {"source_manifest_sha256": sha(source_manifest), "source_grants_attached": True})
-    for path in (root / "AI_TEXT_DETECTION.safetensors", root / "UNTRAINED.safetensors", root / "adapter/adapter_model.safetensors"):
+    for path in (root / "AI_TEXT_DETECTION.safetensors", root / "UNTRAINED.safetensors", root / "adapter/adapter_model.safetensors", root / "origin-head.safetensors"):
         if path.is_file():
             source = json.loads(source_manifest)
             terms = {**source["terms"], "source-attribution": {"text": json.dumps([{k: r[k] for k in

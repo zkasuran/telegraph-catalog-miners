@@ -70,3 +70,12 @@ with their producer, source and plan identity. They are not new audit data or a
 new generation claim. The fixed symmetric correctness objective uses the same
 existing preference sides and leaves literal validation, audit and runtime
 contracts unchanged. A local source/math gate does not prove model quality.
+
+The selected source-fitted checkpoint of run 44660532017 is retained under its
+original terms. Its native validation still failed bare labels and no audit ran.
+New source-origin supervision uses equal-byte prefixes of existing training text,
+with the same original source attribution and production-history assumptions.
+The separate training-only readout does not enter the node package. Transformers
+5.22.1 by Hugging Face, Answer.AI, LightOn and contributors retains Apache-2.0.
+PEFT 0.21.2 by Hugging Face retains Apache-2.0. Only their APIs are invoked.
+New origin-supervision and source-length-shortcut additions use SAND.
