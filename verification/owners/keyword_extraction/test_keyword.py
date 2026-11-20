@@ -11,10 +11,19 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from audit_remote import FORMATS, metrics, verdict, views
+from assemble import validate_reviews
+from audit_remote import (
+    FORMATS,
+    identity_controls,
+    metrics,
+    registration_report,
+    verdict,
+    views,
+)
 from gates import check_pilot_counts, check_splits, fit_baselines, shortcut_report
 from prepare_data import answer, group_sources, prompt, whole_annotation
 from preserve import stamp
+from ready_contract import ENGINE, FOUNDATION, TOKENIZER
 from remote import remote_only, verify_sources
 from scorer import render, score, terms
 from source import blob, contains, parse, verify_tree
@@ -31,6 +40,29 @@ def fixture(doi="10.7554/eLife.fixture", author="Test Author", group="fixture"):
 
 
 class KeywordTests(unittest.TestCase):
+    def test_review_identity_counts_and_origins(self):
+        # Synthetic decisions exercise validation only, never scientific labels.
+        decision = {"proposal_id": "test-only", "status": "approve", "review_origin": "AI-assisted",
+                    "choice_a": "term_a", "choice_b": "term_b", "reason_a": "Synthetic A", "reason_b": "Synthetic B"}
+        review = {"schema_version": 1, "reviews": [decision], "approved_contrasts": 1, "approved_pairs": 2}
+        proposals = {"test-only": {}}
+        self.assertEqual(validate_reviews(review, proposals), [decision])
+        for mutation, message in (
+            ({"schema_version": True}, "unsupported review schema"),
+            ({"reviews": [decision, decision]}, "duplicate or conflicting"),
+            ({"reviews": [decision, {"proposal_id": "test-only", "status": "reject", "reason": "Synthetic rejection"}]}, "duplicate or conflicting"),
+            ({"approved_pairs": 4}, "count mismatch"),
+            ({"approved_contrasts": True}, "count mismatch"),
+            ({"reviews": [{**decision, "proposal_id": "unknown"}]}, "unknown review proposal"),
+            ({"reviews": [{**decision, "review_origin": "human-reviewed"}]}, "origin required"),
+            ({"reviews": [{**decision, "reason_a": "   "}]}, "reasoning required"),
+            ({"reviews": [{**decision, "status": "unreviewed"}]}, "unknown review decision"),
+            ({"reviews": [{**decision, "choice_b": "term_a"}]}, "opposite centrality"),
+            ({"reviews": [{**decision, "choice_a": []}]}, "opposite centrality"),
+        ):
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, message):
+                validate_reviews({**review, **mutation}, proposals)
+
     def test_primary_keyword_smoke(self):
         passage = "CRISPR gene editing\nCRISPR gene editing changes DNA in cells."
         good = score(passage, '["CRISPR","gene editing"]')
@@ -220,6 +252,7 @@ class KeywordTests(unittest.TestCase):
         m = metrics(rows, [1065353216, 0, 1065353216, 0, 0, 1065353216])
         self.assertEqual(m["pairwise_accuracy"], 2 / 3)
         self.assertEqual(m["group_accuracy"], 0.5)
+        self.assertEqual(m["labels"]["preference_pair"]["accuracy"], 2 / 3)
         self.assertEqual(metrics(rows[:1], [0, 0])["correct"], 0)
         with self.assertRaises(ValueError):
             metrics(rows, [0])
@@ -236,6 +269,55 @@ class KeywordTests(unittest.TestCase):
         self.assertEqual(verdict(trained, initial, {"fixed_lexical": 1.0}, config)["verdict"], "FAIL")
         tiny = {name: metrics(rows[:1], [1065353216, 0]) for name in FORMATS}
         self.assertEqual(verdict(tiny, tiny, {"length": 0.5}, config)["verdict"], "FAIL")
+        self.assertEqual(verdict(trained, initial, {"answer_only": 0.66}, config)["verdict"], "FAIL")
+
+    def test_actual_identity_control_contract_with_synthetic_exchange(self):
+        # Fake server returns its own identity like the primary handler. No neural work.
+        identity = {"foundation_hash": "aa", "adapter_hash": "bb", "tokenizer_hash": "cc", "input_root": "dd"}
+        def exchange(batch, requested):
+            return {**identity, "results": [{"score": 1065353216} for _ in batch]}
+        controls = identity_controls(exchange, [[50281, 1, 50282]], identity, [1065353216])
+        self.assertEqual(len(controls), 4)
+        def echo(batch, requested):
+            return {**requested, "results": [{"score": 1065353216} for _ in batch]}
+        with self.assertRaisesRegex(ValueError, "literal runtime identity"):
+            identity_controls(echo, [[50281, 1, 50282]], identity, [1065353216])
+
+    def test_registration_emitter_refuses_unmeasured_or_failed_controls(self):
+        # Complete synthetic schema fixture only. It is never written as a ready artifact.
+        rows = [fixture(group=str(i // 2)) for i in range(64)]
+        good = metrics(rows, [1065353216, 0] * 64)
+        initial = metrics(rows, [0, 1065353216] * 64)
+        audit = {"verdict": "PASS", "candidate": {"package_sha256": "b" * 64}, "audit_run_id": "1", "audit_commit": "a" * 40,
+                 "formats": {"candidate": {name: good for name in FORMATS}, "initial": {name: initial for name in FORMATS}},
+                 "format_shortcuts": {name: {"synthetic_only": 0.5} for name in FORMATS},
+                 "normalized_overlap": 0, "fixed_vector_bits": [1065353216] * 8, "executor_sha256": "f" * 64,
+                 "runtime": {"reference_engine_passed": True, "repeat_bits_identical": True, "token_control": {"negative_tokens_refused": True}},
+                 "failure_controls": {k: {"supplied": "0xaa", "returned": "aa", "validator_refused": True, "score_bits_unchanged": True}
+                                      for k in ("foundation_hash", "adapter_hash", "tokenizer_hash", "input_root")}}
+        manifest = {"sha256": "b" * 64, "runtime_adapter_hash": "c" * 64, "manifest": {"verification": {"stage1": True}}}
+        assets = {"foundation_lora_fp32.onnx": FOUNDATION, "foundation_engine.wasm": ENGINE, "tokenizer.json": TOKENIZER}
+        vectors = [[50281, 1, 50282]] * 8
+        verification = {"verified_originals": 64}
+        report = registration_report(audit, manifest, "d" * 64, verification, vectors, assets)
+        self.assertEqual(report["quality"]["formats"]["plain"]["label_counts"], {"preference_pair": 64})
+        for key, value in (("verdict", "FAIL"), ("normalized_overlap", 1)):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                registration_report({**audit, key: value}, manifest, "d" * 64, verification, vectors, assets)
+        bad = copy.deepcopy(audit)
+        bad["failure_controls"]["adapter_hash"]["validator_refused"] = False
+        with self.assertRaisesRegex(ValueError, "identity controls"):
+            registration_report(bad, manifest, "d" * 64, verification, vectors, assets)
+        bad = copy.deepcopy(audit)
+        bad["runtime"]["token_control"]["negative_tokens_refused"] = False
+        with self.assertRaisesRegex(ValueError, "negative token refusal"):
+            registration_report(bad, manifest, "d" * 64, verification, vectors, assets)
+        with self.assertRaises(ValueError):
+            registration_report(audit, manifest, "d" * 64, verification, vectors, {**assets, "foundation_engine.wasm": "0" * 64})
+        with self.assertRaises(ValueError):
+            registration_report(audit, manifest, "d" * 64, verification, vectors[:7], assets)
+        with self.assertRaisesRegex(ValueError, "package identity"):
+            registration_report(audit, {**manifest, "sha256": "e" * 64}, "d" * 64, verification, vectors, assets)
 
     def test_input_root_prefix_and_missing_echo_refused(self):
         identity = {"foundation_hash": "aa", "adapter_hash": "bb", "tokenizer_hash": "cc", "input_root": "abcd"}

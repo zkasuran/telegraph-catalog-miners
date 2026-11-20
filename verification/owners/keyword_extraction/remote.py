@@ -99,7 +99,9 @@ def main():
     write(args.root / "source-verification.json", verify_sources(args.data, splits))
     frozen = fit_baselines(splits["train"])
     write(args.root / "frozen-baselines.json", frozen)
-    shortcuts = {s: shortcut_report(rows, frozen) for s, rows in splits.items()}
+    # The untouched independent audit owns the test shortcut measurement once.
+    # Train/validation gates cannot select a candidate using audit outcomes.
+    shortcuts = {s: shortcut_report(splits[s], frozen) for s in ("train", "validation")}
     write(args.root / "shortcut-report.json", shortcuts)
     if any(v > config["maximum_data_shortcut"] for m in shortcuts.values() for v in m.values()):
         raise ValueError("frozen train-fitted shortcut exceeds 65%")

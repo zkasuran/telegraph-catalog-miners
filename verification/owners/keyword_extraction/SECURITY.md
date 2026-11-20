@@ -13,9 +13,12 @@
 | Shared answer strings cross source splits | Merge source/donor components sharing normalized answer text before assigning splits | Actual SARS-CoV-2 overlap refusal and corrected assembly |
 | Source capacity and assembly use different JSON layouts | Shared exact complete-annotation renderer without dropping source keywords | Complete list equality and literal wire rendering test |
 | False source preference labels | Proposals remain unreviewed until explicit centrality reasons exist | Six documented original-text rejections and empty approval refusal |
+| Duplicated/conflicting decisions or stale reported counts | Unique source/review IDs, explicit reasoning/origin and recomputed declared counts | Duplicate, conflicting decision, unknown proposal and count-drift controls |
 | Shortcut learning | Train-only immutable integer coefficients plus unmodified primary dataset gate | Frozen coefficient test. Real dataset gate still pending |
 | Wrong runnable identity or nonfinite score | Literal primary wire contract, primary Go input roots and strict FP32 decoding | Primary Go equality probe, root/prefix and nonfinite controls |
 | Tiny or changed audit set | Rechecked minimum pair/component counts and frozen data/package/config/commit hashes | Minimum-count and audit-verdict failure tests |
+| Report claims an unexecuted engine or identity result | Ready emitter requires completed parser/audit evidence, four actual identity probes, negative-token refusal and fixed finite vectors | Synthetic schema failure controls only. Actual remote probes remain unexecuted |
+| Audit shortcut outcomes select a training candidate | Training computes shortcuts only for train/validation; independent audit retains the 65% gate across every format | Source-path inspection and audit shortcut-refusal control. Neural path is unexecuted |
 | Accidental local model execution | Remote guard before model imports or weight preparation | Laptop refusal test |
 | Runner environment contaminates a laptop-refusal test | Laptop tests use an explicit empty environment; a separate guard-only test covers public workflow context and wrong-repository refusal | Both clean and simulated GitHub source gates |
 | Remote resource exhaustion | Workflow timeout plus process-tree RSS/time supervisor | Config checks only. Real runner resource enforcement is unverified |

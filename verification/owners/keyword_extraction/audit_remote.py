@@ -16,7 +16,8 @@ from pathlib import Path
 
 from gates import shortcut_report
 from prepare_data import MAX_TOKENS, answer
-from remote import approved_data, remote_only
+from ready_contract import validate_ready
+from remote import approved_data, remote_only, verify_sources
 from scorer import render, score
 from source import fetch as source_fetch
 from source import sha, write
@@ -38,10 +39,12 @@ def metrics(rows, bits):
     wins = [values[2*i] > values[2*i+1] for i in range(len(rows))]
     grouped = {}
     strata = {}
+    labels = {}
     for r, win in zip(rows, wins):
         grouped.setdefault(r["group_id"], []).append(int(win))
         direction = "longer" if len(r["chosen"]) > len(r["rejected"]) else "shorter" if len(r["chosen"]) < len(r["rejected"]) else "tie"
         strata.setdefault(direction, []).append(int(win))
+        labels.setdefault(r["label_kind"], []).append(int(win))
     # Each connected source component has one vote regardless of row count.
     rates = [sum(v) / len(v) for v in grouped.values()]
     return {"pairs": len(rows), "groups": len(grouped), "correct": sum(wins),
@@ -51,6 +54,7 @@ def metrics(rows, bits):
             "uncertainty_scope": "Hoeffding bound for bounded component means under independent grouped sampling, not a population or factual guarantee",
             "group_results": {k: {"correct": sum(v), "n": len(v)} for k, v in grouped.items()},
             "strata": {k: {"correct": sum(v), "n": len(v), "accuracy": sum(v) / len(v)} for k, v in strata.items()},
+            "labels": {k: {"correct": sum(v), "n": len(v), "accuracy": sum(v) / len(v)} for k, v in labels.items()},
             "tie_policy": "reward ties are losses"}
 
 
@@ -59,11 +63,14 @@ def verdict(trained, initial, shortcuts, config):
     if set(trained) != set(FORMATS) or set(initial) != set(FORMATS):
         return {"verdict": "FAIL", "failures": ["missing exact audit format"]}
     strongest = max(shortcuts.values())
+    if strongest > config["maximum_data_shortcut"]:
+        failures.append("independent audit shortcut exceeds unchanged 65% data gate")
     for name in FORMATS:
         m = trained[name]
         if m["pairs"] < 64 or m["groups"] < 32 or m["pairs"] != initial[name]["pairs"] or m["groups"] != initial[name]["groups"]:
             failures.append(name + " has insufficient or mismatched independent audit samples")
-        values = [m["pairwise_accuracy"], m["group_accuracy"], initial[name]["pairwise_accuracy"], *shortcuts.values()]
+        values = [m["pairwise_accuracy"], m["group_accuracy"], initial[name]["pairwise_accuracy"], *shortcuts.values(),
+                  *(s["accuracy"] for s in m["strata"].values()), *(s["accuracy"] for s in m["labels"].values())]
         if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or not 0 <= v <= 1 for v in values):
             failures.append(name + " invalid audit or baseline metric")
             continue
@@ -71,11 +78,81 @@ def verdict(trained, initial, shortcuts, config):
             failures.append(name + " below independent group/pair accuracy gate")
         if any(s["accuracy"] < config["minimum_stratum_accuracy"] for s in m["strata"].values()):
             failures.append(name + " below length-direction stratum gate")
+        if not m["labels"] or any(s["accuracy"] < config["minimum_stratum_accuracy"] for s in m["labels"].values()):
+            failures.append(name + " below observed source label-kind gate")
         if m["pairwise_accuracy"] < initial[name]["pairwise_accuracy"] + config["improvement_over_initial"]:
             failures.append(name + " did not beat seed-matched initialization")
         if m["pairwise_accuracy"] < strongest + config["improvement_over_shortcut"]:
             failures.append(name + " did not beat strongest frozen shortcut")
     return {"verdict": "FAIL" if failures else "PASS", "failures": failures, "strongest_frozen_shortcut": strongest}
+
+
+def identity_controls(exchange, batch, identity, honest_bits):
+    """Probe actual identity echoes. The primary server returns its identity, not ours."""
+    observed = {}
+    for field in ("foundation_hash", "adapter_hash", "tokenizer_hash", "input_root"):
+        wrong = {**identity, field: "0x" + identity[field]}
+        reply = exchange(batch, wrong)
+        if check_response(reply, identity, len(batch)) != honest_bits:
+            raise ValueError("identity probe changed actual scores or executor identity")
+        try:
+            check_response(reply, wrong, len(batch))
+        except ValueError:
+            observed[field] = {"supplied": wrong[field], "returned": reply[field],
+                               "validator_refused": True, "score_bits_unchanged": True}
+        else:
+            raise ValueError("actual identity probe was accepted")
+    return observed
+
+
+def registration_report(audit, manifest, source_manifest_sha256, source_verification, vectors, assets):
+    """Combine measured audit/parser/runtime evidence. Never substitute expected results."""
+    if audit["verdict"] != "PASS" or not source_verification["verified_originals"]:
+        raise ValueError("passing measured audit and verified source bytes required")
+    verification = manifest["manifest"]["verification"]
+    runtime = audit["runtime"]
+    if runtime.get("token_control", {}).get("negative_tokens_refused") is not True:
+        raise ValueError("actual reference-engine negative token refusal required")
+    controls = audit["failure_controls"]
+    if set(controls) != {"foundation_hash", "adapter_hash", "tokenizer_hash", "input_root"} or any(
+        c.get("validator_refused") is not True or c.get("score_bits_unchanged") is not True or
+        c.get("supplied") != "0x" + c.get("returned", "") for c in controls.values()
+    ):
+        raise ValueError("actual complete literal identity controls required")
+    formats = {}
+    for name in FORMATS:
+        metric = audit["formats"]["candidate"][name]
+        formats[name] = {"accuracy": metric["pairwise_accuracy"], "group_accuracy": metric["group_accuracy"],
+                         "per_label": {k: v["accuracy"] for k, v in metric["labels"].items()},
+                         "label_counts": {k: v["n"] for k, v in metric["labels"].items()},
+                         "untrained_accuracy": audit["formats"]["initial"][name]["pairwise_accuracy"],
+                         "shortcut_accuracy": max(audit["format_shortcuts"][name].values())}
+    measured = audit["formats"]["candidate"]["array"]
+    report = {"schema_version": 1, "status": "REGISTRATION_READY", "family": "KEYWORD_EXTRACTION",
+              "run_id": int(audit["audit_run_id"]), "commit": audit["audit_commit"], "serving_commit": audit["audit_commit"],
+              "package_sha256": manifest["sha256"], "package_keccak": manifest["runtime_adapter_hash"],
+              "foundation_sha256": assets["foundation_lora_fp32.onnx"], "engine_sha256": assets["foundation_engine.wasm"],
+              "tokenizer_sha256": assets["tokenizer.json"],
+              "source": {"normalized_overlap": audit["normalized_overlap"], "audit_used_for_selection": False,
+                         "grants_verified": True, "source_manifest_sha256": source_manifest_sha256,
+                         "source_verification_data_sha256": sha(json.dumps(source_verification, sort_keys=True).encode()),
+                         "independent_groups": measured["groups"]},
+              "quality": {"passed": True, "audit_pairs": measured["pairs"], "all_supported_formats_tested": True,
+                          "formats": formats, "label_scope": "Observed source label_kind values measure pairwise preference accuracy, not absolute relevance labels."},
+              "runtime": {"full_parser_passed": verification["stage1"], "reference_engine_passed": runtime["reference_engine_passed"],
+                          "repeat_bits_identical": runtime["repeat_bits_identical"],
+                          "negative_identity_controls": len(audit["failure_controls"]),
+                          "negative_tokens_refused": runtime["token_control"]["negative_tokens_refused"],
+                          "vectors": [{"tokens": tokens, "score_bits": bits} for tokens, bits in zip(vectors, audit["fixed_vector_bits"], strict=True)],
+                          "executor_sha256": audit["executor_sha256"]},
+              "audit_result_data_sha256": sha(json.dumps(audit, sort_keys=True).encode()),
+              "scope": "Licensed scientific-abstract centrality preferences, AI-assisted. Independent node qualification remains required."}
+    if manifest["sha256"] != audit["candidate"]["package_sha256"]:
+        raise ValueError("parser/audit package identity mismatch")
+    validate_ready(report)
+    if len(json.dumps(report).encode()) > 1 << 20:
+        raise ValueError("registration-ready report byte ceiling exceeded")
+    return report
 
 
 def bound_candidate(bundle, data_report):
@@ -111,6 +188,8 @@ def main():
     candidate = bound_candidate(args.bundle, data_report)
     write(args.root / "audit-started.json", {"package_sha256": candidate["package_sha256"], "commit": candidate["commit"],
           "audit_run_id": os.environ["GITHUB_RUN_ID"], "started_at": datetime.now(timezone.utc).isoformat()})
+    source_verification = verify_sources(args.data, {"test": splits["test"]})
+    write(args.root / "source-verification.json", source_verification)
     import native as standard
     foundation = args.root / "foundation"
     foundation.mkdir(exist_ok=True)
@@ -138,16 +217,21 @@ def main():
         if any(not ids or len(ids) > MAX_TOKENS for ids in vectors[name]):
             raise ValueError("complete audit format exceeds literal token cap")
     frozen = json.loads((args.bundle / "frozen-baselines.json").read_text())
-    shortcuts = shortcut_report(splits["test"], frozen)
-    lexical_wins = [0.5 if score(r["source"]["text"], r["chosen"])["score_milli"] == score(r["source"]["text"], r["rejected"])["score_milli"] else
-                    float(score(r["source"]["text"], r["chosen"])["score_milli"] > score(r["source"]["text"], r["rejected"])["score_milli"]) for r in splits["test"]]
-    shortcuts["fixed_lexical_diagnostic"] = sum(lexical_wins) / len(lexical_wins)
+    format_shortcuts = {}
+    for name, rows in row_views.items():
+        shortcuts = shortcut_report(rows, frozen)
+        lexical_wins = [0.5 if score(r["source"]["text"], r["chosen"])["score_milli"] == score(r["source"]["text"], r["rejected"])["score_milli"] else
+                       float(score(r["source"]["text"], r["chosen"])["score_milli"] > score(r["source"]["text"], r["rejected"])["score_milli"]) for r in rows]
+        shortcuts["fixed_lexical_diagnostic"] = sum(lexical_wins) / len(lexical_wins)
+        format_shortcuts[name] = shortcuts
+    shortcuts = {name + ":" + key: value for name, metrics in format_shortcuts.items() for key, value in metrics.items()}
     env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"),
            "FOUNDATION_MODEL_PATH": str(foundation / "foundation_lora_fp32.onnx"),
            "FOUNDATION_MODEL_HASH": standard.FOUNDATION["foundation_lora_fp32.onnx"],
            "FOUNDATION_ENGINE_WASM_PATH": str(foundation / "foundation_engine.wasm"),
            "FOUNDATION_ENGINE_WASM_HASH": standard.FOUNDATION["foundation_engine.wasm"]}
     raw_scores, measured, failure_controls, executable = {}, {}, {}, args.root / "executor"
+    token_control = {}
     started = time.monotonic()
     for label, package_name in (("candidate", "KEYWORD_EXTRACTION.safetensors"), ("initial", "KEYWORD_EXTRACTION_INITIAL.safetensors")):
         package = args.bundle / package_name
@@ -180,27 +264,31 @@ def main():
                                 break
                         except OSError:
                             time.sleep(1)
-                    def score_batch(batch, expected=expected, port=port, label=label, repetition=repetition):
-                        root = subprocess.run([str(args.root / "input-root")], input=json.dumps(batch), capture_output=True, text=True, check=True, timeout=15).stdout.strip()
-                        identity = {**expected, "input_root": root}
+                    def exchange(batch, identity, port=port):
                         request = urllib.request.Request(f"http://127.0.0.1:{port}/runnable", data=json.dumps({"batch": [{"tokens": ids} for ids in batch], **identity}).encode(),
                                                          headers={"Content-Type": "application/json"})
                         with urllib.request.urlopen(request, timeout=180) as response:
                             raw = response.read((1 << 20) + 1)
                             if response.status != 200 or len(raw) > 1 << 20:
                                 raise ValueError("runtime response ceiling or status")
-                        reply = json.loads(raw)
+                        return json.loads(raw)
+                    def score_batch(batch, expected=expected, label=label, repetition=repetition):
+                        root = subprocess.run([str(args.root / "input-root")], input=json.dumps(batch), capture_output=True, text=True, check=True, timeout=15).stdout.strip()
+                        identity = {**expected, "input_root": root}
+                        reply = exchange(batch, identity)
                         bits = check_response(reply, identity, len(batch))
                         if label == "candidate" and repetition == 0 and not failure_controls:
-                            for field in ("adapter_hash", "input_root"):
-                                wrong = {**identity, field: "0x" + identity[field]}
-                                try:
-                                    check_response(reply, wrong, len(batch))
-                                except ValueError:
-                                    failure_controls[field] = "actual runtime reply rejected against prefixed expected identity"
-                                else:
-                                    raise ValueError("literal identity failure control did not fail")
+                            failure_controls.update(identity_controls(exchange, batch, identity, bits))
                         return bits
+                    if label == "candidate" and repetition == 0:
+                        refused = exchange([[-1]], expected)
+                        failed_rows = refused.get("results")
+                        if not isinstance(failed_rows, list) or len(failed_rows) != 1 or not isinstance(failed_rows[0], dict) or "score" in failed_rows[0] or not failed_rows[0].get("error"):
+                            raise ValueError("actual executor accepted negative tokens")
+                        for field, value in expected.items():
+                            if refused.get(field, "").casefold() != value.casefold():
+                                raise ValueError("token refusal came from a different actual identity")
+                        token_control = {"negative_tokens_refused": True, "actual_reply": refused}
                     stream = {}
                     for name in FORMATS:
                         bits = []
@@ -221,14 +309,25 @@ def main():
         measured[label] = {name: metrics(row_views[name], streams[0][name]) for name in FORMATS}
         write(args.root / "audit-score-bits.json", raw_scores)
     result = verdict(measured["candidate"], measured["initial"], shortcuts, config)
-    write(args.root / "audit-result.json", {"family": "KEYWORD_EXTRACTION", **result, "candidate": candidate,
+    result_report = {"family": "KEYWORD_EXTRACTION", **result, "candidate": candidate,
           "formats": measured, "frozen_shortcuts": shortcuts, "failure_controls": failure_controls,
+          "format_shortcuts": format_shortcuts,
+          "runtime": {"reference_engine_passed": True, "repeat_bits_identical": True, "token_control": token_control},
+          "normalized_overlap": data_report["normalized_cross_split_overlap"],
+          "fixed_vector_bits": raw_scores["candidate"]["array"][:8],
           "audit_run_id": os.environ["GITHUB_RUN_ID"], "audit_commit": os.environ["GITHUB_SHA"], "node_url": "https://devnode.telegraphprotocol.com",
           "foundation": standard.FOUNDATION, "executor_sha256": sha(executable.read_bytes()), "kit_revision": spec["revision"],
           "live_class_snapshot_sha256": sha((args.root / "class-snapshot.json").read_bytes()),
           "token_vectors_sha256": sha(json.dumps(vectors, sort_keys=True).encode()), "score_bits_sha256": sha((args.root / "audit-score-bits.json").read_bytes()),
           "versions": {"python": sys.version, "tokenizers": importlib.metadata.version("tokenizers")},
-          "elapsed_seconds": time.monotonic() - started, "source_bound_quality_only": True, "node_qualification": "not attempted"})
+          "elapsed_seconds": time.monotonic() - started, "source_bound_quality_only": True, "node_qualification": "not attempted"}
+    write(args.root / "audit-result.json", result_report)
+    if result["verdict"] == "PASS":
+        assets = {name: sha((foundation / name).read_bytes()) for name in standard.FOUNDATION}
+        ready = registration_report(result_report, json.loads((args.root / "candidate-manifest.json").read_text()),
+                                    sha((args.data / "approved-manifest.json").read_bytes()), source_verification,
+                                    vectors["array"][:8], assets)
+        write(args.root / "registration-ready.json", ready)
     print(json.dumps(result))
     return 0 if result["verdict"] == "PASS" else 1
 

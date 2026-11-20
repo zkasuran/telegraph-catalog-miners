@@ -17,6 +17,44 @@ from prepare_data import (
 from scorer import render
 from source import contains, norm, sha, write
 
+MAX_REVIEW_RECORDS = 4096
+MAX_REVIEW_BYTES = 1 << 20
+
+
+def validate_reviews(review, proposals):
+    """Refuse conflicting decisions and stale declared counts before assembly."""
+    if not isinstance(review, dict) or type(review.get("schema_version")) is not int or review["schema_version"] != 1:
+        raise ValueError("unsupported review schema")
+    records = review.get("reviews")
+    if not isinstance(records, list) or len(records) > MAX_REVIEW_RECORDS:
+        raise ValueError("review record ceiling or type mismatch")
+    seen, approved = set(), []
+    for record in records:
+        if not isinstance(record, dict):
+            raise TypeError("review record must be an object")
+        identity = record.get("proposal_id")
+        if not isinstance(identity, str) or identity not in proposals:
+            raise ValueError("unknown review proposal identity")
+        if identity in seen:
+            raise ValueError("duplicate or conflicting review identity")
+        seen.add(identity)
+        status = record.get("status")
+        if status not in ("approve", "reject"):
+            raise ValueError("unknown review decision")
+        fields = ("reason_a", "reason_b") if status == "approve" else ("reason",)
+        if any(not isinstance(record.get(k), str) or not record[k].strip() for k in fields):
+            raise ValueError("explicit original-text review reasoning required")
+        if status == "approve":
+            if record.get("review_origin") != "AI-assisted":
+                raise ValueError("AI-assisted origin required, no human-review substitution")
+            if record.get("choice_a") not in ("term_a", "term_b") or record.get("choice_b") not in ("term_a", "term_b") or record["choice_a"] == record["choice_b"]:
+                raise ValueError("explicit opposite centrality preferences required")
+            approved.append(record)
+    for key, expected in (("approved_contrasts", len(approved)), ("approved_pairs", 2 * len(approved))):
+        if type(review.get(key)) is not int or review[key] != expected:
+            raise ValueError("declared review count mismatch: " + key)
+    return approved
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -25,15 +63,20 @@ def main():
     parser.add_argument("--tokenizer", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
+    if args.reviews.stat().st_size > MAX_REVIEW_BYTES:
+        raise ValueError("review byte ceiling exceeded")
     review = json.loads(args.reviews.read_text())
-    approved = [r for r in review["reviews"] if r["status"] == "approve"]
+    proposal_rows = [json.loads(x) for x in (args.data / "proposals.jsonl").read_text().split("\n") if x]
+    proposals = {r["proposal_id"]: r for r in proposal_rows}
+    if len(proposals) != len(proposal_rows):
+        raise ValueError("duplicate source proposal identity")
+    approved = validate_reviews(review, proposals)
     args.out.mkdir(parents=True, exist_ok=True)
     if not approved:
         write(args.out / "assembly-failure.json", {"verdict": "FAIL", "reason": "No approved centrality preferences. Original annotations and proposals cannot supply preferences by themselves.",
               "approved": 0, "review_sha256": sha(args.reviews.read_bytes()), "model_operations": 0})
         raise ValueError("no approved centrality preferences")
     rows = [json.loads(x) for x in (args.data / "intact-articles.jsonl").read_text().split("\n") if x]
-    proposals = {r["proposal_id"]: r for r in (json.loads(x) for x in (args.data / "proposals.jsonl").read_text().split("\n") if x)}
     ids = {r["doi"]: i for i, r in enumerate(rows)}
     union, owners = Union(len(rows)), {}
     for i, row in enumerate(rows):
