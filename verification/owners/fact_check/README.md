@@ -52,6 +52,11 @@ are unchanged. Development outputs are explicitly not registration-ready.
 Even a passing development result needs a clean independent audit, full parser
 and reference-engine qualification before activation.
 
+Primary query timeouts now resume the same GET under the unchanged source
+request budget and spacing. This addresses an observed source acquisition
+failure, not a model-quality pass. Refusals stay in the checkpoint and malformed
+source data remains a hard failure.
+
 The `serve` mode refuses any package or report that differs from those audited
 bytes. It reproduces the actual reference vectors before exposing a token-only
 proxy and uploads only the restricted public forwarding lease. The installed

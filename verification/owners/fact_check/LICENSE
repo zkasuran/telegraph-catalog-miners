@@ -1,7 +1,8 @@
 Upstream scope: Wikidata structured facts retain CC0-1.0. Telegraph kit code
 retains MIT. ModernBERT retains Apache-2.0. Their grants are in NOTICE and the
 named sidecars. The unchanged SAND terms below cover our competitive additions
-including the development-only training pipeline. Prior grants remain in force.
+including development-only training and source timeout recovery. Prior grants
+remain in force.
 
 # Source-Available No-Derivatives Licence 1.0
 

@@ -112,8 +112,9 @@ def collect(root):
                 index.setdefault("refusals", []).append(refusal)
                 write_json(index_path, index)
                 write_json(root / "refusal.json", refusal)
-                if isinstance(error, urllib.error.HTTPError) and error.code == 429:
+                if isinstance(error, TimeoutError) or isinstance(error, urllib.error.HTTPError) and error.code == 429:
                     # The next request waits on the same durable 65-second clock.
+                    # A timed-out read-only GET can resume under the same bounds.
                     # Every refusal consumes the fixed budget. Never change hosts
                     # or identities to bypass a primary-source rate limit.
                     return get(name, query)

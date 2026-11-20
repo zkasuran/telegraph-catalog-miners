@@ -52,3 +52,10 @@ These IDs are discovery metadata, not accepted claim evidence or preferences.
 Every newly sampled subject still needs its exact revision, all relevant P36
 statements, references, alternatives and qualifier/time checks. An unchanged
 aggregate does not make these requests an atomic snapshot.
+
+The source-only attempt on November 20 timed out on its first primary count GET.
+Timeout recovery retries that same read-only query, not a different source or
+identity. The limit remains 16 requests with at least 65 seconds between starts.
+Every timeout and rate-limit response stays in the durable refusal history.
+Invalid source data is not retried or accepted. No new claim evidence was
+obtained from that timed-out request.

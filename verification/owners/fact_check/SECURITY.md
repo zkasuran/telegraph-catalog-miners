@@ -31,3 +31,9 @@ Its validation is exposed for model selection. A new independent audit is still
 required. Wikidata query transport may be unavailable or rate-limited; inventory
 requests use at least 65-second spacing and a fixed request budget. Separate
 queries are not an atomic source snapshot.
+
+Timeout recovery applies only to idempotent primary GETs. It does not retry
+publication, dispatch, activation or registration writes. The source request
+budget, spacing, byte limits and identity checks stay unchanged. Tests exercise
+timeout resume, complete cache replay, budget exhaustion and invalid-source
+refusal without turning artificial fixtures into source facts.
