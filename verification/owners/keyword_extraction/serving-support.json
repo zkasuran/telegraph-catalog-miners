@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "spdx_license_identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "source_sha256": {
+    "common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784",
+    "proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51"
+  },
+  "outputs": {
+    "lease_common.py": "60a801d7caa864f60bef4355e88d3154cfd458ac3d47016d90c45510ddde1322",
+    "token_proxy.py": "eb17504a20561d85267bfd3879a7deeda5f79289ed510dd1a1a96aa19f8c4e5a"
+  },
+  "changes": "Preserved exact lease functions. Removed unrelated recovered anchors. Proxy accepts case changes but refuses hash prefixes and caps tokens at the package's 384-token limit.",
+  "model_operations": 0
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "family": "KEYWORD_EXTRACTION",
+  "status": "HELDOUT_SOURCE_FROZEN",
+  "source_manifest_sha256": "595cd3119c3aa5afbb89276dcbde270fefb8822eeee40af72ff921e1ad992384",
+  "files": {
+    "validation": {
+      "sha256": "d095f48849f2f83214a01c695c0c03aff90500143052f171e8a91e95c420dd5f",
+      "pairs": 16,
+      "groups": 8
+    },
+    "test": {
+      "sha256": "986879ef80f87f351dda4c7c6a2530ae5e87e97c79f7faab8f1d1aca384480b0",
+      "pairs": 80,
+      "groups": 33
+    }
+  },
+  "scope": "Explicitly AI-assisted source preferences. Frozen source bytes, not measured model quality or independent human review."
+}

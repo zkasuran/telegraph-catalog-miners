@@ -16,6 +16,8 @@
 | Duplicated/conflicting decisions or stale reported counts | Unique source/review IDs, explicit reasoning/origin and recomputed declared counts | Duplicate, conflicting decision, unknown proposal and count-drift controls |
 | Expansion mistakes substring or annotation membership for truth | Bounded nested-match trie plus independent primary literal check and explicit annotation witnesses | Nested Unicode, morphological, source-group and topic controls. No proposal is automatically approved |
 | Packing reuses source/answer resources or stale review state | Exclude approved resources, pack distinct resources and bind source/review hashes | Synthetic resource-conflict refusal and packed-view hash checks. Packing is not proof of preference quality |
+| Adding easy precision cases inflates an exposed audit | Precision cases are training-only; frozen validation/audit bytes cannot change | Held-out byte mutation, training-only donor and exact 25% cap tests |
+| Donor metadata hides cross-split leakage | Original donor XML/annotation/grants verified and donor identities included in overlap checks | Donor attribution and cross-split overlap refusal controls |
 | Shortcut learning | Train-only immutable integer coefficients plus unmodified primary dataset gate | Frozen coefficient test. Real dataset gate still pending |
 | Wrong runnable identity or nonfinite score | Literal primary wire contract, primary Go input roots and strict FP32 decoding | Primary Go equality probe, root/prefix and nonfinite controls |
 | Tiny or changed audit set | Rechecked minimum pair/component counts and frozen data/package/config/commit hashes | Minimum-count and audit-verdict failure tests |
@@ -24,6 +26,9 @@
 | Accidental local model execution | Remote guard before model imports or weight preparation | Laptop refusal test |
 | Runner environment contaminates a laptop-refusal test | Laptop tests use an explicit empty environment; a separate guard-only test covers public workflow context and wrong-repository refusal | Both clean and simulated GitHub source gates |
 | Remote resource exhaustion | Workflow timeout plus process-tree RSS/time supervisor | Config checks only. Real runner resource enforcement is unverified |
+| Serving trusts a source-only report or changed binary | Real passing ready report, successful actual audit run, full parser, identical executor bytes and repeated reference bits required before key creation | Synthetic report/run failures and remote-only guard tests. Actual serving remains unexecuted |
+| A private key or unbounded forward reaches an artifact | Only public restricted lease.json uploads; selected owner, loopback-only port and five-hour lease, no agent forwarding | Exact lease/expiry/proof-hash controls. Actual key/forwarding operations are remote-only |
+| Public wire accepts normalized hash stand-ins | Owned proxy preserves literal bare hashes and refuses prefix changes, invalid tokens and nonfinite results | Real local HTTP path with explicitly fake backend plus prefix/nonfinite controls |
 
 ## Known limits
 
@@ -31,4 +36,4 @@ Lexical presence is not centrality or truth. A supported term may be irrelevant 
 
 Normalized author names are conservative grouping proxies, not resolved identities. Prior model pretraining exposure is unknown. Source rights do not certify annotation quality. Constructed reviews are not independent human judgments.
 
-There is no approved dataset or trained package. The remote train/export/audit path is compiled and linted but has not run. One audit root refuses repeated measurement, but protection against duplicate candidate audits across remote runs remains a controller gate. Real model discrimination, process memory enforcement and node qualification are unverified. The entire deployed daemon caller is not present in the inspected primary kit.
+An approved source dataset now passes all local data gates, but no trained package or real neural report exists yet. The remote train/export/audit/serving paths are compiled and source-tested but have not run a model. One audit root refuses repeated measurement, and frozen held-out source bytes are required; protection against duplicate candidate audits across remote runs remains a controller gate. Real model discrimination, process memory enforcement and node qualification are unverified. The entire deployed daemon caller is not present in the inspected primary kit.

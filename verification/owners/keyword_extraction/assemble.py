@@ -6,6 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from gates import check_splits
+from heldout_freeze import verify_freeze
 from prepare_data import (
     MAX_TOKENS,
     TOKENIZER_SHA,
@@ -62,6 +63,7 @@ def main():
     parser.add_argument("--reviews", type=Path, required=True)
     parser.add_argument("--tokenizer", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--heldout-freeze", type=Path)
     args = parser.parse_args()
     if args.reviews.stat().st_size > MAX_REVIEW_BYTES:
         raise ValueError("review byte ceiling exceeded")
@@ -122,7 +124,14 @@ def main():
             used.add(row["doi"])
             chosen = p[r["choice_" + side]]
             rejected = p["term_b" if r["choice_" + side] == "term_a" else "term_a"]
-            if not contains(row["text"], chosen) or not contains(row["text"], rejected):
+            if type(p.get("off_topic_donor", False)) is not bool:
+                raise ValueError("precision donor flag must be an explicit Boolean")
+            donor = p.get("off_topic_donor", False)
+            other = rows[ids[p["doi_b" if side == "a" else "doi_a"]]]
+            if donor:
+                if chosen not in row["author_keywords"] or rejected not in other["author_keywords"] or not contains(row["text"], chosen) or contains(row["text"], rejected):
+                    raise ValueError("precision comparison requires original own/donor annotations and distinct complete source contexts")
+            elif not contains(row["text"], chosen) or not contains(row["text"], rejected):
                 raise ValueError("both contrasted terms must be literal in this exact passage")
             # Check whole original annotations, not just shorter target answers.
             whole = whole_annotation(row)
@@ -133,11 +142,16 @@ def main():
                     if len(tok.encode(render(prompt(row), answer(value, style))).ids) > MAX_TOKENS:
                         raise ValueError("complete preference format exceeds token cap")
             root = union.root(ids[row["doi"]])
-            splits[split[root]].append({"prompt": prompt(row), "chosen": answer(chosen, "array"),
+            pair = {"prompt": prompt(row), "chosen": answer(chosen, "array"),
                 "rejected": answer(rejected, "array"), "chosen_term": chosen, "rejected_term": rejected,
                 "group_id": group[root], "source": row, "label_kind": "preference_pair",
                 "review_origin": "AI-assisted", "centrality_reason": r["reason_" + side],
-                "off_topic_donor": False, "proposal_id": p["proposal_id"]})
+                "off_topic_donor": donor, "proposal_id": p["proposal_id"]}
+            if donor:
+                if split[root] != "train":
+                    raise ValueError("precision donors cannot change frozen held-out cohorts")
+                pair["donor_source"] = other
+            splits[split[root]].append(pair)
     (args.out / "reviewed-pairs.jsonl").write_text("".join(json.dumps({**r, "provisional_split": s}, ensure_ascii=False) + "\n" for s, pairs in splits.items() for r in pairs))
     write(args.out / "reviewed-manifest.json", {"family": "KEYWORD_EXTRACTION", "max_tokens": MAX_TOKENS,
           "reviews_sha256": sha(args.reviews.read_bytes()), "reviewed_pairs_sha256": sha((args.out / "reviewed-pairs.jsonl").read_bytes()),
@@ -146,6 +160,8 @@ def main():
           "preference_origin": "AI-assisted comparative centrality/informativeness review. No human review claimed."})
     try:
         check_splits(splits)
+        if args.heldout_freeze:
+            verify_freeze(splits, json.loads(args.heldout_freeze.read_text()))
     except ValueError as exc:
         write(args.out / "assembly-failure.json", {"verdict": "FAIL", "reason": str(exc), "model_operations": 0,
               "review_sha256": sha(args.reviews.read_bytes())})
@@ -157,12 +173,18 @@ def main():
         raise ValueError("insufficient independent reviewed pairs for the 64/16/64 pilot")
     if any(len({r["group_id"] for r in splits[s]}) < minimums[s] // 2 for s in splits):
         raise ValueError("too few independent source components for the pilot")
+    if not args.heldout_freeze:
+        raise ValueError("approved export requires a frozen held-out source contract")
     files = {}
     for s, pairs in splits.items():
         path = args.out / (s + ".jsonl")
         path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in pairs))
         files[s] = {"sha256": sha(path.read_bytes()), "pairs": len(pairs), "groups": len({r["group_id"] for r in pairs})}
+    (args.out / "heldout-freeze.json").write_bytes(args.heldout_freeze.read_bytes())
     write(args.out / "approved-manifest.json", {"family": "KEYWORD_EXTRACTION", "max_tokens": MAX_TOKENS, "files": files,
+          "spdx_license_identifier": "LicenseRef-zkasuran-SAND-1.0",
+          "source_rights": "Original source text/annotations retain per-row Creative Commons grants. Our constructed prompts/preferences use SAND. No human review claimed.",
+          "heldout_freeze_sha256": sha(args.heldout_freeze.read_bytes()),
           "held_out_group_rule": "topic-held-out plus DOI-author-donor components", "held_out_topic": "Neuroscience",
           "review_sha256": sha(args.reviews.read_bytes()), "articles_sha256": sha((args.data / "intact-articles.jsonl").read_bytes()),
           "sources": [r["source"] for pairs in splits.values() for r in pairs], "normalized_cross_split_overlap": 0,

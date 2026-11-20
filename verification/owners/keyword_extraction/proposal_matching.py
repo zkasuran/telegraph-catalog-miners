@@ -49,6 +49,7 @@ def matching(rows, proposals, reviews, priority_split=None):
                          "term_a": p["term_a"], "term_b": p["term_b"], "prospective_split": split,
                          "prospective_group_id": group, "status": "unreviewed"})
     return {"schema_version": 1, "family": "KEYWORD_EXTRACTION", "available_resource_disjoint_proposals": len(candidates),
+            "available": [{"index": i, "proposal_id": p["proposal_id"], "prospective_split": projected[p["proposal_id"]][1], "status": "unreviewed"} for i, p, _ in candidates],
             "available_by_prospective_split": dict(Counter(s for _, s in projected.values())), "packing_priority": priority_split,
             "packed_unreviewed_contrasts": len(selected), "by_prospective_split": dict(Counter(p["prospective_split"] for p in selected)),
             "selected": selected, "model_operations": 0,
@@ -70,7 +71,7 @@ def main():
     report = matching(rows, proposals, json.loads(paths["reviews.json"].read_text()), args.priority_split)
     report["input_sha256"] = {name: sha(path.read_bytes()) for name, path in paths.items()}
     write(args.data / "proposal-matching.json", report)
-    print(json.dumps({k: v for k, v in report.items() if k != "selected"}))
+    print(json.dumps({k: v for k, v in report.items() if k not in {"selected", "available"}}))
 
 
 if __name__ == "__main__":

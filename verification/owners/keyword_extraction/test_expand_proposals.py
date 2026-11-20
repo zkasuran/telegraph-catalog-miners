@@ -35,6 +35,13 @@ class ExpansionTests(unittest.TestCase):
         passage = "DNA damage response; β-catenin. Navigational bias."
         self.assertEqual(literal_presence(passage, vocabulary), {p for p in vocabulary if contains(passage, p)})
 
+    def test_short_original_scientific_symbols_remain_unreviewed(self):
+        rows = [fixture("synthetic-A", ["DNA"], text="DNA and RNA."), fixture("synthetic-B", ["RNA"], text="DNA and RNA.")]
+        self.assertEqual(expand(rows, [])[0], [])
+        proposals, _ = expand(rows, [], True)
+        self.assertEqual(len(proposals), 1)
+        self.assertEqual(proposals[0]["status"], "unreviewed")
+
     def test_packing_never_approves_or_reuses_answer_resources(self):
         rows = [fixture(name, [], group=name) for name in "ABCD"]
         for row in rows:

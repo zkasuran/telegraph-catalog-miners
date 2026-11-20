@@ -42,6 +42,13 @@ def check_splits(splits):
             current["text"].add(norm(source["text"]))
             current["author"].update(norm(a) for a in source["authors"])
             current["answer"].update(norm(row[s]) for s in ("chosen", "rejected"))
+            if row.get("off_topic_donor"):
+                donor = row.get("donor_source")
+                if split != "train" or not isinstance(donor, dict) or donor.get("licence") not in {"CC-BY-3.0", "CC-BY-4.0", "CC0-1.0"} or not donor.get("grant") or not donor.get("url"):
+                    raise ValueError("precision donor requires attributed training-only source")
+                current["doi"].add(norm(donor["doi"]))
+                current["text"].add(norm(donor["text"]))
+                current["author"].update(norm(a) for a in donor["authors"])
         for field, values in seen.items():
             if current[field] & values:
                 raise ValueError("normalized cross-split " + field + " overlap")

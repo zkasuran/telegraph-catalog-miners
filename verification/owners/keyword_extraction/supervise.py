@@ -12,16 +12,26 @@ from remote import remote_only
 from source import write
 
 
+def timeout_for(profile, command, config):
+    if profile == "train":
+        return config["timeout_seconds"]
+    if profile != "serve" or len(command) < 2 or Path(command[1]).resolve() != Path(__file__).parent.resolve() / "serve.py":
+        raise ValueError("serving profile only permits the exact owned serving entry point")
+    return 19800  # 30-minute preparation plus the exact five-hour public lease.
+
+
 def main():
     remote_only()
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--profile", choices=("train", "serve"), default="train")
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     if not args.command:
         raise ValueError("bounded child command required")
     import psutil
     config = json.loads((Path(__file__).parent / "config.json").read_text())
+    timeout = timeout_for(args.profile, args.command, config)
     ceiling = min(config["max_rss_bytes"], psutil.virtual_memory().total * 3 // 4)
     started = time.monotonic()
     child = subprocess.Popen(args.command, start_new_session=True)
@@ -36,7 +46,7 @@ def main():
                 except psutil.NoSuchProcess:
                     pass
             observed = max(observed, rss)
-            if rss > ceiling or time.monotonic() - started > config["timeout_seconds"]:
+            if rss > ceiling or time.monotonic() - started > timeout:
                 reason = "RSS ceiling" if rss > ceiling else "time ceiling"
                 os.killpg(child.pid, signal.SIGTERM)
                 try:
@@ -51,6 +61,7 @@ def main():
             os.killpg(child.pid, signal.SIGKILL)
             child.wait(timeout=10)
         write(args.root / "supervisor.json", {"peak_rss_bytes": observed, "rss_ceiling_bytes": ceiling,
+              "profile": args.profile, "timeout_seconds": timeout,
               "elapsed_seconds": time.monotonic() - started, "termination_reason": reason,
               "returncode": child.returncode, "run_id": os.environ["GITHUB_RUN_ID"], "commit": os.environ["GITHUB_SHA"]})
     return 0 if child.returncode == 0 and not reason else child.returncode if child.returncode and child.returncode > 0 else 1

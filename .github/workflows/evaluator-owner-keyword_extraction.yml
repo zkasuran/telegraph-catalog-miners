@@ -11,10 +11,35 @@ on:
         options:
           - source
           - train_audit
+          - serve
+      package_url:
+        description: Immutable licensed package URL for serving only
+        type: string
+        required: false
+      report_url:
+        description: Immutable complete measured registration-ready report
+        type: string
+        required: false
+      report_sha256:
+        description: Exact complete report byte hash
+        type: string
+        required: false
+      slot:
+        description: Actual installed adapter reservation slot
+        type: string
+        required: false
+      forward_port:
+        description: Actual installed adapter reservation forward port
+        type: string
+        required: false
+      runnable_url:
+        description: Actual installed adapter reservation route
+        type: string
+        required: false
 permissions:
   contents: read
 concurrency:
-  group: keyword-centrality-pilot
+  group: keyword-centrality-${{ inputs.mode }}
   cancel-in-progress: false
 jobs:
   source:
@@ -138,3 +163,61 @@ jobs:
             ${{ runner.temp }}/keyword-audit/*.json
             ${{ runner.temp }}/keyword-audit/*.log
             ${{ runner.temp }}/keyword-audit-dependencies.json
+  serve:
+    if: ${{ inputs.mode == 'serve' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PACKAGE_URL: ${{ inputs.package_url }}
+      REPORT_URL: ${{ inputs.report_url }}
+      REPORT_SHA256: ${{ inputs.report_sha256 }}
+      SLOT: ${{ inputs.slot }}
+      FORWARD_PORT: ${{ inputs.forward_port }}
+      RUNNABLE_URL: ${{ inputs.runnable_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: verification/owners/keyword_extraction
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Run source-only serving contracts
+        run: bash verification/owners/keyword_extraction/verify.sh
+      - name: Install and audit locked CPU runtime supervisor dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/keyword-venv"
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/keyword_extraction/requirements.lock
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/dependency_audit.py --lock verification/owners/keyword_extraction/requirements.lock --out "$RUNNER_TEMP/keyword-serving-requirements.txt" --report "$RUNNER_TEMP/keyword-serving-dependencies.json"
+      - name: Start the identical verified executor and prepare only its public lease
+        timeout-minutes: 25
+        run: |
+          mkdir -p "$RUNNER_TEMP/keyword-serving"
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --profile serve --root "$RUNNER_TEMP/keyword-serving" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/serve.py --root "$RUNNER_TEMP/keyword-serving" --package-url "$PACKAGE_URL" --report-url "$REPORT_URL" --report-sha256 "$REPORT_SHA256" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL" >"$RUNNER_TEMP/keyword-serving/runner.log" 2>&1 &
+          pid=$!
+          printf '%s\n' "$pid" >"$RUNNER_TEMP/keyword-serving/process.pid"
+          deadline=$((SECONDS+1450))
+          while [ ! -f "$RUNNER_TEMP/keyword-serving/lease.json" ]; do
+            kill -0 "$pid" || exit 1
+            [ "$SECONDS" -lt "$deadline" ] || exit 1
+            sleep 2
+          done
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: keyword-public-restricted-lease
+          if-no-files-found: error
+          retention-days: 1
+          path: ${{ runner.temp }}/keyword-serving/lease.json
+      - name: Keep this exact restricted executor alive within its bounded lease
+        timeout-minutes: 315
+        run: |
+          pid=$(python3 -c 'import os,pathlib;print((pathlib.Path(os.environ["RUNNER_TEMP"])/"keyword-serving/process.pid").read_text().strip())')
+          while kill -0 "$pid" 2>/dev/null; do sleep 5; done
+          python3 -c 'import json,os,pathlib; r=json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"keyword-serving/supervisor.json").read_text()); assert r["returncode"]==0 and r["termination_reason"] is None, r'
+      - name: Remove only this runner's ephemeral private forwarding key on every outcome
+        if: always()
+        run: python3 -c 'import os,pathlib; r=pathlib.Path(os.environ["RUNNER_TEMP"])/"keyword-serving"; [(r/p).unlink(missing_ok=True) for p in ("forward-key","forward-key.pub")]'

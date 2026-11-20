@@ -15,17 +15,20 @@ def main():
     parser.add_argument("--summary", action="store_true")
     parser.add_argument("--indices", help="comma-separated indices in the current frozen proposal file")
     parser.add_argument("--packed", action="store_true", help="view resource-disjoint unreviewed proposals, not approved data")
+    parser.add_argument("--available", action="store_true", help="view every individually eligible proposal; these are not mutually disjoint")
     parser.add_argument("--split", choices=("train", "validation", "test"))
     args = parser.parse_args()
     articles = {r["doi"]: r for r in (json.loads(x) for x in (args.data / "intact-articles.jsonl").read_text().split("\n") if x)}
     proposals = [json.loads(x) for x in (args.data / "proposals.jsonl").read_text().split("\n") if x]
     selected = [int(x) for x in args.indices.split(",")] if args.indices else list(range(args.offset, min(len(proposals), args.offset + args.count)))
-    if args.packed:
+    if args.packed or args.available:
+        if args.packed and args.available:
+            raise ValueError("choose either packed or individually available proposals")
         report = json.loads((args.data / "proposal-matching.json").read_text())
         for name, digest in report["input_sha256"].items():
             if sha((args.data / name).read_bytes()) != digest:
                 raise ValueError("stale proposal packing, rederive from the current review state")
-        packed = [p for p in report["selected"] if not args.split or p["prospective_split"] == args.split]
+        packed = [p for p in report["available" if args.available else "selected"] if not args.split or p["prospective_split"] == args.split]
         selected = [p["index"] for p in packed[args.offset:args.offset + args.count]]
         for p in packed:
             if proposals[p["index"]]["proposal_id"] != p["proposal_id"]:

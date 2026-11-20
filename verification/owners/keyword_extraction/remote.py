@@ -20,6 +20,7 @@ from gates import (
     fit_baselines,
     shortcut_report,
 )
+from heldout_freeze import verify_freeze
 from prepare_data import MAX_TOKENS, answer, prompt
 from scorer import render
 from source import BASE, contains, parse, sha, verify_tree, write
@@ -46,6 +47,10 @@ def approved_data(directory):
         splits[split] = [json.loads(line) for line in raw.decode().split("\n") if line]
     check_splits(splits)
     check_pilot_counts(splits)
+    freeze = directory / "heldout-freeze.json"
+    if not freeze.is_file() or sha(freeze.read_bytes()) != report.get("heldout_freeze_sha256"):
+        raise ValueError("actual frozen held-out source identity required")
+    verify_freeze(splits, json.loads(freeze.read_text()))
     if report.get("held_out_group_rule") not in {"topic-held-out plus DOI-author-donor components", "time-held-out plus DOI-author-donor components"}:
         raise ValueError("an explicit topic/time held-out group rule is required")
     return report, splits
@@ -64,6 +69,22 @@ def verify_sources(directory, splits):
     fields = ("doi", "text", "title", "abstract", "author_keywords", "authors", "topics", "year", "licence", "licence_uri", "grant", "copyright")
     for rows in splits.values():
         for row in rows:
+            if row.get("off_topic_donor"):
+                donor = row.get("donor_source")
+                if not isinstance(donor, dict) or donor["source_path"] not in entries:
+                    raise ValueError("precision donor is not in the pinned source inventory")
+                donor_path = donor["source_path"]
+                if donor_path not in verified:
+                    raw = source_fetch(BASE + donor_path)
+                    total += len(raw)
+                    if total > 128 << 20:
+                        raise ValueError("approved source download budget exceeded")
+                    verified[donor_path] = parse(raw, entries[donor_path])
+                actual_donor = verified[donor_path]
+                if actual_donor["sha256"] != donor["sha256"] or any(actual_donor[f] != donor[f] for f in fields):
+                    raise ValueError("precision donor attribution or bytes differ from original")
+                if row["rejected_term"] not in actual_donor["author_keywords"] or not contains(actual_donor["text"], row["rejected_term"]):
+                    raise ValueError("precision donor phrase has no original annotation witness")
             source = row["source"]
             path = source["source_path"]
             if path not in entries or entries[path]["type"] != "blob":
@@ -79,9 +100,12 @@ def verify_sources(directory, splits):
                 raise ValueError("approved source text, annotations or grants differ from original bytes")
             if row["prompt"] != prompt(actual):
                 raise ValueError("approved prompt differs from complete source rendering")
+            if row.get("off_topic_donor") and row["chosen_term"] not in actual["author_keywords"]:
+                raise ValueError("precision chosen phrase requires its own original annotation")
             for side in ("chosen", "rejected"):
                 term = row[side + "_term"]
-                if not contains(actual["text"], term) or row[side] != answer(term, "array"):
+                supported = not contains(actual["text"], term) if side == "rejected" and row.get("off_topic_donor") else contains(actual["text"], term)
+                if not supported or row[side] != answer(term, "array"):
                     raise ValueError("reviewed term or answer differs from literal source-supported construction")
     return {"verified_originals": len(verified), "download_bytes": total, "inventory_sha256": sha(raw_inventory)}
 

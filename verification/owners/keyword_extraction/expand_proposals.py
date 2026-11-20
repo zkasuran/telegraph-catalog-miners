@@ -50,10 +50,15 @@ def literal_presence(passage, vocabulary, compiled=None):
     return found
 
 
-def expand(rows, prior):
+def eligible_term(term, include_acronyms=False):
+    value = norm(term)
+    return 4 <= len(value) <= 96 or (include_acronyms and len(value) == 3 and (term.isupper() or any(c.isdigit() for c in term)))
+
+
+def expand(rows, prior, include_acronyms=False):
     if not 1 <= len(rows) <= MAX_ROWS:
         raise ValueError("intact source record ceiling exceeded")
-    vocabulary = {norm(k) for r in rows for k in r["literal_keywords"] if 4 <= len(norm(k)) <= 96}
+    vocabulary = {norm(k) for r in rows for k in r["literal_keywords"] if eligible_term(k, include_acronyms)}
     if len(vocabulary) > MAX_VOCABULARY or sum(len(k.encode()) for k in vocabulary) > MAX_VOCABULARY_BYTES:
         raise ValueError("source vocabulary ceiling exceeded")
     annotations = [{norm(k): k for k in r["literal_keywords"] if norm(k) in vocabulary} for r in rows]
@@ -101,6 +106,7 @@ def main():
     parser.add_argument("--data", required=True, type=Path)
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--reviews", type=Path, help="prior explicit reviews to preserve; defaults to the source directory's parent reviews.json")
+    parser.add_argument("--include-acronyms", action="store_true", help="also propose original annotated three-character uppercase/digit scientific symbols, never automatic labels")
     args = parser.parse_args()
     started = time.monotonic()
     paths = [args.data / name for name in ("intact-articles.jsonl", "proposals.jsonl")]
@@ -108,7 +114,7 @@ def main():
         raise ValueError("bounded source-data input exceeded")
     original_bytes = [p.read_bytes() for p in paths]
     rows, prior = ([json.loads(line) for line in raw.decode().splitlines()] for raw in original_bytes)
-    proposals, report = expand(rows, prior)
+    proposals, report = expand(rows, prior, args.include_acronyms)
     args.out.mkdir(parents=True, exist_ok=True)
     path = args.out / "proposals.jsonl"
     raw = "".join(json.dumps(p, ensure_ascii=False, allow_nan=False) + "\n" for p in proposals).encode()
@@ -129,7 +135,8 @@ def main():
         review_path.write_bytes(seed.read_bytes())
     write(args.out / "expansion-report.json", {"schema_version": 1, "family": "KEYWORD_EXTRACTION", **report,
           "input_sha256": {p.name: sha(raw) for p, raw in zip(paths, original_bytes, strict=True)},
-          "output_sha256": sha(raw), "model_operations": 0, "elapsed_seconds": time.monotonic() - started,
+          "output_sha256": sha(raw), "include_annotated_acronyms": args.include_acronyms,
+          "model_operations": 0, "elapsed_seconds": time.monotonic() - started,
           "scope": "Every intact record in the retained bounded sample, not all 19699 v1 source files. Proposals remain unreviewed."})
     print(json.dumps(report))
 
