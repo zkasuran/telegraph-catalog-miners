@@ -1,0 +1,20 @@
+CONTENT_MODERATION source-bound scoring pipeline
+
+Competitive additions: Copyright (c) 2026 zkasuran.
+LicenseRef-zkasuran-SAND-1.0 applies to these additions. Original grants remain
+in force for upstream portions.
+
+ModernBERT pretrained model and architecture: Answer.AI and LightOn, Apache-2.0,
+revision 8949b909ec900327062f0ebf497f51aef5e6f0c8. Full retained Apache terms are
+in support/training/licences.json and embedded in each exported checkpoint.
+
+Telegraph reference kit: Copyright (c) 2026 telegraphprotocol, MIT,
+revision 1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd. Original MIT terms are retained
+in support/training/licences.json and embedded in each exported checkpoint.
+
+Civil Comments public text and Jigsaw annotations: CC0-1.0. Original labels are
+retained. Preference answers and label flips are programmatically constructed
+by AI-assisted code, not human-authored or human-reviewed preferences.
+
+No licensor endorsement is implied. Fitted public training data is not an
+independent audit. Hidden evaluation-pool material is not an input.

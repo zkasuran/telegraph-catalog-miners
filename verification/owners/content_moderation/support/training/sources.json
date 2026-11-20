@@ -1,0 +1,37 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "kit": {
+    "revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+    "sha256": "18d7dbe7425e977b576a70146f901a006b8e4abddbfd351276205faa7f287243"
+  },
+  "base": {
+    "id": "answerdotai/ModernBERT-base",
+    "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+    "files": {
+      "model.safetensors": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+      "config.json": "1609d59e627c33eaed524b4f01e546d42e84190a079a5a5ded84b212c41c324f",
+      "tokenizer_config.json": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2",
+      "special_tokens_map.json": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049"
+    }
+  },
+  "SENTIMENT_ANALYSIS": {
+    "source": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+    "url": "https://archive.ics.uci.edu/static/public/331/sentiment+labelled+sentences.zip",
+    "sha256": "afc26626d710899948693e1a61405dce197f57ffa719fa1130d346b4cc095343",
+    "licence": "CC-BY-4.0",
+    "scope": "Positive and Negative English reviews only. Neutral and Mixed are not validated. Test domain: Yelp."
+  },
+  "CONTENT_MODERATION": {
+    "source": "https://www.tensorflow.org/datasets/catalog/civil_comments",
+    "id": "google/civil_comments",
+    "revision": "f2970eb3a55777454c94069077cc8d9b5866312d",
+    "files": {
+      "train": ["data/train-00000-of-00002.parquet", "c20f01c3aecbdd942886cacb0ee67e995df33bc712a622fde75927ed3d6ccefe"],
+      "validation": ["data/validation-00000-of-00001.parquet", "2e0eb65474e7e1290df8689fc93eea783160c898c09ae15382c0a9662367bd03"],
+      "test": ["data/test-00000-of-00001.parquet", "410f803ff161e7c4ba005db7de5b444cac413f4861bf056b0fd69d670d75aa08"]
+    },
+    "licence": "CC0-1.0",
+    "scope": "English comments with toxicity exactly 0 (Safe) or at least 0.8 (Flagged). This is a toxicity proxy, not complete policy coverage. No parent text or identity labels used."
+  }
+}

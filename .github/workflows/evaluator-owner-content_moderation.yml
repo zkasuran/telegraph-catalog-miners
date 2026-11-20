@@ -1,0 +1,35 @@
+{
+  "name": "Bounded moderation schedule diagnostic",
+  "run-name": "Owned moderation H9 qualification or exact serving",
+  "on": {"workflow_dispatch": {"inputs": {
+    "mode": {"type": "choice", "options": ["train", "serve"], "default": "train", "required": true},
+    "campaign_exclusions_json": {"type": "string", "default": "[]", "required": true},
+    "package_url": {"type": "string", "default": ""},
+    "package_sha256": {"type": "string", "default": ""},
+    "package_keccak": {"type": "string", "default": ""},
+    "report_url": {"type": "string", "default": ""},
+    "report_sha256": {"type": "string", "default": ""},
+    "slot": {"type": "string", "default": ""},
+    "forward_port": {"type": "string", "default": ""},
+    "runnable_url": {"type": "string", "default": ""}
+  }}},
+  "permissions": {"contents": "read"},
+  "concurrency": {"group": "owner-content-moderation-${{ inputs.mode }}", "cancel-in-progress": false},
+  "jobs": {"owner": {
+    "if": "github.repository == 'zkasuran/telegraph-catalog-miners' && github.event.repository.private == false",
+    "runs-on": "ubuntu-24.04", "timeout-minutes": 330,
+    "env": {"PYTHONDONTWRITEBYTECODE": "1", "PYTHONHASHSEED": "42", "TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "4", "MKL_NUM_THREADS": "4", "HF_HUB_OFFLINE": "1", "CUDA_VISIBLE_DEVICES": "", "DIAGNOSTIC_PUBLIC_REPOSITORY": "true", "CAMPAIGN_EXCLUSIONS_JSON": "${{ inputs.campaign_exclusions_json }}", "PACKAGE_URL": "${{ inputs.package_url }}", "PACKAGE_SHA256": "${{ inputs.package_sha256 }}", "PACKAGE_KECCAK": "${{ inputs.package_keccak }}", "REPORT_URL": "${{ inputs.report_url }}", "REPORT_SHA256": "${{ inputs.report_sha256 }}", "SLOT": "${{ inputs.slot }}", "FORWARD_PORT": "${{ inputs.forward_port }}", "RUNNABLE_URL": "${{ inputs.runnable_url }}"},
+    "steps": [
+      {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false, "sparse-checkout": "verification/owners/content_moderation\n.github/workflows", "sparse-checkout-cone-mode": true}},
+      {"name": "Standalone source gate", "timeout-minutes": 5, "run": "bash verification/owners/content_moderation/verify.sh"},
+      {"uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16", "with": {"go-version": "1.25.7", "cache": false}},
+      {"name": "Hash-locked CPU dependencies and advisory audit", "if": "inputs.mode == 'train'", "timeout-minutes": 15, "run": "python3 -m venv \"$RUNNER_TEMP/cm-venv\"\n\"$RUNNER_TEMP/cm-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/content_moderation/support/training/requirements.lock\n\"$RUNNER_TEMP/cm-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/cm-venv/bin/python\" verification/owners/content_moderation/support/training/audit.py --lock verification/owners/content_moderation/support/training/requirements.lock --out \"$RUNNER_TEMP/cm-audit.txt\" --report \"$RUNNER_TEMP/cm-audit.json\""},
+      {"name": "Frozen H9 fit and full actual reference qualification", "if": "inputs.mode == 'train'", "timeout-minutes": 295, "run": "timeout --signal=TERM --kill-after=20s 17520 \"$RUNNER_TEMP/cm-venv/bin/python\" verification/owners/content_moderation/remote.py run --root \"$RUNNER_TEMP/cm-training\""},
+      {"name": "Preserve upstream-granted checkpoints", "if": "always() && inputs.mode == 'train'", "timeout-minutes": 5, "run": "python3 verification/owners/content_moderation/support/moderation-diagnostic/preserve_all.py --root \"$RUNNER_TEMP/cm-training\""},
+      {"uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "if": "always() && inputs.mode == 'train'", "with": {"name": "owner-content_moderation-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error", "path": "${{ runner.temp }}/cm-training/evidence/\n${{ runner.temp }}/cm-audit.json"}},
+      {"name": "Prepare exact immutable serving bytes and restricted lease", "if": "inputs.mode == 'serve'", "timeout-minutes": 25, "run": "timeout --signal=TERM --kill-after=20s 1440 python3 verification/owners/content_moderation/serve.py prepare --root \"$RUNNER_TEMP/cm-serving\""},
+      {"uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "if": "inputs.mode == 'serve'", "with": {"name": "owner-lease-content_moderation-${{ github.run_id }}", "retention-days": 1, "if-no-files-found": "error", "path": "${{ runner.temp }}/cm-serving/lease.json"}},
+      {"name": "Keep exact reference endpoint alive through restricted forwarding", "if": "inputs.mode == 'serve'", "timeout-minutes": 300, "run": "timeout --signal=TERM --kill-after=20s 17880 python3 verification/owners/content_moderation/serve.py hold --root \"$RUNNER_TEMP/cm-serving\""}
+    ]
+  }}
+}

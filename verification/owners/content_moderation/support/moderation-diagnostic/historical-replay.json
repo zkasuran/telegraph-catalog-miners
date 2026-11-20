@@ -1,0 +1,18 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "run_id": "44441475865",
+  "commit": "a18b51ce4be30741a86e2432416b5b283a795b4d",
+  "status": "FAILED_HISTORICAL_REPLAY",
+  "valid_comparison": false,
+  "checks": {"epochs": true, "saved_epoch": true, "payload": false, "train_loss": false, "validation_accuracy": false, "validation_loss": false},
+  "artifact_sha256": {
+    "C3-reproduction.json": "843a4a177e5b889d669eed243af27352705eea0eec550df9d96cb197b632faf2",
+    "fit-C3.log": "319ec5beab7fc6885fe97c05a4493b937f14d85e9858974671842c47b53032b7",
+    "rng-controls.json": "3101f7411dcb1ba9dd499cd8298564011b432aab2e723f6ed73deffc3838881b"
+  },
+  "actual_validation_accuracy": [0.4922, 0.5234, 0.5156],
+  "actual_validation_loss": [0.696871, 0.693699, 0.693734],
+  "rng_fixture": "Guarded real CPU fixture passed. Unguarded fixture changed parameters and RNG. This is not a foundation-model replay.",
+  "diagnosis": "The old run did not capture hash seed, exact initial trainable tensors, post-build RNG, data order or hardware/thread state. Missing classifier parameters are newly initialized in the real loader log. No observed defect proves how to recover the old numerical path.",
+  "next_experiment": "Fresh within-job baseline versus H6 with frozen initialization and explicit order. Historical replay remains failed. Audit remains sealed."
+}
