@@ -1,5 +1,6 @@
 {
   "license": "LicenseRef-zkasuran-SAND-1.0",
+  "source_requirements_checked_at": "2026-11-20T14:46:44Z",
   "port_congestion": {
     "required": ["PORT_FEED_URL", "PORT_FEED_HMAC_KEY", "PORT_FEED_LICENSE_APPROVED"],
     "source_contract": "Version-one raw JSON payload signed with HMAC-SHA256, actual mean completed anchorage waiting hours and an observation no older than five minutes",
@@ -15,7 +16,7 @@
   "twitter_search": {
     "required": ["existing MEDIA_MINIMAX_API_KEY or MINIMAX_API_KEY", "primary MINER_DB budget"],
     "source": "https://platform.minimax.io/docs/guides/server-tools.md",
-    "current_live_status": "real indexed search and oEmbed source probe passed; Worker check pending",
+    "verified_status": "live Worker indexed search and oEmbed checks passed; registration 6140 active at 2026-11-20T14:45:00Z",
     "optional_direct_api": ["X_API_BEARER_TOKEN", "X_API_SPEND_AUTHORIZED"],
     "restriction": "Only public post IDs and source links are returned, not restricted post text or user objects. Default indexed discovery uses the existing MiniMax plan and public oEmbed, not paid X API reads. Index coverage can lag."
   }
