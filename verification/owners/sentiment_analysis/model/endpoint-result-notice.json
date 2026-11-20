@@ -1,0 +1,15 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "integration_run_id": 44822282420,
+  "integration_commit": "ce2bb3f0f0423d26f6120149a5e8dd7d694631de",
+  "package_sha256": "1d5c4c5f020dc75e3cd2c8b59bcd0c04a862ae6ab58f3031be9ad88b8778edd1",
+  "package_keccak": "b7f0acd751d10d8cc81d16db6eff47cf2265f288914965fa44204316a03cbf32",
+  "report_sha256": "d9bd19c9b3e4f959df9ab41c653fd1448f4236c1322d45ca0e78b9636e231cbd",
+  "original_model_sha256": "ae2d3b0275e4f96419bee0e75396f445003afbfc401029353e5bc8ef9e3a061e",
+  "status": "Verified byte-preserving integration evidence, not canonical qualification",
+  "lineage": "Every original model field, descriptor, tensor byte and source grant retained. One ignored endpoint-recovery identity added.",
+  "grants": "Competitive additions retain SAND subject to unchanged ModernBERT/GoEmotions Apache-2.0, reference-kit MIT and original source grants embedded in the model and attached in LICENSE/NOTICE/DATA-SOURCES.md.",
+  "audit_boundary": "Frozen passing original audit replay only. Not new fitting, a new independent audit or new human review."
+}

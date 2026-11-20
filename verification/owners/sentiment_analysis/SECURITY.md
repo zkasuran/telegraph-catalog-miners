@@ -95,3 +95,13 @@ Guard source tests and read-only primary smoke do not prove a live multi-lease
 handoff. Remote recovery/reference verification and actual continuation remain
 unverified until run. No five-hour expiry, quality threshold or parser gate is
 weakened. The guard performs no registration sends or local neural operations.
+
+## Guard process lifetime
+
+A detached child stays in its parent's Linux cgroup. If the owner worker uses
+KillMode=control-group, ending that worker kills a child guard despite session
+detachment. Do not treat a successful foreground smoke as persistent deployment.
+Use only an approved owner-private lifetime mechanism through the controller's
+execution boundary. Service-management permission cannot be bypassed by another
+command, cgroup move or helper. The recovered bytes and immutable integration
+report are verified; live multi-lease survival is still unverified.

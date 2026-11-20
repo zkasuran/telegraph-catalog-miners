@@ -177,3 +177,11 @@ original embedded grant unchanged. Its added ignored registration identity and
 owned lease-continuation code are our SAND additions, subject to the retained
 upstream grants. Registration 161 failed endpoint reachability after lease expiry,
 not a measured quality gate. No licence or prior recipient grant is withdrawn.
+
+Verified endpoint integration result
+------------------------------------
+The immutable endpoint-registration-ready.json report records actual run
+44822282420 at ce2bb3f0f0423d26f6120149a5e8dd7d694631de. Our competitive report
+additions retain SAND subject to the original source-data grants. The recovered
+delta remains byte-bound with every original embedded grant unchanged. Source
+audit replay is fixed-function verification, not new human review or selection.

@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 # Passing v3 artifact binds audit run 44723258067 and executor source bb1eb538a4308956bf5b27eac952d5487c985de6.
 # Serving that artifact dispatches the audited source, not a changed executor.
+# Exact fixed-function endpoint recovery passed run 44822282420 at ce2bb3f0f0423d26f6120149a5e8dd7d694631de.
+# Its guard process lifetime must be approved separately from reference bit verification.
 name: Sentiment owner qualification
 run-name: Sentiment owner ${{ inputs.mode }}
 on:

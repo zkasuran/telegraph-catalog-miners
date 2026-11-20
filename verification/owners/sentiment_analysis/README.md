@@ -144,3 +144,13 @@ continuation. It cannot publish, register or sign. It stops on terminal rejectio
 owner change, failed gates or its one-day/six-generation ceiling. Every remote
 lease and CPU job retains its original limits. Live continuation remains a
 separate verification step, not a promise inferred from source tests.
+
+The endpoint recovery run 44822282420 passed the real fixed-function integration
+checks. Its model and actual report are byte-bound under model/. All 3,456 replay
+score bits match the original passing function. No audit result was used to
+change the model. The source gate now includes the immutable report controls.
+
+Persistent guard lifetime is not proven by detaching a process inside an ephemeral
+owner cgroup. If that worker ends with control-group termination, the guard ends
+too. An approved controller-owned lifetime mechanism is required before this
+candidate relies on multi-lease continuation. No new canonical win is claimed.

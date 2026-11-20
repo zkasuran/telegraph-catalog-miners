@@ -41,6 +41,9 @@ if (recovery['origin_package_sha256'] != 'ae2d3b0275e4f96419bee0e75396f445003afb
         recovery['bounds']['lease_seconds'] != 18000 or recovery['bounds']['remote_job_minutes'] > 350 or
         recovery['bounds']['guard_seconds'] > 86400 or recovery['bounds']['max_generations'] > 6):
     raise ValueError('recovery/continuity must retain reviewed source and bounded lease policy')
+for name in ('endpoint-registration-ready.json', 'endpoint-result-notice.json'):
+    if not (root / 'model' / name).is_file():
+        raise ValueError('actual verified recovery result asset missing: ' + name)
 for name in ('LICENSE', 'NOTICE', 'DATA-SOURCES.md', 'SECURITY.md'):
     if not (root / name).is_file() or not (root / name).read_text().strip():
         raise ValueError('required standalone rights/threat-model artifact missing: ' + name)

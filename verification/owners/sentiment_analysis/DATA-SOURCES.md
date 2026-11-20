@@ -224,3 +224,18 @@ Each restricted lease stays five hours; each standard public CPU job stays withi
 New keys are additive for the identical package and existing route. A healthy
 endpoint is not replaced with a different model. Unknown writes are reconciled,
 never blindly resent. The guard's live handoff proof still needs real remote runs.
+
+## Completed fixed-function recovery verification
+
+Actual run 44822282420 at ce2bb3f0f0423d26f6120149a5e8dd7d694631de completed
+successfully. Immutable report SHA d9bd19c9b3e4f959df9ab41c653fd1448f4236c1322d45ca0e78b9636e231cbd.
+Recovered model SHA 1d5c4c5f020dc75e3cd2c8b59bcd0c04a862ae6ab58f3031be9ad88b8778edd1.
+All 3,456 actual reference replay scores equal their original v3 score bits.
+The full parser, repeated fixed vectors, negative identity controls and literal
+wire path passed. Original tensor fields and every source grant stay unchanged.
+
+This verifies integration bytes, not a new independent source audit, new fitting
+or canonical node quality. The origin source proxy and composition limitations
+remain attached. A detached lease guard cannot be assumed persistent: it must
+outlive its ephemeral owner unit through an approved deployment mechanism before
+a fresh registration relies on it. No such lifetime proof is claimed here.
