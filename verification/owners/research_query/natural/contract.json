@@ -54,9 +54,9 @@
     "static_check.py": "0880b2e87464512061ab5d11f5b3d2e45f084a99c68fbaf89946c4b9653dfa88",
     "verify_source.py": "8eb2d4d3ccdfa9225aa62cf4764f023f9fb9dacdefd0e4107f1f18a01ac750e3",
     "run.py": "61d09e37450ea3b4928e883efda1e4a9e06d1967836e9b6e5bc6b66bf57714d9",
-    "bridge.py": "8fb36a269f9bee600bf9cad746e220ebfac67312b969138a483205efa3149bec",
+    "bridge.py": "87d1077ef34e489df6deedcb8e6538350707b40c2c402660ca23795d9b47b24d",
     "run_base.py": "3bace1099093112effc9b4905de8ec3e2c0f00b5c64bba164716d13cc22ce259",
-    "test_natural.py": "899a2a531d30c2924cea14081b5ccd5964643e13df3d7434588ddbf0b478384d"
+    "test_natural.py": "ae3d56d1d93761a11ab76b8f1d5b277c48791462604e7259efaa27f329d8de4f"
   },
   "fixture_hashes": {
     "train.jsonl": "89a281eb4087edda4b533fcaa6849b48da234a0bb262000a1430323b0ef5b4ff",

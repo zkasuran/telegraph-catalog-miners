@@ -32,6 +32,14 @@ source portions keep their original CC grants and all prior licences
 remain unchanged. Our added code and learned delta use the reviewed
 SAND terms below, subject to those retained upstream grants.
 
+PREPARATION INTEGRATION RECOVERY
+
+The explicit dependency loader and isolated startup tests are our own
+code additions under the unchanged reviewed SAND terms below. They alter
+neither original source text/ranks nor retained upstream grants. The
+failed pre-training job and any future checkpoints keep the same licence
+boundary. No earlier grant is revoked by this integration repair.
+
 # Source-Available No-Derivatives Licence 1.0
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0

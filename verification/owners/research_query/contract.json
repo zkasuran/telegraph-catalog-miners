@@ -31,12 +31,12 @@
   "owned_source_sha256": {
     "verify.py": "4de06b1336d596bef9d22d1326a84550c65d6102a9393231e8e8db8c24b48d0f",
     "report.py": "98a5a29187ad2c8ccf9aaad4073956510f02c43ab97967456b1a0874e24802c8",
-    "verify.sh": "74907522607db6c36743dfe703d80386dddb0cd2409ed181abe44a3782795e2b",
+    "verify.sh": "85a64ac340c0de8b212c8358b93fc57273b5609e952e15eb60aae5f44d42c3c6",
     "train_core.py": "049ea4f66ed58e2622c21789c17fcf22e31d28a7fe63cdbc256d670793952ef8",
     "test_research.py": "14924ea6b2139fbea6f276a8b0e99836670e70270f66e64920a3ccb37594d369",
     "terms.py": "bb4606410ad6276ca4793af25d2b0ffb48f24b6841f9c466c34d370e0e6496f7",
     "scorer.py": "3102b207c1c83c62b13709d2b22fd3ac180d0c7438bf89fea92b9346be69684b",
-    "workflow.yml": "0b581c5092e028147c2ca8123621b3ba8af6906d38d68aa6742d05c65ae209b6",
+    "workflow.yml": "15019a869a48f1463bbdbd6a969b99f5f7a9f517a9da180db102b591c2f7b499",
     "source.py": "33f698b5c87d86e9fb125a5c0bf17003ceaa8e510c09e2403010e917df05eb05",
     "prepare.py": "46c4e2e2a272b308b60dc1ff2330c8a52d287a5010e296e0c4482c7f78459271",
     "remote.py": "1b6a6b73ff4e832db8460ee0627c2908c2bb0acc1a8ecbf8b5220f04060bb2d6",
@@ -56,9 +56,9 @@
     "natural/static_check.py": "0880b2e87464512061ab5d11f5b3d2e45f084a99c68fbaf89946c4b9653dfa88",
     "natural/verify_source.py": "8eb2d4d3ccdfa9225aa62cf4764f023f9fb9dacdefd0e4107f1f18a01ac750e3",
     "natural/run.py": "61d09e37450ea3b4928e883efda1e4a9e06d1967836e9b6e5bc6b66bf57714d9",
-    "natural/bridge.py": "8fb36a269f9bee600bf9cad746e220ebfac67312b969138a483205efa3149bec",
+    "natural/bridge.py": "87d1077ef34e489df6deedcb8e6538350707b40c2c402660ca23795d9b47b24d",
     "natural/run_base.py": "3bace1099093112effc9b4905de8ec3e2c0f00b5c64bba164716d13cc22ce259",
-    "natural/test_natural.py": "899a2a531d30c2924cea14081b5ccd5964643e13df3d7434588ddbf0b478384d",
+    "natural/test_natural.py": "ae3d56d1d93761a11ab76b8f1d5b277c48791462604e7259efaa27f329d8de4f",
     "serving/proxy.py": "636c6e8b6e87d6a368c2719d2281d39f2d20da3cb7a3cd51da8c10a697aa0a51",
     "serving/common.py": "dbd33680401b5e98afe97dfb1e495da294ffdc124c0857c31168697968234784"
   },
@@ -148,5 +148,5 @@
     "neural_result_created_locally": false
   },
   "natural_source_manifest_sha256": "9b2b7e6011d87082221ed007dfe47a76283990dea55d8b286bdbcf84539442cc",
-  "natural_contract_sha256": "c7acb532334bd2c0c5d263b844b0b526e15739f33631df91cb0983836066d2a8"
+  "natural_contract_sha256": "b87a086149fd9dff024f2b4fb15ad1a6d1997ae134c640384e9345c6a6be331c"
 }

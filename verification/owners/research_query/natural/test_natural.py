@@ -15,6 +15,51 @@ from runtime_check import check_response, RELEASE_HASHES
 
 
 class NaturalContracts(unittest.TestCase):
+    def test_bridge_rejects_changed_root_dependency(self):
+        with tempfile.TemporaryDirectory(prefix="natural-bridge-hash-") as directory:
+            root = Path(directory)
+            natural = root / "natural"
+            natural.mkdir()
+            shutil.copyfile(HERE / "bridge.py", natural / "bridge.py")
+            for name in ("source.py", "common.py", "contract.json"):
+                shutil.copyfile(HERE.parent / name, root / name)
+            with (root / "source.py").open("ab") as output:
+                output.write(b"\n")
+            result = subprocess.run([sys.executable, "-I", "-W", "error", str(natural / "bridge.py"), "--source-smoke"],
+                                    cwd=directory, capture_output=True, timeout=10)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(b"root preparation source identity changed: source.py", result.stderr)
+
+    def test_standalone_bridge_import_and_model_refusal(self):
+        # The actual runner starts natural/run.py, not the root verify.sh with
+        # its extra PYTHONPATH. Exercise that literal standalone import context.
+        code = """import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import data
+natural_data = data
+original_path = list(sys.path)
+import bridge
+assert sys.modules['data'] is natural_data
+assert sys.path == original_path
+assert bridge.FOUNDATION['tokenizer.json'] == '67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456'
+try:
+    bridge.prepare_reference(Path(sys.argv[2]))
+except RuntimeError as error:
+    assert 'bounded public CPU GitHub dispatch' in str(error)
+else:
+    raise AssertionError('local foundation preparation was accepted')
+assert 'torch' not in sys.modules
+assert not Path(sys.argv[2]).exists()
+print('STANDALONE BRIDGE AND LOCAL MODEL REFUSAL PASS')
+"""
+        environment = {key: value for key, value in os.environ.items() if not key.startswith("GITHUB_") and key != "PYTHONPATH"}
+        with tempfile.TemporaryDirectory(prefix="natural-bridge-") as directory:
+            result = subprocess.run([sys.executable, "-I", "-W", "error", "-c", code, str(HERE), str(Path(directory) / "never-created")],
+                                    cwd=directory, env=environment, capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertIn(b"STANDALONE BRIDGE AND LOCAL MODEL REFUSAL PASS", result.stdout)
+
     def test_primary_original_rank_and_group_smoke(self):
         report, splits = read_splits(HERE / "fixtures")
         self.assertEqual(len(splits["train"]), 512)

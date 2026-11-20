@@ -8,5 +8,8 @@ export OWNER_SOURCE_ONLY=1
 # the same barrier when it is run without the publication adapter.
 export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}$here"
 python3 -W error "$here/verify.py"
+# Match the remote natural entrypoint's cold import context, not this gate's
+# PYTHONPATH. This loads checked source only and never prepares a model.
+python3 -I -W error "$here/natural/bridge.py" --source-smoke
 python3 -W error "$here/candidate/check_assets.py"
 python3 -W error "$here/natural/verify_source.py"
