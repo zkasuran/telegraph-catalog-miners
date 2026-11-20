@@ -1,0 +1,19 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "scope": "training-only matched batching control, not candidate or independent audit",
+  "split": "train",
+  "training_groups": 4,
+  "training_pairs": 8,
+  "batch_size": 2,
+  "optimizer_steps": 512,
+  "learning_rate": 0.0001,
+  "lora_rank": 8,
+  "lora_alpha": 32,
+  "lora_dropout": 0.0,
+  "seed": 42,
+  "report_interval": 64,
+  "controls": ["stochastic_batch", "reciprocal_batch"],
+  "validation_scored": false,
+  "audit_scored": false,
+  "registration_allowed": false
+}

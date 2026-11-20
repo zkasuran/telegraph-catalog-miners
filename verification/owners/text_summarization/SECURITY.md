@@ -17,6 +17,7 @@
 | Local neural execution | Guarded remote entry points, source-only imports locally | Local entry-point refusal tests |
 | Unbounded source or archive | Per-file byte/time limits, six source workers, bounded archive members and no links | `data.py`, `reference.py`, `primary.py` |
 | Licence absent on failed model | Full source/model/own grants on every partial export | `preserve.py`, `licensing.py`, byte-preserving stamp tests |
+| Confounded batch diagnostic | Identical initialization, learning rate, update count and per-row exposure, only grouping differs | `reciprocal.py`, schedule/source mutation tests |
 
 ## Known limits
 
@@ -30,11 +31,12 @@ The first real model completed the full source/parser/reference-engine pipeline
 but failed quality near chance in all response formats. Its 64 scored audit
 groups are excluded by `exposed-audit.json`. Revision 2 requires complete
 development quality and untrained/shortcut gains before opening a fresh audit.
-`audit_policy.py` and named negative tests enforce this boundary. The new
-revision 3 warm-up recipe is not a measured improvement until its remote run
-completes. It fits only original training groups, then returns to the original
-two-reference task. Single-source tiny-train fit does not prove two-source
-generalization or independence from overlap shortcuts.
+`audit_policy.py` and named negative tests enforce this boundary. Revision 3
+also failed development at 33/64 in every format. Single-source tiny-train fit
+did not establish two-source generalization. The next diagnostic fits only four
+existing training groups with matched stochastic versus reciprocal batches.
+It uses no validation/audit scores. Even successful tiny training fit would not
+prove generalization or independence from overlap shortcuts.
 
 This is a target-study title relevance experiment, not a general factual summary
 judge. Source grants do not establish independent scientific truth. Preferences

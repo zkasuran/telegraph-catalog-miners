@@ -20,7 +20,8 @@ summarization proof.
 | First model integration | Full parser and actual engine agreed, repeat/identity controls passed |
 | Revision 2 quality | Failed development at 50% in every format, clean audit unscored |
 | Training-only diagnostic | Single requested-source control fitted eight train pairs; original two-reference control stayed at chance |
-| Revision 3 quality | Unmeasured, train-only warm-up followed by original task training |
+| Revision 3 quality | Failed development at 33/64 in every format; clean audit unscored |
+| Matched batching diagnostic | Prepared on four train groups; no measured fit yet |
 | Canonical node registration | Not attempted |
 
 Titles are unchanged human-authored source associations. Donor preferences were
@@ -64,7 +65,17 @@ training pairs. Titles and abstracts are unchanged. Warm-up has 64 updates at
 learning rate 0.0005, then a fresh optimizer runs the original three two-reference
 epochs at 0.0001 with 192 updates. Rank 8, alpha 32, accumulation 4 and zero dropout
 remain fixed. The warm-up checkpoint and its actual metrics are retained.
-No measured improvement is claimed until this recipe runs remotely.
+The actual run completed all 256 updates but selected development accuracy was
+33/64 in every format. Warm-up mean loss was 0.125559; main mean loss was 0.724772.
+The clean audit was not scored. See [the actual failed run](https://github.com/zkasuran/telegraph-catalog-miners/actions/runs/44778080472).
+
+Before another candidate, `diagnostic_reciprocal` compares stochastic batches
+with matched reciprocal A/B batches on four unchanged training groups. Both use
+batch size 2, rank 8, learning rate 0.0001 and 512 updates from identical initial
+parameters. Each control sees every training pair equally often. All prompts and
+titles are the original complete two-reference task. The question is whether
+balancing both targets within each update helps learn source selection. This is
+training-only diagnosis, not independent quality or registration evidence.
 
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
 timeouts. Fitting only receives the 256 training pairs. All three main epochs

@@ -32,3 +32,9 @@ training rows before the original two-reference main task. The title association
 and complete source abstracts keep their CC BY 4.0 grants and original attribution.
 The constructed training view and fitted additions use the unchanged reviewed
 SAND grant. Neither the warm-up nor the tiny training diagnostic is an audit.
+
+Matched batching diagnostics retain original complete two-reference prompts and
+published titles on four existing training groups. No new preference labels or
+held-out data are introduced. Metrics are fitted training controls, not audited
+capability. Warm-up checkpoints now receive the same full grant sidecars as main
+checkpoints; previously stamped tensor bytes remain covered by retained grants.

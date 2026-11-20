@@ -10,7 +10,7 @@ from licensing import SIDECARS, licence_metadata, preserve_artifact
 def preserve(root):
     root.mkdir(parents=True, exist_ok=True)
     metadata = licence_metadata()
-    for target in (root, root / "adapter", root / "initial", root / "checkpoint"):
+    for target in (root, root / "adapter", root / "initial", root / "checkpoint", root / "warmup"):
         target.mkdir(exist_ok=True)
         for name in SIDECARS:
             (target / name).write_bytes((HERE / name).read_bytes())

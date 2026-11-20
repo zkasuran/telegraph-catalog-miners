@@ -62,6 +62,14 @@ before any new audit score is computed. A failed development candidate leaves
 the fresh audit unscored. Original source grants and numerical baseline
 coefficients are unchanged.
 
+The actual revision 3 run 44778080472 failed the same development gates at
+33/64 in every format and left the clean audit unscored. A matched batching
+diagnostic now uses four original training groups and their unchanged complete
+two-reference tasks. Stochastic and reciprocal A/B batches have equal size,
+learning rate, update count and per-row exposure. This adds no source text or
+constructed preference label. It cannot emit registration readiness. Full
+original grants apply to every retained diagnostic artifact.
+
 Training-only diagnostics select four complete existing training groups with
 their original titles. One control retains the original two-reference task;
 another asks about one full requested abstract. No source sentence or title is

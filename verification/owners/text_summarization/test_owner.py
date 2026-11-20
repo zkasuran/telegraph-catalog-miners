@@ -20,8 +20,10 @@ from data import HERE, VIEWS, check_splits, prepare, read_splits, view
 from diagnostic import training_controls
 from licensing import preserve_artifact, tensor_parts, verify_checkpoint_metadata
 from metrics import all_formats, pair_metrics, quality
+from preserve import preserve
 from primary import anchors
 from proxy import validate_request
+from reciprocal import policy, schedules, selected_rows
 from report import validate_ready
 from runtime_check import RELEASE_HASHES, compile_tools, model_remote_only
 from serve import parse_settings
@@ -133,6 +135,57 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_matched_original_task_batches(self):
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
+        rows = selected_rows(manifest, train)
+        self.assertEqual(len(rows), 8)
+        self.assertEqual(rows, train[:8])
+        plans = schedules(rows)
+        self.assertEqual(plans, schedules(rows))
+        for batches in plans.values():
+            self.assertEqual(len(batches), 512)
+            self.assertTrue(all(len(batch) == len(set(batch)) == 2 for batch in batches))
+            self.assertEqual([sum(i in batch for batch in batches) for i in range(8)], [128] * 8)
+        self.assertTrue(all(rows[a]["group_id"] == rows[b]["group_id"] for a, b in plans["reciprocal_batch"]))
+        self.assertTrue(all({rows[a]["target"], rows[b]["target"]} == {"A", "B"} for a, b in plans["reciprocal_batch"]))
+        self.assertTrue(any(rows[a]["group_id"] != rows[b]["group_id"] for a, b in plans["stochastic_batch"]))
+
+    def test_batch_control_source_and_policy_negatives(self):
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
+        for name in ("validation", "audit"):
+            with self.subTest(split=name), self.assertRaises(ValueError):
+                selected_rows(manifest, [r for g in manifest["splits"][name] for r in g["pairs"]])
+        rows = selected_rows(manifest, train)
+        for field, value in (("chosen", "unsupported title"), ("target", "A"), ("source_id", "wrong-doi")):
+            bad = copy.deepcopy(rows)
+            bad[1][field] = value
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                schedules(bad)
+        with self.assertRaises(ValueError):
+            schedules(rows[:-1])
+        with tempfile.TemporaryDirectory(prefix="summary-policy-test-") as directory:
+            config = policy()
+            config["audit_scored"] = True
+            (Path(directory) / "reciprocal-policy.json").write_text(json.dumps(config))
+            with patch("reciprocal.HERE", Path(directory)), self.assertRaises(ValueError):
+                policy()
+
+    def test_warmup_preserves_full_sidecars_and_tensor_bytes(self):
+        header = json.dumps({"fixture": {"dtype": "F32", "shape": [1], "data_offsets": [0, 4]}}).encode()
+        payload = struct.pack("<f", 1.)
+        with tempfile.TemporaryDirectory(prefix="summary-warmup-grants-") as directory:
+            root = Path(directory)
+            (root / "warmup").mkdir()
+            path = root / "warmup/fixture.safetensors"
+            path.write_bytes(struct.pack("<Q", len(header)) + header + payload)
+            preserve(root)
+            self.assertEqual(tensor_parts(path.read_bytes())[1], payload)
+            verify_checkpoint_metadata(path)
+            for name in ("LICENSE", "SAND-1.0.txt", "NOTICE", "CC-BY-4.0.txt", "KIT-LICENSE", "UPSTREAM-APACHE-2.0.txt"):
+                self.assertEqual((root / "warmup" / name).read_bytes(), (HERE / name).read_bytes())
+
     def test_curriculum_complete_exact_training_sources(self):
         manifest = json.loads((HERE / "data/manifest.json").read_text())
         train = [r for g in manifest["splits"]["train"] for r in g["pairs"]]
@@ -275,7 +328,7 @@ class ModelContractTests(unittest.TestCase):
         self.assertTrue(all_formats({s: good for s in VIEWS}, {s: weak for s in VIEWS}, {s: controls for s in VIEWS})["passed"])
 
     def test_no_local_neural_entry_points(self):
-        for name in ("remote.py", "serve.py", "diagnostic.py"):
+        for name in ("remote.py", "serve.py", "diagnostic.py", "reciprocal.py"):
             completed = subprocess.run([sys.executable, str(HERE / name), "--help"], env={"PATH": os.environ.get("PATH", ""), "PYTHONDONTWRITEBYTECODE": "1"}, capture_output=True, timeout=10, check=False)
             self.assertNotEqual(completed.returncode, 0)
             self.assertIn(b"runtime scoring is limited", completed.stderr)

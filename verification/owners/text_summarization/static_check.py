@@ -66,7 +66,7 @@ def main():
     if set(workflow["on"]) != {"workflow_dispatch"} or workflow["concurrency"]["cancel-in-progress"] is not False:
         raise ValueError("explicit dispatch with no cancellation required")
     inputs = workflow["on"]["workflow_dispatch"]["inputs"]
-    if set(inputs) != {"mode", "owner_attempt", "serving_settings"} or inputs["mode"]["options"] != ["train", "serve", "diagnostic"]:
+    if set(inputs) != {"mode", "owner_attempt", "serving_settings"} or inputs["mode"]["options"] != ["train", "serve", "diagnostic", "diagnostic_reciprocal"]:
         raise ValueError("closed training and serving modes required")
     if set(workflow["jobs"]) != {"owner"}:
         raise ValueError("one bounded public CPU job required")
@@ -100,7 +100,7 @@ def main():
                   and any(isinstance(child, ast.Return) for child in ast.walk(node)) for node in ast.walk(experiment))
     if not guarded or positions.get("admission", 1 << 30) >= positions.get("audit_views", 0):
         raise ValueError("development admission must precede any neural audit scoring")
-    for source in ("remote.py", "runtime_check.py", "serve.py", "diagnostic.py"):
+    for source in ("remote.py", "runtime_check.py", "serve.py", "diagnostic.py", "reciprocal.py"):
         tree = ast.parse((HERE / source).read_text())
         for node in tree.body:
             if isinstance(node, ast.Import) and any(n.name.split(".")[0] in {"torch", "peft", "transformers", "onnxruntime"} for n in node.names):

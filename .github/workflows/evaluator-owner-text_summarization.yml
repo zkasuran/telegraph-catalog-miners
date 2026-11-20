@@ -2,7 +2,7 @@
 {
   "name": "Bounded target-study title CPU pipeline",
   "on": {"workflow_dispatch": {"inputs": {
-    "mode": {"type": "choice", "options": ["train", "serve", "diagnostic"], "default": "train", "required": true},
+    "mode": {"type": "choice", "options": ["train", "serve", "diagnostic", "diagnostic_reciprocal"], "default": "train", "required": true},
     "owner_attempt": {"type": "string", "required": true, "description": "Exact owner attempt identity"},
     "serving_settings": {"type": "string", "required": false, "default": "{}", "description": "Reserved endpoint and immutable package/report bindings"}
   }}},
@@ -28,8 +28,10 @@
       {"name": "Install hash-locked public CPU dependencies", "timeout-minutes": 20,
        "run": "python3 -m venv \"$RUNNER_TEMP/summary-venv\"\n\"$RUNNER_TEMP/summary-venv/bin/python\" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/text_summarization/requirements.lock\n\"$RUNNER_TEMP/summary-venv/bin/python\" -m pip check\n\"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/audit_dependencies.py --lock verification/owners/text_summarization/requirements.lock --out \"$RUNNER_TEMP/summary-audit-requirements.txt\" --report \"$RUNNER_TEMP/summary-dependency-audit.json\""},
       {"name": "Training-only representation and gradient controls", "if": "${{ inputs.mode == 'diagnostic' }}", "timeout-minutes": 45,
-       "run": "timeout --signal=TERM --kill-after=20s 2400 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/diagnostic.py --root \"$RUNNER_TEMP/summary-diagnostic\""},
-      {"name": "Upload bounded training-only diagnostic and grants", "if": "${{ always() && inputs.mode == 'diagnostic' }}",
+        "run": "timeout --signal=TERM --kill-after=20s 2400 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/diagnostic.py --root \"$RUNNER_TEMP/summary-diagnostic\""},
+      {"name": "Matched original-task stochastic and reciprocal batch controls", "if": "${{ inputs.mode == 'diagnostic_reciprocal' }}", "timeout-minutes": 45,
+        "run": "timeout --signal=TERM --kill-after=20s 2400 \"$RUNNER_TEMP/summary-venv/bin/python\" verification/owners/text_summarization/reciprocal.py --root \"$RUNNER_TEMP/summary-diagnostic\""},
+      {"name": "Upload bounded training-only diagnostic and grants", "if": "${{ always() && (inputs.mode == 'diagnostic' || inputs.mode == 'diagnostic_reciprocal') }}",
        "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {
          "name": "text-summarization-training-controls-${{ github.run_id }}", "retention-days": 7, "if-no-files-found": "error",
          "path": "${{ runner.temp }}/summary-diagnostic/*.json\n${{ runner.temp }}/summary-diagnostic/LICENSE\n${{ runner.temp }}/summary-diagnostic/NOTICE\n${{ runner.temp }}/summary-diagnostic/*.txt\n${{ runner.temp }}/summary-diagnostic/*.md"

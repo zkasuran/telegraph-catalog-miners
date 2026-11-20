@@ -165,3 +165,8 @@ from the original training split. Those source portions retain their original
 CC BY 4.0 grants. Our constructed training view and fitted additions use the same
 SAND grant above, including unsuccessful warm-up and main-task checkpoints.
 This scope statement changes neither the original SAND grant nor upstream rights.
+
+Matched batching controls use original complete training prompts and published
+titles under the retained source grants. Our batching code and fitted additions
+use the unchanged SAND grant. Training-fit reports are not independent audits.
+Full grant sidecars accompany warm-up checkpoints as well as main checkpoints.
