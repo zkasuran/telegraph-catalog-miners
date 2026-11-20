@@ -78,8 +78,11 @@ def main():
     augmentation = (root / "augmentation-generation.jsonl").read_bytes()
     if sha(augmentation) != frozen["training_expansion"]["augmentation_sha256"]:
         raise ValueError("training-only augmentation changed after model freeze")
+    additional = (root / "additional-augmentation-generation.jsonl").read_bytes()
+    if sha(additional) != frozen["training_expansion"]["additional_augmentation_sha256"]:
+        raise ValueError("additional train-only generation changed after model freeze")
     kept_views = set(frozen["training_expansion"]["kept_view_ids"])
-    records += [r for r in lines(augmentation) if r["view_id"] in kept_views]
+    records += [r for r in lines(augmentation) + lines(additional) if r["view_id"] in kept_views]
     generated = json.loads((root / "audit-generation-report.json").read_text())
     if (generated["output_sha256"] != sha((root / "audit-generation.jsonl").read_bytes()) or
             generated["source_manifest_sha256"] != sha(source_raw) or

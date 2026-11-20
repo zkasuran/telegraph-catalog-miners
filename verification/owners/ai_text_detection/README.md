@@ -87,6 +87,12 @@ The model remained below the unchanged gates and consumed no audit. The next
 bounded follow-up continues that exact improved checkpoint with weight 32 and
 lower learning rate, keeping the same inputs and unweighted acceptance tests.
 
+That follow-up did not improve the weakest validation margin, so the selector
+kept the prior state and the audit stayed sealed. The next bounded experiment
+tests 125 planned, further-disjoint training contexts from the same original
+articles. They add no held-out rows or independent articles. Actual generated
+counterparts and every source/data/quality gate still have to pass remotely.
+
 ## Limits
 
 GPT-2 and its distilled student are related. Passing cannot establish transfer to

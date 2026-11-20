@@ -85,6 +85,16 @@ def main():
             augmentation_report["plan_sha256"] != sha((HERE / "train-window-plan.json").read_bytes())):
         raise ValueError("actual training augmentation run/commit/plan binding mismatch")
     augmented = validate_augmented(augmentation_raw, plan, source, augmentation_report)
+    additional_plan_path = HERE / "additional-train-window-plan.json"
+    additional_plan = json.loads(additional_plan_path.read_text())
+    validate_plan(additional_plan, source, sha((HERE / "sources.json").read_bytes()))
+    additional_raw = (root / "additional-augmentation-generation.jsonl").read_bytes()
+    additional_report = json.loads((root / "additional-augmentation-generation-report.json").read_text())
+    if (additional_report["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or
+            additional_report["commit"] != os.environ["GITHUB_SHA"] or
+            additional_report["plan_sha256"] != sha(additional_plan_path.read_bytes())):
+        raise ValueError("additional train-only generation run/commit/plan binding mismatch")
+    augmented += validate_augmented(additional_raw, additional_plan, source, additional_report)
     validation_formats = {style: [pair(r, style) for r in original if r["split"] == "validation"] for style in FORMATS}
     validation_rows = [r for rows in validation_formats.values() for r in rows]
     if any(len(splits[s]) != 2 * COUNTS[s] for s in splits) or any(r["split"] == "test" for r in original):
@@ -113,9 +123,10 @@ def main():
             token_refusals.append(view)
         else:
             candidates.extend(rows)
-    splits["train"], expanded = expanded_training_pairs(original, candidates)
+    splits["train"], expanded = expanded_training_pairs(original, candidates, bare_group_count=6)
     expanded["full_context_refused_views"] = token_refusals
     expanded["augmentation_sha256"] = sha(augmentation_raw)
+    expanded["additional_augmentation_sha256"] = sha(additional_raw)
     dump(root / "training-expansion-report.json", expanded)
     dump(root / "literal-repetition-gate.json", expanded["actual_repetition"])
     fitted = fit_baselines(splits["train"])

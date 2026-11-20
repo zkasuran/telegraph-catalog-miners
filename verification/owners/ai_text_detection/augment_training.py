@@ -16,16 +16,22 @@ def main():
     remote_only()
     p = argparse.ArgumentParser()
     p.add_argument("--root", required=True, type=Path)
-    root = p.parse_args().root.resolve()
+    p.add_argument("--additional", action="store_true")
+    args = p.parse_args()
+    root = args.root.resolve()
     source_raw = (HERE / "sources.json").read_bytes()
     sources = json.loads(source_raw)
-    plan = json.loads((HERE / "train-window-plan.json").read_text())
+    plan_path = HERE / ("additional-train-window-plan.json" if args.additional else "train-window-plan.json")
+    plan = json.loads(plan_path.read_text())
     articles = validate_plan(plan, sources, sha(source_raw))
-    output = root / "augmentation-generation.jsonl"
+    if args.additional and plan["prior_plan_sha256"] != sha((HERE / "train-window-plan.json").read_bytes()):
+        raise ValueError("additional source windows do not bind original disjoint plan")
+    prefix_name = "additional-augmentation" if args.additional else "augmentation"
+    output = root / (prefix_name + "-generation.jsonl")
     if output.exists():
         raise ValueError("augmentation already exists; never replace or reroll it")
     locked_path = HERE / "recovery/locked-augmentation.jsonl"
-    if locked_path.exists():
+    if locked_path.exists() and not args.additional:
         from window_contract import validate_augmented
         producer_raw = (HERE / "recovery/locked-augmentation-producer.json").read_bytes()
         producer = json.loads(producer_raw)
@@ -61,6 +67,8 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(model_path, local_files_only=True, trust_remote_code=False,
                                                use_safetensors=True, dtype=torch.float32).eval()
     original = lines((root / "development-generation.jsonl").read_bytes())
+    if args.additional:
+        original += lines((root / "augmentation-generation.jsonl").read_bytes())
     seen = {identity(r["text"]) for r in original}
     accepted, refusals = 0, []
     started = time.monotonic()
@@ -109,11 +117,11 @@ def main():
             print(json.dumps({"train_views_generated": accepted, "refused_views": len(refusals)}), flush=True)
     del model, tok
     gc.collect()
-    report = {"schema_version": 1, "source_manifest_sha256": sha(source_raw), "plan_sha256": sha((HERE / "train-window-plan.json").read_bytes()),
+    report = {"schema_version": 1, "source_manifest_sha256": sha(source_raw), "plan_sha256": sha(plan_path.read_bytes()),
               "output_sha256": sha(output.read_bytes()), "generator": generator, "valid_views": accepted, "refusals": refusals,
               "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"], "audit_used": False,
               "elapsed_generation_seconds": time.monotonic() - started}
-    dump(root / "augmentation-generation-report.json", report)
+    dump(root / (prefix_name + "-generation-report.json"), report)
     if accepted < plan["minimum_valid_windows"]:
         raise ValueError("insufficient structurally valid new train windows; reports preserved")
 

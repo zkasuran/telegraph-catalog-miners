@@ -63,7 +63,7 @@ def validate_augmented(raw, plan, sources, report):
     return rows
 
 
-def expanded_training_pairs(original, augmented):
+def expanded_training_pairs(original, augmented, bare_group_count=4):
     """Keep whole views and article groups; guarantee reuse bound for any split."""
     view_order = list(dict.fromkeys(r["view_id"] for r in augmented))
     # Every optimizer accumulation block is complete. Trim at most three whole
@@ -73,7 +73,9 @@ def expanded_training_pairs(original, augmented):
     if len(kept) < 80:
         raise ValueError("insufficient structurally valid train-only views")
     raw = [r for r in original if r["split"] == "train"] + added
-    bare_groups = set(sorted({r["group_id"] for r in original if r["split"] == "train"})[:4])
+    if not 1 <= bare_group_count <= 6:
+        raise ValueError("bounded original bare article exposure required")
+    bare_groups = set(sorted({r["group_id"] for r in original if r["split"] == "train"})[:bare_group_count])
     pairs = []
     for row in raw:
         is_original = "view_id" not in row

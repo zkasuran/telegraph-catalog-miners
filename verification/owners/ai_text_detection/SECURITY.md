@@ -61,3 +61,10 @@ The weight-32 follow-up keeps the existing weight ceiling and validates the exac
 improved predecessor's licensed bytes. Historical failed checkpoints remain
 available. A validation improvement still cannot authorize registration before
 the fresh independent audit and actual reference-engine controls pass.
+
+Further source contexts are checked against both original and earlier training
+spans. Generation binds its separate source plan, run, commit and output hash.
+Article/entity/time splits stay fixed. More bare contexts cannot relax the
+primary data gate or the existing worst-case reuse ceiling; insufficient valid
+data fails before fitting. Old trained input and every failed checkpoint remain
+retained, not silently replaced by a source-only plan.

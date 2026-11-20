@@ -65,6 +65,10 @@ def main():
     from window_contract import validate_plan
     import hashlib
     validate_plan(json.loads((HERE / "train-window-plan.json").read_text()), json.loads(source_raw), hashlib.sha256(source_raw).hexdigest())
+    additional = json.loads((HERE / "additional-train-window-plan.json").read_text())
+    validate_plan(additional, json.loads(source_raw), hashlib.sha256(source_raw).hexdigest())
+    if additional["prior_plan_sha256"] != hashlib.sha256((HERE / "train-window-plan.json").read_bytes()).hexdigest():
+        raise ValueError("additional source plan does not bind existing non-overlapping views")
     if not 1 <= recipe.get("bare_loss_weight", 1) <= 32:
         raise ValueError("unbounded train-only format weight")
     print("PASS: compiled Python syntax, JSON configs, bounded pinned public workflow and local import boundary")

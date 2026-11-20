@@ -41,6 +41,54 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_further_source_windows_are_disjoint_training_annotations(self):
+        source_raw = (HERE / "sources.json").read_bytes()
+        source = json.loads(source_raw)
+        previous = json.loads((HERE / "train-window-plan.json").read_text())
+        additional = json.loads((HERE / "additional-train-window-plan.json").read_text())
+        validate_plan(additional, source, sha(source_raw))
+        self.assertEqual(len(additional["windows"]), 125)
+        previous_by_source = {v["source_id"]: v for v in previous["windows"]}
+        for view in additional["windows"]:
+            old = previous_by_source.get(view["source_id"])
+            if old:
+                self.assertGreaterEqual(view["prefix_span"][0], old["human_span"][1])
+            self.assertEqual(view["split"], "train")
+            self.assertEqual(view["human_word_range"], [84, 108])
+
+    def test_larger_context_corpus_cannot_relax_reuse_or_grouping_gates(self):
+        # Synthetic values below are isolated structural unit fixtures only.
+        source = json.loads((HERE / "sources.json").read_text())
+        previous = json.loads((HERE / "train-window-plan.json").read_text())
+        additional = json.loads((HERE / "additional-train-window-plan.json").read_text())
+        producer = json.loads((HERE / "recovery/locked-augmentation-producer.json").read_text())
+        old_raw = (HERE / "recovery/locked-augmentation.jsonl").read_bytes()
+        old = validate_augmented(old_raw, previous, source, producer)
+        original = [json.loads(s) for s in (HERE / "recovery/locked-development.jsonl").read_text().split("\n") if s]
+        fixtures = []
+        for view in additional["windows"][:84]:
+            human, generated, _ = audit_excerpts(view["human_source_window"],
+                "Further structural fixture " + view["view_id"][:8] + " " + " ".join("isolated" + str(i) for i in range(30)))
+            base = {"source_id": view["source_id"], "group_id": view["group_id"], "view_id": view["view_id"],
+                    "split": "train", "year": view["year"], "source_sha256": view["source_sha256"]}
+            fixtures += [{**base, "origin": "human_control", "text": human},
+                         {**base, "origin": "synthetic", "text": generated, "generator": "gpt2",
+                          "generator_weight_sha256": source["generators"]["gpt2"]["weight_sha256"], "seed": view["seed"]}]
+        raw = "".join(json.dumps(r) + "\n" for r in fixtures).encode()
+        fixture_report = {"output_sha256": sha(raw), "source_manifest_sha256": additional["source_manifest_sha256"],
+                          "generator": source["generators"]["gpt2"], "valid_views": 84}
+        new = validate_augmented(raw, additional, source, fixture_report)
+        pairs, info = expanded_training_pairs(original, old + new, bare_group_count=6)
+        self.assertEqual(len(pairs), 672)
+        self.assertEqual(info["bare_pairs"], 12)
+        self.assertEqual(info["independent_article_groups"], 128)
+        self.assertLessEqual(info["worst_case_internal_negative_leak"], 0.10)
+        self.assertFalse(info["gate_thresholds_changed"])
+        splits = fixture_splits()
+        splits["train"] = pairs
+        check_splits(splits)
+        with self.assertRaises(ValueError):
+            expanded_training_pairs(original, old, bare_group_count=6)
     def test_locked_actual_augmentation_and_symmetric_train_only_weight_policy(self):
         source = json.loads((HERE / "sources.json").read_text())
         plan = json.loads((HERE / "train-window-plan.json").read_text())

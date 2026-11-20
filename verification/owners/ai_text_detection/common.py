@@ -160,7 +160,7 @@ def check_splits(splits):
     seen_groups, seen_text = set(), set()
     for split, rows in splits.items():
         if ((split != "train" and len(rows) != 2 * COUNTS[split]) or
-                (split == "train" and not 2 * COUNTS[split] <= len(rows) <= 4 * COUNTS[split])):
+                (split == "train" and not 2 * COUNTS[split] <= len(rows) <= 6 * COUNTS[split])):
             raise ValueError("wrong split size: " + split)
         groups = {}
         ids = set()
