@@ -26,6 +26,7 @@ from contracts import (BASE_FILES, BASE_REVISION, FAMILY, FORMATS, FOUNDATION, K
 from training_record import development_record
 from class_binding import collect_classes
 from wire import Server, Backend
+from warmstart import load_checkpoint
 
 HERE = Path(__file__).resolve().parent
 RELEASE = "https://github.com/telegraphprotocol/telegraph-foundation/releases/download/modernbert-base-lora16-v1/"
@@ -197,12 +198,17 @@ def main():
     remote_only()  # Must precede every neural import, fetch or model operation.
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
-    parser.add_argument("--variant", choices=("original", "compact-elapsed-v2"), default="original")
+    parser.add_argument("--variant", choices=("original", "compact-elapsed-v2", "compact-elapsed-v2-continued"), default="original")
+    parser.add_argument("--warm-start", type=Path)
     args = parser.parse_args()
     root = args.root.resolve()
     root.mkdir(parents=True, exist_ok=True)
-    data_root = HERE / ("data-v2" if args.variant == "compact-elapsed-v2" else "data")
-    splits = read_development(data_root, args.variant)
+    continuing = args.variant == "compact-elapsed-v2-continued"
+    if continuing and args.warm_start is None:
+        raise ValueError("continued candidate requires the exact preserved parent checkpoint")
+    data_variant = "compact-elapsed-v2" if args.variant != "original" else "original"
+    data_root = HERE / ("data-v2" if data_variant == "compact-elapsed-v2" else "data")
+    splits = read_development(data_root, data_variant)
     report = {"schema_version": 1, "family": FAMILY, "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
               "status": "TRAINING_IN_PROGRESS", "variant": args.variant, "source_manifest_sha256": sha((data_root / "development-report.json").read_bytes()),
               "audit_used_for_selection": False, "audit_pairs": 0, "qualification_ready": False}
@@ -218,10 +224,10 @@ def main():
     if torch.cuda.is_available():
         raise RuntimeError("this pipeline is CPU-only")
     torch.set_num_threads(min(4, os.cpu_count() or 1))
-    compact = args.variant == "compact-elapsed-v2"
+    compact = data_variant == "compact-elapsed-v2"
     hp = trainer.Hyperparams(max_length=256 if compact else 512, lora_rank=16 if compact else 8,
-                            lr=0.0002 if compact else 0.0001, batch_size=1, grad_accum=8 if compact else 16,
-                            epochs=3, eval_batch=2, gate_min_acc=0.8,
+                            lr=0.0001 if continuing else 0.0002 if compact else 0.0001, batch_size=1, grad_accum=8 if compact else 16,
+                            epochs=2 if continuing else 3, eval_batch=2, gate_min_acc=0.8,
                             gate_min_margin_over_baseline=0.1, grad_checkpointing=True)
     gate = trainer.gate_dataset(splits["train"], hp)
     write_json(root / "training-data-gate.json", gate)
@@ -286,7 +292,26 @@ def main():
     del initial
     gc.collect()
     adapter = root / "trained-adapter"
-    model, _, _ = trainer.train(str(base), splits["train"], splits["validation"], adapter, hp)
+    original_build = trainer.build_model
+    if continuing:
+        parent, _ = original_build(str(base), hp)
+        warm = load_checkpoint(parent, args.warm_start)
+        parent_metrics = evaluate(parent)
+        if parent_metrics["json"]["accuracy"] != 0.875 or parent_metrics["prose"]["accuracy"] != 0.75:
+            raise ValueError("exact warm-start parent did not reproduce actual preserved validation scores")
+        warm["actual_parent_validation"] = parent_metrics
+        write_json(root / "warm-start-proof.json", warm)
+        del parent
+        gc.collect()
+        def resumed_build(base_path, parameters):
+            resumed, resumed_tok = original_build(base_path, parameters)
+            load_checkpoint(resumed, args.warm_start)
+            return resumed, resumed_tok
+        trainer.build_model = resumed_build
+    try:
+        model, _, _ = trainer.train(str(base), splits["train"], splits["validation"], adapter, hp)
+    finally:
+        trainer.build_model = original_build
     trained = evaluate(model)
     (adapter / "tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())
     package = root / (FAMILY + ".safetensors")

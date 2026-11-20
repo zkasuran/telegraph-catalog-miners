@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 {
   "name": "THREAT_IP_REPUTATION owner learning",
-  "run-name": "THREAT_IP_REPUTATION model-v2 ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
+  "run-name": "THREAT_IP_REPUTATION continued ${{ inputs.mode }} ${{ inputs.owner_attempt }}",
   "on": {
     "workflow_dispatch": {
       "inputs": {
@@ -17,7 +17,8 @@
             "source-check",
             "train-development",
             "replay-runtime",
-            "train-variant2"
+            "train-variant2",
+            "continue-variant2"
           ],
           "default": "source-check",
           "required": true
@@ -71,19 +72,22 @@
         },
         {
           "name": "Actual bounded training, parser and reference engine",
-          "if": "inputs.mode == 'train-development' || inputs.mode == 'train-variant2'",
+          "if": "inputs.mode == 'train-development' || inputs.mode == 'train-variant2' || inputs.mode == 'continue-variant2'",
           "timeout-minutes": 295,
-          "run": "VARIANT=original; if [ \"${{ inputs.mode }}\" = train-variant2 ]; then VARIANT=compact-elapsed-v2; fi; timeout --signal=TERM --kill-after=15s 17400 \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -W error verification/owners/threat_ip_reputation/learn/remote.py --root \"$RUNNER_TEMP/threat-ip-learner\" --variant \"$VARIANT\""
+          "run": "VARIANT=original; WARM=; if [ \"${{ inputs.mode }}\" = train-variant2 ]; then VARIANT=compact-elapsed-v2; fi; if [ \"${{ inputs.mode }}\" = continue-variant2 ]; then VARIANT=compact-elapsed-v2-continued; gh run download 44622772244 --repo zkasuran/telegraph-catalog-miners --name threat-ip-development --dir \"$RUNNER_TEMP/threat-ip-parent\"; WARM=\"--warm-start $RUNNER_TEMP/threat-ip-parent/THREAT_IP_REPUTATION.safetensors\"; fi; timeout --signal=TERM --kill-after=15s 17400 \"$RUNNER_TEMP/threat-ip-venv/bin/python\" -W error verification/owners/threat_ip_reputation/learn/remote.py --root \"$RUNNER_TEMP/threat-ip-learner\" --variant \"$VARIANT\" $WARM",
+          "env": {
+            "GH_TOKEN": "${{ github.token }}"
+          }
         },
         {
           "name": "Retain exact licensed candidate and failure evidence",
-          "if": "always() && (inputs.mode == 'train-development' || inputs.mode == 'train-variant2')",
+          "if": "always() && (inputs.mode == 'train-development' || inputs.mode == 'train-variant2' || inputs.mode == 'continue-variant2')",
           "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
           "with": {
             "name": "threat-ip-development",
             "retention-days": 7,
             "if-no-files-found": "error",
-            "path": "${{ runner.temp }}/threat-ip-learner/candidate-report.json\n${{ runner.temp }}/threat-ip-learner/training-data-gate.json\n${{ runner.temp }}/threat-ip-learner/tokenizer-check.json\n${{ runner.temp }}/threat-ip-learner/frozen-controls.json\n${{ runner.temp }}/threat-ip-learner/package-manifest.json\n${{ runner.temp }}/threat-ip-learner/runtime-proof.json\n${{ runner.temp }}/threat-ip-learner/reference-engine.log\n${{ runner.temp }}/threat-ip-learner/THREAT_IP_REPUTATION.safetensors\n${{ runner.temp }}/threat-ip-learner/untrained.safetensors\n${{ runner.temp }}/threat-ip-learner/parser-result.json"
+            "path": "${{ runner.temp }}/threat-ip-learner/candidate-report.json\n${{ runner.temp }}/threat-ip-learner/training-data-gate.json\n${{ runner.temp }}/threat-ip-learner/tokenizer-check.json\n${{ runner.temp }}/threat-ip-learner/frozen-controls.json\n${{ runner.temp }}/threat-ip-learner/package-manifest.json\n${{ runner.temp }}/threat-ip-learner/runtime-proof.json\n${{ runner.temp }}/threat-ip-learner/reference-engine.log\n${{ runner.temp }}/threat-ip-learner/THREAT_IP_REPUTATION.safetensors\n${{ runner.temp }}/threat-ip-learner/untrained.safetensors\n${{ runner.temp }}/threat-ip-learner/parser-result.json\n${{ runner.temp }}/threat-ip-learner/warm-start-proof.json"
           }
         },
         {

@@ -1,3 +1,5 @@
+Warm-start improvements preserve all original source/model grants and the reviewed SAND terms. Original failed checkpoint licences are retained.
+
 This formulation retains all original source/model grants. Constructed development preferences and model additions remain under the reviewed SAND terms below.
 
 Original model, source-data and code grants remain attached. This update preserves all original grants during metadata-only checkpoint recovery.
