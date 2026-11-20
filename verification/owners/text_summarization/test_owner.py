@@ -16,6 +16,7 @@ from audit_policy import check_source_quarantine, development_gate
 from baseline import load_controls
 from common import DEFAULT_OWNER, lease_for, validate_lease
 from data import HERE, VIEWS, check_splits, prepare, read_splits, view
+from diagnostic import training_controls
 from licensing import preserve_artifact, tensor_parts, verify_checkpoint_metadata
 from metrics import all_formats, pair_metrics, quality
 from primary import anchors
@@ -130,6 +131,17 @@ class WireTests(unittest.TestCase):
 
 
 class ModelContractTests(unittest.TestCase):
+    def test_training_diagnostic_excludes_validation_and_audit(self):
+        manifest = json.loads((HERE / "data/manifest.json").read_text())
+        train = [row for g in manifest["splits"]["train"] for row in g["pairs"]]
+        controls = training_controls(manifest, train)
+        excluded = {d["doi"] for name in ("validation", "audit") for g in manifest["splits"][name] for d in g["documents"]}
+        for rows in controls.values():
+            self.assertEqual(len(rows), 8)
+            self.assertEqual(len({r["group_id"] for r in rows}), 4)
+            self.assertFalse({r["source_id"] for r in rows} & excluded)
+        self.assertEqual([(r["chosen"], r["rejected"]) for r in controls["original_two_reference"]],
+                         [(r["chosen"], r["rejected"]) for r in controls["single_requested_reference_control"]])
     def test_development_gate_keeps_clean_audit_closed(self):
         rows = [dict(row, group_id="fixture-" + str(i)) for i in range(32) for row in fixture_rows()]
         good = pair_metrics(rows, [2., 1.] * 64)
@@ -200,7 +212,7 @@ class ModelContractTests(unittest.TestCase):
         self.assertTrue(all_formats({s: good for s in VIEWS}, {s: weak for s in VIEWS}, {s: controls for s in VIEWS})["passed"])
 
     def test_no_local_neural_entry_points(self):
-        for name in ("remote.py", "serve.py"):
+        for name in ("remote.py", "serve.py", "diagnostic.py"):
             completed = subprocess.run([sys.executable, str(HERE / name), "--help"], env={"PATH": os.environ.get("PATH", ""), "PYTHONDONTWRITEBYTECODE": "1"}, capture_output=True, timeout=10, check=False)
             self.assertNotEqual(completed.returncode, 0)
             self.assertIn(b"runtime scoring is limited", completed.stderr)

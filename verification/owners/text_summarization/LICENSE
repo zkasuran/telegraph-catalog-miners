@@ -154,3 +154,8 @@ ModernBERT retains Apache-2.0 and the Telegraph kit retains MIT. These
 upstream grants remain attached to unsuccessful checkpoints as well as
 successful exports. The original SAND grant is copied unchanged in
 SAND-1.0.txt. This scope statement does not narrow any upstream grant.
+
+Training-only diagnostics use legitimate training source groups and retain these
+same original grants. Tiny-group fit scores and diagnostic checkpoints are not
+independent audits, passing candidates or registration evidence. They may not be
+presented as a canonical qualification result.

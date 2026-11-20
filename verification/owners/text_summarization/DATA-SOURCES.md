@@ -62,6 +62,12 @@ before any new audit score is computed. A failed development candidate leaves
 the fresh audit unscored. Original source grants and numerical baseline
 coefficients are unchanged.
 
+Training-only diagnostics select four complete existing training groups with
+their original titles. One control retains the original two-reference task;
+another asks about one full requested abstract. No source sentence or title is
+cropped. Neither validation nor audit rows are fitted or scored by this mode.
+Tiny-group fit is a representation/gradient control, not general capability.
+
 Train has 128 components and 256 reciprocal pairs. Validation has 32 components
 and 64 pairs. Audit has 64 components and 128 pairs. Source/entity identities
 and normalized title/abstract text do not overlap across these splits.

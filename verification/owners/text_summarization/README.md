@@ -38,6 +38,13 @@ source-only tokenizer dependency. The same gate runs in the public CPU workflow.
 
 ## Remote experiment
 
+The stronger revision 2 recipe also failed development at 50% in every format
+after 192 updates. Its development gate kept the fresh audit unscored.
+Before another candidate, bounded training-only diagnostic mode tests four
+existing training groups with the original A/B binding and a complete requested
+abstract control. It records real gradient norms, parameter changes and train-fit
+metrics. It cannot produce registration readiness or claim independent quality.
+
 The first bounded run completed all three epochs and the actual reference engine.
 Raw/JSON/prose accuracy was 48.44%, 49.22% and 50%. It did not improve the
 seed-matched untrained control. The failed model is not registered. Its scored

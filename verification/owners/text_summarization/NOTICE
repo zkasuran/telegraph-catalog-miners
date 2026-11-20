@@ -21,3 +21,8 @@ validation source rows remain unchanged. The scored original audit from run
 44682766454 is excluded from all new fitting and evaluation. Fresh audit groups
 include licensed publications through 2026 with separate source/entity identities.
 The new audit is not scored until the frozen candidate passes development gates.
+
+Training-only diagnostic mode compares source-role binding and a single requested
+reference on four existing training groups. It records real gradients, parameter
+changes and train-fit metrics, not held-out quality or registration readiness.
+The fresh audit remains unscored after the second development failure.

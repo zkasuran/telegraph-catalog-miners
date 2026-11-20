@@ -18,6 +18,12 @@
 
 ## Known limits
 
+The two fixed recipes failed development. Training-only diagnostic mode uses
+four existing training groups to test parameter updates and source-role binding.
+It never uses validation/audit outcomes and cannot emit registration readiness.
+Its tiny-group fit metrics are not independent capability evidence. Source and
+failed-run grant preservation still applies.
+
 The first real model completed the full source/parser/reference-engine pipeline
 but failed quality near chance in all response formats. Its 64 scored audit
 groups are excluded by `exposed-audit.json`. Revision 2 requires complete
