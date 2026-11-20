@@ -34,6 +34,21 @@ class OriginAuxiliary:
         with torch.random.fork_rng(devices=[]):
             torch.manual_seed(1042)
             self.head = torch.nn.Linear(base.config.hidden_size, 1).to(dtype=torch.float32, device="cpu")
+        if recipe.get("origin_checkpoint_file"):
+            from safetensors.torch import load_file
+            from checkpoint_contract import check_checkpoint
+            path = HERE / recipe["origin_checkpoint_file"]
+            check_checkpoint(path.read_bytes(), recipe["origin_checkpoint_sha256"], recipe["source_manifest_sha256"])
+            saved = load_file(str(path), device="cpu")
+            expected = self.head.state_dict()
+            if set(saved) != set(expected) or any(saved[k].shape != expected[k].shape or not torch.isfinite(saved[k]).all() for k in saved):
+                raise ValueError("saved training-only readout shape/identity mismatch")
+            self.head.load_state_dict(saved, strict=True)
+            if any(not torch.equal(saved[k], self.head.state_dict()[k]) for k in saved):
+                raise ValueError("source readout checkpoint did not load bit-identically")
+            dump(root / "origin-checkpoint-loaded.json", {"sha256": recipe["origin_checkpoint_sha256"],
+                 "verified_tensors": len(saved), "bits_identical": True, "head_excluded_from_node": True,
+                 "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"]})
         self.assert_excluded()
         from tokenizers import Tokenizer
         node = Tokenizer.from_file(str(root / "foundation/tokenizer.json"))

@@ -19,6 +19,9 @@
 | Source byte length substitutes for origin discrimination | Mandatory train-fitted source-origin length baseline in every quality gate | High or omitted source-length baseline refusal |
 | Auxiliary learns length or leaks audit rows | Paired equal-byte UTF-8 prefixes, source/entity/time splits and no audit fitting | Crop, normalized identity, role and immutable baseline controls |
 | Training-only head enters the served package | Head is outside production model; expected 178 adapter tensor inventory | Actual remote parameter-exclusion and encoder-gradient checks |
+| Harder-origin loss becomes an origin prior | Paired mean plus absolute counterpart gap is role-symmetric | Origin swap and bounded-loss controls |
+| Group batching drops rows or changes accumulation silently | Exact view partition and eight literal rows per optimizer update | Actual 752-row/376-view population smoke |
+| Readout resume changes or loses learned state | Exact source-bound checkpoint bytes and remote tensor equality | Model/readout byte and shape refusals |
 | First-page population claim | Complete pinned article tree, truncated=false | Inventory assertions |
 | Article, named-author or text leakage | Whole-article groups, time blocks and normalized overlap removal | Cross-split corruption controls |
 | Easy answer surface | Frozen train-only integer counts plus length and overlap probes | Symmetry and freeze tests |
@@ -87,3 +90,11 @@ creates attributed source annotations, not new independent articles or certified
 human review. Auxiliary quality is unverified until the remote job runs. The
 actual runtime remains the unchanged production head over literal task/answer
 tokens, checked by the full parser and reference engine before registration.
+
+Coupled training uses one two-row source view per loader batch. Its source roles
+are not separate contributor identities. The objective is symmetric under role
+swaps, not a fixed class-weight correction. Both selected learned checkpoints
+remain licensed and the auxiliary head remains outside the production adapter.
+Source-coupled tensor gradients are remote controls, not independent quality or
+node evidence. A native 81.25% aggregate can still fail per-label and shortcut
+margins; those stricter checks are never replaced by the aggregate verdict.

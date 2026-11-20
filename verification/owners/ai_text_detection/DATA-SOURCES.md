@@ -1,5 +1,33 @@
 # Sources and rights
 
+## Symmetric counterpart continuation
+
+Run 44666934403 produced a real bare-format improvement to 81.25%, but its
+AI-generated label accuracy was only 65.62% and its strongest source-length
+shortcut was 78.125%. The strict gate refused it and the audit stayed sealed.
+Its encoder-gradient and head-exclusion controls passed. Both selected learned
+states, production adapter and separate source-origin readout, are retained.
+
+The next objective couples the same two provenance counterparts within each
+existing source view. For their existing training losses a and b it uses
+`(a+b)/2 + 0.25*abs(a-b)`. This is 75% of the larger loss plus 25% of the smaller,
+so it is invariant to origin-name swaps. It is not an AI-specific weight, changed
+preference label or runtime score transformation. It gives less opportunity to
+ignore a systematically harder counterpart while keeping both source roles.
+
+All 752 literal pairs and their original source/entity/time roles remain. A
+loader batch is one source view containing two literal rows. Four view batches
+still yield one eight-row optimizer update and 94 updates per epoch. These actual
+batch semantics are recorded separately from the reference hyperparameters.
+Validation and audit stay unweighted and every existing gate remains active.
+
+[TORCH-ABS-2.15] The pinned primary API computes the absolute value of each tensor
+element. New tensor value/gradient controls test symmetric, unequal and tied
+counterpart losses in the actual CPU runner before fitting. This API use retains
+PyTorch's original grant in PYTORCH-LICENSE. No new third-party implementation,
+model or data source is bundled by this change.
+https://docs.pytorch.org/docs/2.15/generated/torch.abs.html
+
 ## Length-controlled source-origin supervision
 
 Run 44660532017 passed actual tensor controls, data gates and the full package

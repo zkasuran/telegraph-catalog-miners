@@ -6,4 +6,4 @@ export PYTHONDONTWRITEBYTECODE=1
 bash -n "$ROOT/verify.sh"
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_*.py' -v
 python3 -W error "$ROOT/static_check.py"
-printf '%s\n' 'ALL GREEN: source-only gate, equal-byte origin inputs and stronger shortcut controls; neural checks run remotely'
+printf '%s\n' 'ALL GREEN: source-only gate, preserved counterpart population and original quality floors; neural checks run remotely'

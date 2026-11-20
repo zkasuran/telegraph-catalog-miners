@@ -79,3 +79,9 @@ The separate training-only readout does not enter the node package. Transformers
 5.22.1 by Hugging Face, Answer.AI, LightOn and contributors retains Apache-2.0.
 PEFT 0.21.2 by Hugging Face retains Apache-2.0. Only their APIs are invoked.
 New origin-supervision and source-length-shortcut additions use SAND.
+
+Both selected learned states from run 44666934403 are preserved with their
+original grants. Symmetric source-counterpart pooling keeps the same training
+population, labels and article attribution. It changes training loss only, never
+validation/audit scores, source-length margins or node execution. New pooling
+and resume controls use SAND; PyTorch API use retains its original grant.

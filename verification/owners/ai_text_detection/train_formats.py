@@ -13,6 +13,7 @@ import time
 from common import remote_only, dump, validation_gate, validation_selection_key
 from training_weights import weight_policy
 from objective_contract import objective_policy
+from coupled_contract import coupled_policy, source_groups
 
 
 def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, root):
@@ -31,6 +32,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     from common import HERE
     import json
     recipe = json.loads((HERE / "recipe.json").read_text())
+    coupled = coupled_policy(recipe)
+    groups = source_groups(train_rows)
     weights, policy = weight_policy(train_rows, recipe.get("bare_loss_weight", 1))
     objective = objective_policy(recipe, train_rows)
     from train_objective import loss_components
@@ -38,20 +41,27 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     from train_origin import OriginAuxiliary
     origin_aux = OriginAuxiliary(model, tok, train_rows, validation_formats["json"], recipe, root)
     if hp.batch_size != 1:
-        raise ValueError("weighted source-pair loss is bounded to batch size one")
+        raise ValueError("counterpart training is bounded to one source-view batch")
     dump(root / "training-weight-report.json", policy)
     basic_collator = trainer.PairCollator(tok, hp.max_length)
-    def collate(rows):
+    def collate(wrapped):
+        if len(wrapped) != 1 or len(wrapped[0]) != 2:
+            raise ValueError("bounded paired source-view batch required")
+        rows = wrapped[0]
         result = basic_collator(rows)
         result["training_weight"] = float(recipe.get("bare_loss_weight", 1) if rows[0]["style"] == "bare_label" else 1)
-        result["source_text_id"] = rows[0]["text_id"]
+        result["source_text_ids"] = [r["text_id"] for r in rows]
         return result
-    loader = DataLoader(train_rows, batch_size=hp.batch_size, shuffle=True,
+    loader = DataLoader(groups, batch_size=1, shuffle=True,
                         collate_fn=collate)
+    if hp.grad_accum != coupled["row_accumulation"] or hp.grad_accum % 2 or len(groups) % (hp.grad_accum // 2):
+        raise ValueError("coupling must preserve complete eight-row optimizer updates")
+    group_accum = hp.grad_accum // 2
+    from train_coupled import coupled_loss
     parameters = [p for p in model.parameters() if p.requires_grad]
     parameters += list(origin_aux.head.parameters())
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
-    total_steps = max(1, len(loader) // hp.grad_accum) * hp.epochs
+    total_steps = max(1, len(loader) // group_accum) * hp.epochs
     warm = int(total_steps * 0.06)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda s:
         min(1.0, s / max(1, warm)) if s < warm else max(0.0, (total_steps - s) / max(1, total_steps - warm)))
@@ -85,28 +95,35 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         unweighted_losses = 0.0
         pointwise_losses = 0.0
         origin_losses, origin_correct = 0.0, 0
+        counterpart_gap = 0.0
         for i, batch in enumerate(loader):
             chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
-            raw_loss, pair_loss, point_loss = loss_components(chosen, rejected, batch["margin"], objective, trainer)
             weight = batch["training_weight"] / policy["mean_training_weight"]
-            view = origin_aux.by_original_id[batch["source_text_id"]]
-            origin_loss, correct = origin_aux.loss(view)
-            loss = (raw_loss * weight + origin_aux.policy["coefficient"] * origin_loss) / hp.grad_accum
+            row_losses = []
+            pair_values, point_values = [], []
+            for j, text_id in enumerate(batch["source_text_ids"]):
+                raw_loss, pair_loss, point_loss = loss_components(chosen[j:j+1], rejected[j:j+1], batch["margin"][j:j+1], objective, trainer)
+                origin_loss, correct = origin_aux.loss(origin_aux.by_original_id[text_id])
+                row_losses.append(raw_loss * weight + origin_aux.policy["coefficient"] * origin_loss)
+                pair_values.append(pair_loss.item())
+                point_values.append(point_loss.item())
+                origin_losses += origin_loss.item()
+                origin_correct += correct
+            loss = coupled_loss(row_losses) / group_accum
             loss.backward()
-            losses += loss.item() * hp.grad_accum
-            unweighted_losses += pair_loss.item()
-            pointwise_losses += point_loss.item()
-            origin_losses += origin_loss.item()
-            origin_correct += correct
-            if (i + 1) % hp.grad_accum == 0:
+            losses += loss.item() * group_accum
+            unweighted_losses += sum(pair_values) / 2
+            pointwise_losses += sum(point_values) / 2
+            counterpart_gap += abs(row_losses[0].item() - row_losses[1].item())
+            if (i + 1) % group_accum == 0:
                 torch.nn.utils.clip_grad_norm_(parameters, 1.0)
                 optimizer.step()
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
         metrics = measure()
-        origin_diagnostic = origin_aux.measure(epoch, origin_losses, origin_correct, len(loader))
+        origin_diagnostic = origin_aux.measure(epoch, origin_losses, origin_correct, 2 * len(loader))
         key = validation_selection_key(metrics, baselines)
         improved = best is None or key > best
         if improved:
@@ -121,6 +138,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                    "unweighted_training_pair_loss": unweighted_losses / max(1, len(loader)), "training_weight_policy": policy,
                    "unweighted_training_correctness_loss": pointwise_losses / max(1, len(loader)), "training_objective": objective,
                    "origin_auxiliary_diagnostic": origin_diagnostic,
+                   "coupled_objective": coupled, "training_counterpart_gap": counterpart_gap / len(loader),
+                   "literal_training_rows": 2 * len(loader), "source_view_batches": len(loader),
+                   "literal_batch_size": 2, "literal_rows_per_optimizer_update": hp.grad_accum,
                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)

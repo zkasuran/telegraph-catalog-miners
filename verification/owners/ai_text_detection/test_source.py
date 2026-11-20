@@ -22,6 +22,7 @@ from objective_contract import objective_policy, scalar_losses
 from augmentation_contract import validate_restored
 from origin_contract import check_origin_training, origin_policy, raw_origin_view, equal_byte_views, fit_length, length_accuracy
 from common import pair_data_shortcuts_ok
+from coupled_contract import coupled_policy, source_groups, scalar_coupled
 from preserve import stamp
 from reference_render import render as primary_render
 from source import parse_article
@@ -45,6 +46,52 @@ def fixture_splits():
 
 
 class SourceTests(unittest.TestCase):
+    def test_coupling_preserves_training_population_and_source_counterparts(self):
+        rows = fixture_splits()["train"]
+        groups = source_groups(rows)
+        self.assertEqual(len(groups), 128)
+        self.assertEqual({r["text_id"] for g in groups for r in g}, {r["text_id"] for r in rows})
+        self.assertTrue(all({r["origin"] for r in g} == {"human_control", "synthetic"} for g in groups))
+        for field, value in (("split", "validation"), ("source_id", "wrong source"), ("style", "bare_label"), ("origin", "synthetic")):
+            changed = copy.deepcopy(rows)
+            changed[0][field] = value
+            with self.assertRaises(ValueError):
+                source_groups(changed)
+
+    def test_coupled_loss_is_symmetric_and_bounded_between_mean_and_max(self):
+        for a, b in ((0, 0), (1, 3), (3, 1), (0.1, 0.2), (1000, 1)):
+            value = scalar_coupled(a, b)
+            self.assertEqual(value, scalar_coupled(b, a))
+            self.assertGreaterEqual(value, (a + b) / 2)
+            self.assertLessEqual(value, max(a, b))
+        self.assertEqual(scalar_coupled(1, 3), 2.5)
+        with self.assertRaises(ValueError):
+            scalar_coupled(float("nan"), 1)
+        with self.assertRaises(ValueError):
+            scalar_coupled(-1, 1)
+
+    def test_coupled_policy_and_tensor_path_are_remote_only(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        self.assertFalse(coupled_policy(recipe)["runtime_transform"])
+        changed = copy.deepcopy(recipe)
+        changed["coupled_objective"]["origin_order"] = "prefer_human"
+        with self.assertRaises(ValueError):
+            coupled_policy(changed)
+        import train_coupled
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                train_coupled.coupled_loss([None, None])
+            with self.assertRaises(RuntimeError):
+                train_coupled.smoke(None)
+
+    def test_selected_source_readout_is_retained_without_local_tensor_loading(self):
+        recipe = json.loads((HERE / "recipe.json").read_text())
+        raw = (HERE / recipe["origin_checkpoint_file"]).read_bytes()
+        checked = check_checkpoint(raw, recipe["origin_checkpoint_sha256"], recipe["source_manifest_sha256"])
+        self.assertEqual(checked["descriptors"], 2)
+        self.assertFalse(checked["tensor_payload_interpreted"])
+        with self.assertRaises(ValueError):
+            check_checkpoint(raw + b"changed", recipe["origin_checkpoint_sha256"], recipe["source_manifest_sha256"])
     def test_original_pair_data_ceiling_is_not_weakened_by_new_source_metric(self):
         values = {"train": {"length": 0.5, "overlap": 0.5, "answer_only": 0.5, "source_origin_length": 0.78}}
         self.assertTrue(pair_data_shortcuts_ok(values))
@@ -362,7 +409,7 @@ class SourceTests(unittest.TestCase):
         raw = (HERE / recipe["checkpoint_file"]).read_bytes()
         checked = check_checkpoint(raw, recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
         self.assertFalse(checked["tensor_payload_interpreted"])
-        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017))
+        self.assertIn(recipe["continuation_run_id"], (44588237548, 44632309433, 44660532017, 44666934403))
 
     def test_weight16_predecessor_remains_retained_when_followup_is_selected(self):
         recipe = json.loads((HERE / "recipe.json").read_text())

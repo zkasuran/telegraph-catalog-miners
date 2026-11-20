@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Limits
 
+The length-controlled run reached 81.25% bare overall but still failed its
+AI-generated label and source-length margins. The next continuation retains
+both actual selected learned states and couples each existing source view's two
+provenance counterparts under a symmetric harder-loss objective. It does not add
+source rows, change verdict labels or alter the production executor. Its benefit
+must be measured remotely under the same strict format, label and shortcut gates.
+
 The correctness-objective run passed tensor, source and parser controls but did
 not improve bare accuracy. Source-only checks then found a 78.125% validation
 source-length shortcut missed by answer-length probes. It now enters every

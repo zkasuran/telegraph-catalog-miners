@@ -108,6 +108,8 @@ def main():
     from objective_contract import objective_policy
     from train_objective import smoke as objective_smoke
     objective_smoke(objective_policy(recipe), trainer, root)
+    from train_coupled import smoke as coupled_smoke
+    coupled_smoke(root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     from tokenizers import Tokenizer
@@ -282,6 +284,8 @@ def main():
               "validation_formats": validation_results, "validation_gate": selected_gate,
               "checkpoint_lineage": recipe, "independent_validation_groups": COUNTS["validation"]}
     frozen["training_expansion"] = expanded
+    frozen["training_batch_semantics"] = {"source_views_per_batch": 1, "literal_rows_per_batch": 2,
+                                         "literal_rows_per_optimizer_update": hp.grad_accum}
     dump(root / "frozen-candidate.json", frozen)
     if not selected_gate["passed"]:
         raise ValueError("all-format validation failed; preserve candidate and do not expose fresh audit")

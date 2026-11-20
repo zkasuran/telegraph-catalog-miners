@@ -47,7 +47,7 @@ def main():
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
     source_manifest = (HERE / "sources.json").read_bytes()
-    for name in ("origin-source-contract.json", "origin-gradient-control.json", "origin-training-report.json"):
+    for name in ("origin-source-contract.json", "origin-gradient-control.json", "origin-training-report.json", "origin-checkpoint-loaded.json", "coupled-tensor-controls.json"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())

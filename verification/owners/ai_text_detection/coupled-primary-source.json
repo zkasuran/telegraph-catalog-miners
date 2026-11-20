@@ -1,0 +1,7 @@
+{
+  "key": "TORCH-ABS-2.15",
+  "url": "https://docs.pytorch.org/docs/2.15/generated/torch.abs.html",
+  "sha256": "0dee7ce1613dc49202df13ac88e99cceb4151b171c4150e871f265d5a025c6ce",
+  "bytes": 227504,
+  "grant": "PyTorch's original grant is retained in PYTORCH-LICENSE. API use only."
+}
