@@ -1,14 +1,28 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """Restore only the retained licensed best adapter on the public CPU runner."""
+import struct
 import zipfile
 
-from contracts import file_sha, remote_only, strict_json
+from contracts import file_sha, remote_only, sha, strict_json
 
-PARENT_RUN = 44612876956
-PARENT_COMMIT = "915de7e147fe831f84c6dd3d3d001596912e4b8a"
-PARENT_CHECKPOINT_SHA = "6c0e255c9a6e23f806412c6200efabebf836f85282d0e74fa8523b53cba639dd"
+PARENT_RUN = 44628637805
+PARENT_COMMIT = "63c0b6766cd6ad9ab60f5f4e9e3838da60e73690"
+PARENT_CHECKPOINT_SHA = "14733ccfefdaad02bd00cd4a34a2c54ca6e6a6697dd5ba5cd39710aa86da5e27"
 FAILED_TENSOR_SHA = "e0723e4c24864fc4d54d6bf28081702bad5f65e568926a19d079bbbae85c50b1"
-FAILED_TENSOR_SHAS = {FAILED_TENSOR_SHA, "5d48fda32609747989ca64339906b91154eed0701d8ad9d76de002087286e313"}
+FAILED_TENSOR_SHAS = {FAILED_TENSOR_SHA, "5d48fda32609747989ca64339906b91154eed0701d8ad9d76de002087286e313",
+                      "c62751c03228a60574770785945276844fa2f1623b9a601673cd426b3b833caf"}
+
+
+def check_candidate_tensor(raw):
+    if len(raw) < 9 or len(raw) > 64 << 20:
+        raise ValueError("candidate package byte ceiling")
+    header_bytes = struct.unpack("<Q", raw[:8])[0]
+    if not 0 < header_bytes < len(raw)-8 or header_bytes > 4 << 20:
+        raise ValueError("candidate package header bound")
+    digest = sha(raw[8+header_bytes:])
+    if digest in FAILED_TENSOR_SHAS:
+        raise ValueError("unchanged failed tensor payload must not be audited or registered again")
+    return digest
 
 
 def restore(root):

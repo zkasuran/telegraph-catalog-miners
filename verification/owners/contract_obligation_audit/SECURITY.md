@@ -10,10 +10,12 @@
 | Nonfinite score | uint32 and finite FP32 contract | NaN/Infinity and 500 random-bit controls |
 | Local model operations | Remote-only guard and source-only gate | Denial tests |
 | Fake quality pass | All format, label and improvement thresholds retained | Below-threshold failure controls |
-| Failed validation accidentally exposes audit | Mandatory complete per-format/per-label validation gate | Run 44612876956 refused before audit; original reservation is unconsumed |
+| Failed validation accidentally exposes audit | Mandatory complete per-format/per-label validation gate | Runs 44612876956 and 44628637805 refused before audit; original reservation is unconsumed |
 | Weak tag-only learning or loss-based selection | Direct source/complement claims, broader source groups and worst-format accuracy selection | Validation-only model selection; no audit gradient or threshold change |
 | Slow or oversized HTTP input | Body/header byte ceilings, total input deadline and four connections | Actual local HTTP controls and remote identity/token controls |
 | Wrong public model or report | Exact immutable URL/hash, full parser and reference vectors before serving | Serving preparation refuses mismatches |
 | Unrestricted forwarding key | Exact existing common.lease_for with public proof hashes and pinned host | Only public restricted lease uploaded; ephemeral key stays on runner |
+| Unchanged failed candidate presented as new | Deny all three observed failed tensor payloads | Exact actual failed package hashes retained; no restamp retry |
+| Memorization of a small gold source set | Broader training sources, six epochs and stronger weight decay | Actual previous loss/validation divergence retained; improvement remains remote-only and unverified |
 
 Known limits: source-stage checks are not neural or reference-engine results. Document labels are not performance labels. The raw scorer uses the documented 512-token interface and complete source contexts up to 768 bytes; the distinct typed miner slot remains bounded to 256 bytes. No long on-chain contract transport or link dereference is claimed. Entity aliases and legal applicability require wider evidence. All 99 inspected audit groups are permanently retired. A link-only or bare verdict answer contains no clause evidence for this narrow task. Even a completed independent reference audit is not a canonical node win. No quality or identity gate may be bypassed to register.

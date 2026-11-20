@@ -18,12 +18,14 @@ Full retained grants are in licences.json and embedded in every exported delta.
 The reference engine and foundation are pinned, not binary-wrapped or altered.
 
 New source/contract code and trained deltas: Copyright (c) 2026 zkasuran.
-Generation-four training resumes the licensed source-trained best checkpoint
-of public run 44612876956. Its validation failed and the audit never executed.
+Generation-five training resumes the licensed source-trained best checkpoint
+of public run 44628637805. Its validation failed and the audit never executed.
 The source audit reservation remains fixed and separate from every fit step.
 Previously exposed audit groups are never reused. Original source labels and
 full grants remain unchanged. Logical-complement response templates are
 AI-assisted constructions, not fresh human preferences. A changed or registered
 package is not a canonical win.
+Broader original training sources, six epochs, lower learning rate and increased
+weight decay address the observed memorization without changing the backbone.
 LicenseRef-zkasuran-SAND-1.0. These terms do not restrict original CC BY text,
 annotations or source-derived data. No licensor endorsement is implied.

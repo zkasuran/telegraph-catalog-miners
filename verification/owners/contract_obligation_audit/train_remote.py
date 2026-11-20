@@ -5,7 +5,6 @@ import gc
 import importlib.metadata
 import os
 import random
-import struct
 from dataclasses import asdict
 from pathlib import Path
 
@@ -13,8 +12,8 @@ from baselines import validate_frozen
 from contracts import FAMILY, FOUNDATION, HERE, check_config, file_sha, read_jsonl, remote_only, render, strict_json, write_json
 from data import pair
 from prepare_remote import compile_runtime, full_parser, prepare
-from validation_policy import require_validation
-from parent_checkpoint import FAILED_TENSOR_SHAS, PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, restore
+from validation_policy import require_validation, warmstart_policy
+from parent_checkpoint import PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, check_candidate_tensor, restore
 from source_cues import measure_source_cues
 
 
@@ -29,7 +28,7 @@ def main():
     for name in ("train", "validation", "audit"):
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("frozen source data identity changed")
-    validate_frozen(strict_json((HERE/"frozen-baselines-v4.json").read_bytes()), train)
+    validate_frozen(strict_json((HERE/"frozen-baselines-v5.json").read_bytes()), train)
     foundation, base, kit = prepare(root, weights=True)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -44,9 +43,13 @@ def main():
     if torch.cuda.is_available():
         raise RuntimeError("this pipeline permits CPU only")
     torch.set_num_threads(min(4, os.cpu_count() or 1))
+    policy = warmstart_policy()
+    if policy["epochs"] != config["epochs"] or policy["max_tokens"] != config["max_tokens"]:
+        raise ValueError("source and optimizer policy mismatch")
     hp = trainer.Hyperparams(max_length=config["max_tokens"], batch_size=2, grad_accum=4, epochs=config["epochs"],
-                            eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"],
-                            lr=.0002, es_patience=6, es_metric="pairwise_accuracy")
+                             eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"],
+                             lr=policy["learning_rate"], weight_decay=policy["weight_decay"],
+                             es_patience=policy["patience"], es_metric="pairwise_accuracy")
     gate = trainer.gate_dataset(train, hp)
     write_json(root/"upstream-dataset-gate.json", gate)
     if gate["ok"] is not True:
@@ -98,8 +101,8 @@ def main():
     torch.manual_seed(hp.seed)
     initial, _ = trainer.build_model(str(base), hp)
     from baselines import measure
-    frozen_baseline = strict_json((HERE/"frozen-baselines-v4.json").read_bytes())
-    source_baseline = strict_json((HERE/"frozen-source-cues-v4.json").read_bytes())
+    frozen_baseline = strict_json((HERE/"frozen-baselines-v5.json").read_bytes())
+    source_baseline = strict_json((HERE/"frozen-source-cues-v5.json").read_bytes())
     if source_baseline["training_data_sha256"] != source["files"]["train"]["sha256"]:
         raise ValueError("source-aware baseline is not bound to this training data")
     def validation_metrics(model):
@@ -125,6 +128,7 @@ def main():
     def resumed_build(base_model, hyperparams):
         model, tokenizer = original_build(base_model, hyperparams)
         model.load_adapter(str(parent), adapter_name="default", is_trainable=True)
+        model.set_adapter("default")
         return model, tokenizer
     validation_views = [{**pair(row, style), "view_style": style} for row in validation for style in ("json", "prose")]
     def worst_format_evaluate(model, tokenizer, rows, hyperparams, negatives=None):
@@ -146,10 +150,7 @@ def main():
         measured["untrained_accuracy"] = initial_validation[style]["accuracy"]
     candidate = export(trained_path, FAMILY)
     candidate_bytes = candidate.read_bytes()
-    header_bytes = struct.unpack("<Q", candidate_bytes[:8])[0]
-    from contracts import sha
-    if sha(candidate_bytes[8+header_bytes:]) in FAILED_TENSOR_SHAS:
-        raise ValueError("unchanged failed tensor payload must not be audited or registered again")
+    check_candidate_tensor(candidate_bytes)
     del model
     gc.collect()
     foundation_spec = root/"foundation.json"

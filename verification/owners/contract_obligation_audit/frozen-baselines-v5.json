@@ -1,0 +1,27 @@
+{
+  "bow_integer_coefficients": {},
+  "fit_rows": 320,
+  "fit_split": "train",
+  "hypothesis_label_counts": {
+    "nda-1": {
+      "Contradiction": 40,
+      "Entailment": 40
+    },
+    "nda-17": {
+      "Contradiction": 38,
+      "Entailment": 38
+    },
+    "nda-20": {
+      "Contradiction": 42,
+      "Entailment": 42
+    },
+    "nda-7": {
+      "Contradiction": 40,
+      "Entailment": 40
+    }
+  },
+  "length_direction": 1,
+  "overlap_direction": 1,
+  "schema_version": 1,
+  "train_sha256": "f13711a2b1661cd2d540d77a558341221a2f3634d0dfb873edb892708e8c3ac0"
+}

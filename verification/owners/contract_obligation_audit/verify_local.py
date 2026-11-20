@@ -14,13 +14,15 @@ from balanced import construct
 from contracts import HERE, check_config, file_sha, sha, strict_json
 from data import download
 from source_gate import verdict
+from parent_checkpoint import PARENT_RUN
+from source_cues import measure_source_cues
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-generation", type=int, required=True)
     args = parser.parse_args()
-    if args.source_generation != 4:
+    if args.source_generation != 5:
         raise ValueError("retired source generations are not eligible releases")
     for path in HERE.glob("*.py"):
         raw = path.read_bytes()
@@ -61,8 +63,13 @@ def main():
             raw = b"".join(json.dumps(row, sort_keys=True, ensure_ascii=False).encode()+b"\n" for row in rows)
             if sha(raw) != fingerprints["files"][name]["sha256"]:
                 raise ValueError("constructed source split differs from frozen source bytes")
-        frozen = strict_json((HERE/"frozen-baselines-v4.json").read_bytes())
+        frozen = strict_json((HERE/"frozen-baselines-v5.json").read_bytes())
         validate_frozen(frozen, splits["train"])
+        cues = strict_json((HERE/"frozen-source-cues-v5.json").read_bytes())
+        if cues["training_data_sha256"] != fingerprints["files"]["train"]["sha256"]:
+            raise ValueError("semantic coefficients are not bound to training data")
+        for split in ("train", "validation"):
+            measure_source_cues(splits[split], cues)
         checked = verdict(splits, frozen, config)
         if not checked["passed"]:
             raise ValueError("actual source gate failed in the standalone checkout")
@@ -73,6 +80,9 @@ def main():
         raise ValueError("owned workflow dispatch/job schema")
     if any(job["runs-on"] != "ubuntu-24.04" or not 1 <= job["timeout-minutes"] <= 350 for job in jobs.values()):
         raise ValueError("workflow runner/timeout ceiling")
+    parent_steps = [step for step in jobs["train"]["steps"] if step.get("name") == "Read retained licensed best checkpoint"]
+    if len(parent_steps) != 1 or parent_steps[0]["with"]["run-id"] != PARENT_RUN:
+        raise ValueError("workflow does not download the exact retained checkpoint")
     print("ALL GREEN: source-only contracts, complete real source gate, immutable data/baselines and bounded workflow. No neural imports or operations.")
 
 

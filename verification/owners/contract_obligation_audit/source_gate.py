@@ -33,7 +33,7 @@ def main():
     parser.add_argument("--report", required=True, type=Path)
     args = parser.parse_args()
     config = check_config(strict_json((HERE / "config.json").read_bytes()))
-    frozen = strict_json((HERE / "frozen-baselines-v4.json").read_bytes())
+    frozen = strict_json((HERE / "frozen-baselines-v5.json").read_bytes())
     splits = {split: read_jsonl(args.data / (split + ".jsonl")) for split in config["limits"]}
     result = verdict(splits, frozen, config)
     write_json(args.report, result)

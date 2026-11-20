@@ -5,6 +5,7 @@ import http.client
 import json
 import os
 import random
+import struct
 import threading
 import unittest
 from unittest.mock import patch
@@ -18,7 +19,7 @@ from reference_render import render as actual_reference_render
 from executor import Server, validate_request
 from serve_remote import immutable_url
 from validation_policy import require_validation, warmstart_policy
-from parent_checkpoint import restore
+from parent_checkpoint import check_candidate_tensor, restore
 from source_cues import measure_source_cues
 
 
@@ -30,6 +31,22 @@ def fixture(label="Entailment", hypothesis_id="control"):
 
 
 class ContractTests(unittest.TestCase):
+    def test_failed_tensor_cannot_be_restamped(self):
+        # Authored opaque bytes, not a failed audit/model capture.
+        from contracts import sha
+        payload = b"authored-failure-control"
+        for header in (b'{}', b'{"__metadata__":{"notice":"changed"}}'):
+            raw = struct.pack("<Q", len(header))+header+payload
+            self.assertEqual(check_candidate_tensor(raw), sha(payload))
+            with patch("parent_checkpoint.FAILED_TENSOR_SHAS", {sha(payload)}):
+                with self.assertRaises(ValueError):
+                    check_candidate_tensor(raw)
+
+    def test_candidate_header_bounds(self):
+        for raw in (b"", b"a"*8, struct.pack("<Q", 99)+b"x", struct.pack("<Q", 0)+b"x"):
+            with self.assertRaises(ValueError):
+                check_candidate_tensor(raw)
+
     def test_parent_restore_never_loads_locally(self):
         with patch.dict(os.environ, {"GITHUB_ACTIONS": "false", "OWNER_SOURCE_ONLY": "1"}, clear=True):
             with self.assertRaises(RuntimeError):
@@ -66,7 +83,10 @@ class ContractTests(unittest.TestCase):
 
     def test_warmstart_policy_retains_gates(self):
         policy = warmstart_policy()
-        self.assertEqual(policy["epochs"], 16)
+        self.assertEqual(policy["epochs"], 6)
+        self.assertEqual(policy["learning_rate"], .00005)
+        self.assertEqual(policy["weight_decay"], .05)
+        self.assertEqual(policy["max_tokens"], 512)
         self.assertEqual(policy["train_formats"], ["json", "prose"])
         self.assertIn("retained licensed", policy["initialization"])
         self.assertIn("80%", policy["quality_gate"])

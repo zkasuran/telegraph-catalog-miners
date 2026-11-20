@@ -95,7 +95,7 @@ def construct(archive, config, policy):
         raise ValueError("retired audit group entered a new split")
     if any(r["source_group"] in audit_forbidden for r in splits["audit"]):
         raise ValueError("development-exposed group entered a new audit")
-    return splits, {**source, "generation": 4, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
+    return splits, {**source, "generation": 5, "selection_basis": "train/development only; unchanged unconsumed source audit, no audit model or shortcut scores",
                     "hypotheses": hypotheses, "retired_groups_excluded": len(forbidden),
                     "audit_forbidden_groups": sorted(audit_forbidden), "policy_sha256": sha((HERE / "source-policy.json").read_bytes()),
                     "independent_groups": len({r["source_group"] for r in splits["audit"]})}
