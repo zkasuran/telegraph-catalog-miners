@@ -38,12 +38,23 @@ def fit(root, arm):
     torch, np, trainer, hp = runtime(root, CONTRACT["arms"][arm])
     splits = read_development(root)
     formats = views(splits["validation"])
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from balanced import style_positions, training_batch, training_views as anchored_views
+    positions = style_positions(splits["train"])
+    data = __import__("core").load_shared()[0]
+    training_views = anchored_views(splits["train"], data.pair)
+    style_epoch = {"epoch": 0}
+    style_gates = {name: trainer.gate_dataset(rows, hp) for name, rows in training_views.items()}
+    if any(not value["ok"] for value in style_gates.values()):
+        raise ValueError("actual training-format dataset gate failed")
+    write(root / "evidence/training-format-gates.json", {"gates": style_gates, "groups": len(positions), "per_label_format": 128, "policy": "source-anchored JSON/prose/label-led views, stable per-label position plus epoch modulo 3; no exact bare-label training"})
     tok, node = tokenizer(root)
     gate = trainer.gate_dataset(splits["train"], hp)
     write(root / "evidence" / (arm + "-dataset-gate.json"), gate)
     if not gate["ok"]:
         raise RuntimeError("upstream dataset gate failed before model loading")
-    tokenize(trainer, tok, node, [splits["train"], splits["validation"], *formats.values()], root / "evidence" / (arm + "-tokenizer-check.json"))
+    tokenize(trainer, tok, node, [*training_views.values(), splits["validation"], *formats.values()], root / "evidence" / (arm + "-tokenizer-check.json"))
     planned = schedule(hp.epochs, len(splits["train"]))
     initial, plan = initial_spec(root)
     validate_orders(plan, splits["train"])
@@ -56,6 +67,7 @@ def fit(root, arm):
         def __iter__(self):
             if self.epoch >= hp.epochs:
                 raise ValueError("extra training loader iteration")
+            style_epoch["epoch"] = self.epoch
             order = plan["epochs"][self.epoch]
             self.epoch += 1
             return iter(order)
@@ -64,6 +76,7 @@ def fit(root, arm):
     observed_order, observed_epochs = [], []
     class ObservedCollator(trainer.PairCollator):
         def __call__(self, batch):
+            batch = training_batch(batch, positions, style_epoch["epoch"], data.pair)
             for row in batch:
                 window[(row["label"], row["style"])] += 1
                 observed_order.append(row["group_id"])

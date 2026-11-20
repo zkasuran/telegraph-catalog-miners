@@ -69,3 +69,19 @@ development/model evidence input, not new training data. Its whole archive and
 the original Apache-2.0, MIT and SAND grants above. Civil Comments remains CC0.
 The audit is the same 256 groups selected before training, not a fresh draw.
 Completed trained reference streams are retained. Recovery performs no fitting.
+
+## B3 source-anchored training
+
+Recovery completed with a genuine bare-label Flagged audit loss. That entire audit
+is now an exclusion set, not new training or validation data. B3 uses only the
+original 768 training groups. Each group rotates through JSON, prose and a
+label-led response quoting the actual source text. These are constructed
+preferences under the retained source grants, not human-reviewed preferences.
+Exact bare labels remain unseen transfer inputs. No padding or random tags are
+added to evade the upstream repeated-negative gate.
+
+The new 256-group audit is frozen before model loading from a full pinned official
+test-file scan with a fixed new salt. All original split groups and all 256 exposed
+audit groups are excluded. Source conflict removal and normalized identity checks
+remain mandatory. New train-only fitted baseline coefficients are emitted once
+then consumed as immutable bytes for validation, audit and reproduction.

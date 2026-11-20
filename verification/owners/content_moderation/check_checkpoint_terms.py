@@ -4,6 +4,7 @@ import json
 import struct
 
 from contracts import EXPERIMENT, HERE, sha
+from balanced import plan
 
 
 def check(raw, licences):
@@ -23,12 +24,13 @@ def check(raw, licences):
 def main():
     licences = json.loads((HERE / "support/training/licences.json").read_bytes())
     warm = EXPERIMENT["warm_start"]
-    for name, expected in ((warm["checkpoint"], warm["checkpoint_sha256"]), (warm["untrained"], warm["untrained_sha256"])):
+    balanced = plan()["warm_start"]
+    for name, expected in ((warm["checkpoint"], warm["checkpoint_sha256"]), (warm["untrained"], warm["untrained_sha256"]), (balanced["checkpoint"], balanced["checkpoint_sha256"])):
         raw = (HERE / "assets" / name).read_bytes()
         if sha(raw) != expected:
             raise ValueError("checkpoint source bytes changed")
         check(raw, licences)
-    print("CHECKPOINT RIGHTS PASS: two immutable fitted/untrained containers, all original grants retained, no model loading")
+    print("CHECKPOINT RIGHTS PASS: three immutable fitted/untrained containers, all original grants retained, no model loading")
 
 
 if __name__ == "__main__":

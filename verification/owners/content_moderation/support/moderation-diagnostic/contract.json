@@ -1,7 +1,7 @@
 {
   "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
   "schema_version": 3,
-  "name": "moderation-f3-warm-start-validation-only",
+  "name": "moderation-b3-format-balanced-validation-only",
   "motivation": "Flat original validation trajectory after three completed epochs. No prior test errors choose settings.",
   "repository": "zkasuran/telegraph-catalog-miners",
   "kit_revision": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
@@ -41,8 +41,8 @@
   },
   "matched_trial": {
     "initialization": "One saved initial adapter, exact named trainable tensors and post-build Python/NumPy/Torch CPU RNG restored in both arms.",
-    "order": "Three frozen training permutations, exact captured warm-start state and dedicated DataLoader generator.",
-    "comparison": "Frozen low-LR warm-start trial, fresh optimizer, not exact continuation",
+    "order": "Three frozen training permutations and per-label balanced style rotation, exact warm-start state and dedicated DataLoader generator.",
+    "comparison": "Frozen format-balanced warm-start trial, fresh optimizer, not historical replay",
     "historical_comparison_valid": false,
     "matched_fields": [
       "trainable",
@@ -61,7 +61,7 @@
     "policy": "Retain the still-unopened audit. Any changed source or exclusions fail rather than replace it."
   },
   "arms": {
-    "F3": 3
+    "B3": 3
   },
   "hyperparameters": {
     "max_length": 256,

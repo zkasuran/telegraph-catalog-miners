@@ -1,0 +1,31 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "CONTENT_MODERATION",
+  "arm": "B3",
+  "epochs": 3,
+  "source_groups": 768,
+  "validation_groups": 128,
+  "audit_groups": 256,
+  "audit_per_label": 128,
+  "audit_salt": "moderation-format-balanced-independent-v1",
+  "excluded_audit_groups_sha256": "2e92b96489d4ccf0db9a72f0c23b730e90f527cb138c5b0bd1926c6a91fb6d98",
+  "training_format_policy": "Within each label, stable sorted group position plus epoch modulo 3. Exactly 128 groups per label/style each completed epoch. Every original sees JSON, prose and label-led source rationale once if all three epochs complete; original early stopping remains active. Exact bare-label answers remain unseen during fitting because the unchanged generic data gate rejects stock negatives.",
+  "warm_start": {
+    "checkpoint": "F3-epoch-1.safetensors",
+    "checkpoint_sha256": "fb255d4901ee8af4cb51948e0fe1227754b47ccb31621e2d3c517065998354f7",
+    "config": "F3-epoch-1-config.json",
+    "config_sha256": "b0f4a668416e64cfcc76a558ba645371667d29b9421bf308bcf1e8531672c69f",
+    "origin_run_id": 44703787106,
+    "origin_commit": "77bc762572b786f79b50e5652d1aeb3df19613e1",
+    "untrained": "untrained.safetensors",
+    "untrained_sha256": "cd00df32c7c7f488885e3b37fce632465b81e6406a84fcbffd3a7a068748747b",
+    "untrained_config": "untrained-config.json"
+  },
+  "selection": "Validation only with all original 80%/70% and baseline-improvement gates, minimum label/format accuracy then worst BT loss. No original audit metric selects a candidate.",
+  "baseline": "Fit once on all three training-only views, freeze emitted coefficient bytes before validation and audit. Reproduction consumes those bytes, never a fresh fit.",
+  "hypothesis_basis": "Primary data.pair defaults to styles 0/1 only; bare-label validation was weakest. Retain the upstream anti-stock-negative gate. Balance JSON/prose and source-anchored label-led training to test transfer to exact bare labels. This is not exact bare-label training or a claimed repair. No exposed audit rows are copied.",
+  "audit_boundary": "New complete official test-file scan and salted source-only selection before model loading. Exclude every original split and all exposed audit groups. No audit-driven tuning or redraw.",
+  "job_minutes": 330,
+  "scope": "English Civil Comments extremes; not universal moderation policy."
+}

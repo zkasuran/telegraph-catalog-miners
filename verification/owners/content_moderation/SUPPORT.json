@@ -66,7 +66,7 @@
     },
     {
       "path": "support/moderation-diagnostic/fit.py",
-      "sha256": "c54c2336686193c87335f663a89eacdc051857d7996ae37ee7f624de10d5ac2e",
+      "sha256": "3ffafc58c3f0b6524c8e511e13f6fd655c50d5b560052d4eb1312361f56e768c",
       "origin_sha256": "6f4cf935f7290844c3a8b744d1545fd42dcb664ffcae6c3c20fc7f5b75ce4654"
     },
     {
@@ -101,7 +101,7 @@
     },
     {
       "path": "support/moderation-diagnostic/contract.json",
-      "sha256": "1590fb52c046d7cb98d92758b820092686d609fb12222f854b1547dd6724890b",
+      "sha256": "4ac7909d5caac539e94be9a32a49552fab2a34db1017af8eb4a71db998c029a5",
       "origin_sha256": "534d6a8a3dc02159b8a937b28cc866ca917b883865237984f19c06b7b5ff5d57"
     },
     {

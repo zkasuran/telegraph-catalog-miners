@@ -25,11 +25,21 @@ trained reference streams and while scoring the genuine untrained control.
 This is not a passing audit. Recovery completes that interrupted measurement on
 the same 256 groups with the same package bytes. It does not fit or reselect.
 
+Recovery run 44723207084 completed the real audit. JSON scored 86.328125%, prose
+85.15625% and bare label 81.640625%. Bare-label Flagged accuracy was 68.75%, below
+the required 70%, so the candidate failed and was not registered.
+
+B3 is a new three-epoch source-anchored training hypothesis. The original source
+builder trained only JSON/prose; exact bare-label stock negatives would fail the
+unchanged upstream data gate. B3 balances JSON/prose/label-led source responses
+and tests whether that improves transfer to exact bare labels. No such improvement
+is claimed yet. A fresh audit excludes all exposed groups before model loading.
+
 | Boundary | Frozen contract |
 |---|---|
 | Training | Original 768 public originals |
 | Validation | Original 128 originals, both labels and all formats |
-| Audit | Same frozen independent 256 originals, exposed only after candidate freeze |
+| Audit | Fresh independent 256 originals, all exposed audit groups excluded |
 | Recipe | Fitted H9 epoch 8 warm start, seed 42, rank 8, alpha 32, LR 0.00001, dropout 0.1, maximum 3 epochs |
 | Quality | Every format 80%, each label 70%, five points over untrained, ten over strongest shortcut |
 | Runtime | Full parser, real engine, repeat bits, literal wire and negative identity controls |
@@ -80,8 +90,9 @@ contracts.py holds source, quality and literal wire rules. remote.py fits and
 qualifies. transport.py connects the exact engine to the public wire. serve.py
 leases that executor. baselines.py fits only on train and reuses frozen
 coefficients. recover.py completes interrupted qualification without fitting.
-recovery.json binds the original job, archive and exact inputs. The workflow now
-offers only recovery and serving modes. SUPPORT.json fingerprints the preserved
+recovery.json binds the original job, archive and exact inputs. balanced.py holds
+the training-only rotation and clean source audit. balanced_remote.py runs B3.
+The workflow now offers balanced training and serving modes. SUPPORT.json fingerprints the preserved
 public harness sources.
 
 See DATA-SOURCES.md for exact grants and coverage limits. SECURITY.md describes

@@ -29,6 +29,15 @@ the missing untrained measurement, but cannot fit, select another candidate or
 reduce the audit. Original run/commit identities remain attached to the complete
 result alongside the actual recovery job. ZIP expansion and members are bounded.
 
+B3 is a new source-anchored training hypothesis after a genuine audit loss. Its
+clean audit excludes every previously exposed audit group and all original split
+groups before model loading. Full official test-file scanning removes conflicting
+source groups. Tests cover reverse scan order, deep candidates, exclusions and
+insufficient sources. Training style rotation admits only train groups and keeps
+both labels equally represented in each style. The upstream anti-repeated-negative
+gate remains unchanged. Exact bare labels are not trained and must still pass
+the full validation and independent reference-engine gates.
+
 No hidden-pool or development-exposed audit input is permitted. No neural model
 is loaded locally. Source publication alone is not qualification. The runtime
 bridge returns the identical engine's score bits, not a Torch substitute.

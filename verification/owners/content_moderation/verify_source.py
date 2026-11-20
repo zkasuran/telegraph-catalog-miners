@@ -12,6 +12,13 @@ def main():
     validate_experiment(experiment)
     from recover import validate_plan
     validate_plan(json.loads((HERE / "recovery.json").read_bytes()))
+    from balanced import plan as balanced_plan
+    balanced = balanced_plan()
+    if sha((HERE / "excluded-audit-groups.json").read_bytes()) != balanced["excluded_audit_groups_sha256"]:
+        raise ValueError("complete exposed-audit exclusion file changed")
+    for field, hash_field in (("checkpoint", "checkpoint_sha256"), ("config", "config_sha256")):
+        if sha((HERE / "assets" / balanced["warm_start"][field]).read_bytes()) != balanced["warm_start"][hash_field]:
+            raise ValueError("licensed B3 warm start changed")
     warm = experiment["warm_start"]
     for name, expected in ((warm["checkpoint"], warm["checkpoint_sha256"]), (warm["config"], warm["config_sha256"]),
                            (warm["untrained"], warm["untrained_sha256"]), (warm["untrained_config"], warm["config_sha256"]),
@@ -48,14 +55,16 @@ def main():
     if workflow["concurrency"]["cancel-in-progress"] is not False:
         raise ValueError("workflow may cancel a preserved job")
     mode = workflow["on"]["workflow_dispatch"]["inputs"]["mode"]
-    if mode["options"] != ["recover", "serve"] or mode["default"] != "recover":
-        raise ValueError("exposed original audit must not dispatch another training run")
-    recovery_steps = [step for step in job["steps"] if "recover.py run" in step.get("run", "")]
-    if len(recovery_steps) != 1 or recovery_steps[0]["timeout-minutes"] != 255 or any("remote.py run" in step.get("run", "") for step in job["steps"]):
-        raise ValueError("byte-preserving recovery must not refit the frozen model")
+    if mode["options"] != ["balanced", "serve"] or mode["default"] != "balanced":
+        raise ValueError("new training requires the clean independent audit pipeline")
+    balanced_steps = [step for step in job["steps"] if "balanced_remote.py run" in step.get("run", "")]
+    if len(balanced_steps) != 1 or balanced_steps[0]["timeout-minutes"] != 295 or any("remote.py run" in step.get("run", "") and "balanced_remote.py run" not in step.get("run", "") for step in job["steps"]):
+        raise ValueError("failed audit cannot be rerun as a new training result")
     result_steps = [step for step in job["steps"] if step.get("with", {}).get("name", "").startswith("owner-registration-")]
     if len(result_steps) != 1 or "success()" not in result_steps[0].get("if", "") or "registration-ready.json" not in result_steps[0]["with"]["path"] or "/evidence/\n" in result_steps[0]["with"]["path"]:
         raise ValueError("bounded registration evidence must be separate from epoch diagnostics")
+    if any(not path.startswith("${{ runner.temp }}/cm-training/evidence/") for path in result_steps[0]["with"]["path"].splitlines()):
+        raise ValueError("actual adapter needs registration-ready.json at the ZIP root, not a nested common ancestor")
     for name in ("LICENSE", "NOTICE", "DATA-SOURCES.md", "SECURITY.md"):
         if not (HERE / name).is_file() or (HERE / name).stat().st_size < 100:
             raise ValueError("missing publication rights/security file")

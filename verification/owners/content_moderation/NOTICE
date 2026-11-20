@@ -30,3 +30,10 @@ then timed out during the genuine-untrained reference audit. The exact exported
 packages and completed trained score streams are retained under their original
 grants. Recovery completes that interrupted measurement without fitting, changing
 the candidate or drawing a new audit. It does not turn the timeout into a pass.
+
+B3 lineage: the completed reference audit failed the bare-label Flagged floor.
+That failure stays retained and is not registered. New training uses only the
+original training groups with balanced source-anchored JSON/prose/label-led views.
+Exact bare labels remain a transfer test, not stock-negative training. Every
+exposed audit group is excluded before a new independent source audit is frozen.
+The fitted F3 warm start keeps its grants and is not called untrained.
