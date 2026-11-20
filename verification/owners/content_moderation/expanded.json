@@ -1,0 +1,80 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "CONTENT_MODERATION",
+  "arm": "M2",
+  "epochs": 2,
+  "train_groups": 1536,
+  "validation_groups": 256,
+  "audit_groups": 256,
+  "source_id": "google/civil_comments",
+  "source_revision": "f2970eb3a55777454c94069077cc8d9b5866312d",
+  "files": [
+    {
+      "path": "data/test-00000-of-00001.parquet",
+      "sha256": "410f803ff161e7c4ba005db7de5b444cac413f4861bf056b0fd69d670d75aa08",
+      "bytes": 20800265,
+      "split": "test"
+    },
+    {
+      "path": "data/train-00000-of-00002.parquet",
+      "sha256": "c20f01c3aecbdd942886cacb0ee67e995df33bc712a622fde75927ed3d6ccefe",
+      "bytes": 193527147,
+      "split": "train"
+    },
+    {
+      "path": "data/train-00001-of-00002.parquet",
+      "sha256": "a76af69d7b24758bc38b196bc422d4767935c1dd7d3c1465554649c546d99ccb",
+      "bytes": 186778090,
+      "split": "train"
+    },
+    {
+      "path": "data/validation-00000-of-00001.parquet",
+      "sha256": "2e0eb65474e7e1290df8689fc93eea783160c898c09ae15382c0a9662367bd03",
+      "bytes": 20955569,
+      "split": "validation"
+    }
+  ],
+  "source_grant": "This dataset is released under CC0, as is the underlying comment text.",
+  "grant_source": "https://www.tensorflow.org/datasets/catalog/civil_comments",
+  "inventory_url": "https://huggingface.co/api/datasets/google/civil_comments/tree/f2970eb3a55777454c94069077cc8d9b5866312d/data?recursive=false&expand=false",
+  "exclusions_sha256": "b93ba13d8b2b415ef50040e44436764ad4fcce879cad1e5adfcf9cc7fff1d034",
+  "exclusions_count": 512,
+  "selection_salts": {
+    "train": "moderation-expanded-m2-train-v1",
+    "validation": "moderation-expanded-m2-validation-v1",
+    "audit": "moderation-expanded-m2-audit-v1"
+  },
+  "max_source_bytes": 320,
+  "max_tokens": 256,
+  "job_minutes": 330,
+  "hyperparameters": {
+    "seed": 42,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "lr": 1e-05,
+    "lora_dropout": 0.1,
+    "weight_decay": 0.01,
+    "batch_size": 2,
+    "grad_accum": 8,
+    "max_length": 256,
+    "early_stopping": true,
+    "es_min_delta": 0.001,
+    "es_patience": 1
+  },
+  "warm_start": {
+    "checkpoint": "B3-epoch-1.safetensors",
+    "checkpoint_sha256": "54a7d78931d41998b99f8f23b9163eca40061a5aca095ca4fbfac4e9aaf9bbde",
+    "config": "B3-epoch-1-config.json",
+    "config_sha256": "b0f4a668416e64cfcc76a558ba645371667d29b9421bf308bcf1e8531672c69f",
+    "origin_run_id": 44749021475,
+    "origin_commit": "5abe827b4663eadea2eef35110ef7c5e998002f9",
+    "untrained": "untrained.safetensors",
+    "untrained_sha256": "cd00df32c7c7f488885e3b37fce632465b81e6406a84fcbffd3a7a068748747b",
+    "untrained_config": "untrained-config.json"
+  },
+  "construction": "Original public labels are unchanged. Paired accepted/excluded verdict roles quote source evidence with matched lexical bags and length. Constructed preferences are not human-reviewed.",
+  "source_policy": "Complete scans of both training shards, validation and test. Remove normalized cross-split and contradictory groups. All exposed audit groups are globally excluded. Source-only tokenizer ceilings are applied before split hashes and the fresh audit freeze.",
+  "motivation": "B3 development validation had small 64-example label cells and original training used a bounded first-shard pool. Broaden source coverage and validation denominators without tuning on exposed audit answers or relaxing gates.",
+  "scope": "English extreme-toxicity proxy, not universal policy, temporal or publication-held-out moderation."
+}

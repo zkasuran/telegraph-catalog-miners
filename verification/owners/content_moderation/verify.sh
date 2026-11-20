@@ -10,3 +10,4 @@ python3 -W error -m unittest discover -s "$ROOT" -p 'test_owner.py' -v
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_recovery.py' -v
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_balanced.py' -v
 # Both the inherited gates and the new response-truth controls are mandatory.
+python3 -W error -m unittest discover -s "$ROOT" -p 'test_expanded.py' -v

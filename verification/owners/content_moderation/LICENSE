@@ -160,3 +160,6 @@ B3 is separate format-balanced training, not a retry of the failed audit.
 The entire exposed audit is excluded from its new independent sample.
 The B3 source correction preserves the still-unscored source audit and
 all gate thresholds. Accepted/excluded verdict roles remove surface tells.
+M2 is a separate broader-source training trial after a genuine B3 audit
+loss. Both complete training shards are covered and all exposed audits
+are excluded. The validation-selected B3 checkpoint is fitted work.

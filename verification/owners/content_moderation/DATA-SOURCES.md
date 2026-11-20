@@ -93,3 +93,20 @@ exclude its opposite, quoting the same original source in both answers. Role
 reversal changes truth while keeping word bags and lengths equal. This removes
 surface tells without lowering the original gates or adding meaningless padding.
 The actual still-unscored audit hash and all group identities are now pinned.
+
+## M2 complete source inventory
+
+The corrected B3 model completed a real audit but failed bare-label overall and
+Flagged floors. Both exposed audits now contribute 512 excluded normalized groups.
+M2 is new training, not another draw for the unchanged binary. Its two-epoch
+recipe fits 1536 training groups and selects on 256 validation groups, with a
+fresh 256-group audit frozen before model loading.
+
+The complete primary Google Civil Comments inventory at revision
+f2970eb3a55777454c94069077cc8d9b5866312d contains two training Parquet shards,
+one validation file and one test file. All four exact file sizes and SHA-256
+values are in expanded.json. The second training shard was not in the old bounded
+training pool. M2 scans the complete inventory before source selection and removes
+normalized cross-split/conflicting groups. Counts are measured remotely, not filled
+from the TFDS population figures. The same quoted CC0 grant governs these files.
+No parent text, hidden evaluation pool or exposed audit row is used for fitting.

@@ -42,6 +42,16 @@ reversal keeps word bags and lengths identical while changing which verdict is
 true. The unchanged source and model gates still apply. The still-unscored audit
 is pinned to its actual source hash, not replaced with another draw.
 
+Corrected B3 run 44749021475 completed all parser/reference/identity controls.
+Its independent audit failed: bare label was 200/256 (78.125%) overall and
+Flagged was 89/128 (69.53125%). It was not registered. Training shortcut scores
+were all 50%, so the surface-tell repair passed without lowering that source gate.
+
+M2 is a broader-source training hypothesis, not a claimed win. It scans both
+complete training shards plus validation and test before selecting 1536 training
+groups and 256 validation groups. All 512 exposed audit groups are excluded from
+a new 256-group audit. Two bounded epochs keep the same model/quality rules.
+
 | Boundary | Frozen contract |
 |---|---|
 | Training | Original 768 public originals |
@@ -99,8 +109,12 @@ leases that executor. baselines.py fits only on train and reuses frozen
 coefficients. recover.py completes interrupted qualification without fitting.
 recovery.json binds the original job, archive and exact inputs. balanced.py holds
 the training-only rotation and clean source audit. balanced_remote.py runs B3.
-The workflow now offers balanced training and serving modes. SUPPORT.json fingerprints the preserved
-public harness sources.
+The earlier balanced workflow is preserved in its source/proof snapshots.
+SUPPORT.json fingerprints the preserved public harness sources.
+
+expanded.py holds M2 source grouping and admission contracts. expanded_remote.py
+uses a separate source-bound harness so previous B3 checks remain preserved.
+The current workflow offers only expanded training and exact serving modes.
 
 See DATA-SOURCES.md for exact grants and coverage limits. SECURITY.md describes
 failure controls. Competitive additions use LicenseRef-zkasuran-SAND-1.0 with

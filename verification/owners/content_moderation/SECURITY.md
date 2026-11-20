@@ -45,6 +45,16 @@ check source truth, opposed verdict roles, exact word-count equality and unchang
 shortcut results. The still-unscored source audit is pinned by its actual hash
 and complete group identities before any new model work.
 
+M2 expands the legitimate source population after a real model quality loss.
+It scans every row of both pinned training shards, validation and test before
+selection, recording cross-split and conflicting normalized groups even for
+non-extreme annotations. Source-only complete-token admission precedes freezing
+train/validation/audit bytes. All 512 previously exposed audit groups are excluded
+globally. Tests use late conflicting rows, reversed input order, missing shards,
+insufficient clean groups and changed prepared split bytes. Every model quality
+gate remains unchanged. Temporal/publication grouping is not available in these
+pinned Parquet fields and is not claimed.
+
 No hidden-pool or development-exposed audit input is permitted. No neural model
 is loaded locally. Source publication alone is not qualification. The runtime
 bridge returns the identical engine's score bits, not a Torch substitute.

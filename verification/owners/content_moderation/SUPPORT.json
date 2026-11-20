@@ -133,6 +133,46 @@
       "path": "support/prepare.py",
       "sha256": "dfa3cb0c6612e7f09eae9cc7d020a98b2c61d107ccf80bb4cccd11dc6752f7c5",
       "origin_sha256": "7d8e5ef2cf7f35ff5c339b04054d802fba2db5a34045f2d6761b554c4187ce03"
+    },
+    {
+      "path": "support/expanded/core.py",
+      "sha256": "22720818b8209052647bd5021d7f397a7cb9b93639415915ea336b8df920d9b7",
+      "origin_sha256": "22720818b8209052647bd5021d7f397a7cb9b93639415915ea336b8df920d9b7"
+    },
+    {
+      "path": "support/expanded/model_ops.py",
+      "sha256": "02f8b1235b7b3d11ab74b2dc7880585088f855c0d5551e8acb3d20c7af4218c5",
+      "origin_sha256": "82b6ec3bb709e763cf44c605b3bdc2b5e082b6ee27fa8ed8dcf590e3ff180fb3"
+    },
+    {
+      "path": "support/expanded/fit.py",
+      "sha256": "9801a1e436a51db35aebfb79fd739257a295dce8675d1f89b2e453b4f4ead251",
+      "origin_sha256": "3ffafc58c3f0b6524c8e511e13f6fd655c50d5b560052d4eb1312361f56e768c"
+    },
+    {
+      "path": "support/expanded/matched.py",
+      "sha256": "27aaea8a03f3d4216a958f9e9df7cacf1dc452e8cbecb85740ed993883876b57",
+      "origin_sha256": "27aaea8a03f3d4216a958f9e9df7cacf1dc452e8cbecb85740ed993883876b57"
+    },
+    {
+      "path": "support/expanded/preserve_all.py",
+      "sha256": "f7bdde761acb6096adfcefffa4e6e238cd88818270f19b3fc93f96132fc3fd0a",
+      "origin_sha256": "f7bdde761acb6096adfcefffa4e6e238cd88818270f19b3fc93f96132fc3fd0a"
+    },
+    {
+      "path": "support/expanded/remote_controls.py",
+      "sha256": "85169ba3a864c982ff4f0a3624240b5c48f6cb816a9bdcc4b20c6ce0ef11c74c",
+      "origin_sha256": "85169ba3a864c982ff4f0a3624240b5c48f6cb816a9bdcc4b20c6ce0ef11c74c"
+    },
+    {
+      "path": "support/expanded/contract.json",
+      "sha256": "6341ab4c2545590a94837a46f8feb54d39d732eae9427818b733b90e5acff643",
+      "origin_sha256": "4ac7909d5caac539e94be9a32a49552fab2a34db1017af8eb4a71db998c029a5"
+    },
+    {
+      "path": "support/expanded/stages.py",
+      "sha256": "1935a2874328697c5f28b46d093e674b5a5f01fddc8753dd512a320b360375ef",
+      "origin_sha256": "1935a2874328697c5f28b46d093e674b5a5f01fddc8753dd512a320b360375ef"
     }
   ],
   "lineage": "Owned source and immutable public source overlays; no binary wrapping or protected pools."

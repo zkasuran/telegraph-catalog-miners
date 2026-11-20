@@ -14,6 +14,13 @@ def main():
     validate_plan(json.loads((HERE / "recovery.json").read_bytes()))
     from balanced import plan as balanced_plan
     balanced = balanced_plan()
+    from expanded import plan as expanded_plan
+    expanded = expanded_plan()
+    if sha((HERE / "expanded-exclusions.json").read_bytes()) != expanded["exclusions_sha256"] or len(json.loads((HERE / "expanded-exclusions.json").read_bytes())) != 512:
+        raise ValueError("both exposed audit inventories must be fully excluded")
+    for field, hash_field in (("checkpoint", "checkpoint_sha256"), ("config", "config_sha256")):
+        if sha((HERE / "assets" / expanded["warm_start"][field]).read_bytes()) != expanded["warm_start"][hash_field]:
+            raise ValueError("licensed M2 initialization changed")
     if sha((HERE / "excluded-audit-groups.json").read_bytes()) != balanced["excluded_audit_groups_sha256"]:
         raise ValueError("complete exposed-audit exclusion file changed")
     for field, hash_field in (("checkpoint", "checkpoint_sha256"), ("config", "config_sha256")):
@@ -55,10 +62,10 @@ def main():
     if workflow["concurrency"]["cancel-in-progress"] is not False:
         raise ValueError("workflow may cancel a preserved job")
     mode = workflow["on"]["workflow_dispatch"]["inputs"]["mode"]
-    if mode["options"] != ["balanced", "serve"] or mode["default"] != "balanced":
+    if mode["options"] != ["expanded", "serve"] or mode["default"] != "expanded":
         raise ValueError("new training requires the clean independent audit pipeline")
-    balanced_steps = [step for step in job["steps"] if "balanced_remote.py run" in step.get("run", "")]
-    if len(balanced_steps) != 1 or balanced_steps[0]["timeout-minutes"] != 295 or any("remote.py run" in step.get("run", "") and "balanced_remote.py run" not in step.get("run", "") for step in job["steps"]):
+    expanded_steps = [step for step in job["steps"] if "expanded_remote.py run" in step.get("run", "")]
+    if len(expanded_steps) != 1 or expanded_steps[0]["timeout-minutes"] != 295 or any("remote.py run" in step.get("run", "") and "expanded_remote.py run" not in step.get("run", "") for step in job["steps"]):
         raise ValueError("failed audit cannot be rerun as a new training result")
     result_steps = [step for step in job["steps"] if step.get("with", {}).get("name", "").startswith("owner-registration-")]
     if len(result_steps) != 1 or "success()" not in result_steps[0].get("if", "") or "registration-ready.json" not in result_steps[0]["with"]["path"] or "/evidence/\n" in result_steps[0]["with"]["path"]:

@@ -43,3 +43,9 @@ gate before foundation model loading or audit scoring. Paired accepted/excluded
 verdict roles now keep word bags and length identical while preserving meaning.
 The same still-unscored audit is hash-pinned, not replaced after a quality result.
 The 65% source gate and every model quality gate remain unchanged.
+
+M2 follows a completed B3 audit loss. It retains the genuine validation-selected
+B3 checkpoint under the original grants and keeps untrained initialization
+separate. Source inventory now covers both complete official training shards,
+validation and test. All 512 exposed audit groups are excluded. New constructed
+preferences remain AI-assisted source-label transformations, not human review.

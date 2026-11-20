@@ -195,7 +195,7 @@ def export_package(root, name, record):
     tensors, parameters = read_peft(directory, cfg)
     training = {"family": FAMILY, "children": [{"intent": CHILD,
                 "dataset_version": sha((root / "evidence/source-manifest.json").read_bytes()),
-                "pairs": 128, "accuracy": record["formats"]["json"]["accuracy"], "held_out": False}],
+                "pairs": record["formats"]["json"]["n"], "accuracy": record["formats"]["json"]["accuracy"], "held_out": False}],
                 "selection_scope": "Validation used for selection, not independent audit. Final reference-engine audit is reported separately.",
                 "source_scope": EXPERIMENT["scope"], "preference_authorship": "AI-assisted code constructs preferences from original public source labels."}
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
