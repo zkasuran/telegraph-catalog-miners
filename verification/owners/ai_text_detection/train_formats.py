@@ -37,6 +37,11 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     recipe = json.loads((HERE / "recipe.json").read_text())
     coupled = coupled_policy(recipe)
     groups = source_groups(train_rows)
+    from verdict_contrast import contrast_policy, check_pair
+    from train_verdict_contrast import loss as verdict_contrast_loss
+    cross_policy = contrast_policy(recipe)
+    for group in groups:
+        check_pair(group)
     weights, policy = weight_policy(train_rows, recipe.get("bare_loss_weight", 1))
     objective = objective_policy(recipe, train_rows)
     from train_objective import loss_components
@@ -100,6 +105,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     supplement_batches += [supplement_groups[k] for k in sorted(supplement_groups) if k.startswith("secondary:")]
     if len(supplement_batches) != 128:
         raise ValueError("supplementary phase identities changed")
+    for group in supplementary_by_view.values():
+        check_pair(group)
     total_steps = (len(loader) // group_accum + len(supplement_batches) // group_accum) * hp.epochs
     warm = int(total_steps * 0.06)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda s:
@@ -137,6 +144,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         counterpart_gap = 0.0
         margin_loss_total = 0.0
         source_consistency_total = 0.0
+        cross_loss_total = 0.0
         for i, batch in enumerate(loader):
             chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
             rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
@@ -156,7 +164,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 origin_losses += origin_loss.item()
                 origin_correct += correct
             margin_loss = alignment(chosen, rejected)
-            loss = (coupled_loss(row_losses) + aligned_policy["coefficient"] * margin_loss) / group_accum
+            cross_loss = verdict_contrast_loss(chosen, rejected)
+            cross_loss_total += cross_loss.item()
+            loss = (coupled_loss(row_losses) + aligned_policy["coefficient"] * margin_loss + cross_policy["coefficient"] * cross_loss) / group_accum
             loss.backward()
             losses += loss.item() * group_accum
             unweighted_losses += sum(pair_values) / 2
@@ -175,6 +185,7 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
         supplementary_margin_loss = 0.0
         secondary_loss, secondary_correct = 0.0, 0
         extra_source_consistency_total = 0.0
+        extra_cross_loss_total = 0.0
         optimizer.zero_grad(set_to_none=True)
         for i, group in enumerate(supplement_batches):
             preference_group = supplementary_by_view[group[0]["view_id"]]
@@ -209,7 +220,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 supplementary_correctness_loss += point_loss.item()
             extra_margin_loss = alignment(extra_chosen, extra_rejected)
             supplementary_margin_loss += extra_margin_loss.item()
-            ((coupled_loss(terms) + aligned_policy["coefficient"] * extra_margin_loss) / group_accum).backward()
+            cross_loss = verdict_contrast_loss(extra_chosen, extra_rejected)
+            extra_cross_loss_total += cross_loss.item()
+            ((coupled_loss(terms) + aligned_policy["coefficient"] * extra_margin_loss + cross_policy["coefficient"] * cross_loss) / group_accum).backward()
             if epoch == 0 and i in (0, 64):
                 touched_head = [name for name, p in model.named_parameters() if
                     ("classifier" in name or ".score." in name) and p.grad is not None and torch.count_nonzero(p.grad).item()]
@@ -265,6 +278,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                     "source_margin_consistency_policy": source_consistency_policy,
                     "original_source_margin_loss": source_consistency_total / 752,
                     "extra_source_margin_loss": extra_source_consistency_total / 256,
+                    "same_verdict_contrast_policy": cross_policy,
+                    "original_same_verdict_loss": cross_loss_total / len(loader),
+                    "extra_same_verdict_loss": extra_cross_loss_total / 128,
                     "supplement_preference_policy": supplementary_policy,
                     "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,

@@ -10,6 +10,8 @@
 | Secondary generator silently rerolls | Existing-output refusal and fixed source seeds/count/time caps | Local invocation refusal; actual generation/control results are remote-only |
 | More bare training defeats repeated-negative controls | Two fixed whole secondary groups and unchanged actual/worst-case gates | Actual1008-row repeated-negative and worst-case<=0.10 controls |
 | Format specialization biases an origin or rescales outputs | Weight16 symmetric on paired origins, actual mean normalization, runtime unchanged | Secondary weight balance test and all prior literal wire/quality controls |
+| Paired-source contrast compares different verdicts or unpaired sources | Exact literal verdict extraction, one training view and opposite source roles | Real training-pair check, wrong-label/source-role refusals |
+| A label-only constant is claimed as source discrimination | Same-verdict gap plus every old strongest-shortcut and independent gate | Synthetic label-constant score control, not a model quality claim |
 | Training noise is presented as a proved quality cause | Fixed dropout-only hypothesis, unchanged data/loss/gate/inference contract | Policy and actual-hyperparameter source tests; actual repeat/quality controls remote-only |
 | Dropout remains active or training differs from eval | Inspect actual modules and repeat one actual training vector before updates | Prepared native train/train/eval exact-score control, not node evidence |
 | A fitted teacher reverses source labels or changes runtime scores | Positive bounded detached training target, original labels/losses retained | Scalar wrong-teacher/origin-swap/policy refusals; literal runtime unchanged |
@@ -92,6 +94,12 @@ Zero training dropout does not waive any audit/runtime requirement or change a
 registered package. Its effect is unverified until bounded public CPU measurement.
 Base pooling and frozen prediction-head transforms match the pinned foundation
 exporter and stay unchanged. Models are never loaded or evaluated locally.
+
+Same-verdict contrast is a constructed training signal on existing source scores,
+not human review or independent factual proof. It does not expose or fit the audit.
+Answer cues may still carry source information, so this term cannot replace any
+old shortcut, format, label or reference-engine acceptance gate. Actual tensor
+and gradient controls run only in the bounded public CPU job.
 
 Known limits: pretraining overlap is unknown. Journal controls do not certify an
 individual's production history. DistilGPT2 is related to GPT-2. A source-held-out

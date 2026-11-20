@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+The zero-dropout job passed its native repeat control but did not improve the
+weakest strict validation margin. The current candidate adds a fixed same-verdict
+contrast within each existing human/GPT-2 source pair, reusing the same four scores.
+It requires literal verdict equality and keeps all1008 rows, every old loss and
+every data/quality/runtime gate. New tensor/gradient and neural effects remain
+unverified until actual bounded public CPU work. No canonical result is claimed.
+
 The source-margin job passed tensor/data/parser controls but still missed strict
 quality. The next candidate tests zero training LoRA dropout, with exact saved
 weights, all1008 rows, every loss and every gate unchanged. The primary foundation

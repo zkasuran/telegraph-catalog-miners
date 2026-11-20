@@ -2,6 +2,12 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+Same-verdict paired-source contrast is our SAND training-only addition, subject
+to all retained source/model/software grants. It uses existing human-control and
+recorded GPT-2 scores, not new human preference review or independent source truth.
+No dataset, runtime output or acceptance threshold changes. The primary trainer
+retains MIT and the PyTorch API retains its original grant in PYTORCH-LICENSE.
+
 The comparison-dropout experiment changes one training parameter only. Exact
 source/model/producer lineage and all original grants remain. PEFT0.21.2 retains
 Apache-2.0 and the Telegraph trainer/foundation exporter retain MIT. Our source

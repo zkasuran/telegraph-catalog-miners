@@ -119,6 +119,8 @@ def main():
     from source_margin import source_margin_policy
     from train_source_margin import smoke as source_margin_smoke
     source_margin_smoke(source_margin_policy(recipe), root)
+    from train_verdict_contrast import smoke as verdict_contrast_smoke
+    verdict_contrast_smoke(root)
     from float_runtime.export_adapter import read_peft
     from float_runtime.lora_format import metadata, target_dims, tensor_names, write_package
     from tokenizers import Tokenizer

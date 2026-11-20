@@ -1,5 +1,32 @@
 # Sources and rights
 
+## Same-verdict paired-source contrast
+
+Run44818132646 verified zero active dropout and native train/train/eval identity.
+All data/parser and gradient controls passed, but strict validation still failed.
+One unselected epoch improved prose to90.62% while bare fell to81.25%; the selector
+kept the earlier state rather than hide that loss. The independent audit stayed sealed.
+
+The next fixed0.25 training term reuses the four existing scores in each paired
+human/GPT-2 source view. It contrasts each chosen score with the opposite source's
+rejected score, whose literal verdict is the same. The loss is the mean beta1
+Softplus of `rejected.flip(0)-chosen`, equivalent to the primary trainer's
+Bradley-Terry formula on these two additional constructed comparisons.
+
+An answer-label-only constant cannot supply a same-verdict gap. This does not prove
+universal manipulation resistance: JSON/prose cue text can still expose source
+content, so every existing strongest-shortcut and independent quality gate remains.
+No new row, tokenization, text, source label, forward call or runtime transform
+is introduced. Original losses, weights, model, rate, zero dropout, all1008 rows
+and source/entity/time splits remain. Exact literal verdict equality and paired
+source roles are checked before use. Tensor value/gradient/refusal and new model
+benefit are remote-only measurements, not assumed source truth or human review.
+
+[TRAINER-1ed063] `bt_loss` is `-logsigmoid(chosen-rejected-margin)`; margin is zero
+here. [TORCH-SOFTPLUS-2.15] supplies the equivalent stable tensor expression.
+Original Telegraph MIT and PyTorch grants remain, with SAND only on our addition.
+No source annotation or independent audit label is created by this term.
+
 ## Zero training dropout for paired comparisons
 
 Run44806134085 passed source-margin value/teacher-detach/gradient and all data/parser
