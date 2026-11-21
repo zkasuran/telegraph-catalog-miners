@@ -29,7 +29,7 @@ def main():
     measured = {name: control_metrics(rows, controls) for name, rows in splits.items()}
     if measured != report["control_metrics"] or report["training_allowed"] is not False:
         raise ValueError("fixture scope or frozen controls changed")
-    suite = unittest.defaultTestLoader.discover(str(HERE), pattern="test_cpv.py")
+    suite = unittest.defaultTestLoader.discover(str(HERE), pattern="test_*.py")
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     if not result.wasSuccessful():
         raise ValueError("source regression failed")
