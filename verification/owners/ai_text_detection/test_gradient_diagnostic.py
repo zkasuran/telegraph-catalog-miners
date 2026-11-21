@@ -91,6 +91,32 @@ class GradientDiagnosticTests(unittest.TestCase):
         self.assertFalse(forbidden)
         self.assertTrue(any(isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "grad" for n in ast.walk(tree)))
 
+    def test_direct_gap_and_original_tolerances_have_mutation_controls(self):
+        source = (HERE / "train_gradient_diagnostic.py").read_text()
+        def check(raw):
+            tree = ast.parse(raw)
+            gap = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "counterpart_gap")
+            expression = next(n.value for n in gap.body if isinstance(n, ast.Return))
+            if ast.unparse(expression) != "0.25 * torch.abs(a - b)":
+                raise ValueError("exact direct gap required")
+            for call in [n for n in ast.walk(tree) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "allclose"]:
+                values = {k.arg: ast.literal_eval(k.value) for k in call.keywords}
+                if values.get("atol") != 2e-6 or values.get("rtol") != 2e-5:
+                    raise ValueError("original gradient/value tolerances changed")
+        check(source)
+        for bad in (source.replace("0.25 * torch.abs(a - b)", "0.25 * torch.abs(a + b)"),
+                    source.replace("atol=2e-6", "atol=2e-4")):
+            with self.assertRaises(ValueError):
+                check(bad)
+
+    def test_remote_algebra_controls_refuse_local_neural_execution(self):
+        import train_gradient_diagnostic
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                train_gradient_diagnostic.smoke(None)
+            with self.assertRaises(RuntimeError):
+                train_gradient_diagnostic.counterpart_gap(None, None)
+
 
 if __name__ == "__main__":
     unittest.main()

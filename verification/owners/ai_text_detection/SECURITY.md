@@ -188,3 +188,6 @@ Compact source quotation changes only fitted training responses. It does not
 select source passages, create new contributors or alter evaluation answers.
 Full upstream surface/quality checks must still pass. Original source and data
 artifacts are kept so the layout can be distinguished from the unmodified corpus.
+# Diagnostic failure visibility
+
+A component-sum mismatch still refuses completion at the original tolerances. The report records the failed training-view identity, tensor name and at most eight gradient samples before refusal. The exact learned state, training population and sealed audit are unchanged. A small tensor cancellation fixture does not prove the cause of a model-gradient mismatch. Actual gradient identities and unchanged-state controls must pass remotely before interpreting a completed report.

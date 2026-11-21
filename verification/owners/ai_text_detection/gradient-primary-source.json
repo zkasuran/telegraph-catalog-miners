@@ -3,5 +3,11 @@
   "url": "https://docs.pytorch.org/docs/2.15/generated/torch.autograd.grad.html",
   "sha256": "942d8ddec581dfe2ca8f7d1cd5f427560ea5a251348612b46d0a776492379a82",
   "bytes": 180438,
-  "grant": "Retained PyTorch grant in PYTORCH-LICENSE; API use only"
+  "grant": "Retained PyTorch grant in PYTORCH-LICENSE; API use only",
+  "numerical_accuracy": {
+    "key": "TORCH-NUMERICAL-ACCURACY-2.15",
+    "url": "https://docs.pytorch.org/docs/2.15/_sources/notes/numerical_accuracy.md.txt",
+    "sha256": "2be44d8d41c37d05631cc1658258de6a575a8bd8c75bbef69bf53037f95a08db",
+    "bytes": 13041
+  }
 }

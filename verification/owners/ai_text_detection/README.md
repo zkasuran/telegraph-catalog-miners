@@ -233,3 +233,6 @@ Original journal text keeps CC BY 3.0 or CC BY 4.0. GPT-2 retains its Modified M
 notice. DistilGPT2 and ModernBERT retain Apache-2.0. Telegraph code retains MIT.
 Our additions use `LicenseRef-zkasuran-SAND-1.0`. See LICENSE, NOTICE and
 DATA-SOURCES.md. No upstream endorsement or human review is claimed.
+# Diagnostic algebra recovery
+
+The first gradient run retained four fixed training views before its component-sum control failed. Its failed tensor details were not saved. The diagnostic now expresses the counterpart gap directly as `0.25 * abs(a-b)` instead of subtracting a separately computed mean. The full coupled objective and FP32 comparison tolerances stay unchanged. Bounded mismatch telemetry and small remote tensor controls are additional evidence, not a quality pass or a proven failure cause.

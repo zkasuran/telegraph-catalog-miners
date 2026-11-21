@@ -10,6 +10,44 @@ from common import remote_only, dump, HERE, sha
 from gradient_contract import diagnostic_policy, select_views, geometry
 
 
+def counterpart_gap(a, b):
+    remote_only()
+    import torch
+    return 0.25 * torch.abs(a - b)
+
+
+def smoke(root):
+    remote_only()
+    import torch
+    from train_coupled import coupled_loss
+    controls = []
+    for values, expected in (((1., 3.), (0.25, 0.75)), ((3., 1.), (0.75, 0.25)), ((2., 2.), (0.5, 0.5))):
+        a, b = [torch.tensor(v, dtype=torch.float32, requires_grad=True) for v in values]
+        exact = coupled_loss([a, b])
+        decomposed = (a + b) / 2 + counterpart_gap(a, b)
+        actual = torch.autograd.grad(exact, (a, b), retain_graph=True)
+        separate = torch.autograd.grad(decomposed, (a, b), retain_graph=True)
+        if not torch.equal(exact, decomposed) or any(x.item() != e or not torch.equal(x, y) for x, y, e in zip(actual, separate, expected)):
+            raise ValueError("direct diagnostic gap changed original coupled value/gradient")
+        controls.append({"inputs": list(values), "gradients": [v.item() for v in actual]})
+    a, b = [torch.tensor(v, dtype=torch.float32, requires_grad=True) for v in (1., 3.)]
+    actual = torch.autograd.grad(coupled_loss([a, b]), (a, b))
+    omitted = torch.autograd.grad((a + b) / 2, (a, b))
+    if all(torch.allclose(x, y, atol=2e-6, rtol=2e-5) for x, y in zip(actual, omitted)):
+        raise ValueError("omitted component negative control did not fail")
+    # A primary-source numerical control, not the cause of the model failure.
+    a, b = [torch.tensor(v, dtype=torch.float32) for v in (2**26, 2**26 + 8)]
+    direct = counterpart_gap(a, b)
+    subtractive = coupled_loss([a, b]) - (a + b) / 2
+    if direct.item() != 2 or subtractive.item() != 0:
+        raise ValueError("FP32 subtractive gap cancellation control changed")
+    dump(root / "gradient-algebra-controls.json", {"run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
+         "passed": True, "actual_controls": controls, "omitted_component_refused": True,
+         "fp32_cancellation_fixture": {"direct_gap": direct.item(), "subtractive_gap": subtractive.item()},
+         "original_gradient_tolerances": {"atol": 2e-6, "rtol": 2e-5},
+         "limits": "Actual small tensor controls only. No model-quality or failed-model cause is proved."})
+
+
 def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root):
     remote_only()
     import torch
@@ -26,6 +64,7 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
     from train_verdict_contrast import loss as contrast
     from secondary_contract import expanded_source_bundle
 
+    smoke(root)
     recipe = json.loads((HERE / "recipe.json").read_text())
     policy = diagnostic_policy(recipe)
     rows = original + first + secondary
@@ -108,7 +147,7 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
         row_totals = [verdict_terms[i] + origin_terms[i] + teacher_terms[i] for i in range(2)]
         components = {"verdict": torch.stack(verdict_terms).mean(), "origin": torch.stack(origin_terms).mean(),
                       "teacher_consistency": torch.stack(teacher_terms).mean(),
-                      "counterpart_gap": coupled_loss(row_totals) - torch.stack(row_totals).mean(),
+                       "counterpart_gap": counterpart_gap(row_totals[0], row_totals[1]),
                       "paired_margin": aligned["coefficient"] * alignment(chosen, rejected),
                       "same_verdict": cross["coefficient"] * contrast(chosen, rejected)}
         exact = coupled_loss(row_totals) + components["paired_margin"] + components["same_verdict"]
@@ -130,6 +169,20 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
             actual = total_gradient[index] if total_gradient[index] is not None else torch.zeros_like(parameter)
             max_error = max(max_error, (combined - actual).abs().max().item())
             if not torch.allclose(combined, actual, atol=2e-6, rtol=2e-5):
+                if not torch.isfinite(actual).all():
+                    report.update(status="GRADIENT_DIAGNOSTIC_FAILED", failure={"view_id": group[0]["view_id"],
+                        "tensor_name": named[index][0], "reason": "nonfinite actual total gradient"})
+                else:
+                    bad = (combined - actual).abs() > (2e-6 + 2e-5 * actual.abs())
+                    locations = bad.flatten().nonzero().flatten()[:8].tolist()
+                    report.update(status="GRADIENT_DIAGNOSTIC_FAILED", failure={"view_id": group[0]["view_id"],
+                        "group_id": group[0]["group_id"], "format": group[0]["style"], "tensor_name": named[index][0],
+                        "reason": "component gradient sum disagreed with actual full objective", "atol": 2e-6, "rtol": 2e-5,
+                        "maximum_absolute_error": (combined - actual).abs().max().item(), "mismatched_elements": bad.sum().item(),
+                        "samples": [{"flat_index": i, "actual": actual.flatten()[i].item(), "component_sum": combined.flatten()[i].item(),
+                            "component_gradients": {n: (v[index].flatten()[i].item() if v[index] is not None else 0.) for n, v in gradients.items()}}
+                            for i in locations]})
+                dump(root / "gradient-interaction-report.json", report)
                 raise ValueError("component gradient sum disagreed with actual full objective")
         measured = {"group_id": group[0]["group_id"], "view_id": group[0]["view_id"], "format": group[0]["style"],
                     "text_ids": [r["text_id"] for r in group], "exact_loss": exact.item(),

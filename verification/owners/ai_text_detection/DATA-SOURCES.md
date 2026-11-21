@@ -664,3 +664,6 @@ independence stays 128 training articles. Validation/audit sources, formats and
 every quality threshold remain unchanged. The training recipe uses symmetric
 weight 16, lr 0.00003 and at most four epochs from the retained actual checkpoint.
 Synthetic counterparts are unbuilt until the remote generation step executes.
+# Diagnostic numerical accuracy source
+
+[TORCH-NUMERICAL-ACCURACY-2.15] is the primary PyTorch 2.15 numerical-accuracy note at https://docs.pytorch.org/docs/2.15/notes/numerical_accuracy.html. It states that floating point addition and multiplication are not associative. This supports avoiding an unnecessary subtractive diagnostic expression, not declaring rounding the cause of the failed model run. The retained PyTorch grant applies. Source bytes and hashes are bound in `gradient-primary-source.json`. No data, model weight, fitting objective, comparison tolerance or qualification gate changes.

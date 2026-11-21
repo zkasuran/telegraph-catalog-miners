@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Direct diagnostic gap algebra retains the original FP32 comparison tolerances.
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 set -euo pipefail
 ROOT="$(dirname "$(realpath "$0")")"
