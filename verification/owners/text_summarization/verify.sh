@@ -26,6 +26,7 @@ python3 -W error "$HERE/reciprocal_source_check.py"
 python3 -W error "$HERE/role_bootstrap.py"
 python3 -W error "$HERE/frozen_candidate.py"
 python3 -W error "$HERE/released_report.py"
+python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -k literal_integer -v
 python3 -W error -m unittest discover -s "$HERE" -p 'test_*.py' -v
 KIT="${REFERENCE_KIT:-}"
 if [[ -z "$KIT" ]]; then

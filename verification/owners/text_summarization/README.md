@@ -117,6 +117,11 @@ Serving must execute the report's pinned serving commit, not the later commit
 that publishes these proof assets. Endpoint activation and canonical registration
 remain unverified until their actual gates complete.
 
+Readiness source checks now require literal integer schema/count fields. Python's
+`False == 0` or `128.0 == 128` must not stand in for the report's wire contract.
+Named mutation controls reject those aliases without changing any quality gate,
+model byte or original report. This source hardening is not a new audit or runtime.
+
 The owned workflow uses Ubuntu 24.04, hash-locked CPU dependencies and explicit
 timeouts. Fitting only receives original training pairs. All nine main epochs
 complete. Validation loss selects a frozen checkpoint without advancing the

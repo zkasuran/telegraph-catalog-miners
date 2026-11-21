@@ -135,3 +135,7 @@ published under `release/`. Original quality evidence and fresh runtime checks
 remain separate. Publication adds no training data or new audit scores. All
 report bytes and the original package remain unchanged. This is registration
 readiness, not a canonical win or independent demand.
+
+Literal readiness schema/count typing is source-only contract hardening. It
+introduces no examples, labels, fitting, baseline refits or held-out model scores.
+The exact original package and released report remain byte-identical.

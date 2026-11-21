@@ -185,3 +185,7 @@ Publication of the observed recovery readiness proof preserves its exact origina
 bytes and retained source/model grants. Our source-only release checks use the
 unchanged SAND grant on our additions. No later publication narrows rights in
 previously obtained original packages or proof assets.
+
+Literal schema/count source-contract checks use the same SAND grant on our
+additions. They do not change terms or bytes in the original frozen package,
+source material or observed proof reports.

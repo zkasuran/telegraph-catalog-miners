@@ -86,3 +86,7 @@ rewritten for a later source publication. Serving uses its verified source commi
 with immutable proof URLs and repeats its actual vectors before forwarding.
 The released proof byte-tamper test rejects changed manifests. Live endpoint
 activation and registration must still pass the adapter's independent gates.
+
+Readiness schema version and source/audit/runtime counts require literal JSON
+integer values, not booleans or equal-valued floats. The named type-alias test
+proves rejection. Model, source, report and quality thresholds remain unchanged.

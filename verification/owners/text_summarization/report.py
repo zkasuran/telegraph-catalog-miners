@@ -18,7 +18,7 @@ COMMIT = re.compile(r"[a-f0-9]{40}")
 
 
 def validate_ready(value):
-    if (not isinstance(value, dict) or value.get("schema_version") != 1 or value.get("status") != "REGISTRATION_READY"
+    if (not isinstance(value, dict) or type(value.get("schema_version")) is not int or value.get("schema_version") != 1 or value.get("status") != "REGISTRATION_READY"
             or value.get("family") != FAMILY or type(value.get("run_id")) is not int or value["run_id"] < 1
             or not COMMIT.fullmatch(value.get("commit", "")) or value.get("serving_commit") != value["commit"]):
         raise ValueError("ready run, family or serving identity mismatch")
@@ -29,12 +29,12 @@ def validate_ready(value):
         if value.get(field) != RELEASE_HASHES[name]:
             raise ValueError("ready pinned runtime identity mismatch")
     source = value.get("source", {})
-    if (source.get("normalized_overlap") != 0 or source.get("audit_used_for_selection") is not False
-            or source.get("grants_verified") is not True or source.get("independent_groups") != 64
+    if (type(source.get("normalized_overlap")) is not int or source.get("normalized_overlap") != 0 or source.get("audit_used_for_selection") is not False
+            or source.get("grants_verified") is not True or type(source.get("independent_groups")) is not int or source.get("independent_groups") != 64
             or not SHA.fullmatch(source.get("source_manifest_sha256", ""))):
         raise ValueError("ready source and independent audit boundary failed")
     quality = value.get("quality", {})
-    if (quality.get("passed") is not True or quality.get("audit_pairs") != 128 or quality.get("all_supported_formats_tested") is not True
+    if (quality.get("passed") is not True or type(quality.get("audit_pairs")) is not int or quality.get("audit_pairs") != 128 or quality.get("all_supported_formats_tested") is not True
             or set(quality.get("formats", {})) != set(VIEWS)):
         raise ValueError("ready complete claimed format audit required")
     for metrics in quality["formats"].values():
@@ -48,7 +48,8 @@ def validate_ready(value):
             raise ValueError("ready unchanged quality thresholds failed")
     runtime = value.get("runtime", {})
     if (any(runtime.get(k) is not True for k in ("full_parser_passed", "reference_engine_passed", "repeat_bits_identical"))
-            or runtime.get("negative_identity_controls", 0) < 3 or not 8 <= len(runtime.get("vectors", [])) <= 100):
+            or type(runtime.get("negative_identity_controls")) is not int or runtime.get("negative_identity_controls", 0) < 3
+            or not isinstance(runtime.get("vectors"), list) or not 8 <= len(runtime.get("vectors", [])) <= 100):
         raise ValueError("ready actual parser, engine and repeated vectors required")
     for vector in runtime["vectors"]:
         tokens = vector.get("tokens")

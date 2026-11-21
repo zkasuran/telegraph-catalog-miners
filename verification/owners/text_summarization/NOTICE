@@ -56,3 +56,7 @@ The released readiness report is the original observed output of recovery run
 binds original run 44796102138. Publication does not change the candidate bytes,
 source text, original grants or attribution. Source-only release checks add no
 model fitting, held-out scoring or human preference review.
+
+The literal integer readiness checks are our SAND additions. They preserve all
+original source/model grants and attribution and do not alter the frozen model
+or the observed readiness proof.

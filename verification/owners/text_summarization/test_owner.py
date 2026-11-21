@@ -472,6 +472,18 @@ class HandoffTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_ready(bad)
 
+    def test_readiness_literal_integer_types_not_python_equality(self):
+        for section, field, value in ((None, "schema_version", True), ("source", "normalized_overlap", False),
+                                      ("source", "independent_groups", 64.0), ("quality", "audit_pairs", 128.0),
+                                      ("runtime", "negative_identity_controls", 3.0)):
+            bad = self.fixture_ready()
+            if section is None:
+                bad[field] = value
+            else:
+                bad[section][field] = value
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                validate_ready(bad)
+
     def test_actual_lease_contract_scope_and_tamper(self):
         row = {"family": "TEXT_SUMMARIZATION", "owner": DEFAULT_OWNER, "slot": 1, "forward_port": 48601,
                "runnable_url": "https://tga1.zkasuran.dev/_summary_fixture/runnable", "keccak": "a" * 64, "sha256": "b" * 64,
