@@ -26,6 +26,8 @@ def command(arguments, root, name, timeout):
 
 def train(root):
     remote_only()
+    if (HERE / "audit-retirement.json").is_file():
+        raise RuntimeError("v1 audit is retired; use development mode and a clean independent audit for later qualification")
     started = time.monotonic()
     root.mkdir(parents=True, exist_ok=True)
     os.environ["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"
@@ -48,15 +50,35 @@ def train(root):
         raise TimeoutError("bounded job has no remaining independent-audit reserve")
     command([sys.executable, str(HERE / "audit.py"), "--root", str(root), "--kit", str(kit)], root, "independent-audit-runtime", remaining)
     dump(root / "result.json", {"status": "COMPLETED_REMOTE_QUALIFICATION", "family": "ACADEMIC_SEARCH", "elapsed_seconds": time.monotonic() - started,
-         "registration_ready_written": (root / "registration-ready.json").is_file(), "registration_sent": False})
+          "registration_ready_written": (root / "registration-ready.json").is_file(), "registration_sent": False})
+
+
+def develop(root):
+    remote_only()
+    root.mkdir(parents=True, exist_ok=True)
+    os.environ["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"
+    os.environ["HF_HOME"] = str(root / "public-hf-cache")
+    dump(root / "run-identity.json", {"family": "ACADEMIC_SEARCH", "run_id": int(os.environ["GITHUB_RUN_ID"]),
+          "commit": os.environ["GITHUB_SHA"], "repository": os.environ["GITHUB_REPOSITORY"], "runner_os": os.environ["RUNNER_OS"], "mode": "develop"})
+    command([sys.executable, "-W", "error", str(HERE / "verify.py")], root, "source-gate", 120)
+    source_gate(root)
+    kit = prepare_kit(root)
+    compile_tools(root, kit)
+    capture(root / "class")
+    foundation, base = prepare_models(root)
+    from curriculum import develop as fit_development
+    fit_development(root, kit, base, foundation / "tokenizer.json")
+    dump(root / "result.json", {"status": "COMPLETED_DEVELOPMENT_NOT_QUALIFICATION", "family": "ACADEMIC_SEARCH",
+          "audit_scored": False, "registration_ready_written": False, "registration_sent": False})
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--develop", action="store_true")
     args = parser.parse_args()
     try:
-        train(args.root)
+        develop(args.root) if args.develop else train(args.root)
     except Exception as exc:
         args.root.mkdir(parents=True, exist_ok=True)
         dump(args.root / "result.json", {"status": "FAILED", "family": "ACADEMIC_SEARCH", "error_type": type(exc).__name__, "error": str(exc),

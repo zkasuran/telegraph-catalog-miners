@@ -199,6 +199,78 @@ class Contracts(unittest.TestCase):
         self.assertEqual(len({r["prompt"] for r in pairs}), len(rows))
         self.assertEqual(scorer.training_pairs(rows), pairs)
 
+    def test_development_contract_does_not_override_audit_or_quality(self):
+        import curriculum
+        config = json.loads((source.HERE / "development-contract.json").read_bytes())
+        curriculum.validate_development(config)
+        for field, value in (("fit_split", "audit"), ("selection_split", "audit"), ("old_audit_scoring_allowed", True),
+                             ("registration_ready", True), ("lora_rank", 8), ("joint_epochs", 350), ("schema_version", True)):
+            with self.assertRaises(ValueError):
+                curriculum.validate_development({**config, field: value})
+
+    def test_grouped_epoch_rotation_has_one_view_and_three_format_coverage(self):
+        import curriculum
+        rows = [{"block_id": str(i), "prompt": "query" + str(i),
+                 "formats": {f: {"chosen": f + str(i), "rejected": "wrong" + f + str(i)} for f in data.FORMATS}} for i in range(1, 20)]
+        before = copy.deepcopy(rows)
+        views = [curriculum.epoch_pairs(rows, epoch) for epoch in range(1, 4)]
+        for values in views:
+            self.assertEqual(len(values), len(rows))
+            self.assertEqual(len({row["prompt"] for row in values}), len(rows))
+            self.assertTrue(all(0 < row["loss_weight"] <= 2 for row in values))
+        for i in range(len(rows)):
+            self.assertEqual({values[i]["chosen"] for values in views}, {rows[i]["formats"][f]["chosen"] for f in data.FORMATS})
+        self.assertEqual(rows, before)
+
+    def test_epoch_rotation_refuses_duplicates_and_unbounded_epochs(self):
+        import curriculum
+        row = {"block_id": "1", "prompt": "query", "formats": {f: {"chosen": "a", "rejected": "bb"} for f in data.FORMATS}}
+        for epoch in (0, 16, True, 1.0):
+            with self.assertRaises(ValueError):
+                curriculum.epoch_pairs([row], epoch)
+        with self.assertRaises(ValueError):
+            curriculum.epoch_pairs([row, copy.deepcopy(row)], 1)
+
+    def test_development_selection_uses_all_validation_formats_and_earlier_ties(self):
+        import curriculum
+        values = {f: {"val_loss": .5} for f in data.FORMATS}
+        best, improved = curriculum.choose(None, 1, values)
+        self.assertTrue(improved)
+        tied, improved = curriculum.choose(best, 2, values)
+        self.assertFalse(improved)
+        self.assertEqual(tied["stage_epoch"], 1)
+        for invalid in (float("nan"), float("inf"), True, None):
+            with self.assertRaises(ValueError):
+                curriculum.choose(best, 3, {**values, "json": {"val_loss": invalid}})
+        with self.assertRaises(ValueError):
+            curriculum.choose(None, 1, {"title": {"val_loss": .1}})
+
+    def test_development_splits_never_open_exposed_audit_rows(self):
+        import curriculum
+        with tempfile.TemporaryDirectory(dir=source.HERE) as tmp:
+            directory = Path(tmp)
+            for name in ("freeze.json", "train.json", "validation.json"):
+                (directory / name).write_bytes((source.HERE / "frozen" / name).read_bytes())
+            # Missing audit is deliberate. Development must not read it.
+            _, splits = curriculum.development_splits(directory)
+            self.assertEqual(set(splits), {"train", "validation"})
+            self.assertEqual((len(splits["train"]), len(splits["validation"])), (128, 32))
+
+    def test_development_entry_refuses_local_neural_operations(self):
+        import curriculum
+        import pipeline
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                curriculum.develop(Path("unused"), Path("unused"), Path("unused"), Path("unused"))
+            with self.assertRaises(RuntimeError):
+                pipeline.develop(Path("unused"))
+        self.assertNotIn("torch", __import__("sys").modules)
+
+    def test_retired_v1_training_is_refused_before_model_bootstrap(self):
+        import pipeline
+        with patch("pipeline.remote_only", return_value=None), self.assertRaises(RuntimeError):
+            pipeline.train(Path("unused"))
+
     def test_input_root_is_order_and_length_sensitive(self):
         self.assertNotEqual(wire.input_root([[1, 2], [3]]), wire.input_root([[3], [1, 2]]))
         self.assertNotEqual(wire.input_root([[1, 2]]), wire.input_root([[1, 2], []]))

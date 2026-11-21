@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "x-licence": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "ACADEMIC_SEARCH",
+  "retired_audit_sha256": "75701820c853b3f1348ae930271779dfd253deff2b5a9f3230cb6fbae916eb5c",
+  "exposing_run_id": 44875092067,
+  "selected_model_package_sha256": "671d14ca618acdb2fddf0a31c2ee60e7bf70eb99ae02ffd7d6a9cc40a5348a40",
+  "reason": "Original frozen candidate failed actual independent quality gates. Preserve original audit and checkpoint identity; do not reuse exposed audit rows for later training, selection or qualification.",
+  "later_qualification_requires_clean_independent_audit": true,
+  "original_source_grants_retained": true
+}

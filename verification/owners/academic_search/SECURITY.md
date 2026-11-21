@@ -33,3 +33,8 @@ execution and restricted serving are implemented but have not run remotely.
 No registration-ready report exists before those actual measurements pass.
 Unit tests do not claim neural runtime success. The source release gate never
 loads a model. Neural work requires the public CPU workflow identity guard.
+# Development and exposed-audit boundary
+
+The first audit's rows are not training or selection data for later candidates. `audit-retirement.json` disables the old training/qualification route on new source commits. Development reads training and validation only. A source-only test proves it can operate without opening the audit file.
+
+The development curriculum preserves original grouping while rotating one view per group per epoch. Length-stratum weights are fitted from the training view only and capped at two. They do not rescale served scores or change source labels. A development checkpoint still needs a clean independent audit and the actual reference engine before registration.

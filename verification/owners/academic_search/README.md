@@ -63,3 +63,10 @@ public lease is uploaded. No operator key or private forwarding key is uploaded.
 Our additions use LicenseRef-zkasuran-SAND-1.0. Original CC0 annotations and
 metadata retain their grants. Reference kit MIT and base-model Apache terms are
 retained in full. Read NOTICE, DATA-SOURCES.md and SECURITY.md before using data.
+# Development update after the first measured loss
+
+The first frozen candidate passed the full parser and reference runtime but failed quality. Its exposed audit is retired and remains preserved as historical evidence.
+
+Development mode fits only the original training split. It warms the reward head with train-only length-stratum weighting then trains rank-16 LoRA with one original-group format view per epoch, rotated across title, JSON and prose. Mean validation loss across all formats selects the frozen checkpoint. Development output is not registration-ready and is not an independent audit.
+
+A later qualification needs a clean source/entity-disjoint audit. The original grants, baseline coefficients and quality gates remain. Model work runs only on the bounded public CPU workflow, never in the local source gate.

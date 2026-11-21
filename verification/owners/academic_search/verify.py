@@ -37,7 +37,7 @@ def validate_workflow(value):
     if value.get("concurrency", {}).get("cancel-in-progress") is not False:
         raise ValueError("healthy jobs must not be cancelled")
     inputs = value.get("on", {}).get("workflow_dispatch", {}).get("inputs", {})
-    if inputs.get("mode", {}).get("options") != ["train", "serve"]:
+    if inputs.get("mode", {}).get("options") not in (["train", "serve"], ["train", "serve", "develop"]):
         raise ValueError("actual train and verified-serving modes required")
     if not job.get("steps") or any(not isinstance(step, dict) for step in job["steps"]):
         raise ValueError("workflow steps missing")
@@ -61,6 +61,14 @@ def main():
         ast.parse(path.read_text(), filename=str(path))
     config = json.loads((HERE / "model-contract.json").read_bytes())
     validate_config(config)
+    development = HERE / "development-contract.json"
+    if development.is_file():
+        from curriculum import validate_development
+        validate_development(json.loads(development.read_bytes()))
+        retirement = json.loads((HERE / "audit-retirement.json").read_bytes())
+        if (retirement.get("retired_audit_sha256") != "75701820c853b3f1348ae930271779dfd253deff2b5a9f3230cb6fbae916eb5c"
+                or retirement.get("later_qualification_requires_clean_independent_audit") is not True):
+            raise ValueError("old exposed audit retirement boundary changed")
     workflow = HERE / "workflow.yml"
     if not workflow.exists():
         workflow = HERE.parents[2] / ".github/workflows/evaluator-owner-academic_search.yml"
