@@ -10,8 +10,9 @@
 | Forged batch identity or nonfinite score | Literal bare-hash wire check and finite unsigned score bits | Unit failures and three real remote refusals |
 | Report flags conceal missing or mixed identities | Strict run, commit, package, source-manifest, token and label checks | Ready-report structural refusal tests, not model audit results |
 | Local neural execution | Remote guard before model imports or weight fetch | Cleared-environment refusal test |
+| Cache or predictable staging symlink redirects a download | Reject nonregular/symlink cache paths, no-follow cache open and exclusive random sibling staging | Harmless mocked downloader controls, not model inference |
 | Failed checkpoint loses terms | Inert safetensors and ZIP licence records | Byte-preservation test and remote head roundtrip |
 | Unsafe endpoint forwarding | Existing common.lease_for restrictions, pinned host and ephemeral key | Public restricted lease, private key never uploaded |
 | Repeated audit used to tune | Frozen export before one-shot marker, audit never selects checkpoint | Source contract and remote audit-started marker |
 
-Known limits: source claims may be wrong. This scorer does not browse or verify arbitrary citations. Live daemon miner-field selection is not fully traced. Pretraining overlap is unknown. Runtime and serving checks must actually complete before a registration-ready report is emitted. A hidden quality loss requires a better candidate and a clean audit, not repeated registration of unchanged bytes.
+Known limits: source claims may be wrong. This scorer does not browse or verify arbitrary citations. Live daemon miner-field selection is not fully traced. Pretraining overlap is unknown. Download guards assume a trusted runner workspace; they do not protect against a privileged actor replacing ancestor directories concurrently. Runtime and serving checks must actually complete before a registration-ready report is emitted. A hidden quality loss requires a better candidate and a clean audit, not repeated registration of unchanged bytes.

@@ -10,9 +10,11 @@ import os
 import random
 import signal
 import socket
+import stat
 import subprocess
 import sys
 import tarfile
+import tempfile
 import threading
 import time
 import urllib.error
@@ -42,25 +44,53 @@ def check_reply(value, count, package, foundation):
 
 
 def fetch(url, path, expected, ceiling=1 << 30):
-    if not url.startswith("https://") or not isinstance(expected, str) or len(expected) != 64:
+    import re
+    if not isinstance(url, str) or not url.startswith("https://") or not isinstance(expected, str) or not re.fullmatch(r"[a-f0-9]{64}", expected):
         raise ValueError("immutable HTTPS bytes and external hash required")
     allowed = (FOUNDATION_RELEASE, "https://codeload.github.com/telegraphprotocol/telegraph-wasm-baseline/tar.gz/" + KIT,
                "https://huggingface.co/answerdotai/ModernBERT-base/resolve/8949b909ec900327062f0ebf497f51aef5e6f0c8/",
                "https://raw.githubusercontent.com/" + REPO + "/")
     if not url.startswith(allowed):
         raise ValueError("immutable public source URL outside allowlist")
-    if path.is_file() and path.stat().st_size <= ceiling:
-        h = hashlib.sha256()
-        with path.open("rb") as stream:
-            for chunk in iter(lambda: stream.read(1 << 20), b""):
-                h.update(chunk)
-        if h.hexdigest() == expected:
-            return
-    partial = path.with_name(path.name + ".partial")
+    if type(ceiling) is not int or ceiling < 1:
+        raise ValueError("positive download byte ceiling required")
+    path = Path(path)
+    if path.is_symlink() or any(parent.is_symlink() for parent in path.parents):
+        raise ValueError("symlink download/cache path refused")
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        info = None
+    if info is not None:
+        if not stat.S_ISREG(info.st_mode):
+            raise ValueError("regular cached artifact required")
+        if info.st_size <= ceiling:
+            h = hashlib.sha256()
+            cache_total, cache_started = 0, time.monotonic()
+            try:
+                fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+            except OSError as error:
+                raise ValueError("cached artifact changed during verification") from error
+            with os.fdopen(fd, "rb") as stream:
+                opened = os.fstat(stream.fileno())
+                if not stat.S_ISREG(opened.st_mode) or opened.st_size > ceiling:
+                    raise ValueError("regular bounded cached artifact required")
+                for chunk in iter(lambda: stream.read(1 << 20), b""):
+                    cache_total += len(chunk)
+                    if cache_total > ceiling or time.monotonic() - cache_started > 600:
+                        raise ValueError("cached artifact grew beyond its byte/time ceiling")
+                    h.update(chunk)
+            if h.hexdigest() == expected:
+                return
+    partial = None
     digest, total = hashlib.sha256(), 0
     started = time.monotonic()
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "WEB_SEARCH-owner/1"}), timeout=45) as source, partial.open("wb") as target:
+        # Create an exclusive random sibling, never open a caller-predictable
+        # .partial path. Existing failed downloads and symlinks stay untouched.
+        fd, name = tempfile.mkstemp(prefix=path.name + ".download-", dir=path.parent)
+        partial = Path(name)
+        with os.fdopen(fd, "wb") as target, urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "WEB_SEARCH-owner/1"}), timeout=45) as source:
             while chunk := source.read(1 << 20):
                 total += len(chunk)
                 if total > ceiling or time.monotonic() - started > 600:
@@ -71,7 +101,8 @@ def fetch(url, path, expected, ceiling=1 << 30):
             raise ValueError("immutable source hash mismatch")
         partial.replace(path)
     finally:
-        partial.unlink(missing_ok=True)
+        if partial is not None:
+            partial.unlink(missing_ok=True)
 
 
 def capture_class(root):
