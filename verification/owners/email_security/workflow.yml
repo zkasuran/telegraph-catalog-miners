@@ -52,7 +52,8 @@ jobs:
       - name: Verify standalone source then install pinned CPU dependencies
         run: |
           bash verification/owners/email_security/verify.sh
-          python3 -m pip install --require-hashes -r verification/owners/email_security/requirements-remote.lock
+          python3 -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/email_security/requirements-remote.lock
+          python3 -m pip check
       - name: Frozen training validation and independent audit
         env:
           OMP_NUM_THREADS: '4'

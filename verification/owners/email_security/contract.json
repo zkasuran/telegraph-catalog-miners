@@ -21,7 +21,7 @@
   },
   "frozen_sha256": "ca031b1b40b5ce6b2bff678b2d313bfaf5319cc4ecd825cad48386f601010bb2",
   "preference_authorship": "constructed AI-assisted",
-  "run_id": "de3cddafc7504b8383141d0fc78055e4",
+  "run_id": "3863957ccf9d4709aaa08fd61ca778dd",
   "schema_version": 1,
   "source_observations": 0,
   "source_sha256": {
@@ -49,12 +49,12 @@
     "source-manifest.json": "c43c4051ae0b0e9633a66c68cbe18438c8caae9ec8ca0bd00a3fa0f1ecacf920",
     "static_check.py": "f386dfe22e9f7668431d6652534b7f23f4b335c9a3e19b5be95b4c5dc4e0b1b3",
     "test_email.py": "00aa3b28e35854874763f6678cb775eb3479d07233c90e4a0054323c0e0c16a3",
-    "test_ready.py": "2bca760fb947de6cfdbcda92534e272b0e40da60bc9572fd01ac1bb9cdc7b46d",
+    "test_ready.py": "15440bf6c42387b22e92033dffa711c9ed472b53682e9fb55efd2318d23066a6",
     "verify.sh": "f8aa0f99cd193ee8abc6b626fe9127ceeee417bd64b092b225b30b9b8176e890",
     "wire_common.py": "3e0889805d9036b9777900f8a3dc78216f2cedf1d23c30eba7c49fc79bf9b01e",
     "wire_proxy.py": "0b03d07e4d1f76955a50002df64667220252d7ce06e58cd06ba903360894c5b3",
     "wire_session.py": "d9b28801a0b934c422fac1b60ac950f723751572a466facc40e6ded7894bf931",
     "wire_test.go": "abd65c0a0e28bb1a2055e35d32eae753c991c9fe6cb476120566b11fdf4e8629",
-    "workflow.yml": "79a3b29caa955ec07059d1dc49e87eca04f8ce95df240c5110817a3667e0ae13"
+    "workflow.yml": "d2e0f1393cb207df30635fc1c262b1850f3dcb009c4810dd4157903f4f64ceb3"
   }
 }

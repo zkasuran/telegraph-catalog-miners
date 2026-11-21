@@ -28,6 +28,20 @@ def artificial_report():
 
 
 class ReadyContractTests(unittest.TestCase):
+    def test_locked_cpu_install_uses_verified_wheel_source(self):
+        import hashlib
+        from pathlib import Path
+        import yaml
+        root = Path(ready.__file__).resolve().parent
+        workflow = yaml.load((root / "workflow.yml").read_text(), Loader=yaml.BaseLoader)
+        install = next(step["run"] for step in workflow["jobs"]["train"]["steps"] if step.get("name") == "Verify standalone source then install pinned CPU dependencies")
+        for flag in ("--require-hashes", "--only-binary=:all:", "--index-url https://pypi.org/simple",
+                     "--extra-index-url https://download.pytorch.org/whl/cpu", "python3 -m pip check"):
+            self.assertIn(flag, install)
+        lock = (root / "requirements-remote.lock").read_bytes()
+        self.assertEqual(hashlib.sha256(lock).hexdigest(), "4c2b80fd53899579cccb949ef49760b5f53d32cb00e2e3c85bdc857345c832ac")
+        self.assertIn(b"torch==2.15.0+cpu", lock)
+
     def test_artificial_contract_parses(self):
         ready.verify_ready(artificial_report())
 
