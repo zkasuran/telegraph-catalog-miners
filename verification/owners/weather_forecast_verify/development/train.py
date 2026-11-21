@@ -16,6 +16,7 @@ import reference  # noqa: E402
 from core import identity  # noqa: E402
 from build import control_accuracy, sha, surface_accuracy, surface_tokens, write_json  # noqa: E402
 from support import load_inputs, training_representations, view_row  # noqa: E402
+from retention import licensed_controls, retain_fitted_records, verify_retained_records  # noqa: E402
 
 
 def remote_only():
@@ -40,9 +41,12 @@ def frozen_controls(rows):
         projected = [view_row(row, view) for row in rows["validation"]]
         by_view[view] = control_accuracy(projected, coefficients)
         by_view[view]["answer_only_bag_of_words"] = surface_accuracy(projected, weights)
-    return {"fit_split": "train", "integer_coefficients": coefficients, "answer_only_token_weights": weights,
-            "validation": validation, "validation_by_view": by_view,
-            "policy": "fit once on actual training representations; retain immutable output; never refit to reproduce a selected package"}
+    fitted = {"fit_split": "train", "integer_coefficients": coefficients, "answer_only_token_weights": weights,
+              "validation": validation, "validation_by_view": by_view,
+              "policy": "fit once on actual training representations; retain immutable output; never refit to reproduce a selected package"}
+    terms = {name: (FAMILY_ROOT / filename).read_text() for name, filename in
+             (("sand", "LICENSE"), ("kit_mit", "KIT-LICENSE"), ("apache_2_0", "UPSTREAM-APACHE-2.0.txt"))}
+    return licensed_controls(fitted, terms)
 
 
 def run(root):
@@ -63,6 +67,8 @@ def run(root):
     write_json(context / "data/data-report.json", report)
     controls = frozen_controls(rows)
     write_json(context / "data/frozen-controls.json", controls)
+    retain_fitted_records(root, context, {"family": "WEATHER_FORECAST_VERIFY", "run_id": int(os.environ["GITHUB_RUN_ID"]),
+                                          "commit": os.environ["GITHUB_SHA"]})
     if any(value["accuracy"] > 0.65 for view in controls["validation_by_view"].values() for value in view.values()):
         raise ValueError("train-fitted development shortcut exceeds the frozen source gate in an answer view")
     from live_class import capture_classes
@@ -128,7 +134,9 @@ def run(root):
     actual.update(status="DEVELOPMENT_ONLY", source_input_contract_sha256=sha((HERE / "input-contract.json").read_bytes()),
                   independent_audit=False, reference_engine_passed=False, registration_ready=False,
                   native_validation_views=history[-1],
-                  train_fitted_controls_sha256=sha((context / "data/frozen-controls.json").read_bytes()))
+                  train_fitted_controls_sha256=sha((root / "frozen-development-controls.json").read_bytes()),
+                  development_artifact_binding_sha256=sha((root / "development-artifact-binding.json").read_bytes()))
+    verify_retained_records(root)
     write_json(root / "result.json", actual)
     if (root / "registration-ready.json").exists():
         raise ValueError("development cannot emit registration readiness")

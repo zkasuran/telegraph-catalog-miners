@@ -156,7 +156,7 @@
           "with": {
             "if-no-files-found": "warn",
             "name": "weather-frozen-candidate",
-            "path": "${{ runner.temp }}/weather-result/adapter/*\n${{ runner.temp }}/weather-result/initial/*\n${{ runner.temp }}/weather-result/*.json\n${{ runner.temp }}/weather-result/*.safetensors",
+            "path": "${{ runner.temp }}/weather-result/adapter/*\n${{ runner.temp }}/weather-result/initial/*\n${{ runner.temp }}/weather-result/*.json\n${{ runner.temp }}/weather-result/*.safetensors\n${{ runner.temp }}/weather-result/frozen-development-controls.json\n${{ runner.temp }}/weather-result/development-source-report.json\n${{ runner.temp }}/weather-result/development-artifact-binding.json",
             "retention-days": 7
           }
         }

@@ -41,3 +41,12 @@ ModernBERT model architectures, model weights, training codebase under the Apach
 
 This path is implemented source, not a measured model improvement or a canonical
 win. No prior forecast issue-time or universal weather proof is provided.
+
+## Exact fitted artifacts
+
+Already-fitted controls and the source report are retained as fixed root JSON
+files before the shortcut gate can fail. The uploader lists them explicitly.
+Their binding includes the actual job and commit plus measured file hashes.
+Coefficients are copied byte-for-byte with retained licence text, not refitted.
+The result references the retained root controls and binding. This is artifact
+identity, not neural quality, audit readiness or canonical registration.
