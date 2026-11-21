@@ -17,6 +17,8 @@ from data import FAMILY, RATINGS, FORMATS, format_pair, control_scores, load_spl
 from source_gate import digest, write
 from proxy import Backend, BoundedServer, input_root, identity as wire_identity
 from token_contract import checked_tokens
+from presentation import evaluation_view
+from training_recipe import pair_bytes
 
 
 def decode(bits):
@@ -95,8 +97,9 @@ def run_audit(root, reference, identity):
     node = Tokenizer.from_file(str(foundation / "tokenizer.json"))
     node.no_padding()
     node.no_truncation()
-    format_rows = {name: [format_pair(r, name) for r in splits["audit"]] for name in FORMATS}
+    format_rows = {name: [evaluation_view(r, name, recipe["recipe"]) for r in splits["audit"]] for name in FORMATS}
     rows = [r for name in FORMATS for r in format_rows[name]]
+    rendered_views_sha256 = digest(pair_bytes(rows))
     if len(splits["audit"]) < 64 or len({r["group_id"] for r in splits["audit"]}) < 32:
         raise ValueError("complete independent 64-pair audit required")
     texts = [render(r["prompt"], r[s]) for r in rows for s in ("chosen", "rejected")]
@@ -240,6 +243,7 @@ def run_audit(root, reference, identity):
                         "data_files": report["files"], "source_inventory_sha256": report["source_inventory_sha256"],
                         "training_recipe_sha256": selected["training_recipe_sha256"],
                         "training_views_sha256": recipe["training_views_sha256"],
+                        "audit_rendered_views_sha256": rendered_views_sha256,
                        "commit": os.environ["GITHUB_SHA"], "run_id": int(os.environ["GITHUB_RUN_ID"])}
     write(root / "source-runtime-manifest.json", source_manifest)
     ready = {"schema_version": 1, "status": "REGISTRATION_READY", "family": FAMILY,

@@ -12,7 +12,7 @@ def validate():
     if actual.exists() and actual.read_bytes() != (HERE / "controller-workflow.yml").read_bytes():
         raise ValueError("actual owned workflow differs from the validated standalone copy")
     recipe = config["on"]["workflow_dispatch"]["inputs"]["training_recipe"]
-    if (recipe["type"] != "choice" or recipe["options"] != ["json-original-v1", "format-transfer-v2"]
+    if (recipe["type"] != "choice" or recipe["options"] != ["json-original-v1", "format-transfer-v2", "format-transfer-v3"]
             or recipe["default"] != "json-original-v1" or config["env"]["TRAINING_RECIPE"] != "${{ inputs.training_recipe }}"):
         raise ValueError("training recipe must use the closed bounded source choices")
     if config["permissions"] != {"contents": "read"} or set(config["on"]) != {"workflow_dispatch"}:

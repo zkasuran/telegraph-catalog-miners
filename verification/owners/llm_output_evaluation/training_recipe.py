@@ -7,8 +7,9 @@ import re
 
 from data import FORMATS, RATINGS, format_pair
 from source_gate import digest
+from presentation import VERSION as PRESENTATION_VERSION, evaluation_view
 
-RECIPES = ("json-original-v1", "format-transfer-v1", "format-transfer-v2")
+RECIPES = ("json-original-v1", "format-transfer-v1", "format-transfer-v2", "format-transfer-v3")
 BARE_PER_LABEL = 3
 MAX_ORIGINALS = 160
 GRAD_ACCUM = 16
@@ -56,13 +57,13 @@ def build_recipe(train, name, source_train_sha256, baseline_sha256):
     if name == "json-original-v1":
         views, epochs = [dict(row) for row in train], 3
     else:
-        views = [format_pair(row, fmt) for fmt in ("json", "prose") for row in train]
+        views = [evaluation_view(row, fmt, name) for fmt in ("json", "prose") for row in train]
         for label in RATINGS:
             originals = sorted((row for row in train if row["label"] == label), key=lambda row: row["group_id"])
             if len(originals) < BARE_PER_LABEL:
                 raise ValueError("insufficient training originals for fixed bare-label allocation")
             views.extend(format_pair(row, "bare_label") for row in originals[:BARE_PER_LABEL])
-        if name == "format-transfer-v2":
+        if name in {"format-transfer-v2", "format-transfer-v3"}:
             # Fixed source-identity choice, never validation/audit/model selection.
             supplement = dict(min(train, key=lambda row: row["group_id"]))
             for side in ("chosen", "rejected"):
@@ -87,8 +88,10 @@ def build_recipe(train, name, source_train_sha256, baseline_sha256):
               "example_presentations_ceiling": presentations, "original_example_presentations_ceiling": old_presentations,
               "optimizer_steps_ceiling": optimizer_ceiling, "original_optimizer_steps_ceiling": old_optimizer_ceiling,
               "bare_per_label_ceiling": BARE_PER_LABEL if name.startswith("format-transfer-") else 0,
-              "optimizer_completion_views": 1 if name == "format-transfer-v2" else 0,
+              "optimizer_completion_views": 1 if name in {"format-transfer-v2", "format-transfer-v3"} else 0,
               "statistics": stats, "audit_used_for_selection": False, "human_review_of_conversion": False,
               "baseline_fit_scope": "unchanged original JSON training rows, a subset of the derived training views",
               "scope": "constructed format views, not new human annotations or independent source groups"}
+    if name == "format-transfer-v3":
+        report["presentation_version"] = PRESENTATION_VERSION
     return views, report
