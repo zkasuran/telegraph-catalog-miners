@@ -8,6 +8,7 @@
 | Missing or truncated evidence | Abstention and complete token identity check | Evidence-removal test and remote tokenizer gate |
 | Wrong package, class or foundation | Hash-bound primary parser and fresh live class | Real Stage 1 remote check |
 | Forged batch identity or nonfinite score | Literal bare-hash wire check and finite unsigned score bits | Unit failures and three real remote refusals |
+| Report flags conceal missing or mixed identities | Strict run, commit, package, source-manifest, token and label checks | Ready-report structural refusal tests, not model audit results |
 | Local neural execution | Remote guard before model imports or weight fetch | Cleared-environment refusal test |
 | Failed checkpoint loses terms | Inert safetensors and ZIP licence records | Byte-preservation test and remote head roundtrip |
 | Unsafe endpoint forwarding | Existing common.lease_for restrictions, pinned host and ephemeral key | Public restricted lease, private key never uploaded |

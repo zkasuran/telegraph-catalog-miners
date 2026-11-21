@@ -163,28 +163,63 @@ def quality_gate(trained, untrained_accuracy, shortcut_accuracy):
 
 
 def ready_report(report):
-    if report.get("schema_version") != 1 or report.get("status") != "REGISTRATION_READY" or report.get("family") != FAMILY:
+    if (not isinstance(report, dict) or type(report.get("schema_version")) is not int or report.get("schema_version") != 1 or
+            report.get("status") != "REGISTRATION_READY" or report.get("family") != FAMILY):
         raise ValueError("registration-ready envelope mismatch")
+    if type(report.get("run_id")) is not int or report["run_id"] < 1:
+        raise ValueError("actual positive GitHub run identity required")
+    for name in ("commit", "serving_commit"):
+        if not isinstance(report.get(name), str) or not re.fullmatch(r"[a-f0-9]{40}", report[name]):
+            raise ValueError("literal source commit identity required")
+    for name in ("package_sha256", "package_keccak"):
+        if not isinstance(report.get(name), str) or not HASH.fullmatch(report[name]):
+            raise ValueError("literal full lowercase package identity required")
+    if type(report.get("package_bytes")) is not int or not 8 < report["package_bytes"] <= 64 << 20:
+        raise ValueError("exact bounded package byte identity required")
+    if "package_manifest" in report:
+        manifest = report["package_manifest"]
+        if (not isinstance(manifest, dict) or manifest.get("sha256") != report["package_sha256"] or
+                manifest.get("keccak256") != "0x" + report["package_keccak"] or
+                type(manifest.get("bytes")) is not int or manifest["bytes"] != report["package_bytes"]):
+            raise ValueError("primary parser manifest and report identities differ")
     for name, expected in (("foundation_sha256", FOUNDATION["foundation_lora_fp32.onnx"]),
                            ("engine_sha256", FOUNDATION["foundation_engine.wasm"]),
                            ("tokenizer_sha256", FOUNDATION["tokenizer.json"])):
         if report.get(name) != expected:
             raise ValueError("pinned runtime identity mismatch")
-    source, quality, runtime = report["source"], report["quality"], report["runtime"]
-    if (source["normalized_overlap"] != 0 or source["audit_used_for_selection"] is not False or
-            source["grants_verified"] is not True or source["independent_groups"] < 32):
+    source, quality, runtime = (report.get(name) for name in ("source", "quality", "runtime"))
+    if not all(isinstance(section, dict) for section in (source, quality, runtime)):
+        raise ValueError("source, quality and runtime report objects required")
+    if (type(source.get("normalized_overlap")) is not int or source.get("normalized_overlap") != 0 or
+            source.get("audit_used_for_selection") is not False or source.get("grants_verified") is not True or
+            type(source.get("independent_groups")) is not int or source["independent_groups"] < 32 or
+            not isinstance(source.get("source_manifest_sha256"), str) or not HASH.fullmatch(source["source_manifest_sha256"])):
         raise ValueError("source and independent audit gate")
-    if quality["passed"] is not True or quality["audit_pairs"] < 64 or quality["all_supported_formats_tested"] is not True or set(quality["formats"]) != {"raw_json"}:
+    recipe_raw = bounded(HERE / "recipe.json")
+    recipe = strict_json(recipe_raw)
+    if (source["source_manifest_sha256"] != recipe["source_manifest_sha256"] or
+            ("recipe_sha256" in report and report["recipe_sha256"] != sha(recipe_raw))):
+        raise ValueError("report differs from frozen training source or recipe")
+    if (quality.get("passed") is not True or type(quality.get("audit_pairs")) is not int or quality["audit_pairs"] < 64 or
+            quality.get("all_supported_formats_tested") is not True or not isinstance(quality.get("formats"), dict) or
+            set(quality["formats"]) != {"raw_json"}):
         raise ValueError("complete supported format audit required")
     for measured in quality["formats"].values():
+        if (not isinstance(measured, dict) or not {"accuracy", "untrained_accuracy", "shortcut_accuracy", "per_label"} <= set(measured) or
+                not isinstance(measured["per_label"], dict) or set(measured["per_label"]) != {"target_first", "target_second"}):
+            raise ValueError("both actual target-position labels and baselines required")
         if not quality_gate(measured, measured["untrained_accuracy"], measured["shortcut_accuracy"]):
             raise ValueError("unchanged quality floor failed")
-    if (runtime["full_parser_passed"] is not True or runtime["reference_engine_passed"] is not True or
-            runtime["repeat_bits_identical"] is not True or runtime["negative_identity_controls"] < 3 or
+    if (runtime.get("full_parser_passed") is not True or runtime.get("reference_engine_passed") is not True or
+            runtime.get("repeat_bits_identical") is not True or type(runtime.get("negative_identity_controls")) is not int or
+            runtime["negative_identity_controls"] < 3 or not isinstance(runtime.get("vectors"), list) or
             not 8 <= len(runtime["vectors"]) <= 100):
         raise ValueError("actual parser, engine, repeat and identity proof required")
     for vector in runtime["vectors"]:
+        if not isinstance(vector, dict) or set(vector) != {"tokens", "score_bits"}:
+            raise ValueError("literal fixed reference vector shape required")
         finite_bits(vector["score_bits"])
-        if not 1 <= len(vector["tokens"]) <= 256:
-            raise ValueError("fixed reference vector cap")
+        tokens = vector["tokens"]
+        if not isinstance(tokens, list) or not 1 <= len(tokens) <= 256 or not all(type(token) is int and 0 <= token < 50368 for token in tokens):
+            raise ValueError("fixed reference token identity or cap")
     return report
