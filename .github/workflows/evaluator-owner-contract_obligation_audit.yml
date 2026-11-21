@@ -14,6 +14,13 @@
             "serve"
           ]
         },
+        "objective": {
+          "description": "Frozen training objective, paired variant requires actual remote gradient controls",
+          "type": "choice",
+          "required": false,
+          "default": "independent",
+          "options": ["independent", "paired-worst-format"]
+        },
         "package_url": {
           "description": "Proof-bound package_url",
           "type": "string",
@@ -82,7 +89,8 @@
         "PYTHONDONTWRITEBYTECODE": "1",
         "TOKENIZERS_PARALLELISM": "false",
         "OMP_NUM_THREADS": "4",
-        "MKL_NUM_THREADS": "4"
+        "MKL_NUM_THREADS": "4",
+        "CONTRACT_TRAIN_OBJECTIVE": "${{ inputs.objective }}"
       },
       "steps": [
         {
@@ -148,7 +156,7 @@
             "name": "contract-frozen",
             "retention-days": 7,
             "if-no-files-found": "error",
-            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/validation-ready.json\n${{ runner.temp }}/contract-run/rank-growth.json\n${{ runner.temp }}/contract-run/rank-growth-trained.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/upstream-training-view-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json\n${{ runner.temp }}/contract-run/validation-runtime-wire.json\n${{ runner.temp }}/contract-run/validation-runtime-report.json"
+            "path": "${{ runner.temp }}/contract-run/CONTRACT_OBLIGATION_AUDIT.safetensors\n${{ runner.temp }}/contract-run/untrained.safetensors\n${{ runner.temp }}/contract-run/training-freeze.json\n${{ runner.temp }}/contract-run/validation-ready.json\n${{ runner.temp }}/contract-run/rank-growth.json\n${{ runner.temp }}/contract-run/rank-growth-trained.json\n${{ runner.temp }}/contract-run/foundation.json\n${{ runner.temp }}/contract-run/tokenizer-check.json\n${{ runner.temp }}/contract-run/upstream-dataset-gate.json\n${{ runner.temp }}/contract-run/upstream-training-view-gate.json\n${{ runner.temp }}/contract-run/data/*.jsonl\n${{ runner.temp }}/contract-run/data/source-manifest.json\n${{ runner.temp }}/contract-run/source-gate.json\n${{ runner.temp }}/contract-run/validation-runtime-wire.json\n${{ runner.temp }}/contract-run/validation-runtime-report.json\n${{ runner.temp }}/contract-run/paired-objective-smoke.json"
           }
         },
         {

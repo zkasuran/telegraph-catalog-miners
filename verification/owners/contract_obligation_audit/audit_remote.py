@@ -16,6 +16,7 @@ from executor import ReferenceExecutor, Server
 from prepare_remote import compile_runtime, full_parser, prepare
 from validation_policy import require_validation
 from source_cues import measure_source_cues
+from paired_objective import require_smoke
 
 
 def request(tokens, package_keccak):
@@ -30,6 +31,9 @@ def audit(root):
     require_validation(freeze["validation"], config["limits"]["validation"])
     if freeze["commit"] != os.environ["GITHUB_SHA"] or freeze["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or freeze["audit_used_for_selection"] is not False:
         raise ValueError("training freeze is not from this exact immutable run")
+    smoke_path = root/"paired-objective-smoke.json"
+    smoke = strict_json(smoke_path.read_bytes()) if freeze.get("training_objective") == "paired-worst-format" else None
+    require_smoke(freeze, smoke, file_sha(smoke_path) if smoke is not None else None)
     source_path = root/"data/source-manifest.json"
     source = strict_json(source_path.read_bytes())
     if file_sha(source_path) != freeze["source_manifest_sha256"] or source["independent_groups"] < 32 or source["normalized_overlap"] != 0:

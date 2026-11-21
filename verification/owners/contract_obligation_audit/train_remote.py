@@ -5,6 +5,7 @@ import gc
 import importlib.metadata
 import os
 import random
+from contextlib import nullcontext
 from dataclasses import asdict
 from pathlib import Path
 
@@ -16,13 +17,18 @@ from validation_policy import require_validation, warmstart_policy
 from parent_checkpoint import PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, check_candidate_tensor, restore
 from source_cues import measure_source_cues
 from rank_growth import grow, verify_trained
+from paired_objective import OBJECTIVES, paired_training
 
 
 def main():
     remote_only()
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", required=True, type=Path)
-    root = parser.parse_args().root.resolve()
+    parser.add_argument("--objective", choices=OBJECTIVES, default=os.environ.get("CONTRACT_TRAIN_OBJECTIVE", "independent"))
+    args = parser.parse_args()
+    if args.objective not in OBJECTIVES:
+        raise ValueError("unknown source training objective")
+    root = args.root.resolve()
     config = check_config(strict_json((HERE/"config.json").read_bytes()))
     train, validation = [read_jsonl(root/"data"/(name+".jsonl")) for name in ("train", "validation")]
     source = strict_json((root/"data/source-manifest.json").read_bytes())
@@ -51,7 +57,9 @@ def main():
                              eval_batch=2, gate_min_acc=.80, grad_checkpointing=False, seed=config["seed"],
                              lr=policy["learning_rate"], weight_decay=policy["weight_decay"],
                              lora_rank=policy["rank"], lora_alpha=policy["alpha"],
-                             es_patience=policy["patience"], es_metric="pairwise_accuracy")
+                              es_patience=policy["patience"], es_metric="pairwise_accuracy")
+    if args.objective == "paired-worst-format":
+        hp.batch_size = 1  # One original emits two adjacent views, same two-preference batch.
     gate = trainer.gate_dataset(train, hp)
     write_json(root/"upstream-dataset-gate.json", gate)
     if gate["ok"] is not True:
@@ -92,6 +100,8 @@ def main():
                     "auxiliary_training": {"pairs": source["auxiliary_training_pairs"], "hypotheses": source["auxiliary_training_hypotheses"], "audited_claim": False},
                     "wider_training": {"pairs": source["wider_training_pairs"], "render": "truthful hash citations, complete original prompt spans", "audited_claim": False},
                     "preference_authorship": "Published document-level source labels and AI-assisted response templates, not human preference reviews"}
+        if args.objective == "paired-worst-format":
+            training["objective"] = "paired worst-format Bradley-Terry, unchanged margin regularization"
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                         target_modules=params["target_modules"], max_tokens=hp.max_length, training=training)
@@ -148,7 +158,14 @@ def main():
         return original_loss(chosen_reward, rejected_reward, margin) + policy["reward_margin_penalty"]*(chosen_reward-rejected_reward).float().square().mean()
     trainer.build_model, trainer.evaluate, trainer.bt_loss = resumed_build, worst_format_evaluate, regularized_loss
     try:
-        model, tok, _ = trainer.train(str(base), training_views, validation_views, trained_path, hp)
+        context, training_input = nullcontext(), training_views
+        if args.objective == "paired-worst-format":
+            from paired_objective_remote import coupled_training, gradient_smoke
+            gradient_smoke(root, policy["reward_margin_penalty"])
+            training_input = paired_training(train)
+            context = coupled_training(trainer, original_loss, policy["reward_margin_penalty"])
+        with context:
+            model, tok, _ = trainer.train(str(base), training_input, validation_views, trained_path, hp)
     finally:
         trainer.build_model, trainer.evaluate, trainer.bt_loss = original_build, original_evaluate, original_loss
     verify_trained(trained_path, root, cfg)
@@ -168,17 +185,21 @@ def main():
     compile_runtime(root, kit)
     for package in (candidate, root/"untrained.safetensors"):
         full_parser(root, package, foundation_spec)
-    write_json(root/"training-freeze.json", {"schema_version": 1, "family": FAMILY, "run_id": int(os.environ["GITHUB_RUN_ID"]),
+    freeze = {"schema_version": 1, "family": FAMILY, "run_id": int(os.environ["GITHUB_RUN_ID"]),
         "commit": os.environ["GITHUB_SHA"], "source_manifest_sha256": file_sha(root/"data/source-manifest.json"),
         "candidate_sha256": file_sha(candidate), "untrained_sha256": file_sha(root/"untrained.safetensors"),
         "validation": validation_report, "hyperparameters": asdict(hp), "audit_used_for_selection": False,
         "parent_run_id": PARENT_RUN, "parent_commit": PARENT_COMMIT, "parent_checkpoint_sha256": PARENT_CHECKPOINT_SHA,
         "training_originals": len(train), "training_views": len(training_views),
+        "training_objective": args.objective,
         "auxiliary_training_pairs": source["auxiliary_training_pairs"], "reward_margin_penalty": policy["reward_margin_penalty"],
         "wider_training_pairs": source["wider_training_pairs"],
         "rank_growth_sha256": file_sha(root/"rank-growth.json"),
         "rank_growth_trained_sha256": file_sha(root/"rank-growth-trained.json"),
-        "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors", "numpy")}})
+        "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors", "numpy")}}
+    if args.objective == "paired-worst-format":
+        freeze["paired_objective_smoke_sha256"] = file_sha(root/"paired-objective-smoke.json")
+    write_json(root/"training-freeze.json", freeze)
     print("Frozen licensed candidate and seed-matched untrained package. Independent audit was not scored.")
     # Preserve bytes and failure evidence first, then refuse to expose the audit.
     checked_validation = require_validation(validation_report, len(validation))
