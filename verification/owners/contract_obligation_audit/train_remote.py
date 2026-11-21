@@ -18,6 +18,7 @@ from parent_checkpoint import PARENT_CHECKPOINT_SHA, PARENT_COMMIT, PARENT_RUN, 
 from source_cues import measure_source_cues
 from rank_growth import grow, verify_trained
 from paired_objective import OBJECTIVES, paired_training
+from quality_selection import SELECTORS, attach_selection
 
 
 def main():
@@ -25,9 +26,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", required=True, type=Path)
     parser.add_argument("--objective", choices=OBJECTIVES, default=os.environ.get("CONTRACT_TRAIN_OBJECTIVE", "independent"))
+    parser.add_argument("--selector", choices=SELECTORS, default=os.environ.get("CONTRACT_VALIDATION_SELECTOR", "worst-format-accuracy"))
     args = parser.parse_args()
-    if args.objective not in OBJECTIVES:
-        raise ValueError("unknown source training objective")
+    if args.objective not in OBJECTIVES or args.selector not in SELECTORS:
+        raise ValueError("unknown source training objective or validation selector")
     root = args.root.resolve()
     config = check_config(strict_json((HERE/"config.json").read_bytes()))
     train, validation = [read_jsonl(root/"data"/(name+".jsonl")) for name in ("train", "validation")]
@@ -60,6 +62,8 @@ def main():
                               es_patience=policy["patience"], es_metric="pairwise_accuracy")
     if args.objective == "paired-worst-format":
         hp.batch_size = 1  # One original emits two adjacent views, same two-preference batch.
+    if args.selector == "quality-slack":
+        hp.es_metric = "selection_gate_slack"
     gate = trainer.gate_dataset(train, hp)
     write_json(root/"upstream-dataset-gate.json", gate)
     if gate["ok"] is not True:
@@ -102,6 +106,8 @@ def main():
                     "preference_authorship": "Published document-level source labels and AI-assisted response templates, not human preference reviews"}
         if args.objective == "paired-worst-format":
             training["objective"] = "paired worst-format Bradley-Terry, unchanged margin regularization"
+        if args.selector == "quality-slack":
+            training["validation_selection"] = "minimum unchanged quality-gate slack, validation only"
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                         target_modules=params["target_modules"], max_tokens=hp.max_length, training=training)
@@ -145,6 +151,7 @@ def main():
         model.set_adapter("default")
         return model, tokenizer
     validation_views = [{**pair(row, style), "view_style": style} for row in validation for style in ("json", "prose")]
+    selection_trace = []
     def worst_format_evaluate(model, tokenizer, rows, hyperparams, negatives=None):
         measured = original_evaluate(model, tokenizer, rows, hyperparams, negatives)
         if rows and {row.get("view_style") for row in rows} == {"json", "prose"}:
@@ -152,19 +159,36 @@ def main():
                      for style in ("json", "prose")]
             measured["val_loss"] = max(view["val_loss"] for view in views)
             measured["pairwise_accuracy"] = min(view["pairwise_accuracy"] for view in views)
+            if args.selector == "quality-slack":
+                formats = {}
+                for style, view in zip(("json", "prose"), views):
+                    formats[style] = {"accuracy": view["pairwise_accuracy"], "per_label": {
+                        label: original_evaluate(model, tokenizer, [row for row in rows if row["view_style"] == style and row["label"] == label], hyperparams, negatives)["pairwise_accuracy"]
+                        for label in ("Entailment", "Contradiction")}, "fit_split": "validation", "original_pairs": len(validation),
+                        "untrained_accuracy": initial_validation[style]["accuracy"], "shortcut_accuracy": initial_validation[style]["shortcut_accuracy"]}
+                measured, selection = attach_selection(measured, formats, len(validation))
+                selection_trace.append({"epoch_index": len(selection_trace), "formats": formats, "selection": selection,
+                    "trainer_worst_format_accuracy": measured["pairwise_accuracy"], "trainer_worst_format_loss": measured["val_loss"]})
+                write_json(root/"validation-selection-trace.json", {"schema_version": 1, "family": FAMILY,
+                    "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
+                    "source_manifest_sha256": file_sha(root/"data/source-manifest.json"), "audit_used_for_selection": False,
+                    "selector": args.selector, "records": selection_trace})
         return measured
     # Best epoch selection sees validation only and protects the worse format.
     def regularized_loss(chosen_reward, rejected_reward, margin):
         return original_loss(chosen_reward, rejected_reward, margin) + policy["reward_margin_penalty"]*(chosen_reward-rejected_reward).float().square().mean()
     trainer.build_model, trainer.evaluate, trainer.bt_loss = resumed_build, worst_format_evaluate, regularized_loss
     try:
-        context, training_input = nullcontext(), training_views
+        context, selector_context, training_input = nullcontext(), nullcontext(), training_views
         if args.objective == "paired-worst-format":
             from paired_objective_remote import coupled_training, gradient_smoke
             gradient_smoke(root, policy["reward_margin_penalty"])
             training_input = paired_training(train)
             context = coupled_training(trainer, original_loss, policy["reward_margin_penalty"])
-        with context:
+        if args.selector == "quality-slack":
+            from quality_selection_remote import selector_adapter
+            selector_context = selector_adapter(trainer)
+        with context, selector_context:
             model, tok, _ = trainer.train(str(base), training_input, validation_views, trained_path, hp)
     finally:
         trainer.build_model, trainer.evaluate, trainer.bt_loss = original_build, original_evaluate, original_loss
@@ -192,6 +216,7 @@ def main():
         "parent_run_id": PARENT_RUN, "parent_commit": PARENT_COMMIT, "parent_checkpoint_sha256": PARENT_CHECKPOINT_SHA,
         "training_originals": len(train), "training_views": len(training_views),
         "training_objective": args.objective,
+        "validation_selector": args.selector,
         "auxiliary_training_pairs": source["auxiliary_training_pairs"], "reward_margin_penalty": policy["reward_margin_penalty"],
         "wider_training_pairs": source["wider_training_pairs"],
         "rank_growth_sha256": file_sha(root/"rank-growth.json"),
@@ -199,6 +224,8 @@ def main():
         "versions": {name: importlib.metadata.version(name) for name in ("torch", "transformers", "peft", "safetensors", "numpy")}}
     if args.objective == "paired-worst-format":
         freeze["paired_objective_smoke_sha256"] = file_sha(root/"paired-objective-smoke.json")
+    if args.selector == "quality-slack":
+        freeze["validation_selection_trace_sha256"] = file_sha(root/"validation-selection-trace.json")
     write_json(root/"training-freeze.json", freeze)
     print("Frozen licensed candidate and seed-matched untrained package. Independent audit was not scored.")
     # Preserve bytes and failure evidence first, then refuse to expose the audit.

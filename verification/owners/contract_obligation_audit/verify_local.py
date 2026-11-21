@@ -16,6 +16,7 @@ from data import download
 from source_gate import verdict
 from parent_checkpoint import PARENT_RUN
 from source_cues import measure_source_cues
+from quality_selection import TRAINER_SHA256, check_experiments, compile_selector
 
 
 def main():
@@ -48,6 +49,12 @@ def main():
     scratch_parent = Path("/tmp/opencode")
     scratch_parent.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="contract-gate-", dir=scratch_parent) as temporary:
+        trainer_cache = os.environ.get("OWNER_TRAINER_SOURCE")
+        trainer_source = Path(trainer_cache) if trainer_cache else Path(temporary)/"train_adapter.py"
+        if not trainer_cache:
+            download("https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py",
+                     trainer_source, TRAINER_SHA256, 128 << 10)
+        compile_selector(trainer_source.read_bytes())  # Actual source compiled, no training executed.
         archive = Path(cache) if cache else Path(temporary)/"source.zip"
         if not cache:
             download(config["archive_url"], archive, config["archive_sha256"])
@@ -75,6 +82,7 @@ def main():
             raise ValueError("actual source gate failed in the standalone checkout")
     workflow = HERE.parents[2]/".github/workflows/evaluator-owner-contract_obligation_audit.yml"
     value = strict_json(workflow.read_bytes())  # JSON is a strict YAML 1.2 subset.
+    check_experiments(value)
     jobs = value["jobs"]
     if "workflow_dispatch" not in value["on"] or not 1 <= len(jobs) <= 6:
         raise ValueError("owned workflow dispatch/job schema")

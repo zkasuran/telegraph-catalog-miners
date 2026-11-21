@@ -17,6 +17,7 @@ from prepare_remote import compile_runtime, full_parser, prepare
 from validation_policy import require_validation
 from source_cues import measure_source_cues
 from paired_objective import require_smoke
+from quality_selection import require_selection_trace
 
 
 def request(tokens, package_keccak):
@@ -34,6 +35,9 @@ def audit(root):
     smoke_path = root/"paired-objective-smoke.json"
     smoke = strict_json(smoke_path.read_bytes()) if freeze.get("training_objective") == "paired-worst-format" else None
     require_smoke(freeze, smoke, file_sha(smoke_path) if smoke is not None else None)
+    trace_path = root/"validation-selection-trace.json"
+    trace = strict_json(trace_path.read_bytes()) if freeze.get("validation_selector") == "quality-slack" else None
+    require_selection_trace(freeze, trace, file_sha(trace_path) if trace is not None else None)
     source_path = root/"data/source-manifest.json"
     source = strict_json(source_path.read_bytes())
     if file_sha(source_path) != freeze["source_manifest_sha256"] or source["independent_groups"] < 32 or source["normalized_overlap"] != 0:

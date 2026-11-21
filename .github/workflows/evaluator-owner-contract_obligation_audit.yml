@@ -15,11 +15,11 @@
           ]
         },
         "objective": {
-          "description": "Frozen training objective, paired variant requires actual remote gradient controls",
+          "description": "Frozen training experiment; paired variants require actual remote gradient controls",
           "type": "choice",
           "required": false,
           "default": "independent",
-          "options": ["independent", "paired-worst-format"]
+          "options": ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack"]
         },
         "package_url": {
           "description": "Proof-bound package_url",
@@ -90,7 +90,8 @@
         "TOKENIZERS_PARALLELISM": "false",
         "OMP_NUM_THREADS": "4",
         "MKL_NUM_THREADS": "4",
-        "CONTRACT_TRAIN_OBJECTIVE": "${{ inputs.objective }}"
+        "CONTRACT_TRAIN_OBJECTIVE": "${{ (inputs.objective == 'paired-worst-format' || inputs.objective == 'paired-quality-slack') && 'paired-worst-format' || 'independent' }}",
+        "CONTRACT_VALIDATION_SELECTOR": "${{ (inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack') && 'quality-slack' || 'worst-format-accuracy' }}"
       },
       "steps": [
         {
@@ -168,6 +169,16 @@
             "if-no-files-found": "error",
             "path": "${{ runner.temp }}/contract-run/licensed-checkpoint.zip\n${{ runner.temp }}/dependency-audit.json"
           }
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always() && (inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack')",
+          "with": {
+            "name": "contract-validation-selection",
+            "retention-days": 7,
+            "if-no-files-found": "ignore",
+            "path": "${{ runner.temp }}/contract-run/validation-selection-trace.json"
+          }
         }
       ]
     },
@@ -212,6 +223,14 @@
           "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
           "with": {
             "name": "contract-frozen",
+            "path": "${{ runner.temp }}/contract-run"
+          }
+        },
+        {
+          "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "if": "inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack'",
+          "with": {
+            "name": "contract-validation-selection",
             "path": "${{ runner.temp }}/contract-run"
           }
         },
