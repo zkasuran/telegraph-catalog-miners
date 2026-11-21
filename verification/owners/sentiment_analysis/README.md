@@ -167,3 +167,15 @@ are legitimate development data, not a new independent audit. Every condition
 shares the same 32 selected groups. Perturbed retention is not factual accuracy.
 JSON/prose answer-only inputs still contain source excerpts. The model and original
 audit remain unchanged. See [source boundaries](DATA-SOURCES.md) and [controls](SECURITY.md).
+## Train the scorer to follow the task
+
+The `retrain_v4` workflow keeps pretrained assets and optimizer settings fixed.
+It trains on no-copy explanations and balanced unrelated-excerpt controls, then
+selects the weakest validation label across both conditions and every format.
+All exposed audit identities are excluded from the new source split.
+
+The independent audit runs only after the candidate freezes. It uses the actual
+pinned reference engine and measures a neural answer-only shortcut as well as
+the immutable training-only baselines. Every format and condition must clear
+the unchanged quality floors. Source preparation and tests run without neural
+imports locally. See [provenance](DATA-SOURCES.md) and [controls](SECURITY.md).

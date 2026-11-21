@@ -2,6 +2,13 @@
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 
+Task-authoritative v4 additions
+-------------------------------
+V4 source, tests and resulting competitive delta additions retain SAND below.
+Original text and annotations retain their upstream Apache-2.0 grant. The exposed
+audit quarantine carries source identity keys only. Original model and recipient
+grants are unchanged. No new human review or audited explanation truth is claimed.
+
 Validation diagnostic additions
 -------------------------------
 development_probe.py, its source-only tests and workflow additions retain the

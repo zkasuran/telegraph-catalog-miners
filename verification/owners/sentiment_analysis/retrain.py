@@ -121,7 +121,7 @@ def save_checkpoint(root, model, tokenizer, selected, validation_pairs, manifest
         meta[key] = lineage[key]
     meta["x-goemotions-apache-2.0"] = (root / "data/LICENSE").read_text()
     meta["x-goemotions-attribution"] = "GoEmotions, Demszky et al. (2020), Google Research. Emotion annotations retained; valence preferences and Mixed juxtapositions constructed by AI-assisted code."
-    if package_name not in ("SENTIMENT_ANALYSIS-v2.safetensors", "SENTIMENT_ANALYSIS-v3.safetensors"):
+    if package_name not in ("SENTIMENT_ANALYSIS-v2.safetensors", "SENTIMENT_ANALYSIS-v3.safetensors", "SENTIMENT_ANALYSIS-v4.safetensors"):
         raise ValueError("unsupported owned checkpoint name")
     package = root / package_name
     write_package(package, meta, {name: tensors[name] for name in tensor_names(22)})

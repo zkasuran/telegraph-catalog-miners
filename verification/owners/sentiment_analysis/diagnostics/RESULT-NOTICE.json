@@ -1,0 +1,12 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "assets": {
+    "development-report.json": "b865d2f7aa261a810483222e18f2a80268de282d9e3b5d57aee5d5adac334468",
+    "development-score-bits.json": "0c0b5bf28bfeaafae7d465ac05d3fef56ebbd7d81a5190ace4e2d0ef8d90c2d0",
+    "task-label-readback.json": "fe3937b81bc9ad4d722e627be5978e83950d58ce00c9746704a076c3220271e1"
+  },
+  "licence": "Our computational result/proof additions use SAND. Source-derived GoEmotions metadata retains Apache-2.0.",
+  "upstream": "GoEmotions, Demszky et al. (2020), Google Research. Original emotion annotations retain Apache-2.0. Preferences are constructed, not human-reviewed sentiment truth.",
+  "scope": "Validation-only frozen-model diagnostic, not independent audit, registration-ready verdict or canonical proof. No protected node pool rows or private source text are included."
+}

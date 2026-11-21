@@ -1,0 +1,38 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "audit_sha256": "b03ff914980c1a86b00a28623b45c8f15f00e86e8d21eeed28785c9afcb525c2",
+  "base_files": {
+    "config.json": "1609d59e627c33eaed524b4f01e546d42e84190a079a5a5ded84b212c41c324f",
+    "model.safetensors": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+    "special_tokens_map.json": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049",
+    "tokenizer_config.json": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2"
+  },
+  "base_revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+  "baseline_scope": "Immutable coefficients fitted only on original v3 training, reused unchanged. No fresh floating-point fit.",
+  "baseline_sha256": "4447b62214d6d735d8163fcdb13b86a5911f36b092f30c57cfbc4dfcf5b4630e",
+  "baseline_train_sha256": "ff41f604f5d26dfbfc99714908e9ea3e8c3e067840404eafa632e4d418b89cbb",
+  "change": "Task-authoritative training, generic reasons and balanced untrusted-excerpt controls. Hyperparameters unchanged; validation selects worst subset/format/label.",
+  "hyperparameters": {
+    "batch_size": 2,
+    "epochs": 3,
+    "eval_batch": 4,
+    "gate_min_acc": 0.8,
+    "grad_accum": 8,
+    "grad_checkpointing": false,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "lora_rank": 8,
+    "lr": 8e-05,
+    "max_length": 256,
+    "seed": 42,
+    "weight_decay": 0.01
+  },
+  "quarantine_sha256": "3948797f72496174c5ecd2e2a9a8cc651c1e6c9a58733ad81d5f4a1b835bc12f",
+  "schema_version": 1,
+  "source_manifest_sha256": "4321b8a91c4176f90e04a6418fcf94fdd9225f7236d35e114c1078814c5b19a4",
+  "source_version": 4,
+  "sources_sha256": "83d260a7a08c60195768a64e0ab8761a0dc644e93e10f084643686f13f451380",
+  "train_sha256": "8716604ba00208ca3f3028be728e7740efbdb8408395d02bbc1507f2e76358e8",
+  "validation_sha256": "3fe3f2361f91cb2ce1f54093127e3b2e661f61a12251d449c721c1a0725d8a4f",
+  "warm_package_sha256": "1d5c4c5f020dc75e3cd2c8b59bcd0c04a862ae6ab58f3031be9ad88b8778edd1"
+}

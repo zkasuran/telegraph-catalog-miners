@@ -44,6 +44,13 @@ if (recovery['origin_package_sha256'] != 'ae2d3b0275e4f96419bee0e75396f445003afb
 sys.path.insert(0, str(root))
 from development_probe import config as development_config
 development_config()
+v4 = json.loads((root / 'v4-config.json').read_text())
+for key in ('source_manifest_sha256', 'sources_sha256', 'baseline_sha256', 'quarantine_sha256',
+            'train_sha256', 'validation_sha256', 'audit_sha256', 'warm_package_sha256'):
+    if not isinstance(v4.get(key), str) or not re.fullmatch('[a-f0-9]{64}', v4[key]):
+        raise ValueError('missing actual frozen v4 identity: ' + key)
+if v4['source_version'] != 4 or v4['hyperparameters'] != v3['hyperparameters']:
+    raise ValueError('v4 must change supervision, not unexplained hyperparameters')
 for name in ('endpoint-registration-ready.json', 'endpoint-result-notice.json'):
     if not (root / 'model' / name).is_file():
         raise ValueError('actual verified recovery result asset missing: ' + name)

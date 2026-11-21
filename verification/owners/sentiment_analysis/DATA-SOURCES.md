@@ -1,5 +1,36 @@
 # Data and model source grants
 
+## [GOEMOTIONS-V4] Task-authoritative supervision
+
+Actual validation diagnostic run 44851670611 reproduced all 1,728 reference score
+bits. On 32 deliberately contradictory prompt/excerpt comparisons, the task's
+label was preferred in 18 JSON pairs, 19 prose pairs and 27 bare-label pairs.
+Those are validation measurements, not a new independent audit or a node score.
+
+V4 keeps the same pretrained assets and hyperparameters. It changes supervision:
+generic reasons do not copy the task. A second condition gives both answers the
+same unrelated excerpt. Excerpt labels are balanced independently of task labels,
+including same-label controls. These preferences prioritize the derived category
+of the task. They do not certify the truth of the excerpt or human reason review.
+
+Every source/entity/thread/text identity from the exposed v2 and v3 audits is
+quarantined. Only those exclusion keys are retained, not audit text for fitting.
+The complete source inventory remains 211,225 rater records and 58,011 comments.
+New disjoint groups are 576 training, 144 validation and 144 fresh audit groups.
+Every group has three category contrasts in each of two conditions. Format views
+share those groups. Training sees 3,456 pairs, not 3,456 independent sources.
+
+Original GoEmotions annotations retain the Apache-2.0 grant below. All valence
+mapping, compositions, explanations and preference construction are programmatic,
+not human sentiment-preference review. The unchanged coefficients were fitted
+only on original v3 training. No floating-point refit is needed to replay them.
+The audit also measures an actual reference-engine answer-only shortcut.
+
+Validation selects the weakest label across both conditions and every format.
+The fresh audit cannot select an epoch. Every format and condition must pass
+80 percent overall, 70 percent per label, five points over untrained and ten over
+the strongest measured shortcut. A passing source audit is not a canonical win.
+
 ## [VALIDATION-DIAGNOSTIC] Frozen-model alignment controls
 
 The development job reads the complete pinned GoEmotions source inventory and

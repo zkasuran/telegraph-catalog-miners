@@ -1,0 +1,108 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "run_id": 44851670611,
+  "commit": "a9a950a0a952e74d870edb771fbbfcef6d06fab3",
+  "report_sha256": "b865d2f7aa261a810483222e18f2a80268de282d9e3b5d57aee5d5adac334468",
+  "score_bits_verified": 1728,
+  "metrics_recomputed": {
+    "aligned": {
+      "json": {
+        "wins": 86,
+        "pairs": 96,
+        "preference_rate": 0.8958333333333334,
+        "ties": 0
+      },
+      "prose": {
+        "wins": 86,
+        "pairs": 96,
+        "preference_rate": 0.8958333333333334,
+        "ties": 0
+      },
+      "bare_label": {
+        "wins": 83,
+        "pairs": 96,
+        "preference_rate": 0.8645833333333334,
+        "ties": 0
+      }
+    },
+    "answer_only": {
+      "json": {
+        "wins": 71,
+        "pairs": 96,
+        "preference_rate": 0.7395833333333334,
+        "ties": 0
+      },
+      "prose": {
+        "wins": 69,
+        "pairs": 96,
+        "preference_rate": 0.71875,
+        "ties": 0
+      },
+      "bare_label": {
+        "wins": 48,
+        "pairs": 96,
+        "preference_rate": 0.5,
+        "ties": 0
+      }
+    },
+    "cross_label_prompt": {
+      "json": {
+        "wins": 62,
+        "pairs": 96,
+        "preference_rate": 0.6458333333333334,
+        "ties": 0,
+        "actual_prompt_label_preferred": {
+          "wins": 18,
+          "pairs": 32,
+          "accuracy": 0.5625,
+          "per_prompt_label": {
+            "Positive": 0.625,
+            "Negative": 0.25,
+            "Neutral": 0.625,
+            "Mixed": 0.75
+          }
+        }
+      },
+      "prose": {
+        "wins": 58,
+        "pairs": 96,
+        "preference_rate": 0.6041666666666666,
+        "ties": 0,
+        "actual_prompt_label_preferred": {
+          "wins": 19,
+          "pairs": 32,
+          "accuracy": 0.59375,
+          "per_prompt_label": {
+            "Positive": 0.625,
+            "Negative": 0.375,
+            "Neutral": 0.625,
+            "Mixed": 0.75
+          }
+        }
+      },
+      "bare_label": {
+        "wins": 41,
+        "pairs": 96,
+        "preference_rate": 0.4270833333333333,
+        "ties": 0,
+        "actual_prompt_label_preferred": {
+          "wins": 27,
+          "pairs": 32,
+          "accuracy": 0.84375,
+          "per_prompt_label": {
+            "Positive": 0.875,
+            "Negative": 1.0,
+            "Neutral": 0.75,
+            "Mixed": 0.75
+          }
+        }
+      }
+    }
+  },
+  "limits": [
+    "Validation-only diagnostics, not independent audit or canonical proof.",
+    "Prompt-label preference is derived source truth under deliberately contradictory answer excerpts, not human-reviewed preferences."
+  ]
+}

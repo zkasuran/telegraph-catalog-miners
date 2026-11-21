@@ -118,3 +118,16 @@ report are verified; live multi-lease survival is still unverified.
 Prompt-permuted retention is not factual accuracy. Answer-only JSON/prose retains
 source excerpts. This diagnostic cannot certify natural Mixed sentiment, reason
 correctness, confidence calibration or a canonical registration.
+## Task-authoritative training and audit
+
+| Threat | Defence | Test |
+|---|---|---|
+| Train on exposed audit originals | Full source/entity/thread/text identity quarantine for both exposed audits | test_v4.py |
+| Infer task labels from copied answers | No-copy generic reasons and excerpt classes independent of task classes | test_v4.py |
+| Hide a bad condition under a good average | Worst-condition/format/label validation selection and separate audit gates | test_v4.py and actual remote audit |
+| Lose old policy state after a failed new run | Isolated grouping/training policy restores original globals | test_v4.py |
+| Fake answer-only or node runtime proof | Real reference-engine ablation, full parser and literal HTTP vectors | Actual remote audit, never local neural work |
+
+Preferences concern the derived sentiment category. Both answers may share a
+false excerpt. Reason truth, confidence calibration and universal factual proof
+are not supplied by this experiment. A checkpoint or audit pass is not canonical.

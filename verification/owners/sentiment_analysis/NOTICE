@@ -18,3 +18,11 @@ Google Research GoEmotions release under Apache-2.0 and constructs validation-on
 task/answer alignment controls. Those preferences are not human-reviewed. It uses
 the existing ModernBERT and Telegraph reference engine with all upstream grants
 retained. It does not fit, select, register or restamp a model.
+Task-authoritative v4 continuation
+---------------------------------
+Google Research GoEmotions text and emotion annotations retain Apache-2.0 and
+their original attribution. Our narrowed valence/composition preferences, generic
+reasons and balanced unrelated-excerpt controls are SAND additions, not human
+sentiment-preference review. The original ModernBERT and Telegraph reference-kit
+grants stay embedded in every exported checkpoint. The v3 checkpoint remains
+unchanged as licensed warm-start lineage.
