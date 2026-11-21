@@ -6,6 +6,7 @@ from collections import Counter
 import data
 
 MAX_TOKENS = 512
+MIN_RETAINED_TRAIN_PAIRS = 64
 
 
 def compare_ids(full, training, node):
@@ -76,3 +77,84 @@ def inspect_development(splits, tokenize_full, tokenize_training, tokenize_node)
         )
     )
     return result
+
+
+def filter_training(rows, tokenize_full):
+    """Exclude whole training pairs solely for exact token capacity, not quality."""
+    if not rows or len(rows) > data.MAX_PAIRS:
+        raise ValueError("training count ceiling")
+    retained, excluded, groups = [], [], set()
+    for row in rows:
+        group = row.get("group_id")
+        if (
+            not isinstance(group, str)
+            or len(group) != 64
+            or any(c not in "0123456789abcdef" for c in group)
+            or group in groups
+        ):
+            raise ValueError("unique normalized training group required")
+        groups.add(group)
+        lengths = {}
+        for side in ("chosen", "rejected"):
+            ids = tokenize_full(data.render(row["prompt"], row[side]))
+            observed = compare_ids(ids, ids, ids)
+            lengths[side] = observed["full_tokens"]
+        if max(lengths.values()) > MAX_TOKENS:
+            excluded.append(
+                {
+                    "group_id": group,
+                    "row_sha256": data.sha(data.encode(row)),
+                    "token_counts": lengths,
+                    "reason": "exact_token_capacity",
+                }
+            )
+        else:
+            retained.append(row)
+    if len(retained) < MIN_RETAINED_TRAIN_PAIRS or len(excluded) * 10 > len(rows):
+        raise ValueError("insufficient training coverage after capacity exclusions")
+    original = b"".join(data.encode(row) for row in rows)
+    encoded = b"".join(data.encode(row) for row in retained)
+    report = {
+        "schema_version": 1,
+        "policy": "whole training pairs over exact 512-token capacity only",
+        "original_train_sha256": data.sha(original),
+        "training_sha256": data.sha(encoded),
+        "original_pairs": len(rows),
+        "retained_pairs": len(retained),
+        "excluded": excluded,
+        "raw_text_exported": False,
+        "validation_changed": False,
+        "audit_checked": False,
+    }
+    return retained, encoded, report
+
+
+def require_training_capacity_only(report):
+    """An exclusion cannot repair mismatched tokens or held-out truncation."""
+    if (
+        report.get("max_tokens") != MAX_TOKENS
+        or report.get("audit_checked") is not False
+    ):
+        raise ValueError("exact development diagnostic required")
+    train = report["splits"]["train"]["counts"]
+    validation = report["splits"]["validation"]["counts"]
+    causes = (
+        "over_cap",
+        "training_node_mismatch",
+        "training_truncated",
+        "node_truncated",
+    )
+    if any(
+        type(counts.get(name)) is not int or counts[name] < 0
+        for counts in (train, validation)
+        for name in causes
+    ):
+        raise ValueError("actual nonnegative diagnostic counts required")
+    if any(validation[name] for name in causes) or train["training_node_mismatch"]:
+        raise ValueError("identity or held-out retention failure cannot be filtered")
+    if (
+        train["training_truncated"] != train["over_cap"]
+        or train["node_truncated"] != train["over_cap"]
+    ):
+        raise ValueError("noncapacity token loss cannot be filtered")
+    return True

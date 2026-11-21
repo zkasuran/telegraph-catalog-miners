@@ -18,3 +18,12 @@ It does not establish entity/time independence or factual source correctness.
 Byte-length screening does not prove the node tokenizer retains the preference.
 The source gate has no model imports and cannot create registration-ready proof.
 Original source and audit rows must stay out of public manifests and uploads.
+# Training-capacity recovery
+
+Exact-token capacity may exclude whole training pairs before fitting. The
+validation split cannot be filtered. Mismatched token identities and noncapacity
+token loss fail before exclusions. `test_token_contract.py` exercises those
+refusals, immutable inputs, preserved order and retained coverage. The unchanged
+primary dataset gate and full token gate run again remotely on retained training.
+The fixed workflow uploads only named metadata, the attributed frozen baseline
+archive and the selected adapter. No training or audit rows are uploaded.

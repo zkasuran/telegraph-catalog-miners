@@ -52,3 +52,13 @@ The existing hash-pinned CPU dependency lock is retained, not freshly resolved.
 Remote dependency audit must check every installed release without skips.
 The original train-fitted BASELINES.json bytes are loaded on the runner rather
 than requiring a fresh floating-point fit to reproduce the source split proof.
+
+The completed diagnostic checked all 384 development texts. One training text
+exceeded the cap at 583 tokens. Validation fit within 455 tokens and every capped
+training/node vector agreed. Recovery excludes only whole over-cap training
+pairs under the exact pinned tokenizer. It preserves the original split bytes,
+validation and sealed audit. No source text or annotation is changed.
+The unchanged dataset and token gates run again on retained training before
+neural fitting. Revised training-only coefficients are frozen once and retained
+in an attributed artifact. Both original and revised frozen shortcuts must be
+beaten. Capacity exclusions cannot hide identity errors or validation truncation.

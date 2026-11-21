@@ -44,6 +44,11 @@ REMOTE_JOB = {
                         "${{ runner.temp }}/vendor-general-preference/development-failure.json",
                         "${{ runner.temp }}/vendor-general-preference/dataset-gate.json",
                         "${{ runner.temp }}/vendor-general-preference/tokenizer-check.json",
+                        "${{ runner.temp }}/vendor-general-preference/training-filter.json",
+                        "${{ runner.temp }}/vendor-general-preference/retained-tokenizer-check.json",
+                        "${{ runner.temp }}/vendor-general-preference/filtered-dataset-gate.json",
+                        "${{ runner.temp }}/vendor-general-preference/training-baseline-report.json",
+                        "${{ runner.temp }}/vendor-general-preference/frozen-training-baseline.tar.gz",
                         "${{ runner.temp }}/vendor-general-preference/SELECTED-CHECKPOINT.json",
                         "${{ runner.temp }}/vendor-general-preference/selected-adapter.tar.gz",
                     ]

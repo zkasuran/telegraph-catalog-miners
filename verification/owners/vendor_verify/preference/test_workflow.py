@@ -45,12 +45,28 @@ class WorkflowContracts(unittest.TestCase):
                 {"path": "**/*"}
             ),
             lambda v: v["jobs"]["source_checks"].update({"if": "always()"}),
+            lambda v: v["jobs"]["preference_training"]["steps"][-1]["with"].update(
+                {
+                    "path": "${{ runner.temp }}/vendor-general-preference/retained-training/train.jsonl"
+                }
+            ),
         ]
         for mutate in mutations:
             value = copy.deepcopy(original)
             mutate(value)
             with self.assertRaises(ValueError):
                 contract.validate_extended_workflow(value, lambda v: True)
+
+    def test_frozen_baseline_artifact_not_training_rows(self):
+        paths = contract.REMOTE_JOB["steps"][-1]["with"]["path"].splitlines()
+        self.assertEqual(len(paths), len(set(paths)))
+        self.assertTrue(
+            any(path.endswith("frozen-training-baseline.tar.gz") for path in paths)
+        )
+        self.assertTrue(
+            any(path.endswith("filtered-dataset-gate.json") for path in paths)
+        )
+        self.assertFalse(any(path.endswith(".jsonl") or "**" in path for path in paths))
 
 
 if __name__ == "__main__":

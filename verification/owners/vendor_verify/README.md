@@ -165,3 +165,13 @@ pipeline measures all 384 train/validation rendered texts and emits aggregate
 token loss and tokenizer disagreement counts before refusing a failed contract.
 No audit is inspected, source split changed or token-retention gate lowered.
 No model accuracy, package qualification or canonical registration is claimed.
+
+## Training-capacity recovery
+
+The completed diagnostic found one over-cap training text at 583 tokens.
+All 128 validation texts fit within 455 tokens. Every capped training/node
+vector agreed across all 384 texts. The new pipeline excludes only whole
+over-cap training pairs before fitting, preserves validation and sealed audits
+and reruns the unchanged dataset and token gates on retained training.
+It freezes revised training-only baselines and requires improvement over both
+original and revised controls. This is development, not a node qualification.

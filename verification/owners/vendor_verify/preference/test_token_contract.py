@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """Synthetic token evidence controls. No tokenizer or model runs locally."""
 
+import copy
 import json
 import unittest
 
@@ -63,6 +64,74 @@ class TokenContracts(unittest.TestCase):
             list(range(512)), list(range(512)), list(range(512))
         )
         self.assertFalse(boundary["over_cap"])
+
+    def test_training_filter_primary_smoke_preserves_order_and_source(self):
+        rows = [
+            {
+                "prompt": "synthetic",
+                "chosen": "a",
+                "rejected": "b",
+                "group_id": f"{i:064x}",
+            }
+            for i in range(65)
+        ]
+        rows[-1]["chosen"] = "oversize"
+        before = json.dumps(rows)
+
+        def full(text):
+            return list(range(513 if "oversize" in text else 512))
+
+        kept, encoded, report = contract.filter_training(rows, full)
+        self.assertEqual(kept, rows[:64])
+        self.assertEqual(before, json.dumps(rows))
+        self.assertEqual(report["retained_pairs"], 64)
+        self.assertEqual(len(report["excluded"]), 1)
+        self.assertEqual(report["training_sha256"], contract.data.sha(encoded))
+        self.assertNotIn("oversize", json.dumps(report))
+        self.assertFalse(report["audit_checked"])
+
+    def test_filter_refuses_invalid_vectors_and_coverage_loss(self):
+        rows = [
+            {
+                "prompt": "synthetic",
+                "chosen": "a",
+                "rejected": "b",
+                "group_id": f"{i:064x}",
+            }
+            for i in range(80)
+        ]
+        with self.assertRaises(ValueError):
+            contract.filter_training(rows, lambda text: [True])
+        with self.assertRaises(ValueError):
+            contract.filter_training(rows, lambda text: list(range(513)))
+        with self.assertRaises(ValueError):
+            contract.filter_training(rows[:63], lambda text: [1])
+        with self.assertRaises(ValueError):
+            contract.filter_training([rows[0]] * 80, lambda text: [1])
+
+    def test_capacity_repair_does_not_allow_identity_or_validation_loss(self):
+        row = {"prompt": "synthetic", "chosen": "a", "rejected": "b"}
+        report = contract.inspect_development(
+            {"train": [row], "validation": [row]},
+            lambda text: [1],
+            lambda text: [1],
+            lambda text: [1],
+        )
+        self.assertTrue(contract.require_training_capacity_only(report))
+        for split, cause in (
+            ("validation", "over_cap"),
+            ("validation", "node_truncated"),
+            ("train", "training_node_mismatch"),
+            ("train", "training_truncated"),
+        ):
+            bad = copy.deepcopy(report)
+            bad["splits"][split]["counts"][cause] = 1
+            with self.assertRaises(ValueError):
+                contract.require_training_capacity_only(bad)
+        capacity = copy.deepcopy(report)
+        for cause in ("over_cap", "training_truncated", "node_truncated"):
+            capacity["splits"]["train"]["counts"][cause] = 1
+        self.assertTrue(contract.require_training_capacity_only(capacity))
 
 
 if __name__ == "__main__":

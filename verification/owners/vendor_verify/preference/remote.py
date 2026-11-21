@@ -22,7 +22,7 @@ from urllib.parse import urlparse
 
 import data
 import token_contract
-from baselines import load_frozen
+from baselines import freeze_once, load_frozen, measure
 
 REPO = "zkasuran/telegraph-catalog-miners"
 KIT = "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd"
@@ -274,14 +274,87 @@ def main():
         }
     )
     write_report(root / "tokenizer-check.json", token_report)
-    if not token_report["passed"]:
-        raise ValueError(
-            "development token contract failed; aggregate evidence retained"
+    # Identity defects must not be disguised as eligibility exclusions. Held-out
+    # validation cannot be filtered after measuring its capacity.
+    token_contract.require_training_capacity_only(token_report)
+    original_train_sha256 = data.sha(train_raw)
+    train, train_raw, filter_report = token_contract.filter_training(
+        train, lambda text: tok(text, truncation=False)["input_ids"]
+    )
+    filter_report.update(
+        {
+            "family": "VENDOR_VERIFY",
+            "run_id": int(os.environ["GITHUB_RUN_ID"]),
+            "owner_attempt": os.environ["OWNER_ATTEMPT"],
+            "commit": os.environ["GITHUB_SHA"],
+            "tokenizer_sha256": TOKENIZER_SHA,
+            "validation_sha256": token_report["validation_sha256"],
+        }
+    )
+    write_report(root / "training-filter.json", filter_report)
+    retained_tokens = token_contract.inspect_development(
+        {"train": train, "validation": validation},
+        lambda text: tok(text, truncation=False)["input_ids"],
+        lambda text: tok(text, truncation=True, max_length=512)["input_ids"],
+        lambda text: node_tok.encode(text).ids,
+    )
+    retained_tokens.update(
+        {
+            "family": "VENDOR_VERIFY",
+            "run_id": int(os.environ["GITHUB_RUN_ID"]),
+            "commit": os.environ["GITHUB_SHA"],
+            "training_sha256": data.sha(train_raw),
+            "validation_sha256": token_report["validation_sha256"],
+        }
+    )
+    write_report(root / "retained-tokenizer-check.json", retained_tokens)
+    if not retained_tokens["passed"]:
+        raise ValueError("unchanged exact token gate failed on retained training")
+    filtered_gate = trainer.gate_dataset(train, hp)
+    write_report(
+        root / "filtered-dataset-gate.json",
+        {
+            "ok": filtered_gate["ok"],
+            "n": filtered_gate["n"],
+            "metrics": filtered_gate["metrics"],
+            "failure_count": len(filtered_gate["failures"]),
+            "trainer_sha256": TRAINER_SHA,
+            "training_sha256": data.sha(train_raw),
+        },
+    )
+    if not filtered_gate["ok"]:
+        raise ValueError("unchanged primary dataset gate failed on retained training")
+    # Preserve old immutable coefficients as an additional conservative control.
+    # Freeze revised coefficients once against the actual retained training bytes.
+    original_baseline_raw = (root / "data/BASELINES.json").read_bytes()
+    original_coefficients = load_frozen(original_baseline_raw, original_train_sha256)
+    filtered = root / "retained-training"
+    filtered.mkdir()
+    (filtered / "train.jsonl").write_bytes(train_raw)
+    freeze_once(filtered / "train.jsonl", filtered / "BASELINES.json")
+    baseline_raw = (filtered / "BASELINES.json").read_bytes()
+    coefficients = load_frozen(baseline_raw, data.sha(train_raw))
+    controls = {
+        "original_frozen_training": measure(validation, original_coefficients),
+        "retained_frozen_training": measure(validation, coefficients),
+    }
+    write_report(
+        root / "training-baseline-report.json",
+        {
+            "training_sha256": data.sha(train_raw),
+            "baseline_sha256": data.sha(baseline_raw),
+            "controls": controls,
+            "audit_evaluated": False,
+            "fit_scope": "training only, coefficients frozen before neural fitting",
+        },
+    )
+    with tarfile.open(root / "frozen-training-baseline.tar.gz", "x:gz") as output:
+        output.add(
+            filtered / "BASELINES.json", arcname="BASELINES.json", recursive=False
         )
-    baseline_raw = (root / "data/BASELINES.json").read_bytes()
-    load_frozen(baseline_raw, data.sha(train_raw))
+        output.add(HERE / "CC-BY-4.0.txt", arcname="CC-BY-4.0.txt", recursive=False)
     strongest = max(
-        v["accuracy"] for v in report["development_baselines"]["validation"].values()
+        v["accuracy"] for group in controls.values() for v in group.values()
     )
     licences = json.loads((HERE / "licences.json").read_bytes())
     adapter = root / "adapter"
@@ -335,6 +408,11 @@ def main():
         ),
         "baseline_sha256": data.sha(baseline_raw),
         "backbone_sha256": BASE_FILES["model.safetensors"],
+        "training_sha256": data.sha(train_raw),
+        "original_training_sha256": original_train_sha256,
+        "training_filter_sha256": data.sha(
+            (root / "training-filter.json").read_bytes()
+        ),
         "tokenizer_sha256": TOKENIZER_SHA,
         "checkpoint_sha256": data.sha((root / "SELECTED-CHECKPOINT.json").read_bytes()),
         "hyperparameters": asdict(hp),
