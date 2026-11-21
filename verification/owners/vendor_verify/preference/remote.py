@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 import data
+import expanded_data
 import token_contract
 from baselines import load_frozen, measure
 
@@ -168,6 +169,10 @@ def main():
         raise ValueError(
             "remote source split/baseline differs from frozen development identity"
         )
+    expanded_train, expanded_raw, expansion = expanded_data.prepare(
+        original, expected, root / "expanded-source"
+    )
+    write_report(root / "expansion-report.json", expansion)
     archive = root / "kit.tar.gz"
     download(
         "https://codeload.github.com/telegraphprotocol/telegraph-wasm-baseline/tar.gz/"
@@ -196,8 +201,8 @@ def main():
     sys.path.insert(0, str(kit))
     from float_runtime import train_adapter as trainer
 
-    train_raw = (root / "data/train.jsonl").read_bytes()
-    train = [json.loads(line) for line in train_raw.decode().split("\n") if line]
+    original_source_train_raw = (root / "data/train.jsonl").read_bytes()
+    train_raw, train = expanded_raw, expanded_train
     validation = [
         json.loads(line)
         for line in (root / "data/validation.jsonl").read_text().split("\n")
@@ -327,21 +332,33 @@ def main():
     # Preserve old immutable coefficients as an additional conservative control.
     # Freeze revised coefficients once against the actual retained training bytes.
     original_baseline_raw = (root / "data/BASELINES.json").read_bytes()
-    original_coefficients = load_frozen(original_baseline_raw, original_train_sha256)
+    original_coefficients = load_frozen(
+        original_baseline_raw, data.sha(original_source_train_raw)
+    )
+    retained_baseline_raw = data.bounded_read(HERE / "RETAINED-BASELINES.json", 4 << 20)
+    retained_coefficients = load_frozen(
+        retained_baseline_raw,
+        "6d816e5aa635ec21f7a1dbb6642ac1e0d94a369b0f7d9eb8389f970e73a39142",
+    )
     filtered = root / "retained-training"
     filtered.mkdir()
     (filtered / "train.jsonl").write_bytes(train_raw)
-    baseline_raw = data.bounded_read(HERE / "RETAINED-BASELINES.json", 4 << 20)
     if (
-        data.sha(baseline_raw)
+        data.sha(retained_baseline_raw)
         != "b4f43d9038919fe20a628668d1a99339199ef8a471719fbc2039b1b1701ef4b6"
     ):
-        raise ValueError("immutable original retained-training coefficients drifted")
-    (filtered / "BASELINES.json").write_bytes(baseline_raw)
+        raise ValueError("immutable prior retained-training coefficients drifted")
+    # New coefficients fit once on this run's expanded retained training only.
+    # Preserve their exact serialized bytes for every future reproduction.
+    from baselines import freeze_once
+
+    freeze_once(filtered / "train.jsonl", filtered / "BASELINES.json")
+    baseline_raw = (filtered / "BASELINES.json").read_bytes()
     coefficients = load_frozen(baseline_raw, data.sha(train_raw))
     controls = {
         "original_frozen_training": measure(validation, original_coefficients),
-        "retained_frozen_training": measure(validation, coefficients),
+        "prior_retained_frozen_training": measure(validation, retained_coefficients),
+        "expanded_retained_frozen_training": measure(validation, coefficients),
     }
     write_report(
         root / "training-baseline-report.json",
@@ -370,9 +387,9 @@ def main():
     (adapter / "LICENSE").write_text(licences["sand"])
     (adapter / "CC-BY-4.0.txt").write_bytes((HERE / "CC-BY-4.0.txt").read_bytes())
     start = time.monotonic()
-    from runtime_head import train_frozen_head
+    from runtime_adapt import train_adapted_head
 
-    model, untrained, trained, mechanism = train_frozen_head(
+    model, untrained, trained, mechanism = train_adapted_head(
         trainer, base, tok, train, validation, adapter, hp, root, strongest
     )
     del model
@@ -386,7 +403,7 @@ def main():
         root / "SELECTED-CHECKPOINT.json",
         {
             "files": files,
-            "selection": "Predeclared frozen-head grid, validation only",
+            "selection": "Expanded frozen-head control and two supported adaptation epochs, unchanged validation only",
             "audit_used_for_selection": False,
         },
     )
@@ -424,7 +441,10 @@ def main():
         "trained_validation": trained,
         "mechanism": mechanism["mechanism"],
         "mechanism_report_sha256": data.sha(
-            (root / "frozen-head-development.json").read_bytes()
+            (root / "adapted-head-development.json").read_bytes()
+        ),
+        "expansion_report_sha256": data.sha(
+            (root / "expansion-report.json").read_bytes()
         ),
         "strongest_shortcut_accuracy": strongest,
         "development_gate_passed": development_gate(trained, untrained, strongest)

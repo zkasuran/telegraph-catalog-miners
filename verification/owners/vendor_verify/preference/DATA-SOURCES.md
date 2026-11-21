@@ -73,3 +73,16 @@ Answer-only, rotated-prompt and prompt-only controls measure attribution. They
 are not new source annotations or an independent truth set. No reference-engine
 qualification is claimed by native CPU scoring. Source text and fitted artifacts
 retain NVIDIA HelpSteer2 attribution and CC BY 4.0. Competitive additions use SAND.
+
+## Expanded adaptation development
+
+The completed frozen head fit all 127 training pairs but scored 59.375%
+on unchanged validation, below the 60.9375% shortcut. The next experiment
+keeps all original split allocations and adds 512 unused source groups only
+to training. A frozen-head control and two last-four-layer LoRA epochs are
+compared on the same validation. The earliest stage wins a tie. New classical
+coefficients fit once remotely on retained training and their exact bytes stay
+in the result artifact. Both earlier frozen controls still count. No source
+text or annotation is rewritten. No audit is used for selection. Native scores
+do not prove alignment with the published foundation or reference engine.
+No exact Vendor audit or registration-ready result is claimed.

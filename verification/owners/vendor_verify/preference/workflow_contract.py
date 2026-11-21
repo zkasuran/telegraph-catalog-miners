@@ -52,6 +52,8 @@ REMOTE_JOB = {
                         "${{ runner.temp }}/vendor-general-preference/SELECTED-CHECKPOINT.json",
                         "${{ runner.temp }}/vendor-general-preference/selected-adapter.tar.gz",
                         "${{ runner.temp }}/vendor-general-preference/frozen-head-development.json",
+                        "${{ runner.temp }}/vendor-general-preference/adapted-head-development.json",
+                        "${{ runner.temp }}/vendor-general-preference/expansion-report.json",
                     ]
                 ),
             },
