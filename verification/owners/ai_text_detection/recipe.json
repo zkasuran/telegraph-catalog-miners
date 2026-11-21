@@ -190,5 +190,25 @@
     "old_losses_and_weights_retained": true,
     "validation_or_audit_replay": false,
     "runtime_transform": false
+  },
+  "format_transfer_curriculum": {
+    "scope": "existing_training_only",
+    "formats": [
+      "json",
+      "prose",
+      "bare_label"
+    ],
+    "views_per_format": 8,
+    "rounds_per_epoch": 4,
+    "views_per_update": 4,
+    "extra_updates_per_epoch": 24,
+    "replay_pair_weight": 1.0,
+    "seed": 3042,
+    "clip_max_norm": 1.0,
+    "learning_rate": "existing_hp_lr",
+    "replaces_bare_only_replay": true,
+    "original_source_losses_weights_scheduler_retained": true,
+    "validation_or_audit_replayed": false,
+    "runtime_transform": false
   }
 }

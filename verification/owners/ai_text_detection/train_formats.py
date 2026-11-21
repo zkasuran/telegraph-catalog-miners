@@ -247,12 +247,16 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
-        from train_curriculum import replay
         curriculum_rows = train_rows + supplementary_pairs + secondary_pairs
-        original_weight_by_id = {row["text_id"]: weight / policy["mean_training_weight"] for row, weight in zip(train_rows, weights)}
-        curriculum_weights = {**original_weight_by_id, **{row["text_id"]: 1.0 for row in supplementary_pairs}, **secondary_weight_by_id}
-        curriculum_result = replay(model, tok, origin_aux, curriculum_rows, curriculum_weights, hp, trainer,
-            optimizer, scheduler, root, epoch, step)
+        if recipe.get("format_transfer_curriculum"):
+            from train_transfer import replay
+            curriculum_result = replay(model, tok, origin_aux, curriculum_rows, hp, trainer, optimizer, scheduler, root, epoch, step)
+        else:
+            from train_curriculum import replay
+            original_weight_by_id = {row["text_id"]: weight / policy["mean_training_weight"] for row, weight in zip(train_rows, weights)}
+            curriculum_weights = {**original_weight_by_id, **{row["text_id"]: 1.0 for row in supplementary_pairs}, **secondary_weight_by_id}
+            curriculum_result = replay(model, tok, origin_aux, curriculum_rows, curriculum_weights, hp, trainer,
+                optimizer, scheduler, root, epoch, step)
         step += curriculum_result["additional_optimizer_updates"]
         metrics = measure()
         origin_diagnostic = origin_aux.measure(epoch, origin_losses, origin_correct, 2 * len(loader))
@@ -297,7 +301,8 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,
                    "lora_training_dropout": hp.lora_dropout,
                    "format_curriculum": curriculum_result, "unique_literal_training_pairs": 1008,
-                   "literal_training_presentations_per_epoch": 1072,
+                   "literal_training_presentations_per_epoch": 1008 + curriculum_result["training_presentations"],
+                   "executed_replay_kind": "balanced_three_format" if recipe.get("format_transfer_curriculum") else "isolated_bare",
                    "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)

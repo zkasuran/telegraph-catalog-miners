@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "family": "AI_TEXT_DETECTION",
+  "producer_run_id": 44860695142,
+  "producer_commit": "d7c7030531ed8106c7397da8508b01509fc961e2",
+  "selected_epoch": 3,
+  "checkpoint_file": "recovery/curriculum-improved-checkpoint.safetensors",
+  "checkpoint_sha256": "4a133056f5be55091fa52348a4b0b70a4f14ef405b40ae3473138affcfa8ef3c",
+  "readout_file": "recovery/curriculum-improved-readout.safetensors",
+  "readout_sha256": "8c637998c076ade16a0fa98f866786e1e6b28d3ea554f180c36bf0d6efbf87a5",
+  "validation_report_sha256": "1ae11a1585112654cc26f89067b7db380fb4186e711a8403cbd414d21f63deee",
+  "quality_gate_passed": false,
+  "full_parser_passed": true,
+  "audit_used": false,
+  "native_validation_formats": {
+    "json": {
+      "n_eval": 64,
+      "pairwise_accuracy": 0.8594,
+      "val_loss": 0.294876,
+      "length_baseline": 0.5,
+      "beats_length_baseline": true,
+      "verdict": "PASS",
+      "accuracy_by_label": {
+        "Human": 0.7188,
+        "AI-generated": 1.0
+      }
+    },
+    "prose": {
+      "n_eval": 64,
+      "pairwise_accuracy": 0.8906,
+      "val_loss": 0.217661,
+      "length_baseline": 0.5,
+      "beats_length_baseline": true,
+      "verdict": "PASS",
+      "accuracy_by_label": {
+        "Human": 0.7812,
+        "AI-generated": 1.0
+      }
+    },
+    "bare_label": {
+      "n_eval": 64,
+      "pairwise_accuracy": 0.8438,
+      "val_loss": 0.297236,
+      "length_baseline": 0.5,
+      "beats_length_baseline": true,
+      "verdict": "PASS",
+      "accuracy_by_label": {
+        "Human": 0.9375,
+        "AI-generated": 0.75
+      }
+    }
+  },
+  "registration_eligible": false,
+  "rights": "Checkpoint bytes retain original model, software and per-article grants in their metadata. Comparison metadata additions SAND.",
+  "limits": "Actual selected failed-validation reference, not a canonical registration or independent quality audit."
+}

@@ -84,6 +84,8 @@ def main():
     from gradient_contract import diagnostic_policy
     from curriculum_contract import curriculum_policy
     curriculum_policy(json.loads((HERE / "recipe.json").read_text()))
+    from transfer_contract import transfer_policy
+    transfer_policy(json.loads((HERE / "recipe.json").read_text()))
     diagnostic_policy(recipe)
     if set(workflow["on"]["workflow_dispatch"]["inputs"]["mode"]["options"]) != {"verify", "serve", "diagnose"}:
         raise ValueError("diagnostic mode missing from bounded owned workflow")
