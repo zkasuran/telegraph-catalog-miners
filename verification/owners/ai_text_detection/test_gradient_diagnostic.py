@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import patch
 
 from common import HERE, sha
-from gradient_contract import diagnostic_policy, select_views, geometry
+from gradient_contract import diagnostic_policy, select_views, geometry, final_status, require_passed_inventory
 from test_source_preferences import population
 from source_preferences import preference_rows
 from secondary_contract import validate_secondary, secondary_preferences
@@ -116,6 +116,29 @@ class GradientDiagnosticTests(unittest.TestCase):
                 train_gradient_diagnostic.smoke(None)
             with self.assertRaises(RuntimeError):
                 train_gradient_diagnostic.counterpart_gap(None, None)
+
+    def test_added_reconstruction_cannot_override_original_refusal(self):
+        views = [{"component_sum_gradient_passed": True, "score_seed_sum_passed": True,
+                  "score_reconstruction_gradient_passed": True} for _ in range(6)]
+        passed = {"status": final_status([], 6), "refusals": [], "views": views}
+        require_passed_inventory(passed)
+        bad = copy.deepcopy(passed)
+        bad["views"][4]["component_sum_gradient_passed"] = False
+        with self.assertRaises(ValueError):
+            require_passed_inventory(bad)
+        bad["refusals"] = [{"raw_gradient_sum_refused": True}]
+        self.assertEqual(final_status(bad["refusals"], 6), "GRADIENT_DIAGNOSTIC_FAILED")
+        with self.assertRaises(ValueError):
+            require_passed_inventory(bad)
+        with self.assertRaises(ValueError):
+            final_status([], 4)
+
+    def test_completed_inventory_is_saved_before_fatal_check(self):
+        tree = ast.parse((HERE / "train_gradient_diagnostic.py").read_text())
+        probe = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "probe")
+        calls = [n.value for n in probe.body if isinstance(n, ast.Expr) and isinstance(n.value, ast.Call)]
+        self.assertEqual(ast.unparse(calls[-1].func), "require_passed_inventory")
+        self.assertEqual(ast.unparse(calls[-2].func), "dump")
 
 
 if __name__ == "__main__":

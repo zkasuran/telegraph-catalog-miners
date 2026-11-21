@@ -125,7 +125,7 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate_secondary.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
-          "name": "Check direct gap algebra and measure fixed gradients or qualify",
+          "name": "Measure complete fixed inventory with original refusals and VJP controls",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""
         },

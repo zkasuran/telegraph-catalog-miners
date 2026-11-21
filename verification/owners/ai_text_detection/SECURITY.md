@@ -191,3 +191,6 @@ artifacts are kept so the layout can be distinguished from the unmodified corpus
 # Diagnostic failure visibility
 
 A component-sum mismatch still refuses completion at the original tolerances. The report records the failed training-view identity, tensor name and at most eight gradient samples before refusal. The exact learned state, training population and sealed audit are unchanged. A small tensor cancellation fixture does not prove the cause of a model-gradient mismatch. Actual gradient identities and unchanged-state controls must pass remotely before interpreting a completed report.
+## Refusals survive complete measurement
+
+The diagnostic can retain finite measurements through its fixed six-view ceiling instead of stopping at the first sum mismatch. Each failed original check is recorded and remains fatal after the final report is saved. Added reconstruction checks cannot waive an original failure. Nonfinite gradients, state changes and invalid identities still stop immediately. No optimizer update, validation measurement or audit access is allowed in diagnostic mode.

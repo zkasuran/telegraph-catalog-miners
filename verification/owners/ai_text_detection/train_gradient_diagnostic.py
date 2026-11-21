@@ -7,7 +7,7 @@ import platform
 import time
 
 from common import remote_only, dump, HERE, sha
-from gradient_contract import diagnostic_policy, select_views, geometry
+from gradient_contract import diagnostic_policy, select_views, geometry, final_status, require_passed_inventory
 
 
 def counterpart_gap(a, b):
@@ -41,9 +41,17 @@ def smoke(root):
     subtractive = coupled_loss([a, b]) - (a + b) / 2
     if direct.item() != 2 or subtractive.item() != 0:
         raise ValueError("FP32 subtractive gap cancellation control changed")
+    x = torch.tensor(2., dtype=torch.float32, requires_grad=True)
+    outputs = (x.square(), 3 * x)
+    exact_vjp = torch.autograd.grad(sum(outputs), x, retain_graph=True)[0]
+    reconstructed_vjp = torch.autograd.grad(outputs, x, grad_outputs=(torch.ones_like(outputs[0]), torch.ones_like(outputs[1])), retain_graph=True)[0]
+    omitted_vjp = torch.autograd.grad(outputs, x, grad_outputs=(torch.ones_like(outputs[0]), torch.zeros_like(outputs[1])))[0]
+    if exact_vjp.item() != 7 or not torch.equal(exact_vjp, reconstructed_vjp) or torch.allclose(exact_vjp, omitted_vjp, atol=2e-6, rtol=2e-5):
+        raise ValueError("actual VJP reconstruction or omission-refusal control failed")
     dump(root / "gradient-algebra-controls.json", {"run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
          "passed": True, "actual_controls": controls, "omitted_component_refused": True,
          "fp32_cancellation_fixture": {"direct_gap": direct.item(), "subtractive_gap": subtractive.item()},
+         "vector_jacobian_control": {"direct": exact_vjp.item(), "reconstructed": reconstructed_vjp.item(), "omitted": omitted_vjp.item(), "omission_refused": True},
          "original_gradient_tolerances": {"atol": 2e-6, "rtol": 2e-5},
          "limits": "Actual small tensor controls only. No model-quality or failed-model cause is proved."})
 
@@ -106,7 +114,8 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
                             "versions": {n: importlib.metadata.version(n) for n in ("torch", "transformers", "peft", "numpy", "safetensors")}},
                 "package": "No exported candidate package; diagnostic-only execution.", "node_verification": "not_run"}
     report = {**identity, "status": "GRADIENT_DIAGNOSTIC_IN_PROGRESS", "policy": policy, "views": [],
-              "optimizer_updates": 0, "validation_used": False, "audit_used": False, "registration_eligible": False}
+              "optimizer_updates": 0, "validation_used": False, "audit_used": False, "registration_eligible": False,
+              "refusals": [], "measurement_complete": False}
     started = time.monotonic()
     collator = trainer.PairCollator(tok, hp.max_length)
     report["fixed_training_view_ids"] = [group[0]["view_id"] for group in views]
@@ -131,7 +140,7 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
         batch = collator(group)
         chosen = trainer._reward(model, batch["chosen_input_ids"], batch["chosen_attention_mask"])
         rejected = trainer._reward(model, batch["rejected_input_ids"], batch["rejected_attention_mask"])
-        verdict_terms, origin_terms, teacher_terms = [], [], []
+        verdict_terms, origin_terms, teacher_terms, source_logits = [], [], [], []
         for i, row in enumerate(group):
             total, _, _ = loss_components(chosen[i:i+1], rejected[i:i+1], batch["margin"][i:i+1], objective, trainer)
             if row["text_id"] in original_ids:
@@ -141,6 +150,7 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
                 view = extra_sources[row["text_id"]]
                 weight = secondary_weight.get(row["text_id"], 1.0)
             origin, _, logit = origin_aux.loss_with_logit(view)
+            source_logits.append(logit)
             verdict_terms.append(total * weight)
             origin_terms.append(origin * origin_aux.policy["coefficient"])
             teacher_terms.append(consistency(chosen[i:i+1], rejected[i:i+1], logit, view["human"], source_policy) * source_policy["coefficient"])
@@ -154,50 +164,79 @@ def probe(model, tok, original, first, secondary, origin_aux, hp, trainer, root)
         decomposed = sum(components.values())
         if not torch.allclose(exact, decomposed, atol=2e-6, rtol=2e-5):
             raise ValueError("diagnostic changed the exact current objective value")
+        boundaries = (chosen, rejected, *source_logits)
+        seed_sums = [torch.zeros_like(value) for value in boundaries]
         gradients = {}
         for name, value in components.items():
+            seeds = torch.autograd.grad(value, boundaries, retain_graph=True, create_graph=False, allow_unused=True)
+            for index, seed in enumerate(seeds):
+                if seed is not None:
+                    seed_sums[index] += seed
             gradients[name] = torch.autograd.grad(value, parameters, retain_graph=True, create_graph=False, allow_unused=True)
             if any(g is not None and not torch.isfinite(g).all() for g in gradients[name]):
                 raise ValueError("nonfinite diagnostic component gradients")
+        actual_seeds = torch.autograd.grad(exact, boundaries, retain_graph=True, create_graph=False, allow_unused=True)
+        seed_passed = all(torch.allclose(summed, actual if actual is not None else torch.zeros_like(summed), atol=2e-6, rtol=2e-5)
+                          for summed, actual in zip(seed_sums, actual_seeds))
+        if any(not torch.isfinite(seed).all() for seed in seed_sums):
+            raise ValueError("nonfinite score-output gradient seeds")
+        reconstructed = torch.autograd.grad(boundaries, parameters, grad_outputs=tuple(seed_sums), retain_graph=True, create_graph=False, allow_unused=True)
         total_gradient = torch.autograd.grad(exact, parameters, create_graph=False, allow_unused=True)
-        max_error = 0.0
+        if any(g is not None and not torch.isfinite(g).all() for g in (*reconstructed, *total_gradient)):
+            raise ValueError("nonfinite actual or reconstructed full gradient")
+        max_error, reconstruction_error, failed_tensors = 0.0, 0.0, 0
+        view_failure = None
+        reconstructed_passed = True
         for index, parameter in enumerate(parameters):
             combined = torch.zeros_like(parameter)
             for values in gradients.values():
                 if values[index] is not None:
                     combined += values[index]
             actual = total_gradient[index] if total_gradient[index] is not None else torch.zeros_like(parameter)
+            reconstructed_value = reconstructed[index] if reconstructed[index] is not None else torch.zeros_like(parameter)
+            reconstruction_error = max(reconstruction_error, (reconstructed_value - actual).abs().max().item())
+            if not torch.allclose(reconstructed_value, actual, atol=2e-6, rtol=2e-5):
+                reconstructed_passed = False
             max_error = max(max_error, (combined - actual).abs().max().item())
             if not torch.allclose(combined, actual, atol=2e-6, rtol=2e-5):
-                if not torch.isfinite(actual).all():
-                    report.update(status="GRADIENT_DIAGNOSTIC_FAILED", failure={"view_id": group[0]["view_id"],
-                        "tensor_name": named[index][0], "reason": "nonfinite actual total gradient"})
-                else:
+                failed_tensors += 1
+                if view_failure is None:
                     bad = (combined - actual).abs() > (2e-6 + 2e-5 * actual.abs())
                     locations = bad.flatten().nonzero().flatten()[:8].tolist()
-                    report.update(status="GRADIENT_DIAGNOSTIC_FAILED", failure={"view_id": group[0]["view_id"],
+                    view_failure = {"view_id": group[0]["view_id"],
                         "group_id": group[0]["group_id"], "format": group[0]["style"], "tensor_name": named[index][0],
                         "reason": "component gradient sum disagreed with actual full objective", "atol": 2e-6, "rtol": 2e-5,
                         "maximum_absolute_error": (combined - actual).abs().max().item(), "mismatched_elements": bad.sum().item(),
                         "samples": [{"flat_index": i, "actual": actual.flatten()[i].item(), "component_sum": combined.flatten()[i].item(),
                             "component_gradients": {n: (v[index].flatten()[i].item() if v[index] is not None else 0.) for n, v in gradients.items()}}
-                            for i in locations]})
-                dump(root / "gradient-interaction-report.json", report)
-                raise ValueError("component gradient sum disagreed with actual full objective")
+                            for i in locations]}
+        if view_failure is not None or not seed_passed or not reconstructed_passed:
+            refusal = {"view_id": group[0]["view_id"], "raw_gradient_sum_refused": view_failure is not None,
+                       "score_seed_sum_passed": seed_passed, "score_reconstruction_gradient_passed": reconstructed_passed,
+                       "first_raw_mismatch": view_failure}
+            report["refusals"].append(refusal)
+            if "failure" not in report:
+                report["failure"] = view_failure or refusal
+        # Measurements continue only to the frozen six-view ceiling. No refusal
+        # is ignored: require_passed_inventory raises after the report is saved.
         measured = {"group_id": group[0]["group_id"], "view_id": group[0]["view_id"], "format": group[0]["style"],
                     "text_ids": [r["text_id"] for r in group], "exact_loss": exact.item(),
                     "component_losses": {n: v.item() for n, v in components.items()},
-                    "component_sum_gradient_passed": True, "maximum_component_gradient_error": max_error,
+                    "component_sum_gradient_passed": view_failure is None, "maximum_component_gradient_error": max_error,
+                    "raw_mismatched_parameter_tensors": failed_tensors, "score_seed_sum_passed": seed_passed,
+                    "score_reconstruction_gradient_passed": reconstructed_passed, "maximum_score_reconstruction_error": reconstruction_error,
                     "gradients_vs_verdict": {n: {subset: stats(gradients["verdict"], grad, indexes) for subset, indexes in subsets.items()}
                                              for n, grad in gradients.items()}}
         report["views"].append(measured)
         dump(root / "gradient-interaction-report.json", report)
-        del gradients, total_gradient, components, exact, decomposed, batch, chosen, rejected
+        del gradients, total_gradient, reconstructed, components, exact, decomposed, batch, chosen, rejected, boundaries, actual_seeds, seed_sums
     after = get_peft_model_state_dict(model, save_embedding_layers=False)
     if any(not torch.equal(before[n], p) for n, p in after.items()) or any(not torch.equal(before_head[n], p) for n, p in origin_aux.head.state_dict().items()):
         raise ValueError("diagnostic modified actual selected learned state")
     if any(p.grad is not None for p in parameters):
         raise ValueError("autograd.grad unexpectedly accumulated parameter gradients")
-    report.update(status="GRADIENT_DIAGNOSTIC_COMPLETE", learned_state_bits_unchanged=True,
+    report.update(status=final_status(report["refusals"], len(report["views"])), learned_state_bits_unchanged=True,
+                  measurement_complete=True,
                   no_accumulated_parameter_gradients=True, elapsed_seconds=time.monotonic() - started)
     dump(root / "gradient-interaction-report.json", report)
+    require_passed_inventory(report)

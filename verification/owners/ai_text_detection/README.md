@@ -236,3 +236,8 @@ DATA-SOURCES.md. No upstream endorsement or human review is claimed.
 # Diagnostic algebra recovery
 
 The first gradient run retained four fixed training views before its component-sum control failed. Its failed tensor details were not saved. The diagnostic now expresses the counterpart gap directly as `0.25 * abs(a-b)` instead of subtracting a separately computed mean. The full coupled objective and FP32 comparison tolerances stay unchanged. Bounded mismatch telemetry and small remote tensor controls are additional evidence, not a quality pass or a proven failure cause.
+## Complete diagnostic inventory with refusals retained
+
+The direct-gap run passed its small tensor controls but failed the model-gradient sum check on the first bare view. Its four saved mismatch coordinates still fail the original tolerance when the reported component values are summed in Python double precision. That rules out repairing only the final scalar sum on those coordinates, not every possible model defect.
+
+The next prepared diagnostic measures all six fixed finite training views before raising any accumulated gradient refusals. It adds score-output adjoint and vector-Jacobian reconstruction controls. An added pass cannot override an original failure. The original tolerances, full training objective and qualification gates stay unchanged. The workflow still fails if any original or added gradient check fails. Complete measurement is not a completed qualification or independent quality audit.

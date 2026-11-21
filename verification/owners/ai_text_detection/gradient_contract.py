@@ -59,4 +59,17 @@ def geometry(left_squared, right_squared, dot):
     if not math.isfinite(cosine) or abs(cosine) > 1 + 1e-9:
         raise ValueError("gradient geometry violates Cauchy-Schwarz")
     return {"left_norm": left, "right_norm": right, "dot": dot,
-            "cosine": max(-1.0, min(1.0, cosine)), "opposed": dot < 0}
+             "cosine": max(-1.0, min(1.0, cosine)), "opposed": dot < 0}
+
+
+def final_status(refusals, measured_views):
+    if type(refusals) is not list or type(measured_views) is not int or measured_views != 6 or len(refusals) > 6:
+        raise ValueError("complete bounded six-view inventory required")
+    return "GRADIENT_DIAGNOSTIC_FAILED" if refusals else "GRADIENT_DIAGNOSTIC_COMPLETE"
+
+
+def require_passed_inventory(report):
+    if (report.get("status") != "GRADIENT_DIAGNOSTIC_COMPLETE" or report.get("refusals") or
+            len(report.get("views", [])) != 6 or any(v.get(k) is not True for v in report["views"] for k in
+                ("component_sum_gradient_passed", "score_seed_sum_passed", "score_reconstruction_gradient_passed"))):
+        raise ValueError("original or added gradient check refused the completed inventory")

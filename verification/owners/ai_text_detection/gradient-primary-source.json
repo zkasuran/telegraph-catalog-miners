@@ -9,5 +9,6 @@
     "url": "https://docs.pytorch.org/docs/2.15/_sources/notes/numerical_accuracy.md.txt",
     "sha256": "2be44d8d41c37d05631cc1658258de6a575a8bd8c75bbef69bf53037f95a08db",
     "bytes": 13041
-  }
+  },
+  "inventory_method": "Fixed six-view finite measurement, score-output seed/VJP checks and unchanged original fatal gradient refusals. No optimizer or quality-gate change."
 }
