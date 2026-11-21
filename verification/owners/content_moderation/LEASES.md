@@ -15,6 +15,12 @@ lease cannot cancel or replace the healthy original runner. Once the next public
 lease exists, activate it through the existing adapter and check actual public
 reference vectors. A source descriptor is not an active endpoint or registration.
 
+`lease_readiness.py` checks the immutable continuation receipt, the actual
+workflow/commit/time run identity and the complete public-lease artifact digest.
+Only the literal one-file `lease.json` ZIP is accepted. Activation payloads use
+the original restricted-key/expiry contract and must match an active runner.
+Readiness for activation is not proof that forwarding or registration is live.
+
 ## Limits
 
 GitHub's concurrency queue can leave a gap after the original runner ends. A
