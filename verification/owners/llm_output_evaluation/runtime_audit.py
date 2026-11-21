@@ -31,10 +31,17 @@ def decode(bits):
 def metrics(rows, values):
     if len(values) != 2 * len(rows) or not rows:
         raise ValueError("audit score count mismatch")
+    if any(not isinstance(row, dict) or type(row.get("label")) is not str
+           or row["label"] not in RATINGS for row in rows):
+        raise ValueError("audit contains an unknown rating label")
+    if {row["label"] for row in rows} != set(RATINGS):
+        raise ValueError("audit requires every supported rating label")
+    if any(type(value) not in (int, float) or not math.isfinite(value) for value in values):
+        raise ValueError("audit requires finite numeric scores")
     wins = [values[2*i] > values[2*i+1] for i in range(len(rows))]
     slices = {label: [w for r, w in zip(rows, wins) if r["label"] == label] for label in RATINGS}
     return {"originals": len(rows), "correct": sum(wins), "accuracy": sum(wins) / len(rows),
-            "rating_slices": {k: {"n": len(v), "accuracy": sum(v) / len(v)} for k, v in slices.items() if v}}
+            "rating_slices": {k: {"n": len(v), "accuracy": sum(v) / len(v)} for k, v in slices.items()}}
 
 
 def run_audit(root, reference, identity):

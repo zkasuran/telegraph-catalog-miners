@@ -26,6 +26,8 @@ The audit runs every claimed format through native Torch and the actual WASM ref
 
 Training and audit compare complete native and pinned-node token arrays before scoring. No padding removal, input normalization or cropping can conceal a mismatch. The audit also keeps its run metadata callback separate from wire identity construction. Source-only controls execute the actual nested audit function with synthetic service doubles and reproduce the unfixed callback TypeError. These controls are not neural scores or reference-engine qualification.
 
+Audit metrics refuse missing or unknown rating labels and nonfinite scores before computing any quality slices. Every required label must have observations. Ties count as losses. The source-only regression controls execute the actual pure metric function with synthetic label-only rows and numeric scores, never the frozen source audit or a local model.
+
 Serving downloads only immutable verified candidate/report bytes, reproduces recorded reference vectors and uploads only a restricted public lease. The runner's ephemeral forwarding private key is not uploaded. The automatic action adapter handles proxy activation and registration. No paid runner or resource is used.
 
 Serving validates the complete registration-ready report before fetching its model package or preparing a runtime/key. This includes pinned foundation/engine/tokenizer hashes, the independent source boundary, every supported format and rating label, unchanged quality margins and bounded finite reference vectors. Source-only controls execute the actual preflight prefix with synthetic path/fetch/env doubles. They do not create a model, key or lease and do not replace the activation adapter's independent checks.

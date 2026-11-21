@@ -7,6 +7,7 @@
 | Label retained after cropping | Never crop task/output; reject complete rendering beyond token cap | byte-ceiling test and remote token visibility check |
 | Surface shortcut | Immutable integer train-fitted coefficients, length/overlap/rating controls and unchanged primary gate | data.py and primary trainer source |
 | Audit-selected candidate | Separate audit job after package/data/baseline freeze, once-only marker and rerun refusal | runtime_audit.py |
+| Missing rating label silently omitted from audit slices | Require every supported label, reject unknown labels and nonfinite scores before computing quality metrics | test_audit_metrics.py executes actual pure source with synthetic controls; ties remain losses |
 | Synthetic wire success mistaken for node proof | Literal primary render expression plus real reference-engine audit | wire.py; synthetic HTTP tests are labelled and do not qualify a model |
 | Identity substitution | Literal bare-hash request/response equality, package/engine/tokenizer hashes and finite bits | test_wire.py and actual negative identity probes |
 | Run metadata callback used for a wire row | Keep proxy wire_identity separate from the run metadata callback; preserve both literal contracts | test_runtime_identity.py executes the actual nested audit source with synthetic service doubles and reproduces the unfixed TypeError |
