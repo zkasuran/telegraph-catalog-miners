@@ -15,6 +15,10 @@ from source import write
 def timeout_for(profile, command, config):
     if profile == "train":
         return config["timeout_seconds"]
+    if profile == "audit":
+        if len(command) < 2 or Path(command[1]).resolve() != Path(__file__).parent.resolve() / "audit_remote.py":
+            raise ValueError("audit profile only permits the exact owned audit entry point")
+        return 19800  # 330 minutes, inside the bounded 345-minute public job.
     if profile != "serve" or len(command) < 2 or Path(command[1]).resolve() != Path(__file__).parent.resolve() / "serve.py":
         raise ValueError("serving profile only permits the exact owned serving entry point")
     return 19800  # 30-minute preparation plus the exact five-hour public lease.
@@ -24,7 +28,7 @@ def main():
     remote_only()
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
-    parser.add_argument("--profile", choices=("train", "serve"), default="train")
+    parser.add_argument("--profile", choices=("train", "audit", "serve"), default="train")
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     if not args.command:

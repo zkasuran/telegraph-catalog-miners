@@ -11,6 +11,7 @@ on:
         options:
           - source
           - train_audit
+          - audit_recovery
           - serve
       package_url:
         description: Immutable licensed package URL for serving only
@@ -38,6 +39,7 @@ on:
         required: false
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: keyword-centrality-${{ inputs.mode }}
   cancel-in-progress: false
@@ -119,7 +121,7 @@ jobs:
   audit:
     needs: train
     runs-on: ubuntu-24.04
-    timeout-minutes: 150
+    timeout-minutes: 345
     env:
       PYTHONDONTWRITEBYTECODE: '1'
       TOKENIZERS_PARALLELISM: 'false'
@@ -149,11 +151,62 @@ jobs:
           "$RUNNER_TEMP/keyword-venv/bin/python" -m pip check
           "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/dependency_audit.py --lock verification/owners/keyword_extraction/requirements.lock --out "$RUNNER_TEMP/keyword-audit-requirements.txt" --report "$RUNNER_TEMP/keyword-audit-dependencies.json"
       - name: Audit the frozen candidate once and emit only passing measured readiness
-        timeout-minutes: 120
+        timeout-minutes: 330
         run: |
           mkdir -p "$RUNNER_TEMP/keyword-audit"
-          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --root "$RUNNER_TEMP/keyword-audit" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/audit_remote.py --root "$RUNNER_TEMP/keyword-audit" --bundle "$RUNNER_TEMP/keyword-bundle" --data verification/owners/keyword_extraction/approved
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --profile audit --root "$RUNNER_TEMP/keyword-audit" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/audit_remote.py --root "$RUNNER_TEMP/keyword-audit" --bundle "$RUNNER_TEMP/keyword-bundle" --data verification/owners/keyword_extraction/approved
       - name: Keep actual audit diagnostics at the literal registration artifact root
+        if: always()
+        run: python3 verification/owners/keyword_extraction/artifact_layout.py --kind audit --root "$RUNNER_TEMP/keyword-audit" --dependency "$RUNNER_TEMP/keyword-audit-dependencies.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: keyword-centrality-independent-audit
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/keyword-audit/*.json
+            ${{ runner.temp }}/keyword-audit/*.log
+  audit_recovery:
+    if: ${{ inputs.mode == 'audit_recovery' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 345
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: verification/owners/keyword_extraction
+      - name: Validate source and immutable recovery contract
+        run: bash verification/owners/keyword_extraction/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: keyword-centrality-pilot
+          run-id: 44838708435
+          github-token: ${{ github.token }}
+          repository: zkasuran/telegraph-catalog-miners
+          path: ${{ runner.temp }}/keyword-bundle
+      - name: Install and audit locked CPU dependencies
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/keyword-venv"
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/keyword_extraction/requirements.lock
+          "$RUNNER_TEMP/keyword-venv/bin/python" -m pip check
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/dependency_audit.py --lock verification/owners/keyword_extraction/requirements.lock --out "$RUNNER_TEMP/keyword-audit-requirements.txt" --report "$RUNNER_TEMP/keyword-audit-dependencies.json"
+      - name: Complete the byte-preserved interrupted audit within its own runtime budget
+        timeout-minutes: 330
+        run: |
+          mkdir -p "$RUNNER_TEMP/keyword-audit"
+          "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/supervise.py --profile audit --root "$RUNNER_TEMP/keyword-audit" "$RUNNER_TEMP/keyword-venv/bin/python" verification/owners/keyword_extraction/audit_remote.py --root "$RUNNER_TEMP/keyword-audit" --bundle "$RUNNER_TEMP/keyword-bundle" --data verification/owners/keyword_extraction/approved --recovery-contract verification/owners/keyword_extraction/audit-recovery-contract.json
+      - name: Keep actual recovery diagnostics at the literal registration artifact root
         if: always()
         run: python3 verification/owners/keyword_extraction/artifact_layout.py --kind audit --root "$RUNNER_TEMP/keyword-audit" --dependency "$RUNNER_TEMP/keyword-audit-dependencies.json"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

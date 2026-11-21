@@ -155,7 +155,7 @@ def registration_report(audit, manifest, source_manifest_sha256, source_verifica
     return report
 
 
-def bound_candidate(bundle, data_report):
+def bound_candidate(bundle, data_report, recovery=None):
     candidate = json.loads((bundle / "candidate.json").read_text())
     if candidate["family"] != "KEYWORD_EXTRACTION" or candidate["data"] != data_report:
         raise ValueError("candidate/data identity mismatch")
@@ -168,7 +168,10 @@ def bound_candidate(bundle, data_report):
         path = bundle / name
         if path.stat().st_size > 64 << 20 or sha(path.read_bytes()) != candidate[field]:
             raise ValueError("frozen candidate artifact identity mismatch: " + name)
-    if candidate["commit"] != os.environ["GITHUB_SHA"]:
+    if recovery is not None:
+        from recovery_contract import validate_candidate
+        validate_candidate(candidate, data_report, recovery, sha((HERE / "config.json").read_bytes()))
+    elif candidate["commit"] != os.environ["GITHUB_SHA"]:
         raise ValueError("audit must use the candidate's exact source commit")
     return candidate
 
@@ -179,13 +182,27 @@ def main():
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--data", type=Path, required=True)
+    parser.add_argument("--recovery-contract", type=Path)
     args = parser.parse_args()
     args.root.mkdir(parents=True, exist_ok=True)
     if (args.root / "audit-started.json").exists():
         raise ValueError("audit already started for this root; inspect existing evidence, no lottery retry")
     config = json.loads((HERE / "config.json").read_text())
     data_report, splits = approved_data(args.data)
-    candidate = bound_candidate(args.bundle, data_report)
+    recovery = None
+    if args.recovery_contract:
+        raw = args.recovery_contract.read_bytes()
+        if len(raw) > 1 << 20:
+            raise ValueError("recovery contract byte ceiling")
+        from recovery_contract import validate_contract
+        recovery = validate_contract(json.loads(raw))
+        if sha((args.data / "approved-manifest.json").read_bytes()) != recovery["data_manifest_sha256"]:
+            raise ValueError("recovery source manifest bytes changed")
+    candidate = bound_candidate(args.bundle, data_report, recovery)
+    if recovery is not None:
+        write(args.root / "integration-recovery.json", {"contract": recovery, "audit_commit": os.environ["GITHUB_SHA"],
+              "audit_run_id": os.environ["GITHUB_RUN_ID"], "candidate_changed": False,
+              "scope": "Continue the exact frozen candidate after documented runtime timeout. No model selection or retraining."})
     write(args.root / "audit-started.json", {"package_sha256": candidate["package_sha256"], "commit": candidate["commit"],
           "audit_run_id": os.environ["GITHUB_RUN_ID"], "started_at": datetime.now(timezone.utc).isoformat()})
     source_verification = verify_sources(args.data, {"test": splits["test"]})

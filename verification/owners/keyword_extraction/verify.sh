@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 set -euo pipefail
 ROOT="$(dirname "$0")"
+PYTHONDONTWRITEBYTECODE=1 python3 -W error -c 'import json,sys; from pathlib import Path; sys.path.insert(0,sys.argv[1]); from recovery_contract import validate_contract; from supervise import timeout_for; p=Path(sys.argv[1]); validate_contract(json.loads((p/"audit-recovery-contract.json").read_text())); assert timeout_for("audit",["python3",str((p/"audit_remote.py").resolve())],{})==19800; print("Byte-preserving audit recovery contract and bounded runtime profile PASS")' "$ROOT"
 # The same source gate runs locally and in the public workflow. Tests explicitly
 # isolate laptop-only negative controls from the runner's ambient context.
 PYTHONDONTWRITEBYTECODE=1 python3 -W error -c 'from pathlib import Path; import sys; root=Path(sys.argv[1]); required=("LICENSE","NOTICE","DATA-SOURCES.md","SECURITY.md","ready_contract.py","test_ready_contract.py","expand_proposals.py","proposal_matching.py","test_expand_proposals.py","heldout_freeze.py","serving_contract.py","serve.py","test_serving.py"); missing=[p for p in required if not (root/p).is_file()]; assert not missing, missing; print("Standalone rights, threat-model and source-contract files PASS")' "$ROOT"
