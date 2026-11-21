@@ -59,6 +59,14 @@ def run_audit(root, reference, identity):
         raise ValueError("audit candidate identity changed")
     if digest((root / "data/frozen-baseline.json").read_bytes()) != selected["baseline_sha256"]:
         raise ValueError("train-fitted baseline bytes changed")
+    recipe_path = root / "training-recipe.json"
+    if digest(recipe_path.read_bytes()) != selected["training_recipe_sha256"]:
+        raise ValueError("selected training recipe identity changed")
+    recipe = json.loads(recipe_path.read_bytes())
+    if (digest((root / "data/training_views.jsonl").read_bytes()) != recipe["training_views_sha256"]
+            or digest((root / "data/train.jsonl").read_bytes()) != recipe["training_source_sha256"]
+            or selected["baseline_sha256"] != recipe["baseline_sha256"]):
+        raise ValueError("frozen training-view/source/baseline identity changed")
     report, splits = load_splits(root / "data")
     if report["files"] != selected["data"]["files"]:
         raise ValueError("audit data identity changed")
@@ -229,7 +237,9 @@ def run_audit(root, reference, identity):
     if not passed:
         raise ValueError("independent audit quality/reproduction failed, no retry on this sample")
     source_manifest = {"source_pins_sha256": digest((__import__('pathlib').Path(__file__).parent / 'sources.json').read_bytes()),
-                       "data_files": report["files"], "source_inventory_sha256": report["source_inventory_sha256"],
+                        "data_files": report["files"], "source_inventory_sha256": report["source_inventory_sha256"],
+                        "training_recipe_sha256": selected["training_recipe_sha256"],
+                        "training_views_sha256": recipe["training_views_sha256"],
                        "commit": os.environ["GITHUB_SHA"], "run_id": int(os.environ["GITHUB_RUN_ID"])}
     write(root / "source-runtime-manifest.json", source_manifest)
     ready = {"schema_version": 1, "status": "REGISTRATION_READY", "family": FAMILY,

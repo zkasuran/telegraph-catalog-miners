@@ -25,3 +25,6 @@ The current public evaluator guide is pinned by URL, commit and hash in qualific
 ## Our additions and reused harness
 
 New code, source conversion and trained additions are Copyright (c) 2026 zkasuran under LicenseRef-zkasuran-SAND-1.0, subject to all retained upstream grants. Existing source-only audit and registration proxy/lease harness code is reused within this namespace. Original held adapters and recovered comparators are unchanged. The same licence boundary applies to failed checkpoints. SAND does not restrict original CC BY text or annotations.
+# Training-view recipe
+
+Optional format-transfer-v1 constructs alternate JSON/prose/bare-rating serializations only from the existing training originals. It does not add source truth, independent contributors or human review. The original task/output text, group identity, CC BY 4.0 grants and source attribution remain attached. Validation/audit rows never enter this construction. The original integer baseline remains fitted to the retained JSON training subset rather than being refitted across machines.

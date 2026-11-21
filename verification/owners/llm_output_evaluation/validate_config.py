@@ -8,6 +8,13 @@ from source_gate import HERE, PINS
 def validate():
     import yaml
     config = yaml.load((HERE / "controller-workflow.yml").read_text(), Loader=yaml.BaseLoader)
+    actual = HERE.parents[2] / ".github/workflows/evaluator-owner-llm_output_evaluation.yml"
+    if actual.exists() and actual.read_bytes() != (HERE / "controller-workflow.yml").read_bytes():
+        raise ValueError("actual owned workflow differs from the validated standalone copy")
+    recipe = config["on"]["workflow_dispatch"]["inputs"]["training_recipe"]
+    if (recipe["type"] != "choice" or recipe["options"] != ["json-original-v1", "format-transfer-v1"]
+            or recipe["default"] != "json-original-v1" or config["env"]["TRAINING_RECIPE"] != "${{ inputs.training_recipe }}"):
+        raise ValueError("training recipe must use the closed bounded source choices")
     if config["permissions"] != {"contents": "read"} or set(config["on"]) != {"workflow_dispatch"}:
         raise ValueError("workflow must be manual and read-only")
     if set(config["jobs"]) != {"train", "audit", "serve"} or config["jobs"]["audit"]["needs"] != "train":

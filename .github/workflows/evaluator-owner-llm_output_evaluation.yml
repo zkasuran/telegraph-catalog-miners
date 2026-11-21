@@ -10,6 +10,10 @@ on:
       owner_attempt:
         type: string
         required: true
+      training_recipe:
+        type: choice
+        options: [json-original-v1, format-transfer-v1]
+        default: json-original-v1
       package_url:
         type: string
       package_sha256:
@@ -34,6 +38,7 @@ concurrency:
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   OWNER_ATTEMPT: ${{ inputs.owner_attempt }}
+  TRAINING_RECIPE: ${{ inputs.training_recipe }}
   TOKENIZERS_PARALLELISM: 'false'
   OMP_NUM_THREADS: '4'
   MKL_NUM_THREADS: '4'

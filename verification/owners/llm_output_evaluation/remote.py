@@ -18,6 +18,7 @@ from common import FOUNDATION
 from token_contract import checked_tokens
 from source_gate import digest, inventory, write
 from wire import verify_qualification_render
+from training_recipe import build_recipe, pair_bytes
 
 
 def remote_only():
@@ -69,9 +70,13 @@ def train(root):
     np.random.seed(42)
     torch.manual_seed(42)
     _, splits = load_splits(root / "data")
-    hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=16, lora_rank=8, epochs=3,
-                            eval_batch=1, gate_min_acc=0.80, grad_checkpointing=False)
-    gate = trainer.gate_dataset(splits["train"], hp)
+    fit_rows, recipe = build_recipe(splits["train"], os.environ.get("TRAINING_RECIPE", "json-original-v1"),
+                                    report["files"]["train"]["sha256"], digest((root / "data/frozen-baseline.json").read_bytes()))
+    (root / "data/training_views.jsonl").write_bytes(pair_bytes(fit_rows))
+    write(root / "training-recipe.json", recipe)
+    hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=16, lora_rank=8, epochs=recipe["epochs"],
+                             eval_batch=1, gate_min_acc=0.80, grad_checkpointing=False)
+    gate = trainer.gate_dataset(fit_rows, hp)
     write(root / "primary-data-gate.json", gate)
     if not gate["ok"]:
         raise ValueError("primary unmodified trainer data gate failed")
@@ -82,7 +87,7 @@ def train(root):
     node.no_padding()
     node.no_truncation()
     checked = 0
-    for split_rows in splits.values():
+    for split_rows in (fit_rows, splits["validation"], splits["audit"]):
         for row in split_rows:
             for side in ("chosen", "rejected"):
                 text = render(row["prompt"], row[side])
@@ -92,14 +97,16 @@ def train(root):
                 checked += 1
     write(root / "token-visible.json", {"complete_vectors": checked, "tokenizer_hash": helper.FOUNDATION["tokenizer.json"], "native_node_parity": True})
     started = time.monotonic()
-    model, tok, train_negatives = trainer.train(str(base), splits["train"], splits["validation"], root / "adapter", hp)
+    model, tok, train_negatives = trainer.train(str(base), fit_rows, splits["validation"], root / "adapter", hp)
     preserve(root)
     metrics = trainer.evaluate(model, tok, splits["validation"], hp, train_negatives)
     write(root / "validation-result.json", metrics)
     if metrics["verdict"] != "PASS":
         raise ValueError("primary validation quality gate failed; checkpoint preserved")
     write(root / "training-timing.json", {"elapsed_seconds": time.monotonic() - started,
-          "maximum_optimizer_steps": 3 * len(splits["train"]) // 16, "maximum_epochs": 3, "audit_scored": False})
+          "maximum_optimizer_steps": recipe["optimizer_steps_ceiling"], "maximum_epochs": recipe["epochs"],
+          "training_recipe": recipe["recipe"], "example_presentations_ceiling": recipe["example_presentations_ceiling"],
+          "audit_scored": False})
     cfg = AutoConfig.from_pretrained(base, local_files_only=True)
     tensors, params = read_peft(root / "adapter", cfg)
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=helper.FOUNDATION["foundation_lora_fp32.onnx"],
@@ -108,10 +115,11 @@ def train(root):
                     training={"family": FAMILY, "children": [{"intent": FAMILY + "_GENERAL",
                               "dataset_version": report["files"]["validation"]["sha256"],
                               "pairs": len(splits["validation"]), "accuracy": metrics["pairwise_accuracy"],
-                              "held_out": True}], "trainer": "bounded three-epoch CPU pipeline, validation selection only",
+                               "held_out": True}], "trainer": "bounded CPU recipe " + recipe["recipe"] + ", validation selection only",
                               "backbone": "ModernBERT-base", "backbone_version": "8949b909ec900327062f0ebf497f51aef5e6f0c8"})
     meta.update(terms(root / "source"))
     meta["x-data-provenance"] = json.dumps(report, ensure_ascii=True, sort_keys=True)
+    meta["x-training-recipe"] = json.dumps(recipe, ensure_ascii=True, sort_keys=True)
     path = root / (FAMILY + ".safetensors")
     write_package(path, meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
     write(root / "foundation.json", {"foundation_hash": helper.FOUNDATION["foundation_lora_fp32.onnx"],
@@ -124,8 +132,9 @@ def train(root):
                    cwd=kit, check=True, capture_output=True, timeout=600)
     write(root / "package-check.json", json.loads(checked_package.stdout))
     write(root / "selected.json", {**identity(root), "package_sha256": digest(path.read_bytes()),
-          "selection": "at most three epochs; validation loss only, no audit scoring", "validation": metrics,
+          "selection": "bounded " + recipe["recipe"] + "; validation loss only, no audit scoring", "validation": metrics,
           "data": report, "caller": wire, "audit_scored": False,
+          "training_recipe_sha256": digest((root / "training-recipe.json").read_bytes()),
           "baseline_sha256": digest((root / "data/frozen-baseline.json").read_bytes())})
     preserve(root)
 
