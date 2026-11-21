@@ -8,7 +8,8 @@
           "type": "choice",
           "options": [
             "source_audit",
-            "train"
+            "train",
+            "runtime_baseline"
           ],
           "default": "source_audit",
           "description": "Train requires genuine trusted caller evidence"
@@ -50,7 +51,7 @@
         },
         {
           "uses": "actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
-          "if": "inputs.mode == 'source_audit'",
+          "if": "inputs.mode == 'source_audit' || inputs.mode == 'runtime_baseline'",
           "with": {
             "go-version": "1.25.7",
             "cache": false
@@ -60,6 +61,12 @@
           "name": "Measured public CPU source controls",
           "if": "inputs.mode == 'source_audit'",
           "run": "python3 verification/owners/code_patch_verify/remote_source.py --out \"$RUNNER_TEMP/cpv-output\""
+        },
+        {
+          "name": "Pinned real reference-engine untrained baseline",
+          "if": "inputs.mode == 'runtime_baseline'",
+          "timeout-minutes": 120,
+          "run": "python3 verification/owners/code_patch_verify/runtime_baseline.py --root \"$RUNNER_TEMP/cpv-reference-baseline\" --out \"$RUNNER_TEMP/cpv-output\""
         },
         {
           "name": "Trusted caller gate before any neural dependency",

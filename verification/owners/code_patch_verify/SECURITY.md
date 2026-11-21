@@ -42,3 +42,14 @@ undefined all-tied correlation and an audit used for selection.
 test_export_record.py exercises the source controls. The remote source job also
 tests the unmodified node TrainingRecord parser and retired-ABI refusal.
 No shape check authenticates a producer or establishes independent source truth.
+
+## Reference baseline bounds
+
+runtime_baseline.py refuses local model creation/loading/inference before any
+asset download or package construction. It hash/size checks released assets,
+uses one foundation process on standard public CPU and bounds download, archive,
+startup and scoring time. The actual unmodified parser checks the full control
+container and all tensor bytes. Source tests validate literal response identity,
+root, count, finite bits and token typing without creating a model.
+The baseline never serves publicly, creates keys, signs or registers. It uses
+only fixed source-controlled vectors and keeps upstream diagnostics private.

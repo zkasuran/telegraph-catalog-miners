@@ -65,3 +65,18 @@ authorship and caller/data provenance remain in x-cpv-training-provenance.
 ready_contract.py checks bounded report wire shape only. The source workflow's
 training-record controls are explicitly synthetic and excluded from model data.
 The original MIT grant for the pinned kit remains in KIT-LICENSE.
+
+## Untrained reference-engine execution control
+
+The runtime_baseline mode uses the exact released Foundation Model and engine
+with an original zero-LoRA/zero-head control package. Its embedded terms retain
+ModernBERT Apache-2.0, the kit MIT notice and SAND for our additions. It creates
+no training examples and never reads evaluation material. Fixed original token
+vectors measure repeat bits, actual identity echoes and invalid-token behavior.
+They are not independent factual audit pairs or model quality.
+
+The control package is marked UNTRAINED_EXECUTION_CONTROL_NEVER_REGISTER. Its
+report is REFERENCE_ENGINE_BASELINE_ONLY, not REGISTRATION_READY. Wrong requested
+identities receive actual runtime echoes from the pinned executor, not an HTTP
+refusal. The baseline checks that literal behavior. No baseline output qualifies
+a candidate or overrides the trusted caller, source, audit or registration gates.

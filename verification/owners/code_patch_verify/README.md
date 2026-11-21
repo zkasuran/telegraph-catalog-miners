@@ -60,3 +60,11 @@ The source CPU mode runs the pinned node parser against labelled synthetic
 training-record controls. Neural training still requires genuine trusted caller
 evidence. Full reference-engine and independent factual qualification remain
 unverified and no ready report is emitted from source test fixtures.
+
+## Real reference baseline mode
+
+The owned public CPU workflow can run runtime_baseline to measure the released
+foundation/engine with an explicitly untrained control package. The result binds
+actual run, commit, package hashes, full parser, runtime and repeated fixed-vector
+bits. It is not a trained model, independent audit or registration candidate.
+All neural assets and execution remain in the bounded public CPU job.
