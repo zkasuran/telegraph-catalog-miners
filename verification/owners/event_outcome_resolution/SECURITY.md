@@ -59,3 +59,13 @@ The CLI smoke drives main and combine with disposable synthetic protocol evidenc
 It checks licensed package preservation through a material wait and exact ready
 report hash bindings when synthetic material meets the floor. A symlink control
 is refused. These controls do not measure a model or establish source readiness.
+
+## Runtime route binding
+
+The audit executor has no public lease URL. Its loopback proxy accepts the literal
+/runnable path without requiring one. Serving passes its reserved URL explicitly
+and accepts only that exact existing-proxy path plus /runnable. Route configuration
+is frozen at server construction. Query variants and unrelated aliases are refused
+before the backend is called. test_runtime_http.py exercises real HTTP with a
+labelled synthetic backend, identity refusals and the original disconnect mutation.
+These are wire tests, not actual reference-engine scores or endpoint activation.

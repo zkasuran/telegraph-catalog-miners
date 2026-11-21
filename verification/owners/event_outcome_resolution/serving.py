@@ -59,7 +59,7 @@ def run(root):
            **{name + "_proof": {"sha256": os.environ["REPORT_SHA256"]} for name in ("candidate", "runtime", "source")}}
     if not 1 <= row["slot"] <= 6 or row["forward_port"] != 48600 + row["slot"] or not re.fullmatch(r"https://tga1\.zkasuran\.dev/_[A-Za-z0-9_-]{1,64}/runnable", row["runnable_url"]):
         raise ValueError("reserved free endpoint identity mismatch")
-    with executor(root, package, parsed) as (runtime_row, backend, port):
+    with executor(root, package, parsed, runnable_url=row["runnable_url"]) as (runtime_row, backend, port):
         vectors = ready["runtime"]["vectors"]
         actual = score_vectors(backend, runtime_row, [v["tokens"] for v in vectors])
         if actual != [v["score_bits"] for v in vectors]:

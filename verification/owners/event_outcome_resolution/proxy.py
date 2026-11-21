@@ -28,7 +28,17 @@ from common import (
 
 def identity(row):
     return {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"],
-            "adapter_hash": row["keccak"], "tokenizer_hash": FOUNDATION["tokenizer.json"]}
+             "adapter_hash": row["keccak"], "tokenizer_hash": FOUNDATION["tokenizer.json"]}
+
+
+def routes_for(row):
+    routes = {"/runnable"}
+    if "runnable_url" in row:
+        value = row["runnable_url"]
+        if not isinstance(value, str) or re.fullmatch(r"https://tga1\.zkasuran\.dev/_[A-Za-z0-9_-]{1,64}/runnable", value) is None:
+            raise ValueError("exact reserved public runnable URL required")
+        routes.add(urlsplit(value).path)
+    return frozenset(routes)
 
 
 def input_root(batch):
@@ -169,6 +179,7 @@ class BoundedServer(ThreadingHTTPServer):
 
     def __init__(self, address, row, backend):
         self.row = row
+        self.paths = routes_for(row)
         self.backend = backend
         self.connections = threading.BoundedSemaphore(MAX_CONNECTIONS)
         self.scoring = threading.BoundedSemaphore(1)
@@ -264,7 +275,7 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(raw)
 
     def do_POST(self):
-        if self.path not in ("/runnable", urlsplit(self.server.row["runnable_url"]).path):
+        if self.path not in self.server.paths:
             self.send_error(404)
             return
         if (self.headers.get_all("Transfer-Encoding") or self.headers.get_all("Content-Encoding") or

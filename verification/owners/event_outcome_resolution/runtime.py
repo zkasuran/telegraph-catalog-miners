@@ -16,7 +16,7 @@ from common import DEFAULT_OWNER, FOUNDATION, KIT, sha, strict_json, write_json
 from contracts import FORMATS
 from freeze import token_counts
 from groups import components
-from proxy import Backend, BoundedServer, identity, input_root, validate_response
+from proxy import Backend, BoundedServer, identity, input_root, routes_for, validate_response
 from remote import read_split
 from scorer import normalized, render, response
 from parent_scope import claimed_intents, verify_scope
@@ -55,9 +55,17 @@ def parse_package(root, path, expected):
     return parsed
 
 
-@contextmanager
-def executor(root, package, parsed):
+def executor_row(parsed, runnable_url=None):
     row = {"keccak": parsed["keccak256"].removeprefix("0x")}
+    if runnable_url is not None:
+        row["runnable_url"] = runnable_url
+    routes_for(row)
+    return row
+
+
+@contextmanager
+def executor(root, package, parsed, runnable_url=None):
+    row = executor_row(parsed, runnable_url)
     port = free_port()
     env = {**os.environ, "FOUNDATION_MODEL_PATH": str(root / "foundation/foundation_lora_fp32.onnx"),
            "FOUNDATION_MODEL_HASH": FOUNDATION["foundation_lora_fp32.onnx"],

@@ -129,6 +129,12 @@ Literal judgment rendering preserves whitespace. The runnable endpoint refuses
 prefixed or altered hash echoes and accepts only bounded token arrays and finite
 uint32 FP32 score bits.
 
+The audit proxy accepts `/runnable` without needing a public lease URL. Serving
+binds its reserved URL explicitly and accepts that exact route too. Routes are
+frozen before requests are handled. Real loopback HTTP tests use a labelled
+synthetic backend to check both routes, identity refusals and wrong-path controls.
+Those tests do not load a model or measure reference-engine accuracy.
+
 ## Terms
 
 Official data is from Nobel Prize Outreach under CC0 with retained implementation
