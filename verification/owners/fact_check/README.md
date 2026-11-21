@@ -96,3 +96,16 @@ validation loss selects a frozen candidate. Reports include training accuracy
 and reward-difference ties to distinguish capacity failure from overfitting.
 No recovery candidate has passed quality, independent audit or node qualification
 yet. Source grants and attribution remain attached to failed checkpoints.
+# Low-rate convergence comparison
+
+Recovery run 44852934408 completed all three ablations. Low-rate LoRA/head
+reached 81.25 percent validation accuracy and 89.84 percent training accuracy.
+False validation accuracy was 62.5 percent, below the unchanged 70 percent gate.
+The candidate is not eligible for registration.
+
+The `converge` mode compares 24-epoch low-rate fitting with train-only adaptive
+hard-example weighting. Both use the same pinned base, seed and unchanged data.
+Weights depend only on current training pair scores. Reports measure per-label
+training accuracy and weight counts. Minimum validation loss selects a frozen
+candidate only after both declared runs complete. A fresh independent audit and
+actual reference-engine qualification are still required.

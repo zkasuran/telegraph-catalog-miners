@@ -39,3 +39,9 @@ head, low-rate LoRA with a separate head rate and a head-first warm start.
 All use unchanged public training/validation groups and retained source grants.
 Loss-only validation selection is development, never independent audit. Failed
 and selected checkpoints retain all original grants. No gate is lowered.
+
+The completed recovery run reached 81.25 percent overall development accuracy
+but only 62.5 percent on False, so it still failed the per-label gate. Convergence
+compares extended low-rate fitting with hard-example weights derived only from
+current training pair scores. No validation identity or exposed audit row is
+used for gradient weighting. The data, source grants and quality gates stay fixed.

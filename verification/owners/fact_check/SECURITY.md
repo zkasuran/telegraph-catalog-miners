@@ -52,3 +52,11 @@ source grants before any model loading. Diagnostic artifacts include only report
 and fitted checkpoints, not downloaded foundation/base weights. Local checks
 test parameter inventory refusal and incomplete/audit-exposed selection refusal.
 Remote quality and reference-engine qualification remain separate gates.
+# Convergence training boundary
+
+Adaptive hard-example weighting reads only the current training batch reward
+difference. It receives no validation labels, validation identities or audit data.
+Weights are bounded to one or two and nonfinite inputs fail closed. Two declared
+candidates must complete 24 epochs before validation-only selection. Source-only
+tests prove finite-weight, parameter-inventory, budget and audit-access refusals.
+Original data, source grants and acceptance gates are not changed.
