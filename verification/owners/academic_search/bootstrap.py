@@ -43,7 +43,7 @@ class SafeRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         host = urllib.parse.urlsplit(newurl).hostname or ""
         allowed = (".githubusercontent.com", ".github.com", ".huggingface.co", ".hf.co", ".amazonaws.com", ".figshare.com")
-        if not newurl.startswith("https://") or not (host.endswith(allowed) or host == "44c1cec316ec56bca76dfd65d2882b20.r2.cloudflarestorage.com"):
+        if not newurl.startswith("https://") or not (host in {"huggingface.co", "github.com"} or host.endswith(allowed) or host == "44c1cec316ec56bca76dfd65d2882b20.r2.cloudflarestorage.com"):
             raise ValueError("unexpected pinned-source redirect host")
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 

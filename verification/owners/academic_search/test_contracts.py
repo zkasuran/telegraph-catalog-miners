@@ -294,6 +294,17 @@ class Contracts(unittest.TestCase):
             with self.assertRaises(ValueError):
                 fetch("http://127.0.0.1/private", Path(temp) / "data", "a" * 64)
 
+    def test_verified_publisher_metadata_redirect_is_allowed_but_not_http_or_other_host(self):
+        import urllib.request
+        from bootstrap import SafeRedirect
+        handler = SafeRedirect()
+        request = urllib.request.Request("https://huggingface.co/answerdotai/ModernBERT-base/resolve/pin/config.json")
+        redirected = handler.redirect_request(request, None, 302, "Found", {}, "https://huggingface.co/api/resolve-cache/models/answerdotai/ModernBERT-base/pin/config.json")
+        self.assertEqual(redirected.host, "huggingface.co")
+        for url in ("http://huggingface.co/config.json", "https://127.0.0.1/config.json", "https://untrusted.example/config.json"):
+            with self.assertRaises(ValueError):
+                handler.redirect_request(request, None, 302, "Found", {}, url)
+
     def test_dependency_auditor_does_not_skip_unknown_variants(self):
         from dependency_audit import requirements
         parsed, mapped = requirements("torch==2.15.0+cpu\nnumpy==2.4.0\n")
