@@ -14,6 +14,7 @@
 | Laptop neural execution | Guard before model imports; public github-hosted CPU workflow only | refusal unit test and workflow schema validation |
 | Lost failed checkpoint terms | Full source/model/code grants and inert metadata records | licensing.py, payload-preservation test and remote export/readback |
 | Endpoint takeover | Immutable package/report binding, recorded vectors and common.lease_for public restricted lease | serving.py; signer credentials never enter the runner |
+| Partial ready report enters serving preparation | Validate the full pinned identities, independent source proof, all formats/labels, unchanged quality margins and bounded finite vectors before fetching the package | test_serving_contract.py executes the actual source prefix with synthetic no-model path/fetch/env doubles; the activation adapter independently rechecks the real report |
 
 ## Limits
 

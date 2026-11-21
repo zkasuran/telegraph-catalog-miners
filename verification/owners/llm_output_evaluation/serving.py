@@ -10,6 +10,7 @@ import urllib.request
 from common import DEFAULT_OWNER, HOST, HOST_KEY, lease_for, immutable_url, FOUNDATION
 from reference import prepare, fetch
 from source_gate import digest, write
+from serving_contract import validate_ready
 
 
 def free_port():
@@ -24,13 +25,10 @@ def start(root):
     package_url = immutable_url(os.environ["PACKAGE_URL"])
     report_url = immutable_url(os.environ["REPORT_URL"])
     report_sha = os.environ["REPORT_SHA256"]
-    fetch(package_url, root / "package.safetensors", package_sha, 64 << 20)
     fetch(report_url, root / "registration-ready.json", report_sha, 1 << 20)
     ready = json.loads((root / "registration-ready.json").read_text())
-    if (ready["status"] != "REGISTRATION_READY" or ready["family"] != "LLM_OUTPUT_EVALUATION"
-            or ready["package_sha256"] != package_sha or ready["package_keccak"] != package_keccak
-            or ready["serving_commit"] != os.environ["GITHUB_SHA"]):
-        raise ValueError("serving cannot substitute a candidate or source commit")
+    vectors = validate_ready(ready, package_sha, package_keccak, os.environ["GITHUB_SHA"])
+    fetch(package_url, root / "package.safetensors", package_sha, 64 << 20)
     helper, foundation, base, kit = __import__('remote').reference(root)
     subprocess.run(["go", "build", "-mod=readonly", "-trimpath", "-o", str(root / "adapterexec"), "./cmd/adapterexec"], cwd=kit, check=True, timeout=600)
     env = {**os.environ, "FOUNDATION_MODEL_PATH": str(foundation / "foundation_lora_fp32.onnx"),
@@ -63,7 +61,6 @@ def start(root):
     else:
         raise ValueError("serving readiness timeout")
     from proxy import identity, input_root
-    vectors = ready["runtime"]["vectors"]
     body = {"batch": [{"tokens": v["tokens"]} for v in vectors], **identity(row)}
     body["input_root"] = input_root(body["batch"])
     request = urllib.request.Request(f"http://127.0.0.1:{proxy_port}/runnable", data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})

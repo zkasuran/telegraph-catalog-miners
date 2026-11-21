@@ -28,6 +28,8 @@ Training and audit compare complete native and pinned-node token arrays before s
 
 Serving downloads only immutable verified candidate/report bytes, reproduces recorded reference vectors and uploads only a restricted public lease. The runner's ephemeral forwarding private key is not uploaded. The automatic action adapter handles proxy activation and registration. No paid runner or resource is used.
 
+Serving validates the complete registration-ready report before fetching its model package or preparing a runtime/key. This includes pinned foundation/engine/tokenizer hashes, the independent source boundary, every supported format and rating label, unchanged quality margins and bounded finite reference vectors. Source-only controls execute the actual preflight prefix with synthetic path/fetch/env doubles. They do not create a model, key or lease and do not replace the activation adapter's independent checks.
+
 ## Limits and grants
 
 Local source checks are not model quality. A source-held-out result is not a canonical win. The ordinal helpfulness proxy is not calibrated Telegraph factual truth and cannot verify information absent from the input. Source grouping does not prove absence from ModernBERT pretraining. The existing incumbent is compared only by the actual node, not by privileged access to its unpublished weights.
