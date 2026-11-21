@@ -18,7 +18,7 @@ from validation_policy import require_validation
 from source_cues import measure_source_cues
 from paired_objective import require_smoke
 from quality_selection import require_selection_trace
-from hans_curriculum import require_curriculum
+from hans_curriculum import prepare as rebuild_curriculum, require_curriculum, require_reconstruction
 
 
 def request(tokens, package_keccak):
@@ -42,6 +42,19 @@ def audit(root):
     curriculum_path = root/"syntactic-curriculum/curriculum-manifest.json"
     curriculum = strict_json(curriculum_path.read_bytes()) if freeze.get("syntactic_curriculum_originals", 0) else None
     require_curriculum(freeze, curriculum, file_sha(curriculum_path) if curriculum is not None else None)
+    if curriculum is not None:
+        # Rebuild original training provenance before reading the independent
+        # legal audit rows. No model inference or evaluation-source acquisition.
+        _, _, reconstructed = rebuild_curriculum(root/"independent-curriculum-source")
+        require_reconstruction(curriculum, reconstructed)
+        write_json(root/"curriculum-source-verification.json", {"schema_version": 1, "family": FAMILY,
+            "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
+            "candidate_sha256": freeze["candidate_sha256"], "frozen_manifest_sha256": file_sha(curriculum_path),
+            "reconstructed_manifest_sha256": file_sha(root/"independent-curriculum-source/curriculum-manifest.json"),
+            "original_training_rows_verified": reconstructed["original_training_rows_read"],
+            "selected_originals_sha256": reconstructed["selected_originals_sha256"],
+            "constructed_views_sha256": reconstructed["constructed_views_sha256"], "passed": True,
+            "evaluation_rows_read": False, "neural_quality_claim": False})
     source_path = root/"data/source-manifest.json"
     source = strict_json(source_path.read_bytes())
     if file_sha(source_path) != freeze["source_manifest_sha256"] or source["independent_groups"] < 32 or source["normalized_overlap"] != 0:
@@ -166,6 +179,9 @@ def audit(root):
                     "executor_sha256": file_sha(root/"adapterexec"), "go_version": subprocess.check_output(["go", "version"], text=True).strip()},
         "serving_commit": os.environ["GITHUB_SHA"], "scope": "Four NDA claim-entailment topics, not performance compliance",
         "training_freeze_sha256": file_sha(root/"training-freeze.json")}
+    if curriculum is not None:
+        report["source"]["syntactic_curriculum_verification"] = strict_json((root/"curriculum-source-verification.json").read_bytes())
+        report["source"]["syntactic_curriculum_verification_sha256"] = file_sha(root/"curriculum-source-verification.json")
     write_json(root/"registration-ready.json", report)
     print(json.dumps({"status": report["status"], "formats": formats, "reference_vectors": len(fixed)}, indent=2))
     return 0 if result["passed"] else 2

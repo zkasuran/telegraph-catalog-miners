@@ -154,9 +154,23 @@ def prepare(root, source=None):
         "selected_pair_ids": [row["pairID"] for row in chosen],
         "selected_normalized_premise_sha256": [sha(normalized(row["sentence1"]).encode()) for row in chosen],
         "selected_originals_sha256": sha(json.dumps(chosen, sort_keys=True, separators=(",", ":")).encode()),
+        "constructed_views_sha256": sha(json.dumps(views, sort_keys=True, separators=(",", ":")).encode()),
         "licence": "MIT, copyright 2019 R. Thomas McCoy; retain original notice"}
     write_json(root / "curriculum-manifest.json", report)
     return chosen, views, report
+
+
+def require_reconstruction(manifest, reconstructed):
+    """Check fitting provenance against an independent original-source rebuild."""
+    fields = ("schema_version", "source_revision", "source_sha256", "original_training_rows_read", "selected_originals",
+              "selected_views", "original_labels", "heuristics", "shortcuts", "coefficients", "evaluation_rows_read",
+              "synthetic_auxiliary_training_only", "human_preference_reviews", "new_audited_contract_claim",
+              "selected_pair_ids", "selected_normalized_premise_sha256", "selected_originals_sha256", "constructed_views_sha256", "licence")
+    if not isinstance(manifest, dict) or not isinstance(reconstructed, dict):
+        raise ValueError("actual manifest and original-source reconstruction required")
+    for key in fields:
+        if key not in manifest or key not in reconstructed or manifest[key] != reconstructed[key]:
+            raise ValueError("curriculum original-source reconstruction differs: " + key)
 
 
 def require_curriculum(freeze, manifest, manifest_hash):

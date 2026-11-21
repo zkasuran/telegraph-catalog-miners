@@ -17,7 +17,7 @@ from source_gate import verdict
 from parent_checkpoint import PARENT_RUN
 from source_cues import measure_source_cues
 from quality_selection import TRAINER_SHA256, check_experiments, compile_selector
-from hans_curriculum import prepare as prepare_curriculum
+from hans_curriculum import prepare as prepare_curriculum, require_reconstruction
 
 
 def main():
@@ -64,6 +64,7 @@ def main():
         splits, _ = construct(archive, config, policy)
         curriculum_cache = os.environ.get("OWNER_HANS_TRAINING")
         _, _, curriculum = prepare_curriculum(Path(temporary)/"curriculum", Path(curriculum_cache) if curriculum_cache else None)
+        require_reconstruction(curriculum, curriculum)  # Required source fingerprint fields and primary acceptance path.
         curriculum_hashes = set(curriculum["selected_normalized_premise_sha256"])
         if any(row["normalized_evidence_sha256"] in curriculum_hashes for rows in splits.values() for row in rows):
             raise ValueError("auxiliary curriculum overlaps the grouped legal source")
