@@ -17,7 +17,7 @@ def check_experiments(workflow):
         raise ValueError("workflow must fit the ten-input release contract")
     objective = inputs.get("objective")
     if (not isinstance(objective, dict) or objective.get("type") != "choice" or objective.get("default") != "independent"
-            or objective.get("options") != ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack"]):
+            or objective.get("options") != ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack", "syntactic-quality-slack"]):
         raise ValueError("exact safe workflow experiment choices required")
 
 

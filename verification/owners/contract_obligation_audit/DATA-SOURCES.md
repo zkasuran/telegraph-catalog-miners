@@ -91,3 +91,15 @@ Local tests use authored source/math fixtures and no tensors. The guarded public
 The primary pinned trainer chooses its epoch from val_loss or pairwise_accuracy. Its actual selection expression is checked against the full source hash 5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71 before a one-expression source adapter is compiled. Retained upstream MIT terms apply to that code; SAND applies only to our additions. The source is never imported or executed during local verification.
 
 The optional selector uses minimum slack against the existing all-format, per-label and baseline gates. Every metric used for selection is from validation, not the independent audit or protected pool. The observed generation-seven prose Contradiction score of 0.5333 exposes the weakest gate, but no per-epoch counterfactual gain is claimed. Authored metric callbacks are software controls, not source annotations or model scores. All training/validation/audit rows and train-fitted coefficients remain exactly unchanged.
+
+## HANS original training [mccoy-pavlick-linzen-2019-hans]
+
+R. Thomas McCoy, Ellie Pavlick and Tal Linzen (2019), Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference.
+Primary revision: 7299f6f657089ce06a0f98e7e81f8d0f5b7741ce.
+https://github.com/tommccoy1/hans/tree/7299f6f657089ce06a0f98e7e81f8d0f5b7741ce
+
+The primary README states that heuristics_train_set "can be used for data augmentation during training" and declares the repository MIT licensed. LICENSE.md, copyright 2019 R. Thomas McCoy, grants rights "to use, copy, modify, merge, publish, distribute, sublicense" subject to retaining the full copyright/permission notice. The original full grant is HANS-MIT.txt and is included in packages/checkpoints. Our implementation additions use SAND without restricting the upstream MIT source.
+
+Original training JSONL SHA-256: 440040b6790c6359b56496375b87e6cedfa13a20f52bc3223dad31bd28b77faf. Its 30,000 rows agree with the original TSV SHA-256 49245bd5fdb0b185dcbfbf48f0f16513c62ad5bc9fad0b8800dc48d6818ee5cf. The complete untruncated primary tree has 31 entries. Only training data and source/grant definitions were fetched. Evaluation sets, model predictions and MNLI development/test captures were not read or used. The source generator was not executed.
+
+These are synthetic programmatically generated annotations, not human preference reviews. Non-entailment includes both contradiction and neutral and cannot become an assertion of not-P. Our response preferences concern source support and are AI-assisted constructions. This is optional auxiliary fitting data, not an independent contract audit or evidence of performance compliance. The balanced selected curriculum preserves original labels and all existing legal splits/99 retirements. Actual gains require bounded public CPU training and a clean independent audit.

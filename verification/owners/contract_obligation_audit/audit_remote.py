@@ -18,6 +18,7 @@ from validation_policy import require_validation
 from source_cues import measure_source_cues
 from paired_objective import require_smoke
 from quality_selection import require_selection_trace
+from hans_curriculum import require_curriculum
 
 
 def request(tokens, package_keccak):
@@ -38,11 +39,18 @@ def audit(root):
     trace_path = root/"validation-selection-trace.json"
     trace = strict_json(trace_path.read_bytes()) if freeze.get("validation_selector") == "quality-slack" else None
     require_selection_trace(freeze, trace, file_sha(trace_path) if trace is not None else None)
+    curriculum_path = root/"syntactic-curriculum/curriculum-manifest.json"
+    curriculum = strict_json(curriculum_path.read_bytes()) if freeze.get("syntactic_curriculum_originals", 0) else None
+    require_curriculum(freeze, curriculum, file_sha(curriculum_path) if curriculum is not None else None)
     source_path = root/"data/source-manifest.json"
     source = strict_json(source_path.read_bytes())
     if file_sha(source_path) != freeze["source_manifest_sha256"] or source["independent_groups"] < 32 or source["normalized_overlap"] != 0:
         raise ValueError("source audit boundary or manifest identity mismatch")
     splits = {name: read_jsonl(root/"data"/(name+".jsonl")) for name in config["limits"]}
+    if curriculum is not None:
+        hashes = set(curriculum["selected_normalized_premise_sha256"])
+        if any(row["normalized_evidence_sha256"] in hashes for rows in splits.values() for row in rows):
+            raise ValueError("synthetic training source overlaps legal audit source")
     for name, rows in splits.items():
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("audit data changed after candidate freeze")

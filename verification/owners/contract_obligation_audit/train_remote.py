@@ -10,7 +10,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from baselines import validate_frozen
-from contracts import FAMILY, FOUNDATION, HERE, check_config, file_sha, read_jsonl, remote_only, render, strict_json, write_json
+from contracts import FAMILY, FOUNDATION, HERE, check_config, file_sha, read_jsonl, remote_only, render, sha, strict_json, write_json
 from data import pair
 from prepare_remote import compile_runtime, full_parser, prepare
 from validation_policy import require_validation, warmstart_policy
@@ -27,9 +27,12 @@ def main():
     parser.add_argument("--root", required=True, type=Path)
     parser.add_argument("--objective", choices=OBJECTIVES, default=os.environ.get("CONTRACT_TRAIN_OBJECTIVE", "independent"))
     parser.add_argument("--selector", choices=SELECTORS, default=os.environ.get("CONTRACT_VALIDATION_SELECTOR", "worst-format-accuracy"))
+    parser.add_argument("--syntactic-curriculum", action="store_true", default=os.environ.get("CONTRACT_HANS_CURRICULUM") == "1")
     args = parser.parse_args()
     if args.objective not in OBJECTIVES or args.selector not in SELECTORS:
         raise ValueError("unknown source training objective or validation selector")
+    if args.syntactic_curriculum and args.objective != "independent":
+        raise ValueError("synthetic non-entailment curriculum requires its separate independent preference contract")
     root = args.root.resolve()
     config = check_config(strict_json((HERE/"config.json").read_bytes()))
     train, validation = [read_jsonl(root/"data"/(name+".jsonl")) for name in ("train", "validation")]
@@ -38,6 +41,17 @@ def main():
         if file_sha(root/"data"/(name+".jsonl")) != source["files"][name]["sha256"]:
             raise ValueError("frozen source data identity changed")
     validate_frozen(strict_json((HERE/"frozen-baselines-v8.json").read_bytes()), train)
+    curriculum_views, curriculum = [], None
+    if args.syntactic_curriculum:
+        from hans_curriculum import prepare as prepare_curriculum
+        _, curriculum_views, curriculum = prepare_curriculum(root/"syntactic-curriculum")
+        curriculum.update(family=FAMILY, run_id=int(os.environ["GITHUB_RUN_ID"]), commit=os.environ["GITHUB_SHA"],
+                          source_manifest_sha256=file_sha(root/"data/source-manifest.json"))
+        write_json(root/"syntactic-curriculum/curriculum-manifest.json", curriculum)
+        from data import normalized
+        seen = set(curriculum["selected_normalized_premise_sha256"])
+        if any(sha(normalized(row["evidence"]).encode()) in seen for row in train + validation):
+            raise ValueError("synthetic curriculum overlaps legal training or validation source")
     foundation, base, kit = prepare(root, weights=True)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -69,6 +83,7 @@ def main():
     if gate["ok"] is not True:
         raise ValueError("unmodified upstream dataset gate failed before model loading")
     training_views = [pair(row, style) for row in train for style in ("json", "prose")]
+    training_views.extend(curriculum_views)
     view_gate = trainer.gate_dataset(training_views, hp)
     write_json(root/"upstream-training-view-gate.json", view_gate)
     if view_gate["ok"] is not True:
@@ -93,6 +108,15 @@ def main():
                     if len(ids) > hp.max_length or ids != node_tok.encode(text).ids:
                         raise ValueError("tokenization mismatch or truncated differing claim")
                     checked += 1
+    for row in curriculum_views:
+        for side in ("chosen", "rejected"):
+            text = render(row["prompt"], row[side])
+            if text != trainer.render(row["prompt"], row[side]):
+                raise ValueError("curriculum literal caller rendering differs")
+            ids = tok(text, truncation=False)["input_ids"]
+            if len(ids) > hp.max_length or ids != node_tok.encode(text).ids:
+                raise ValueError("curriculum tokenization mismatch or truncation")
+            checked += 1
     write_json(root/"tokenizer-check.json", {"actual_rendered_texts_checked": checked,
                 "tokenizer_sha256": FOUNDATION["tokenizer.json"], "audit_read_for_selection": False})
     cfg = AutoConfig.from_pretrained(base, local_files_only=True)
@@ -108,11 +132,19 @@ def main():
             training["objective"] = "paired worst-format Bradley-Terry, unchanged margin regularization"
         if args.selector == "quality-slack":
             training["validation_selection"] = "minimum unchanged quality-gate slack, validation only"
+        if curriculum is not None:
+            training["syntactic_curriculum"] = {"source_revision": curriculum["source_revision"], "source_sha256": curriculum["source_sha256"],
+                "originals": curriculum["selected_originals"], "views": curriculum["selected_views"],
+                "synthetic_source_labels": True, "human_preference_reviews": False, "audited_contract_claim": False,
+                "fitting_applied_to_this_package": name != "untrained",
+                "semantic_scope": "text establishes hypothesis versus text does not establish hypothesis; non-entailment is not factual contradiction"}
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                         target_modules=params["target_modules"], max_tokens=hp.max_length, training=training)
         meta.update({"x-upstream-notice": (HERE/"NOTICE").read_text(), "x-upstream-apache-2.0": licence["apache_2_0"],
-                     "x-upstream-mit": licence["kit_mit"], "x-upstream-cc-by-4.0": licence["cc_by_4_0"], "x-licence": licence["sand"]})
+                      "x-upstream-mit": licence["kit_mit"], "x-upstream-cc-by-4.0": licence["cc_by_4_0"], "x-licence": licence["sand"]})
+        if curriculum is not None:
+            meta["x-upstream-hans-mit"] = (HERE/"HANS-MIT.txt").read_text()
         package = root/(name+".safetensors")
         write_package(package, meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
         return package
@@ -216,6 +248,7 @@ def main():
         "parent_run_id": PARENT_RUN, "parent_commit": PARENT_COMMIT, "parent_checkpoint_sha256": PARENT_CHECKPOINT_SHA,
         "training_originals": len(train), "training_views": len(training_views),
         "training_objective": args.objective,
+        "syntactic_curriculum_originals": curriculum["selected_originals"] if curriculum is not None else 0,
         "validation_selector": args.selector,
         "auxiliary_training_pairs": source["auxiliary_training_pairs"], "reward_margin_penalty": policy["reward_margin_penalty"],
         "wider_training_pairs": source["wider_training_pairs"],
@@ -226,6 +259,8 @@ def main():
         freeze["paired_objective_smoke_sha256"] = file_sha(root/"paired-objective-smoke.json")
     if args.selector == "quality-slack":
         freeze["validation_selection_trace_sha256"] = file_sha(root/"validation-selection-trace.json")
+    if curriculum is not None:
+        freeze["syntactic_curriculum_manifest_sha256"] = file_sha(root/"syntactic-curriculum/curriculum-manifest.json")
     write_json(root/"training-freeze.json", freeze)
     print("Frozen licensed candidate and seed-matched untrained package. Independent audit was not scored.")
     # Preserve bytes and failure evidence first, then refuse to expose the audit.

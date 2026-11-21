@@ -19,7 +19,7 @@
           "type": "choice",
           "required": false,
           "default": "independent",
-          "options": ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack"]
+          "options": ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack", "syntactic-quality-slack"]
         },
         "package_url": {
           "description": "Proof-bound package_url",
@@ -91,7 +91,8 @@
         "OMP_NUM_THREADS": "4",
         "MKL_NUM_THREADS": "4",
         "CONTRACT_TRAIN_OBJECTIVE": "${{ (inputs.objective == 'paired-worst-format' || inputs.objective == 'paired-quality-slack') && 'paired-worst-format' || 'independent' }}",
-        "CONTRACT_VALIDATION_SELECTOR": "${{ (inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack') && 'quality-slack' || 'worst-format-accuracy' }}"
+        "CONTRACT_VALIDATION_SELECTOR": "${{ (inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack' || inputs.objective == 'syntactic-quality-slack') && 'quality-slack' || 'worst-format-accuracy' }}",
+        "CONTRACT_HANS_CURRICULUM": "${{ inputs.objective == 'syntactic-quality-slack' && '1' || '0' }}"
       },
       "steps": [
         {
@@ -172,12 +173,22 @@
         },
         {
           "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
-          "if": "always() && (inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack')",
+          "if": "always() && (inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack' || inputs.objective == 'syntactic-quality-slack')",
           "with": {
             "name": "contract-validation-selection",
             "retention-days": 7,
             "if-no-files-found": "ignore",
             "path": "${{ runner.temp }}/contract-run/validation-selection-trace.json"
+          }
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always() && inputs.objective == 'syntactic-quality-slack'",
+          "with": {
+            "name": "contract-syntactic-curriculum",
+            "retention-days": 7,
+            "if-no-files-found": "error",
+            "path": "${{ runner.temp }}/contract-run/syntactic-curriculum/curriculum-manifest.json"
           }
         }
       ]
@@ -228,10 +239,18 @@
         },
         {
           "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
-          "if": "inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack'",
+          "if": "inputs.objective == 'quality-slack' || inputs.objective == 'paired-quality-slack' || inputs.objective == 'syntactic-quality-slack'",
           "with": {
             "name": "contract-validation-selection",
             "path": "${{ runner.temp }}/contract-run"
+          }
+        },
+        {
+          "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "if": "inputs.objective == 'syntactic-quality-slack'",
+          "with": {
+            "name": "contract-syntactic-curriculum",
+            "path": "${{ runner.temp }}/contract-run/syntactic-curriculum"
           }
         },
         {

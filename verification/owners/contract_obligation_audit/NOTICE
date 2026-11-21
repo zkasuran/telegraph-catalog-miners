@@ -17,6 +17,17 @@ https://github.com/telegraphprotocol/telegraph-wasm-baseline/tree/1ed063e2f0066c
 Full retained grants are in licences.json and embedded in every exported delta.
 The reference engine and foundation are pinned, not binary-wrapped or altered.
 
+HANS original synthetic training source: Copyright (c) 2019 R. Thomas McCoy, MIT.
+R. Thomas McCoy, Ellie Pavlick and Tal Linzen (2019).
+Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference.
+https://github.com/tommccoy1/hans/tree/7299f6f657089ce06a0f98e7e81f8d0f5b7741ce
+Full original notice retained in HANS-MIT.txt. Only the original training release
+is used, never evaluation files or prediction captures. Source labels are
+programmatically generated. Our support-assessment response templates are
+AI-assisted preferences, not human reviews. Non-entailment includes neutral
+and is not relabelled as factual contradiction. This is optional auxiliary
+training, not an independent contract audit or actual performance evidence.
+
 New source/contract code and trained deltas: Copyright (c) 2026 zkasuran.
 Generation-eight training resumes the licensed source-trained best checkpoint
 of public run 44647112954. Its validation failed and the audit never executed.

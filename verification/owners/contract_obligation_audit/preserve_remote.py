@@ -17,7 +17,7 @@ def main():
     checkpoint = root/"licensed-checkpoint.zip"
     manifest = []
     with zipfile.ZipFile(checkpoint, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        for name in ("LICENSE", "NOTICE", "DATA-SOURCES.md", "CC-BY-4.0.txt", "licences.json"):
+        for name in ("LICENSE", "NOTICE", "DATA-SOURCES.md", "CC-BY-4.0.txt", "HANS-MIT.txt", "licences.json"):
             archive.write(HERE/name, name)
         for directory in ("trained-adapter", "untrained-adapter"):
             path = root/directory

@@ -70,7 +70,7 @@ class QualitySelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "primary trainer source"):
             compile_selector(b"authored not the primary trainer")
         workflow = {"on": {"workflow_dispatch": {"inputs": {"objective": {"type": "choice", "default": "independent",
-            "options": ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack"]}}}}}
+            "options": ["independent", "paired-worst-format", "quality-slack", "paired-quality-slack", "syntactic-quality-slack"]}}}}}
         check_experiments(workflow)
         changed = copy.deepcopy(workflow)
         changed["on"]["workflow_dispatch"]["inputs"].update({"authored-" + str(i): {} for i in range(10)})
