@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 import data
+import token_contract
 from baselines import load_frozen
 
 REPO = "zkasuran/telegraph-catalog-miners"
@@ -244,32 +245,39 @@ def main():
     node_tok = Tokenizer.from_file(str(base / "tokenizer.json"))
     node_tok.no_padding()
     node_tok.enable_truncation(max_length=512)
-    checked = 0
+    if not trainer.TOKENIZER_VECTORS.is_file():
+        raise ValueError("primary tokenizer conformance vectors missing")
+    trainer.check_tokenizer(tok)
     for row in train + validation:
         for side in ("chosen", "rejected"):
             text = trainer.render(row["prompt"], row[side])
             if text != data.render(row["prompt"], row[side]):
                 raise ValueError("literal caller render mismatch")
-            full = tok(text, truncation=False)["input_ids"]
-            if (
-                len(full) > 512
-                or tok(text, truncation=True, max_length=512)["input_ids"]
-                != node_tok.encode(text).ids
-            ):
-                raise ValueError("512-token retention or node tokenizer mismatch")
-            checked += 1
-    if not trainer.TOKENIZER_VECTORS.is_file():
-        raise ValueError("primary tokenizer conformance vectors missing")
-    trainer.check_tokenizer(tok)
-    write_report(
-        root / "tokenizer-check.json",
-        {
-            "texts_checked": checked,
-            "max_tokens": 512,
-            "tokenizer_sha256": TOKENIZER_SHA,
-            "audit_checked": False,
-        },
+    token_report = token_contract.inspect_development(
+        {"train": train, "validation": validation},
+        lambda text: tok(text, truncation=False)["input_ids"],
+        lambda text: tok(text, truncation=True, max_length=512)["input_ids"],
+        lambda text: node_tok.encode(text).ids,
     )
+    token_report.update(
+        {
+            "family": "VENDOR_VERIFY",
+            "run_id": int(os.environ["GITHUB_RUN_ID"]),
+            "owner_attempt": os.environ["OWNER_ATTEMPT"],
+            "commit": os.environ["GITHUB_SHA"],
+            "tokenizer_sha256": TOKENIZER_SHA,
+            "train_sha256": data.sha(train_raw),
+            "validation_sha256": data.sha(
+                (root / "data/validation.jsonl").read_bytes()
+            ),
+            "conformance_vectors_passed": True,
+        }
+    )
+    write_report(root / "tokenizer-check.json", token_report)
+    if not token_report["passed"]:
+        raise ValueError(
+            "development token contract failed; aggregate evidence retained"
+        )
     baseline_raw = (root / "data/BASELINES.json").read_bytes()
     load_frozen(baseline_raw, data.sha(train_raw))
     strongest = max(

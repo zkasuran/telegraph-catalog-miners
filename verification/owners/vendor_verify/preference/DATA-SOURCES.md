@@ -27,6 +27,12 @@ It is not verified VAT truth, a task-specific independent audit or proof that
 the live Vendor slot can be won. Entity/time/source-domain independence remains
 unverified. Exact tokenizer retention and actual neural quality run remotely.
 
+The first development job passed the dataset gate but failed its combined token
+retention/conformance check before training. A byte cap does not prove token
+retention. The next revision reports every train/validation text's token-check
+outcome as aggregate counts before refusing any mismatch or truncation. It does
+not alter source splits, inspect the sealed audit or weaken the 512-token gate.
+
 [M1] ModernBERT by Answer.AI and LightOn, revision
 8949b909ec900327062f0ebf497f51aef5e6f0c8. Primary model card:
 https://huggingface.co/answerdotai/ModernBERT-base/raw/8949b909ec900327062f0ebf497f51aef5e6f0c8/README.md

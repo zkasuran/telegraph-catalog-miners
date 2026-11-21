@@ -156,3 +156,12 @@ sealed, not evaluated or claimed as an exact Vendor audit. The workflow train mo
 runs only free public CPU for at most 350 minutes, selects using validation and
 retains a licensed checkpoint. It cannot emit registration-ready evidence or
 activate an endpoint. See preference/DATA-SOURCES.md and preference/SECURITY.md.
+
+## Token-contract recovery
+
+The first general development job passed its 128-pair dataset gate but failed
+before training in its combined token-retention/conformance check. The repaired
+pipeline measures all 384 train/validation rendered texts and emits aggregate
+token loss and tokenizer disagreement counts before refusing a failed contract.
+No audit is inspected, source split changed or token-retention gate lowered.
+No model accuracy, package qualification or canonical registration is claimed.
