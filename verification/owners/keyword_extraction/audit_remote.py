@@ -241,7 +241,7 @@ def main():
                        float(score(r["source"]["text"], r["chosen"])["score_milli"] > score(r["source"]["text"], r["rejected"])["score_milli"]) for r in rows]
         shortcuts["fixed_lexical_diagnostic"] = sum(lexical_wins) / len(lexical_wins)
         format_shortcuts[name] = shortcuts
-    shortcuts = {name + ":" + key: value for name, metrics in format_shortcuts.items() for key, value in metrics.items()}
+    shortcuts = {name + ":" + key: value for name, format_metric in format_shortcuts.items() for key, value in format_metric.items()}
     env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"),
            "FOUNDATION_MODEL_PATH": str(foundation / "foundation_lora_fp32.onnx"),
            "FOUNDATION_MODEL_HASH": standard.FOUNDATION["foundation_lora_fp32.onnx"],
@@ -323,8 +323,8 @@ def main():
         if streams[0] != streams[1]:
             raise ValueError("fresh-process FP32 bits differ")
         raw_scores[label] = streams[0]
-        measured[label] = {name: metrics(row_views[name], streams[0][name]) for name in FORMATS}
         write(args.root / "audit-score-bits.json", raw_scores)
+        measured[label] = {name: metrics(row_views[name], streams[0][name]) for name in FORMATS}
     result = verdict(measured["candidate"], measured["initial"], shortcuts, config)
     result_report = {"family": "KEYWORD_EXTRACTION", **result, "candidate": candidate,
           "formats": measured, "frozen_shortcuts": shortcuts, "failure_controls": failure_controls,
