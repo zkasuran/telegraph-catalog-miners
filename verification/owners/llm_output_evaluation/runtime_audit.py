@@ -15,7 +15,8 @@ import urllib.error
 
 from data import FAMILY, RATINGS, FORMATS, format_pair, control_scores, load_splits, render
 from source_gate import digest, write
-from proxy import Backend, BoundedServer, input_root, identity
+from proxy import Backend, BoundedServer, input_root, identity as wire_identity
+from token_contract import checked_tokens
 
 
 def decode(bits):
@@ -75,14 +76,16 @@ def run_audit(root, reference, identity):
     seed()
     tok = AutoTokenizer.from_pretrained(base, local_files_only=True)
     trainer.check_tokenizer(tok)
+    from tokenizers import Tokenizer
+    node = Tokenizer.from_file(str(foundation / "tokenizer.json"))
+    node.no_padding()
+    node.no_truncation()
     format_rows = {name: [format_pair(r, name) for r in splits["audit"]] for name in FORMATS}
     rows = [r for name in FORMATS for r in format_rows[name]]
     if len(splits["audit"]) < 64 or len({r["group_id"] for r in splits["audit"]}) < 32:
         raise ValueError("complete independent 64-pair audit required")
     texts = [render(r["prompt"], r[s]) for r in rows for s in ("chosen", "rejected")]
-    vectors = [tok(text, truncation=False)["input_ids"] for text in texts]
-    if any(len(ids) > 256 for ids in vectors):
-        raise ValueError("audit requires intact rendered inputs")
+    vectors = [checked_tokens(text, tok, node, 256) for text in texts]
     backbone = AutoModelForSequenceClassification.from_pretrained(base, local_files_only=True, num_labels=1,
                          torch_dtype=torch.float32, attn_implementation="eager")
     model = PeftModel.from_pretrained(backbone, root / "adapter", local_files_only=True)
@@ -138,8 +141,8 @@ def run_audit(root, reference, identity):
                 thread = threading.Thread(target=proxy.serve_forever, daemon=True)
                 thread.start()
                 negative = 0
-                for key in identity(row):
-                    body = {"batch": [{"tokens": [50281,22,50282]}], **identity(row), key: "0" * 64}
+                for key in wire_identity(row):
+                    body = {"batch": [{"tokens": [50281,22,50282]}], **wire_identity(row), key: "0" * 64}
                     req = urllib.request.Request(f"http://127.0.0.1:{proxy.server_port}/runnable", data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
                     try:
                         urllib.request.urlopen(req, timeout=10).close()
@@ -211,6 +214,7 @@ def run_audit(root, reference, identity):
               "exact_repeat_bits": first[:8] == repeated, "exact_fresh_process_bits": fresh == first[:8],
               "bits": first, "native_scores": native, "foundation": helper.FOUNDATION,
               "package_sha256": selected["package_sha256"], "runtime_binary_sha256": digest(executable.read_bytes()),
+              "tokenizer_inputs_compared": len(vectors), "native_node_token_parity": True,
               "versions": {n: importlib.metadata.version(n) for n in ("torch", "transformers", "peft", "numpy", "safetensors")},
               "node_qualification": "not attempted", "quality": format_quality,
               "negative_identity_controls": negative, "limits": ["source-held-out scores are not node qualification", "rating calibration is a proxy"]}

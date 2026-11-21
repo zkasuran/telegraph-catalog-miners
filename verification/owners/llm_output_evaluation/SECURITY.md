@@ -9,6 +9,8 @@
 | Audit-selected candidate | Separate audit job after package/data/baseline freeze, once-only marker and rerun refusal | runtime_audit.py |
 | Synthetic wire success mistaken for node proof | Literal primary render expression plus real reference-engine audit | wire.py; synthetic HTTP tests are labelled and do not qualify a model |
 | Identity substitution | Literal bare-hash request/response equality, package/engine/tokenizer hashes and finite bits | test_wire.py and actual negative identity probes |
+| Run metadata callback used for a wire row | Keep proxy wire_identity separate from the run metadata callback; preserve both literal contracts | test_runtime_identity.py executes the actual nested audit source with synthetic service doubles and reproduces the unfixed TypeError |
+| Native/reference tokenizer drift | Compare complete token arrays, canonical CLS/SEP and bounded integer IDs without padding removal or cropping | test_token_contract.py provides source-only controls; actual tokenizer parity runs remotely before training and audit scoring |
 | Laptop neural execution | Guard before model imports; public github-hosted CPU workflow only | refusal unit test and workflow schema validation |
 | Lost failed checkpoint terms | Full source/model/code grants and inert metadata records | licensing.py, payload-preservation test and remote export/readback |
 | Endpoint takeover | Immutable package/report binding, recorded vectors and common.lease_for public restricted lease | serving.py; signer credentials never enter the runner |

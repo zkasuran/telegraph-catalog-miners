@@ -24,6 +24,8 @@ The owned workflow has evaluate and serve modes on bounded public ubuntu-24.04 C
 
 The audit runs every claimed format through native Torch and the actual WASM reference engine. It checks literal bare-hash echoes, invalid identity refusal and repeated/fresh-process score bits. Registration-ready.json is written only after actual results reach 80% ordering, 70% for every rating slice, five points over untrained and ten points over the strongest shortcut. No shortcut above 65% is accepted. The report binds source, data, package, run, commit and runtime identities.
 
+Training and audit compare complete native and pinned-node token arrays before scoring. No padding removal, input normalization or cropping can conceal a mismatch. The audit also keeps its run metadata callback separate from wire identity construction. Source-only controls execute the actual nested audit function with synthetic service doubles and reproduce the unfixed callback TypeError. These controls are not neural scores or reference-engine qualification.
+
 Serving downloads only immutable verified candidate/report bytes, reproduces recorded reference vectors and uploads only a restricted public lease. The runner's ephemeral forwarding private key is not uploaded. The automatic action adapter handles proxy activation and registration. No paid runner or resource is used.
 
 ## Limits and grants

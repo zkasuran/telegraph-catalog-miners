@@ -15,6 +15,7 @@ import time
 from data import FAMILY, RATINGS, control_scores, load_splits, prepare, render
 from licensing import preserve, terms
 from common import FOUNDATION
+from token_contract import checked_tokens
 from source_gate import digest, inventory, write
 from wire import verify_qualification_render
 
@@ -76,6 +77,10 @@ def train(root):
         raise ValueError("primary unmodified trainer data gate failed")
     tok = AutoTokenizer.from_pretrained(base, local_files_only=True)
     trainer.check_tokenizer(tok)
+    from tokenizers import Tokenizer
+    node = Tokenizer.from_file(str(foundation / "tokenizer.json"))
+    node.no_padding()
+    node.no_truncation()
     checked = 0
     for split_rows in splits.values():
         for row in split_rows:
@@ -83,10 +88,9 @@ def train(root):
                 text = render(row["prompt"], row[side])
                 if text != trainer.render(row["prompt"], row[side]):
                     raise ValueError("literal primary trainer render mismatch")
-                if len(tok(text, truncation=False)["input_ids"]) > 256:
-                    raise ValueError("whole rendered original exceeds 256 tokens; no cropping permitted")
+                checked_tokens(text, tok, node, 256)
                 checked += 1
-    write(root / "token-visible.json", {"complete_vectors": checked, "tokenizer_hash": helper.FOUNDATION["tokenizer.json"]})
+    write(root / "token-visible.json", {"complete_vectors": checked, "tokenizer_hash": helper.FOUNDATION["tokenizer.json"], "native_node_parity": True})
     started = time.monotonic()
     model, tok, train_negatives = trainer.train(str(base), splits["train"], splits["validation"], root / "adapter", hp)
     preserve(root)
