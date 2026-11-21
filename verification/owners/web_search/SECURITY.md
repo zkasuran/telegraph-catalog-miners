@@ -13,6 +13,7 @@
 | Cache or predictable staging symlink redirects a download | Reject nonregular/symlink cache paths, no-follow cache open and exclusive random sibling staging | Harmless mocked downloader controls, not model inference |
 | Failed checkpoint loses terms | Inert safetensors and ZIP licence records | Byte-preservation test and remote head roundtrip |
 | Unsafe endpoint forwarding | Existing common.lease_for restrictions, pinned host and ephemeral key | Public restricted lease, private key never uploaded |
+| Serving startup or cleanup failure leaves owned children or lease files | Resource callbacks registered before each next startup stage, bounded child reap and independent cleanup unwinding | Real serve-function synthetic failure controls and a real harmless child-process reap, not model inference |
 | Repeated audit used to tune | Frozen export before one-shot marker, audit never selects checkpoint | Source contract and remote audit-started marker |
 
 Known limits: source claims may be wrong. This scorer does not browse or verify arbitrary citations. Live daemon miner-field selection is not fully traced. Pretraining overlap is unknown. Download guards assume a trusted runner workspace; they do not protect against a privileged actor replacing ancestor directories concurrently. Runtime and serving checks must actually complete before a registration-ready report is emitted. A hidden quality loss requires a better candidate and a clean audit, not repeated registration of unchanged bytes.

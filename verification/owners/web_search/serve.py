@@ -8,6 +8,7 @@ import socket
 import subprocess
 import threading
 import time
+from contextlib import ExitStack
 from pathlib import Path
 
 from common import DEFAULT_OWNER, HOST, HOST_KEY, immutable_url, lease_for, strict_json
@@ -52,24 +53,47 @@ def prepare_serving(root, settings):
     (root / "known_hosts").write_text(HOST_KEY)
 
 
+def stop_process(process):
+    """Release one owned child with bounded waits, including an exited child."""
+    if process is None:
+        return
+    if process.poll() is not None:
+        process.wait(timeout=5)
+        return
+    try:
+        process.terminate()
+    except ProcessLookupError:
+        process.wait(timeout=5)
+        return
+    try:
+        process.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait(timeout=5)
+
+
 def serve(root):
     remote_only()
     from common import FOUNDATION
-    row = strict_json((root / "serving-state.json").read_bytes())
-    if sha((root / "WEB_SEARCH.safetensors").read_bytes()) != row["sha256"]:
-        raise ValueError("serving package bytes changed")
-    with socket.socket() as probe:
-        probe.bind(("127.0.0.1", 0))
-        port = probe.getsockname()[1]
-    env = {"PATH": os.environ["PATH"], "HOME": str(root), "FOUNDATION_POOL_SIZE": "1",
-           "FOUNDATION_MODEL_PATH": str(root / "foundation/foundation_lora_fp32.onnx"),
-           "FOUNDATION_MODEL_HASH": FOUNDATION["foundation_lora_fp32.onnx"],
-           "FOUNDATION_ENGINE_WASM_PATH": str(root / "foundation/foundation_engine.wasm"),
-           "FOUNDATION_ENGINE_WASM_HASH": FOUNDATION["foundation_engine.wasm"]}
-    executor = subprocess.Popen([str(root / "adapterexec"), "--package", str(root / "WEB_SEARCH.safetensors"), "--listen", f"127.0.0.1:{port}"],
-                                env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    proxy, thread, forward = None, None, None
-    try:
+    # Register each resource as it becomes owned. Every callback runs even when
+    # another cleanup raises. Never call shutdown on an unstarted server loop.
+    with ExitStack() as resources:
+        for name in ("forward-key.pub", "forward-key"):
+            resources.callback((root / name).unlink, missing_ok=True)
+        row = strict_json((root / "serving-state.json").read_bytes())
+        if sha((root / "WEB_SEARCH.safetensors").read_bytes()) != row["sha256"]:
+            raise ValueError("serving package bytes changed")
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            port = probe.getsockname()[1]
+        env = {"PATH": os.environ["PATH"], "HOME": str(root), "FOUNDATION_POOL_SIZE": "1",
+               "FOUNDATION_MODEL_PATH": str(root / "foundation/foundation_lora_fp32.onnx"),
+               "FOUNDATION_MODEL_HASH": FOUNDATION["foundation_lora_fp32.onnx"],
+               "FOUNDATION_ENGINE_WASM_PATH": str(root / "foundation/foundation_engine.wasm"),
+               "FOUNDATION_ENGINE_WASM_HASH": FOUNDATION["foundation_engine.wasm"]}
+        executor = subprocess.Popen([str(root / "adapterexec"), "--package", str(root / "WEB_SEARCH.safetensors"), "--listen", f"127.0.0.1:{port}"],
+                                    env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        resources.callback(stop_process, executor)
         deadline = time.monotonic() + 180
         while time.monotonic() < deadline:
             if executor.poll() is not None:
@@ -82,8 +106,13 @@ def serve(root):
         else:
             raise TimeoutError("serving reference engine readiness ceiling")
         proxy = BoundedServer(("127.0.0.1", 0), row, Backend(port, timeout=180))
+        resources.callback(proxy.server_close)
         thread = threading.Thread(target=proxy.serve_forever, daemon=True)
         thread.start()
+        resources.callback(thread.join, timeout=5)
+        resources.callback(proxy.shutdown)
+        forward = None
+        resources.callback(lambda: stop_process(forward))
         command = ["ssh", "-F", "/dev/null", "-N", "-T", "-i", str(root / "forward-key"),
                    "-o", "IdentitiesOnly=yes", "-o", "IdentityAgent=none", "-o", "BatchMode=yes", "-o", "ConnectTimeout=15",
                    "-o", "StrictHostKeyChecking=yes", "-o", "UserKnownHostsFile=" + str(root / "known_hosts"),
@@ -101,22 +130,6 @@ def serve(root):
                 forward = subprocess.Popen(command, env={"PATH": os.environ["PATH"], "HOME": str(root)},
                                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             time.sleep(5)
-    finally:
-        if proxy is not None:
-            proxy.shutdown()
-            proxy.server_close()
-        if thread is not None:
-            thread.join(timeout=5)
-        for process in (forward, executor):
-            if process is not None and process.poll() is None:
-                process.terminate()
-                try:
-                    process.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    process.kill()
-                    process.wait(timeout=5)
-        for name in ("forward-key", "forward-key.pub"):
-            (root / name).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
