@@ -8,6 +8,7 @@
           "type": "choice",
           "options": [
             "develop",
+            "recover",
             "train",
             "serve"
           ],
@@ -116,7 +117,7 @@
         },
         {
           "name": "Verified full primary inventory replay before successor development",
-          "if": "inputs.mode == 'develop'",
+          "if": "inputs.mode == 'develop' || inputs.mode == 'recover'",
           "timeout-minutes": 25,
           "run": "timeout --signal=TERM --kill-after=20s 1440 python3 verification/owners/fact_check/inventory_replay.py --out \"$RUNNER_TEMP/factcheck-experiment/inventory\""
         },
@@ -126,6 +127,13 @@
           "if": "inputs.mode == 'develop'",
           "timeout-minutes": 275,
           "run": "chmod 000 verification/owners/fact_check/bundle/audit.jsonl\ntest ! -r verification/owners/fact_check/bundle/audit.jsonl\ntimeout --signal=TERM --kill-after=20s 16200 \"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/develop.py --root \"$RUNNER_TEMP/factcheck-experiment\""
+        },
+        {
+          "name": "Frozen head and low-rate recovery ablations without audit access",
+          "id": "recover",
+          "if": "inputs.mode == 'recover'",
+          "timeout-minutes": 265,
+          "run": "chmod 000 verification/owners/fact_check/bundle/audit.jsonl\ntest ! -r verification/owners/fact_check/bundle/audit.jsonl\ntimeout --signal=TERM --kill-after=20s 15600 \"$RUNNER_TEMP/factcheck-venv/bin/python\" verification/owners/fact_check/recover.py --root \"$RUNNER_TEMP/factcheck-experiment\""
         },
         {
           "name": "Preserve exact licensed successful or failed checkpoints",
@@ -152,7 +160,7 @@
             "name": "factcheck-diagnostic-${{ github.run_id }}",
             "retention-days": 7,
             "if-no-files-found": "error",
-            "path": "${{ runner.temp }}/factcheck-experiment/*.json\n${{ runner.temp }}/factcheck-experiment/*.txt\n${{ runner.temp }}/factcheck-experiment/LICENSE\n${{ runner.temp }}/factcheck-experiment/NOTICE\n${{ runner.temp }}/factcheck-experiment/SOURCE-CC0.txt\n${{ runner.temp }}/factcheck-experiment/KIT-LICENSE\n${{ runner.temp }}/factcheck-experiment/UPSTREAM-APACHE-2.0.txt\n${{ runner.temp }}/factcheck-experiment/adapter/\n${{ runner.temp }}/factcheck-experiment/initial/\n${{ runner.temp }}/factcheck-experiment/checkpoint/\n${{ runner.temp }}/factcheck-experiment/data/*.json\n${{ runner.temp }}/factcheck-experiment/inventory/"
+            "path": "${{ runner.temp }}/factcheck-experiment/*.json\n${{ runner.temp }}/factcheck-experiment/*.txt\n${{ runner.temp }}/factcheck-experiment/LICENSE\n${{ runner.temp }}/factcheck-experiment/NOTICE\n${{ runner.temp }}/factcheck-experiment/SOURCE-CC0.txt\n${{ runner.temp }}/factcheck-experiment/KIT-LICENSE\n${{ runner.temp }}/factcheck-experiment/UPSTREAM-APACHE-2.0.txt\n${{ runner.temp }}/factcheck-experiment/adapter/\n${{ runner.temp }}/factcheck-experiment/initial/\n${{ runner.temp }}/factcheck-experiment/checkpoint/\n${{ runner.temp }}/factcheck-experiment/data/*.json\n${{ runner.temp }}/factcheck-experiment/inventory/\n${{ runner.temp }}/factcheck-experiment/recovery/*/*.json\n${{ runner.temp }}/factcheck-experiment/recovery/*/*.txt\n${{ runner.temp }}/factcheck-experiment/recovery/*/LICENSE\n${{ runner.temp }}/factcheck-experiment/recovery/*/NOTICE\n${{ runner.temp }}/factcheck-experiment/recovery/*/KIT-LICENSE\n${{ runner.temp }}/factcheck-experiment/recovery/*/adapter/\n${{ runner.temp }}/factcheck-experiment/recovery/*/initial/\n${{ runner.temp }}/factcheck-experiment/recovery/*/checkpoint/\n${{ runner.temp }}/factcheck-experiment/selected-adapter/"
           }
         },
         {

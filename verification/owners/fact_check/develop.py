@@ -29,14 +29,21 @@ from runtime_check import compile_tools, preflight
 from training_policy import isolated_evaluation
 
 
-def fit(root):
+def fit(root, recipe=None, strategy=None, threads_configured=False):
     remote_only()
     started = time.monotonic()
     preserve(root)
     rows, pins = prepare_development(root / "data")
     kit = prepare_kit(root)
     trainer = load_trainer(kit)
-    hp = trainer.Hyperparams(**RECIPE, grad_checkpointing=False, early_stopping=False, gate_min_acc=.8)
+    chosen_recipe = RECIPE if recipe is None else recipe
+    if strategy is not None:
+        from recovery_policy import RECOVERY_RECIPE, STRATEGIES
+        if strategy not in STRATEGIES or chosen_recipe != RECOVERY_RECIPE:
+            raise ValueError("recovery uses only the declared development ablations")
+    elif chosen_recipe != RECIPE:
+        raise ValueError("original development recipe remains frozen")
+    hp = trainer.Hyperparams(**chosen_recipe, grad_checkpointing=False, early_stopping=False, gate_min_acc=.8)
     from tokenizers import Tokenizer
     tokenizer = Tokenizer.from_file(str(root / "data/sources/tokenizer.json"))
     tokenizer.no_padding()
@@ -68,12 +75,14 @@ def fit(root):
     if torch.cuda.is_available():
         raise ValueError("only the assigned free CPU runtime is permitted")
     torch.set_num_threads(4)
-    torch.set_num_interop_threads(1)
+    if not threads_configured:
+        torch.set_num_interop_threads(1)
     torch.use_deterministic_algorithms(True)
     random.seed(hp.seed)
     np.random.seed(hp.seed)
     torch.manual_seed(hp.seed)
     model, tok = trainer.build_model(str(base), hp)
+    original_names = {name for name, parameter in model.named_parameters() if parameter.requires_grad}
     for values in rows.values():
         for row in values:
             for side in ("chosen", "rejected"):
@@ -86,7 +95,7 @@ def fit(root):
     def state_hash():
         result = hashlib.sha256()
         for name, parameter in model.named_parameters():
-            if parameter.requires_grad:
+            if name in original_names:
                 result.update(name.encode())
                 result.update(parameter.detach().cpu().numpy().tobytes())
         return result.hexdigest()
@@ -115,7 +124,7 @@ def fit(root):
     initial_hash = state_hash()
     untrained = evaluate()
     save(root / "initial")
-    parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    parameters = [parameter for name, parameter in model.named_parameters() if name in original_names]
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
     sampler = torch.Generator(device="cpu").manual_seed(hp.seed)
     loader = DataLoader(rows["train"], batch_size=1, shuffle=True, num_workers=0, generator=sampler,
@@ -125,6 +134,16 @@ def fit(root):
     history, best, best_state, best_hash = [], None, None, None
     steps = 0
     for epoch in range(1, hp.epochs + 1):
+        if strategy is not None:
+            from recovery_policy import parameter_plan
+            planned = parameter_plan(sorted(original_names), strategy, epoch)
+            active = {name for group in planned for name in group["names"]}
+            named = dict(model.named_parameters())
+            for name in original_names:
+                named[name].requires_grad_(name in active)
+            if epoch == 1 or strategy == "head_first" and epoch == 4:
+                optimizer = torch.optim.AdamW([{**{key: value for key, value in group.items() if key != "names"},
+                                               "params": [named[name] for name in group["names"]]} for group in planned])
         model.train()
         optimizer.zero_grad(set_to_none=True)
         losses = []
@@ -149,13 +168,28 @@ def fit(root):
         best, improved = select(best, epoch, metrics)
         if improved:
             best_state = {name: parameter.detach().cpu().clone() for name, parameter in model.named_parameters()
-                          if parameter.requires_grad}
+                           if name in original_names}
             best_hash = state_hash()
             save(root / "adapter")
         save(root / "checkpoint")
         elapsed = time.monotonic() - epoch_started
         history.append({"epoch": epoch, "metrics": metrics, "train_loss_mean": math.fsum(losses) / len(losses),
-                        "epoch_seconds": elapsed, "selected": improved, "rng_restored": True})
+                         "epoch_seconds": elapsed, "selected": improved, "rng_restored": True})
+        if strategy is not None:
+            with isolated_evaluation(model, torch, np):
+                history[-1]["train_metrics"] = trainer.evaluate(model, tok, rows["train"], hp)
+                differences = []
+                with torch.no_grad():
+                    for row in rows["train"]:
+                        values = []
+                        for side in ("chosen", "rejected"):
+                            encoded = tok(render(row["prompt"], row[side]), truncation=False, return_tensors="pt")
+                            values.append(trainer._reward(model, encoded["input_ids"], encoded["attention_mask"]).item())
+                        differences.append(values[0] - values[1])
+                history[-1]["train_reward_differences"] = {"count": len(differences),
+                    "ties": sum(value == 0 for value in differences), "min": min(differences), "max": max(differences),
+                    "mean_absolute": math.fsum(abs(value) for value in differences) / len(differences)}
+            history[-1]["active_parameter_groups"] = [{key: value for key, value in group.items() if key != "names"} for group in planned]
         write_json(root / "development-selection.json", {
             "status": "DEVELOPMENT_ONLY", "family": "FACT_CHECK", "run_id": int(os.environ["GITHUB_RUN_ID"]),
             "commit": os.environ["GITHUB_SHA"], "history": history, "best": best, "best_trainable_sha256": best_hash,
@@ -167,11 +201,11 @@ def fit(root):
         print(json.dumps({"epoch": epoch, "validation": metrics, "train_loss": history[-1]["train_loss_mean"]}), flush=True)
         if time.monotonic() - started + (hp.epochs - epoch) * elapsed > 270 * 60:
             raise TimeoutError("measured development work exceeds its bounded CPU reserve")
-    if len(history) != RECIPE["epochs"] or best_state is None:
+    if len(history) != chosen_recipe["epochs"] or best_state is None:
         raise ValueError("predeclared development recipe did not complete")
     with torch.no_grad():
         for name, parameter in model.named_parameters():
-            if parameter.requires_grad:
+            if name in original_names:
                 parameter.copy_(best_state[name])
     if state_hash() != best_hash:
         raise ValueError("selected development state was not restored exactly")
@@ -187,7 +221,9 @@ def fit(root):
                    "registration_ready": False, "package_exported": False,
                    "limits": ["Validation is development-exposed, not independent audit.",
                               "Only source-consistency True/False prose was developed.",
-                              "No full-package runtime or node qualification is claimed."]})
+                               "No full-package runtime or node qualification is claimed."]})
+    if strategy is not None:
+        report["strategy"] = strategy
     write_json(root / "result.json", report)
     preserve(root)
     return 0 if passed["passed"] else 1

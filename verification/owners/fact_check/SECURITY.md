@@ -43,3 +43,12 @@ all recovered primary pages and a separately bounded continuation. Missing tail
 pages, altered counters, changed primary bytes, false counts and truncated archives
 are refused. No network outage can turn an incomplete source snapshot into a pass.
 The archive identifies referenced subjects, not the eligibility of each statement.
+# Recovery development boundary
+
+Recovery uses only the existing public training and validation groups. Three
+predeclared optimizer/freezing ablations complete before loss-only selection.
+The original exposed audit stays unreadable. Each trial preserves its complete
+source grants before any model loading. Diagnostic artifacts include only reports
+and fitted checkpoints, not downloaded foundation/base weights. Local checks
+test parameter inventory refusal and incomplete/audit-exposed selection refusal.
+Remote quality and reference-engine qualification remain separate gates.

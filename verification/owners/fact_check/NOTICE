@@ -32,3 +32,10 @@ The complete referenced P36 inventory retains all primary captures from run
 not relabelled passing. Its 16-request history and refusals remain unchanged.
 The completed inventory is replayed as licensed source metadata, not as human
 review or proof that every indexed statement supplies a valid factual claim.
+
+Recovery development follows the observed 24-epoch constant-reward failure.
+Three predeclared mechanisms compare a frozen backbone with a trained reward
+head, low-rate LoRA with a separate head rate and a head-first warm start.
+All use unchanged public training/validation groups and retained source grants.
+Loss-only validation selection is development, never independent audit. Failed
+and selected checkpoints retain all original grants. No gate is lowered.

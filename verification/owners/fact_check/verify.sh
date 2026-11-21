@@ -7,4 +7,5 @@ python3 -W error -m unittest discover -s "$OWNER_DIR" -p 'test_*.py' -v
 python3 -W error "$OWNER_DIR/release_gate.py"
 python3 -W error "$OWNER_DIR/development_source_gate.py"
 python3 -W error "$OWNER_DIR/inventory_replay.py"
+python3 -W error -c "import ast,pathlib; root=pathlib.Path('$OWNER_DIR'); [compile(ast.parse((root/name).read_text()),name,'exec') for name in ('recover.py','recovery_policy.py')]"
 printf 'ALL GREEN\n'

@@ -83,3 +83,16 @@ Unverified and the other graded verdicts require broader reviewed coverage.
 The unqualified source statements are scoped to their pinned revision, not a
 claim that the observed world cannot change. Actual trusted observation delivery
 through the deployed judgment caller remains unverified.
+# Development recovery
+
+The 24-epoch development run reached 53.12 percent selected validation accuracy
+with a 12.5 percent True result and a 93.75 percent False result. It failed the
+unchanged quality gates. Validation is not independent audit.
+
+The public CPU workflow has a `recover` mode. It compares a frozen-backbone
+reward head, low-rate LoRA with a separate head rate and a head-first warm start.
+All three run on the same unchanged training/validation groups. The minimum
+validation loss selects a frozen candidate. Reports include training accuracy
+and reward-difference ties to distinguish capacity failure from overfitting.
+No recovery candidate has passed quality, independent audit or node qualification
+yet. Source grants and attribution remain attached to failed checkpoints.
