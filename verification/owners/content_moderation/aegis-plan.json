@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "family": "CONTENT_MODERATION",
+  "arm": "A1",
+  "epochs": 2,
+  "max_tokens": 512,
+  "training_sources": 1584,
+  "validation_sources": 256,
+  "audit_sources": 256,
+  "optimizer_calls": 198,
+  "selection_salts": {
+    "train": "aegis-human-safety-train-v1",
+    "validation": "aegis-human-safety-val-v1",
+    "audit": "aegis-human-safety-independent-audit-v1"
+  },
+  "exclusions_sha256": "4ff865088121160e33fddfb64413b34c77a5aac877cccd23502a2caa26554f8f",
+  "exclusions_count": 768,
+  "warm_start": {
+    "checkpoint": "aegis-warm.safetensors",
+    "checkpoint_sha256": "a4b447bd7dc0dc51d29e6a9c47f0d5f5ceca2db366a9b0fa1d34c3f2318f2ce1",
+    "config": "aegis-warm-config.json",
+    "config_sha256": "b0f4a668416e64cfcc76a558ba645371667d29b9421bf308bcf1e8531672c69f",
+    "untrained": "aegis-untrained.safetensors",
+    "untrained_sha256": "cd00df32c7c7f488885e3b37fce632465b81e6406a84fcbffd3a7a068748747b",
+    "untrained_config": "aegis-untrained-config.json",
+    "untrained_config_sha256": "b0f4a668416e64cfcc76a558ba645371667d29b9421bf308bcf1e8531672c69f"
+  },
+  "scope": "Original NVIDIA Aegis 2.0 human prompt safety labels under CC BY 4.0. Text and response annotations retain original attribution/source distinctions. Programmatic prompt-selection contrasts and a small canonical single-message curriculum, not human-reviewed preference pairs. Full five-file source inventory scanned; redacted/reconstruction rows refused. Independent grouped 256-source audit frozen before model loading, no original exposed or node evaluation rows used to fit/select.",
+  "diagnosis": "Original node model lost 14/27. Measure original M2 on legitimate human-source development with 256/512 context before fitting. Broader safety domain and mandatory prompt-selection contrast break source-answer echo shortcuts. Original JSON boolean coverage was present and is not claimed missing."
+}

@@ -120,3 +120,21 @@ not rewritten after qualification. Original audit rows and local working files
 are not in the release. Coefficients are the immutable train-fitted bytes bound
 by the source manifest, not a new fit. Validation selected the candidate and a
 fresh independent 256-group reference-engine audit measured it once.
+
+
+A1 human safety adaptation
+
+NVIDIA Nemotron Content Safety Dataset V2 (Aegis 2.0), Ghosh et al. 2025,
+https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-2.0
+Original text and annotations retain CC BY 4.0. Section 2(a)(1) grants rights
+to reproduce and Share Licensed Material and to produce, reproduce and Share
+Adapted Material. The complete original grant is in CC-BY-4.0.txt. Our additions
+use reviewed SAND terms subject to those retained grants, with no restrictions
+on upstream licensed portions. Human prompt labels are distinct from generated
+response labels and AI-assisted constructed preferences. No human preference
+review is claimed. Aegis safety classification is an allowed direct use, not
+dialogue generation. Skip redacted/reconstruction records and never identify
+people in the source. Fit training only, select on validation and measure a
+new grouped 256-source audit once in the original reference engine. All three
+exposed Civil Comments audit sets remain excluded. No protected evaluation-pool
+rows become development data. Each neural phase uses bounded public CPU only.

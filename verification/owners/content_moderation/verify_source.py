@@ -54,7 +54,7 @@ def main():
                         raise ValueError("unused owned source import: " + path.name)
     root = HERE.parents[2]
     workflow = json.loads((root / ".github/workflows" / WORKFLOW).read_bytes())
-    if workflow["permissions"] != {"contents": "read"} or len(workflow["jobs"]) != 1:
+    if workflow["permissions"] != {"contents": "read"} or set(workflow["jobs"]) != {"owner", "aegis_fit", "aegis_audit"}:
         raise ValueError("workflow privilege/concurrency changed")
     job = workflow["jobs"]["owner"]
     if job["runs-on"] != "ubuntu-24.04" or job["timeout-minutes"] != 330:
@@ -62,8 +62,13 @@ def main():
     if workflow["concurrency"]["cancel-in-progress"] is not False:
         raise ValueError("workflow may cancel a preserved job")
     mode = workflow["on"]["workflow_dispatch"]["inputs"]["mode"]
-    if mode["options"] != ["expanded", "serve"] or mode["default"] != "expanded":
+    if mode["options"] != ["expanded", "serve", "aegis"] or mode["default"] != "expanded":
         raise ValueError("new training requires the clean independent audit pipeline")
+    if workflow["jobs"]["aegis_audit"].get("needs") != "aegis_fit":
+        raise ValueError("audit must consume frozen validation-selected fit, never fit audit")
+    for policy_job in (workflow["jobs"]["aegis_fit"], workflow["jobs"]["aegis_audit"]):
+        if policy_job["runs-on"] != "ubuntu-24.04" or policy_job["timeout-minutes"] != 330 or "aegis" not in policy_job["if"]:
+            raise ValueError("A1 must remain mode-fenced free bounded public CPU")
     expanded_steps = [step for step in job["steps"] if "expanded_remote.py run" in step.get("run", "")]
     if len(expanded_steps) != 1 or expanded_steps[0]["timeout-minutes"] != 295 or any("remote.py run" in step.get("run", "") and "expanded_remote.py run" not in step.get("run", "") for step in job["steps"]):
         raise ValueError("failed audit cannot be rerun as a new training result")

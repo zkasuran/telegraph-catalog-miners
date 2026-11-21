@@ -73,3 +73,21 @@ pretraining overlap and same-source held-out audit. Source-only tests do not
 verify neural quality. Go compilation and actual reference-engine execution are
 mandatory remote gates. Five-hour free serving leases require byte-preserving
 renewal, not a new registration lottery. No paid infrastructure is created.
+
+
+A1 human safety adaptation
+
+NVIDIA Nemotron Content Safety Dataset V2 (Aegis 2.0), Ghosh et al. 2025,
+https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-2.0
+Original text and annotations retain CC BY 4.0. Section 2(a)(1) grants rights
+to reproduce and Share Licensed Material and to produce, reproduce and Share
+Adapted Material. The complete original grant is in CC-BY-4.0.txt. Our additions
+use reviewed SAND terms subject to those retained grants, with no restrictions
+on upstream licensed portions. Human prompt labels are distinct from generated
+response labels and AI-assisted constructed preferences. No human preference
+review is claimed. Aegis safety classification is an allowed direct use, not
+dialogue generation. Skip redacted/reconstruction records and never identify
+people in the source. Fit training only, select on validation and measure a
+new grouped 256-source audit once in the original reference engine. All three
+exposed Civil Comments audit sets remain excluded. No protected evaluation-pool
+rows become development data. Each neural phase uses bounded public CPU only.
