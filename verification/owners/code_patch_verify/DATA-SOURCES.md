@@ -51,3 +51,17 @@ it. A genuine independent canonical caller proof is required before neural mode.
 
 No protected evaluation rows or development-exposed model audits entered these
 data. Pinned source code and aggregate schema metadata are not model labels.
+
+## Training-record and qualification contracts
+
+The selected child record now uses the pinned node's literal family/children
+shape. Child pairs are frozen audit observations. Accuracy and pooled binary-label
+Spearman are computed from rewards already measured after candidate selection.
+No extra audit inference or audit-based selection is introduced. All-tied rewards
+refuse an undefined correlation rather than reporting an invented zero.
+
+These are self-reported metrics, not independent factual proof. Original fixture
+authorship and caller/data provenance remain in x-cpv-training-provenance.
+ready_contract.py checks bounded report wire shape only. The source workflow's
+training-record controls are explicitly synthetic and excluded from model data.
+The original MIT grant for the pinned kit remains in KIT-LICENSE.

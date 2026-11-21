@@ -16,6 +16,7 @@ import zipfile
 from pathlib import Path
 
 from ci_reference import render
+from export_record import measured_training_record
 from data import HERE, check_splits, control_metrics, digest, write_json
 from static_check import validate_recipe
 
@@ -202,6 +203,7 @@ def experiment(root, base, kit, shared, attestation):
     # Score each audit candidate exactly once after selecting the fixed state.
     model.eval()
     differences = []
+    audit_scores = []
     with torch.no_grad():
         for row in splits["audit"]:
             values = []
@@ -210,6 +212,7 @@ def experiment(root, base, kit, shared, attestation):
                 values.append(trainer._reward(model, encoded["input_ids"], encoded["attention_mask"]).item())
             if not all(math.isfinite(value) for value in values):
                 raise ValueError("nonfinite audit reward")
+            audit_scores.append(values)
             differences.append(values[0] - values[1])
     audit = {"n_eval": len(differences), "pairwise_accuracy": sum(d > 0 for d in differences) / len(differences)}
     ablated = evaluate([{**r, "prompt": ""} for r in splits["audit"]])
@@ -224,8 +227,15 @@ def experiment(root, base, kit, shared, attestation):
         "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
         target_modules=params["target_modules"], max_tokens=hp.max_length,
-        training={"family": "CODE_PATCH_VERIFY", "preference_authorship": "original constructed AI-assisted fixtures",
-                  "caller_contract_sha256": digest(attestation.read_bytes()), "selected_epoch": selected_epoch})
+        training=measured_training_record(audit_scores, report["files"]["audit"]["sha256"],
+                                           audit_used_for_selection=False))
+    meta["x-cpv-training-provenance"] = json.dumps({
+        "preference_authorship": "original constructed AI-assisted fixtures",
+        "caller_contract_sha256": digest(attestation.read_bytes()), "selected_epoch": selected_epoch,
+        "training_pairs": len(splits["train"]), "audit_pairs": len(audit_scores),
+        "pairs_semantics": "frozen paired audit observations",
+        "spearman_method": "pooled chosen/rejected labels versus already measured rewards with average tied ranks",
+        "independent_factual_audit": False}, sort_keys=True, separators=(",", ":"))
     meta.update(terms)
     package = root / "CODE_PATCH_VERIFY.safetensors"
     write_package(package, meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})

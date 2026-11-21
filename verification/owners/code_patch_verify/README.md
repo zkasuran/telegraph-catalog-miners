@@ -51,3 +51,12 @@ those checks. See SECURITY.md for the remaining limits.
 AI assistance used agentrouter/gpt-6.1-sol. No human review is claimed. Reviewed
 SAND terms cover our additions. Original ModernBERT Apache-2.0 and Telegraph
 kit MIT grants remain attached to their portions and every neural export.
+
+## Qualification source integration
+
+The release gate includes literal ready-report and measured child-record source
+controls. The child record is self-reported and does not establish model quality.
+The source CPU mode runs the pinned node parser against labelled synthetic
+training-record controls. Neural training still requires genuine trusted caller
+evidence. Full reference-engine and independent factual qualification remain
+unverified and no ready report is emitted from source test fixtures.

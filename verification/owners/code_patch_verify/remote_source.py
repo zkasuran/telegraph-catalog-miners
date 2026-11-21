@@ -12,6 +12,7 @@ import urllib.request
 from pathlib import Path
 
 from remote import remote_only
+from export_record import measured_training_record
 
 
 def main():
@@ -42,6 +43,21 @@ def main():
     (args.out / "wirecheck.stderr.txt").write_bytes(wire.stderr)
     if wire.returncode:
         raise ValueError("actual primary-source Go wire/boolean checks failed")
+    # Synthetic source controls only, never a training record for a real model.
+    controls = args.out / "training-record-CONTROL-ONLY.json"
+    controls.write_text(json.dumps({
+        "fixture_authorship": "synthetic source control, not model or audit data",
+        "spdx": "LicenseRef-zkasuran-SAND-1.0",
+        "original": {"family": "CODE_PATCH_VERIFY", "preference_authorship": "original constructed AI-assisted fixtures"},
+        "fixed": measured_training_record([[1.0, 0.0], [1.0, 0.0]], "a" * 64, audit_used_for_selection=False)
+    }, sort_keys=True) + "\n")
+    record_env = {**os.environ, "CPV_SOURCE_RECORD_CONTROLS": str(controls)}
+    record = subprocess.run(["go", "test", "-mod=readonly", "-v", str(Path(__file__).resolve().parent / "recordcheck_test.go")],
+                            cwd=kit, env=record_env, capture_output=True, timeout=600)
+    (args.out / "recordcheck.stdout.txt").write_bytes(record.stdout)
+    (args.out / "recordcheck.stderr.txt").write_bytes(record.stderr)
+    if record.returncode:
+        raise ValueError("actual node training-record contract controls failed")
     results = []
     for name, program, expected in (("healthy-control", "assert 2 + 2 == 4\n", 0),
                                     ("deliberate-failure-control", "assert 2 + 2 == 5\n", 1)):
@@ -58,7 +74,8 @@ def main():
               "commit": os.environ["GITHUB_SHA"], "runner_os": os.environ["RUNNER_OS"], "runner_arch": os.environ["RUNNER_ARCH"],
               "process_results": results, "training_permitted": False, "protected_rows_used": False,
               "model_operations": "not_attempted", "reference_engine": "not_executed", "registration_ready": False,
-              "source_only_wire_tests_passed": True, "kit_revision": pins["revision"], "kit_archive_sha256": pins["sha256"],
+              "source_only_wire_tests_passed": True, "source_only_training_record_controls_passed": True,
+               "training_record_controls_are_synthetic": True, "kit_revision": pins["revision"], "kit_archive_sha256": pins["sha256"],
               "scope": "Own measured process smokes, not workflow run conclusion, semantic repair or independently qualified model data",
               "next_gate": "Genuine trusted CI evidence delivery in the literal deployed scorer prompt"}
     (args.out / "source-evidence.json").write_text(json.dumps(report, sort_keys=True, indent=2) + "\n")

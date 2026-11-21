@@ -31,3 +31,14 @@ not a genuinely independent source corpus. Token visibility, neural quality,
 Torch checkpoint reload, full node parser acceptance and exported runtime bits
 remain remote/controller checks. Caller-attestation structure cannot by itself
 prove that the controller's claimed source behavior is true.
+
+## Qualification additions
+
+ready_contract.py refuses identity/type drift, omitted literal format/label
+coverage, weak source/audit bounds, inadequate shortcut improvements and unsafe
+reference token/score-bit vectors. test_ready_contract.py exercises these refusals.
+export_record.py refuses missing score pairs, nonfinite/native-type rewards,
+undefined all-tied correlation and an audit used for selection.
+test_export_record.py exercises the source controls. The remote source job also
+tests the unmodified node TrainingRecord parser and retired-ABI refusal.
+No shape check authenticates a producer or establishes independent source truth.
