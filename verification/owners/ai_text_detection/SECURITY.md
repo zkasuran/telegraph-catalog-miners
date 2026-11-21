@@ -4,6 +4,10 @@
 |---|---|---|
 | Wrong source bytes or missing grant | Git blob plus SHA-256 and per-article CC BY clause | Manifest and tampered-XML controls |
 | Sparse checkout omits gate inputs | Exact owned source and workflow paths in non-cone checkout | Incomplete-checkout refusal control |
+| Diagnostic silently trains or selects on held-out data | Fixed training-only views, branch before optimizer/measurement, no step/backward calls | Plan/split/policy/AST/no-local-neural tests; actual state-bit check remote-only |
+| Gradient decomposition reports a different objective | Exact current scalar components and total gradient comparison | Prepared actual objective/component-sum controls, not local neural evidence |
+| Zero or invalid norms are reported as agreement | Finite Cauchy-Schwarz checks and undefined cosine for zero norm | Geometry positive/opposed/zero/nonfinite/boundary controls |
+| Diagnostic bypasses qualification or exposes audit | Audit steps run only in verify mode, no candidate/registration-ready output | Workflow mode and audit-condition checks; diagnostic status explicitly not qualified |
 | Further source growth replaces old provenance or exposes audit | Immutable parent bundle plus separate64-source manifest and fixed training dates | Source/entity/retired-author exclusions and secondary byte/role/overlap refusals |
 | Additional data hides a failing old corpus | Separate unchanged752,880 and1008 primary data gates | Original data controls remain; fixture-only additive population tests |
 | Source attribution exhausts checkpoint metadata | Compact complete grant/citation fields, full source sidecars | Attribution retention test; existing1MiB header ceiling remains |
@@ -100,6 +104,11 @@ not human review or independent factual proof. It does not expose or fit the aud
 Answer cues may still carry source information, so this term cannot replace any
 old shortcut, format, label or reference-engine acceptance gate. Actual tensor
 and gradient controls run only in the bounded public CPU job.
+
+Gradient diagnostics are descriptive measurements on fitted training material.
+They do not establish a quality cause, validate a new model or certify factual
+truth. No optimizer or gradient surgery is used. Fixed view selection is independent
+of scores and audit data. Existing data/source/loss/quality/runtime gates remain.
 
 Known limits: pretraining overlap is unknown. Journal controls do not certify an
 individual's production history. DistilGPT2 is related to GPT-2. A source-held-out

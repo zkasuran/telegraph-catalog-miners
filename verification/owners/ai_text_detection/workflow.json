@@ -7,7 +7,8 @@
           "type": "choice",
           "options": [
             "verify",
-            "serve"
+            "serve",
+            "diagnose"
           ],
           "required": true,
           "default": "verify"
@@ -59,14 +60,15 @@
   },
   "jobs": {
     "verify": {
-      "if": "${{ inputs.mode == 'verify' }}",
+      "if": "${{ inputs.mode == 'verify' || inputs.mode == 'diagnose' }}",
       "runs-on": "ubuntu-24.04",
       "timeout-minutes": 350,
       "env": {
         "PYTHONDONTWRITEBYTECODE": "1",
         "TOKENIZERS_PARALLELISM": "false",
         "OMP_NUM_THREADS": "4",
-        "MKL_NUM_THREADS": "4"
+        "MKL_NUM_THREADS": "4",
+        "OWNER_DIAGNOSTIC_ONLY": "${{ inputs.mode == 'diagnose' }}"
       },
       "steps": [
         {
@@ -123,19 +125,21 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate_secondary.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
-          "name": "Fit same-verdict source contrast under unchanged all-format gates",
+          "name": "Measure fixed training gradients or run unchanged frozen qualification",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
           "name": "Separate held-out checkpoint audit generation",
           "timeout-minutes": 20,
-          "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate.py --root \"$RUNNER_TEMP/ai-owner\" --partition audit"
+          "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate.py --root \"$RUNNER_TEMP/ai-owner\" --partition audit",
+          "if": "${{ inputs.mode == 'verify' }}"
         },
         {
           "name": "Actual reference-engine frozen audit and failure controls",
           "timeout-minutes": 120,
-          "run": "timeout --signal=TERM --kill-after=20s 7160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/audit_runtime.py --root \"$RUNNER_TEMP/ai-owner\""
+          "run": "timeout --signal=TERM --kill-after=20s 7160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/audit_runtime.py --root \"$RUNNER_TEMP/ai-owner\"",
+          "if": "${{ inputs.mode == 'verify' }}"
         },
         {
           "name": "Preserve bounded licensed pass or failure evidence",

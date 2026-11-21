@@ -54,7 +54,7 @@ def main():
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
                 raise ValueError("neural import in local release path")
-    for name in ("secondary_contract.py", "test_secondary.py", "generation_resume.py", "test_generation_resume.py", "test_minimal_verdict.py", "source_margin.py", "test_source_margin.py", "dropout_contract.py", "test_dropout.py", "verdict_contrast.py", "test_verdict_contrast.py"):
+    for name in ("secondary_contract.py", "test_secondary.py", "generation_resume.py", "test_generation_resume.py", "test_minimal_verdict.py", "source_margin.py", "test_source_margin.py", "dropout_contract.py", "test_dropout.py", "verdict_contrast.py", "test_verdict_contrast.py", "gradient_contract.py", "test_gradient_diagnostic.py"):
         for node in ast.walk(ast.parse((HERE / name).read_text())):
             modules = [node.module] if isinstance(node, ast.ImportFrom) else [a.name for a in node.names] if isinstance(node, ast.Import) else []
             if any(m and m.split(".")[0] in {"torch", "transformers", "peft", "numpy"} for m in modules):
@@ -81,6 +81,13 @@ def main():
     dropout_policy(recipe)
     from verdict_contrast import contrast_policy
     contrast_policy(recipe)
+    from gradient_contract import diagnostic_policy
+    diagnostic_policy(recipe)
+    if set(workflow["on"]["workflow_dispatch"]["inputs"]["mode"]["options"]) != {"verify", "serve", "diagnose"}:
+        raise ValueError("diagnostic mode missing from bounded owned workflow")
+    for step in workflow["jobs"]["verify"]["steps"]:
+        if step.get("name") in ("Separate held-out checkpoint audit generation", "Actual reference-engine frozen audit and failure controls") and step.get("if") != "${{ inputs.mode == 'verify' }}":
+            raise ValueError("diagnostic execution must not expose the sealed audit")
     if recipe.get("secondary_bare_groups") != 2 or type(recipe["secondary_bare_groups"]) is not int:
         raise ValueError("fixed two-group secondary minimal-verdict supervision required")
     retained_prefix((HERE / "recovery/secondary-prefix.jsonl").read_bytes(), json.loads((HERE / "recovery/secondary-prefix-producer.json").read_text()))

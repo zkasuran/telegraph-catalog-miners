@@ -2,6 +2,12 @@ Original journal article portions are governed by CC BY 3.0 or CC BY 4.0 as
 specified per article in sources.json. Their authors, DOI, original source,
 version, licence URI and changes are retained. No source grant is replaced.
 
+The training-only gradient diagnostic uses existing licensed source material and
+fitted state without updating parameters or creating evaluation annotations.
+PyTorch autograd API retains its original grant in PYTORCH-LICENSE. Our selection,
+geometry and reporting additions use SAND only on our additions, subject to all
+original grants. No human review, new model quality or canonical result is claimed.
+
 Same-verdict paired-source contrast is our SAND training-only addition, subject
 to all retained source/model/software grants. It uses existing human-control and
 recorded GPT-2 scores, not new human preference review or independent source truth.

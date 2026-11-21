@@ -95,6 +95,13 @@ counterparts and every source/data/quality gate still have to pass remotely.
 
 ## Current source-verdict experiment
 
+The current additional mode is a training-only gradient diagnostic, not another
+model or registration. It measures six fixed views of the existing1008-row corpus
+and exact selected state, with no optimizer, validation/audit scoring or exported
+candidate. Reports include component-gradient sum and unchanged-state controls.
+The existing verify mode still runs every frozen quality and reference-engine
+gate. See DATA-SOURCES.md for the hypothesis and explicit limits.
+
 The zero-dropout job passed its native repeat control but did not improve the
 weakest strict validation margin. The current candidate adds a fixed same-verdict
 contrast within each existing human/GPT-2 source pair, reusing the same four scores.

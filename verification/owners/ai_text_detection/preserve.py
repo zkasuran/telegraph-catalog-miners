@@ -55,7 +55,7 @@ def main():
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
-    for name in ("capacity-continuation.json", "capacity-tensor-controls.json", "capacity-gradient-control.json", "source-margin-tensor-controls.json", "comparison-dropout-control.json", "same-verdict-tensor-controls.json"):
+    for name in ("capacity-continuation.json", "capacity-tensor-controls.json", "capacity-gradient-control.json", "source-margin-tensor-controls.json", "comparison-dropout-control.json", "same-verdict-tensor-controls.json", "gradient-interaction-report.json"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
@@ -92,7 +92,9 @@ def main():
             # its bytes or its audited identity. Only raw checkpoints need stamps.
             if path.name in ("AI_TEXT_DETECTION.safetensors", "UNTRAINED.safetensors"):
                 (out / path.name).write_bytes(path.read_bytes())
-    dump(out / "result.json", {"status": "REGISTRATION_READY" if (out / "registration-ready.json").exists() else "INCOMPLETE_OR_FAILED",
+    diagnostic = out / "gradient-interaction-report.json"
+    diagnostic_complete = diagnostic.exists() and json.loads(diagnostic.read_text()).get("status") == "GRADIENT_DIAGNOSTIC_COMPLETE"
+    dump(out / "result.json", {"status": "REGISTRATION_READY" if (out / "registration-ready.json").exists() else "DIAGNOSTIC_COMPLETE_NOT_QUALIFIED" if diagnostic_complete else "INCOMPLETE_OR_FAILED",
                                "limits": "Only present observed reports are retained. Missing runtime or audit is not a pass."})
     dump(out / "artifact-manifest.json", {"files": [{"path": p.name, "sha256": sha(p.read_bytes()), "bytes": p.stat().st_size}
          for p in sorted(out.iterdir()) if p.is_file()]})

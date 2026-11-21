@@ -162,5 +162,17 @@
     "runtime_transform": false,
     "source_labels_changed": false,
     "audit_used": false
+  },
+  "gradient_diagnostic": {
+    "scope": "training_only",
+    "views_per_format": 2,
+    "maximum_views": 6,
+    "selection": "lowest_group_and_view_hashes_without_scores",
+    "time_limit_seconds": 900,
+    "optimizer_updates": 0,
+    "validation_used": false,
+    "audit_used": false,
+    "gradient_surgery": false,
+    "registration_eligible": false
   }
 }

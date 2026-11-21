@@ -95,6 +95,10 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
     source_consistency_policy = source_margin_policy(recipe)
     parameters = [p for p in model.parameters() if p.requires_grad]
     parameters += list(origin_aux.head.parameters())
+    if os.environ.get("OWNER_DIAGNOSTIC_ONLY") == "true":
+        from train_gradient_diagnostic import probe
+        probe(model, tok, train_rows, supplementary_pairs, secondary_pairs, origin_aux, hp, trainer, root)
+        return None, None
     optimizer = torch.optim.AdamW(parameters, lr=hp.lr, weight_decay=hp.weight_decay)
     supplement_groups = {}
     for row in origin_aux.extra_views + origin_aux.secondary_views:

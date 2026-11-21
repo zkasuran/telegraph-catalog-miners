@@ -169,3 +169,4 @@ Minimal-verdict training on completed secondary source material retains those gr
 Detached source-margin training consistency retains PyTorch and all original grants.
 Zero training dropout controls retain PEFT and all original model/source grants.
 Same-verdict source contrast retains original training data/model/software grants.
+Training-only gradient diagnostics retain source/model/software grants without new fitting.

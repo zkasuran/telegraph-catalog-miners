@@ -1,5 +1,38 @@
 # Sources and rights
 
+## Fixed training-only gradient interaction diagnostic
+
+Run44829697076 passed all source/tensor/data/parser controls but still failed
+strict validation. Both epochs were unselected and the audit stayed sealed. No
+new loss weight or unchanged package is tried for another random draw.
+
+The next mode measures the current objective on six fixed existing training
+views, two per claimed format and six independent source groups. Selection uses
+source-group and view hashes without scores. It reuses the1008-row corpus and
+exact selected adapter/readout. No source annotation or preference is changed.
+
+The diagnostic decomposes the exact current loss into verdict, origin BCE,
+detached source-margin consistency, counterpart gap, paired-margin alignment
+and same-verdict contrast components. It measures each component's shared-LoRA,
+reward-head and source-readout gradient norms and dot/cosine alignment with the
+verdict component. An actual total-gradient/component-sum check verifies the
+measurement covers the current expression. No projection, optimizer update,
+candidate selection, validation score or audit is performed.
+
+[TORCH-AUTOGRAD-GRAD-2.15] The primary API returns gradients with respect to named
+inputs rather than accumulating parameter.grad. retain_graph keeps the same
+forward graph for component measurements; allow_unused reports unused parameters
+asNone. API/hash evidence is in gradient-primary-source.json. PyTorch's original
+grant and copyright remain in PYTORCH-LICENSE; our diagnostic additions use SAND.
+https://docs.pytorch.org/docs/2.15/generated/torch.autograd.grad.html
+
+Diagnose mode uploads only bounded licensed reports and existing source evidence.
+It records actual run, commit, runtime, data and checkpoint identities plus pinned
+foundation/engine/tokenizer hashes. There is no exported candidate package or
+node verification. State bits and absent accumulated parameter gradients must
+remain unchanged. A negative cosine is an observation, not an established cause
+of quality loss. No registration-ready envelope may result from this mode.
+
 ## Same-verdict paired-source contrast
 
 Run44818132646 verified zero active dropout and native train/train/eval identity.

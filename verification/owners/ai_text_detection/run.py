@@ -270,6 +270,11 @@ def main():
         model, _ = fit(str(base), splits["train"], validation_formats, validation_baselines, adapter, hp, trainer, root)
     finally:
         trainer.build_model = build
+    if os.environ.get("OWNER_DIAGNOSTIC_ONLY") == "true":
+        report = json.loads((root / "gradient-interaction-report.json").read_text())
+        if model is not None or report["status"] != "GRADIENT_DIAGNOSTIC_COMPLETE" or report["optimizer_updates"] != 0:
+            raise ValueError("diagnostic-only execution failed its no-update/complete contract")
+        return
     (adapter / "tokenizer.json").write_bytes((foundation / "tokenizer.json").read_bytes())
     validation_results = {}
     for style, rows in validation_formats.items():
