@@ -4,17 +4,21 @@
   "family": "QUESTION_ANSWERING",
   "generation": 2,
   "training_objective": {
-    "version": "development-length-debias-v1",
-    "ranking_loss": "Bradley-Terry",
-    "nuisance": "signed source character-length direction",
-    "regularizer": "0.25 * mean(reward_margin * nuisance_sign)^2",
+    "version": "prompt-conditional-ranking-v1",
+    "ranking_loss": "Original Bradley-Terry plus conditional Bradley-Terry on own-minus-displaced margin",
+    "nuisance": "answer preference on a lexically disjoint training prompt",
+    "regularizer": "0.25 * displaced_reward_margin^2",
     "optimizer_group": 16,
     "balanced_sides": [8, 8],
-    "gradient": "two-pass exact detached moment coefficient, identical dropout RNG replay",
+    "gradient": "direct four-forward differentiable context loss per original pair",
+    "auxiliary_label_origin": "constructed displacement-neutrality assumption, not human-reviewed",
+    "neutrality_assumption_is_source_truth": false,
     "fit_split": "train",
     "serving_remap": false,
     "audit_selection": false
   },
+  "context_plan_sha256": "30694fde2a8a49a2ecbc9fa7903326b21c74a55ced0e461c36fd19d8b1c704c7",
+  "context_auxiliary_controls": 768,
   "splits": {
     "train": {
       "rows": 768,

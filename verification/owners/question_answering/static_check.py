@@ -20,6 +20,13 @@ def main():
     objective = contract["training_objective"]
     if objective["optimizer_group"] != GROUP or WEIGHT != .25 or objective["fit_split"] != "train" or objective["serving_remap"] is not False:
         raise ValueError("train-only objective contract changed")
+    from context_policy import NEUTRAL_WEIGHT, VERSION
+    if (objective["version"] != VERSION or NEUTRAL_WEIGHT != .25
+            or objective["auxiliary_label_origin"] != "constructed displacement-neutrality assumption, not human-reviewed"
+            or objective["neutrality_assumption_is_source_truth"] is not False
+            or contract["context_auxiliary_controls"] != 768
+            or contract["context_plan_sha256"] != "30694fde2a8a49a2ecbc9fa7903326b21c74a55ced0e461c36fd19d8b1c704c7"):
+        raise ValueError("constructed training context provenance or identity mismatch")
     if contract["quality"] != {"minimum_accuracy": .8, "minimum_subset_accuracy": .7, "minimum_untrained_gain": .05,
                                "minimum_shortcut_gain": .10, "maximum_shortcut_accuracy": .65}:
         raise ValueError("quality gates changed")

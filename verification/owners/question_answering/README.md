@@ -50,7 +50,7 @@ the selected epoch ordered 80/128 correctly, with 55/64 longer-preferred versus
 25/64 shorter-preferred cases. The audit was not scored. All original data and
 frozen baseline bytes remain unchanged; that audit remains unconsumed.
 
-The next fixed training objective is Bradley-Terry loss plus 0.25 times the
+The previous fixed training objective was Bradley-Terry loss plus 0.25 times the
 squared mean of reward margin multiplied by source length direction. Every
 optimizer group contains eight source longer-preferred and eight shorter-preferred
 pairs, without changing or repeating any source preference. A detached first
@@ -58,5 +58,22 @@ pass measures the moment; a second pass replays the same dropout RNG and supplie
 the exact moment derivative with one-pair activation memory. Source-only finite
 differences verify that gradient. This is a training-only nuisance regularizer,
 not a serving-time score rescale. Real neural behavior and improvement remain
-unverified until a bounded remote job runs. Development loss still selects the
+measured only by a bounded remote job. Development loss still selects the
 checkpoint, with all audit, quality and baseline-improvement gates unchanged.
+
+## Prompt-conditional candidate after the debias loss
+
+Run 44855724690 completed all 144 steps but ordered only 81/128 development
+pairs correctly. Its selected epoch had 49/64 longer-preferred and 32/64
+shorter-preferred wins. The length repair gained one net win, not a quality pass.
+The audit remained unused. The next mechanism keeps original Bradley-Terry
+supervision and adds conditional ranking against a displaced training prompt.
+
+All 768 auxiliary mappings use training groups only, retain unchanged source
+texts and fit complete inputs within 256 tokens. Their displaced-margin neutrality
+constraint is constructed, not human-reviewed or source truth. This trains prompt
+dependence without an inference-time subtraction or score remap. Remote diagnostics
+measure original, answer-only and displaced-prompt margins on development, with
+real ties and token counts. They are not an independent audit and do not select
+the checkpoint. Development loss still selects; the original audit and all gates
+remain unchanged. Model improvement is unverified until the next remote result.

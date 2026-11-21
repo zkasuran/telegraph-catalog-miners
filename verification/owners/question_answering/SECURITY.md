@@ -12,9 +12,14 @@
 | Forged runtime agreement | Pinned engine/foundation, all audit bits repeated and fresh-process vectors | Actual reference executor report |
 | Unlicensed checkpoints | Full own SAND plus separate upstream grants in byte metadata and sidecars | Metadata source tests and guarded remote roundtrip |
 | Forwarding-key misuse | Ephemeral runner key, standard restricted public lease, exact report hashes | Lease contract; only lease is uploaded |
+| Constructed controls passed off as human ranks | Separate train-only auxiliary provenance and immutable original source preferences | Context provenance contract and nontraining/fabricated-label refusal tests |
+| Cross-group context contamination or clipping | Training-only donor indices, distinct group, disjoint lexical topic and complete 256-token renderings | Actual frozen plan plus overlap/group/clipping refusal tests |
 
 Known limits: source preferences are subjective and do not prove factual truth.
 Source PII annotations are not an independent privacy audit. Pretraining overlap
 is unknown. Source-held-out results are not canonical node qualification. This
 code does not receive provider or signer credentials. Native/WASM comparison is
 numerical and ordering agreement, not an assumed bit identity across runtimes.
+The displaced-prompt neutrality assumption is constructed and may be false for
+generic answers. Lexical disjointness is not factual proof. Only untouched human
+preferences supply development/audit labels. Auxiliary diagnostics are not audits.

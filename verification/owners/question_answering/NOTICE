@@ -27,3 +27,7 @@ The QA class-check wrapper binds the live primary family and child before using
 the unmodified Telegraph full parser. A null QA response schema is not relabelled
 as a sentiment schema. The inspected controller helper revision is
 a18b51ce4be30741a86e2432416b5b283a795b4d.
+Prompt-conditional training adds constructed displacement-neutrality controls
+using unchanged public training source texts only. These auxiliary annotations
+are AI-assisted assumptions, not original human judgments. They do not enter
+held-out labels or restrict the original source grant. Literal scoring is unchanged.

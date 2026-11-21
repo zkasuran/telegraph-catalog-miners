@@ -11,15 +11,12 @@ import time
 from dataclasses import asdict
 from pathlib import Path
 
+from context_policy import NEUTRAL_WEIGHT, disjoint_prompt, plan, plan_sha
 from controls import run_gate
 from data import HERE, prepare, read_splits, write_json
 from debias_policy import (
     GROUP,
-    WEIGHT,
-    direction,
-    nuisance_moment,
     optimizer_groups,
-    reference_objective,
 )
 from foundation import prepare_kit, prepare_reference
 from licensing import OWN_ID, licence_metadata, preserve_artifact
@@ -105,6 +102,17 @@ def experiment(root):
     node = Tokenizer.from_file(str(foundation / 'tokenizer.json'))
     node.no_padding()
     node.no_truncation()
+    context_plan = plan(splits['train'], lambda text: node.encode(text).ids)
+    contract = __import__('json').loads((HERE / 'contract.json').read_text())
+    if plan_sha(context_plan) != contract['context_plan_sha256']:
+        raise ValueError('constructed training context plan differs from source freeze')
+    write_json(data_root / 'train-context-plan.json', context_plan)
+    data_report['constructed_training_context'] = {
+        'plan_sha256': plan_sha(context_plan), 'auxiliary_controls': context_plan['auxiliary_controls'],
+        'fit_split': 'train', 'source_text_grant': 'Apache-2.0', 'source_preferences_unchanged': True,
+        'auxiliary_label_origin': context_plan['auxiliary_labels'], 'neutrality_assumption_is_source_truth': False}
+    write_json(data_root / 'data-report.json', data_report)
+    foreign_indices = {entry['source_index']: entry['foreign_prompt_index'] for entry in context_plan['mappings']}
     for rows in splits.values():
         for row in rows:
             for side in ('chosen', 'rejected'):
@@ -160,10 +168,51 @@ def experiment(root):
                         raise ValueError('nonfinite native audit score')
                     scores.append(value)
         return scores
+
+    def development_diagnostics(model, epoch):
+        """Measure actual prompt dependence on validation, never on audit."""
+        records = []
+        with isolated_evaluation(model, torch, np):
+            for row in splits['validation']:
+                donor = next((candidate for candidate in splits['train']
+                              if disjoint_prompt(row, candidate, lambda text: node.encode(text).ids)), None)
+                record = {'group_id': row['group_id'],
+                          'length_direction': 'chosen_longer' if len(row['chosen']) > len(row['rejected']) else 'chosen_shorter'}
+                modes = [('original', row['prompt']), ('answer_only', '')]
+                if donor is not None:
+                    modes.append(('displaced', donor['prompt']))
+                    record['foreign_prompt_group_id'] = donor['group_id']
+                with torch.no_grad():
+                    for mode, prompt in modes:
+                        scores, lengths = [], []
+                        for side in ('chosen', 'rejected'):
+                            text = trainer.render(prompt, row[side])
+                            encoded = tok(text, truncation=False, return_tensors='pt')
+                            lengths.append(encoded['input_ids'].numel())
+                            value = trainer._reward(model, encoded['input_ids'], encoded['attention_mask']).item()
+                            if not math.isfinite(value) or lengths[-1] > 256:
+                                raise ValueError('invalid full development diagnostic input or score')
+                            scores.append(value)
+                        record[mode] = {'scores': scores, 'margin': scores[0] - scores[1], 'tokens': lengths}
+                records.append(record)
+        metrics = {}
+        for mode in ('original', 'answer_only', 'displaced'):
+            margins = [row[mode]['margin'] for row in records if mode in row]
+            metrics[mode] = {'pairs': len(margins), 'wins': sum(value > 0 for value in margins),
+                             'ties': sum(value == 0 for value in margins),
+                             'accuracy': sum(value > 0 for value in margins) / len(margins) if margins else None}
+        write_json(root / ('development-diagnostics-' + str(epoch) + '.json'), {
+            'schema_version': 1, 'family': 'QUESTION_ANSWERING', 'run_id': os.environ['GITHUB_RUN_ID'],
+            'commit': os.environ['GITHUB_SHA'], 'split': 'validation', 'epoch': epoch,
+            'source_sha256': data_report['files']['validation']['sha256'], 'trainable_sha256': state_hash(model),
+            'audit_used': False, 'selection_metric': False, 'normalized_overlap': data_report['normalized_overlap'],
+            'label_boundary': 'Original human ranks score original/answer-only inputs. Displaced-prompt ranks are a constructed diagnostic, not human judgments.',
+            'metrics': metrics, 'records': records})
     seed()
     model, tok = trainer.build_model(str(base), hp)
     initial_hash = state_hash(model)
     save_checkpoint(model, root / 'initial')
+    development_diagnostics(model, 0)
     if hp.epochs != EPOCHS:
         raise ValueError('fixed three-epoch training contract changed')
     params = [p for p in model.parameters() if p.requires_grad]
@@ -172,7 +221,7 @@ def experiment(root):
     if len(splits['train']) % GROUP or hp.grad_accum != GROUP:
         raise ValueError('fixed CPU batch requires complete accumulation groups')
     timings, losses = ([], [])
-    moments = []
+    context_statistics = []
     best, best_state, best_hash = (None, None, None)
     development_history = []
     for epoch in range(1, EPOCHS + 1):
@@ -181,40 +230,37 @@ def experiment(root):
         step_started = time.monotonic()
         for indices in optimizer_groups(splits['train'], hp.seed, epoch):
             batches = [collator([splits['train'][index]]) for index in indices]
-            signs = [direction(splits['train'][index]) for index in indices]
-            rng_before = torch.get_rng_state().clone()
-            margins = []
-            # First pass measures the exact train-only nuisance moment without
-            # retaining activation graphs. The second pass supplies its gradient.
-            with torch.no_grad():
-                for batch in batches:
-                    first_c = trainer._reward(model, batch['chosen_input_ids'], batch['chosen_attention_mask'])
-                    first_r = trainer._reward(model, batch['rejected_input_ids'], batch['rejected_attention_mask'])
-                    margins.append((first_c - first_r).item())
-            rng_after = torch.get_rng_state().clone()
-            moment, coefficient = nuisance_moment(margins, signs)
-            moments.append({'moment': moment, 'true_objective': reference_objective(margins, signs)})
-            torch.set_rng_state(rng_before)
-            for batch, sign, measured in zip(batches, signs, margins):
+            group_stats = []
+            for index, batch in zip(indices, batches):
                 rc = trainer._reward(model, batch['chosen_input_ids'], batch['chosen_attention_mask'])
                 rr = trainer._reward(model, batch['rejected_input_ids'], batch['rejected_attention_mask'])
                 margin = (rc - rr).mean()
-                if not math.isclose(margin.item(), measured, rel_tol=1e-6, abs_tol=1e-6):
-                    raise ValueError('train-only two-pass dropout replay changed')
                 bt = trainer.bt_loss(rc, rr, batch['margin'])
-                loss = bt + coefficient * sign * margin
+                loss = bt
+                if index in foreign_indices:
+                    original = splits['train'][index]
+                    foreign_prompt = splits['train'][foreign_indices[index]]['prompt']
+                    foreign_batch = collator([{**original, 'prompt': foreign_prompt}])
+                    fc = trainer._reward(model, foreign_batch['chosen_input_ids'], foreign_batch['chosen_attention_mask'])
+                    fr = trainer._reward(model, foreign_batch['rejected_input_ids'], foreign_batch['rejected_attention_mask'])
+                    foreign_margin = (fc - fr).mean()
+                    conditional = torch.nn.functional.softplus(-(margin - foreign_margin - batch['margin'].mean()))
+                    loss = bt + conditional + NEUTRAL_WEIGHT * foreign_margin.square()
+                    group_stats.append({'own_margin': margin.item(), 'foreign_margin': foreign_margin.item(),
+                                        'conditional_loss': conditional.item(), 'total_loss': loss.item()})
                 if not torch.isfinite(loss):
-                    raise ValueError('nonfinite debiased training loss')
+                    raise ValueError('nonfinite prompt-conditional training loss')
                 (loss / GROUP).backward()
                 losses.append(bt.item())
-            if not torch.equal(rng_after, torch.get_rng_state()):
-                raise ValueError('two-pass training RNG consumption changed')
+            context_statistics.append({'auxiliary_pairs': len(group_stats),
+                                       'mean_absolute_foreign_margin': sum(abs(v['foreign_margin']) for v in group_stats) / len(group_stats) if group_stats else None,
+                                       'mean_conditional_loss': sum(v['conditional_loss'] for v in group_stats) / len(group_stats) if group_stats else None})
             torch.nn.utils.clip_grad_norm_(params, 1.0, error_if_nonfinite=True)
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
             timings.append(time.monotonic() - step_started)
             save_checkpoint(model, root / 'checkpoint')
-            write_json(root / 'checkpoint.json', {'status': 'INCOMPLETE', 'optimizer_steps': len(timings), 'step_seconds': timings, 'hyperparameters': asdict(hp), 'initial_sha256': initial_hash, 'runtime_integration': 'INCOMPLETE', 'epoch': epoch, 'max_epochs': EPOCHS, 'selected_development': best, 'licence_metadata': licence_metadata(), 'training_objective': 'BT plus squared train-only length-direction moment', 'nuisance_weight': WEIGHT, 'nuisance_moments': moments})
+            write_json(root / 'checkpoint.json', {'status': 'INCOMPLETE', 'optimizer_steps': len(timings), 'step_seconds': timings, 'hyperparameters': asdict(hp), 'initial_sha256': initial_hash, 'runtime_integration': 'INCOMPLETE', 'epoch': epoch, 'max_epochs': EPOCHS, 'selected_development': best, 'licence_metadata': licence_metadata(), 'training_objective': objective, 'context_plan_sha256': plan_sha(context_plan), 'context_statistics': context_statistics})
             remaining = EPOCHS * len(splits['train']) / GROUP - len(timings)
             if time.monotonic() - started + remaining * max(timings) > 300 * 60:
                 raise TimeoutError('measured throughput exceeds fixed training reserve')
@@ -223,6 +269,7 @@ def experiment(root):
         numpy_rng = np.random.get_state()
         torch_rng = torch.get_rng_state().clone()
         development = evaluate(model, splits['validation'])
+        development_diagnostics(model, epoch)
         numpy_after = np.random.get_state()
         if random.getstate() != python_rng or numpy_rng[0] != numpy_after[0] or (not np.array_equal(numpy_rng[1], numpy_after[1])) or (numpy_rng[2:] != numpy_after[2:]) or (not torch.equal(torch_rng, torch.get_rng_state())):
             raise ValueError('development evaluation advanced training RNG')
@@ -262,6 +309,7 @@ def experiment(root):
     write_package(root / 'QUESTION_ANSWERING.safetensors', meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
     preserve_artifact(root / 'QUESTION_ANSWERING.safetensors')
     del model, tensors, optimizer, params, collator, batches, rc, rr, loss, best_state
+    del fc, fr, foreign_margin, foreign_batch, conditional, margin
     gc.collect()
     seed()
     initial, _ = trainer.build_model(str(base), hp)

@@ -27,8 +27,24 @@ Generation two excludes every component or normalized actual input connected to
 the prior 224 exposed source originals. The old audit is failed diagnostic
 evidence, never training or selection material. The new 768/128 source design and
 train-fitted coefficients froze before constructing a 64-component replacement
-audit. Each source preference remains original. No fabricated negatives are used.
+audit. Each source preference remains original. No fabricated source negatives are used.
 
 Fitted source data is not an independent audit. The later audit measures a frozen
 candidate once. Relevance/usefulness under original human preferences is the
 validated scope, not universal factual certification or protected-node equivalence.
+
+## Constructed training context controls
+
+After the length-moment candidate failed development, training adds 768 paired
+prompt-displacement controls. Every text is an unchanged public training source
+text under Apache-2.0. No validation or audit text enters these controls. A fixed
+train-only mapping chooses a different source group with lexically disjoint
+prompt content and complete input tokenization within 256 tokens. Donor reuse
+is bounded to two. The source-data freeze and original preference rows are unchanged.
+
+The added neutrality constraint is constructed and AI-assisted, not an original
+source annotation or a human-reviewed preference. It assumes that a displaced
+prompt should remove an answer-style preference. Lexical disjointness does not
+prove that assumption. These controls fit the model but never enter audit labels
+or the independent quality counts. Original source grants and attribution stay
+attached. New objective code and trained additions use SAND.

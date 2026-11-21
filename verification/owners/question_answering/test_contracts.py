@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from context_policy import derivatives, disjoint_prompt, objective, plan
 from data import RECIPE, choose, prepare_audit
 from debias_policy import (
     GROUP,
@@ -23,6 +24,40 @@ from training_policy import development_selection
 
 
 class Contracts(unittest.TestCase):
+    def test_context_objective_derivatives_and_answer_only_failure_control(self):
+        for own, foreign in ((-.4, .6), (1.2, -.3), (0, 0)):
+            analytic = derivatives(own, foreign)
+            for index in (0, 1):
+                values = [own, foreign]
+                values[index] += 1e-5
+                positive = objective(*values)
+                values[index] -= 2e-5
+                numeric = (positive - objective(*values)) / 2e-5
+                self.assertAlmostEqual(numeric, analytic[index], places=8)
+        self.assertLess(objective(1, 0), objective(1, 1))
+        with self.assertRaises(ValueError):
+            objective(float('nan'), 0)
+        with self.assertRaises(ValueError):
+            objective(0, 1e308)
+
+    def test_context_sampling_refuses_same_group_overlap_and_clipping(self):
+        row = {'group_id': 'source', 'prompt': 'orbit geometry', 'chosen': 'planet ellipse', 'rejected': 'unknown'}
+        donor = {'group_id': 'other', 'prompt': 'pastry baking'}
+        self.assertTrue(disjoint_prompt(row, donor, lambda text: [1] * 30))
+        self.assertFalse(disjoint_prompt(row, {**donor, 'group_id': 'source'}, lambda text: [1]))
+        self.assertFalse(disjoint_prompt(row, {**donor, 'prompt': 'planet baking'}, lambda text: [1]))
+        self.assertFalse(disjoint_prompt(row, donor, lambda text: [1] * 257))
+        with self.assertRaises(ValueError):
+            plan([row], lambda text: [1])
+
+    def test_context_sampling_refuses_nontraining_or_fabricated_human_label(self):
+        rows = [{'group_id': str(i), 'source_split': 'validation', 'label_provenance': 'original human sibling rank'} for i in range(768)]
+        with self.assertRaises(ValueError):
+            plan(rows, lambda text: [1])
+        rows = [{**row, 'source_split': 'train', 'label_provenance': 'constructed'} for row in rows]
+        with self.assertRaises(ValueError):
+            plan(rows, lambda text: [1])
+
     def test_optimizer_groups_balance_and_preserve_source_identity(self):
         rows = [{"chosen": "longer" if i % 2 else "s", "rejected": "s" if i % 2 else "longer"} for i in range(64)]
         groups = optimizer_groups(rows, 42, 1)
