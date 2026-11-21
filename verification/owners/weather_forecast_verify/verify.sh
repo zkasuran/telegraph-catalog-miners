@@ -23,4 +23,5 @@ fi
 if env -u GITHUB_ACTIONS -u GITHUB_REPOSITORY -u GITHUB_WORKFLOW python3 -W error "$ROOT/remote.py" --root "$ROOT/not-a-remote-run"; then
     exit 1
 fi
+bash "$ROOT/wire/verify.sh"
 printf '%s\n' 'ALL GREEN: source-bound local gate only, neural and node work not run'

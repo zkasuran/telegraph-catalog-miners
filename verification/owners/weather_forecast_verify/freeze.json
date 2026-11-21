@@ -49,8 +49,15 @@
     "stagecheck.go": "0d8b92f16ee6241208738888313ce1db11ead5d9bba4cfbfb53b37d2f0d67a3b",
     "static_check.py": "84bdbe4d0f77ffec8439fa4191507fd72e4164672e421fecd13a9a849ff173a0",
     "test_weather.py": "e8c8d9c59d2cc88d12299996e042ac7550f90dc52764eb2fea9ed1cd9dc350f5",
-    "verify.sh": "de6dfe199a34e5cb05e92eb5bed4fbed0855e13e67e6018cc27f2488d0aee242",
-    "workflow.json": "c935be029f7f01c2d29f1ad3c657e8156679615459bb61ada774904edd5315be"
+    "verify.sh": "8a350f91ddca2030b6d5cbee7b6102422f1179d68f8b82c5f1b80ef13fdee22c",
+    "workflow.json": "c935be029f7f01c2d29f1ad3c657e8156679615459bb61ada774904edd5315be",
+    "wire/wirecheck.py": "5a9ba62fc79467dca11f2ef0abc5b1904b4bc81c5511bfa02421fc3339ce2632",
+    "wire/test_wirecheck.py": "795373cad6445e30273acaf3ce1d8c72634b3f383ff9a0f73087bb9549d0c31f",
+    "wire/verify.sh": "91bd16fc681c595d530b9507a21a37dccb99bcd2443779912a680f4e4de8ffc6",
+    "wire/README.md": "5c76c33e7a5f7a44cc86a5d4c998a8ac14f9dbd0bff7b687cf98d0eec51956d4",
+    "wire/wire_contract.go": "44f300cc73bcb8721b3282728b2d9b3be7db1aa70e3175799432e1c44d19d35b",
+    "wire/GO-LICENSE": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "original-freeze.json": "fe1162fbd5115083c6ce6dc840a20b711e3003b2acba7fe0ec1d23a4d00f3f7c"
   },
   "run_id": "cb65961105934a849aceec6d66add0db",
   "schema_version": 1
