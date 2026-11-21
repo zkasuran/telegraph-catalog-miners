@@ -49,3 +49,6 @@ https://raw.githubusercontent.com/actions/upload-artifact/ea165f8d65b6e75b540449
 Copyright (c) 2018 GitHub, Inc. and contributors. Both grants use the same
 permission clause quoted in [R1]. The workflow pins those full revisions,
 requests read-only content access and disables credential persistence.
+
+Additional general preference/model sources and exact grants are documented
+in preference/DATA-SOURCES.md. They do not establish Vendor VAT ground truth.

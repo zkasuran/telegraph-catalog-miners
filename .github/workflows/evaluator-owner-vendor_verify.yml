@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 {
-  "name": "Vendor VAT source consistency checks",
+  "name": "Vendor source and general preference development",
   "on": {
     "workflow_dispatch": {
       "inputs": {
@@ -8,6 +8,16 @@
           "description": "Exact owner attempt identifier",
           "required": true,
           "type": "string"
+        },
+        "mode": {
+          "description": "Source contracts or real general preference development",
+          "required": true,
+          "type": "choice",
+          "options": [
+            "source",
+            "train"
+          ],
+          "default": "source"
         }
       }
     }
@@ -47,6 +57,48 @@
             "path": "source-proof/",
             "if-no-files-found": "error",
             "retention-days": 7
+          }
+        }
+      ],
+      "if": "${{ inputs.mode != 'train' }}"
+    },
+    "preference_training": {
+      "if": "${{ inputs.mode == 'train' }}",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 350,
+      "steps": [
+        {
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "with": {
+            "persist-credentials": false,
+            "fetch-depth": 1
+          }
+        },
+        {
+          "name": "Install hash-pinned CPU dependencies",
+          "run": "python3 -m pip install --disable-pip-version-check --no-input --only-binary=:all: --require-hashes --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/vendor_verify/preference/requirements.lock"
+        },
+        {
+          "name": "Audit all pinned dependencies",
+          "run": "python3 verification/owners/vendor_verify/preference/audit_dependencies.py --lock verification/owners/vendor_verify/preference/requirements.lock --out \"${{ runner.temp }}/vendor-audit-input.txt\" --report \"${{ runner.temp }}/vendor-dependency-audit.json\""
+        },
+        {
+          "name": "Train real general preference model",
+          "env": {
+            "OWNER_ATTEMPT": "${{ inputs.owner_attempt }}",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "OPENBLAS_NUM_THREADS": "4"
+          },
+          "run": "python3 -W error verification/owners/vendor_verify/preference/remote.py"
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always()",
+          "with": {
+            "name": "vendor-general-development",
+            "if-no-files-found": "error",
+            "retention-days": 7,
+            "path": "${{ runner.temp }}/vendor-dependency-audit.json\n${{ runner.temp }}/vendor-general-preference/development-result.json\n${{ runner.temp }}/vendor-general-preference/development-failure.json\n${{ runner.temp }}/vendor-general-preference/dataset-gate.json\n${{ runner.temp }}/vendor-general-preference/tokenizer-check.json\n${{ runner.temp }}/vendor-general-preference/SELECTED-CHECKPOINT.json\n${{ runner.temp }}/vendor-general-preference/selected-adapter.tar.gz"
           }
         }
       ]

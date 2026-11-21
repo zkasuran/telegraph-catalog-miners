@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT="$(dirname "$(realpath "$0")")"
 export PYTHONDONTWRITEBYTECODE=1
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_*.py' -v
+bash "$ROOT/preference/verify.sh"
 ruff check --no-cache "$ROOT"
 ruff format --check "$ROOT"
 python3 -W error "$ROOT/check_public.py"

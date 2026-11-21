@@ -1,0 +1,26 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "VENDOR_VERIFY",
+  "files": {
+    "audit": {
+      "bytes": 122697,
+      "pairs": 64,
+      "sha256": "43c848d6f0eb6b2958fe22e3083996a0edba0d27c4a85208b013194b16340bbb"
+    },
+    "train": {
+      "bytes": 232633,
+      "pairs": 128,
+      "sha256": "94d2c3ccda622a23f715c45f255730a07f67daad9acc6dad9fa0bc0625b7de24"
+    },
+    "validation": {
+      "bytes": 111707,
+      "pairs": 64,
+      "sha256": "31ba85cf6106322ae5443b9bb3c96d7b9be9643ec1a8c79a706769c92836174d"
+    }
+  },
+  "baseline_sha256": "590911b07a4a0ce600e188dfbc7ce7056c7d2f519a518f7567d72bfe6abe3ce4",
+  "scope": "Frozen general preference development, no exact task audit or registration readiness",
+  "source_sha256": "a5cd48600fb7a330cf0ccc8f59051e24e8f236907c379f42eff1ba18da55204b",
+  "audit_evaluated": false
+}

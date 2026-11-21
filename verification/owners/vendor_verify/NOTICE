@@ -51,3 +51,9 @@ Ruff 0.15.18, Copyright (c) 2022 Charles Marsh, MIT with retained upstream notic
 actions/checkout and actions/upload-artifact, Copyright (c) 2018 GitHub, Inc.
 and contributors, MIT. Their exact code revisions and primary grants appear in
 DATA-SOURCES.md. No provider or signer credential is requested by the pipeline.
+
+General preference source: NVIDIA HelpSteer2, Wang et al. 2024, CC BY 4.0.
+Retained source text and human source annotations are distinct from our code.
+ModernBERT, Answer.AI and LightOn, Apache-2.0. Full retained terms are attached
+in preference/licences.json. Changes and source grants: preference/DATA-SOURCES.md.
+Failed checkpoints use these same retained grants and SAND on our additions.

@@ -25,3 +25,8 @@ not company existence. Display names do not determine VAT membership or certify
 identity. Missing evidence is unknown, never VAT false. The source task is solved
 by exact lookup and the overlap gate blocks neural work. Pinned token retention
 and deployed trusted-context delivery remain unverified. No delta or live executor.
+
+The separate preference/ experiment does not change the observation diagnostic
+or its gates. Its grouping, sealed-audit boundary, immutable baseline and bounded
+CPU/upload controls are documented in preference/SECURITY.md. It does not qualify
+a Vendor registration.

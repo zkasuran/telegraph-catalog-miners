@@ -145,3 +145,14 @@ acquisition. For a local primary-path smoke:
 python3 -m pip install ruff==0.15.18
 python3 verification/owners/vendor_verify/ci.py --out source-proof
 ```
+
+## General preference development
+
+The retained Norwegian observation diagnostic remains blocked for model training.
+The added preference/ pipeline uses original licensed HelpSteer2 TRAIN comparisons
+for general text-quality development. It passed the unchanged primary data gate
+on 128 training originals with 64 validation originals. Another 64 originals are
+sealed, not evaluated or claimed as an exact Vendor audit. The workflow train mode
+runs only free public CPU for at most 350 minutes, selects using validation and
+retains a licensed checkpoint. It cannot emit registration-ready evidence or
+activate an endpoint. See preference/DATA-SOURCES.md and preference/SECURITY.md.

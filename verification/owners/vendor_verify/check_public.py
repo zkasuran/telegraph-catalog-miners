@@ -10,6 +10,14 @@ WORKFLOW = ".github/workflows/evaluator-owner-vendor_verify.yml"
 
 
 def validate_workflow(value):
+    if isinstance(value, dict) and "preference_training" in value.get("jobs", {}):
+        from preference.workflow_contract import validate_extended_workflow
+
+        return validate_extended_workflow(value, _validate_source_workflow)
+    return _validate_source_workflow(value)
+
+
+def _validate_source_workflow(value):
     if not isinstance(value, dict) or value.get("permissions") != {"contents": "read"}:
         raise ValueError("read-only workflow permissions required")
     jobs = value.get("jobs", {})
