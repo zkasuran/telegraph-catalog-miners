@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "license": "LicenseRef-zkasuran-SAND-1.0",
+  "family": "CONTENT_MODERATION",
+  "generation": "lease_44827170108",
+  "previous_serving_run_id": 44827170108,
+  "previous_lease_expires_at": "2026-11-21T03:14:42.783336+00:00",
+  "previous_lease_sha256": "cec7c68625d2cdc109bf7790229af614d1022cbaee32506263c850309bcf104f",
+  "package_sha256": "46be5bde5581f4dbb8cae46a9d281d093902fbab08e8c35c864a9ce9c430d9c9",
+  "package_keccak": "c9b4828f94a1476625de56ab3bc9f68c680e8f2ad3b040055a58f3d5412aeab8",
+  "report_sha256": "df6f743e84e1f62d1538da96ee3c8b8df0967fcc41a10312ab80855559c036ca",
+  "audit_run_id": 44787260374,
+  "audit_commit": "d1c243ddf46bf3f3f939bcccbd67dc659ea6f577",
+  "serving_commit": "d1c243ddf46bf3f3f939bcccbd67dc659ea6f577",
+  "report_path": "verification/owners/content_moderation/continuations/lease_44827170108/registration-ready.json",
+  "package_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/355bc6f72ac1be9e36c5de01b7febbe7740a8b8a/verification/owners/content_moderation/candidate/CONTENT_MODERATION.safetensors",
+  "source_publication_key": "09e3e86642c38cc0c6184b4a54ef3efcc7e89c39d30bf63700f0b880f2a314d0",
+  "scope": "Explicit next serving lease from original audit/package/executor. Byte-identical report is a consumed public artifact, not a dummy input or new audit. Original serving job is preserved by existing no-cancel workflow concurrency. No activation, balance restoration, registration or rank is claimed by this descriptor."
+}

@@ -13,3 +13,5 @@ python3 -W error -m unittest discover -s "$ROOT" -p 'test_balanced.py' -v
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_expanded.py' -v
 python3 -W error "$ROOT/candidate_contract.py"
 python3 -W error -m unittest discover -s "$ROOT" -p 'test_candidate.py' -v
+python3 -W error "$ROOT/lease_continuation.py"
+python3 -W error -m unittest discover -s "$ROOT" -p 'test_lease_continuation.py' -v
