@@ -107,6 +107,11 @@ preserves `material-condition.json` and refuses `registration-ready.json`.
 Its failed result artifact retains the licence notices. Failed quality or runtime
 proofs never become a material-only wait.
 
+The report stage verifies the exact candidate package filename, count and digest
+before it emits readiness. It copies the verified byte buffer before the report,
+not a later file read. Changed or missing package bytes cannot leave a ready
+report behind in a failed job.
+
 | Item | State |
 |---|---|
 | Complete official source inventory and original grants | Captured and hash-bound |

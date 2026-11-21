@@ -49,3 +49,13 @@ still rejects mismatched child classes. Parent-only ready reports require the
 exact parent's material proof and preserve the five-contributor floor. The report
 step checks quality/runtime before writing a material wait. Actual remote model
 execution and production caller qualification remain unverified.
+
+The report emitter verifies bounded candidate package bytes before combining
+audit evidence or creating readiness. It copies that checked buffer, preventing
+a changed second read. test_report_emission.py exercises tampering, path/count
+errors and a source mutation that bypasses this gate. Fixtures are plain source-
+only placeholder bytes, not neural packages or evaluation examples.
+The CLI smoke drives main and combine with disposable synthetic protocol evidence.
+It checks licensed package preservation through a material wait and exact ready
+report hash bindings when synthetic material meets the floor. A symlink control
+is refused. These controls do not measure a model or establish source readiness.
