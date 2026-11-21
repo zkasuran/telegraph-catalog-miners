@@ -132,6 +132,8 @@ def capture(root):
     deadline = started + CAPTURE_SECONDS
     models, raw_wires = {}, {}
     for name, expected in (("untrained", freeze["untrained_sha256"]), (FAMILY, freeze["candidate_sha256"])):
+        if deadline - time.monotonic() <= 1:
+            raise TimeoutError("frozen validation capture deadline before model startup")
         package = root / (name + ".safetensors")
         if package.is_symlink() or not 8 < package.stat().st_size <= 64 << 20:
             raise ValueError("bounded frozen package file required")
@@ -139,7 +141,10 @@ def capture(root):
             raise ValueError("frozen validation package bytes changed")
         parsed = full_parser(root, package, root / "foundation.json")
         package_keccak = parsed["keccak256"].removeprefix("0x")
-        backend = ReferenceExecutor(root, package, package_keccak)
+        remaining = deadline - time.monotonic()
+        if remaining <= 1:
+            raise TimeoutError("frozen validation capture deadline before model startup")
+        backend = ReferenceExecutor(root, package, package_keccak, startup_timeout=min(180, remaining))
         try:
             responses = capture_batches(backend.score, vectors, package_keccak, deadline)
         finally:

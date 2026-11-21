@@ -56,8 +56,11 @@ class HeaderBudget:
 
 
 class ReferenceExecutor:
-    def __init__(self, root, package, package_keccak):
+    def __init__(self, root, package, package_keccak, *, startup_timeout=180):
         remote_only()
+        if type(startup_timeout) not in (int, float) or not math.isfinite(startup_timeout) or not 0 < startup_timeout <= 180:
+            raise ValueError("reference startup timeout bound")
+        deadline = time.monotonic() + startup_timeout
         self.root, self.package_keccak = root, package_keccak
         self.lock = threading.Lock()
         with socket.socket() as probe:
@@ -71,32 +74,65 @@ class ReferenceExecutor:
         self.log = (root/(package.stem+"-engine.log")).open("w")
         self.process = subprocess.Popen([str(root/"adapterexec"), "--package", str(package), "--listen", f"127.0.0.1:{self.port}"],
                                         env=environment, stdout=self.log, stderr=self.log)
-        deadline = time.monotonic()+180
         while time.monotonic() < deadline:
             if self.process.poll() is not None:
                 self.close()
                 raise RuntimeError("actual reference engine did not load")
             try:
-                with socket.create_connection(("127.0.0.1", self.port), timeout=1):
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    break
+                with socket.create_connection(("127.0.0.1", self.port), timeout=min(1, remaining)):
                     return
             except OSError:
-                time.sleep(1)
+                time.sleep(min(1, max(0, deadline - time.monotonic())))
         self.close()
         raise RuntimeError("reference engine readiness timeout")
 
     def score(self, request, *, timeout=600):
         if type(timeout) not in (int, float) or not math.isfinite(timeout) or not 0 < timeout <= 600:
             raise ValueError("reference request timeout bound")
+        deadline = time.monotonic() + timeout
         validate_request(request, self.package_keccak)
         if self.process.poll() is not None:
             raise RuntimeError("reference engine is no longer running")
-        if not self.lock.acquire(timeout=10):
+        if not self.lock.acquire(timeout=min(10, timeout)):
             raise RuntimeError("reference scorer concurrency bound")
-        connection = http.client.HTTPConnection("127.0.0.1", self.port, timeout=timeout)
+        connection, timer = None, None
+        expired = threading.Event()
+        transport = [None]
         try:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("reference request deadline")
+            connection = http.client.HTTPConnection("127.0.0.1", self.port, timeout=remaining)
+            def expire():
+                expired.set()
+                active = transport[0] or connection.sock
+                if active is not None:
+                    try:
+                        active.shutdown(socket.SHUT_RDWR)
+                    except OSError:
+                        pass
+                try:
+                    connection.close()
+                except OSError:
+                    pass
+            timer = threading.Timer(remaining, expire)
+            timer.daemon = True
+            timer.start()
+            if expired.is_set():
+                raise TimeoutError("reference request deadline")
             connection.request("POST", "/runnable", json.dumps(request, separators=(",", ":")), {"Content-Type": "application/json", "Connection": "close"})
+            # getresponse() may detach/close connection.sock for Connection: close.
+            # Retain its transport so a dripped response body remains interruptible.
+            transport[0] = connection.sock
+            if expired.is_set():
+                raise TimeoutError("reference request deadline")
             response = connection.getresponse()
             raw = response.read(MAX_BODY+1)
+            if expired.is_set() or time.monotonic() >= deadline:
+                raise TimeoutError("reference request deadline")
             if response.status != 200 or len(raw) > MAX_BODY:
                 raise ValueError("reference engine response ceiling/status")
             value = strict_json(raw)
@@ -104,9 +140,18 @@ class ReferenceExecutor:
             if "input_root" in request and value.get("input_root") != request["input_root"]:
                 raise ValueError("literal engine batch root mismatch")
             return value
+        except (OSError, http.client.HTTPException, ValueError) as error:
+            if expired.is_set() or time.monotonic() >= deadline:
+                raise TimeoutError("reference request deadline") from error
+            raise
         finally:
-            connection.close()
-            self.lock.release()
+            if timer is not None:
+                timer.cancel()
+            try:
+                if connection is not None:
+                    connection.close()
+            finally:
+                self.lock.release()
 
     def close(self):
         if self.process.poll() is None:
