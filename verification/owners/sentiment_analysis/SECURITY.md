@@ -120,6 +120,12 @@ source excerpts. This diagnostic cannot certify natural Mixed sentiment, reason
 correctness, confidence calibration or a canonical registration.
 ## Task-authoritative training and audit
 
+Training repetition checks retain the primary 80 percent unique-negative floor,
+2 percent single-negative reuse ceiling and 10 percent split-leakage ceiling.
+Reference contexts carry original licensed source text, not nonces or answer IDs.
+Both preference answers share that context. Source-only checks are not a claim
+that the remote learned surface probe or neural quality has passed.
+
 | Threat | Defence | Test |
 |---|---|---|
 | Train on exposed audit originals | Full source/entity/thread/text identity quarantine for both exposed audits | test_v4.py |

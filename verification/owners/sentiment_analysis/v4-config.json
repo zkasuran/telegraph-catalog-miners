@@ -11,7 +11,7 @@
   "baseline_scope": "Immutable coefficients fitted only on original v3 training, reused unchanged. No fresh floating-point fit.",
   "baseline_sha256": "4447b62214d6d735d8163fcdb13b86a5911f36b092f30c57cfbc4dfcf5b4630e",
   "baseline_train_sha256": "ff41f604f5d26dfbfc99714908e9ea3e8c3e067840404eafa632e4d418b89cbb",
-  "change": "Task-authoritative training, generic reasons and balanced untrusted-excerpt controls. Hyperparameters unchanged; validation selects worst subset/format/label.",
+  "change": "Task-authoritative training with independent reference contexts. Generic/quoted validation and fresh audit unchanged. Hyperparameters unchanged; validation selects worst subset/format/label.",
   "hyperparameters": {
     "batch_size": 2,
     "epochs": 3,
@@ -29,10 +29,10 @@
   },
   "quarantine_sha256": "3948797f72496174c5ecd2e2a9a8cc651c1e6c9a58733ad81d5f4a1b835bc12f",
   "schema_version": 1,
-  "source_manifest_sha256": "4321b8a91c4176f90e04a6418fcf94fdd9225f7236d35e114c1078814c5b19a4",
+  "source_manifest_sha256": "d348db883bd7ccde29d337836f79c3dc29311eb2e1b8f15c7a8f8a44f0b38212",
   "source_version": 4,
   "sources_sha256": "83d260a7a08c60195768a64e0ab8761a0dc644e93e10f084643686f13f451380",
-  "train_sha256": "8716604ba00208ca3f3028be728e7740efbdb8408395d02bbc1507f2e76358e8",
+  "train_sha256": "cc068dcd415935e1c143388c92fd31f23ac0ffa432a1c643b91894bdd3974461",
   "validation_sha256": "3fe3f2361f91cb2ce1f54093127e3b2e661f61a12251d449c721c1a0725d8a4f",
   "warm_package_sha256": "1d5c4c5f020dc75e3cd2c8b59bcd0c04a862ae6ab58f3031be9ad88b8778edd1"
 }

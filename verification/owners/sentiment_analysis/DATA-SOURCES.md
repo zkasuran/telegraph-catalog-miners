@@ -2,14 +2,29 @@
 
 ## [GOEMOTIONS-V4] Task-authoritative supervision
 
+The first v4 job stopped before fitting at the primary dataset gate. Repeated
+generic answers left only 11.5 percent unique negatives and 99.4 percent negative
+overlap in the gate's split. The gate was not relaxed. Training now uses pairs of
+independent original source excerpts as unrelated reference contexts, identical
+on both sides. Reference categories are independent of task categories. Hashes
+select sources but never appear in answers; IDs and padding do not supply diversity.
+Bare training rows remain sparse. Generic and quoted validation/audit conditions
+are unchanged and still test transfer away from training reference contexts.
+
+Actual structural source checks now show 97.77 percent unique negatives, 0.52
+percent top reuse, 3.09 percent split leakage and 50 percent length-only accuracy.
+Those are non-neural checks. The primary learned surface probe and model quality
+still run remotely. The failed job never fit a model and never scored the fresh
+audit. Its source identities and bytes remain preserved.
+
 Actual validation diagnostic run 44851670611 reproduced all 1,728 reference score
 bits. On 32 deliberately contradictory prompt/excerpt comparisons, the task's
 label was preferred in 18 JSON pairs, 19 prose pairs and 27 bare-label pairs.
 Those are validation measurements, not a new independent audit or a node score.
 
 V4 keeps the same pretrained assets and hyperparameters. It changes supervision:
-generic reasons do not copy the task. A second condition gives both answers the
-same unrelated excerpt. Excerpt labels are balanced independently of task labels,
+training reasons do not copy the task. Validation uses generic reasons and a
+second condition gives both answers the same unrelated excerpt. Excerpt labels are balanced independently of task labels,
 including same-label controls. These preferences prioritize the derived category
 of the task. They do not certify the truth of the excerpt or human reason review.
 

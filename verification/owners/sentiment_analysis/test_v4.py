@@ -15,10 +15,10 @@ import v4_data as data
 import v4_remote as runtime
 
 
-def fixture():
+def fixture(n=12):
     return [{"text": f"Synthetic unit source {label} sample number {index}", "label": label,
              "group_id": group_id(f"Synthetic unit source {label} sample number {index}")}
-            for label in data.LABELS for index in range(12)]
+            for label in data.LABELS for index in range(n)]
 
 
 class V4Tests(unittest.TestCase):
@@ -149,6 +149,30 @@ class V4Tests(unittest.TestCase):
         self.assertEqual(report["status"], "DEVELOPMENT_DIAGNOSTIC")
         self.assertEqual(readback["score_bits_verified"], 1728)
         self.assertEqual(readback["metrics_recomputed"]["cross_label_prompt"]["json"]["actual_prompt_label_preferred"]["wins"], 18)
+
+    def test_training_structure_refuses_repetition_without_lowering_primary_limits(self):
+        repeated = [{"chosen": "Positive", "rejected": "Negative"} for _ in range(200)]
+        self.assertFalse(data.training_structure(repeated)["structural_passed"])
+        groups = fixture(144)
+        rows = data.pairs(groups, training=True)
+        result = data.training_structure(rows)
+        self.assertTrue(result["structural_passed"])
+        self.assertGreaterEqual(result["metrics"]["unique_rejected_frac"], .8)
+        self.assertLessEqual(result["metrics"]["top_rejected_share"], .02)
+        self.assertLessEqual(result["metrics"]["eval_negative_leak"], .1)
+
+    def test_training_reference_contexts_are_real_source_text_not_nonce_padding(self):
+        groups = fixture(144)
+        ids = {group["group_id"] for group in groups}
+        for row in data.pairs(groups, training=True):
+            self.assertEqual(len(row["support_group_ids"]), 2)
+            self.assertTrue(set(row["support_group_ids"]) <= ids)
+            self.assertNotIn(row["group_id"], row["support_group_ids"])
+            self.assertNotIn(row["group_id"], row["chosen"])
+            if row["chosen"].startswith("{"):
+                chosen, rejected = strict_json(row["chosen"]), strict_json(row["rejected"])
+                self.assertEqual(chosen["reason"], rejected["reason"])
+                self.assertIn("Synthetic unit source", chosen["reason"])
 
 
 if __name__ == "__main__":

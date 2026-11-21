@@ -170,9 +170,14 @@ audit remain unchanged. See [source boundaries](DATA-SOURCES.md) and [controls](
 ## Train the scorer to follow the task
 
 The `retrain_v4` workflow keeps pretrained assets and optimizer settings fixed.
-It trains on no-copy explanations and balanced unrelated-excerpt controls, then
+It trains on independent reference contexts that do not copy the task, then
 selects the weakest validation label across both conditions and every format.
 All exposed audit identities are excluded from the new source split.
+
+The primary repetition gate is unchanged. Source-only uniqueness, reuse, split
+leakage and length checks run before dispatch; its learned surface probe remains
+part of the actual remote job. Validation and audit retain the same generic and
+untrusted-excerpt conditions even when training reference wording changes.
 
 The independent audit runs only after the candidate freezes. It uses the actual
 pinned reference engine and measures a neural answer-only shortcut as well as
