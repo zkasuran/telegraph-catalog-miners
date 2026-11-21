@@ -21,6 +21,8 @@ def main():
     owner_attempt = os.environ["OWNER_RUN_ID"]
     from regularization import SETTINGS, load as load_regularization
     lora_dropout, regularization_sha256 = load_regularization(HERE / SETTINGS)
+    from objective import SETTINGS as OBJECTIVE_SETTINGS, load as load_objective
+    objective_config, objective_sha256 = load_objective(HERE / OBJECTIVE_SETTINGS)
     p = argparse.ArgumentParser()
     p.add_argument("--root", required=True, type=Path)
     root = p.parse_args().root
@@ -59,6 +61,10 @@ def main():
     write(root / "dataset-gate.json", gate)
     if not gate["ok"]:
         raise ValueError("upstream dataset gate failed, no bypass")
+    from objective_remote import check as check_objective
+    check_objective(root)
+    write(root / "training-objective.json", {"config": objective_config, "config_sha256": objective_sha256,
+          "target_scope": "training EVM factual preferences only", "validation_and_audit_gradients_used": False})
     sampling_path = HERE / SAMPLING_FILE
     sampling = json.loads(sampling_path.read_text())
     from sampling_remote import check as check_sampler
@@ -106,6 +112,7 @@ def main():
                                    "data": binding, "audit": "not yet measured",
                                    "sampling_sha256": sha(sampling_path.read_bytes()),
                                    "regularization_sha256": regularization_sha256,
+                                   "objective_sha256": objective_sha256,
                                    "batching": "counterfactual sibling pairs, two original views per batch",
                                   "children": [{"intent": FAMILY + "_GENERAL", "dataset_version": binding["inventory_sha256"]}],
                                   "authorship": "Original AI-assisted source and constructed preferences; no human review"})
@@ -184,6 +191,8 @@ def main():
            "sampling_runtime_report_sha256": sha((root / "sampling-runtime-controls.json").read_bytes()),
            "paired_batch_runtime_report_sha256": sha((root / "paired-batch-runtime-controls.json").read_bytes()),
            "regularization_config_sha256": regularization_sha256,
+           "objective_config_sha256": objective_sha256,
+           "objective_runtime_report_sha256": sha((root / "objective-runtime-controls.json").read_bytes()),
           "full_parser_passed": True,
           "phase": "candidate frozen before independent audit", "node_qualification": "not attempted"})
     print("Candidate and seed-matched untrained packages frozen. Audit has not run.")

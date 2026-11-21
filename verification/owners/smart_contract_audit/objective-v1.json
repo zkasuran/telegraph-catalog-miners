@@ -1,0 +1,11 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "audit_used_for_selection": false,
+  "calibration_numerator": 1,
+  "denominator": 2,
+  "method": "joint pairwise ranking and pointwise factual calibration",
+  "quality_gates_changed": false,
+  "ranking_numerator": 1,
+  "schema_version": 1,
+  "target_source": "training EVM-supported contradictory preferences only"
+}

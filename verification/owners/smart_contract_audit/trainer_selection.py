@@ -16,6 +16,7 @@ from policy import remote_only
 from selection import selection_metrics, checkpoint_better
 from data import SAMPLING_FILE
 from paired_sampling_remote import sampler as sibling_sampler
+from objective_remote import loss as joint_training_loss
 
 UPSTREAM_SHA256 = "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71"
 UPSTREAM_URL = "https://raw.githubusercontent.com/telegraphprotocol/telegraph-wasm-baseline/1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd/float_runtime/train_adapter.py"
@@ -37,6 +38,8 @@ def adapt_source(raw):
          '        improved = owner_checkpoint_better(val["owner_selection"], owner_best_validation) if hp.es_metric == "gate_vector" else ((metric < best - hp.es_min_delta) if lower_better else (metric > best + hp.es_min_delta))\n'),
         ('            best, best_epoch, no_improve = metric, epoch, 0\n',
          '            best, best_epoch, no_improve = metric, epoch, 0\n            owner_best_validation = val["owner_selection"]\n'),
+        ('                loss = bt_loss(rc, rr, b["margin"].to(device)) / hp.grad_accum\n',
+         '                loss = owner_training_loss(rc, rr, b["margin"].to(device)) / hp.grad_accum\n'),
     )
     for original, changed in replacements:
         if text.count(original) != 1:
@@ -68,6 +71,7 @@ def install(source_path, output_root):
     module.__file__ = str(source_path)
     module.__dict__["owner_selection_metrics"] = record
     module.__dict__["owner_checkpoint_better"] = checkpoint_better
+    module.__dict__["owner_training_loss"] = joint_training_loss
     frozen_path = Path(__file__).with_name(SAMPLING_FILE)
     frozen = json.loads(frozen_path.read_text())
     module.__dict__["owner_training_batches"] = lambda rows, hp: sibling_sampler(rows, frozen, hp)
@@ -78,6 +82,7 @@ def install(source_path, output_root):
               "additions_grant": "LicenseRef-zkasuran-SAND-1.0", "shared_kit_modified": False,
               "optimizer_and_training_data_changed": False, "aggregate_accuracy_still_reported": True,
               "training_sampling": "frozen inverse-group weights with replacement on literal reversed sibling minibatches",
+              "training_objective": "normalized joint pairwise ranking and pointwise factual calibration; validation loss remains original BT",
               "frozen_sampling_sha256": hashlib.sha256(frozen_path.read_bytes()).hexdigest(),
               "audit_or_quality_gates_modified": False}
     (output_root / "trainer-selection-source.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -93,11 +98,12 @@ def main():
     adapted = adapt_source(original)
     # Actual syntax and exact retained training/optimizer/gate source, no exec.
     assert b'"pairwise_accuracy": round(acc, 4)' in adapted
-    assert b'loss = bt_loss(rc, rr, b["margin"].to(device)) / hp.grad_accum' in adapted
+    assert b'loss = owner_training_loss(rc, rr, b["margin"].to(device)) / hp.grad_accum' in adapted
+    assert b'loss_sum += bt_loss(rc.float(), rr.float(), b["margin"].to(device)).item() * rc.size(0)' in adapted
     assert b'if hp.early_stopping and avg_loss < hp.loss_floor:' in adapted
     report = {"primary_source_url": UPSTREAM_URL, "upstream_sha256": hashlib.sha256(original).hexdigest(),
               "adapted_source_sha256": hashlib.sha256(adapted).hexdigest(), "primary_source_compiled": True,
-               "neural_import_or_execution": False, "source_adaptation_anchors": 7,
+               "neural_import_or_execution": False, "source_adaptation_anchors": 8,
               "aggregate_accuracy_optimizer_loss_floor_and_quality_gates_retained": True}
     args.source_check_report.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report))

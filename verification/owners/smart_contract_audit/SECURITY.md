@@ -32,6 +32,8 @@
 | Scalar checkpoint ties retain weaker formats or labels | Exact rational lexicographic gate-margin vector with aggregate count tie-break; minimum gate never sacrificed and quality thresholds unchanged | `test_gate_vector.py` same-minimum improvement, worse-minimum/higher-average refusal and malformed/audit-flag/count rejection |
 | Explicit arithmetic guards omit intermediate overflow checks or change labels | New training-only guards preserve native checked acceptance/results; no facts/preferences/groups changed | Complete small-width arithmetic grids plus real EVM disputed-call/legitimate controls for every source; old source versions remain preserved |
 | Modifier movement changes caller context, guard text or execution order | Move only caller-only guards, unchanged, into parameterless pre-writer modifiers; source inputs/preferences/groups preserved | Source text/order/scope checks plus full actual compiler/disputed-call/legitimate controls; no copied held-out sources |
+| Joint objective fits validation/audit or silently changes node scoring | Adapt training loss only, frozen config accepts training factual targets and unchanged gates; original validation BT and executor remain | Closed-config/local-runtime refusal and stable scalar controls; actual tensor/gradient/shape/nonfinite controls measured only on runner |
+| Loss overflow or disconnected/wrong gradient | Stable logits losses, finite aligned bounded vectors, native-to-independent scalar comparison and gradient direction/finite checks | Actual objective-runtime-controls.json from remote runner, not expected values or a local neural claim |
 
 ## Known limits
 
