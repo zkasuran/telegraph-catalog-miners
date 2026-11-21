@@ -12,7 +12,7 @@ on:
         type: choice
         required: true
         default: audit
-        options: [audit, serve, retrain, retrain_v3, endpoint_recovery]
+        options: [audit, serve, retrain, retrain_v3, endpoint_recovery, development]
       lease_epoch:
         description: Durable same-package bounded lease generation
         type: string
@@ -53,6 +53,47 @@ concurrency:
   group: owner-sentiment-analysis-${{ inputs.mode }}
   cancel-in-progress: false
 jobs:
+  development:
+    if: github.repository == 'zkasuran/telegraph-catalog-miners' && inputs.mode == 'development'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          sparse-checkout: verification/owners/sentiment_analysis
+      - name: Exact source-only gate
+        timeout-minutes: 3
+        run: bash verification/owners/sentiment_analysis/verify.sh
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Hash-locked public CPU development environment
+        timeout-minutes: 15
+        run: |
+          python3 -m venv "$RUNNER_TEMP/owner-venv"
+          "$RUNNER_TEMP/owner-venv/bin/python" -m pip install --require-hashes --only-binary=:all: --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu -r verification/owners/sentiment_analysis/requirements.lock
+          "$RUNNER_TEMP/owner-venv/bin/python" -m pip check
+      - name: Frozen-model validation alignment and answer-only controls
+        timeout-minutes: 300
+        run: timeout --signal=TERM --kill-after=20s 17700 "$RUNNER_TEMP/owner-venv/bin/python" verification/owners/sentiment_analysis/development_probe.py remote --root "$RUNNER_TEMP/sentiment-development"
+      - name: Upload development proof only, never a registration-ready report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: development-SENTIMENT_ANALYSIS-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/sentiment-development/development-report.json
+            ${{ runner.temp }}/sentiment-development/development-score-bits.json
+            ${{ runner.temp }}/sentiment-development/development-input-identity.json
+            ${{ runner.temp }}/sentiment-development/data/development-source.json
   frozen:
     if: github.repository == 'zkasuran/telegraph-catalog-miners' && (inputs.mode == 'audit' || inputs.mode == 'serve' || inputs.mode == 'endpoint_recovery')
     runs-on: ubuntu-24.04

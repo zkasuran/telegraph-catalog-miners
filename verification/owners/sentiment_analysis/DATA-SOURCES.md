@@ -1,5 +1,27 @@
 # Data and model source grants
 
+## [VALIDATION-DIAGNOSTIC] Frozen-model alignment controls
+
+The development job reads the complete pinned GoEmotions source inventory and
+reconstructs the original quarantined source grouping. Only existing validation
+groups become score inputs. Original audit rows and node evaluation material do
+not become development inputs. The exact validation-group and train-fitted baseline
+hashes are in development-config.json. No coefficient is fitted again.
+
+It selects eight groups per label with a fixed source-hash order, 32 groups total.
+Each group has three contrasts in each of the original response formats. Conditions
+are aligned tasks, no task prompt and a prompt from a different-label source group.
+Answers remain identical across conditions. JSON/prose answers retain source
+excerpts, so answer-only performance may reflect information in the answer.
+Cross-label prompt results measure retention of the original preference, not
+accuracy on a newly annotated task. All constructed preferences are programmatic,
+not human sentiment-preference review. The original Apache-2.0 grant below applies.
+
+This is validation development on an unchanged package, not an independent audit,
+a new selected candidate or a registration-ready result. The original model and
+its source-held-out audit remain frozen. Length, ties and immutable shortcuts are
+reported alongside actual pinned reference-engine score bits.
+
 ## [UCI331] Sentiment Labelled Sentences
 
 Kotzias, D. (2015). Sentiment Labelled Sentences. UCI Machine Learning Repository.

@@ -105,3 +105,16 @@ Use only an approved owner-private lifetime mechanism through the controller's
 execution boundary. Service-management permission cannot be bypassed by another
 command, cgroup move or helper. The recovered bytes and immutable integration
 report are verified; live multi-lease survival is still unverified.
+## Validation diagnostic boundary
+
+| Attack | Defence | Test |
+|---|---|---|
+| Relabel an exposed audit as development | Exact original validation-group hash and split-only configuration | test_development.py |
+| Change the model or refit a shortcut | Frozen package and immutable train-fitted baseline hashes | test_development.py |
+| Call a development score a qualification pass | Separate DEVELOPMENT_DIAGNOSTIC status, rejected by validate_ready | test_development.py |
+| Hide ties, missing labels or nonfinite scores | Exact contrast counts, all-label coverage and finite FP32 controls | test_development.py |
+| Normalize away the counterparty's output bug | Literal bare-hash HTTP response and exact reference-vector bits | Remote development job, not local neural work |
+
+Prompt-permuted retention is not factual accuracy. Answer-only JSON/prose retains
+source excerpts. This diagnostic cannot certify natural Mixed sentiment, reason
+correctness, confidence calibration or a canonical registration.

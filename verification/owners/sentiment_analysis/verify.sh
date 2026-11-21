@@ -41,6 +41,9 @@ if (recovery['origin_package_sha256'] != 'ae2d3b0275e4f96419bee0e75396f445003afb
         recovery['bounds']['lease_seconds'] != 18000 or recovery['bounds']['remote_job_minutes'] > 350 or
         recovery['bounds']['guard_seconds'] > 86400 or recovery['bounds']['max_generations'] > 6):
     raise ValueError('recovery/continuity must retain reviewed source and bounded lease policy')
+sys.path.insert(0, str(root))
+from development_probe import config as development_config
+development_config()
 for name in ('endpoint-registration-ready.json', 'endpoint-result-notice.json'):
     if not (root / 'model' / name).is_file():
         raise ValueError('actual verified recovery result asset missing: ' + name)

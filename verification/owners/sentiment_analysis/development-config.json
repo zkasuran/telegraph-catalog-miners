@@ -1,0 +1,18 @@
+{
+  "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0",
+  "schema_version": 1,
+  "family": "SENTIMENT_ANALYSIS",
+  "split": "validation",
+  "per_label_groups": 8,
+  "max_tokens": 256,
+  "validation_groups_sha256": "f6c612967623d4471f386016ccab4c6f317cd2e0c4bb806ee1166a9af4231158",
+  "sources_sha256": "83d260a7a08c60195768a64e0ab8761a0dc644e93e10f084643686f13f451380",
+  "baseline_sha256": "4447b62214d6d735d8163fcdb13b86a5911f36b092f30c57cfbc4dfcf5b4630e",
+  "quarantine_sha256": "4211f234911287f734b8cdec42409d76e48fc1d07531b7c4ea92b8914374a854",
+  "package_sha256": "1d5c4c5f020dc75e3cd2c8b59bcd0c04a862ae6ab58f3031be9ad88b8778edd1",
+  "package_keccak": "b7f0acd751d10d8cc81d16db6eff47cf2265f288914965fa44204316a03cbf32",
+  "conditions": ["aligned", "answer_only", "cross_label_prompt"],
+  "cases_sha256": "9d3067457c9ac125b3f4b564fa5aaa4812324d68237d2e7b07d99547f279f929",
+  "hypothesis": "A scorer that uses task-answer alignment should retain less of the original preference under cross-label prompt permutation. Answer excerpts may reveal the original task even when the prompt is absent.",
+  "scope": "Frozen-model validation diagnostics only. No fitting, new candidate selection, independent audit or registration-ready verdict. Perturbed-condition preference retention is not factual accuracy."
+}

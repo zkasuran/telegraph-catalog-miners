@@ -11,3 +11,10 @@ Passing v3 delta and immutable report: model/SENTIMENT_ANALYSIS-v3.safetensors a
 Endpoint recovery preserves every original model field, tensor descriptor, tensor byte and upstream grant. Only one ignored x-endpoint-recovery registration field is added after registration 161 exhausted attempts against an expired serving lease. Lease continuation uses only the installed automatic adapter, additive same-package restricted public keys and bounded existing public CPU workflows. No new human review, model fitting or universal factual proof is claimed.
 
 Immutable recovery result: run 44822282420 at ce2bb3f0f0423d26f6120149a5e8dd7d694631de, report SHA d9bd19c9b3e4f959df9ab41c653fd1448f4236c1322d45ca0e78b9636e231cbd. All 3456 actual replay score bits and the complete tensor payload match the original passing v3 function. See model/endpoint-result-notice.json for the retained grants. Live guard deployment and canonical qualification remain separate unverified steps.
+Validation-only frozen-model diagnostic
+---------------------------------------
+Our development pipeline and tests are SAND additions. It reads the same original
+Google Research GoEmotions release under Apache-2.0 and constructs validation-only
+task/answer alignment controls. Those preferences are not human-reviewed. It uses
+the existing ModernBERT and Telegraph reference engine with all upstream grants
+retained. It does not fit, select, register or restamp a model.

@@ -154,3 +154,16 @@ Persistent guard lifetime is not proven by detaching a process inside an ephemer
 owner cgroup. If that worker ends with control-group termination, the guard ends
 too. An approved controller-owned lifetime mechanism is required before this
 candidate relies on multi-lease continuation. No new canonical win is claimed.
+## Check task and answer alignment without retraining
+
+Dispatch the `development` mode to inspect the frozen package on existing
+validation groups. It measures aligned preferences, answer-only preferences and
+retention after cross-label prompt permutation. The pinned reference engine runs
+only on the bounded public CPU workflow. Source preparation and tests import no
+neural framework locally.
+
+The result is `development-report.json`, not `registration-ready.json`. Its groups
+are legitimate development data, not a new independent audit. Every condition
+shares the same 32 selected groups. Perturbed retention is not factual accuracy.
+JSON/prose answer-only inputs still contain source excerpts. The model and original
+audit remain unchanged. See [source boundaries](DATA-SOURCES.md) and [controls](SECURITY.md).

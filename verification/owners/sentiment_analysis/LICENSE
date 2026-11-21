@@ -2,6 +2,14 @@
 
 SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 
+Validation diagnostic additions
+-------------------------------
+development_probe.py, its source-only tests and workflow additions retain the
+SAND terms below. Original GoEmotions text, annotations and derived source data
+retain their upstream Apache-2.0 grant. This addition changes no model package,
+original source grant or prior recipient licence. It fits no model and emits no
+new independent audit or registration-ready artifact.
+
 Copyright (c) 2026 zkasuran
 
 ## Acceptance
