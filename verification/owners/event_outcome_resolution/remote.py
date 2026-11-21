@@ -8,8 +8,9 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from assets import CHILD, FAMILY, HERE, capture_classes, prepare, remote_only
+from assets import CHILD, FAMILY, HERE, SCOPE, capture_classes, prepare, remote_only
 from common import FOUNDATION, KIT, sha, strict_json, write_json
+from parent_scope import claimed_intents, training_record
 
 
 def read_split(name, manifest):
@@ -71,9 +72,13 @@ def main():
 
     def export(directory, package_name, validation_accuracy):
         tensors, params = read_peft(directory, cfg)
-        record = {"family": FAMILY, "children": [{"intent": CHILD,
-                  "dataset_version": sha((HERE / "frozen/frozen.json").read_bytes()),
-                  "pairs": len(validation), "accuracy": validation_accuracy, "held_out": True}]}
+        if SCOPE == "parent_only":
+            record = training_record(len(validation), validation_accuracy)
+            record["children"][0]["dataset_version"] = sha((HERE / "frozen/frozen.json").read_bytes())
+        else:
+            record = {"family": FAMILY, "children": [{"intent": CHILD,
+                      "dataset_version": sha((HERE / "frozen/frozen.json").read_bytes()),
+                      "pairs": len(validation), "accuracy": validation_accuracy, "held_out": True}]}
         meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                         foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                         target_modules=params["target_modules"], max_tokens=256, training=record)
@@ -99,6 +104,7 @@ def main():
     selected_validation = trainer.evaluate(model, tok, validation, hp)
     trained_package = export(checkpoint, FAMILY + ".safetensors", selected_validation["pairwise_accuracy"])
     binding = {"schema_version": 1, "family": FAMILY, "run_id": int(os.environ["GITHUB_RUN_ID"]),
+               "scope": SCOPE, "claimed_intents": claimed_intents(SCOPE),
                "commit": os.environ["GITHUB_SHA"], "owner_attempt": os.environ["OWNER_ATTEMPT"],
                "package": trained_package, "untrained_package": baseline_package,
                "source_manifest_sha256": sha((HERE / "frozen/frozen.json").read_bytes()),

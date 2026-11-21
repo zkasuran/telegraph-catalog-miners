@@ -8,11 +8,12 @@ import threading
 import time
 from pathlib import Path
 
-from assets import FAMILY, HERE, fetch, prepare, remote_only
+from assets import FAMILY, HERE, SCOPE, fetch, prepare, remote_only
 from common import DEFAULT_OWNER, HOST, HOST_KEY, WINDOW, lease_for, sha, strict_json, write_json
 from contracts import validate_ready
 from proxy import Backend, identity
 from runtime import compile_runtime, executor, negative_controls, parse_package, score_vectors
+from parent_scope import verify_scope
 
 
 def public_asset(url):
@@ -39,6 +40,7 @@ def run(root):
     public_asset(os.environ["REPORT_URL"])
     fetch(os.environ["REPORT_URL"], root / "registration-ready.json", os.environ["REPORT_SHA256"], 64 << 10)
     ready = validate_ready(strict_json((root / "registration-ready.json").read_bytes()))
+    verify_scope(ready, SCOPE)
     if (ready["serving_commit"] != os.environ["GITHUB_SHA"] or ready["package_sha256"] != os.environ["PACKAGE_SHA256"] or
             ready["package_keccak"] != os.environ["PACKAGE_KECCAK"]):
         raise ValueError("serving source/package/report identity mismatch")

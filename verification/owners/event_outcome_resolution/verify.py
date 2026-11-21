@@ -56,6 +56,8 @@ def source_proof():
 
 def config_gate():
     workflow = strict_json(WORKFLOW.read_bytes())
+    if len(workflow["on"]["workflow_dispatch"]["inputs"]) > 10:
+        raise ValueError("GitHub workflow dispatch input ceiling exceeded")
     if workflow["name"] != "Owner EVENT_OUTCOME_RESOLUTION" or workflow["permissions"] != {"contents": "read"}:
         raise ValueError("owned workflow authority/name mismatch")
     if workflow["concurrency"]["cancel-in-progress"] is not False or set(workflow["on"]) != {"workflow_dispatch"}:

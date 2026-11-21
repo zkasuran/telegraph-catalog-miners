@@ -11,7 +11,7 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 
-from assets import CHILD, FAMILY, HERE, capture_classes, prepare, remote_only
+from assets import CHILD, FAMILY, HERE, SCOPE, capture_classes, prepare, remote_only
 from common import DEFAULT_OWNER, FOUNDATION, KIT, sha, strict_json, write_json
 from contracts import FORMATS
 from freeze import token_counts
@@ -19,6 +19,7 @@ from groups import components
 from proxy import Backend, BoundedServer, identity, input_root, validate_response
 from remote import read_split
 from scorer import normalized, render, response
+from parent_scope import claimed_intents, verify_scope
 
 
 def free_port():
@@ -40,6 +41,7 @@ def parse_package(root, path, expected):
         raise ValueError("exported package bytes differ from freeze")
     capture_classes(root / "class-snapshot.json")
     command = [str(root / "stagecheck"), "--intent", FAMILY, "--child", CHILD, "--expected-class", "judgment",
+               "--scope", SCOPE,
                "--package", str(path), "--sha256", expected, "--foundation", str(root / "foundation.json"),
                "--foundation-sha256", sha((root / "foundation.json").read_bytes()),
                "--class-snapshot", str(root / "class-snapshot.json"),
@@ -153,6 +155,7 @@ def main():
     if out.exists():
         raise ValueError("refuse repeated audit on the same frozen package")
     candidate = strict_json((args.candidate_dir / "candidate.json").read_bytes())
+    verify_scope(candidate, SCOPE)
     if candidate["run_id"] != int(os.environ["GITHUB_RUN_ID"]) or candidate["commit"] != os.environ["GITHUB_SHA"] or candidate["audit_read"] is not False:
         raise ValueError("candidate run/commit/audit boundary mismatch")
     frozen = strict_json((HERE / "frozen/frozen.json").read_bytes())
@@ -211,6 +214,7 @@ def main():
               metrics["accuracy"] + 1e-9 >= metrics["untrained_accuracy"] + 0.05 and
               metrics["accuracy"] + 1e-9 >= metrics["shortcut_accuracy"] + 0.10)
     report = {"schema_version": 1, "family": FAMILY, "format": args.format,
+              "scope": SCOPE, "claimed_intents": claimed_intents(SCOPE),
               "run_id": candidate["run_id"], "commit": candidate["commit"],
               "package_sha256": candidate["package"]["sha256"],
               "package_keccak": parsed_trained["keccak256"].removeprefix("0x"),

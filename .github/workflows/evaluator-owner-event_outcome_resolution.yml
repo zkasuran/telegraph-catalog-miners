@@ -2,7 +2,7 @@
   "name": "Owner EVENT_OUTCOME_RESOLUTION",
   "run-name": "EVENT_OUTCOME_RESOLUTION ${{ inputs.mode }}",
   "on": {"workflow_dispatch": {"inputs": {
-    "mode": {"type": "choice", "required": true, "default": "verify", "options": ["verify", "serve"]},
+    "mode": {"type": "choice", "required": true, "default": "verify", "options": ["verify", "verify_parent", "serve", "serve_parent"]},
     "owner_attempt": {"type": "string", "required": false},
     "package_url": {"type": "string", "required": false},
     "package_sha256": {"type": "string", "required": false},
@@ -15,10 +15,10 @@
   }}},
   "permissions": {"contents": "read"},
   "concurrency": {"group": "owner-event-outcome-resolution-${{ inputs.mode }}", "cancel-in-progress": false},
-  "env": {"PYTHONDONTWRITEBYTECODE": "1", "TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "4", "MKL_NUM_THREADS": "4", "OWNER_ATTEMPT": "${{ inputs.owner_attempt }}"},
+  "env": {"PYTHONDONTWRITEBYTECODE": "1", "TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "4", "MKL_NUM_THREADS": "4", "OWNER_ATTEMPT": "${{ inputs.owner_attempt }}", "OWNER_SCOPE": "${{ (inputs.mode == 'verify_parent' || inputs.mode == 'serve_parent') && 'parent_only' || 'general' }}"},
   "jobs": {
     "train": {
-      "if": "${{ inputs.mode == 'verify' }}",
+      "if": "${{ inputs.mode == 'verify' || inputs.mode == 'verify_parent' }}",
       "runs-on": "ubuntu-24.04", "timeout-minutes": 250,
       "steps": [
         {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
@@ -29,7 +29,7 @@
       ]
     },
     "audit": {
-      "needs": ["train"], "if": "${{ inputs.mode == 'verify' }}",
+      "needs": ["train"], "if": "${{ inputs.mode == 'verify' || inputs.mode == 'verify_parent' }}",
       "runs-on": "ubuntu-24.04", "timeout-minutes": 330,
       "strategy": {"fail-fast": false, "max-parallel": 2, "matrix": {"format": ["json", "prose"]}},
       "env": {"AUDIT_FORMAT": "${{ matrix.format }}"},
@@ -43,18 +43,18 @@
       ]
     },
     "report": {
-      "needs": ["train", "audit"], "if": "${{ inputs.mode == 'verify' }}",
+      "needs": ["train", "audit"], "if": "${{ inputs.mode == 'verify' || inputs.mode == 'verify_parent' }}",
       "runs-on": "ubuntu-24.04", "timeout-minutes": 10,
       "steps": [
         {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},
         {"uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093", "with": {"name": "event-candidate", "path": "${{ runner.temp }}/event-candidate"}},
         {"uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093", "with": {"pattern": "event-audit-*", "merge-multiple": true, "path": "${{ runner.temp }}/event-audits"}},
         {"name": "Combine only completed passing audit evidence", "run": "python3 -W error verification/owners/event_outcome_resolution/report.py --candidate-dir \"$RUNNER_TEMP/event-candidate\" --audits \"$RUNNER_TEMP/event-audits\" --out \"$RUNNER_TEMP/event-result\""},
-        {"uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "event-registration-ready", "retention-days": 7, "if-no-files-found": "error", "path": "${{ runner.temp }}/event-result/"}}
+        {"if": "always()", "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", "with": {"name": "event-registration-ready", "retention-days": 7, "if-no-files-found": "error", "path": "${{ runner.temp }}/event-result/"}}
       ]
     },
     "serve": {
-      "if": "${{ inputs.mode == 'serve' }}", "runs-on": "ubuntu-24.04", "timeout-minutes": 350,
+      "if": "${{ inputs.mode == 'serve' || inputs.mode == 'serve_parent' }}", "runs-on": "ubuntu-24.04", "timeout-minutes": 350,
       "env": {"PACKAGE_URL": "${{ inputs.package_url }}", "PACKAGE_SHA256": "${{ inputs.package_sha256 }}", "PACKAGE_KECCAK": "${{ inputs.package_keccak }}", "REPORT_URL": "${{ inputs.report_url }}", "REPORT_SHA256": "${{ inputs.report_sha256 }}", "SLOT": "${{ inputs.slot }}", "FORWARD_PORT": "${{ inputs.forward_port }}", "RUNNABLE_URL": "${{ inputs.runnable_url }}"},
       "steps": [
         {"uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803", "with": {"persist-credentials": false}},

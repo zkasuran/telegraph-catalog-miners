@@ -17,6 +17,38 @@ RESPONSE = [{"name": "outcome", "type": "enum", "slot": "strings", "index": 0,
             {"name": "resolved_yes", "type": "bool", "slot": "bools", "index": 0}]
 
 
+def scope_mode(value):
+    if value not in ("general", "parent_only") or not isinstance(value, str):
+        raise ValueError("explicit supported scope required")
+    return value
+
+
+def claimed_intents(value):
+    return [FAMILY] if scope_mode(value) == "parent_only" else [FAMILY + "_GENERAL"]
+
+
+def verify_scope(record, expected):
+    record = object_value(record, "scope-bound report")
+    mode = scope_mode(record.get("scope", "general"))
+    if mode != scope_mode(expected) or record.get("claimed_intents", claimed_intents("general")) != claimed_intents(mode):
+        raise ValueError("candidate/report/executor scope differs")
+    return mode
+
+
+def ready_parent_material(material):
+    material = object_value(material, "parent material proof")
+    if (material.get("intent") != FAMILY or material.get("child_material_borrowed") is not False or
+            material.get("material_ready") is not True or type(material.get("required_contributors")) is not int or
+            material["required_contributors"] < MIN_CONTRIBUTORS):
+        raise ValueError("parent-only registration material has not passed")
+    if any(type(material.get(key)) is not int or material[key] < material["required_contributors"]
+           for key in ("eligible_contributors", "active_contributors")):
+        raise ValueError("parent contributor proof is insufficient")
+    if not isinstance(material.get("corpus_version"), str) or not SHA.fullmatch(material["corpus_version"]):
+        raise ValueError("parent material corpus binding missing")
+    return material
+
+
 def object_value(value, label):
     if not isinstance(value, dict):
         raise ValueError(label + " must be an object")

@@ -4,6 +4,7 @@ import math
 import re
 
 from common import FOUNDATION, DEFAULT_OWNER
+from parent_scope import ready_parent_material, verify_scope
 
 FAMILY = "EVENT_OUTCOME_RESOLUTION"
 FORMATS = ("json", "prose")
@@ -25,24 +26,8 @@ def matches(pattern, value):
     return isinstance(value, str) and pattern.fullmatch(value) is not None
 
 
-def validate_ready(report):
-    report = object_field(report, "ready report")
-    if (type(report.get("schema_version")) is not int or report.get("schema_version") != 1 or report.get("status") != "REGISTRATION_READY" or
-            report.get("family") != FAMILY or type(report.get("run_id")) is not int or report["run_id"] < 1 or
-            not matches(COMMIT, report.get("commit")) or report.get("serving_commit") != report["commit"]):
-        raise ValueError("ready run/family/commit mismatch")
-    for key in ("package_sha256", "package_keccak"):
-        if not matches(SHA, report.get(key)):
-            raise ValueError("bare lowercase package hash required")
-    for field, file in (("foundation_sha256", "foundation_lora_fp32.onnx"), ("engine_sha256", "foundation_engine.wasm"),
-                        ("tokenizer_sha256", "tokenizer.json")):
-        if report.get(field) != FOUNDATION[file]:
-            raise ValueError("pinned runtime identity mismatch")
-    source = object_field(report.get("source"), "source evidence")
-    if (type(source.get("normalized_overlap")) not in (int, float) or source.get("normalized_overlap") != 0 or source.get("audit_used_for_selection") is not False or
-            source.get("grants_verified") is not True or not matches(SHA, source.get("source_manifest_sha256")) or
-            type(source.get("independent_groups")) is not int or source["independent_groups"] < 32):
-        raise ValueError("source or independent audit boundary mismatch")
+def validate_quality_runtime(report):
+    report = object_field(report, "measured audit evidence")
     quality = object_field(report.get("quality"), "quality evidence")
     formats = object_field(quality.get("formats"), "format metrics")
     if (quality.get("passed") is not True or type(quality.get("audit_pairs")) is not int or quality["audit_pairs"] < 64 or
@@ -72,6 +57,31 @@ def validate_ready(report):
         if (not isinstance(tokens, list) or not 1 <= len(tokens) <= 512 or
                 not all(type(t) is int and 0 <= t < 50368 for t in tokens) or not finite_bits(vector.get("score_bits"))):
             raise ValueError("literal token/score-bit vector invalid")
+    return report
+
+
+def validate_ready(report):
+    report = object_field(report, "ready report")
+    if (type(report.get("schema_version")) is not int or report.get("schema_version") != 1 or report.get("status") != "REGISTRATION_READY" or
+            report.get("family") != FAMILY or type(report.get("run_id")) is not int or report["run_id"] < 1 or
+            not matches(COMMIT, report.get("commit")) or report.get("serving_commit") != report["commit"]):
+        raise ValueError("ready run/family/commit mismatch")
+    for key in ("package_sha256", "package_keccak"):
+        if not matches(SHA, report.get(key)):
+            raise ValueError("bare lowercase package hash required")
+    for field, file in (("foundation_sha256", "foundation_lora_fp32.onnx"), ("engine_sha256", "foundation_engine.wasm"),
+                        ("tokenizer_sha256", "tokenizer.json")):
+        if report.get(field) != FOUNDATION[file]:
+            raise ValueError("pinned runtime identity mismatch")
+    source = object_field(report.get("source"), "source evidence")
+    mode = verify_scope(report, report.get("scope", "general"))
+    if mode == "parent_only":
+        ready_parent_material(source.get("parent_material"))
+    if (type(source.get("normalized_overlap")) not in (int, float) or source.get("normalized_overlap") != 0 or source.get("audit_used_for_selection") is not False or
+            source.get("grants_verified") is not True or not matches(SHA, source.get("source_manifest_sha256")) or
+            type(source.get("independent_groups")) is not int or source["independent_groups"] < 32):
+        raise ValueError("source or independent audit boundary mismatch")
+    validate_quality_runtime(report)
     if report.get("owner") != DEFAULT_OWNER:
         raise ValueError("approved Telegraph identity mismatch")
     return report

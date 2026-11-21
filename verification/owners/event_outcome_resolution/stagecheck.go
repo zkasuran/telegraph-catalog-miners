@@ -57,7 +57,13 @@ func boundRead(path, expected string, limit int64) ([]byte, error) {
 }
 
 func checkSource(raw []byte, intent, child, expected string) (catalog.Class, error) {
-	if !regexp.MustCompile(`^[A-Z][A-Z0-9_]{1,79}$`).MatchString(intent) || child != intent+"_GENERAL" {
+	return checkScopedSource(raw, intent, child, expected, "general")
+}
+
+func checkScopedSource(raw []byte, intent, child, expected, scope string) (catalog.Class, error) {
+	if !regexp.MustCompile(`^[A-Z][A-Z0-9_]{1,79}$`).MatchString(intent) ||
+		(scope != "general" && scope != "parent_only") ||
+		(scope == "general" && child != intent+"_GENERAL") || (scope == "parent_only" && child != intent) {
 		return "", errors.New("exact family and selected child required")
 	}
 	var envelope snapshot
@@ -83,10 +89,11 @@ func checkSource(raw []byte, intent, child, expected string) (catalog.Class, err
 		} `json:"resolve"`
 	}
 	var descendant struct {
-		ID    string        `json:"intent_id"`
-		Name  string        `json:"intent_name"`
-		Class catalog.Class `json:"class"`
-		Eval  struct {
+		ID     string        `json:"intent_id"`
+		Name   string        `json:"intent_name"`
+		Class  catalog.Class `json:"class"`
+		Prefix bool          `json:"prefix"`
+		Eval   struct {
 			Kind string `json:"kind"`
 		} `json:"evaluation"`
 		Request struct {
@@ -96,8 +103,24 @@ func checkSource(raw []byte, intent, child, expected string) (catalog.Class, err
 			Family string `json:"served_by"`
 		} `json:"response"`
 		Onchain struct {
-			Family string `json:"served_by"`
-			Ready  bool   `json:"ready"`
+			Family  string `json:"served_by"`
+			Ready   bool   `json:"ready"`
+			Version int    `json:"format_version"`
+			Request []struct {
+				Name     string `json:"name"`
+				Type     string `json:"type"`
+				Slot     string `json:"slot"`
+				Index    int    `json:"index"`
+				MaxBytes int    `json:"max_bytes"`
+			} `json:"request"`
+			Response []struct {
+				Name     string   `json:"name"`
+				Type     string   `json:"type"`
+				Slot     string   `json:"slot"`
+				Index    int      `json:"index"`
+				MaxBytes int      `json:"max_bytes"`
+				Allowed  []string `json:"allowed"`
+			} `json:"response"`
 		} `json:"onchain"`
 	}
 	if json.Unmarshal([]byte(envelope.Family.Raw), &parent) != nil || json.Unmarshal([]byte(envelope.Child.Raw), &descendant) != nil {
@@ -106,9 +129,28 @@ func checkSource(raw []byte, intent, child, expected string) (catalog.Class, err
 	c := parent.Resolve.Class
 	if (c != catalog.ClassJudgment && c != catalog.ClassHybrid) || string(c) != expected ||
 		parent.Resolve.Intent != intent || descendant.ID != child || descendant.Name != child ||
-		descendant.Class != c || descendant.Eval.Kind != string(c) || descendant.Request.Family != intent ||
+		descendant.Class != c || descendant.Request.Family != intent ||
 		descendant.Response.Family != intent || descendant.Onchain.Family != intent || !descendant.Onchain.Ready {
 		return "", errors.New("live source family, child or class mismatch")
+	}
+	if scope == "general" && descendant.Eval.Kind != string(c) {
+		return "", errors.New("concrete child evaluation class mismatch")
+	}
+	if scope == "parent_only" && (!descendant.Prefix || (descendant.Eval.Kind != "" && descendant.Eval.Kind != string(c))) {
+		return "", errors.New("explicit parent-only prefix source required")
+	}
+	if scope == "parent_only" {
+		wire := descendant.Onchain
+		if wire.Version != 4 || len(wire.Request) != 1 || len(wire.Response) != 2 {
+			return "", errors.New("parent-only literal v4 wire required")
+		}
+		request, outcome, resolved := wire.Request[0], wire.Response[0], wire.Response[1]
+		if request.Name != "event" || request.Type != "string" || request.Slot != "strings" || request.Index != 0 || request.MaxBytes != 256 ||
+			outcome.Name != "outcome" || outcome.Type != "enum" || outcome.Slot != "strings" || outcome.Index != 0 || outcome.MaxBytes != 256 ||
+			len(outcome.Allowed) != 3 || outcome.Allowed[0] != "yes" || outcome.Allowed[1] != "no" || outcome.Allowed[2] != "unresolved" ||
+			resolved.Name != "resolved_yes" || resolved.Type != "bool" || resolved.Slot != "bools" || resolved.Index != 0 {
+			return "", errors.New("parent-only field/slot contract mismatch")
+		}
 	}
 	return c, nil
 }
@@ -117,6 +159,7 @@ func run() error {
 	intent := flag.String("intent", "", "exact candidate family")
 	child := flag.String("child", "", "selected source child")
 	expected := flag.String("expected-class", "", "class assertion, never an override")
+	scope := flag.String("scope", "general", "explicit general or parent_only training-record scope")
 	snapshotPath := flag.String("class-snapshot", "", "trusted HTTPS source envelope")
 	snapshotSHA := flag.String("snapshot-sha256", "", "external source envelope hash")
 	pkgPath := flag.String("package", "", "unchanged package")
@@ -132,7 +175,7 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	c, err := checkSource(raw, *intent, *child, *expected)
+	c, err := checkScopedSource(raw, *intent, *child, *expected, *scope)
 	if err != nil {
 		return err
 	}

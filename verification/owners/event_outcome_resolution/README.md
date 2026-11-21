@@ -94,9 +94,18 @@ measurement exists. Preparing the plan neither trains a model nor registers it.
 
 Parent material must meet the stricter of the node's contributor minimum and
 five contributors. Child eligibility never substitutes for the parent. The
-parent-only path is not yet integrated into the remote executor or verified
-against the full production qualification wrapper. Existing general-mode class
-checks are unchanged.
+parent-only path is selected by workflow mode `verify_parent` (or `serve_parent`
+for the verified endpoint). This keeps GitHub's ten-input dispatch limit. Training
+exports only the parent training-record intent. Candidate, audit, report and
+serving all bind the same explicit scope. The actual static parser checks the
+parent v4 wire without treating GENERAL as judgment. Existing general-mode class
+checks are unchanged. Actual model and full production qualification results
+remain unmeasured until the bounded remote workflow runs.
+
+If quality/runtime proofs pass but parent material is not ready, the report step
+preserves `material-condition.json` and refuses `registration-ready.json`.
+Its failed result artifact retains the licence notices. Failed quality or runtime
+proofs never become a material-only wait.
 
 | Item | State |
 |---|---|

@@ -8,10 +8,12 @@ import urllib.request
 from pathlib import Path
 
 from common import FOUNDATION, FOUNDATION_RELEASE, KIT, KIT_SHA, check_classes, now, public_json, sha, write_json
+from parent_scope import claimed_intents, parent_contract, scope_mode
 
 HERE = Path(__file__).resolve().parent
 FAMILY = "EVENT_OUTCOME_RESOLUTION"
-CHILD = FAMILY + "_GENERAL"
+SCOPE = scope_mode(os.environ.get("OWNER_SCOPE", "general"))
+CHILD = claimed_intents(SCOPE)[0]
 WORKFLOW = "Owner EVENT_OUTCOME_RESOLUTION"
 
 
@@ -57,7 +59,10 @@ def capture_classes(out):
         envelope[name] = {"url": url, "raw": raw.decode()}
     envelope["fetched_at"] = now().isoformat()
     try:
-        check_classes(envelope, {"family": FAMILY, "child": CHILD, "class": "judgment"})
+        if SCOPE == "parent_only":
+            parent_contract(json.loads(envelope["child"]["raw"]), json.loads(envelope["family"]["raw"])["resolve"])
+        else:
+            check_classes(envelope, {"family": FAMILY, "child": CHILD, "class": "judgment"})
     except ValueError as error:
         # Preserve only operational identities, not source examples or pool
         # rows. This failure is not a measured model-quality report.

@@ -43,5 +43,9 @@ field slots. It does not reclassify GENERAL or claim its coverage. The material
 gate binds the parent's active snapshot and contributor count, preserving the
 five-contributor floor. Tests refuse child-status substitution, altered wire
 indexes and fabricated metric types. Generated plans leave validation accuracy
-unset and never claim model or registration readiness. Remote integration and
-production caller qualification remain unverified.
+unset and never claim model or registration readiness. Explicit scope is now
+bound in remote candidate/export, static parser, audit and serving. General mode
+still rejects mismatched child classes. Parent-only ready reports require the
+exact parent's material proof and preserve the five-contributor floor. The report
+step checks quality/runtime before writing a material wait. Actual remote model
+execution and production caller qualification remain unverified.

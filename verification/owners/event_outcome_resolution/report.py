@@ -4,19 +4,22 @@ import argparse
 import os
 from pathlib import Path
 
-from assets import FAMILY, HERE, remote_only
-from common import DEFAULT_OWNER, FOUNDATION, KIT, sha, strict_json, write_json
-from contracts import FORMATS, validate_ready
+from assets import FAMILY, HERE, SCOPE, remote_only
+from common import DEFAULT_OWNER, FOUNDATION, KIT, public_json, sha, strict_json, write_json
+from contracts import FORMATS, validate_quality_runtime, validate_ready
 from verify import source_proof
+from parent_scope import claimed_intents, material_contract, verify_scope
 
 
 def combine(candidate, reports, output):
+    verify_scope(candidate, SCOPE)
     source_hash = sha((HERE / "frozen/frozen.json").read_bytes())
     if candidate.get("family") != FAMILY or candidate.get("source_manifest_sha256") != source_hash or candidate.get("audit_read") is not False:
         raise ValueError("frozen candidate/source boundary mismatch")
     if set(reports) != set(FORMATS):
         raise ValueError("all claimed engine audit reports required")
     for name, report in reports.items():
+        verify_scope(report, SCOPE)
         if (report.get("family") != FAMILY or report.get("format") != name or report.get("passed") is not True or
                 report.get("run_id") != candidate["run_id"] or report.get("commit") != candidate["commit"] or
                 report.get("package_sha256") != candidate["package"]["sha256"] or
@@ -31,6 +34,7 @@ def combine(candidate, reports, output):
     if any(r["independent_groups"] != measured_source["independent_groups"] or r["audit_pairs"] != measured_source["audit_pairs"] for r in reports.values()):
         raise ValueError("measured audit/source group identity mismatch")
     ready = {"schema_version": 1, "status": "REGISTRATION_READY", "family": FAMILY,
+             "scope": SCOPE, "claimed_intents": claimed_intents(SCOPE),
              "run_id": candidate["run_id"], "commit": candidate["commit"], "serving_commit": candidate["commit"],
              "package_sha256": candidate["package"]["sha256"], "package_keccak": first["package_keccak"],
              "package_bytes": candidate["package"]["bytes"], "owner": DEFAULT_OWNER,
@@ -44,7 +48,21 @@ def combine(candidate, reports, output):
              "runtime_versions": {name: r["runtime_versions"] for name, r in reports.items()},
              "class_snapshot_sha256": {name: r["class_snapshot_sha256"] for name, r in reports.items()},
              "audit_report_sha256": {name: sha(__import__("json").dumps(r, separators=(",", ":"), allow_nan=False).encode() + b"\n") for name, r in reports.items()},
-             "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0"}
+              "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0"}
+    validate_quality_runtime(ready)
+    if SCOPE == "parent_only":
+        status, raw_status = public_json("https://devnode.telegraphprotocol.com/api/evalpool/status?intent_id=" + FAMILY)
+        material = material_contract(status)
+        ready["source"]["parent_material"] = material
+        ready["source"]["parent_material_status_sha256"] = sha(raw_status)
+        if not material["material_ready"]:
+            write_json(output.parent / "material-condition.json", {
+                "schema_version": 1, "status": "WAITING_PARENT_MATERIAL", "family": FAMILY,
+                "scope": SCOPE, "run_id": candidate["run_id"], "commit": candidate["commit"],
+                "package_sha256": candidate["package"]["sha256"], "material": material,
+                "material_status_sha256": sha(raw_status), "registration_ready": False,
+                "SPDX-License-Identifier": "LicenseRef-zkasuran-SAND-1.0"})
+            raise ValueError("parent material readiness has not passed; candidate/audit remain preserved")
     validate_ready(ready)
     raw = __import__("json").dumps(ready, separators=(",", ":"), allow_nan=False).encode() + b"\n"
     if len(raw) > 64 << 10:
@@ -65,6 +83,8 @@ def main():
         raise ValueError("actual GitHub run/commit mismatch")
     reports = {name: strict_json((args.audits / ("audit-" + name + ".json")).read_bytes()) for name in FORMATS}
     args.out.mkdir(parents=True, exist_ok=True)
+    for name in ("LICENSE", "NOTICE", "DATA-SOURCES.md", "UPSTREAM-LICENCES.json"):
+        (args.out / name).write_bytes((HERE / name).read_bytes())
     ready = combine(candidate, reports, args.out / "registration-ready.json")
     package = args.candidate_dir / candidate["package"]["file"]
     if sha(package.read_bytes()) != ready["package_sha256"] or package.stat().st_size != ready["package_bytes"]:

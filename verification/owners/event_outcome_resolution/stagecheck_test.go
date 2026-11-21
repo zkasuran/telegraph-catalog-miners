@@ -67,6 +67,38 @@ func TestClassIdentityTimeAndOverrideRefusals(t *testing.T) {
 	}
 }
 
+func parentFixture(t *testing.T) snapshot {
+	t.Helper()
+	return snapshot{Schema: 1, FetchedAt: time.Now().UTC().Format(time.RFC3339Nano),
+		Family: source{URL: "https://devnode.telegraphprotocol.com/api/wasm?resolve=EVENT_OUTCOME_RESOLUTION",
+			Raw: `{"resolve":{"intent":"EVENT_OUTCOME_RESOLUTION","class":"judgment"}}`},
+		Child: source{URL: "https://devnode.telegraphprotocol.com/engine/v1/intents/EVENT_OUTCOME_RESOLUTION",
+			Raw: `{"intent_id":"EVENT_OUTCOME_RESOLUTION","intent_name":"EVENT_OUTCOME_RESOLUTION","class":"judgment","prefix":true,"request":{"served_by":"EVENT_OUTCOME_RESOLUTION"},"response":{"served_by":"EVENT_OUTCOME_RESOLUTION"},"onchain":{"served_by":"EVENT_OUTCOME_RESOLUTION","ready":true,"format_version":4,"request":[{"name":"event","type":"string","slot":"strings","index":0,"max_bytes":256}],"response":[{"name":"outcome","type":"enum","slot":"strings","index":0,"allowed":["yes","no","unresolved"],"max_bytes":256},{"name":"resolved_yes","type":"bool","slot":"bools","index":0}]}}`}}
+}
+
+func TestParentOnlyScopedParserAcceptsExactV4Source(t *testing.T) {
+	value := parentFixture(t)
+	c, err := checkScopedSource(encodedFixture(t, value), "EVENT_OUTCOME_RESOLUTION", "EVENT_OUTCOME_RESOLUTION", "judgment", "parent_only")
+	if err != nil || c != catalog.ClassJudgment {
+		t.Fatalf("parent-only scope rejected: %v", err)
+	}
+	if _, err := checkSource(encodedFixture(t, value), "EVENT_OUTCOME_RESOLUTION", "EVENT_OUTCOME_RESOLUTION", "judgment"); err == nil {
+		t.Fatal("general scope silently accepted parent-only source")
+	}
+}
+
+func TestParentOnlyScopeNeverOverridesClassOrWire(t *testing.T) {
+	base := parentFixture(t)
+	for _, replacement := range [][2]string{{`"prefix":true`, `"prefix":false`}, {`"format_version":4`, `"format_version":1`},
+		{`"max_bytes":256`, `"max_bytes":512`}, {`"class":"judgment"`, `"class":"hybrid"`}, {`"type":"bool"`, `"type":"enum"`}} {
+		value := base
+		value.Child.Raw = strings.Replace(base.Child.Raw, replacement[0], replacement[1], 1)
+		if _, err := checkScopedSource(encodedFixture(t, value), "EVENT_OUTCOME_RESOLUTION", "EVENT_OUTCOME_RESOLUTION", "judgment", "parent_only"); err == nil {
+			t.Fatal("invalid parent source accepted")
+		}
+	}
+}
+
 func TestExternalPackageHashAndSizeGate(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "source-fixture")
 	raw := []byte("not a model")
