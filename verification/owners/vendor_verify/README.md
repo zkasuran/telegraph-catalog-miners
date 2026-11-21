@@ -175,3 +175,14 @@ over-cap training pairs before fitting, preserves validation and sealed audits
 and reruns the unchanged dataset and token gates on retained training.
 It freezes revised training-only baselines and requires improvement over both
 original and revised controls. This is development, not a node qualification.
+
+## Frozen-head development
+
+The first completed LoRA job scored 56.25% on 64 validation pairs, below
+the 60.9375% length shortcut. The changed experiment freezes the primary
+ModernBERT classifier-input features and fits a pairwise ridge reward head.
+Four predeclared candidates fit only on training and select on unchanged
+validation. Answer-only, displaced-prompt and prompt-only controls diagnose
+attribution. It reuses exact train-fitted baseline bytes from the prior job.
+Both audits remain sealed. This is not an exact Vendor audit, a reference-engine
+qualification or a canonical registration. No new dependency was added.

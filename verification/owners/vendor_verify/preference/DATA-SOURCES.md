@@ -62,3 +62,14 @@ The unchanged dataset and token gates run again on retained training before
 neural fitting. Revised training-only coefficients are frozen once and retained
 in an attributed artifact. Both original and revised frozen shortcuts must be
 beaten. Capacity exclusions cannot hide identity errors or validation truncation.
+# Frozen-feature development boundary
+
+The first remote LoRA experiment scored 56.25% on validation and lost to the
+60.9375% length shortcut. The replacement fits only the supported linear reward
+head on frozen primary classifier-input features. Four predeclared ridge values
+are fitted on training only and selected on unchanged validation. All source
+annotations, original split bytes and both sealed audits remain unchanged.
+Answer-only, rotated-prompt and prompt-only controls measure attribution. They
+are not new source annotations or an independent truth set. No reference-engine
+qualification is claimed by native CPU scoring. Source text and fitted artifacts
+retain NVIDIA HelpSteer2 attribution and CC BY 4.0. Competitive additions use SAND.

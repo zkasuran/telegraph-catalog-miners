@@ -27,3 +27,13 @@ refusals, immutable inputs, preserved order and retained coverage. The unchanged
 primary dataset gate and full token gate run again remotely on retained training.
 The fixed workflow uploads only named metadata, the attributed frozen baseline
 archive and the selected adapter. No training or audit rows are uploaded.
+# Frozen-head controls
+
+The remote guard runs before neural imports. Every feature is captured from the
+actual primary linear classifier input with all LoRA B matrices checked as zero.
+Nonfinite scores, incomplete validation coverage and control-token overflow refuse.
+Only training features fit normalization and coefficients. No audit scores select
+a candidate. The complete predeclared ridge grid is required by tested controls.
+The selected head is executed through the literal primary renderer and its ranking
+must match the fitted-feature result. Prompt-only inputs must tie. Native scores
+are not reference-engine proof. Existing parser and node gates remain mandatory.

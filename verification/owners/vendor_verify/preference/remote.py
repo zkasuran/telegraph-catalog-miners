@@ -22,7 +22,7 @@ from urllib.parse import urlparse
 
 import data
 import token_contract
-from baselines import freeze_once, load_frozen, measure
+from baselines import load_frozen, measure
 
 REPO = "zkasuran/telegraph-catalog-miners"
 KIT = "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd"
@@ -331,8 +331,13 @@ def main():
     filtered = root / "retained-training"
     filtered.mkdir()
     (filtered / "train.jsonl").write_bytes(train_raw)
-    freeze_once(filtered / "train.jsonl", filtered / "BASELINES.json")
-    baseline_raw = (filtered / "BASELINES.json").read_bytes()
+    baseline_raw = data.bounded_read(HERE / "RETAINED-BASELINES.json", 4 << 20)
+    if (
+        data.sha(baseline_raw)
+        != "b4f43d9038919fe20a628668d1a99339199ef8a471719fbc2039b1b1701ef4b6"
+    ):
+        raise ValueError("immutable original retained-training coefficients drifted")
+    (filtered / "BASELINES.json").write_bytes(baseline_raw)
     coefficients = load_frozen(baseline_raw, data.sha(train_raw))
     controls = {
         "original_frozen_training": measure(validation, original_coefficients),
@@ -364,13 +369,12 @@ def main():
     (adapter / "NOTICE").write_text(licences["notice"])
     (adapter / "LICENSE").write_text(licences["sand"])
     (adapter / "CC-BY-4.0.txt").write_bytes((HERE / "CC-BY-4.0.txt").read_bytes())
-    initial, _ = trainer.build_model(str(base), hp)
-    untrained = trainer.evaluate(initial, tok, validation, hp)
-    del initial
-    gc.collect()
     start = time.monotonic()
-    model, tok, _ = trainer.train(str(base), train, validation, root / "adapter", hp)
-    trained = trainer.evaluate(model, tok, validation, hp)
+    from runtime_head import train_frozen_head
+
+    model, untrained, trained, mechanism = train_frozen_head(
+        trainer, base, tok, train, validation, adapter, hp, root, strongest
+    )
     del model
     gc.collect()
     files = {
@@ -382,7 +386,7 @@ def main():
         root / "SELECTED-CHECKPOINT.json",
         {
             "files": files,
-            "selection": "Primary trainer validation-only best epoch",
+            "selection": "Predeclared frozen-head grid, validation only",
             "audit_used_for_selection": False,
         },
     )
@@ -418,8 +422,15 @@ def main():
         "hyperparameters": asdict(hp),
         "untrained_validation": untrained,
         "trained_validation": trained,
+        "mechanism": mechanism["mechanism"],
+        "mechanism_report_sha256": data.sha(
+            (root / "frozen-head-development.json").read_bytes()
+        ),
         "strongest_shortcut_accuracy": strongest,
-        "development_gate_passed": development_gate(trained, untrained, strongest),
+        "development_gate_passed": development_gate(trained, untrained, strongest)
+        and __import__("development_controls").qualification_development_gate(
+            mechanism["selected_validation"], untrained["pairwise_accuracy"], strongest
+        ),
         "elapsed_training_seconds": time.monotonic() - start,
         "versions": {
             p: importlib.metadata.version(p)
