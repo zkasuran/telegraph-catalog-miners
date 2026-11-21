@@ -28,3 +28,5 @@ New code, source conversion and trained additions are Copyright (c) 2026 zkasura
 # Training-view recipe
 
 Optional format-transfer-v1 constructs alternate JSON/prose/bare-rating serializations only from the existing training originals. It does not add source truth, independent contributors or human review. The original task/output text, group identity, CC BY 4.0 grants and source attribution remain attached. Validation/audit rows never enter this construction. The original integer baseline remains fitted to the retained JSON training subset rather than being refitted across machines.
+
+New optional jobs use format-transfer-v2 to complete the primary trainer's optimizer windows. The additional view reserializes both sides of the first training original by fixed group identity. It changes no task/output text, rating truth, source group or grant. The earlier v1 constructor remains for exact artifact provenance but its incomplete terminal accumulation is refused for new training. No primary trainer or quality threshold is changed.

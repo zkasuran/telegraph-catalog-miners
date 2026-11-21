@@ -19,6 +19,7 @@ from token_contract import checked_tokens
 from source_gate import digest, inventory, write
 from wire import verify_qualification_render
 from training_recipe import build_recipe, pair_bytes
+from optimizer_contract import require_complete_accumulation
 
 
 def remote_only():
@@ -55,6 +56,12 @@ def train(root):
                                  "outcome": "INCOMPLETE", "node_qualification": "not attempted"})
     if not report["training_allowed"]:
         raise ValueError("unchanged data quality gate failed")
+    _, splits = load_splits(root / "data")
+    fit_rows, recipe = build_recipe(splits["train"], os.environ.get("TRAINING_RECIPE", "json-original-v1"),
+                                    report["files"]["train"]["sha256"], digest((root / "data/frozen-baseline.json").read_bytes()))
+    recipe["optimizer_input_contract"] = require_complete_accumulation(len(fit_rows), 1, 16, recipe["epochs"])
+    (root / "data/training_views.jsonl").write_bytes(pair_bytes(fit_rows))
+    write(root / "training-recipe.json", recipe)
     helper, foundation, base, kit = reference(root)
     import numpy as np
     import torch
@@ -69,11 +76,6 @@ def train(root):
     random.seed(42)
     np.random.seed(42)
     torch.manual_seed(42)
-    _, splits = load_splits(root / "data")
-    fit_rows, recipe = build_recipe(splits["train"], os.environ.get("TRAINING_RECIPE", "json-original-v1"),
-                                    report["files"]["train"]["sha256"], digest((root / "data/frozen-baseline.json").read_bytes()))
-    (root / "data/training_views.jsonl").write_bytes(pair_bytes(fit_rows))
-    write(root / "training-recipe.json", recipe)
     hp = trainer.Hyperparams(max_length=256, batch_size=1, grad_accum=16, lora_rank=8, epochs=recipe["epochs"],
                              eval_batch=1, gate_min_acc=0.80, grad_checkpointing=False)
     gate = trainer.gate_dataset(fit_rows, hp)

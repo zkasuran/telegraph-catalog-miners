@@ -8,7 +8,7 @@ import re
 from data import FORMATS, RATINGS, format_pair
 from source_gate import digest
 
-RECIPES = ("json-original-v1", "format-transfer-v1")
+RECIPES = ("json-original-v1", "format-transfer-v1", "format-transfer-v2")
 BARE_PER_LABEL = 3
 MAX_ORIGINALS = 160
 GRAD_ACCUM = 16
@@ -62,6 +62,13 @@ def build_recipe(train, name, source_train_sha256, baseline_sha256):
             if len(originals) < BARE_PER_LABEL:
                 raise ValueError("insufficient training originals for fixed bare-label allocation")
             views.extend(format_pair(row, "bare_label") for row in originals[:BARE_PER_LABEL])
+        if name == "format-transfer-v2":
+            # Fixed source-identity choice, never validation/audit/model selection.
+            supplement = dict(min(train, key=lambda row: row["group_id"]))
+            for side in ("chosen", "rejected"):
+                supplement[side] = json.dumps(json.loads(supplement[side]), ensure_ascii=False, separators=(", ", ": "))
+            supplement.update(format="json", chosen_format="json_optimizer_completion", view_role="optimizer_completion")
+            views.append(supplement)
         epochs = 1
     stats = view_statistics(views)
     if (Fraction(stats["unique_negative_count"], len(views)) < Fraction(4, 5)
@@ -79,7 +86,8 @@ def build_recipe(train, name, source_train_sha256, baseline_sha256):
               "training_views_sha256": digest(pair_bytes(views)), "training_views_bytes": len(pair_bytes(views)),
               "example_presentations_ceiling": presentations, "original_example_presentations_ceiling": old_presentations,
               "optimizer_steps_ceiling": optimizer_ceiling, "original_optimizer_steps_ceiling": old_optimizer_ceiling,
-              "bare_per_label_ceiling": BARE_PER_LABEL if name == "format-transfer-v1" else 0,
+              "bare_per_label_ceiling": BARE_PER_LABEL if name.startswith("format-transfer-") else 0,
+              "optimizer_completion_views": 1 if name == "format-transfer-v2" else 0,
               "statistics": stats, "audit_used_for_selection": False, "human_review_of_conversion": False,
               "baseline_fit_scope": "unchanged original JSON training rows, a subset of the derived training views",
               "scope": "constructed format views, not new human annotations or independent source groups"}

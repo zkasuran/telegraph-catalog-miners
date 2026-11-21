@@ -12,7 +12,7 @@ on:
         required: true
       training_recipe:
         type: choice
-        options: [json-original-v1, format-transfer-v1]
+        options: [json-original-v1, format-transfer-v2]
         default: json-original-v1
       package_url:
         type: string
