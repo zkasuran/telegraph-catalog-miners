@@ -35,3 +35,13 @@ Training checks live class and routing before opening frozen rows or fetching
 neural assets. A source mismatch stays a refusal. Its failure artifact contains
 only class/routing identities and response hashes, never source examples or pool
 rows. test_preflight.py tests this path and its ordering without neural imports.
+
+## Parent-only source plan
+
+parent_scope.py binds the exact parent identity, judgment class and literal v4
+field slots. It does not reclassify GENERAL or claim its coverage. The material
+gate binds the parent's active snapshot and contributor count, preserving the
+five-contributor floor. Tests refuse child-status substitution, altered wire
+indexes and fabricated metric types. Generated plans leave validation accuracy
+unset and never claim model or registration readiness. Remote integration and
+production caller qualification remain unverified.

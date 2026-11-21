@@ -80,6 +80,24 @@ observations, never inferred from a prepared pipeline.
 
 ## Real and still unverified
 
+### Explicit parent-only source plan
+
+```sh
+python3 verification/owners/event_outcome_resolution/parent_scope.py --out parent-only-plan.json
+```
+
+This source-only command checks the exact parent judgment class, parent-served v4
+wire and parent material status. The plan claims only EVENT_OUTCOME_RESOLUTION,
+not GENERAL. It binds the unchanged frozen split hashes and leaves validation
+accuracy unset. A training record can be built only after a finite validation
+measurement exists. Preparing the plan neither trains a model nor registers it.
+
+Parent material must meet the stricter of the node's contributor minimum and
+five contributors. Child eligibility never substitutes for the parent. The
+parent-only path is not yet integrated into the remote executor or verified
+against the full production qualification wrapper. Existing general-mode class
+checks are unchanged.
+
 | Item | State |
 |---|---|
 | Complete official source inventory and original grants | Captured and hash-bound |
