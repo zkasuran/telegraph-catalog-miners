@@ -123,7 +123,7 @@ def serve(args):
         threading.Thread(target=proxy.serve_forever, daemon=True).start()
         # Only this restricted public lease is uploaded. The private key remains
         # ephemeral on the hosted runner and is never put in an artifact.
-        write(root / "public-lease.json", lease)
+        write(root / "lease.json", lease)
         forward = None
         end = time.monotonic() + 4.5 * 3600
         while time.monotonic() < end:

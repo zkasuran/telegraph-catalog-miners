@@ -1,15 +1,25 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 """Literal dependency and wire failure controls. All score replies are synthetic."""
+import ast
+import base64
+import io
 import json
 import os
+import re
+import struct
 import time
 import types
 import unittest
+import zipfile
+from datetime import datetime, timezone
 from unittest.mock import patch
 
 from contracts import (
+    FAMILY,
     FOUNDATION,
+    HERE,
     PACKAGE_KECCAK,
+    PACKAGE_SHA,
     SOURCE_SHA,
     helper_scope,
     metrics,
@@ -31,6 +41,45 @@ def score_function(scope):
 
 
 class ContractsTests(unittest.TestCase):
+    def test_public_lease_filename_matches_literal_activation_wire(self):
+        tree = ast.parse((HERE / "serve.py").read_text())
+        names = [node.args[0].right.value for node in ast.walk(tree)
+                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                 and node.func.id == "write" and len(node.args) == 2
+                 and isinstance(node.args[1], ast.Name) and node.args[1].id == "lease"
+                 and isinstance(node.args[0], ast.BinOp) and isinstance(node.args[0].op, ast.Div)
+                 and isinstance(node.args[0].right, ast.Constant)]
+        # The actual activation consumer requires exactly this literal basename.
+        self.assertEqual(names, ["lease.json"])
+        workflow = (HERE.parents[2] / ".github/workflows/evaluator-owner-language_translation.yml").read_text()
+        self.assertIn('"$RUNNER_TEMP/translation-serve/lease.json"', workflow)
+        self.assertIn('${{ runner.temp }}/translation-serve/lease.json', workflow)
+        self.assertNotIn("public-lease.json", workflow)
+        selected = [node for node in ast.parse(read_asset("reference-common.py.txt").decode()).body
+                    if isinstance(node, ast.FunctionDef) and node.name in
+                    {"now", "utc", "public_key", "lease_for", "validate_lease"}]
+        scope = {"base64": base64, "re": re, "struct": struct, "datetime": datetime,
+                 "timezone": timezone, "WINDOW": 5 * 3600, "COMMIT": re.compile(r"[a-f0-9]{40}")}
+        exec(compile(ast.Module(body=selected, type_ignores=[]), "pinned-public-lease-contract", "exec"), scope)  # noqa: S102
+        row = {"family": FAMILY, "owner": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+               "slot": 4, "forward_port": 48604, "runnable_url": "https://tga1.zkasuran.dev/_synthetic/runnable",
+               "sha256": PACKAGE_SHA, "keccak": PACKAGE_KECCAK, "existing_registration_id": 0}
+        for kind in ("candidate", "runtime", "source"):
+            row[kind + "_proof"] = {"sha256": "a" * 64}
+        # Synthetic public wire bytes only. No key, wallet or model is created.
+        wire = struct.pack(">I", 11) + b"ssh-ed25519" + struct.pack(">I", 32) + b"\0" * 32
+        key = "ssh-ed25519 " + base64.b64encode(wire).decode()
+        lease = scope["lease_for"](row, key, "synthetic-control", "1234", "b" * 40)
+        archive = io.BytesIO()
+        with zipfile.ZipFile(archive, "w") as output:
+            output.writestr(names[0], json.dumps(lease).encode())
+        with zipfile.ZipFile(io.BytesIO(archive.getvalue())) as incoming:
+            items = incoming.infolist()
+            self.assertEqual(len(items), 1)
+            self.assertEqual(items[0].filename, "lease.json")
+            self.assertLessEqual(items[0].file_size, 8192)
+            scope["validate_lease"](json.loads(incoming.read(items[0])), row)
+
     def test_real_counterparty_wire_is_bare_and_never_truncates(self):
         request = {"batch": [{"tokens": [50281, 50282]}], "adapter_hash": PACKAGE_KECCAK,
                    "foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"], "tokenizer_hash": FOUNDATION["tokenizer.json"]}

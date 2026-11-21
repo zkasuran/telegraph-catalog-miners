@@ -48,6 +48,9 @@ runner RAM), with an explicit 9,300-second verification process-tree wall limit.
 Serving downloads only the actual completed result artifact by its verified run
 and hash, loads the exact package and foundation engine and uses the unchanged
 public common.lease_for restrictions. It uploads only the restricted public lease.
+The public artifact contains exactly `lease.json`, matching the activation
+consumer's literal archive contract. The local source gate checks the producer,
+workflow path and canonical restricted lease serialization without a model.
 The runner's forwarding key is ephemeral; no signer/provider key is handled.
 The automatic action adapter owns publication, endpoint activation and signing.
 

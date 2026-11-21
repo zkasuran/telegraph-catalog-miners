@@ -95,11 +95,11 @@ jobs:
           nohup "$RUNNER_TEMP/replay-venv/bin/python" verification/owners/language_translation/serve.py --root "$RUNNER_TEMP/translation-serve" --report-path "$RUNNER_TEMP/verified-report/registration-ready.json" --report-sha "$REPORT_SHA" --slot "$SLOT" --forward-port "$FORWARD_PORT" --runnable-url "$RUNNABLE_URL" >"$RUNNER_TEMP/translation-serving.log" 2>&1 &
           serving_pid=$!
           for n in $(seq 1 180); do
-            if test -s "$RUNNER_TEMP/translation-serve/public-lease.json"; then break; fi
+            if test -s "$RUNNER_TEMP/translation-serve/lease.json"; then break; fi
             if ! kill -0 "$serving_pid" 2>/dev/null; then wait "$serving_pid"; exit 1; fi
             sleep 5
           done
-          test -s "$RUNNER_TEMP/translation-serve/public-lease.json"
+          test -s "$RUNNER_TEMP/translation-serve/lease.json"
           printf 'SERVING_PID=%s\n' "$serving_pid" >> "$GITHUB_ENV"
       - name: Upload only public restricted lease
         if: always() && inputs.mode == 'serve'
@@ -108,7 +108,7 @@ jobs:
           name: language-translation-public-lease
           retention-days: 1
           if-no-files-found: error
-          path: ${{ runner.temp }}/translation-serve/public-lease.json
+          path: ${{ runner.temp }}/translation-serve/lease.json
       - name: Keep exact lease alive within the free CPU window
         if: inputs.mode == 'serve'
         timeout-minutes: 275

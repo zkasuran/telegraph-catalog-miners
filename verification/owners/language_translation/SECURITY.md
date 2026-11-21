@@ -7,6 +7,7 @@
 | Exposed audit used for tuning | No training function or optimizer in recovery; package bytes fixed | Source tests and replay report |
 | Missing extracted helper globals | json supplied to exact SHA-verified function AST | Literal score smoke with non-neural stub |
 | Wrong wire identity or nonfinite bits | Exact bare-hash request/reply checks and finite FP32 decoding | Negative identity and score-bit controls |
+| Lease archive contract mismatch | Exactly one `lease.json` public artifact with unchanged restricted lease fields | Literal producer/workflow filename and canonical lease smoke |
 | Parser or engine mismatch | Full pinned node parser and real foundation engine | Remote-only parser and runtime reports |
 | Unbounded runtime | Standard public CPU, explicit job/download/request time and byte ceilings | Workflow and remote runtime |
 
