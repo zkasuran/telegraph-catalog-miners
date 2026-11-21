@@ -2,9 +2,9 @@
 
 This pipeline trains and audits a clause-grounding reward adapter on bounded ContractNLI evidence. It checks identification, third-party sharing, copying permissions and retention exceptions. It continues a prior literal-citation diagnostic without reusing its exposed audits. Neural training and inference run only in this repository's bounded public CPU workflow.
 
-The new source is ContractNLI, Yuta Koreeda and Christopher Manning (2021), CC BY 4.0. All 607 originals and 10,319 annotations are inventoried. Source labels are document-scoped. Complete annotated evidence spans are retained and bounded to 256 UTF-8 bytes. NotMentioned labels and incomplete list/conjunction fragments are excluded rather than relabelled as passage-level absence.
+The source is ContractNLI, Yuta Koreeda and Christopher Manning (2021), CC BY 4.0. All 607 originals and 10,319 annotations are inventoried. Source labels are document-scoped. Complete annotated evidence spans are retained within the documented raw 512-token scoring surface. Quote-format contexts are bounded to 768 UTF-8 bytes. Explicit training-only citation rows allow up to 1600 bytes without changing development or audit evidence bounds. NotMentioned labels and incomplete list/conjunction fragments are excluded rather than relabelled as passage-level absence.
 
-Generation four has 128 train pairs in 82 source groups, 30 validation pairs in 25 groups and 64 reserved audit pairs in 61 groups. Each hypothesis has both labels with equal counts within every split. Whole source hosts, SEC issuer CIKs and normalized duplicate originals form connected groups. Cross-split groups and normalized evidence overlaps are removed. Ninety-nine retired audit groups are excluded from every new split. The generation-three audit never executed, so its original source IDs and groups remain fixed, unconsumed and excluded from every fit/selection step. Source-derived data retains CC BY 4.0. Response templates are AI-assisted constructions, not freshly human-reviewed preferences.
+Generation eight has 396 train pairs in 212 source groups, 30 validation pairs in 25 groups and 64 reserved audit pairs in 61 groups. The original 356 training records are unchanged; 40 wider complete contexts extend training coverage only. Every audited hypothesis has both source labels. Whole source hosts, SEC issuer CIKs and normalized duplicate originals form connected groups. Cross-split groups and normalized evidence overlaps are removed. Ninety-nine retired audit groups are excluded from every new split. The reserved audit remains unconsumed and excluded from fitting and selection. Source-derived data retains CC BY 4.0. Response templates are AI-assisted constructions, not freshly human-reviewed preferences.
 
 ## Source and quality gates
 
@@ -36,10 +36,23 @@ Source checks do not establish model quality or a canonical result. Publication,
 
 Run 44564516958 completed full parsing and actual reference-engine execution, but failed quality. JSON pair accuracy was 39.0625%, prose 46.875% and seed-matched untrained 46.875% in both views. Native validation had already failed at 50%. Those audit rows are permanently retired and the old source generation is now archival, not a new qualifying dataset.
 
-Generation three's all-format validation correctly refused its weak candidate before audit. Generation four resumes that retained source-trained checkpoint, broadens source diversity and uses direct statements versus their logical complements, not only supports/refutes tags. It trains both formats for at most 16 epochs with the same planned 512 optimizer steps as the earlier 32-epoch smaller-source experiment. Selection protects worst-format validation accuracy and every quality gate remains unchanged. A changed tensor payload is required. No new passing model is claimed until actual remote results exist.
+Later all-format validation refused weak candidates before audit. The latest measured rank-growth run retained all 88 factor pairs and learned 1081344 new output coefficients, but native validation still failed at 73.33% JSON and 70% prose. The current source trains both formats for at most six epochs with retained rank-sixteen capacity. Selection protects worst-format validation accuracy and every quality gate remains unchanged. A changed tensor payload is required. No new passing model is claimed until actual remote results exist.
 
 ## Raw scoring length and stronger comparisons
 
 The scorer consumes raw judgment strings through the published 512-token contract. Complete annotated source contexts are retained up to 768 UTF-8 bytes. An authoritative tokenizer preflight found 980 eligible original records, with at most 430 rendered tokens for direct/complement claims and no neural modules loaded. Remote training and audit recheck every actual token vector and refuse any truncated claim. This does not claim that the separate typed miner slot transports a contract longer than 256 bytes or that links are dereferenced.
 
-Source integrity shortcuts remain at 50% in training/development. Frozen source-aware negation and exception baselines reach 64.0625% and 67.96875% on training, 66.6667% and 63.3333% on validation. These are semantic comparison baselines, not answer-only leakage. They strengthen the unchanged model requirement of ten points over the strongest baseline and do not replace any source-integrity gate. No audit model or baseline score has been read for candidate selection.
+Source integrity shortcuts remain at 50% in training/development. The citation-training subgroup is gated separately at the same cutoff. Frozen source-aware negation and exception baselines reach 60.3535% and 62.6263% on training, 66.6667% and 63.3333% on validation. These are semantic comparison baselines, not answer-only leakage. They strengthen the unchanged model requirement of ten points over the strongest baseline and do not replace any source-integrity gate. No audit model or baseline score has been read for candidate selection.
+
+## Diagnose development failures without exposing the audit
+
+The source-only diagnostic verifies literal prompt/answer reconstruction, grouped overlap, original label coverage and optional token bounds. It refuses audit rows even if a file is renamed as validation. It never loads a model or selects a checkpoint.
+
+```sh
+python3 verification/owners/contract_obligation_audit/development_diagnostics.py \
+  --train contract-run/data/train.jsonl \
+  --validation contract-run/data/validation.jsonl \
+  --out development-structure.json
+```
+
+These paths are outputs of the source pipeline in a standalone checkout. Optional `--tokenizer` accepts only the pinned tokenizer JSON and performs tokenization without padding or truncation. Optional `--wire` with `--package-keccak` diagnoses ties and cross-format sign disagreements in supplied literal batch responses. It checks bare hash echoes and finite score bits, but supplied responses are not a newly verified reference-engine run. No diagnostic produces registration-ready status. The source release gate exercises primary and failure controls for these boundaries.
