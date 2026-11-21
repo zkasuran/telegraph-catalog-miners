@@ -1,0 +1,16 @@
+{
+  "authorship": "constructed AI-assisted preferences, not human-reviewed votes",
+  "family": "WEATHER_FORECAST_VERIFY",
+  "independent_audit": false,
+  "negative_tmax": {
+    "train": 45,
+    "validation": 18
+  },
+  "pairs": {
+    "train": 192,
+    "validation": 32
+  },
+  "source_evidence_in_prompt": false,
+  "source_manifest_sha256": "ac17c6ab34104882d2f6e6d402f4f610530e321ce8700368879633d9c5677f7a",
+  "source_scope": "NWS flag-1 station TMAX; development only, not universal factual proof"
+}

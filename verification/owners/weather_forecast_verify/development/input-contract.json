@@ -1,0 +1,65 @@
+{
+  "development_only": true,
+  "excluded_original_nontraining_entities": [
+    "USW00094728",
+    "USW00094846",
+    "USW00024233"
+  ],
+  "family": "WEATHER_FORECAST_VERIFY",
+  "files": {
+    "contract.json": "1b04c9def095e0e12adc25ac700a9c0b7c06d7ad8f0e7b5833152ca615133758",
+    "data/data-report.json": "45b68e20b8187e9f257aaa93d38325c7eee57ea5ed787ad040ac415c3a22c8bd",
+    "data/source-manifest.json": "ac17c6ab34104882d2f6e6d402f4f610530e321ce8700368879633d9c5677f7a",
+    "data/train.jsonl": "d6954256c006a36202369d8e412171d3743df4ea1e246b425215b9474a0f9415",
+    "data/validation.jsonl": "8c45f54bdfac9767eb63216a89670bf21381d3abbc05b5e47b5e90a2a8d18030",
+    "driver.py": "1a8df8688c6c21f3fb2f751754b87e95541cd432a4a2fc81b8a792148f11fb06"
+  },
+  "pairs": {
+    "train": 192,
+    "validation": 32
+  },
+  "policy": {
+    "train": {
+      "USW00012839": {
+        "end": "2025-10-30",
+        "start": "2025-09-01"
+      },
+      "USW00013876": {
+        "end": "2025-10-31",
+        "start": "2025-09-02"
+      },
+      "USW00014913": {
+        "end": "2026-01-01",
+        "start": "2025-12-01"
+      },
+      "USW00023050": {
+        "end": "2025-10-30",
+        "start": "2025-09-02"
+      },
+      "USW00024011": {
+        "end": "2026-01-01",
+        "start": "2025-12-01"
+      }
+    },
+    "validation": {
+      "USW00014918": {
+        "end": "2026-03-02",
+        "start": "2026-02-15"
+      },
+      "USW00014922": {
+        "end": "2026-03-03",
+        "start": "2026-02-15"
+      }
+    }
+  },
+  "schema_version": 1,
+  "station_names": {
+    "USW00012839": "MIAMI INTL AP",
+    "USW00013876": "BIRMINGHAM AP",
+    "USW00014913": "DULUTH",
+    "USW00014918": "INTL FALLS INTL AP",
+    "USW00014922": "MINNEAPOLIS-ST PAUL INTL AP",
+    "USW00023050": "ALBUQUERQUE INTL AP",
+    "USW00024011": "BISMARCK"
+  }
+}
