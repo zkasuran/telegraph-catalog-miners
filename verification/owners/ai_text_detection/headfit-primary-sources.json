@@ -1,0 +1,17 @@
+{
+  "sources": [
+    {
+      "key": "MODERNBERT-HEAD-5.22.1",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.22.1/src/transformers/models/modernbert/modeling_modernbert.py",
+      "sha256": "29b598c408582bd53c0a48ae34dce2cb008aefc5f6087b03c310b5ce7bb0de9b",
+      "bytes": 35097
+    },
+    {
+      "key": "TORCH-HOOK-2.15",
+      "url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.15.0/torch/nn/modules/module.py",
+      "sha256": "6e1d498b3b1997725aae48fcda347149d2fa093f4f5854490268bb4af75b1b81",
+      "bytes": 128621
+    }
+  ],
+  "terms": "Existing Transformers Apache-2.0 and retained PyTorch grant. Our frozen-head fitting additions SAND."
+}

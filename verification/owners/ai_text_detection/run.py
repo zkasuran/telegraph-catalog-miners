@@ -232,8 +232,12 @@ def main():
     # Continue exactly the previously licensed LoRA/head. The original optimizer
     # was not exported, so this is explicitly a fresh bounded optimizer, not an
     # invented optimizer-state resume. Backbone weights stay frozen.
-    checkpoint = HERE / recipe.get("checkpoint_file", "recovery/original-checkpoint.safetensors")
-    checkpoint_binding = check_checkpoint(checkpoint.read_bytes(), recipe["checkpoint_sha256"], recipe["parent_source_manifest_sha256"])
+    from headfit_contract import effective_recipe, headfit_policy, check_start
+    active_recipe = effective_recipe(recipe)
+    if recipe.get("head_fit") and os.environ.get("OWNER_DIAGNOSTIC_ONLY") == "true":
+        raise ValueError("frozen-head candidate uses verify mode, not the archived diagnostic experiment")
+    checkpoint = HERE / active_recipe.get("checkpoint_file", "recovery/original-checkpoint.safetensors")
+    checkpoint_binding = check_checkpoint(checkpoint.read_bytes(), active_recipe["checkpoint_sha256"], active_recipe["parent_source_manifest_sha256"])
     dump(root / "checkpoint-continuation.json", checkpoint_binding)
     build = trainer.build_model
     def continuation_builder(base_path, parameters):
@@ -243,12 +247,17 @@ def main():
         saved = load_file(str(checkpoint), device="cpu")
         expected = get_peft_model_state_dict(continued, save_embedding_layers=False)
         from resume_contract import resume_policy, source_resume
-        resume = resume_policy(recipe)
-        source_resume(checkpoint.read_bytes(), recipe)
+        if recipe.get("head_fit"):
+            selected = headfit_policy(recipe)
+            check_start(checkpoint.read_bytes(), recipe)
+            resume = {"producer_run_id": selected["producer_run_id"], "selected_epoch": selected["selected_epoch"]}
+        else:
+            resume = resume_policy(recipe)
+            source_resume(checkpoint.read_bytes(), recipe)
         capacity_binding = {"direct_rank16_resume": True, "reexpanded": False,
             "producer_run_id": resume["producer_run_id"], "selected_epoch": resume["selected_epoch"],
-            "checkpoint_sha256": recipe["checkpoint_sha256"]}
-        dump(root / "capacity-continuation.json", {**capacity_binding, "checkpoint_sha256": recipe["checkpoint_sha256"],
+            "checkpoint_sha256": active_recipe["checkpoint_sha256"]}
+        dump(root / "capacity-continuation.json", {**capacity_binding, "checkpoint_sha256": active_recipe["checkpoint_sha256"],
             "run_id": int(os.environ["GITHUB_RUN_ID"]), "commit": os.environ["GITHUB_SHA"],
             "policy": expanded_capacity, "audit_used": False})
         if set(saved) != set(expected) or any(saved[k].shape != expected[k].shape or not torch.isfinite(saved[k]).all() for k in saved):
@@ -257,7 +266,7 @@ def main():
         actual = get_peft_model_state_dict(continued, save_embedding_layers=False)
         if any(not torch.equal(saved[k], actual[k]) for k in saved):
             raise ValueError("warm-started learned tensor differs from exact saved checkpoint")
-        dump(root / "checkpoint-loaded.json", {"checkpoint_sha256": recipe["checkpoint_sha256"],
+        dump(root / "checkpoint-loaded.json", {"checkpoint_sha256": active_recipe["checkpoint_sha256"],
              "verified_learned_tensors": len(saved), "post_load_bits_identical_before_fitting": True,
              "expanded_state_loaded_bits_identical": True, "retained_rank_slices_bits_identical": True,
              "parent_source_manifest_sha256": recipe["parent_source_manifest_sha256"]})
@@ -266,8 +275,12 @@ def main():
     adapter = root / "adapter"
     started = time.monotonic()
     try:
-        from train_formats import fit
-        model, _ = fit(str(base), splits["train"], validation_formats, validation_baselines, adapter, hp, trainer, root)
+        if recipe.get("head_fit"):
+            from train_headfit import fit
+            model, _ = fit(str(base), splits["train"], validation_formats, validation_baselines, adapter, hp, trainer, root, active_recipe)
+        else:
+            from train_formats import fit
+            model, _ = fit(str(base), splits["train"], validation_formats, validation_baselines, adapter, hp, trainer, root)
     finally:
         trainer.build_model = build
     if os.environ.get("OWNER_DIAGNOSTIC_ONLY") == "true":
@@ -298,6 +311,12 @@ def main():
                  "format_curriculum": recipe.get("format_transfer_curriculum", recipe["format_curriculum"]),
                  "unique_training_rows": 1008, "additional_training_presentations_per_epoch": 192 if recipe.get("format_transfer_curriculum") else 64,
                  "preference_authorship": "Constructed by AI-assisted code from published controls and disclosed synthetic origin. Not human-reviewed."}
+    if recipe.get("head_fit"):
+        training.pop("format_curriculum")
+        training.pop("additional_training_presentations_per_epoch")
+        training["head_fit"] = headfit_policy(recipe)
+        training["actual_starting_checkpoint_sha256"] = active_recipe["checkpoint_sha256"]
+        training["trained_tensors"] = 2
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                     foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                     target_modules=params["target_modules"], max_tokens=MAX_TOKENS, training=training)

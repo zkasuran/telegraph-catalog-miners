@@ -59,7 +59,7 @@ def main():
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())
-    for name in ("curriculum-training-report.json", "curriculum-progress.json", "transfer-training-report.json", "transfer-progress.json"):
+    for name in ("curriculum-training-report.json", "curriculum-progress.json", "transfer-training-report.json", "transfer-progress.json", "headfit-training-report.json", "headfit-objective-controls.json"):
         path = root / name
         if path.is_file() and path.stat().st_size <= 256 << 10:
             (out / name).write_bytes(path.read_bytes())

@@ -210,5 +210,26 @@
     "original_source_losses_weights_scheduler_retained": true,
     "validation_or_audit_replayed": false,
     "runtime_transform": false
+  },
+  "head_fit": {
+    "scope": "training_only",
+    "encoder_frozen": true,
+    "origin_readout_frozen": true,
+    "trainable_tensors": 2,
+    "steps": 256,
+    "validation_interval": 8,
+    "learning_rate": 0.001,
+    "clip_max_norm": 1.0,
+    "cache_max_bytes": 16777216,
+    "all_original_objective_terms_retained": true,
+    "audit_used_for_selection": false,
+    "runtime_transform": false,
+    "checkpoint_file": "recovery/curriculum-improved-checkpoint.safetensors",
+    "checkpoint_sha256": "4a133056f5be55091fa52348a4b0b70a4f14ef405b40ae3473138affcfa8ef3c",
+    "readout_file": "recovery/curriculum-improved-readout.safetensors",
+    "readout_sha256": "8c637998c076ade16a0fa98f866786e1e6b28d3ea554f180c36bf0d6efbf87a5",
+    "producer_run_id": 44860695142,
+    "producer_commit": "d7c7030531ed8106c7397da8508b01509fc961e2",
+    "selected_epoch": 3
   }
 }

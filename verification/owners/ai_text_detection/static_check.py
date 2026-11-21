@@ -86,6 +86,8 @@ def main():
     curriculum_policy(json.loads((HERE / "recipe.json").read_text()))
     from transfer_contract import transfer_policy
     transfer_policy(json.loads((HERE / "recipe.json").read_text()))
+    from headfit_contract import headfit_policy
+    headfit_policy(json.loads((HERE / "recipe.json").read_text()))
     diagnostic_policy(recipe)
     if set(workflow["on"]["workflow_dispatch"]["inputs"]["mode"]["options"]) != {"verify", "serve", "diagnose"}:
         raise ValueError("diagnostic mode missing from bounded owned workflow")

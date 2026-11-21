@@ -125,7 +125,7 @@
           "run": "timeout --signal=TERM --kill-after=20s 1160s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/generate_secondary.py --root \"$RUNNER_TEMP/ai-owner\""
         },
         {
-          "name": "Fit bounded joint format-transfer candidate or measure fixed diagnostic",
+          "name": "Fit bounded frozen-encoder reward head under unchanged qualification gates",
           "timeout-minutes": 145,
           "run": "timeout --signal=TERM --kill-after=20s 8660s \"$RUNNER_TEMP/ai-owner-venv/bin/python\" verification/owners/ai_text_detection/run.py --root \"$RUNNER_TEMP/ai-owner\""
         },
