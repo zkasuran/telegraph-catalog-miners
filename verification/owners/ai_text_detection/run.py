@@ -295,7 +295,9 @@ def main():
                  "dataset_version": source_hash, "accuracy": validation["pairwise_accuracy"], "held_out": True}],
                  "training_preferences": {"original": 752, "supplementary": 128, "secondary": 128, "total": 1008},
                 "source_scope": SCOPE, "selection": "Validation only; audit not opened.",
-                "preference_authorship": "Constructed by AI-assisted code from published controls and disclosed synthetic origin. Not human-reviewed."}
+                 "format_curriculum": recipe["format_curriculum"],
+                 "unique_training_rows": 1008, "additional_training_presentations_per_epoch": 64,
+                 "preference_authorship": "Constructed by AI-assisted code from published controls and disclosed synthetic origin. Not human-reviewed."}
     meta = metadata(cls="judgment", intent=FAMILY, foundation_hash=FOUNDATION["foundation_lora_fp32.onnx"],
                     foundation_version="modernbert-base-lora16-v1", rank=params["rank"], alpha=params["alpha"],
                     target_modules=params["target_modules"], max_tokens=MAX_TOKENS, training=training)

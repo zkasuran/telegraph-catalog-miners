@@ -1,0 +1,8 @@
+{
+  "key": "TORCH-CLIP-GRAD-2.15",
+  "url": "https://docs.pytorch.org/docs/2.15/generated/torch.nn.utils.clip_grad_norm_.html",
+  "sha256": "4125a5dda8df38856f8b335c7b4d46d58077a67bb35104c0ba65598624294f3a",
+  "bytes": 180960,
+  "trainer_sha256": "5da2919c66c2d0840104628ab88e98a9c8e5e578686f71ca9be4dcd91bd18d71",
+  "grant": "Original Telegraph MIT and retained PyTorch grant; our additions SAND."
+}

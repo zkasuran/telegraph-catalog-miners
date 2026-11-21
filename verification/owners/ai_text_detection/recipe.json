@@ -174,5 +174,21 @@
     "audit_used": false,
     "gradient_surgery": false,
     "registration_eligible": false
+  },
+  "format_curriculum": {
+    "scope": "existing_training_only",
+    "unique_training_rows": 1008,
+    "unique_bare_rows": 16,
+    "bare_source_views": 8,
+    "rounds_per_epoch": 4,
+    "views_per_update": 4,
+    "additional_updates_per_epoch": 8,
+    "seed": 2042,
+    "learning_rate": "existing_hp_lr",
+    "clip_max_norm": 1.0,
+    "original_phases_and_scheduler_retained": true,
+    "old_losses_and_weights_retained": true,
+    "validation_or_audit_replay": false,
+    "runtime_transform": false
   }
 }

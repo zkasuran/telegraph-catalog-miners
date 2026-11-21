@@ -670,3 +670,8 @@ Synthetic counterparts are unbuilt until the remote generation step executes.
 ## Score-output adjoint source
 
 [TORCH-AUTOGRAD-GRAD-2.15] documents `grad_outputs` as the vector in a vector-Jacobian product. The added diagnostic differentiates each retained loss component with respect to the existing chosen/rejected rewards and source logits, sums those seeds and compares a reconstructed parameter gradient with the actual full objective. The original independent component-gradient comparison remains a separate fatal check. No served score transform, new fitted data or qualified package is produced. The previously retained primary source hash and PyTorch grant still apply.
+## Fixed format-isolated training curriculum
+
+No new source or preference row is added. The existing 16 bare-label training comparisons from eight independent training article views are replayed in four rounds per epoch. Each round produces two eight-row format-isolated optimizer updates. Original 1008 unique comparisons, source/entity/time splits, all fitted losses and phase-normalized weights remain. The additional 64 training presentations and eight updates are not independent data or audit evidence.
+
+[TORCH-CLIP-GRAD-2.15] documents the combined gradient norm and in-place clipping at https://docs.pytorch.org/docs/2.15/generated/torch.nn.utils.clip_grad_norm_.html. The replay retains the original norm ceiling of 1.0 and existing optimizer learning rate. The original source-phase scheduler is not advanced by replay and its learning rates restore afterward. Primary source bytes and the pinned original trainer hash are recorded in `curriculum-primary-source.json`. PyTorch and Telegraph retain their original grants. New competitive code uses SAND.

@@ -194,3 +194,6 @@ A component-sum mismatch still refuses completion at the original tolerances. Th
 ## Refusals survive complete measurement
 
 The diagnostic can retain finite measurements through its fixed six-view ceiling instead of stopping at the first sum mismatch. Each failed original check is recorded and remains fatal after the final report is saved. Added reconstruction checks cannot waive an original failure. Nonfinite gradients, state changes and invalid identities still stop immediately. No optimizer update, validation measurement or audit access is allowed in diagnostic mode.
+## Format-curriculum boundaries
+
+The replay plan binds the complete 1008 training rows and the exact 16 existing bare comparisons. Every eight-row optimizer group is bare-only and balanced across origins. Policy controls refuse new data, held-out rows, expanded replay budgets, changed format weights or runtime transforms. The phase uses the existing optimizer and learning rate, retains all original losses and restores the original source scheduler's learning rates without advancing it. Actual finite production-head/encoder gradient controls run remotely. Extra training presentations do not count as independent groups. Unchanged quality and runtime gates still decide qualification.

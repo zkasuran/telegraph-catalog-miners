@@ -1,0 +1,46 @@
+{
+  "policy": {
+    "scope": "existing_training_only",
+    "unique_training_rows": 1008,
+    "unique_bare_rows": 16,
+    "bare_source_views": 8,
+    "rounds_per_epoch": 4,
+    "views_per_update": 4,
+    "additional_updates_per_epoch": 8,
+    "seed": 2042,
+    "learning_rate": "existing_hp_lr",
+    "clip_max_norm": 1.0,
+    "original_phases_and_scheduler_retained": true,
+    "old_losses_and_weights_retained": true,
+    "validation_or_audit_replay": false,
+    "runtime_transform": false
+  },
+  "training_rows_sha256": "25080d70c84f47210f2916da2064809b078ad2becba4e8afabe34d47ec1f8a7f",
+  "bare_rows_sha256": "e6f8b1e5991ce015b237672a08d26925e93846ea7316f75d8b605d8a061239ef",
+  "view_ids": [
+    "original:01243113a7862297c4499f10390923085d3d9b19ff4ec4c0c8d78c6a8dcd3c70",
+    "original:0478661893f452578bb686d1d557b5a3419fd1c0f51f6745e5e90d1dc5027863",
+    "original:051b252165861f0d76b554d34b195c9754010a036a1a0cfb0d27a99aa272d07d",
+    "original:07eb7c70d3ab92101c059b7671ba9e6c2b8966533ac74b232873c6af70016c97",
+    "original:08b6c181e6f3133e6db25ac7a6a502fdc2243d8fa180b319a7d28eac254e4773",
+    "original:08e859bbba5e42b38ec4bea7566547beaf7b1a332d5b012698e32c5f658a199b",
+    "secondary:01cea6878a33a610e4a6b46f95405e0a8e12cd9d1e4a0fa6cc26f383d48e2d94",
+    "secondary:04ea21a44a2492c783510a055ed4d9dccc783cc1b932a4b1a06bf554739c39da"
+  ],
+  "source_groups": [
+    "01243113a7862297c4499f10390923085d3d9b19ff4ec4c0c8d78c6a8dcd3c70",
+    "0478661893f452578bb686d1d557b5a3419fd1c0f51f6745e5e90d1dc5027863",
+    "051b252165861f0d76b554d34b195c9754010a036a1a0cfb0d27a99aa272d07d",
+    "07eb7c70d3ab92101c059b7671ba9e6c2b8966533ac74b232873c6af70016c97",
+    "08b6c181e6f3133e6db25ac7a6a502fdc2243d8fa180b319a7d28eac254e4773",
+    "08e859bbba5e42b38ec4bea7566547beaf7b1a332d5b012698e32c5f658a199b",
+    "01cea6878a33a610e4a6b46f95405e0a8e12cd9d1e4a0fa6cc26f383d48e2d94",
+    "04ea21a44a2492c783510a055ed4d9dccc783cc1b932a4b1a06bf554739c39da"
+  ],
+  "unique_training_rows": 1008,
+  "unique_bare_rows": 16,
+  "presentations_per_epoch": 64,
+  "additional_optimizer_updates_per_epoch": 8,
+  "new_source_or_preference_rows": 0,
+  "preference_authorship": "Constructed source-backed training comparisons, not human-reviewed votes or independent audit."
+}

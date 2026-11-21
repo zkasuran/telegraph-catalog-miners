@@ -247,6 +247,13 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 step += 1
+        from train_curriculum import replay
+        curriculum_rows = train_rows + supplementary_pairs + secondary_pairs
+        original_weight_by_id = {row["text_id"]: weight / policy["mean_training_weight"] for row, weight in zip(train_rows, weights)}
+        curriculum_weights = {**original_weight_by_id, **{row["text_id"]: 1.0 for row in supplementary_pairs}, **secondary_weight_by_id}
+        curriculum_result = replay(model, tok, origin_aux, curriculum_rows, curriculum_weights, hp, trainer,
+            optimizer, scheduler, root, epoch, step)
+        step += curriculum_result["additional_optimizer_updates"]
         metrics = measure()
         origin_diagnostic = origin_aux.measure(epoch, origin_losses, origin_correct, 2 * len(loader))
         key = validation_selection_key(metrics, baselines)
@@ -289,7 +296,9 @@ def fit(base, train_rows, validation_formats, baselines, adapter, hp, trainer, r
                     "supplement_preference_rows_sha256": supplementary_binding["preference_rows_sha256"],
                    "training_margin_alignment_loss": margin_loss_total / len(loader), "margin_alignment": aligned_policy,
                    "lora_training_dropout": hp.lora_dropout,
-                  "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
+                   "format_curriculum": curriculum_result, "unique_literal_training_pairs": 1008,
+                   "literal_training_presentations_per_epoch": 1072,
+                   "validation_formats": metrics, "validation_gate": validation_gate(metrics, baselines),
                   "selection_key": list(key), "selected": improved}
         epochs.append(record)
         dump(root / "format-training-report.json", {"epochs": epochs, "selected_epoch": best_epoch,

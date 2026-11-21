@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Direct diagnostic gap algebra retains the original FP32 comparison tolerances.
 # Complete finite measurement never overrides an original gradient refusal.
+# Format curriculum replays only existing training pairs under unchanged gates.
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 set -euo pipefail
 ROOT="$(dirname "$(realpath "$0")")"
