@@ -85,12 +85,14 @@ def hold(root):
     if file_sha(package) != row["sha256"] or file_sha(root/"registration-ready.json") != state["report_sha256"]:
         raise ValueError("immutable serving state changed")
     backend = ReferenceExecutor(root, package, row["keccak"])
-    server = Server(("127.0.0.1", 0), backend)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
+    server, thread, thread_started = None, None, False
     identity = {"foundation_hash": FOUNDATION["foundation_lora_fp32.onnx"], "adapter_hash": row["keccak"], "tokenizer_hash": FOUNDATION["tokenizer.json"]}
     forwarding = None
     try:
+        server = Server(("127.0.0.1", 0), backend)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        thread_started = True
         actual = backend.score({**identity, "batch": [{"tokens": item["tokens"]} for item in report["runtime"]["vectors"]]})
         if [item["score"] for item in actual["results"]] != [item["score_bits"] for item in report["runtime"]["vectors"]]:
             raise ValueError("serving executor differs from actual frozen reference vectors")
@@ -111,17 +113,26 @@ def hold(root):
                 forwarding.terminate()
                 forwarding.wait(timeout=10)
     finally:
-        if forwarding is not None and forwarding.poll() is None:
-            forwarding.terminate()
+        try:
+            if forwarding is not None and forwarding.poll() is None:
+                forwarding.terminate()
+                try:
+                    forwarding.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    forwarding.kill()
+                    forwarding.wait(timeout=5)
+        finally:
             try:
-                forwarding.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                forwarding.kill()
-                forwarding.wait(timeout=5)
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=10)
-        backend.close()
+                if server is not None:
+                    try:
+                        if thread_started:
+                            server.shutdown()
+                    finally:
+                        server.server_close()
+                if thread_started:
+                    thread.join(timeout=10)
+            finally:
+                backend.close()
 
 
 def main():

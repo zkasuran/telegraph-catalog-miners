@@ -71,23 +71,28 @@ class ReferenceExecutor:
             "FOUNDATION_MODEL_HASH": FOUNDATION["foundation_lora_fp32.onnx"],
             "FOUNDATION_ENGINE_WASM_PATH": str(root/"foundation/foundation_engine.wasm"),
             "FOUNDATION_ENGINE_WASM_HASH": FOUNDATION["foundation_engine.wasm"]}
-        self.log = (root/(package.stem+"-engine.log")).open("w")
-        self.process = subprocess.Popen([str(root/"adapterexec"), "--package", str(package), "--listen", f"127.0.0.1:{self.port}"],
-                                        env=environment, stdout=self.log, stderr=self.log)
-        while time.monotonic() < deadline:
-            if self.process.poll() is not None:
+        self.log, self.process = None, None
+        ready = False
+        try:
+            self.log = (root/(package.stem+"-engine.log")).open("w")
+            self.process = subprocess.Popen([str(root/"adapterexec"), "--package", str(package), "--listen", f"127.0.0.1:{self.port}"],
+                                            env=environment, stdout=self.log, stderr=self.log)
+            while time.monotonic() < deadline:
+                if self.process.poll() is not None:
+                    raise RuntimeError("actual reference engine did not load")
+                try:
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        break
+                    with socket.create_connection(("127.0.0.1", self.port), timeout=min(1, remaining)):
+                        ready = True
+                        return
+                except OSError:
+                    time.sleep(min(1, max(0, deadline - time.monotonic())))
+            raise RuntimeError("reference engine readiness timeout")
+        finally:
+            if not ready:
                 self.close()
-                raise RuntimeError("actual reference engine did not load")
-            try:
-                remaining = deadline - time.monotonic()
-                if remaining <= 0:
-                    break
-                with socket.create_connection(("127.0.0.1", self.port), timeout=min(1, remaining)):
-                    return
-            except OSError:
-                time.sleep(min(1, max(0, deadline - time.monotonic())))
-        self.close()
-        raise RuntimeError("reference engine readiness timeout")
 
     def score(self, request, *, timeout=600):
         if type(timeout) not in (int, float) or not math.isfinite(timeout) or not 0 < timeout <= 600:
@@ -154,14 +159,18 @@ class ReferenceExecutor:
                 self.lock.release()
 
     def close(self):
-        if self.process.poll() is None:
-            self.process.terminate()
-            try:
-                self.process.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                self.process.kill()
-                self.process.wait(timeout=10)
-        self.log.close()
+        process, log = getattr(self, "process", None), getattr(self, "log", None)
+        try:
+            if process is not None and process.poll() is None:
+                process.terminate()
+                try:
+                    process.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait(timeout=10)
+        finally:
+            if log is not None:
+                log.close()
 
 
 class Server(ThreadingHTTPServer):
