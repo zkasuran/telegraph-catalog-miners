@@ -50,6 +50,10 @@ The exact owned workflow runs only on standard public `ubuntu-24.04` CPU jobs.
 It uses hash-locked dependencies, read-only repository permissions and at most
 two concurrent engine-audit jobs. No paid or self-hosted runner is used.
 
+Live class and routing are checked before frozen rows or neural assets are opened.
+A mismatched child class remains a refusal, not an override. Failed preflights
+retain bounded class identities and response hashes with the checkpoint terms.
+
 1. Train on training rows and select the unchanged upstream best validation
    epoch. Export the frozen candidate and its seed-matched untrained package.
    Training never reads the audit rows. Failed checkpoints retain all terms.
@@ -61,7 +65,10 @@ two concurrent engine-audit jobs. No paid or self-hosted runner is used.
    over the strongest frozen shortcut. Record eight real fixed token/score-bit
    vectors, repeated bits and three actual negative identity controls.
 4. Combine only passing measured reports into bounded `registration-ready.json`.
-   Every report binds run, commit, source, package, engine and executor identities.
+    Every report binds run, commit, source, package, engine and executor identities.
+    Report containers and hashes are type-checked. Boolean values cannot stand in
+    for numeric proof fields. The accuracy and baseline-improvement floors stay
+    unchanged.
 5. Serving mode rechecks the exact immutable package and report, runs the same
    engine and emits only an expiring restricted public forwarding lease. The
    automatic controller adapter owns activation and the Telegraph signer.
@@ -83,7 +90,7 @@ observations, never inferred from a prepared pipeline.
 | Serving lease and public endpoint | Only after verified package |
 | Fresh canonical registration | Not claimed by this source |
 
-The live v4 child transports only `event`, at most 256 UTF-8 bytes. Winner,
+The declared child wire transports only `event`, at most 256 UTF-8 bytes. Winner,
 sources and resolved time are off-chain. The supplied evidence fits that actual
 string contract. `resolved_yes: false` is not interchangeable with outcome no.
 Literal judgment rendering preserves whitespace. The runnable endpoint refuses

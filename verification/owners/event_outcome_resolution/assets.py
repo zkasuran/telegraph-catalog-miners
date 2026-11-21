@@ -56,7 +56,22 @@ def capture_classes(out):
         _, raw = public_json(url)
         envelope[name] = {"url": url, "raw": raw.decode()}
     envelope["fetched_at"] = now().isoformat()
-    check_classes(envelope, {"family": FAMILY, "child": CHILD, "class": "judgment"})
+    try:
+        check_classes(envelope, {"family": FAMILY, "child": CHILD, "class": "judgment"})
+    except ValueError as error:
+        # Preserve only operational identities, not source examples or pool
+        # rows. This failure is not a measured model-quality report.
+        parent = json.loads(envelope["family"]["raw"]).get("resolve", {})
+        child = json.loads(envelope["child"]["raw"])
+        write_json(out.with_suffix(".failure.json"), {
+            "schema_version": 1, "status": "SOURCE_CLASS_GATE_FAILED", "family": FAMILY,
+            "child": CHILD, "fetched_at": envelope["fetched_at"], "error": str(error),
+            "expected_class": "judgment", "observed_parent_class": parent.get("class"),
+            "observed_child_class": child.get("class"),
+            "observed_child_served_by": child.get("onchain", {}).get("served_by"),
+            "response_sha256": {name: sha(envelope[name]["raw"].encode()) for name in ("family", "child")},
+            "stage": "preflight" if out.name == "class-preflight.json" else "class_capture"})
+        raise
     write_json(out, envelope)
     return envelope
 

@@ -23,3 +23,15 @@ transport outside the declared event string has been verified. Python's strict
 parser is a diagnostic, not the actual FP32 node scorer. Prepared remote code has
 syntax and guard tests only until the controller runs it. There is no serving
 endpoint and no qualification claim.
+
+## Report evidence and class preflight
+
+Ready-report fields require the JSON object and numeric types their contract
+names. A boolean is not a schema version or zero source overlap. Malformed
+containers and nonstring hashes fail with ValueError, not leaked parser errors.
+Synthetic controls in test_ready_shapes.py check the unchanged quality floors.
+
+Training checks live class and routing before opening frozen rows or fetching
+neural assets. A source mismatch stays a refusal. Its failure artifact contains
+only class/routing identities and response hashes, never source examples or pool
+rows. test_preflight.py tests this path and its ordering without neural imports.

@@ -30,6 +30,10 @@ def main():
     checkpoint.mkdir(exist_ok=True)
     for name in ("LICENSE", "NOTICE", "DATA-SOURCES.md", "UPSTREAM-LICENCES.json"):
         (checkpoint / name).write_bytes((HERE / name).read_bytes())
+    # Fail closed on live class/routing drift before reading data or fetching
+    # neural assets. Keep the final capture too, so long training cannot use a
+    # stale preflight as registration evidence.
+    capture_classes(root / "class-preflight.json")
     frozen = strict_json((HERE / "frozen/frozen.json").read_bytes())
     train, validation = read_split("train", frozen), read_split("validation", frozen)
     foundation, base, kit = prepare(root, training=True)
