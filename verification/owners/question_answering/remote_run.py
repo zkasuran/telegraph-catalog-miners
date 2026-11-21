@@ -13,6 +13,14 @@ from pathlib import Path
 
 from controls import run_gate
 from data import HERE, prepare, read_splits, write_json
+from debias_policy import (
+    GROUP,
+    WEIGHT,
+    direction,
+    nuisance_moment,
+    optimizer_groups,
+    reference_objective,
+)
 from foundation import prepare_kit, prepare_reference
 from licensing import OWN_ID, licence_metadata, preserve_artifact
 from preserve import preserve
@@ -62,6 +70,7 @@ def experiment(root):
     started = time.monotonic()
     preserve(root)
     check_static()
+    objective = __import__('json').loads((HERE / 'contract.json').read_text())['training_objective']
     data_root = root / 'data'
     kit = prepare_kit(root)
     prepare(data_root, kit=kit)
@@ -82,7 +91,6 @@ def experiment(root):
         tensor_names,
         write_package,
     )
-    from torch.utils.data import DataLoader
     from transformers import AutoConfig, AutoTokenizer
     if torch.cuda.is_available():
         raise RuntimeError('fixed CPU experiment refuses GPU runtime')
@@ -160,43 +168,63 @@ def experiment(root):
         raise ValueError('fixed three-epoch training contract changed')
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.AdamW(params, lr=hp.lr, weight_decay=hp.weight_decay)
-    sampler = torch.Generator(device='cpu').manual_seed(hp.seed)
-    loader = DataLoader(splits['train'], batch_size=1, shuffle=True, collate_fn=trainer.PairCollator(tok, 256), num_workers=0, generator=sampler)
-    if len(loader) % hp.grad_accum:
+    collator = trainer.PairCollator(tok, 256)
+    if len(splits['train']) % GROUP or hp.grad_accum != GROUP:
         raise ValueError('fixed CPU batch requires complete accumulation groups')
     timings, losses = ([], [])
+    moments = []
     best, best_state, best_hash = (None, None, None)
     development_history = []
     for epoch in range(1, EPOCHS + 1):
         model.train()
         optimizer.zero_grad(set_to_none=True)
         step_started = time.monotonic()
-        for i, batch in enumerate(loader):
-            rc = trainer._reward(model, batch['chosen_input_ids'], batch['chosen_attention_mask'])
-            rr = trainer._reward(model, batch['rejected_input_ids'], batch['rejected_attention_mask'])
-            loss = trainer.bt_loss(rc, rr, batch['margin'])
-            if not torch.isfinite(loss):
-                raise ValueError('nonfinite training loss')
-            (loss / hp.grad_accum).backward()
-            losses.append(loss.item())
-            if (i + 1) % hp.grad_accum == 0:
-                torch.nn.utils.clip_grad_norm_(params, 1.0, error_if_nonfinite=True)
-                optimizer.step()
-                optimizer.zero_grad(set_to_none=True)
-                timings.append(time.monotonic() - step_started)
-                save_checkpoint(model, root / 'checkpoint')
-                write_json(root / 'checkpoint.json', {'status': 'INCOMPLETE', 'optimizer_steps': len(timings), 'step_seconds': timings, 'hyperparameters': asdict(hp), 'initial_sha256': initial_hash, 'runtime_integration': 'INCOMPLETE', 'epoch': epoch, 'max_epochs': EPOCHS, 'selected_development': best, 'licence_metadata': licence_metadata()})
-                remaining = EPOCHS * len(loader) / hp.grad_accum - len(timings)
-                if time.monotonic() - started + remaining * max(timings) > 300 * 60:
-                    raise TimeoutError('measured throughput exceeds fixed training reserve')
-                step_started = time.monotonic()
+        for indices in optimizer_groups(splits['train'], hp.seed, epoch):
+            batches = [collator([splits['train'][index]]) for index in indices]
+            signs = [direction(splits['train'][index]) for index in indices]
+            rng_before = torch.get_rng_state().clone()
+            margins = []
+            # First pass measures the exact train-only nuisance moment without
+            # retaining activation graphs. The second pass supplies its gradient.
+            with torch.no_grad():
+                for batch in batches:
+                    first_c = trainer._reward(model, batch['chosen_input_ids'], batch['chosen_attention_mask'])
+                    first_r = trainer._reward(model, batch['rejected_input_ids'], batch['rejected_attention_mask'])
+                    margins.append((first_c - first_r).item())
+            rng_after = torch.get_rng_state().clone()
+            moment, coefficient = nuisance_moment(margins, signs)
+            moments.append({'moment': moment, 'true_objective': reference_objective(margins, signs)})
+            torch.set_rng_state(rng_before)
+            for batch, sign, measured in zip(batches, signs, margins):
+                rc = trainer._reward(model, batch['chosen_input_ids'], batch['chosen_attention_mask'])
+                rr = trainer._reward(model, batch['rejected_input_ids'], batch['rejected_attention_mask'])
+                margin = (rc - rr).mean()
+                if not math.isclose(margin.item(), measured, rel_tol=1e-6, abs_tol=1e-6):
+                    raise ValueError('train-only two-pass dropout replay changed')
+                bt = trainer.bt_loss(rc, rr, batch['margin'])
+                loss = bt + coefficient * sign * margin
+                if not torch.isfinite(loss):
+                    raise ValueError('nonfinite debiased training loss')
+                (loss / GROUP).backward()
+                losses.append(bt.item())
+            if not torch.equal(rng_after, torch.get_rng_state()):
+                raise ValueError('two-pass training RNG consumption changed')
+            torch.nn.utils.clip_grad_norm_(params, 1.0, error_if_nonfinite=True)
+            optimizer.step()
+            optimizer.zero_grad(set_to_none=True)
+            timings.append(time.monotonic() - step_started)
+            save_checkpoint(model, root / 'checkpoint')
+            write_json(root / 'checkpoint.json', {'status': 'INCOMPLETE', 'optimizer_steps': len(timings), 'step_seconds': timings, 'hyperparameters': asdict(hp), 'initial_sha256': initial_hash, 'runtime_integration': 'INCOMPLETE', 'epoch': epoch, 'max_epochs': EPOCHS, 'selected_development': best, 'licence_metadata': licence_metadata(), 'training_objective': 'BT plus squared train-only length-direction moment', 'nuisance_weight': WEIGHT, 'nuisance_moments': moments})
+            remaining = EPOCHS * len(splits['train']) / GROUP - len(timings)
+            if time.monotonic() - started + remaining * max(timings) > 300 * 60:
+                raise TimeoutError('measured throughput exceeds fixed training reserve')
+            step_started = time.monotonic()
         python_rng = random.getstate()
         numpy_rng = np.random.get_state()
         torch_rng = torch.get_rng_state().clone()
-        sampler_rng = sampler.get_state().clone()
         development = evaluate(model, splits['validation'])
         numpy_after = np.random.get_state()
-        if random.getstate() != python_rng or numpy_rng[0] != numpy_after[0] or (not np.array_equal(numpy_rng[1], numpy_after[1])) or (numpy_rng[2:] != numpy_after[2:]) or (not torch.equal(torch_rng, torch.get_rng_state())) or (not torch.equal(sampler_rng, sampler.get_state())):
+        if random.getstate() != python_rng or numpy_rng[0] != numpy_after[0] or (not np.array_equal(numpy_rng[1], numpy_after[1])) or (numpy_rng[2:] != numpy_after[2:]) or (not torch.equal(torch_rng, torch.get_rng_state())):
             raise ValueError('development evaluation advanced training RNG')
         best, improved = development_selection(best, epoch, development)
         if improved:
@@ -204,7 +232,7 @@ def experiment(root):
             best_hash = state_hash(model)
             save_checkpoint(model, root / 'adapter')
         development_history.append({'epoch': epoch, 'metrics': development, 'selected': improved, 'rng_restored': True, 'split': 'validation'})
-        write_json(root / 'development-selection.json', {'history': development_history, 'best': best, 'best_trainable_sha256': best_hash, 'selection_split': 'validation', 'selection_metric': 'val_loss', 'audit_scored': False, 'epochs_required': EPOCHS, 'epochs_completed': epoch})
+        write_json(root / 'development-selection.json', {'history': development_history, 'best': best, 'best_trainable_sha256': best_hash, 'selection_split': 'validation', 'selection_metric': 'val_loss', 'audit_scored': False, 'epochs_required': EPOCHS, 'epochs_completed': epoch, 'training_objective': objective})
     if best_state is None or len(development_history) != EPOCHS:
         raise ValueError('three-epoch development selection did not complete')
     with torch.no_grad():
@@ -218,7 +246,7 @@ def experiment(root):
     tok.save_pretrained(root / 'adapter')
     (root / 'adapter/tokenizer.json').write_bytes((foundation / 'tokenizer.json').read_bytes())
     if validation['pairwise_accuracy'] < 0.8 or min(validation['subsets'].values()) < 0.7:
-        write_json(root / 'result.json', {'status': 'DEVELOPMENT_REJECTED', 'family': 'QUESTION_ANSWERING', 'selected_epoch': best['epoch'], 'development_history': development_history, 'optimizer_steps': len(timings), 'audit_used': False, 'data': data_report, 'licence_metadata': licence_metadata(), 'commit': os.environ['GITHUB_SHA'], 'run_id': os.environ['GITHUB_RUN_ID']})
+        write_json(root / 'result.json', {'status': 'DEVELOPMENT_REJECTED', 'family': 'QUESTION_ANSWERING', 'selected_epoch': best['epoch'], 'development_history': development_history, 'optimizer_steps': len(timings), 'audit_used': False, 'data': data_report, 'licence_metadata': licence_metadata(), 'commit': os.environ['GITHUB_SHA'], 'run_id': os.environ['GITHUB_RUN_ID'], 'training_objective': objective})
         return 1
     trained = evaluate(model, splits['audit'])
     native = native_scores(model, splits['audit'])
@@ -229,11 +257,11 @@ def experiment(root):
     from foundation_pins import FOUNDATION
     write_json(root / 'foundation.json', {'foundation_hash': FOUNDATION['foundation_lora_fp32.onnx'], 'foundation_version': 'modernbert-base-lora16-v1', 'tokenizer_hash': FOUNDATION['tokenizer.json'], 'base_model': str(base), 'r_max': 16, 'num_layers': cfg.num_hidden_layers, 'hidden_size': cfg.hidden_size, 'targets': {k: list(v) for k, v in target_dims(cfg).items()}})
     meta = metadata(cls='judgment', intent='QUESTION_ANSWERING', foundation_hash=FOUNDATION['foundation_lora_fp32.onnx'], foundation_version='modernbert-base-lora16-v1', rank=params['rank'], alpha=params['alpha'], target_modules=params['target_modules'], max_tokens=256, training={'family': 'QUESTION_ANSWERING', 'children': [{'intent': 'QUESTION_ANSWERING_GENERAL', 'dataset_version': data_report['files']['audit']['sha256'], 'pairs': 64, 'accuracy': trained['pairwise_accuracy'], 'held_out': True}], 'trainer': 'OpenCode QA fixed source experiment', 'backbone': 'ModernBERT-base', 'backbone_version': '8949b909ec900327062f0ebf497f51aef5e6f0c8'})
-    meta['x-source-provenance'] = __import__('json').dumps({'data': data_report, 'hyperparameters': asdict(hp)}, separators=(',', ':'))
+    meta['x-source-provenance'] = __import__('json').dumps({'data': data_report, 'hyperparameters': asdict(hp), 'training_objective': objective}, separators=(',', ':'))
     meta.update(licence_metadata())
     write_package(root / 'QUESTION_ANSWERING.safetensors', meta, {n: tensors[n] for n in tensor_names(cfg.num_hidden_layers)})
     preserve_artifact(root / 'QUESTION_ANSWERING.safetensors')
-    del model, tensors, optimizer, params, loader, sampler, rc, rr, loss, best_state
+    del model, tensors, optimizer, params, collator, batches, rc, rr, loss, best_state
     gc.collect()
     seed()
     initial, _ = trainer.build_model(str(base), hp)

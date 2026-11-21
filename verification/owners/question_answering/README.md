@@ -42,3 +42,21 @@ Our competitive code and trained additions use LicenseRef-zkasuran-SAND-1.0.
 Original source text, annotations and ModernBERT/Telegraph portions keep their
 unchanged Apache/MIT grants and notices. See DATA-SOURCES.md and SECURITY.md.
 No human code review or licensor endorsement is claimed.
+
+## Development-only repair after the expanded-data run
+
+Run 44675306068 completed 144 optimizer steps but was rejected on development:
+the selected epoch ordered 80/128 correctly, with 55/64 longer-preferred versus
+25/64 shorter-preferred cases. The audit was not scored. All original data and
+frozen baseline bytes remain unchanged; that audit remains unconsumed.
+
+The next fixed training objective is Bradley-Terry loss plus 0.25 times the
+squared mean of reward margin multiplied by source length direction. Every
+optimizer group contains eight source longer-preferred and eight shorter-preferred
+pairs, without changing or repeating any source preference. A detached first
+pass measures the moment; a second pass replays the same dropout RNG and supplies
+the exact moment derivative with one-pair activation memory. Source-only finite
+differences verify that gradient. This is a training-only nuisance regularizer,
+not a serving-time score rescale. Real neural behavior and improvement remain
+unverified until a bounded remote job runs. Development loss still selects the
+checkpoint, with all audit, quality and baseline-improvement gates unchanged.

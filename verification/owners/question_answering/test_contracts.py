@@ -1,12 +1,20 @@
 # SPDX-License-Identifier: LicenseRef-zkasuran-SAND-1.0
 # Copyright (c) 2026 zkasuran
 """Source-only boundary controls. Artificial fixtures never enter the corpus."""
+import math
 import os
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 from data import RECIPE, choose, prepare_audit
+from debias_policy import (
+    GROUP,
+    direction,
+    nuisance_moment,
+    optimizer_groups,
+    reference_objective,
+)
 from frozen_baseline import decode_frozen
 from licensing import licence_metadata
 from runtime_check import check_response, decode_bits, model_remote_only
@@ -15,6 +23,27 @@ from training_policy import development_selection
 
 
 class Contracts(unittest.TestCase):
+    def test_optimizer_groups_balance_and_preserve_source_identity(self):
+        rows = [{"chosen": "longer" if i % 2 else "s", "rejected": "s" if i % 2 else "longer"} for i in range(64)]
+        groups = optimizer_groups(rows, 42, 1)
+        self.assertEqual(sorted(i for group in groups for i in group), list(range(64)))
+        self.assertTrue(all(len(group) == GROUP and sum(direction(rows[i]) for i in group) == 0 for group in groups))
+        self.assertEqual(groups, optimizer_groups(rows, 42, 1))
+
+    def test_nuisance_gradient_matches_full_objective_finite_difference(self):
+        signs = [-1] * 8 + [1] * 8
+        margins = [i / 10 - .5 for i in range(16)]
+        _, coefficient = nuisance_moment(margins, signs)
+        for index in (0, 9, 15):
+            positive, negative = list(margins), list(margins)
+            positive[index] += 1e-5
+            negative[index] -= 1e-5
+            numeric = (reference_objective(positive, signs) - reference_objective(negative, signs)) / 2e-5
+            analytic = (-1 / (1 + math.exp(margins[index])) + coefficient * signs[index]) / 16
+            self.assertAlmostEqual(numeric, analytic, places=8)
+        with self.assertRaises(ValueError):
+            nuisance_moment(margins, [1] * 16)
+
     def test_exposed_or_shared_source_components_cannot_cross_splits(self):
         row = {"group_id": "a", "tree_id": "tree", "prompt": "source question", "chosen": "source preferred",
                "rejected": "source alternative", "chosen_rank": 0, "rejected_rank": 1}

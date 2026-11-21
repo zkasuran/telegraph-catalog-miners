@@ -16,6 +16,10 @@ def main():
     contract = json.loads((here / "contract.json").read_text())
     if contract["recipe"] != RECIPE or contract["generation"] != 2:
         raise ValueError("frozen recipe changed")
+    from debias_policy import GROUP, WEIGHT
+    objective = contract["training_objective"]
+    if objective["optimizer_group"] != GROUP or WEIGHT != .25 or objective["fit_split"] != "train" or objective["serving_remap"] is not False:
+        raise ValueError("train-only objective contract changed")
     if contract["quality"] != {"minimum_accuracy": .8, "minimum_subset_accuracy": .7, "minimum_untrained_gain": .05,
                                "minimum_shortcut_gain": .10, "maximum_shortcut_accuracy": .65}:
         raise ValueError("quality gates changed")

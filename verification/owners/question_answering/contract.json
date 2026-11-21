@@ -3,6 +3,18 @@
   "schema_version": 1,
   "family": "QUESTION_ANSWERING",
   "generation": 2,
+  "training_objective": {
+    "version": "development-length-debias-v1",
+    "ranking_loss": "Bradley-Terry",
+    "nuisance": "signed source character-length direction",
+    "regularizer": "0.25 * mean(reward_margin * nuisance_sign)^2",
+    "optimizer_group": 16,
+    "balanced_sides": [8, 8],
+    "gradient": "two-pass exact detached moment coefficient, identical dropout RNG replay",
+    "fit_split": "train",
+    "serving_remap": false,
+    "audit_selection": false
+  },
   "splits": {
     "train": {
       "rows": 768,
