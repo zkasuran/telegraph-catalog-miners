@@ -2,6 +2,7 @@
 """Bounded literal-wire frontend to the unmodified reference engine. Remote only."""
 import http.client
 import json
+import math
 import os
 import socket
 import subprocess
@@ -83,13 +84,15 @@ class ReferenceExecutor:
         self.close()
         raise RuntimeError("reference engine readiness timeout")
 
-    def score(self, request):
+    def score(self, request, *, timeout=600):
+        if type(timeout) not in (int, float) or not math.isfinite(timeout) or not 0 < timeout <= 600:
+            raise ValueError("reference request timeout bound")
         validate_request(request, self.package_keccak)
         if self.process.poll() is not None:
             raise RuntimeError("reference engine is no longer running")
         if not self.lock.acquire(timeout=10):
             raise RuntimeError("reference scorer concurrency bound")
-        connection = http.client.HTTPConnection("127.0.0.1", self.port, timeout=600)
+        connection = http.client.HTTPConnection("127.0.0.1", self.port, timeout=timeout)
         try:
             connection.request("POST", "/runnable", json.dumps(request, separators=(",", ":")), {"Content-Type": "application/json", "Connection": "close"})
             response = connection.getresponse()
