@@ -18,4 +18,5 @@ export PYTHONPATH="$here${PYTHONPATH:+:$PYTHONPATH}"
 "$python" -W error "$here/static_check.py" --data "$work/data"
 "$python" -W error -m unittest discover -s "$here" -p 'test_*.py' -v
 "$python" -m ruff check --no-cache --select E,F --ignore E501 "$here"
+"$python" -W error "$here/release_gate.py"
 printf 'ALL GREEN source and non-neural consistency gates only\n'
